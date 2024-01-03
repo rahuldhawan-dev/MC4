@@ -863,6 +863,16 @@ namespace MapCall.Common.Model.Entities
 
         #endregion
 
+        #region Processing Times
+
+        public virtual TimeSpan? OrderProcessTime => DateCompleted?.Subtract(DateReceived.Value);
+
+        public virtual TimeSpan? SupervisorProcessTime => ApprovedOn?.Subtract(DateCompleted.Value);
+
+        public virtual TimeSpan? StockProcessTime => MaterialsApprovedOn?.Subtract(ApprovedOn.Value);
+
+        #endregion
+
         #endregion
 
         #region Location/Address

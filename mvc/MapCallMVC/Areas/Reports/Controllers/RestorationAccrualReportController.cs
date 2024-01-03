@@ -6,6 +6,7 @@ using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
 using MapCall.Common.Model.Repositories;
 using MapCallMVC.Areas.Reports.Models;
+using MapCallMVC.Configuration;
 using MMSINC.ClassExtensions;
 using MMSINC.Controllers;
 using MMSINC.Utilities;
@@ -30,6 +31,7 @@ namespace MapCallMVC.Areas.Reports.Controllers
         }
 
         [HttpGet, RequiresRole(RoleModules.FieldServicesWorkManagement)]
+        [AuditReport("AccrualReport")]
         public ActionResult Index(SearchRestorationAccrualReport search)
         {
             // There's a footer cell doing calculations, so we need all rows for that to be the correct value.

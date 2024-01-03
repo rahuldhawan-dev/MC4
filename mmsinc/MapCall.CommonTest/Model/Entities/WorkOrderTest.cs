@@ -1603,5 +1603,66 @@ namespace MapCall.CommonTest.Model.Entities
         }
 
         #endregion
+
+        #region ProcessingTimes
+
+        [TestMethod]
+        public void TestOrderProcessTimeReturnsTimeSpan()
+        {
+            var now = DateTime.Now;
+            var target = new WorkOrder();
+            Assert.IsNull(_target.OrderProcessTime);
+
+            target.DateReceived = now;
+            Assert.IsNull(_target.OrderProcessTime);
+
+            target.DateCompleted = now;
+            target.DateReceived = null;
+            Assert.IsNull(_target.OrderProcessTime);
+
+            target.DateReceived = now;
+            target.DateCompleted = now.AddHours(3);
+            Assert.AreEqual(3, target.OrderProcessTime.Value.TotalHours);
+        }
+
+        [TestMethod]
+        public void TestSupervisorProcessTimeReturnsTimeSpan()
+        {
+            var now = DateTime.Now;
+            var target = new WorkOrder();
+            Assert.IsNull(_target.SupervisorProcessTime);
+
+            target.ApprovedOn = now;
+            Assert.IsNull(_target.SupervisorProcessTime);
+
+            target.DateCompleted = now;
+            target.ApprovedOn = null;
+            Assert.IsNull(_target.SupervisorProcessTime);
+
+            target.ApprovedOn = now;
+            target.DateCompleted = now.AddHours(-3);
+            Assert.AreEqual(3, target.SupervisorProcessTime.Value.TotalHours);
+        }
+
+        [TestMethod]
+        public void TestStockProcessTimeReturnsTimeSpan()
+        {
+            var now = DateTime.Now;
+            var target = new WorkOrder();
+            Assert.IsNull(_target.StockProcessTime);
+
+            target.MaterialsApprovedOn = now;
+            Assert.IsNull(_target.StockProcessTime);
+
+            target.ApprovedOn = now;
+            target.MaterialsApprovedOn = null;
+            Assert.IsNull(_target.StockProcessTime);
+
+            target.ApprovedOn = now;
+            target.MaterialsApprovedOn = now.AddHours(3);
+            Assert.AreEqual(3, target.StockProcessTime.Value.TotalHours);
+        }
+
+        #endregion
     }
 }

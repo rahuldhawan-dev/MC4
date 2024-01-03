@@ -627,6 +627,7 @@
     <Compile Include="Areas\Engineering\Models\ViewModels\RiskRegisterAssets\RiskRegisterAssetViewModel.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\EditEstimatingProjectOtherCost.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\CreateEstimatingProjectOtherCost.cs" />
+    <Compile Include="Areas\Reports\Controllers\CompletedWorkOrdersController.cs" />
     <Compile Include="Areas\Reports\Controllers\RestorationAccrualReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\SewerMainCleaningFootageController.cs" />
     <Compile Include="Areas\Reports\Controllers\CompletedWorkOrdersWithMarkoutController.cs" />
@@ -759,6 +760,7 @@
     <Compile Include="Areas\Reports\Controllers\RegulatoryComplianceReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterLossManagementController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterQualityComplaintCountByStateForYearController.cs" />
+    <Compile Include="Areas\Reports\Models\SearchCompletedWorkOrders.cs" />
     <Compile Include="Areas\Reports\Models\SearchRestorationAccrualReport.cs" />
     <Compile Include="Areas\Reports\Models\SearchSewerMainCleaning.cs" />
     <Compile Include="Areas\Reports\Models\SearchCovidStatusReport.cs" />
@@ -856,6 +858,8 @@
     <Compile Include="ClassExtensions\ActionBarHelperExtensionMethods.cs" />
     <Compile Include="ClassExtensions\RazorTableExtensions.cs" />
     <Compile Include="Configuration\AuditImageFilter.cs" />
+    <Compile Include="Configuration\AuditReportAttribute.cs" />
+    <Compile Include="Configuration\AuditReportFilter.cs" />
     <Compile Include="Configuration\ExtendedCustomerGatewayFactory.cs" />
     <Compile Include="Controllers\ActionItemController.cs" />
     <Compile Include="Controllers\AssetUploadController.cs" />
@@ -1311,6 +1315,8 @@
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_EditEquipmentAsLeftAndAsFoundCondition.cshtml" />
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_NoResults.cshtml" />
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_Index.cshtml" />
+    <Content Include="Areas\Reports\Views\CompletedWorkOrders\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\CompletedWorkOrders\Search.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\Index.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\Search.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\_ActionBarHelp.cshtml" />
