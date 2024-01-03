@@ -1,0 +1,31 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the planning and finalization tabs. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/MaterialUsed/Index.js", ScriptLoadType.LoadFromPartial)
+@{
+    var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+    MaterialUsed temp = null;
+}
+<table id="materialsUsedTable">
+    <thead>
+        <tr>
+            @if (!isGeneralReadOnly)
+            {
+                <th>Action</th>
+            }
+            <th>@Html.DisplayLabelFor(_ => temp.Material.PartNumber)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.StockLocation)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Material.Description)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Quantity)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var materialUsed in Model.MaterialsUsed)
+        {
+            @Html.Partial("~/Views/MaterialUsed/_Show.cshtml", materialUsed)
+        }
+    </tbody>
+</table>
+@if (!isGeneralReadOnly)
+{
+    @Ajax.ActionLink("Add", "New", "MaterialUsed", new { workOrderId = @Model.Id }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#materialsUsedTable", id="add-material-used-link" })
+}

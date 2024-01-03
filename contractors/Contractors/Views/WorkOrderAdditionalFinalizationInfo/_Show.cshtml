@@ -1,0 +1,12 @@
+﻿@model MapCall.Common.Model.Entities.WorkOrder
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.TotalManHours)
+    @Html.DisplayFor(x => x.WorkDescription)
+    @Html.DisplayFor(x => x.DistanceFromCrossStreet)
+    @Html.DisplayFor(x => x.LostWater)
+    <div class="editor-buttons">
+        @Html.Link("~/Content/Leakage Chart.pdf", "Leakage Chart")
+    </div>
+	@Html.RenderDisplayTemplate("Current Notes", @<pre class="scrollable">@Html.DisplayTextFor(m => m.Notes)</pre>)
+</div>

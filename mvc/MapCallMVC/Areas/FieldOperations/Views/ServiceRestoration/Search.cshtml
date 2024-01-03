@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchServiceRestoration
+
+@using (Form.BeginForm("Index", "ServiceRestoration")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.WorkIssuedTo)
+        @Html.EditorFor(x => x.Approved)
+        @Html.EditorFor(x => x.PurchaseOrderNumber)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

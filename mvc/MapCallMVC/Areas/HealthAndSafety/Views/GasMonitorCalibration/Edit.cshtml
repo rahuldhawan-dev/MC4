@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditGasMonitorCalibration
+
+@using (Form.BeginForm("Update", "GasMonitorCalibration", "HealthAndSafety", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.CalibrationDate)
+        @Html.EditorFor(x => x.CalibrationPassed)
+        @Html.EditorFor(x => x.CalibrationFailedNotes)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "GasMonitor", new { Model.Id })
+        </text>)
+    </div>
+}

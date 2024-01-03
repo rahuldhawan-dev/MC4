@@ -1,0 +1,31 @@
+﻿@using MapCall.Common.Helpers
+@using MapCallMVC.Controllers
+@model Town 
+@{
+    var table = Html.TableFor(x => x.TownContacts, new {id = "contactsTable"})
+                    .TemplateColumnFor("Name", x => @Html.ActionLink(x.Contact.ContactName, "Show", "Contact", new {id = x.Contact.Id, area = ""}, null))
+                    .ColumnFor(x => x.Contact.Address)
+                    .ColumnFor(x => x.Contact.Email)
+                    .ColumnFor(x => x.ContactType);
+
+    if (Model.OperatingCenters.Any(x => RoleService.CanAccessRole(TownController.ROLE, RoleActions.Edit, x)))
+    {
+        table = table.TemplateColumnFor("", x => @<text>
+                                                      @using (Form.BeginForm("DestroyTownContact", "Town", new {id = Model.Id, TownContactId = x.Id}))
+                                                      {
+                                                          @Control.SubmitButton("Remove");
+                                                      }
+                                                  </text>);
+    }
+}
+@Html.ScriptFor("~/Scripts/Town/TownContact.js", ScriptLoadType.LoadFromPartial)
+
+@if (Model.OperatingCenters.Any(x => RoleService.CanAccessRole(TownController.ROLE, RoleActions.Edit, x)))
+{
+    <div class="collapse-panel" data-title="Add Contact for Town">
+        @Html.Partial("_CreateTownContact", ViewModelFactory.BuildWithOverrides<CreateTownContact>(new { Id = Model.Id }))
+    </div>
+}
+<div id="contactsTableWrap" class="container">
+    @table
+</div>

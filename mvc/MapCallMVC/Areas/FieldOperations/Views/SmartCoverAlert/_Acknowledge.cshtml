@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSmartCoverAlert
+
+<div class="jqmWindow" style="z-index: 3000; top: 25%; bottom: 40%; min-height: 250px;" id="EditSmartCoverAlertModal">
+    <div class="jqmTitle">
+        <button class="jqmClose">Close X</button>
+        <span class="jqmTitleText">Acknowledge SmartCoverAlert</span>
+    </div>
+    <div class="field-column fc200">
+        @using (Form.BeginForm("Update", "SmartCoverAlert", "FieldOperations", null))
+        {
+            @Html.HiddenFor(x => x.Id)
+            @Html.DisplayFor(x => x.User)
+            @Html.EditorFor(x => x.AcknowledgedOn)
+            @Html.Hidden("IndexSearch", Request.QueryString)
+            @Control.SubmitButton("Save")
+        }
+    </div>
+</div>

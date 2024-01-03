@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValveInspection
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter, controller = "AssetMap" });
+}
+
+@(Html.TableFor(_ => Model, new { Id = "valveInspectionsTable" })
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+    .TemplateColumnFor("Valve", x => Html.AuthorizedActionLink(x.ValveNumber, "Show", "Valve", new { id = x.ValveId }))
+    .SortableColumnFor(x => x.OperatingCenter, "val.OperatingCenter")
+    .SortableColumnFor(x => x.Town, "val.Town")
+    .SortableColumnFor(x => x.ValveNumber, "val.ValveNumber")
+    .SortableColumnFor(x => x.FunctionalLocation, "val.FunctionalLocation")
+    .SortableColumnFor(x => x.SAPEquipmentId, "val.SAPEquipmentId")
+    .SortableColumnFor(x => x.SAPNotificationNumber)
+    .SortableColumnFor(x => x.DateInspected)
+    .SortableColumnFor(x => x.Inspected)
+    .SortableColumnFor(x => x.PositionFound)
+    .SortableColumnFor(x => x.PositionLeft)
+    .SortableColumnFor(x => x.Turns)
+    .SortableColumnFor(x => x.InspectedBy)
+    .SortableColumnFor(x => x.EmployeeId, "inspectedByEmployee.EmployeeId")
+    .SortableColumnFor(x => x.ValveSize, "val.ValveSize")
+    .SortableColumnFor(x => x.ValveZone, "zone.Description")
+    .SortableColumnFor(x => x.DateAdded)
+    .ColumnFor(x => x.Remarks)
+    .ColumnFor(x => x.Latitude)
+    .ColumnFor(x => x.Longitude)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .WithPaginatedFooter())

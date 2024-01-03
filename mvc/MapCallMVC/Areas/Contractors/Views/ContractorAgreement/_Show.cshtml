@@ -1,0 +1,43 @@
+﻿@model ContractorAgreement
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Title)
+    @Html.DisplayFor(x => x.Description)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.Contractor), Html.ActionLink(Model.Contractor.ToString(), "Show", "Contractor", new { Model.Contractor.Id, area = "Contractors" }, null))
+    @Html.DisplayFor(x => x.ContractorCompany)
+    @Html.DisplayFor(x => x.ContractorWorkCategoryType)
+    @Html.DisplayFor(x => x.ContractorAgreementStatusType)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.ContractorInsurance), @<text>
+                                                                               @if (Model.ContractorInsurance != null)
+                                                                               {
+                                                                                   @Model.ContractorInsurance.PolicyNumber
+                                                                               }
+                                                                            </text>)
+    @Html.DisplayFor(x => x.AgreementOwner)
+    @Html.DisplayFor(x => x.AgreementStartDate)
+    @Html.DisplayFor(x => x.AgreementEndDate)
+    @Html.DisplayFor(x => x.EstimatedContractValue)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.OperatingCenters), @<text>
+        @foreach (var i in Model.OperatingCenters)
+        {
+            <div>@Html.DisplayValueFor(x => i)</div>
+        }
+    </text>)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.FunctionalAreas), @<text>
+        @foreach (var i in Model.FunctionalAreas)
+        {
+            <div>@Html.DisplayValueFor(x => i)</div>
+        }
+    </text>)
+    @Html.DisplayFor(x => x.NJAWContractNumber)
+    @Html.DisplayFor(x => x.Legacy)
+    @Html.DisplayFor(x => x.StrategicSourcingProjectTrackingNumber)
+    @Html.DisplayFor(x => x.AmendmentNumber)
+    @Html.DisplayFor(x => x.Accounting)
+    @Html.DisplayFor(x => x.EstimatedAnnualSpend)
+    @Html.DisplayFor(x => x.EstimatedLifetimePayments)
+    @Html.DisplayFor(x => x.EstimatedLifetimeReceipts)
+    @Html.DisplayFor(x => x.EstimatedTerminationDate)
+    @Html.DisplayFor(x => x.ContractOwnerEmployeeId)
+    @Html.DisplayFor(x => x.ContractOwnerLastName)
+</div>

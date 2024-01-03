@@ -1,0 +1,48 @@
+﻿@model Town
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@if (userCanEdit)
+{
+    @Html.Partial("_AddOperatingCenterTown", ViewModelFactory.BuildWithOverrides<CreateOperatingCenterTown>(new { Town = Model.Id }))
+}
+
+<table id="operatingCenterTable">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Abbreviation</th>
+            <th>Main SAP Equipment</th>
+            <th>Main SAP Functional Location</th>
+            <th>Sewer Main SAP Equipment</th>
+            <th>Sewer Main SAP Functional Location</th>
+            <th>Distribution Planning Plant</th>
+            <th>Sewer Planning Plant</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var oct in Model.OperatingCentersTowns) {
+            <tr>
+                <td>@Html.ActionLink(oct.OperatingCenter.ToString(), "Show", new { id = @oct.OperatingCenter.Id, controller="OperatingCenter" })</td>
+                <td>@oct.Abbreviation</td>
+                <td>@oct.MainSAPEquipmentId</td>
+                <td>@oct.MainSAPFunctionalLocation</td>
+                <td>@oct.SewerMainSAPEquipmentId</td>
+                <td>@oct.SewerMainSAPFunctionalLocation</td>
+                <td>@oct.DistributionPlanningPlant</td>
+                <td>@oct.SewerPlanningPlant</td>
+                <td>
+                    @using (Form.BeginForm("Destroy", "OperatingCenterTown", new { id = oct.Id }))
+					{
+						if (userCanEdit)
+                        {
+                            @Control.SubmitButton("Remove Operating Center").With("onclick", "return confirm('Are you sure?');")
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

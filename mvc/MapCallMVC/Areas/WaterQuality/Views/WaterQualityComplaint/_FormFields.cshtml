@@ -1,0 +1,67 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels
+@using Microsoft.Ajax.Utilities
+@model WaterQualityComplaintViewModel
+
+@{
+    var isEditModel = (Model is EditWaterQualityComplaint);
+}
+
+@* Users are not allowed to enter the SAP Notification #. Only imports from SAP can have this. *@
+@if (isEditModel)
+{
+    @Html.DisplayFor(x => x.Display.OrcomOrderNumber)
+}
+@Html.EditorFor(x => x.State)
+@Html.EditorFor(x => x.Town)
+@if (isEditModel)
+{
+    @Html.EditorFor(x => ((EditWaterQualityComplaint)x).OperatingCenter)
+    @Html.EditorFor(x => ((EditWaterQualityComplaint)x).PublicWaterSupply)
+}
+else
+{
+    @Html.EditorFor(x => ((CreateWaterQualityComplaint)x).OperatingCenter)
+    @Html.EditorFor(x => ((CreateWaterQualityComplaint)x).PublicWaterSupply)
+}
+@Html.EditorFor(x => x.Type)
+@Html.EditorFor(x => x.DateComplaintReceived)
+@Html.EditorFor(x => x.InitialLocalContact)
+@Html.EditorFor(x => x.InitialLocalResponseDate)
+@Html.EditorFor(x => x.InitialLocalResponseType)
+@Html.EditorFor(x => x.NotificationCreatedBy)
+@Html.EditorFor(x => x.NotificationCompletionDate)
+@Html.EditorFor(x => x.NotificationCompletedBy)
+
+@Html.EditorFor(x => x.CustomerName)
+@Html.EditorFor(x => x.HomePhoneNumber)
+@Html.EditorFor(x => x.Ext)
+@Html.EditorFor(x => x.StreetNumber)
+@Html.EditorFor(x => x.StreetName)
+@Html.EditorFor(x => x.ApartmentNumber)
+
+@if (isEditModel)
+{
+    @Html.Partial("_EditTownSection", (EditWaterQualityComplaint)Model)
+}
+else
+{
+    @Html.Partial("_CreateTownSection", (CreateWaterQualityComplaint)Model)
+}
+@Html.EditorFor(x => x.ZipCode)
+@Html.EditorFor(x => x.CoordinateId)
+@Html.EditorFor(x => x.PremiseNumber)
+@Html.EditorFor(x => x.AccountNumber)
+@Html.DisplayFor(x => x.Display.ComplaintDescription)
+@Html.EditorFor(x => x.ComplaintStartDate)
+@Html.EditorFor(x => x.ProblemArea)
+@Html.EditorFor(x => x.Source)
+@Html.EditorFor(x => x.SiteVisitRequired)
+@Html.EditorFor(x => x.SiteVisitBy)
+@Html.EditorFor(x => x.WaterFilterOnComplaintSource)
+@Html.EditorFor(x => x.CrossConnectionDetected)
+@Html.EditorFor(x => x.ProbableCause)
+@Html.EditorFor(x => x.ActionTaken)
+@Html.EditorFor(x => x.CustomerExpectation)
+@Html.EditorFor(x => x.CustomerSatisfaction)
+@Html.EditorFor(x => x.RootCauseIdentified)
+@Html.EditorFor(x => x.RootCause)

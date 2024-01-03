@@ -1,0 +1,1525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="MCProd">
+      <rd:DataSourceID>6faad748-7a49-421f-98a9-b4e7a2672821</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="RecID">
+      <DataType>Integer</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>RecID</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:GridSpacing>0.075in</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <rd:ReportID>683b5922-9b14-4b97-95ee-80df9d97be99</rd:ReportID>
+  <EmbeddedImages>
+    <EmbeddedImage Name="aw_logo_nj">
+      <MIMEType>image/gif</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <DataSets>
+    <DataSet Name="DSReports2_tblNJAWService">
+      <Fields>
+        <Field Name="RecID">
+          <DataField>RecID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MailAddress">
+          <DataField>MailAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MailCity">
+          <DataField>MailCity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MailState">
+          <DataField>MailState</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MailZip">
+          <DataField>MailZip</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceNumber">
+          <DataField>ServiceNumber</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="ServiceType">
+          <DataField>ServiceType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceAddress">
+          <DataField>ServiceAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceState">
+          <DataField>ServiceState</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceZip">
+          <DataField>ServiceZip</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PremiseNumber">
+          <DataField>PremiseNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ServiceCity">
+          <DataField>ServiceCity</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OpCntrName">
+          <DataField>OpCntrName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OpCntrAddress">
+          <DataField>OpCntrAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OpCntrCSZ">
+          <DataField>OpCntrCSZ</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OpCntrFax">
+          <DataField>OpCntrFax</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>MCProd</DataSourceName>
+        <CommandText>SELECT
+	a.[RecID],
+	a.[Name],
+	IsNull(CAST(a.[MailStNum] AS varchar) + ' ', '') + a.[MailStName] AS [MailAddress],
+	a.[MailTown] AS [MailCity],
+	a.[MailState],
+	a.[MailZip],
+	a.[ServNum] AS [ServiceNumber],
+	a.[PurpInstal] AS [ServiceType],
+	CAST(a.[StNum] AS varchar) + ' ' + st.[FullStName] AS [ServiceAddress],
+	tn.[TownName] AS [ServiceCity],
+	a.[State] AS [ServiceState],
+	a.[Zip] AS [ServiceZip],
+	a.[PremNum] AS [PremiseNumber],
+	oc.[MailCo] AS [OpCntrName],
+	oc.[MailAdd] AS [OpCntrAddress],
+	oc.[MailCSZ] AS [OpCntrCSZ],
+	oc.[FaxNum] AS [OpCntrFax]
+FROM
+	[tblNJAWService] AS a
+LEFT JOIN
+	[Streets] AS st
+ON
+	a.[StName] = st.[StreetID]
+LEFT JOIN
+	[Towns] AS tn
+ON
+	a.[Town] = tn.[TownID]
+LEFT JOIN
+	[OperatingCenters] AS oc
+ON
+	a.[OpCntr] = oc.[OperatingCenterCode]
+WHERE
+	a.[RecID] = @RecID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReports2</rd:DataSetName>
+        <rd:TableName>tblNJAWService</rd:TableName>
+        <rd:TableAdapterName>tblNJAWServiceTableAdapter</rd:TableAdapterName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>8.5in</Width>
+  <Body>
+    <ReportItems>
+      <Rectangle Name="rectangle18">
+        <Left>4.25in</Left>
+        <ZIndex>92</ZIndex>
+        <Top>7.625in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle19">
+        <Left>4.25in</Left>
+        <ZIndex>91</ZIndex>
+        <Top>7.125in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle20">
+        <Left>4.25in</Left>
+        <ZIndex>90</ZIndex>
+        <Top>7.375in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle21">
+        <Left>4.25in</Left>
+        <ZIndex>89</ZIndex>
+        <Top>6.875in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle22">
+        <Left>4.25in</Left>
+        <ZIndex>88</ZIndex>
+        <Top>6.625in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle13">
+        <Left>4.25in</Left>
+        <ZIndex>87</ZIndex>
+        <Top>5.5in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle14">
+        <Left>4.25in</Left>
+        <ZIndex>86</ZIndex>
+        <Top>4.75in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle15">
+        <Left>4.25in</Left>
+        <ZIndex>85</ZIndex>
+        <Top>5.125in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle16">
+        <Left>4.25in</Left>
+        <ZIndex>84</ZIndex>
+        <Top>4.375in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle17">
+        <Left>4.25in</Left>
+        <ZIndex>83</ZIndex>
+        <Top>4.125in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle8">
+        <Left>0.625in</Left>
+        <ZIndex>82</ZIndex>
+        <Top>7.625in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle9">
+        <Left>0.625in</Left>
+        <ZIndex>81</ZIndex>
+        <Top>7.125in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle10">
+        <Left>0.625in</Left>
+        <ZIndex>80</ZIndex>
+        <Top>7.375in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle11">
+        <Left>0.625in</Left>
+        <ZIndex>79</ZIndex>
+        <Top>6.875in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle12">
+        <Left>0.625in</Left>
+        <ZIndex>78</ZIndex>
+        <Top>6.625in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle5">
+        <Left>0.625in</Left>
+        <ZIndex>77</ZIndex>
+        <Top>5.75in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle6">
+        <Left>0.625in</Left>
+        <ZIndex>76</ZIndex>
+        <Top>5.25in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle7">
+        <Left>0.625in</Left>
+        <ZIndex>75</ZIndex>
+        <Top>5.5in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle4">
+        <Left>0.625in</Left>
+        <ZIndex>74</ZIndex>
+        <Top>5in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle2">
+        <Left>0.625in</Left>
+        <ZIndex>73</ZIndex>
+        <Top>4.5in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Rectangle Name="rectangle1">
+        <Left>0.625in</Left>
+        <ZIndex>72</ZIndex>
+        <Top>4.25in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+      <Image Name="image1">
+        <Sizing>AutoSize</Sizing>
+        <Top>0.25in</Top>
+        <Width>1.625in</Width>
+        <MIMEType>image/gif</MIMEType>
+        <Source>Embedded</Source>
+        <Style />
+        <ZIndex>71</ZIndex>
+        <Left>6.375in</Left>
+        <Height>0.78125in</Height>
+        <Value>aw_logo_nj</Value>
+      </Image>
+      <Textbox Name="textbox53">
+        <rd:DefaultName>textbox53</rd:DefaultName>
+        <Top>10.5in</Top>
+        <Width>2.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>70</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Account No.  ____________________</Value>
+      </Textbox>
+      <Textbox Name="textbox52">
+        <rd:DefaultName>textbox52</rd:DefaultName>
+        <Top>10.25in</Top>
+        <Width>1.875in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>69</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Meter No.  ___________________</Value>
+      </Textbox>
+      <Textbox Name="textbox51">
+        <rd:DefaultName>textbox51</rd:DefaultName>
+        <Top>10in</Top>
+        <Width>1.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>68</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>For Office Use only:</Value>
+      </Textbox>
+      <Line Name="line17">
+        <Top>10in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>67</ZIndex>
+        <Left>3.125in</Left>
+        <Height>0.75in</Height>
+      </Line>
+      <Line Name="line16">
+        <Top>10in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>66</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0.75in</Height>
+      </Line>
+      <Line Name="line15">
+        <Top>10.75in</Top>
+        <Width>2.625in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>65</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Line Name="line14">
+        <Top>10in</Top>
+        <Width>2.625in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>64</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox50">
+        <rd:DefaultName>textbox50</rd:DefaultName>
+        <Top>8.8in</Top>
+        <Width>0.5in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>63</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>5.5in</Left>
+        <Height>0.25in</Height>
+        <Value>PHONE: </Value>
+      </Textbox>
+      <Textbox Name="textbox49">
+        <rd:DefaultName>textbox49</rd:DefaultName>
+        <Top>9.075in</Top>
+        <Width>2.625in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>62</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>2.025in</Left>
+        <Height>0.92in</Height>
+        <Value>Attn: Gary A. Matthews
+Environmental Manager
+New Jersey American Water
+P.O. Box 102
+Bound Brook, NJ 08805
+Fax:    (732) 627-0868</Value>
+      </Textbox>
+      <Textbox Name="textbox48">
+        <rd:DefaultName>textbox48</rd:DefaultName>
+        <Top>9.05in</Top>
+        <Width>1.5in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>61</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.375in</Height>
+        <Value>Please mail or fax completed survey to:</Value>
+      </Textbox>
+      <Textbox Name="textbox47">
+        <Top>8.55in</Top>
+        <Width>2.75in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>60</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>2.25in</Left>
+        <Height>0.25in</Height>
+        <Value>Signature of Individual completing the survey:</Value>
+      </Textbox>
+      <Textbox Name="textbox46">
+        <rd:DefaultName>textbox46</rd:DefaultName>
+        <Top>8.55in</Top>
+        <Width>0.375in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>59</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Date:</Value>
+      </Textbox>
+      <Line Name="line13">
+        <Top>8.55in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>58</ZIndex>
+        <Left>8in</Left>
+        <Height>0.5in</Height>
+      </Line>
+      <Line Name="line12">
+        <Top>8.55in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>57</ZIndex>
+        <Left>2.25in</Left>
+        <Height>0.5in</Height>
+      </Line>
+      <Line Name="line11">
+        <Top>8.55in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>56</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0.5in</Height>
+      </Line>
+      <Line Name="line10">
+        <Top>8.55in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>55</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Line Name="line9">
+        <Top>9.05in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>54</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Line Name="line8">
+        <Top>8.5in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>53</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox45">
+        <Top>8in</Top>
+        <Width>7.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>52</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.5in</Height>
+        <Value>If backflow prevention devices are installed on your plumbing/fire sprinkler system, they are required by the (variable data) to be tested annually and copies of the test reports be maintained on fire with the water company.  If you do not have current copies of the test reports on file with us, please attach copies of the test(s) to this survey.</Value>
+      </Textbox>
+      <Line Name="line7">
+        <Top>8in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>51</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox40">
+        <Top>7.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>50</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Other ___________________________</Value>
+      </Textbox>
+      <Textbox Name="textbox41">
+        <Top>7.375in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>49</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Double Check Valve (DCV)</Value>
+      </Textbox>
+      <Textbox Name="textbox42">
+        <Top>7.125in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>48</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Double Detector Check Assembly (DDCA)</Value>
+      </Textbox>
+      <Textbox Name="textbox43">
+        <Top>6.875in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>47</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Reduced Pressure Zone device (RPZ)</Value>
+      </Textbox>
+      <Textbox Name="textbox44">
+        <Top>6.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>46</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>None</Value>
+      </Textbox>
+      <Textbox Name="textbox35">
+        <Top>7.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>45</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Other ___________________________</Value>
+      </Textbox>
+      <Textbox Name="textbox36">
+        <Top>7.375in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>44</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Double Check Valve (DCV)</Value>
+      </Textbox>
+      <Textbox Name="textbox37">
+        <Top>7.125in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>43</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Double Detector Check Assembly (DDCA)</Value>
+      </Textbox>
+      <Textbox Name="textbox38">
+        <Top>6.875in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>42</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Reduced Pressure Zone device (RPZ)</Value>
+      </Textbox>
+      <Textbox Name="textbox39">
+        <Top>6.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>41</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>None</Value>
+      </Textbox>
+      <Textbox Name="textbox34">
+        <Top>6.125in</Top>
+        <Width>3.375in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>40</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.25in</Left>
+        <Height>0.375in</Height>
+        <Value>Please check the types of backflow prevention devices installed on your sprinkler system if applicable.</Value>
+      </Textbox>
+      <Textbox Name="textbox33">
+        <Top>6.125in</Top>
+        <Width>3.375in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>39</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.375in</Height>
+        <Value>Please check the types of backflow prevention devices installed on your plumbing system.</Value>
+      </Textbox>
+      <Line Name="line6">
+        <Top>6.125in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>38</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox28">
+        <Top>5.375in</Top>
+        <Width>3.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>37</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.375in</Height>
+        <Value>Fire sprinkler system is also supplied by an auxiliary 
+source of water (i.e., pond, reservoir, or storage tank).
+</Value>
+      </Textbox>
+      <Textbox Name="textbox29">
+        <Top>5in</Top>
+        <Width>3.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>36</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.375in</Height>
+        <Value>Fire Sprinkler system contains antifreeze or other
+chemicals.
+</Value>
+      </Textbox>
+      <Textbox Name="textbox30">
+        <Top>4.625in</Top>
+        <Width>3.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>35</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.375in</Height>
+        <Value>Fire sprinkler system has outside fire department 
+connection for pumping into the system.
+</Value>
+      </Textbox>
+      <Textbox Name="textbox31">
+        <Top>4.375in</Top>
+        <Width>3.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>34</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>This account serves an installed fire sprinkler system.</Value>
+      </Textbox>
+      <Textbox Name="textbox32">
+        <Top>4in</Top>
+        <Width>3.125in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>33</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.375in</Height>
+        <Value>This account serves private hydrants only. 
+(no fire sprinkler system in facility)
+</Value>
+      </Textbox>
+      <Textbox Name="textbox27">
+        <Top>3.5in</Top>
+        <Width>3.375in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>32</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.375in</Left>
+        <Height>0.375in</Height>
+        <Value>Please check the box or boxes that best describe your Fire Protection Account:</Value>
+      </Textbox>
+      <Textbox Name="textbox26">
+        <Top>5.75in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>31</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Piped into water operated/cooled equipment/appliances.</Value>
+      </Textbox>
+      <Textbox Name="textbox25">
+        <Top>5.5in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>30</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Piped into a swimming pool.</Value>
+      </Textbox>
+      <Textbox Name="textbox24">
+        <Top>5.25in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>29</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Piped, underground lawn irrigation system.</Value>
+      </Textbox>
+      <Textbox Name="textbox23">
+        <Top>5in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>28</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Piped into a chemical process.</Value>
+      </Textbox>
+      <Textbox Name="textbox22">
+        <rd:DefaultName>textbox22</rd:DefaultName>
+        <Top>4.75in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>27</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Piped into a manufacturing process.</Value>
+      </Textbox>
+      <Textbox Name="textbox21">
+        <rd:DefaultName>textbox21</rd:DefaultName>
+        <Top>4.5in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>26</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.25in</Height>
+        <Value>Private well(s) supplying any part of your facility.</Value>
+      </Textbox>
+      <Textbox Name="textbox20">
+        <rd:DefaultName>textbox20</rd:DefaultName>
+        <Top>4in</Top>
+        <Width>3in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>25</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.875in</Left>
+        <Height>0.5in</Height>
+        <Value>Typical, such as bathrooms, drinking fountains, outside 
+water faucets, household laundry or dishwashing 
+appliances.</Value>
+      </Textbox>
+      <Textbox Name="textbox19">
+        <rd:DefaultName>textbox19</rd:DefaultName>
+        <Top>3.5in</Top>
+        <Width>3.375in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>24</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.375in</Height>
+        <Value>Please check the box or boxes that best describe the use of water with your facility:</Value>
+      </Textbox>
+      <Textbox Name="textbox18">
+        <Top>2.875in</Top>
+        <Width>3.5in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>23</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.375in</Left>
+        <Height>0.375in</Height>
+        <Value>Please answer the following question if your Revenue Class is Fire Protection</Value>
+      </Textbox>
+      <Textbox Name="textbox17">
+        <rd:DefaultName>textbox17</rd:DefaultName>
+        <Top>2.875in</Top>
+        <Width>3.25in</Width>
+        <Style>
+          <FontSize>8pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>22</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.375in</Height>
+        <Value>Please answer the following questions if your Revenue Class Is Commercial, Industrial, or Public Authority</Value>
+      </Textbox>
+      <Line Name="line5">
+        <Top>2.875in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>21</ZIndex>
+        <Left>4.125in</Left>
+        <Height>5.125in</Height>
+      </Line>
+      <Line Name="line4">
+        <Top>3.375in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>20</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Line Name="line3">
+        <Top>2.875in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>19</ZIndex>
+        <Left>8in</Left>
+        <Height>5.625in</Height>
+      </Line>
+      <Line Name="line2">
+        <Top>2.875in</Top>
+        <Width>0in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>18</ZIndex>
+        <Left>0.5in</Left>
+        <Height>5.625in</Height>
+      </Line>
+      <Line Name="line1">
+        <Top>2.875in</Top>
+        <Width>7.5in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <ZIndex>17</ZIndex>
+        <Left>0.5in</Left>
+        <Height>0in</Height>
+      </Line>
+      <Textbox Name="textbox15">
+        <Top>2.625in</Top>
+        <Width>6.525in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>16</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!ServiceType.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox16">
+        <Top>2.625in</Top>
+        <Width>1in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>15</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Revenue Class:    </Value>
+      </Textbox>
+      <Textbox Name="textbox13">
+        <Top>2.375in</Top>
+        <Width>6.65in</Width>
+        <Style>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>14</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>1.375in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!ServiceNumber.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox14">
+        <Top>2.375in</Top>
+        <Width>0.875in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>13</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Service No. </Value>
+      </Textbox>
+      <Textbox Name="PremiseNumber">
+        <rd:DefaultName>PremiseNumber</rd:DefaultName>
+        <Top>2.125in</Top>
+        <Width>1.25in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>12</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>5.375in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!PremiseNumber.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox11">
+        <rd:DefaultName>textbox11</rd:DefaultName>
+        <Top>2.125in</Top>
+        <Width>0.875in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>11</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Premise No. </Value>
+      </Textbox>
+      <Textbox Name="textbox9">
+        <Top>1.875in</Top>
+        <Width>3in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>10</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!ServiceCity.Value &amp; ", " &amp; Fields!ServiceState.Value &amp; " " &amp; Fields!ServiceZip.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox10">
+        <Top>1.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>9</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!ServiceAddress.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox8">
+        <Top>1.375in</Top>
+        <Width>1.375in</Width>
+        <Style>
+          <FontSize>9pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>8</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>4.5in</Left>
+        <Height>0.25in</Height>
+        <Value>Property located at:</Value>
+      </Textbox>
+      <Textbox Name="textbox7">
+        <Top>1.875in</Top>
+        <Width>3in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>7</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!MailCity.Value &amp; ", " &amp; Fields!MailState.Value &amp; " " &amp; Fields!MailZip.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox6">
+        <Top>1.625in</Top>
+        <Width>3in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>6</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!MailAddress.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox5">
+        <Top>1.375in</Top>
+        <Width>3in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>5</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>=Fields!Name.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox4">
+        <Top>1.125in</Top>
+        <Width>2in</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3in</Left>
+        <Height>0.25in</Height>
+        <Value>Water Survey Questionnaire</Value>
+      </Textbox>
+      <Textbox Name="textbox3">
+        <Top>0.75in</Top>
+        <Width>1.5in</Width>
+        <Style>
+          <FontSize>11pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Center</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>3.25in</Left>
+        <Height>0.25in</Height>
+        <Value>NJ American Water</Value>
+      </Textbox>
+      <Textbox Name="textbox2">
+        <Top>0.5in</Top>
+        <Width>1.75in</Width>
+        <Style>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.5in</Left>
+        <Height>0.25in</Height>
+        <Value>D.2 Survey Questionnaire</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Top>0.125in</Top>
+        <Width>1.875in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>0.625in</Left>
+        <Height>0.25in</Height>
+        <Value>© AMERICAN WATER 2006</Value>
+      </Textbox>
+      <Rectangle Name="rectangle3">
+        <Left>0.625in</Left>
+        <Top>4.75in</Top>
+        <Width>0.125in</Width>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0.125in</Height>
+      </Rectangle>
+    </ReportItems>
+    <Height>10.8in</Height>
+  </Body>
+  <Language>en-US</Language>
+</Report>

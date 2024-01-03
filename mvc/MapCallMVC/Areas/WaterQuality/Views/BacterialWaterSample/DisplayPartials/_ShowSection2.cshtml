@@ -1,0 +1,24 @@
+﻿@model BacterialWaterSample
+
+<div class="grid-layout gl-2col" style="width:600px;"> @* width set because it's otherwise super spaced out *@
+	<div class="field-column fc200">
+		@Html.DisplayFor(x => x.Ph)
+		@Html.DisplayFor(x => x.Temperature)
+		@Html.DisplayFor(x => x.Cl2Free)
+		@Html.DisplayFor(x => x.Cl2Total)
+		@Html.DisplayFor(x => x.FlushTimeMinutes)
+		@Html.DisplayFor(x => x.Monochloramine)
+		@Html.DisplayFor(x => x.FreeAmmonia)
+		@Html.DisplayFor(x => x.Nitrite)
+		@Html.DisplayFor(x => x.Nitrate)
+	</div>
+	<div class="field-column fc200">
+		@Html.DisplayFor(x => x.Alkalinity)
+		@Html.DisplayFor(x => x.Iron)
+		@Html.DisplayFor(x => x.Manganese)
+		@Html.DisplayFor(x => x.Turbidity)
+		@Html.DisplayFor(x => x.Conductivity)
+		@Html.DisplayFor(x => x.OrthophosphateAsP)
+		@Html.DisplayFor(x => x.OrthophosphateAsPO4)
+	</div>
+</div>

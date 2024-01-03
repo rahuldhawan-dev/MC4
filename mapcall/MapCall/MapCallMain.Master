@@ -1,0 +1,40 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MapCallMain.master.cs" Inherits="MapCall.MapCallMain" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:ScriptManager id="ScriptManager1" runat="server" />
+        <table border="0" style="width:100%;" cellpadding="3" cellspacing="0">
+            <tr>
+                <td style="width:150px;vertical-align:top;padding-top:15px;padding-left:5px;border:0px solid black;">
+                    <asp:ContentPlaceHolder ID="cphMenu" runat="server"></asp:ContentPlaceHolder>
+                </td>
+                <td style="width:100%;vertical-align:top;">
+                    <table class="MapCallTable" border="0" cellpadding="3" cellspacing="0">
+                        <tr>
+                            <td class="MapCallTableHeader" style="background-color:White;">
+                                <asp:ContentPlaceHolder ID="cphHeader" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="MapCallTableInstructions">
+                                <asp:ContentPlaceHolder ID="cphInstructions" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

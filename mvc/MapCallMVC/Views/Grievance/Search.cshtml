@@ -1,0 +1,23 @@
+﻿@model SearchGrievance
+
+@using (Form.BeginForm("Index", "Grievance")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.GrievanceCategory)
+        @Html.EditorFor(m => m.Categorization, new {html = new{size = 16}})
+        @Html.EditorFor(m => m.Status)
+        @Html.EditorFor(m => m.OperatingCenter)
+        @Html.EditorFor(m => m.LaborRelationsBusinessPartner)
+        @Html.EditorFor(m => m.Contract, new {Container = @Model})
+        @Html.EditorFor(m => m.EntityId)
+        @Html.EditorFor(m => m.Number)
+        @Html.EditorFor(m => m.DateReceived)
+        @Html.EditorFor(m => m.IncidentDate)
+        @Html.EditorFor(x => x.UnionDueDate)
+        @Html.EditorFor(x => x.ManagementDueDate)
+    
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

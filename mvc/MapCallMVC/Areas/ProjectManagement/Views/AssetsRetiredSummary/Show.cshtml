@@ -1,0 +1,172 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AssetsRetiredSummary
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@section head {
+    <style>
+        div#image {
+            float: left;
+            width: 45%;
+        }
+
+        div#project > img {
+            width: 300px;
+            height: 113px;
+        }
+
+        div#project {
+            float: right;
+            width: 55%;
+        }
+
+        div#project table {
+            width: 80%;
+        }
+
+        div#project table th,
+        div#project table td {
+            text-align: left;
+        }
+
+        div#project > table > thead > tr > th {
+            font-size: x-large;
+        }
+
+        div#body > table > tbody > tr > td {
+            border: 1px solid black;
+        }
+
+        th.valveNum,
+        th.street,
+        th.town,
+        th.date,
+        th.size,
+        th.length {
+            width: 15%;
+        }
+
+        th.type,
+        th.comment {
+            width: 40%;
+        }
+
+        table#signature td {
+            border: none !important;
+        }
+
+        table#signature th {
+            text-align: left;
+        }
+
+        table#signature .underline {
+            border-bottom: 1px solid black !important;
+            width: 33%;
+        }
+         
+    </style>
+}
+
+@section body {
+    <div id="header">
+        <div id="image">
+            <img src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")"/>
+        </div>
+
+        <div id="project">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Project "Assets Retired" Summary Sheet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Operating Center:</th>
+                        <td>@Html.DisplayTextFor(x => x.OperatingCenter)</td>
+                    </tr>
+                    <tr>
+                        <th>Project Name:</th>
+                        <td>@Html.DisplayTextFor(x => x.ProjectName)</td>
+                    </tr>
+                    <tr>
+                        <th>Project WBS Number:</th>
+                        <td>@Html.DisplayTextFor(x => x.WBSNumber)</td>
+                    </tr>
+                    <tr>
+                        <th>JDE Payroll Number:</th>
+                        <td>@Html.DisplayTextFor(x => x.JDEPayrollNumber)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br />
+
+    <div id="body">
+        <table id="valves">
+            <thead>
+                <tr>
+                    <th class="valveNum">Retired Valve #</th>
+                    <th class="street">Street</th>
+                    <th class="town">Town</th>
+                    <th class="date">Date Retired</th>
+                    <th class="comment">Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 23; i > 0; --i) {
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+
+        <table id="mains">
+            <thead>
+                <tr>
+                    <th class="length">Length of Main Retired</th>
+                    <th class="size">Size</th>
+                    <th class="type">Material Type</th>
+                    <th class="date">Date Retired</th>
+                    <th class="street">Street</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 5; i > 0; --i) {
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                }                
+            </tbody>
+        </table>
+
+        <br />
+        <br />
+
+        <table id="signature">
+            <tr>
+                <td class="underline">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="underline">&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Inspector:</th>
+                <th>&nbsp;</th>
+                <th>Supervisor Review and Sign-off Date:</th>
+            </tr>
+        </table>
+    </div>
+}

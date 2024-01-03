@@ -1,0 +1,40 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model SearchSchedulingProductionWorkOrder
+
+@using (Form.BeginForm("Create", "EmployeeAssignment", "Production"))
+{
+    @(Html.TableFor(_ => Model, new { id = "schedulingTable" })
+          .WithCaption("Records found: " + Model.Count)
+          .TemplateColumnFor(x => Control.CheckBox("ProductionWorkOrderIds").WithValue(x.Id))
+          .SortableTemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))
+          .SortableColumnFor(x => x.DateReceived, "Date Received", "DateReceived")
+          .SortableColumnFor(x => x.OperatingCenter)
+          .SortableColumnFor(x => x.FacilityFacilityArea.FacilityArea)
+          .SortableColumnFor(x => x.FacilityFacilityArea.FacilitySubArea)
+          .SortableColumnFor(x => x.ProductionWorkDescription, "ProductionWorkDescription.Description")
+          .ColumnFor(x => x.OrderNotes)
+          .SortableColumnFor(x => x.LocalTaskDescription)
+          .SortableColumnFor(x => x.ProductionWorkDescription.OrderType, "ProductionWorkDescription.OrderType")
+          .SortableColumnFor(x => x.Priority)
+          .TemplateColumnFor("Current Assignment", x => @<text>
+                @if (!x.CurrentAssignments.Any())
+                {
+                    <text>n/a</text>
+                }
+                else
+                {
+                    <text>
+                        @string.Join(", ", x.CurrentAssignments.Select(y => y.AssignedTo.FullName + " - " + y.AssignedFor.ToShortDateString()))
+                    </text>
+                }
+                                                         </text>)
+          .SortableColumnFor(x => x.EstimatedCompletionHours)
+          .SortableColumnFor(x => x.WBSElement)
+    )
+    <br />
+    @Control.Button("Check All").With("onclick", "$('input[name=ProductionWorkOrderIds]').prop('checked', true)")
+    @Control.Button("Uncheck All").With("onclick", "$('input[name=ProductionWorkOrderIds]').prop('checked', false)")
+    <br />
+    <br />
+    @Html.Partial("_CreateAssignmentFormFields", new CreateEmployeeAssignment { OperatingCenter = Model.OperatingCenter, ProductionSkillSet = Model.ProductionSkillSet })
+}

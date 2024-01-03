@@ -1,0 +1,14 @@
+﻿@model Employee
+
+@(Html.TableFor(x => Model.LinkedGrievances, new {id = "grievancesTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Grievance", new {x.Id}, null))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.OperatingCenter.OperatingCenterCode)
+    .ColumnFor(x => x.Contract.Id, "Contract ID")
+    .ColumnFor(x => x.Categorization)
+    .ColumnFor(x => x.Status)
+    .ColumnFor(x => x.Number)
+    .ColumnFor(x => x.DateReceived)
+    .ColumnFor(x => x.IncidentDate)
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount))

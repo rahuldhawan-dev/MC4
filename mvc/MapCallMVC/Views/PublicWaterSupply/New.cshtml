@@ -1,0 +1,12 @@
+﻿@model CreatePublicWaterSupply
+
+@using (Form.BeginForm("Create", "PublicWaterSupply")){
+    <div class="field-column fc300">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "PublicWaterSupply")
+                           </text>)
+    </div>
+}

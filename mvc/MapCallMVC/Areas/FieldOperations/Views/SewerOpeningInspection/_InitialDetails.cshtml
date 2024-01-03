@@ -1,0 +1,18 @@
+﻿@model SewerOpeningInspection
+
+<div class="field-column fc200">
+    
+	@Html.RenderDisplayTemplate("SewerOpening", Html.ActionLink(Model.SewerOpening.ToString(), "Show", "SewerOpening", new { Model.SewerOpening.Id }, null))
+	@if (Model.SewerOpening.Critical)
+	{
+		@Html.DisplayFor(x => x.SewerOpening.CriticalNotes, new { @class = "critical-notes-display" })
+	}
+	@Html.DisplayFor(x => x.InspectedBy)
+	@Html.DisplayFor(x => x.DateInspected)
+	@Html.DisplayFor(x => x.PipesIn)
+	@Html.DisplayFor(x => x.PipesOut)
+	@Html.DisplayFor(x => x.RimHeightAboveBelowGrade)
+	@Html.DisplayFor(x => x.RimToWaterLevelDepth)
+	@Html.DisplayFor(x => x.AmountOfDebrisGritCubicFeet)
+	@Html.DisplayFor(x => x.Remarks)
+</div>

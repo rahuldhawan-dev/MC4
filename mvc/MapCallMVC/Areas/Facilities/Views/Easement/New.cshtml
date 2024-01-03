@@ -1,0 +1,40 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.Easements.CreateEasement
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/Facilities/Easement/Form.js")
+}
+
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "Easement", "Facilities", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.CrossStreet)
+        @Html.EditorFor(x => x.Coordinate)
+        @Html.EditorFor(x => x.RecordNumber)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Category)
+        @Html.EditorFor(x => x.Wbs)
+        @Html.EditorFor(x => x.EasementDescription)
+        @Html.EditorFor(x => x.Reason)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.DateRecorded)
+        @Html.EditorFor(x => x.DeedBook)
+        @Html.EditorFor(x => x.DeedPage)
+        @Html.EditorFor(x => x.BlockLot)
+        @Html.EditorFor(x => x.GrantorType)
+        @Html.EditorFor(x => x.OwnerName)
+        @Html.EditorFor(x => x.OwnerAddress)
+        @Html.EditorFor(x => x.OwnerPhone)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.LargeServiceProjectViewModel
+@Control.Hidden("WBSElementFindUrl").WithValue(Url.Action("Find", "WBSElement", new { area = "SAP" }))
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town)
+@Html.RenderDisplayTemplate("WBS Charged", @<text>
+        <div id="wbsElementLookupLink">
+            @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#wbsElementTable", id = "WBSElementFindLink" })
+        </div>
+        @Html.EditorWithoutWrapperFor(x => x.WBSNumber)
+</text>)
+@Html.EditorFor(x => x.ProjectTitle)
+@Html.EditorFor(x => x.ProjectAddress)
+@Html.EditorFor(x => x.AssetCategory)
+@Html.EditorFor(x => x.AssetType)
+@Html.EditorFor(x => x.ProposedPipeDiameter)
+@Html.EditorFor(x => x.ContactName)
+@Html.EditorFor(x => x.ContactEmail)
+@Html.EditorFor(x => x.ContactPhone)
+@Html.EditorFor(x => x.InitialContactDate)
+@Html.EditorFor(x => x.InServiceDate)
+@Html.EditorFor(x => x.Coordinate)

@@ -1,0 +1,41 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model WorkOrderInvoice
+@{
+    var table = Html.TableFor(x => Model.WorkOrderInvoicesScheduleOfValues, new { id = "schedule-of-values-table" })
+        .ColumnFor(x => x.ScheduleOfValue)
+        .ColumnFor(x => x.OtherDescription)
+        .ColumnFor(x => x.Total)
+        .ColumnFor(x => x.IsOvertime)
+        .ColumnFor(x => x.UnitPrice, "Unit Price")
+        .ColumnFor(x => x.TotalPrice)
+        .ColumnFor(x => x.IncludeWithInvoice)
+        .ColumnFor(x => x.IncludeMarkup)
+        .WithCaption(string.Format("Total Price: {0:c}", Model.TotalScheduleOfValuePrice));
+    var editable = Html.CurrentUserCanEdit() && !Model.SubmittedDate.HasValue;
+
+    if (editable)
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "WorkOrderInvoiceScheduleOfValue", new { x.Id }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("scheduleOfValueId").WithValue(x.Id));
+    }
+}
+@if (editable)
+{
+    <div class="collapse-panel" data-title="Add Schedule of Value">
+        @Html.Partial("_AddScheduleOfValue", ViewModelFactory.BuildWithOverrides<AddWorkOrderInvoiceScheduleOfValue, WorkOrderInvoice>(Model, new { IncludeMarkup = true }))
+    </div>
+
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("WorkOrderInvoice", "ScheduleOfValue", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteScheduleOfValueForm");
+
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

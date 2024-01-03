@@ -1,0 +1,9 @@
+﻿@model Service
+
+@(Html.TableFor(x => Model.ServiceLineProtectionInvestigations, new { id = "customerIssuesTable"})
+    .TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", "ServiceLineProtectionInvestigation", new { id = x.Id , area = "ServiceLineProtection"},null))
+    .ColumnFor(x => x.Status)
+    .ColumnFor(x => x.CustomerName)
+    .ColumnFor(x => x.CustomerServiceMaterial)
+    .ColumnFor(x => x.CustomerServiceSize)
+)

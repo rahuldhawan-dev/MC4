@@ -1,0 +1,12 @@
+﻿@model MMSINC.Controllers.VerifyPaymentSummary<TrafficControlTicket>
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/TrafficControlTicket/VerifyPaymentSummary.js")
+
+<fieldset>
+    <legend>Fees:</legend>
+
+    @Html.Partial("~/Areas/FieldOperations/Views/TrafficControlTicket/_FeeSummary.cshtml", Model.Entity)
+    @Html.Partial("~/Areas/FieldOperations/Views/TrafficControlTicket/_PaymentProfileSummary.cshtml", Model.SelectedPaymentProfile)
+    @Control.Hidden("SelectedPaymentProfileId").WithValue(Model.SelectedPaymentProfile.ProfileID)
+
+</fieldset>

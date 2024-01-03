@@ -1,0 +1,14 @@
+﻿@model Employee
+
+@(Html.TableFor(x => Model.DriversLicenses, new { id = "driversLicenses" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "DriversLicense", new { x.Id }, null))
+    .ColumnFor(x => x.IssuedDate)
+    .ColumnFor(x => x.RenewalDate)
+    .TemplateColumnFor("Endorsements", x => @<text> @foreach (var e in x.Endorsements)
+    { <span>@e.DriversLicenseEndorsement.Letter</span> } </text>)
+    .TemplateColumnFor("Restrictions", x => @<text> @foreach (var e in x.Restrictions)
+    { <span>@e.DriversLicenseRestriction.Letter</span> } </text>)
+    .ColumnFor(x => x.State)
+    .ColumnFor(x => x.Expired)
+
+)

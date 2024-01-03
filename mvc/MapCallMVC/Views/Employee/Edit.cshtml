@@ -1,0 +1,14 @@
+﻿@model EditEmployee
+
+@using (Form.BeginForm("Update", "Employee", new {Model.Id})) {
+   <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "Employee", new {Model.Id})
+                           </text>)
+   </div>
+}

@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchHydrantWorkOrdersByDescription
+    
+
+@using (Form.BeginForm("Index", "HydrantWorkOrdersByDescription"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.FireDistrict)
+        @Html.EditorFor(x => x.HydrantManufacturer)
+        @Html.EditorFor(x => x.YearManufactured)
+        @Html.EditorFor(x => x.HasWorkOrder)
+        @Html.EditorFor(x => x.HasWorkOrderWithWorkDescriptions)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.HydrantBilling)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

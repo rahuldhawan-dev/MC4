@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSmartCoverAlert
+
+@using (Form.BeginForm("Update", "SmartCoverAlert", "FieldOperations", null))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.Id)
+        @Html.DisplayFor(x => x.Acknowledged)
+        @Html.DisplayFor(x => x.User)
+        @Html.EditorFor(x => x.AcknowledgedOn)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "SmartCoverAlert", new { id = Model.Id })
+                           </text>)
+    </div>
+}

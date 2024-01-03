@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CancelWorkOrder
+
+<div class="field-column fc100">
+    @using (Form.BeginForm("Cancel", "WorkOrder", "FieldOperations", new { Model.Id }))
+    {
+        @Html.EditorFor(m => m.WorkOrderCancellationReason)
+	    @Html.ButtonGroup(@<text>
+		                      @Control.SubmitButton("Cancel Order").With("onclick", "return confirm('Are you sure you want to cancel this order?');").WithId("btnSubmit")
+	                       </text>)
+    }
+</div>

@@ -1,0 +1,17 @@
+﻿@model WorkOrder
+
+@Html.Partial("_Tabs", Model)
+
+<br />
+@if (Model.AssetType != null && Model.AssetType.Id == (int)AssetType.Indices.SERVICE && Model.Service == null)
+{
+	@Html.ActionLink("Create Service", "LinkOrNew", "Service", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+}
+
+<br />
+
+Back to
+@if (Model.CurrentCrew != null)
+{
+    @Html.ActionLink("Crew Assignments", "ShowCalendar", "CrewAssignment", new { area = "FieldOperations", Crew = Model.CurrentCrew.Id, Date = DateTime.Now }, null)
+}

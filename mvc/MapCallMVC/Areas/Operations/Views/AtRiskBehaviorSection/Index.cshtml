@@ -1,0 +1,6 @@
+﻿@model IEnumerable<AtRiskBehaviorSection>
+           
+@(Html.TableFor()
+      .TemplateColumnFor(x => @Control.ActionLink("View", "Show", "AtRiskBehaviorSection", new { id = x.Id }))
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.SectionNumber))

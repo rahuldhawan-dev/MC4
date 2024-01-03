@@ -1,0 +1,15 @@
+﻿@model AddTownGradient
+
+<div class="collapse-panel" data-title="Add Gradient">
+    @using (Form.BeginRouteForm("Town", "Gradient", new { Id = Model.Id }, ManyToManyRouteAction.Add))
+    {
+        <fieldset class="field-column fc200">
+            @Html.EditorFor(x => x.Gradient)
+            @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Add Gradient").WithId("addGradientButton")
+                @Control.Button("Cancel").WithId("cancelGradientButton").WithCssClass("cancel")
+            </text>)
+        </fieldset>
+    }
+</div>

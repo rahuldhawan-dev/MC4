@@ -1,0 +1,8 @@
+﻿@model TrainingModule
+    
+@(Html.TableFor(x => x.EmployeesAttended, new { id = "attendees-table" })
+      .ColumnFor(x => x.Employee.EmployeeId)
+      .ColumnFor(x => x.Employee.FullName)
+      .ColumnFor(x => x.Employee.OperatingCenter)
+      .ColumnFor(x => x.Employee.CurrentPosition)
+      .ColumnFor(x => x.TrainingRecord.HeldOn))

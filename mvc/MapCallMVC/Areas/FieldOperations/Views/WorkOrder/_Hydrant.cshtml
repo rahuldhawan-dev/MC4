@@ -1,0 +1,16 @@
+﻿@model Hydrant
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/HydrantTab.js", ScriptLoadType.LoadFromPartial)
+@{
+    var hydrantShowUrl = Url.Action("Show", "Hydrant", new { area = "FieldOperations", Model.Id });
+    var hydrantEditUrl = Url.Action("Edit", "Hydrant", new { area = "FieldOperations", Model.Id });
+}
+
+@Control.Hidden().WithId("hydrantEditUrl").WithValue(hydrantEditUrl)
+
+@if (Html.CurrentUserCanDo("Edit", "Hydrant"))
+{
+    @Control.Button("Edit Hydrant").WithId("hydrantEditButton")
+}
+
+<iframe id="hydrantFrame" style="width:100%; height:450px;" src="@hydrantShowUrl" title="Hydrant"></iframe>

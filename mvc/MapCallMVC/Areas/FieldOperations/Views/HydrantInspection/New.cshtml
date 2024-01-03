@@ -1,0 +1,54 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateHydrantInspection
+
+<div style="float: right; width: 50%;">
+    @Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+    @(Html.TableFor(x => x.HydrantDisplay.WorkOrders, new { id="workOrdersTable"})
+          .WithCaption("Records found:" + Model.WorkOrderCount)
+          .TemplateColumnFor("Order Number", x => Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations"}, new { target = "_blank" }))
+          .WithWorkOrderRowStyles()
+          .ColumnFor(x => x.StreetNumber)
+          .ColumnFor(x => x.Street)
+          .ColumnFor(x => x.NearestCrossStreet)
+          .ColumnFor(x => x.Town)
+          .ColumnFor(x => x.TownSection)
+          .ColumnFor(x => x.AssetId)
+          .ColumnFor(x => x.WorkDescription)
+          .ColumnFor(x => x.Priority)
+          .ColumnFor(x => x.CreatedBy)
+          .ColumnFor(x => x.Purpose)
+          .ColumnFor(x => x.DateReceived)
+          .ColumnFor(x => x.DateCompleted)
+          .ColumnFor(x => x.DigitalAsBuiltCompleted)
+        )
+</div>
+<div style="float: left">
+    @using (Form.BeginForm("Create", "HydrantInspection", "FieldOperations"))
+    {
+        <div class="field-column fc200">
+            @Html.Partial("_Form", Model)
+            @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save")
+                @Html.LinkButton("Cancel", "Show", "Hydrant", new { id = Model.Hydrant }, new { id = "cancel-button" })
+                @Control.Button("Done").WithId("done-button")
+            </text>)
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var cancelButton = $('#cancel-button');
+        var doneButton = $('#done-button');
+        if (Application.isInsideIframe) {
+            $('#IsMapPopup').val('true');
+            cancelButton.hide();
+            doneButton.show();
+            doneButton.on('click', function () {
+                window.parent.Maps.hideInfoWindow();
+            });
+        } else {
+            cancelButton.show();
+            doneButton.hide();
+        }
+    </script>
+}

@@ -1,0 +1,15 @@
+﻿@model Facility
+
+@{
+    var table = Html.TableFor(x => x.MaintenancePlans, new { id = "maintenancePlansTable" })
+                    .ColumnFor(x => x.Id)
+                    .TemplateColumnFor("Plan Number", x => Html.ActionLink(x.PlanNumber.ToString(), "Show", "MaintenancePlan", new { x.Id, area = "Production" }, null))
+                    .ColumnFor(x => x.Name)
+                    .ColumnFor(x => x.PlanType)
+                    .ColumnFor(x => x.HasComplianceRequirement)
+                    .ColumnFor(x => x.IsActive)
+                    .ColumnFor(x => x.LastWorkOrderCompleted)
+                    .ColumnFor(x => x.NextWorkOrderDueDate);
+}
+
+@table

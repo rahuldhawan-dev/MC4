@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalVendor
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .ColumnFor(x => x.JdeVendorId)
+    .ColumnFor(x => x.Vendor)
+    .ColumnFor(x => x.OrderContact)
+    .ColumnFor(x => x.PhoneOffice)
+    .ColumnFor(x => x.PhoneCell)
+    .ColumnFor(x => x.Fax)
+    .ColumnFor(x => x.Email)
+    .ColumnFor(x => x.Address)
+    .ColumnFor(x => x.City)
+    .ColumnFor(x => x.State)
+    .ColumnFor(x => x.Zip)
+    .ColumnFor(x => x.Latitude)
+    .ColumnFor(x => x.Longitude)
+    .WithPaginatedFooter())

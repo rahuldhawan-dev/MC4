@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrderId
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrderLookup.js", ScriptLoadType.LoadFromPartial)
+
+<fieldset>
+    <legend>WorkOrder Lookup</legend>
+    @using (var f = Form.BeginAjaxForm("ByWorkOrderId", "WorkOrder", new { area = "FieldOperations"}))
+    {
+        f.Ajax.OnSuccess = "WorkOrderLookup.onSuccess";
+        f.Ajax.OnFailure = "WorkOrderLookup.onError";
+        f.Ajax.OnBegin = "WorkOrderLookup.onBegin";
+        
+        <div style="font-style:italic;">Enter a work order Id to autofill information below.</div>
+        <table class="for-structure">
+            <tr>
+                <td>WorkOrderID</td>
+                <td>@Control.TextBoxFor(x => x.WorkOrderId)</td>
+                <td>@Control.SubmitButton("Look up")</td>
+            </tr>
+        </table>
+        
+        <div>
+            <span id="look-up-error" class="field-validation-error"></span>
+        </div>
+    }
+</fieldset>

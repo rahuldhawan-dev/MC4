@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchMainBreak
+
+@using (Form.BeginForm("Index", "MainBreakReport"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.IsContractedOperations)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Year)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

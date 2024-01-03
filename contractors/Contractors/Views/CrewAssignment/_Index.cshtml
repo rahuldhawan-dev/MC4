@@ -1,0 +1,43 @@
+﻿@using Contractors.Models.ViewModels
+@model CrewAssignmentIndex 
+@if(Model.IsFinalizationView)
+{
+    @Html.ScriptFor("~/Scripts/CrewAssignment/CrewAssignment.js", ScriptLoadType.LoadFromPartial)
+}
+@using (var f = Form.BeginAjaxForm("Index", "CrewAssignment", new { workOrderId = Model.WorkOrder }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+
+	if (Request.IsAjaxRequest())
+	{
+		@(Html.TableFor(x => x.CrewAssignments, new { id = "assignmentsTable" })
+			  .ColumnFor(x => x.CrewAssignment.Crew.Description, "Crew")
+			  .ColumnFor(x => x.TimeToCompletion, "Est. TTC (hours)")
+			  .ColumnFor(x => x.AssignedOn)
+			  .ColumnFor(x => x.AssignedFor)
+			  .ColumnFor(x => x.AssignedTo)
+			  .ColumnFor(x => x.StartTime)
+			  .TemplateColumnFor("End Time", x => @<text>
+			                                          @if (Model.IsFinalizationView && x.CanSetEndTime)
+			                                          {
+			                                              var meh = Html.SecureActionLink<ContractorUser>("End", "End", "CrewAssignment", new {id = x.CrewAssignment.Id}, new {@class = "end", data_id = x.Id});
+                                                          @meh
+			                                          }
+			                                          else
+			                                          {
+				                                          @Html.DisplayValueFor(_ => x.EndTime)
+			                                          }
+		                                      </text>)
+		      .TemplateColumnFor("Employees On Crew", x => @<text>
+			                                                   @if (Model.IsFinalizationView && x.CanSetEndTime)
+			                                                   {
+				                                                   @Html.Partial("_EndAssignment", ViewModelFactory.BuildWithOverrides<CrewAssignmentEnd>(new { Id = x.Id, EmployeesOnJob = x.EmployeesOnJob }))
+			                                                   }
+			                                                   else
+			                                                   {
+				                                                   @Html.DisplayValueFor(_ => x.EmployeesOnJob)
+			                                                   }
+														 </text>))
+    }
+}

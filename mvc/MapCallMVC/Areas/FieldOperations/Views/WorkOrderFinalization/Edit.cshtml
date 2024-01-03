@@ -1,0 +1,57 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization.EditWorkOrderFinalization
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/AssetTabs.js", ScriptLoadType.LoadFromPartial)
+@* NOTE: This needs to exist *outside of the tabs* otherwise this error will get missed
+    due to the tab-remembering feature. *@
+@if (Model.WorkOrder.HasRealSAPError)
+{
+    @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+    {
+        Message = Model.WorkOrder.SAPErrorCode,
+        NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Error
+    })
+}
+
+@if (Model.WorkOrder.SpecialInstructions != null)
+{
+    <h5>
+        @Html.DisplayLabelFor(x => x.WorkOrder.SpecialInstructions): 
+        <span style="color: red" id="WorkOrderSpecialInstructions">@Html.DisplayTextFor(m => m.WorkOrder.SpecialInstructions)</span>
+    </h5>
+}
+@(Html.Tabs()
+      .WithTab("Initial Information", "~/Areas/FieldOperations/Views/WorkOrder/_InitialDetails.cshtml", Model.WorkOrder)
+      .WithTab("Valve", "~/Areas/FieldOperations/Views/WorkOrder/_Valve.cshtml", Model.WorkOrder.Valve, isVisible: Model.WorkOrder.AssetType.Id == AssetType.Indices.VALVE)
+      .WithTab("Hydrant", "~/Areas/FieldOperations/Views/WorkOrder/_Hydrant.cshtml", Model.WorkOrder.Hydrant, isVisible: Model.WorkOrder.AssetType.Id == AssetType.Indices.HYDRANT)
+      .WithTab("Sewer Opening", "~/Areas/FieldOperations/Views/WorkOrder/_SewerOpening.cshtml", Model.WorkOrder.SewerOpening, isVisible: Model.WorkOrder.AssetType.Id == AssetType.Indices.SEWER_OPENING)
+      .WithTab("Service", "~/Areas/FieldOperations/Views/WorkOrder/_Service.cshtml", Model.WorkOrder.Service, isVisible: Model.WorkOrder.Service != null)
+      .WithTab("Materials", "~/Areas/FieldOperations/Views/MaterialUsed/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MaterialsUsed.Count)
+      .WithTab("Spoils", "~/Areas/FieldOperations/Views/Spoil/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Spoils.Count)
+      .WithTab("Markouts", "~/Areas/FieldOperations/Views/Markout/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Markouts.Count)
+      .WithTab("Markout Violations", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutViolations.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MarkoutViolations.Count)
+      .WithTab("Markout Damages", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutDamages.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MarkoutDamages.Count)
+      .WithTab("Restoration", "~/Areas/FieldOperations/Views/WorkOrder/_EditRestorations.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Restorations.Count)
+      .WithTab("Crew Assignments", "~/Areas/FieldOperations/Views/WorkOrder/_CrewAssignments.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.CrewAssignments.Count)
+      .WithTab("Traffic Control", "~/Areas/FieldOperations/Views/WorkOrder/_TrafficControl.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.TrafficControlTickets.Count)
+      .WithTab("Additional", "~/Areas/FieldOperations/Views/WorkOrder/_EditAdditional.cshtml", Model)
+      .WithTab("Sewer Overflows", "~/Areas/FieldOperations/Views/WorkOrder/_SewerOverflows.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.SewerOverflows.Count, tabHtmlAttributes: new { id = "WorkOrderSewerOverflowsTab" })
+      .WithTab("Account", "~/Areas/FieldOperations/Views/WorkOrder/_Account.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.DateCompleted.HasValue)
+      .WithTab("Street Opening Permit", "~/Areas/FieldOperations/Views/StreetOpeningPermit/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.StreetOpeningPermitRequired, itemCount: Model.WorkOrder.StreetOpeningPermits.Count)
+      .WithTab("Main Break", "~/Areas/FieldOperations/Views/MainBreak/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MainBreaks.Count, tabHtmlAttributes: new { id = "WorkOrderMainBreaksTab"})
+      .WithTab("Schedule Of Values", "~/Areas/FieldOperations/Views/WorkOrderScheduleOfValue/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.OperatingCenter.HasWorkOrderInvoicing, itemCount: Model.WorkOrder.WorkOrdersScheduleOfValues.Count)
+      .WithTab("Purchase Orders(PO)", "~/Areas/FieldOperations/Views/WorkOrder/_Requisitions.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Requisitions.Count)
+      .WithTab("Job Site Check Lists", "~/Areas/FieldOperations/Views/WorkOrder/_JobSiteCheckLists.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.JobSiteCheckLists.Count)
+      .WithTab("Job Observations", "~/Areas/FieldOperations/Views/WorkOrder/_JobObservations.cshtml", Model.WorkOrder)
+      .WithTab("Invoices", "~/Areas/FieldOperations/Views/WorkOrder/_Invoices.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Invoices.Count, isVisible: Model.WorkOrder.OperatingCenter.HasWorkOrderInvoicing)
+      .WithTab("Set Meter", "~/Areas/FieldOperations/Views/WorkOrder/_Meters.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.ServiceInstallations.Count, isVisible: Model.WorkOrder.IsNewServiceInstallation)
+      .WithDocuments(Model.WorkOrder)
+	)
+<br />
+
+@Html.Partial("_Finalize", Model)
+
+@if (Model.WorkOrder.CurrentCrew != null)
+{
+    <text>Back to</text>
+
+    @Html.ActionLink("Crew Assignments", "ShowCalendar", "CrewAssignment", new { area = "FieldOperations", Crew = Model.WorkOrder.CurrentCrew.Id, Date = DateTime.Now }, null)
+}

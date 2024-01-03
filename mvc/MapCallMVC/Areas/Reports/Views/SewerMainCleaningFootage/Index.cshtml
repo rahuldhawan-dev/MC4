@@ -1,0 +1,26 @@
+﻿@model IEnumerable<MapCall.Common.Model.ViewModels.SewerMainCleaningFootageReport>
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "results", style = "width:auto;" })
+      .WithCaption("Records found: " + Model.Count())
+      .ColumnFor(x => x.Year)
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.Town)
+      .ColumnFor(x => x.InspectionType)
+      .ColumnFor(x => x.Jan)
+      .ColumnFor(x => x.Feb)
+      .ColumnFor(x => x.Mar)
+      .ColumnFor(x => x.Apr)
+      .ColumnFor(x => x.May)
+      .ColumnFor(x => x.Jun)
+      .ColumnFor(x => x.Jul)
+      .ColumnFor(x => x.Aug)
+      .ColumnFor(x => x.Sep)
+      .ColumnFor(x => x.Oct)
+      .ColumnFor(x => x.Nov)
+      .ColumnFor(x => x.Dec)
+      .ColumnFor(x => x.Total)
+    )

@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchMaintenancePlan
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new { id = "maintenancePlanTable" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .ColumnFor(x => x.PlanNumber)
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+    .SortableColumnFor(x => x.Facility, "Facility.FacilityName")
+    .SortableColumnFor(x => x.Name, "Facility.FacilityName")
+    .SortableColumnFor(x => x.LocalTaskDescription)
+    .SortableColumnFor(x => x.PlanType, "TaskGroup.MaintenancePlanTaskType")
+    .SortableColumnFor(x => x.ProductionWorkOrderFrequency, "ProductionWorkOrderFrequency.SortOrder")
+    .SortableColumnFor(x => x.HasComplianceRequirement)
+    .ColumnFor(x => x.IsActive)
+    .SortableColumnFor(x => x.CountEquipmentMaintenancePlansByMaintenancePlan.AssetCount, "CountEquipmentMaintenancePlansByMaintenancePlan.AssetCount")
+    .WithPaginatedFooter()
+)

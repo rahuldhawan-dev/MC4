@@ -1,0 +1,9 @@
+﻿@model SearchFacilityKwhCost
+
+@(Html.TableFor(x => Model).WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Facility.OperatingCenter)
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.CostPerKwh)
+    .SortableColumnFor(x => x.StartDate)
+    .SortableColumnFor(x => x.EndDate))

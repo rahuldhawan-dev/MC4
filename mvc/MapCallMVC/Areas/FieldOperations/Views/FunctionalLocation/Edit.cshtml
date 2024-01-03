@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditFunctionalLocation
+           
+@using (Form.BeginForm("Update", "FunctionalLocation", "FieldOperations", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "FunctionalLocation", new { Model.Id })
+        </text>)
+    </div>
+}

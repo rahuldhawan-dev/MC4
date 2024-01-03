@@ -1,0 +1,17 @@
+﻿@model WorkOrder
+@{
+    ViewBag.Title = "Work Order - Planning - Details";
+}
+@section scripts {
+    @* This is here until we can figure out how to make the Google maps script load up async *@
+}
+
+@if (Model == null)
+{
+    <h3>WorkOrder does not exist for planning.</h3>
+}
+else
+{
+    <h3>Order Number: @Html.DisplayTextFor(m => m.Id)</h3>
+    @Html.Partial("_Tabs", Model)
+}

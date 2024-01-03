@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOneCallMarkoutAudit
+
+@using (Form.BeginForm("Index", "OneCallMarkoutAudit")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.DateTransmitted)
+        @Html.EditorFor(x => x.DateReceived)    
+        @Html.EditorFor(x => x.Success)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

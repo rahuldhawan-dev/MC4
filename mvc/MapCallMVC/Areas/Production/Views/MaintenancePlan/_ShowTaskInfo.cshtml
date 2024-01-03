@@ -1,0 +1,19 @@
+﻿@model MaintenancePlan
+
+<fieldset>
+    <legend>Task Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PlanType)
+        @Html.DisplayFor(x => x.TaskGroupCategory)
+        @Html.DisplayFor(x => x.TaskGroup)
+        @Html.DisplayFor(x => x.Resources)
+        @Html.DisplayFor(x => x.EstimatedHours)
+        @Html.DisplayFor(x => x.ContractorCost)
+        @Html.DisplayFor(x => x.SkillSet)
+        @Html.DisplayFor(x => x.LocalTaskDescription)
+        @Html.DisplayFor(x => x.TaskDescription)
+        @Html.DisplayForIfNotNullOrWhiteSpace(x => x.TaskDetailsSummary)
+        @Html.DisplayForIfNotNullOrWhiteSpace(x => x.TaskDetails)
+        @Html.DisplayForIfNotNullOrWhiteSpace(x => x.AdditionalTaskDetails)
+    </div>
+</fieldset>

@@ -1,0 +1,26 @@
+﻿@model WorkOrder
+@{
+    Requisition temp = null;
+}
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/Requisition/Index.js", ScriptLoadType.LoadFromPartial)
+
+@Ajax.ActionLink("Add Purchase Order", "New", "Requisition",
+    new { area = "FieldOperations", workOrderId = Model.Id },
+    new AjaxOptions { HttpMethod = "GET" },
+    new { data_ajax_table = "#requisitions-table", Class = "link-button" })
+
+<table id="requisitions-table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayLabelFor(_ => temp.RequisitionType)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.SAPRequisitionNumber)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var requisition in Model.Requisitions)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/Requisition/_ShowAjaxTableRow.cshtml", requisition)
+        }
+    </tbody>
+</table>

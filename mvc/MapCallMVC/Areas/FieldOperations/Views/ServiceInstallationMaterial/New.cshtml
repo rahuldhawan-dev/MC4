@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ServiceInstallationMaterialViewModel
+    
+@using (Form.BeginForm("Create", "ServiceInstallationMaterial"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

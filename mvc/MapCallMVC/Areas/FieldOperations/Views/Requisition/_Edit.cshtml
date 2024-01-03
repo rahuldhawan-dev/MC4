@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Requisitions.EditWorkOrderRequisition
+    
+@using (var f = Form.BeginAjaxForm("Update", "Requisition", new { id = Model.Id }))
+{
+    f.HtmlAttributes["title"] = "Edit Purchase Order";
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.RequisitionType)
+        @Html.EditorFor(x => x.SAPRequisitionNumber)
+        @Html.ButtonGroup(Control.SubmitButton("Save").WithId("save-requisition"))
+    </div>
+}

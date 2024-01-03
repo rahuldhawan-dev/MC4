@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Events.Models.ViewModels.CreateEventDocument
+@using (Form.BeginForm("Create", "EventDocument", "Events"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "EventDocument")
+                           </text>)
+    </div>
+}

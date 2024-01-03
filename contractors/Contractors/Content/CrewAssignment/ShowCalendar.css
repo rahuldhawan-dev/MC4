@@ -1,0 +1,51 @@
+﻿#assignments { margin: 6px; }
+
+#crewCalendar .ui-datepicker-inline 
+{
+    min-height:383px;
+    width:400px;
+    box-shadow: 0px 0px 0px 0px;
+    margin: 12px;
+    margin-top:15px;
+}
+#crewCalendar .ui-datepicker-calendar tbody td 
+{
+    height: 56px;
+}
+#crewCalendar .ui-datepicker-calendar tbody td a
+{
+    height:100%;
+}
+#crewCalendar .ui-datepicker-today a,
+.legend .legend-today {
+    border: dotted 2px #1C94C4;
+}
+
+#crewCalendar .ui-datepicker-other-month a {
+    background: #eaeaea;
+    color:#aaaaaa;
+}
+
+#crewCalendar .ui-state-default { background: white; }
+
+.field-validation-error { display:block;}
+
+.legend { padding: 0px 12px 12px 12px; margin:0px; }
+.legend label {
+    display:block;
+    margin-top:6px;
+    text-align:center;
+    font-weight:bold;
+    padding:6px;
+}
+.legend label:first-child { margin-top:-40px;}
+.legend .legend-selected-day {
+     border: 1px solid #448dae; background: #bcd6ed  50% 50% repeat-x; color: #026890;
+}
+.legend .legend-0-50,
+#crewCalendar .day-0-50 a { background: #bbe07e; color:Black; }
+
+.legend .legend-50-100,
+#crewCalendar .day-50-100 a { background: #fcf49a; color:Black; }
+.legend .legend-100,
+#crewCalendar .day-100 a { background: #ff8d90; color:white; }

@@ -1,0 +1,45 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels
+@model BaseJobSiteCheckListViewModel
+
+<div class="field-column fc200">
+	@Html.EditorFor(x => x.OperatingCenter)
+	@Html.EditorFor(x => x.CompetentEmployee)
+    @Html.EditorFor(x => x.HasExcavation)
+	@Html.EditorFor(x => x.CheckListDate)
+	@Html.EditorFor(x => x.Address)
+	@Html.EditorFor(x => x.Coordinate)
+	@if (Model is CreateJobSiteCheckList)
+	{
+		@* The Required validators do not work unless you specifically have
+			the inherited type. The html helpers don't seem to care about
+			inherited attributes when using the base type. *@
+		@Html.Partial("EditorPartials/_GeneralForCreation")
+	}
+	else
+	{
+		@Html.RenderEditorTemplate("Crew Members", @<text>
+                @Html.HiddenFor(x => x.HasCrewMembers)
+                @Html.Partial("DisplayPartials/_CrewMembers", Model.DisplayCrewMembers)
+                @Html.EditorWithoutWrapperFor(x => x.CrewMembers)
+             </text>)
+		
+		@Html.RenderEditorTemplate("Comments", @<text>
+			@Html.Partial("DisplayPartials/_Comments", Model.DisplayComments)
+			@Html.EditorWithoutWrapperFor(x => x.Comments)
+		</text>)
+	}
+    @Html.RenderEditorTemplate("SAP Work Order", @<text>
+        @Control.TextBoxFor(x => x.SAPWorkOrderId).With("style", "width:200px;")
+                                                     @Control.Hidden().WithId("by-sap-workorder-number-url").WithValue(Url.Action("FindBySAPWorkOrderNumber", "WorkOrder", new { area = "FieldOperations" }))
+                                                     @Control.Button("Populate Details").WithId("auto-populate-button")
+        @Html.ValidationMessageFor(x => x.SAPWorkOrderId)
+        <span id="auto-populate-message"></span>
+    </text>)
+	@Html.EditorFor(x => x.MapCallWorkOrder)
+
+	@if (Model is EditJobSiteCheckList)
+	{
+		@Html.Partial("EditorPartials/_Supervisor")
+	}
+
+</div>

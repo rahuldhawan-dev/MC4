@@ -1,0 +1,11 @@
+﻿@model TrainingRequirement
+           
+@(Html.TableFor(x => Model.TrainingModules, new { id = "trainingModulesTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrainingModule", new { x.Id}, null))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.TrainingModuleCategory)
+    .ColumnFor(x => x.TrainingModuleRecurrantType)
+    .ColumnFor(x => x.Title)
+    .ColumnFor(x => x.IsActive)
+)
+           

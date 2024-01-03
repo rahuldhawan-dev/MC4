@@ -1,0 +1,118 @@
+﻿/* ReSharper disable InvalidValue */
+
+#nav 
+{
+    position:relative;
+    padding: 0px;
+    width: 170px;
+    display:none;
+}
+
+#nav ul
+{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* hide the icon but keep the placement for top level nav that are actually links */
+#nav .linkOnly span.ui-icon { visibility:hidden !important; }
+
+#nav > div { border: none;margin: 0px; position:relative; }
+#nav > div > div.ui-accordion-header {
+    display:block;
+    border:none;
+    margin: 0px;
+    background:@menu-header-background-color;
+    border-radius: 0px;
+    min-height:32px; /*Changed to min-height to allow for menu items that wrap to a second line*/
+    line-height:20px;
+    font-weight:normal;
+    text-transform:uppercase;
+    font-size: 11px;
+}
+
+#nav .content {
+    background: @menu-section-background-color;
+    border-radius: 0px;
+}
+
+#menuScrollWrap { background:@menu-header-background-color; }
+
+/* DEFAULT STYLE */
+#nav .ui-state-default a, 
+#nav .ui-state-default a:link, 
+#nav .ui-state-default a:visited { color: @menu-header-default-color; text-decoration: none; }
+
+/* ACTIVE STYLE */
+#nav > div > div.ui-accordion-header.ui-state-active,
+#nav > div > div.ui-accordion-header.ui-state-hover {
+    background:@menu-header-active-background;
+}
+
+#nav > div > div.ui-accordion-header.ui-state-active a,
+#nav > div > div.ui-accordion-header.ui-state-hover a {
+    color: @menu-header-active-color !important;
+}
+
+/* jQuery TreeView CSS */
+
+.treeview ul {
+	margin-top: 4px;
+}
+
+.treeview .hitarea {
+	background:transparent url("Resources/Png?file=ui-icons_0078ae_256x240.png") no-repeat;
+	height: 16px;
+	width: 16px;
+	margin-left: -16px;
+	float: left;
+	cursor: pointer;
+}
+
+.treeview span.item {
+	padding-left: 16px;
+	margin-left:-16px;
+	margin-top:2px;
+	display:block;
+}
+
+.treeview li { 
+	margin: 0;
+	padding: 3px 0px 3px 16px;
+}
+
+.treeview li span { font-size:10px; }
+.treeview a.selected {	color:@menu-section-current-link-color !important;}
+
+.treeview a, .treeview span  
+{
+    display:block; 
+    margin-right:1px; /* Otherwise the focus outline will cause a scrollbar to appear */
+    color:@menu-section-link-color !important;
+    font-size:11px !important;  
+}
+
+.treeview .hover, .treeview a:hover 
+{
+    text-decoration:none !important; cursor: pointer; color:@menu-section-link-hover-color !important;
+}
+
+.treeview li.collapsable, .treeview li.expandable { background-position: 0 -176px; }
+
+.treeview .expandable-hitarea { background-position: -33px -17px; } 
+.treeview .collapsable-hitarea { background-position: -47px -17px; }
+
+.treeview li.last { background-position: 0 -1766px }
+.treeview li.lastCollapsable { background-position: 0 -111px }
+.treeview li.lastExpandable { background-position: -32px -67px }
+
+/* Custom Treeview add on stuff by Ross */
+.treeview .disabled { color:@menu-disabled-link-color; }
+.treeview li.expandable > span,
+.treeview li.collapsable > span,
+.treeview span a
+{ 
+    font-weight: bold; 
+}
+.treeview a { text-decoration:none; }

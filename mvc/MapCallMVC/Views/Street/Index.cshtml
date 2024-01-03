@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Models.ViewModels.Streets.SearchStreet
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Town.State)
+    .SortableColumnFor(x => x.Town.County)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.FullStName)
+    .SortableColumnFor(x => x.IsActive)
+    .WithPaginatedFooter())

@@ -1,0 +1,11 @@
+﻿@model PublicWaterSupply
+
+<fieldset>
+    <legend>Pending Merge</legend>
+    @(Html.TableFor(x => x.PendingMergerPublicWaterSupplies, new { id = "merge-table" })
+          .TemplateColumnFor("PWSID", x => @Html.ActionLink(x.ToString(), "Show", "PublicWaterSupply", new { id = x.Id }, null))
+          .ColumnFor(x => x.AnticipatedMergerDate)
+          .ColumnFor(x => x.AnticipatedActiveDate)
+          .ColumnFor(x => x.ValidFrom)
+          .ColumnFor(x => x.ValidTo))
+</fieldset>

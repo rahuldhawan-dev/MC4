@@ -1,0 +1,19 @@
+﻿@model TrafficControlTicket
+
+@(Html.TableFor(x => Model.RelatedSAPWorkOrderTickets, new { id = "relatedWorkOrderTicketsTbale" })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .ColumnFor(x => x.Id)
+        .TemplateColumnFor("MapCall Work Order", @<text>
+            @if (Model.WorkOrder != null)
+                                                           {
+                                                               @Control.ActionLink(Model.WorkOrder.ToString(), "Show", "WorkOrder", new { area = "FieldOperations", id = Model.WorkOrder.Id }, null)
+                                                           }
+        </text>)
+        .ColumnFor(x => x.SAPWorkOrderNumber)
+        .ColumnFor(x => x.OperatingCenter)
+        .ColumnFor(x => x.Town)
+        .ColumnFor(x => x.Street)
+        .ColumnFor(x => x.DateApproved)
+        .ColumnFor(x => x.HasInvoice)
+)
+

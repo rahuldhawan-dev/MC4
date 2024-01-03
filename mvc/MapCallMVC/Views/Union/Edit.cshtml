@@ -1,0 +1,12 @@
+﻿@model EditUnion
+
+@using (Form.BeginForm("Update", "Union", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "Union", new {Model.Id})
+                           </text>)
+    </div>
+}

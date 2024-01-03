@@ -1,0 +1,77 @@
+﻿@model MapCallMVC.Areas.SAP.Models.SearchSapFunctionalLocation
+
+@Html.ScriptFor("~/Scripts/Areas/SAP/SAPFunctionalLocation/Find.js")
+@using (Ajax.BeginForm("Find", "SAPFunctionalLocation", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id = "SAPFunctionalLocationForm", title = "Find SAPFunctionalLocation" }))
+{
+    <style type="text/css">
+        #DoSearch {
+            position: relative;
+            margin-left: 3px;
+            height: inherit !important;
+            min-height: 24px;
+        }
+
+        table.search, table.search td {
+            border: none 0px !important;
+            padding: 0px;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+            table.search td {
+                vertical-align: top;
+            }
+
+        .ui-button-icon-only .ui-icon {
+            top: -2px;
+            left: -1px;
+        }
+    </style>
+
+    <div style="width:1080px;">
+        <fieldset>
+            <div class="field-column fc200">
+                @Html.HiddenFor(x => x.SearchUrl)
+                @Html.EditorFor(x => x.PlanningPlant)
+                @Html.EditorFor(x => x.FunctionalLocation)
+                @Html.EditorFor(x => x.Description)
+                @Html.EditorFor(x => x.FunctionalLocationCategory)
+                @Html.EditorFor(x => x.SortField)
+                @Html.EditorFor(x => x.TechnicalObjectType)
+                @*@Html.EditorFor(x => x.FunctionalLocationClass)*@
+                <div class="field-pair">
+
+                    <div class="label"></div>
+                    <div class="field">
+                        <button type="submit" id="DoSAPFunctionalLocationSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="field-column fc100" style="height: 300px; overflow: auto;">
+            <table id="sapFunctionalLocationResults" style="width: 100%; cursor: pointer;">
+                <thead>
+                    <tr>
+                        <th>Functional Location</th>
+                        <th>Description</th>
+                        @*<th>Category</th>
+                        <th>Sort Field</th>
+                        <th>Technical Object Type</th>
+                        <th>Class</th>
+                        <th>Other</th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div style="margin-top: 6px;">
+            <input type="hidden" id="selectedSAPFunctionalLocation" />
+        </div>
+        <div class="editor-buttons">
+
+            @Control.Button("Select").WithId("selectSAPFunctionalLocation")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </div>
+    </div>
+}

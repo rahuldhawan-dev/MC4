@@ -1,0 +1,6 @@
+﻿@model string
+
+<div class="editor-buttons">
+    @Control.ValueButtonFor(x => x).WithName("Save").AsType(MMSINC.Helpers.ButtonType.Submit)
+    @Control.Button("Cancel").WithCssClass("cancel")
+</div>

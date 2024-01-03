@@ -1,0 +1,6 @@
+﻿@model EquipmentType
+
+@(Html.TableFor(_ => Model.EquipmentPurposes)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "EquipmentPurpose", new { x.Id }, null))
+      .ColumnFor(x => x.Abbreviation)
+      .ColumnFor(x => x.Description))

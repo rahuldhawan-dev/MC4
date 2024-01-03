@@ -1,0 +1,48 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderAdditionalFinalizationInfo
+
+@Html.ScriptFor("~/Scripts/AdditionalFinalizationInfo/Edit.js", ScriptLoadType.LoadFromPartial)
+@using (var f = Form.BeginAjaxForm("Update", "WorkOrderAdditionalFinalizationInfo", new { id = Model.Id }))
+{
+	f.HtmlAttributes["id"] = "WorkOrderAdditionalFinalizationInfoForm";
+	f.Ajax.OnSuccess = "AdditionalFinalizationInfoEdit.ajaxSuccess";
+	f.Ajax.OnFailure = "AdditionalFinalizationInfoEdit.ajaxFailure";
+
+    <div class="field-column fc200">
+        @Control.HiddenFor(m => m.Priority)
+        @Control.HiddenFor(m => m.HiddenDateCompleted)
+		@Control.HiddenFor(x => x.StreetOpeningPermitRequired)
+        @*@Html.Hidden("StreetOpeningPermitRequired", Model.StreetOpeningPermitRequired ? "true" : "false")*@
+        
+        @Html.DisplayFor(m => m.TotalManHours)
+        @Html.RenderDisplayTemplate("Work Description", @<text>
+                                                            @if (Model.WorkDescriptionEditable)
+															{
+                                                                @Html.EditorWithoutWrapperFor(m => m.WorkDescription)
+}
+															else
+															{
+                                                                @Html.DisplayValueFor(m => m.DisplayWorkOrder.WorkDescription)
+                                                                @Html.HiddenFor(m => m.WorkDescription)
+}
+                                                         </text>)
+        
+        @Html.EditorFor(m => m.DistanceFromCrossStreet)
+        @Html.EditorFor(m => m.LostWater)
+        <div class="editor-buttons">
+            @Html.Link("~/Content/Leakage Chart.pdf", "Leakage Chart")
+        </div>
+		@Html.RenderDisplayTemplate("Current Notes", @<pre class="scrollable">@Html.DisplayTextFor(m => m.Notes)</pre>)
+        @*<div class="field-pair">
+            <div class="label">Current Notes</div>
+            <div class="field">
+                <pre class="scrollable">@Html.DisplayTextFor(m => m.Notes)</pre>
+            </div>
+        </div>*@
+    
+        @Html.EditorFor(m => m.AppendNotes)
+    </div>
+
+    <div class="editor-buttons">
+        @Control.SubmitButton("Update").WithName("Update")
+    </div>
+}

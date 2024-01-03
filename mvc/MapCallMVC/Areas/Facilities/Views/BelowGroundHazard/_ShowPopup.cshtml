@@ -1,0 +1,13 @@
+﻿@model BelowGroundHazard
+
+<h2>
+	@Html.DefaultActionLink(string.Format("Below Ground Hazard: #{0}", Model.Id), "Show", "BelowGroundHazard", "Facilities", new { id = @Model.Id }, null)
+</h2>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.HazardType)
+    @Html.DisplayFor(x => x.DepthOfHazard)
+    @Html.DisplayFor(x => x.HazardArea)
+    @Html.DisplayFor(x => x.HazardApproachRecommendedType)
+    @Html.DisplayFor(x => x.AssetStatus)
+</div>

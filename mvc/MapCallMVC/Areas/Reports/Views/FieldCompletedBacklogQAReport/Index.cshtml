@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchFieldCompletedBacklogQAReport
+
+@{
+    ActionBarHelper.AddExportLink();
+    var ordered = Model.Results.OrderBy(x => x.OperatingCenter);
+}
+
+@(Html.TableFor(x => ordered)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.AwaitingApprovalOrdersWithMaterials)
+    .ColumnFor(x => x.AwaitingApprovalOrdersWithoutMaterials)
+    .ColumnFor(x => x.AwaitingApprovalTotalOrders)
+    .ColumnFor(x => x.AwaitingStockToIssue)
+)

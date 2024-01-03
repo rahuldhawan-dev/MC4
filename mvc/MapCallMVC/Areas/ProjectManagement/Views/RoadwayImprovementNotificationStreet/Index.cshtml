@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchRoadwayImprovementNotificationStreet
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new {id = "streetsTable"})
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink(x.RoadwayImprovementNotification.Description, "Show", "RoadwayImprovementNotificationStreet", new { x.RoadwayImprovementNotification.Id }, null))
+    .SortableColumnFor(x => x.RoadwayImprovementNotification.OperatingCenter, "RoadwayImprovementNotification.OperatingCenter")
+    .SortableColumnFor(x => x.RoadwayImprovementNotification.Town, "RoadwayImprovementNotification.Town")
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.StartPoint)
+    .SortableColumnFor(x => x.Terminus)
+    .SortableColumnFor(x => x.MainSize)
+    .SortableColumnFor(x => x.MainType)
+    .SortableColumnFor(x => x.RoadwayImprovementNotification.DateReceived, "RoadwayImprovementNotification.DateReceived")
+    .SortableColumnFor(x => x.RoadwayImprovementNotificationStreetStatus)
+    .SortableColumnFor(x => x.MainBreakActivity)
+    .SortableColumnFor(x => x.NumberOfServicesToBeReplaced)
+    .SortableColumnFor(x => x.MoratoriumEndDate)
+    .SortableColumnFor(x => x.OpenWorkOrders)
+    .ColumnFor(x => x.Notes)
+    .WithPaginatedFooter()
+)

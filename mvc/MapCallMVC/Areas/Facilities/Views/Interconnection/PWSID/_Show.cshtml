@@ -1,0 +1,26 @@
+﻿@model Interconnection
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+            <fieldset>
+                <legend>Supplying System - "Source"</legend>
+                <div class="field-column fc100">
+                    @Html.DisplayFor(x => x.InletPWSID.OperatingArea)
+                    @Html.DisplayFor(x => x.InletPWSID.Identifier)
+                </div>
+            </fieldset>
+    }
+
+    using (g.FlexBox())
+    {
+            <fieldset>
+                <legend>Receiving System - "Sink"</legend>
+                <div class="field-column fc100">
+                    @Html.DisplayFor(x => x.OutletPWSID.OperatingArea)
+                    @Html.DisplayFor(x => x.OutletPWSID.Identifier)
+                </div>
+            </fieldset>
+    }
+}

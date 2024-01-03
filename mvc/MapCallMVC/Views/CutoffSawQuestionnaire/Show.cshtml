@@ -1,0 +1,8 @@
+﻿@using MMSINC.Results
+@model CutoffSawQuestionnaire
+@{
+    ActionBarHelper.AddLink("PDF", "ab-export", "Show", "CutoffSawQuestionnaire", new { id = Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }, null);
+}
+@(Html.Tabs()
+    .WithTab("Cutoff Saw Questionnaire", "_ShowCutoffSawQuestionnaire", Model)
+    .WithNotesAndDocuments())

@@ -1,0 +1,69 @@
+﻿@using MapCall.SAP.Model.Entities
+@model MapCall.SAP.Model.Entities.SAPCustomerOrder
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.EquipText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.EquipmentID)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.FunctionalLocation)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.InstallationDate)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.HouseNumber)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Street)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Criticality)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.YearMFG)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Latitude)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Longitude)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Manufacturer)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.EquipmentLongText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.SafetyConcernDescr)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.NotificationNumber)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.NotificationShortText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.NotificationLongText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Priority)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.BackReportingType)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CreateTime)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CreateDate)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.AsFoundCode)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CurbBox_Longitude)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CurbBox_Latitude)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.WorkOrderNumber)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Status)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.WBSElement)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.PlanningPlant)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.WorkOrderText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.OperationText)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.Customer)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CustomerPhone)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CustomerAlternatePhone)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CustomerMailingAddress)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.CrossStreet)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.IsWorkRequired)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.NextReplacementYear)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.ServiceType)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.SerialNumber)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.MFGSerialNum)
+    @Html.DisplayFor(x => x.customerOrderWorkOrder.IsCustomerEnrolledForEmail)
+    
+    <fieldset>
+        <legend>Dependency Node</legend>
+        @(Html.TableFor(_ => Model.customerOrderWorkOrder.DependencyNodes)
+            .ColumnFor(z => z.CodeGroup)
+            .ColumnFor(z => z.Code)
+            .ColumnFor(z => z.CodeText)
+            .ColumnFor(z => z.DependencyText)
+            .ColumnFor(z => z.ValidDate)
+            .ColumnFor(z => z.ExpirationDate)
+            .ColumnFor(z => z.DependencyID)
+        )
+    </fieldset>
+
+    <fieldset>
+        <legend>Security Threat Nodes</legend>
+        @(Html.TableFor(_ => Model.customerOrderWorkOrder.SecurityThreatNodes)
+            .ColumnFor(z => z.Threat_Notif_No)
+            .ColumnFor(z => z.Address_security)
+            .ColumnFor(z => z.ISPendingInvestigation)
+            .ColumnFor(z => z.ISPoliceEscort)
+            .ColumnFor(z => z.CreationDate)
+            )
+    </fieldset>
+</div>

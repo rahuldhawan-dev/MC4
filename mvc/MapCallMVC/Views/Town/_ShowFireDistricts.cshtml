@@ -1,0 +1,37 @@
+﻿@model Town
+
+@(Html.TableFor(t => t.TownFireDistricts)
+      .TemplateColumnFor("", fd => Html.ActionLink("View", "Show", "FireDistrict", new {fd.FireDistrict.Id}, null))
+      .ColumnFor(fd => fd.State.Abbreviation, "State")
+      .ColumnFor(fd => fd.Town.ShortName, "Town")
+      .ColumnFor(fd => fd.FireDistrict.DistrictName, "Fire District Name")
+      .ColumnFor(fd => fd.FireDistrict.PremiseNumber, "Premise #")
+      .ColumnFor(fd => fd.IsDefault)
+      .TemplateColumnFor(fd => @<text>
+                                    @if (Html.CurrentUserCanEdit())
+                                    {
+                                        using (Form.BeginForm("Update", "FireDistrictTown", new {id = fd.Id}))
+                                        {
+                                            @Control.SubmitButton("Set Default")
+                                        }
+                                        using (Form.BeginForm("Destroy", "FireDistrictTown", new {id = fd.Id}))
+                                        {
+                                            @Control.SubmitButton("Remove")
+                                        }
+                                    }
+                                </text>))
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="container">
+        @using (Form.BeginForm("Create", "FireDistrictTown"))
+        {
+            <div class="field-column fc200">
+                <input type="hidden" name="TownId" value="@Model.Id"/>
+                @Control.DropDown("FireDistrict").WithItems(((IEnumerable<SelectListItem>)ViewData["FireDistrict"]))
+                Default: @Control.CheckBox("IsDefault")
+                @Control.SubmitButton("Add Fire District").WithId("addFireDistrictButton")
+            </div>
+        }        
+    </div>
+}

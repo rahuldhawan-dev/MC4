@@ -1,0 +1,16 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@model ProductionWorkOrder
+
+<div class="container">
+    
+    @if (Model.MaintenancePlan != null)
+    {
+        @(Html.TableFor(x => x.MaintenancePlan.Documents, new { id = "maintenancePlanDocuments", style = "width:100%;" })
+              .TemplateColumnFor("File Name", d => Html.SecureActionLink<User>(d.Document.FileName, "Download", "Document", new { d.Document.Id, area = "" }, new { }))
+              .ColumnFor(d => d.Document.CreatedAt)
+              .ColumnFor(d => d.DocumentType.Name, "Document Type")
+              .ColumnFor(d => d.UpdatedAt)
+              .ColumnFor(d => d.UpdatedBy))
+    }
+
+</div>

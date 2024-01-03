@@ -1,0 +1,37 @@
+﻿@model NewDocumentLink
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null; 
+}
+
+@Html.ScriptFor("~/Scripts/DocumentLink/New.js", ScriptLoadType.LoadFromPartial)
+
+<div class="field-column fc150">
+    @using (var f = Form.BeginAjaxForm("FindDocumentsByName", "Document"))
+    {
+        f.AddCssClass("not-ajax-tab-form");
+        f.Ajax.OnSuccess = "DocumentLinkNew.findDocumentsSuccess";
+        @Html.RenderEditorTemplate("Quick Search", @<div>
+                                                       <input type="text" name="docName" />
+                                                       @Control.HiddenFor(x => x.TableName)
+                                                       @Control.SubmitButton("List")
+                                                   </div>)
+    }      
+       
+    @using (var form = Form.BeginForm("Create", "DocumentLink")) {
+        // Using Update action to go with the index view that checks @Html.CurrentUserCanEdit
+ 
+        @Html.RenderEditorTemplate("Existing Documents", @<div>
+                <select id="documentIdSelect" name="DocumentId" data-val="true"
+                        data-val-number="The field DocumentId must be a number"
+                        data-val-required="Please use the quick search to find and select a document.">
+                </select>
+                <span class="field-validation-valid" data-valmsg-for="DocumentId"
+                      data-valmsg-replace="true"></span></div>)
+        @Html.EditorFor(m => m.DocumentType)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Link Document")
+                               @Control.Button("Cancel").WithId("btnCancelLinkDocument").WithCssClass("cancel")
+                           </text>)
+    }
+</div>

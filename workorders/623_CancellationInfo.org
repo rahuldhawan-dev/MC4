@@ -1,0 +1,26 @@
+* Fixed:
+
+| Page                                               | Link | Fix                                                            |
+| Reports/MainBreaksAndServiceLineRepairs            |      | WorkOrderRepository.GetIncompleteWorkOrderCountByDescription   |
+| Reports/MainBreaksAndServiceLineRepairsUnregulated |      | WorkOrderRepository.GetIncompleteWorkOrderCountByDescription   |
+| Reports/KPIReport                                  |      | WorkOrderRepository.GetIncompleteWorkOrderCountByCategory      |
+| Reports/KPIReportByHours                           |      | WorkOrderRepository.GetIncompleteOrderManHoursByCategory       |
+| Reports/IncompleteWorkOrders                       |      | WorkOrderRepository.GetIncompleteWorkOrdersByWorkDescriptionID |
+| Reports/HydrantReplacements                        |      | WorkOrderRepository.GetHydrantReplacementCounts                |
+| Reports/IncompleteLeaks                            |      | IncompleteLeaks#GetFilterExpression                            |
+| Reports/IncompleteWorkOrdersWithMaterials          |      | IncompleteWorkOrdersWithMaterials#GetFilterExpression          |
+| WorkOrders/PrePlanning                             |      | WorkOrderPrePlanningSearchView#GetBaseExpression               |
+| WorkOrders/MarkoutPlanning                         |      | WorkOrderMarkoutPlanningSearchView#GetBaseExpression           |
+| WorkOrders/Planning                                |      | WorkOrderPlanningSearchView#GetBaseExpression                  |
+| WorkOrders/Scheduling                              |      | WorkOrderSchedulingSearchView#GetBaseExpression                |
+| WorkOrders/RestorationProcessing                   |      | WorkOrderRestorationProcessingSearchView#GetBaseExpression     |
+| WorkOrders/SOPProcessing                           |      | WorkOrderSOPProcessingSearchView#GetBaseExpression             |
+| WorkOrders/StockToIssue                            |      | WorkOrderStockToIssueSearchView#GetBaseExpression              |
+| WorkOrders/Finalization                            |      | WorkOrderFinalizationSearchView#GetBaseExpression              |
+| WorkOrders/SupervisorApproval                      |      | WorkOrderSupervisorApprovalSearchView#GetBaseExpression        |
+
+* Gave Me Trouble:
+
+| Page                             | Link | Fix                                                        |
+| WorkOrders/RestorationProcessing |      | WorkOrderRestorationProcessingSearchView#GetBaseExpression |
+

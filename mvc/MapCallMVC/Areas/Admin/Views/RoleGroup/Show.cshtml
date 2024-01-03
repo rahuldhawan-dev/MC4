@@ -1,0 +1,15 @@
+﻿@model RoleGroup
+@{
+    var userCount = Model.Users.Count();
+    if (userCount > 0)
+    {
+        ActionBarHelper.DestroyConfirmationMessageOverride = "Are you sure you want to delete this role group? " +
+                                                             "You may be removing access to " + userCount + " users that currently have this role group. " + 
+                                                             "If a replacement role group will be assigned, be sure to assign that to each user before deleting this " + 
+                                                             "to prevent users from not having access.";
+    }
+}
+@(Html.Tabs()
+      .WithTab("Roles","_ShowRoles")
+      .WithTab("Users","_ShowUsers", itemCount: userCount)
+    )

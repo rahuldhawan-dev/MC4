@@ -1,0 +1,308 @@
+﻿@model RedTagPermit
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@helper YesOrNoText(bool? isChecked)
+{
+    if (isChecked.HasValue && isChecked.Value)
+    {
+        <text>Yes</text>
+    }
+    else
+    {
+        <text>No</text>
+    }
+}
+
+@section head {
+    <style type="text/css">
+        * {
+            font-family: Arial;
+            font-size: 18px;
+            line-height: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 30px;
+        }
+
+        thead tr, 
+        thead td {
+            border: none;
+        }
+
+        td {
+            padding: 10px;
+            margin: 25px;
+            border: 1px solid #d3d3d3;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        .logo-container {
+            text-align: right;
+        }
+
+            .logo-container img {
+                width: 150px;
+            }
+
+        .signature-box, 
+        .signature-box td {
+            border: none;
+        }
+
+            .signature-box div {
+                border-top: 1px solid black;
+                padding-top: 5px; 
+                margin-top: 5px;
+                font-weight: bold;
+            }
+
+        #precautions-taken tbody td:first-child {
+            text-align: center;
+        }
+
+
+    </style>
+}
+
+<!-- 
+    EvoPDF not so bright when it comes to table cell widths as either styles or css class names, so we 
+    need to pretend here with columns... so lets create a 10 cell grid  such that each cell represents 
+    10% of the table - as needed.
+-->
+
+@section body {
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    <h1>Red Tag Permit</h1>
+                </td>
+                <td class="logo-container">
+                    <img src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")" alt="American Water Logo" />
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.PersonResponsible)</strong>
+                    @Html.DisplayValueFor(x => x.PersonResponsible)
+                </td>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.ProductionWorkOrder)</strong>
+                    @Html.DisplayValueFor(x => x.ProductionWorkOrder.Id)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.CreatedAt)</strong>
+                    @Html.DisplayValueFor(x => x.CreatedAt)
+                </td>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.Facility)</strong>
+                    @Html.DisplayValueFor(x => x.Facility)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.OperatingCenter)</strong>
+                    @Html.DisplayValueFor(x => x.OperatingCenter)
+                </td>
+                <td>
+                    <strong>@Html.DisplayLabelFor(x => x.Equipment)</strong>
+                    @Html.DisplayValueFor(x => x.Equipment) @Html.DisplayValueFor(x => x.Equipment.Description)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <td colspan="10">
+                    <h2>Fire Protection Information</h2>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.ProtectionType)
+                </td>
+                <td colspan="6">@Html.DisplayValueFor(x => x.ProtectionType)</td>
+            </tr>
+            @if (!string.IsNullOrEmpty(Model.AdditionalInformationForProtectionType))
+            {
+                <tr>
+                    <td colspan="4">
+                        @Html.DisplayLabelFor(x => x.AdditionalInformationForProtectionType)
+                    </td>
+                    <td colspan="6">
+                        @Html.DisplayValueFor(x => x.AdditionalInformationForProtectionType)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.AreaProtected)
+                </td>
+                <td colspan="6">
+                    @Html.DisplayValueFor(x => x.AreaProtected)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <td colspan="10">
+                    <h2>Impairment Information</h2>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.ReasonForImpairment)
+                </td>
+                <td colspan="6">
+                    @Html.DisplayValueFor(x => x.ReasonForImpairment)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.NumberOfTurnsToClose)
+                </td>
+                <td colspan="6">
+                    @Html.DisplayValueFor(x => x.NumberOfTurnsToClose)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.PersonResponsible)
+                </td>
+                <td colspan="6">
+                    @Html.DisplayValueFor(x => x.PersonResponsible)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.DisplayLabelFor(x => x.FireProtectionEquipmentOperator)
+                </td>
+                <td colspan="6">
+                    @Html.DisplayValueFor(x => x.FireProtectionEquipmentOperator)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table id="precautions-taken">
+        <thead>
+            <tr>
+                <td colspan="10">
+                    <h2>Precautions Taken</h2>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@YesOrNoText(Model.EmergencyOrganizationNotified)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.EmergencyOrganizationNotified)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.PublicFireDepartmentNotified)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.PublicFireDepartmentNotified)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.HazardousOperationsStopped)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.HazardousOperationsStopped)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.HotWorkProhibited)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.HotWorkProhibited)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.SmokingProhibited)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.SmokingProhibited)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.ContinuousWorkAuthorized)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.ContinuousWorkAuthorized)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.OngoingPatrolOfArea)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.OngoingPatrolOfArea)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.HydrantConnectedToSprinkler)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.HydrantConnectedToSprinkler)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.PipePlugsOnHand)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.PipePlugsOnHand)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.FireHoseLaidOut)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.FireHoseLaidOut)</td>
+            </tr>
+            <tr>
+                <td>@YesOrNoText(Model.HasOtherPrecaution)</td>
+                <td colspan="9">@Html.DisplayLabelFor(x => x.HasOtherPrecaution)</td>
+            </tr>
+            @if (Model.HasOtherPrecaution.HasValue && Model.HasOtherPrecaution.Value)
+            {
+                <tr>
+                    <td></td>
+                    <td colspan="9">@Html.DisplayValueFor(x => x.OtherPrecautionDescription)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+            <tr>
+                <td colspan="2">
+                    <h2>Authorization</h2>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="signature-box">
+                <td>
+                    @Html.DisplayValueFor(x => x.AuthorizedBy)
+                    <div>
+                        @Html.DisplayLabelFor(x => x.AuthorizedBy)
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayValueFor(x => x.EquipmentImpairedOn)
+                    <div>
+                        @Html.DisplayLabelFor(x => x.EquipmentImpairedOn)
+                    </div>
+                </td>
+                @if (Model.EquipmentRestoredOn.HasValue)
+                { 
+                    <td>
+                        @Html.DisplayValueFor(x => x.EquipmentRestoredOn)
+                        <div>
+                            @Html.DisplayLabelFor(x => x.EquipmentRestoredOn)
+                        </div>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+}

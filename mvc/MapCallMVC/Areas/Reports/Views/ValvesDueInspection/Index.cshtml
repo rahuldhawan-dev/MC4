@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValvesDueInspectionReport
+           
+@(Html.TableFor(x => x, new {  id = "results", style="width:auto;"})
+    .ColumnFor(x => x.OperatingCenter)
+    .TemplateColumnFor("Town", x => Html.ActionLink(x.Town, "Index", "Valve", new { area = "FieldOperations", Town = x.TownId, OperatingCenter = x.OperatingCenterId, RequiresInspection="true"}, null))
+    .ColumnFor(x => x.Count)
+)

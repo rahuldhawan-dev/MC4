@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.AddWaterQualityComplaintSampleResult
+
+
+@using (var form = Form.BeginRouteForm("WaterQualityComplaint", "WaterQualityComplaintSampleResult", new {area = string.Empty}, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "otherCostForm");
+    
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.WaterConstituent)
+        @Html.EditorFor(x => x.SampleDate)
+        @Html.EditorFor(x => x.SampleValue)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.EditorFor(x => x.AnalysisPerformedBy)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Sample Result")
+            @Control.Button("Cancel").WithId("cancelAddSampleResultButton").WithCssClass("cancel")
+        </text>)
+    </div>
+} 

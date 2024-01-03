@@ -1,0 +1,75 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditProductionWorkOrder
+
+@Html.ScriptFor("~/Scripts/Areas/Production/ProductionWorkOrder/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Areas/Production/ProductionWorkOrder/Edit.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "ProductionWorkOrder", "Production", new { Model.Id }))
+{
+    @Control.Hidden("FacilityShowUrl").WithValue(Url.Action("Show", "Facility", new { area = "" }))
+    @Control.Hidden("EquipmentShowUrl").WithValue(Url.Action("Show", "Equipment", new { area = "" }))
+    @Control.Hidden("ProductionWorkDescriptionShowUrl").WithValue(Url.Action("Show", "ProductionWorkDescription", new { area = "Production" }))
+    @Control.Hidden("GetOperatingCenterIsSAPWorkOrdersEnabled").WithValue(Url.Action("IsSAPWorkOrdersEnabled", "OperatingCenter", new { area = string.Empty }))
+    @Control.Hidden("EquipmentCriticalNotesUrl").WithValue(Url.Action("GetCriticalNotes", "Equipment", new { area = "" }))
+    @Control.HiddenFor(x => x.SendToSAP)
+
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.PlanningPlant)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.FacilityFacilityArea)
+    @Html.EditorFor(x => x.EquipmentType)
+    @Html.EditorFor(x => x.Equipment)
+    @Html.EditorFor(x => x.Coordinate)
+
+    @if (Model.DisplayWorkOrder.OrderType.Id != (int)OrderType.Indices.ROUTINE_13)
+    {
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.ProductionWorkDescription)
+        @Html.EditorFor(x => x.OrderNotes)
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.DisplayWorkOrder.Priority)
+        @Html.RenderDisplayTemplate("Work Description", @<text>@Model.DisplayWorkOrder.ProductionWorkDescription</text>)
+        @Html.EditorFor(x => x.OrderNotes)
+        @Html.HiddenFor(x => x.Priority)
+        @Html.HiddenFor(x => x.ProductionWorkDescription)
+    }
+    @Html.EditorFor(x => x.CorrectiveOrderProblemCode)
+    @Html.EditorFor(x => x.OtherProblemNotes)
+    @if (Model.Status == WorkOrderStatus.Completed)
+    {
+        @Html.EditorFor(x => x.EstimatedCompletionHours, new { html = new { ReadOnly = "true" } })
+    }
+    else
+    {
+        @Html.EditorFor(x => x.EstimatedCompletionHours)
+    }
+    @Html.DisplayFor(x => x.StartDate)
+    @Html.DisplayFor(x => x.DueDate)
+
+    @Html.EditorFor(x => x.PlantMaintenanceActivityTypeOverride)
+    @Html.RenderDisplayTemplate("WBS Charged", @<text>
+        <div id="wbsElementLookupLink">
+            @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#wbsElementTable" })
+        </div>
+        @Html.EditorWithoutWrapperFor(x => x.WBSElement)
+    </text>)
+
+    @Html.EditorFor(x => x.RequestedBy)
+    @Html.EditorFor(x => x.Prerequisites)
+
+    <fieldset>
+        <legend>Status</legend>
+        @Html.HiddenFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.MaterialsApprovedOn)
+        @Html.EditorFor(x => x.ApprovedOn)
+        @Html.EditorFor(x => x.DateCancelled)
+        @Html.EditorFor(x => x.CancellationReason)
+    </fieldset>
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "ProductionWorkOrder", new { Model.Id })
+    </text>)
+</div>
+}

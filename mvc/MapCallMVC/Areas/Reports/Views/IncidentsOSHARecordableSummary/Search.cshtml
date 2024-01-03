@@ -1,0 +1,14 @@
+﻿@model SearchIncidentOSHARecordableSummary
+
+@using (Form.BeginForm("Index", "IncidentsOSHARecordableSummary", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.OperatingCenter, new { Container = @Model })
+        @Html.EditorFor(x => x.IncidentDate)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

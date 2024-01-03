@@ -1,0 +1,22 @@
+﻿@model SamplePlan
+
+@{ ActionBarHelper.AddPdfLink(); }
+
+<style>
+    div.body {
+        height: 92%;position: relative;
+    }
+    div.tabs-container {
+        height: 100%;
+    }
+    div#Map {
+        height: 100%
+    }
+</style>
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowSamplePlan", Model)
+    .WithAjaxTab("Sample Sites", "_SampleSites", Model)
+    .WithTab("Map", "_SampleSiteMap", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

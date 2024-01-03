@@ -1,0 +1,23 @@
+﻿@model SearchServicesInstalled
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@section styles { 
+    @Styles.Render("~/content/report.css")
+}
+
+@(Html.TableFor(x => Model, new { id="servicesInstalled"})
+    .WithCaption("Records found: " + Model.Count)
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.ServiceCategory, "ServiceCategory")
+    .SortableColumnFor(x => x.ServiceSize, "ServiceSize.Valve")
+    .SortableColumnFor(x => x.LengthOfService, "LengthOfService")
+    .SortableColumnFor(x => x.ServiceNumber, "ServiceNumber")
+    .SortableColumnFor(x => x.WorkIssuedTo, "Work Issued To", "WorkIssuedTo")
+    .ColumnFor(x => x.StreetAddress)
+    .SortableColumnFor(x => x.DateInstalled, "DateInstalled")
+    .ColumnFor(x => x.TaskNumber1)
+    .WithPaginatedFooter()
+)

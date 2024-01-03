@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ServiceMaterial>
+
+@(Html.TableFor(x => x, new { id = "service-materails-table" })
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "ServiceMaterial", new { id = x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.IsEditEnabled)
+    .ColumnFor(x => x.CompanyEPACode.Description, "Company EPA Code")
+    .ColumnFor(x => x.CustomerEPACode.Description, "Customer EPA Code")
+    .TemplateColumnFor("Is Overridden?", x => @<text>
+                                                 @(x.ServiceMaterialEPACodeOverrides.Any() ? "Yes" : "No")
+                                              </text>))

@@ -1,0 +1,10 @@
+﻿@using System.Web.Configuration
+@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.NearMiss
+
+<h2>Action Item Created</h2>
+<br />Action item created for Near Miss Record Id: <a href="@Model.RecordUrl">@Model.Id</a>
+<br />Action Item: @Model.ActionItems.Last().ActionItem.Note
+<br />Type: @Model.ActionItems.Last().ActionItem.Type
+<br />Not Listed Type: @Model.ActionItems.Last().ActionItem.NotListedType
+<br />Targeted Completion Date: @Model.ActionItems.Last().ActionItem.TargetedCompletionDate

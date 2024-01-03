@@ -1,0 +1,41 @@
+﻿@using MMSINC.ClassExtensions.EnumExtensions
+@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrder
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(_ => Model, new {id = "WorkOrderSearchResultsTable"})
+        .WithCaption("Records found: " + Model.Count)
+        .WithWorkOrderRowStyles()
+        .SortableTemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))
+        .SortableColumnFor(x => x.Facility)
+        .SortableColumnFor(x => x.FacilityFacilityArea.FacilityArea.Description, "Facility Area", "area.Description")
+        .SortableColumnFor(x => x.ProductionWorkDescription)
+        .SortableColumnFor(x => x.LocalTaskDescription)
+        .SortableColumnFor(x => x.DateReceived)
+        .SortableColumnFor(x => x.DaysOverdue)
+        .SortableColumnFor(x => x.Priority)
+        .SortableColumnFor(x => x.ProductionWorkDescription.OrderType, "ProductionWorkDescription.OrderType")
+        .TemplateColumnFor("Currently Assigned Employees", x => 
+            @<text>@string.Join(", ", x.CurrentAssignments.Select(y => y.AssignedTo.FullName))</text>)
+        .SortableColumnFor(x => x.DateCompleted)
+        .SortableColumnFor(x => x.CompletedBy)
+        .ColumnFor(x => x.EstimatedCompletionHours)
+        .ColumnFor(x => x.ActualCompletionHours)
+        .TemplateColumnFor("Notes", x =>
+            @<ul>
+                @Html.Raw(string.Join("", x.Notes.Select(n => "<li>" + n.Text + "</li>")))
+            </ul>)
+
+        .TemplateColumnFor("Prerequisites", x =>
+            @<text>@string.Join(", ", x.ProductionWorkOrderProductionPrerequisites.Select(y => y.ProductionPrerequisite))</text>)
+        .SortableColumnFor(x => x.EquipmentType)
+        .SortableColumnFor(x => x.Equipment.Description, "Equipment", "Equipment.Description")
+        .SortableColumnFor(x => x.OperatingCenter)
+        .SortableColumnFor(x => x.WBSElement)
+        .WithPaginatedFooter()
+    )

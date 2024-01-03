@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<gofigure>
+
+  <!-- In order for VirtualPathProvider to figure out what's an embedded resource
+       and what's an embedded directory, the directories need to be specified here.
+       Directories only need to be included if they actually have embedded resources.
+       If a folder just has control code(but no template) then there's no need. 
+       
+       Note that directory and file names ARE case sensitive when it comes to finding
+       each one's embedded name. 
+       -->
+  <virtualDirectories>
+    <dir name="App_Themes">
+      <dir name="bender" />
+    </dir>
+    <dir name="Resources">
+      <dir name="bender">
+        <dir name="images">
+          <dir name="NoticeBox" />
+        </dir>
+      </dir>
+      <dir name="Controls">
+        <dir name="Menu" />
+      </dir>
+      <dir name="images" />
+      <dir name="Masters" />
+      <dir name="scripts">
+        <dir name="css">
+          <dir name="start">
+            <dir name="images" />
+          </dir>
+        </dir>
+      </dir>
+      <dir name="NotificationTemplates">
+        <dir name="Field Services">
+          <dir name="Images" />
+          <dir name="Work Management" />
+        </dir>
+        <dir name="Human Resources">
+          <dir name="Employee" />
+        </dir>
+        <dir name="Operations">
+          <dir name="Health And Safety" />
+        </dir>
+      </dir>
+    </dir>
+  </virtualDirectories>
+</gofigure>

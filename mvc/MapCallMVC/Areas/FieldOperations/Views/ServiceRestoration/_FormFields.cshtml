@@ -1,0 +1,38 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ServiceRestorationViewModel
+
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.RestorationType)
+    @Html.EditorFor(x => x.EstimatedRestorationAmount)
+    @Html.EditorFor(x => x.EstimatedValue)
+    @Html.EditorFor(x => x.Cancel)
+    
+    <fieldset>
+        <legend>Partial Restoration</legend>
+        @Html.EditorFor(x => x.PartialRestorationInvoiceNumber)
+        @Html.EditorFor(x => x.PartialRestorationAmount)
+        @Html.EditorFor(x => x.PartialRestorationDate)
+        @Html.EditorFor(x => x.PartialRestorationCompletionBy)
+        @Html.EditorFor(x => x.PartialRestorationMethod)
+        @Html.EditorFor(x => x.PartialRestorationCost)
+        @Html.EditorFor(x => x.PartialRestorationTrafficControlHours)
+    </fieldset>
+    <fieldset>
+        <legend>Final Restoration</legend>
+        @Html.EditorFor(x => x.FinalRestorationInvoiceNumber)
+        @Html.EditorFor(x => x.FinalRestorationAmount)
+        @Html.EditorFor(x => x.FinalRestorationDate)
+        @Html.EditorFor(x => x.FinalRestorationCompletionBy)
+        @Html.EditorFor(x => x.FinalRestorationMethod)
+        @Html.EditorFor(x => x.FinalRestorationCost)
+        @Html.EditorFor(x => x.FinalRestorationTrafficControlHours)
+        @Html.EditorFor(x => x.PurchaseOrderNumber)
+    </fieldset>
+    <fieldset>
+        <legend>Approval / Rejection</legend>
+        @Html.DisplayFor(x => x.ApprovedBy)
+        @Html.EditorFor(x => x.ApprovedOn)
+        @Html.DisplayFor(x => x.RejectedBy)
+        @Html.EditorFor(x => x.RejectedOn)
+    </fieldset>
+    @Html.EditorFor(x => x.Notes)
+</div>

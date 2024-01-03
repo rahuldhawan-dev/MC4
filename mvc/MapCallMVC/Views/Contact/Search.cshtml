@@ -1,0 +1,16 @@
+﻿@model SearchContact
+
+@using (Form.BeginForm("Index", "Contact")) {
+    <fieldset class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.FirstName, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.LastName)
+        @Html.EditorFor(x => x.Email)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.County, new { Container = Model })
+        @Html.EditorFor(x => x.Town, new { Container = Model })
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </fieldset>
+}

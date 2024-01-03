@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchRestorationProcessing
+
+<div style="font-size: smaller">* Orders in light green are completed</div>
+@(Html.TableFor(x => x, new { id = "search-results" })
+    .WithCaption("Records found: " + Model.Count)
+    .WithWorkOrderRowStyles()
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Order Number", "Id")
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.ApartmentAddtl)
+    .SortableColumnFor(x => x.Street, "Street.FullStName")
+    .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+    .SortableColumnFor(x => x.Town, "Town.ShortName")
+    .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+    .SortableTemplateColumnFor("Description of Job (Hover for Notes)", "WorkDescription.Description", x => @<text>
+                                <div title="@x.Notes">@x.WorkDescription.Description</div>
+                             </text>)
+    .SortableColumnFor(x => x.CurrentCrew, "crewAliasSorting.Description")
+    .SortableColumnFor(x => x.DateCompleted)
+    .WithPaginatedFooter())

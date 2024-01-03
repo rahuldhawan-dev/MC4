@@ -1,0 +1,7 @@
+﻿@model Equipment
+
+@using (Form.BeginAjaxForm("Index", "SAPMaintenancePlan", new { area = "SAP", ext = "frag", SAPEquipmentID = Model.SAPEquipmentId.ToString(), ShowRemoveFromMaintenancePlan = true, Equipment = Model.SAPEquipmentId, MapCallEquipmentId = Model.Id }))
+{
+
+}
+

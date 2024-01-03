@@ -1,0 +1,16 @@
+﻿@model IEnumerable<MapCall.Common.Model.ViewModels.NotificationConfigurationSearchResultViewModel>
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(
+    Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Count())
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .ColumnFor(x => x.Id)
+        .ColumnFor(x => x.ContactName)
+        .ColumnFor(x => x.OperatingCenter)
+        .ColumnFor(x => x.Application)
+        .ColumnFor(x => x.Module)
+        .ColumnFor(x => x.Purpose)
+    )

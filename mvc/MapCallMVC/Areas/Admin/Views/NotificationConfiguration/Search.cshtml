@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Admin.Models.ViewModels.NotificationConfigurations.SearchNotificationConfigurationViewModel
+
+@using (Form.BeginForm("Index", "NotificationConfiguration"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.Contact)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Application)
+    @Html.EditorFor(x => x.Module)
+    @Html.EditorFor(x => x.NotificationPurposes)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

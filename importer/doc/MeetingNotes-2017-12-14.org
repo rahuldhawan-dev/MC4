@@ -1,0 +1,19 @@
+** functional locations need cleaning up
+
+** functional locations are passthrough lookup
+
+** functional locations are required?
+
+** functional location insertions may need to flag old FLs for deletion
+
+** need to batch update fields from mapcall to sap, via the scheduler
+*** specific use-case is functional location
+*** so data comes out of SAP, is imported into mapcall, gets changed somehow, and then re-exported to SAP
+
+** parent-child relationships for equipment
+*** one piece of equipment has many children, children get Functional Location from parent
+
+** production home page links need to go under production in the nav menu
+** other nav menu changes, blah blah
+
+** inventory number (identifier) will stay the same when an asset is replaced (will have new sap equipment id)

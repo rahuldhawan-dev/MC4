@@ -1,0 +1,146 @@
+﻿@using MapCallMVC.Controllers
+@model CreateIncident
+
+@Html.ScriptFor("~/Scripts/Incident/New.js", ScriptLoadType.LoadFromPartial)
+@{
+    // MC 2576: Certain fields are only viewable by userAdmin
+    var userRoles = RoleService.CurrentUserRoles.Where(x => x.Module.Id == (int)RoleModules.OperationsIncidentsDrugTesting && 
+                                                            (x.Action.Id == (int)RoleActions.Add || x.Action.Id == (int)RoleActions.UserAdministrator))
+                               .Select(x => x.OperatingCenter.Id).Distinct();
+    @Html.Hidden("drugTestingOperatingCenters", string.Join(",", userRoles))
+}
+
+    <fieldset>
+        <legend>Incident Data</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.Facility)
+            @Html.EditorFor(x => x.EmployeeType)
+            @Html.EditorFor(x => x.Employee)
+            @Html.EditorFor(x => x.ContractorName)
+            @Html.EditorFor(x => x.ContractorCompany)
+            @Html.EditorFor(x => x.IncidentDate)
+            @Html.EditorFor(x => x.IncidentReportedDate)
+            @Html.EditorFor(x => x.DateInvestigationWillBeCompleted)
+            @Html.EditorFor(x => x.IncidentShift)
+            @Html.EditorFor(x => x.IsOvertime)
+            @Html.EditorFor(x => x.NumberOfHoursOvertimeInPastWeek)
+            @Html.EditorFor(x => x.IncidentClassification)
+            @Html.EditorFor(x => x.IncidentType)
+            @Html.EditorFor(x => x.EventExposureType)
+            @Html.EditorFor(x => x.IncidentSummary)
+            @Html.EditorFor(x => x.AnyImmediateCorrectiveActionsApplied)
+            @Html.EditorFor(x => x.IsInLitigation)
+            @Html.EditorFor(x => x.IsOSHARecordable)
+            @Html.EditorFor(x => x.IsSafetyCodeViolation)
+            @Html.EditorFor(x => x.IsChargeableMotorVehicleAccident)
+            @Html.EditorFor(x => x.Vehicle)
+            @Html.EditorFor(x => x.CaseNumber)
+            @Html.EditorFor(x => x.CaseManager)
+            @Html.EditorFor(x => x.Claimant)
+            @Html.EditorFor(x => x.MarkoutNumber)
+            @Html.EditorFor(x => x.PremiseNumber)
+            @Html.EditorFor(x => x.MapCallWorkOrder)
+            @Html.EditorFor(x => x.AtRiskBehaviorSection)
+            @Html.EditorFor(x => x.AtRiskBehaviorSubSection)
+        </div>
+    </fieldset>
+
+<fieldset>
+    <legend>Incident Data</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.AccidentState)
+        @Html.EditorFor(x => x.AccidentCounty)
+        @Html.EditorFor(x => x.AccidentTown)
+        @Html.EditorFor(x => x.AccidentStreetNumber)
+        @Html.EditorFor(x => x.AccidentStreetName)
+        @Html.EditorFor(x => x.AccidentCoordinate)
+        @Html.EditorFor(x => x.PoliceReportFiled)
+        @Html.EditorFor(x => x.WitnessName)
+        @Html.EditorFor(x => x.WitnessPhone)
+        @Html.EditorFor(x => x.QuestionEmployeeDoingBeforeIncidentOccurred)
+        @Html.EditorFor(x => x.QuestionWhatHappened)
+        @Html.EditorFor(x => x.QuestionInjuryOrIllness)
+        @Html.EditorFor(x => x.BodyParts)
+        @Html.EditorFor(x => x.QuestionWhatObjectOrSubstanceDirectlyHarmedEmployee)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Prior Injuries</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionHaveHadSimilarInjuryBefore)
+        @Html.EditorFor(x => x.PriorInjuryDate)
+        @Html.EditorFor(x => x.NatureOfPriorInjury)
+        @Html.EditorFor(x => x.PriorInjuryMedicalProvider)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Activities</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionParticipatedInAthleticActivitiesInLastTwelveMonths)
+        @Html.EditorFor(x => x.AthleticActivitiesInLastTwelveMonths)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Other Employers</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionHaveJobOutsideOfAmericanWater)
+        @Html.EditorFor(x => x.OtherEmployers)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Initial Evaluation by Nurse</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EmployeeSpokeWithNurse)
+        @Html.EditorFor(x => x.IncidentNurseRecommendationType)
+        @Html.EditorFor(x => x.RecommendedMedicalProvider, new { @class = "recommended-medical-provider" })
+        @Html.EditorFor(x => x.NonMedicalTreatmentRecommendation, new { @class = "non-medical-treatment-recommendation" })
+        @Html.EditorFor(x => x.EmployeeAcceptedRecommendationByNurse)
+        @Html.EditorFor(x => x.NursePhone)
+        @Html.EditorFor(x => x.ReasonEmployeeDidNotAcceptRecommendationByNurse)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Medical</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.SoughtMedicalAttention)
+        @Html.EditorFor(x => x.MedicalProviderName)
+        @Html.EditorFor(x => x.MedicalProviderPhone)
+        @Html.EditorFor(x => x.MedicalProviderState)
+        @Html.EditorFor(x => x.MedicalProviderCounty)
+        @Html.EditorFor(x => x.MedicalProviderTown)
+    </div>
+</fieldset>
+
+<fieldset class="drugalcohol-fieldset">
+    <legend>Drug and Alcohol Testing</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.DrugAndAlcoholTestingDecision)
+        @Html.EditorFor(x => x.DrugAndAlcoholTestingResult)
+        @Html.EditorFor(x => x.DrugAndAlcoholTestingNotes)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Incident Committee Report</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.IncidentCommitteeReportCompletionDate)
+        @Html.EditorFor(x => x.IncidentCommitteeReportResults)
+        @*   @Html.EditorFor(x => x.FiveWhysCompleted)  *@
+        @Html.EditorFor(x => x.SeriousInjuryOrFatalityType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Insurance Carrier</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.WorkersCompensationClaimStatus)
+        @Html.EditorFor(x => x.ClaimsCarrierId)
+        @Html.EditorFor(x => x.TravelersReport)
+    </div>
+</fieldset>

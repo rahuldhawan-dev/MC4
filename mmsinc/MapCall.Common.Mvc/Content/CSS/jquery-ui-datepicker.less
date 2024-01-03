@@ -1,0 +1,165 @@
+﻿/*
+ * jQuery UI Datepicker 1.8.7
+ *
+ * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { 
+   display: none;
+   width: @datepicker-width;
+   box-shadow:@datepicker-shadow;
+   border: @datepicker-border;
+   background: @datepicker-background-color;
+}
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { left:2px; }
+.ui-datepicker .ui-datepicker-next { right:2px; }
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -6px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%; padding:3px; }
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0;  }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
+.ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi { width:auto; }
+.ui-datepicker-multi .ui-datepicker-group { float:left; }
+.ui-datepicker-multi .ui-datepicker-group table { width:95%; margin:0 auto .4em; }
+.ui-datepicker-multi-2 .ui-datepicker-group { width:50%; }
+.ui-datepicker-multi-3 .ui-datepicker-group { width:33.3%; }
+.ui-datepicker-multi-4 .ui-datepicker-group { width:25%; }
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
+.ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
+.ui-datepicker-row-break { clear:both; width:100%; }
+
+
+
+#ui-datepicker-div {
+    z-index: 100000 !important; /* jQuery forces this to 2 which isn't very helpful. */
+}
+
+.ui-datepicker .ui-widget-header {
+    border: 1px solid #ffffff; 
+    background:@datepicker-header-background; 
+    color: @datepicker-header-color; 
+    font-weight: bold;
+}
+
+/* The calendar image is put inside a button, so we need to remove the usual bender stylings.  */
+.ui-datepicker-trigger, .date-picker-trigger,
+.ui-datepicker-trigger:hover, .date-picker-trigger:hover, 
+.ui-datepicker-trigger:focus, .date-picker-trigger:focus  
+{
+    height:24px;
+    width:24px;
+    padding:0px; 
+    margin:0px;
+    position:relative; 
+    border:none; 
+    background:transparent url('Resources/Png?file=date-time-picker-calendar.png') center center;
+    background-repeat: no-repeat;
+}
+
+
+.date-picker-trigger {
+    -moz-transition: box-shadow 100ms;
+    -o-transition: box-shadow 100ms;
+    -webkit-transition: box-shadow 100ms;
+    transition: box-shadow 100ms;
+}
+
+/* this is kind of a test to do stuff for material design */
+.date-picker-trigger:hover {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* IE8 buttons that have background images end up with the image shifting slightly when 
+   you mousedown on it. */
+.ie8 .date-picker-trigger:active {
+    /* This has to be pixel perfect, sadly.
+       The background is set to center center, so if the button's width or 
+        height changes, this will need to be adjusted. Do this with dotLess.
+    */
+    -ms-background-position-x: 1px;
+	-ms-background-position-y: 2px;
+}
+
+.ui-datepicker select  
+{
+    margin:0px; 
+    padding:0px;
+    border:none;
+}
+
+.ui-datepicker-calendar {
+    border: @datepicker-calendar-border;
+
+    td {
+        /* This kills the alternating table row css as well as the hover effect. */
+        background:@datepicker-default-day-background !important;
+
+        a { text-align:center; border-radius:1px;}
+        a.ui-state-default { font-weight: normal; color: @datepicker-default-day-color; }
+        a.ui-state-hover {
+             background: @datepicker-hovered-anchor-background-color !important; 
+             color: @datepicker-hovered-anchor-text-color !important; 
+        }
+    }
+    
+    thead th,
+    thead th *,
+    thead th:hover * {
+        /* Negate any thead hovering. */
+        color: inherit !important;
+        background-color:transparent !important;
+    }
+
+    .ui-icon, .ui-timepicker-div .ui-slider-handle { cursor:pointer; }
+
+    td.ui-datepicker-today a { 
+        background: @datepicker-today-anchor-background-color; 
+    }
+    td.ui-datepicker-current-day a { 
+        background: @datepicker-current-day-anchor-background-color;
+        color: @datepicker-current-day-anchor-text-color; 
+    }
+    td.ui-datepicker-unselectable {
+         background: @datepicker-unselectable-date-background-color; 
+         color: @datepicker-unselectable-date-color;
+    }
+}
+
+/* This is for fixing the ugliness of the timepicker html */
+.ui-datepicker-buttonpane {
+    clear: both;
+}
+
+.ui-timepicker-div dt {
+    float: left;
+    clear: both;
+    width: 50px;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+.ui-timepicker-div dd {
+    margin: 0px;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 6px;
+    float: left;
+}

@@ -1,0 +1,6 @@
+﻿@model WaterConstituent
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowWaterConstituent", Model)
+    .WithTab("State Limits", "_StateLimits", Model)
+    .WithNotesAndDocuments())

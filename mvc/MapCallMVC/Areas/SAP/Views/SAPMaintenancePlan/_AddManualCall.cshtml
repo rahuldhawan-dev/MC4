@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.SAP.Models.ViewModels.SAPManualCall
+
+@using (var form = Form.BeginForm("SapManualCall", "SAPMaintenancePlan", new { Model.MaintenancePlan }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.MaintenancePackage)
+        @Html.EditorFor(x => x.ManualCallDate)
+        @Control.SubmitButton("Add Call")
+    </div>
+}

@@ -1,0 +1,48 @@
+﻿@using MapCall.Common.Model.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServiceQAReport
+
+@{
+    var filtered = Model.Results.Where(x => !x.IsRenewal && !x.IsTapImageReport);
+}
+
+@helper GetPercentage(ServiceQualityAssuranceReportItem item, int val)
+{
+    var perc = (decimal)val / item.Total;
+    <text>@string.Format("{0:P0}", perc)</text>
+}
+
+<table>
+
+    @foreach (var opcGroup in filtered.GroupBy(x => x.OperatingCenter.ToString()).OrderBy(x => x.Key))
+    {
+        <tr>
+            <td style="font-weight:bold;">@opcGroup.Key</td>
+            <td style="font-weight:bold;">@opcGroup.Sum(x => x.Total)</td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        foreach (var cat in opcGroup.OrderBy(x => x.Category.Description))
+        {
+            <tr>
+                <td style="font-weight:bold;">@cat.Category</td>
+                <td style="font-weight:bold;">@cat.Total</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Customer Side Material Unknown</td>
+                <td>@cat.CustomerSideMaterialUnknown</td>
+                <td>Percent Unknown</td>
+                <td>@GetPercentage(cat, cat.CustomerSideMaterialUnknown)</td>
+            </tr>
+            <tr>
+                <td>Service Material Unknown</td>
+                <td>@cat.ServiceMaterialUnknown</td>
+                <td>Percent Unknown</td>
+                <td>@GetPercentage(cat, cat.ServiceMaterialUnknown)</td>
+            </tr>
+        }
+    }
+
+</table>

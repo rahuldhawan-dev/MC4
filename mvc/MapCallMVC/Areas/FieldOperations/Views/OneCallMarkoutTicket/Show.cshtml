@@ -1,0 +1,18 @@
+﻿@model OneCallMarkoutTicket
+
+@section styles {
+    <style>
+        .monospaced {
+        	font-family: "Courier New", Courier, monospace;
+            font-size: .9em;
+            line-height: .99em;
+            border: 1px dashed darkgray;
+            padding: 3px;
+	        }
+    </style>
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowOneCallMarkoutTicket", Model)
+    .WithTab("Responses", "_ShowOneCallMarkoutResponses", Model)
+    .WithNotesAndDocuments())

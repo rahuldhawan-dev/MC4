@@ -1,0 +1,34 @@
+﻿@model MostRecentlyInstalledService
+
+<div class="field-column fc100">
+    <h2>
+        @Html.ActionLink(
+            "Service: " + Model.Service.ServiceNumber,
+            "Show",
+            "Service",
+            new { id = Model.Service.Id, area = "FieldOperations" },
+            new { target = "_blank" })
+    </h2>
+    <h2>
+        @Html.ActionLink(
+            "Premise: " + Model.Premise.PremiseNumber,
+            "Show",
+            "Premise",
+            new { id = Model.Premise.Id, area = "Customer" },
+            new { target = "_blank" })
+    </h2>
+    @Html.DisplayFor(x => x.Service.OperatingCenter)
+    @Html.DisplayFor(x => x.Service.Town)
+    @Html.DisplayFor(x => x.Service.StreetNumber)
+    @Html.DisplayFor(x => x.Service.Street)
+    @Html.DisplayFor(x => x.Service.Installation)
+    @Html.DisplayFor(x => x.Service.ServiceSize)
+    @Html.DisplayFor(x => x.Service.ServiceMaterial)
+    @Html.DisplayFor(x => x.Service.CustomerSideSize)
+    @Html.DisplayFor(x => x.CustomerSideMaterial)
+    @Html.DisplayFor(x => x.DateInstalled)
+    @Html.DisplayFor(x => x.UpdatedAt)
+    @Html.DisplayFor(x => x.Service.ServiceType)
+    @Html.DisplayFor(x => x.Service.ServiceCategory)
+    @Html.DisplayFor(x => x.Service.ServiceInstallationPurpose)
+</div>

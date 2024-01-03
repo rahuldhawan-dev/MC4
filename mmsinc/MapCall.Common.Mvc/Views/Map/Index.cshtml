@@ -1,0 +1,28 @@
+﻿@using MMSINC.ClassExtensions
+@model MapCall.Common.Model.ViewModels.MapView
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.Title = "Map";
+    DocumentClasses.Add("mapsPage");
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Content/JS/Map.Index.js")
+    @{
+        const string scriptFile = "Map-Index.js";
+        var scriptPath = string.IsNullOrWhiteSpace(Model.AreaName)
+            ? string.Format("~/Scripts/{0}/{1}", Model.ControllerName, scriptFile)
+            : string.Format("~/Scripts/Areas/{0}/{1}/{2}", Model.AreaName, Model.ControllerName, scriptFile);
+        var absolutePath = HttpContext.Current.Server.MapPath(scriptPath);
+        if (File.Exists(absolutePath))
+        {
+            @Html.ScriptFor(scriptPath);
+        }
+    }
+    <script type="text/javascript">
+        $(document).ready(function() {
+            Maps.init(@Html.Raw(Json.Encode(Model.MapConfiguration)));
+        });
+    </script>
+}
+

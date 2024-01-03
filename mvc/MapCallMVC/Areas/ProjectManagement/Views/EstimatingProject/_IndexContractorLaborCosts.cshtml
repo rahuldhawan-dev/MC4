@@ -1,0 +1,41 @@
+﻿@using MapCallMVC.Areas.ProjectManagement.Models.ViewModels
+@model EstimatingProject
+
+@{
+    var table = Html.TableFor(_ => Model.ContractorLaborCosts, new {id = "contractorLaborCostsTable", style = "width: 100%"})
+        .WithCaption(String.Format("Total Contractor Labor Cost: {0:c}", Model.TotalContractorLaborCost))
+        .ColumnFor(x => x.Quantity)
+        .ColumnFor(x => x.ContractorLaborCost.Description)
+        .ColumnFor(x => x.AssetType)
+        .ColumnFor(x => x.ContractorLaborCost.Unit)
+        .ColumnFor(x => x.ContractorLaborCost.Cost)
+        .ColumnFor(x => x.ContractorOverrideLaborCost.Cost, "Override Cost")
+        .ColumnFor(x => x.TotalCost);
+            
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EstimatingProjectContractorLaborCost", new { x.Id }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove Contractor Labor Cost").WithName("EstimatingProjectContractorLaborCostId").WithValue(x.Id));
+    }
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Contractor Labor Cost">
+        @Html.Partial("_AddContractorLaborCost", ViewModelFactory.Build<AddEstimatingProjectContractorLaborCost, EstimatingProject>(Model))
+    </div>
+    
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectContractorLaborCost", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteCompanyLaborCostForm");
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

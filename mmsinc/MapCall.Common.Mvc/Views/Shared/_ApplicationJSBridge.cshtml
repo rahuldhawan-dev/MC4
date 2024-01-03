@@ -1,0 +1,26 @@
+﻿<script type="text/javascript">
+
+    @helper  IconUrl(string imageFile) {
+        @Url.Content(string.Format("~/Resources/Png/?file=Icons/{0}.png", imageFile));
+    }
+
+    @{
+        var rd = ViewContext.RouteData;
+	}
+
+    Application.routeData = {
+        action: '@rd.Values["action"]',
+        controller: '@rd.Values["controller"]',
+        area: '@rd.DataTokens["area"]'
+    };
+
+    Application.iconUrls = {
+        error: '@IconUrl("error-icon")',
+        success: '@IconUrl("success-icon")',
+        warning: '@IconUrl("notification-icon")'
+    };
+
+    @if (MMSINC.MvcApplication.IsInTestMode) { // Don't waste bandwidth adding this line outside of regression tests.
+        <text>Application.isInTestMode = true;</text>
+    }
+</script>

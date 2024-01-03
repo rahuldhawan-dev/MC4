@@ -1,0 +1,21 @@
+﻿@using MMSINC.Utilities
+@model ProductionWorkOrder
+
+@{
+    var table = Html.TableFor(x => x.LockoutForms, new {id="lockoutFormsTable"})
+                    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "LockoutForm", new {id = x.Id, area = "HealthAndSafety"}, null))
+                    .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "LockoutForm", new {id = x.Id, area = "HealthAndSafety"}, null))
+                    .ColumnFor(x => x.OperatingCenter)
+                    .ColumnFor(x => x.Facility)
+                    .ColumnFor(x => x.Equipment)
+                    .ColumnFor(x => x.LockoutReason)
+                    .ColumnFor(x => x.IsolationPoint)
+                    .ColumnFor(x => x.LockoutDevice)
+                    .TemplateColumnFor("OUT OF SERVICE DATE TIME", x => @<text>@string.Format(CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE, x.OutOfServiceDateTime)</text>)
+                    .TemplateColumnFor("RETURNED TO SERVICE DATE TIME", x => @<text>@string.Format(CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE, x.ReturnedToServiceDateTime)</text>);
+
+}
+
+@Html.AuthorizedActionLinkButton("New Lockout Form", "NewFromProductionWorkOrder", "LockoutForm", new { id = Model.Id, area = "HealthAndSafety" }, new { Class = "link-button" })
+
+@table

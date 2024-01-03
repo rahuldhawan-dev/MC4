@@ -1,0 +1,25 @@
+﻿@model Town
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(x => x.Gradients, new { id = "gradients-table" })
+        .ColumnFor(x => x.Description);
+
+    if (userCanEdit)
+    {
+        table.TemplateColumnFor(x => @<text>
+                                         @using(Form.BeginRouteForm("Town", "Gradient", new{ Model.Id, Gradient = x.Id }, ManyToManyRouteAction.Remove))
+                                         {
+                                             @Control.SubmitButton("Remove").WithId("removeGradient").With("onclick", "return confirm('Are you sure you want to remove " + x.Description + "?');")
+                                         }
+                                      </text>);
+    }
+
+}
+
+@if (userCanEdit)
+{
+    @Html.Partial("_AddGradients", ViewModelFactory.BuildWithOverrides<AddTownGradient>(new { Id = Model.Id }))
+}
+
+@table

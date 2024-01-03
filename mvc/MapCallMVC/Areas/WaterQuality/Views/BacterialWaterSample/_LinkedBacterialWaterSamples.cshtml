@@ -1,0 +1,14 @@
+﻿@model IEnumerable<BacterialWaterSample>
+           
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id}))
+    .ColumnFor(x => x.BacterialSampleType)
+    .ColumnFor(x => x.SampleCollectionDTM)
+    .ColumnFor(x => x.Cl2Free)
+    .ColumnFor(x => x.Cl2Total)
+    .ColumnFor(x => x.Nitrite)
+    .ColumnFor(x => x.Nitrate)
+    .ColumnFor(x => x.FreeAmmonia)
+    .ColumnFor(x => x.ColiformConfirm)
+    .ColumnFor(x => x.EColiConfirm)
+)

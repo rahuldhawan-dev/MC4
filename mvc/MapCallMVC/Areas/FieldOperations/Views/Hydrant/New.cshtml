@@ -1,0 +1,91 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateHydrant
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Hydrant/Form.js")
+}
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "Hydrant", "FieldOperations"))
+{
+    <fieldset>
+        <legend>Details</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.State)
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.WaterSystem)
+            @Html.EditorFor(x => x.Town)
+            @Html.EditorFor(x => x.TownSection)
+            @Html.EditorFor(x => x.Facility)
+            @Html.RenderDisplayTemplate("Hydrant Prefix",
+            @<text>
+                 <span id="HydrantPrefix"></span> @* This is set via ajax in a cascading-sorta-way. *@
+                @Control.Hidden("HydrantPrefixServiceUrl").WithValue(Url.Action("GetHydrantPrefix"))
+            </text>)
+            @Html.EditorFor(x => x.IsFoundHydrant)
+            @Html.EditorFor(x => x.HydrantSuffix)
+            @Html.EditorFor(x => x.LegacyId)
+            @Html.EditorFor(x => x.Critical)
+            @Html.EditorFor(x => x.CriticalNotes)
+            @Html.EditorFor(x => x.Zone)
+            @Html.EditorFor(x => x.PaintingZone)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Location Information</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.HydrantBilling)
+            @Html.EditorFor(x => x.FireDistrict)
+            @Html.EditorFor(x => x.StreetNumber)
+            @Html.EditorFor(x => x.Street)
+            @Html.EditorFor(x => x.CrossStreet)
+            @Html.EditorFor(x => x.Coordinate)
+            @Html.EditorFor(x => x.Route)
+            @Html.EditorFor(x => x.Stop)
+            @Html.EditorFor(x => x.MapPage)
+            @Html.EditorFor(x => x.Location)
+            @Html.EditorFor(x => x.ValveLocation)
+            @Html.EditorFor(x => x.Gradient)
+            @Html.EditorFor(x => x.Elevation)
+            @Html.EditorFor(x => x.IsDeadEndMain)
+        </div>
+    </fieldset>
+
+
+    <fieldset>
+        <legend>Specifications</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.HydrantSize)
+            @Html.EditorFor(x => x.HydrantManufacturer)
+            @Html.EditorFor(x => x.HydrantModel)
+            @Html.EditorFor(x => x.YearManufactured)
+            @Html.EditorFor(x => x.OpenDirection)
+            @Html.EditorFor(x => x.HydrantMainSize)
+            @Html.EditorFor(x => x.MainType)
+            @Html.EditorFor(x => x.LateralSize)
+            @Html.EditorFor(x => x.LateralValve)
+            @Html.EditorFor(x => x.WorkOrderNumber)
+            @Html.EditorFor(x => x.BranchLengthFeet)
+            @Html.EditorFor(x => x.BranchLengthInches)
+            @Html.EditorFor(x => x.HydrantThreadType)
+            @Html.EditorFor(x => x.HydrantOutletConfiguration)
+            @Html.EditorFor(x => x.DepthBuryFeet)
+            @Html.EditorFor(x => x.DepthBuryInches)
+            @Html.EditorFor(x => x.HydrantType)
+            @Html.EditorFor(x => x.IsNonBPUKPI)
+            @Html.EditorFor(x => x.BillingDate)
+            @Html.EditorFor(x => x.DateInstalled)
+            @Html.EditorFor(x => x.DateRetired)
+            @Html.EditorFor(x => x.Status)
+            @Html.EditorFor(x => x.HydrantTagStatus)
+            @Html.EditorFor(x => x.GISUID)
+            @Html.EditorFor(x => x.FunctionalLocation)
+        </div>
+    </fieldset>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "Hydrant")
+    </text>)
+}

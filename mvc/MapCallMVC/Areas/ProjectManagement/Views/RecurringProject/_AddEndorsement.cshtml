@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddRecurringProjectEndorsement
+
+@using (var form = Form.BeginRouteForm("RecurringProject", "RecurringProjectEndorsement", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "endorsementForm");
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.EndorsementStatus)
+        @Html.EditorFor(x => x.Comment)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Endorse")
+                              @Control.Button("Cancel").WithId("cancelAddEndorsement").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

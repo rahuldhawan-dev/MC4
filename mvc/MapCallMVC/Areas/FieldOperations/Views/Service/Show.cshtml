@@ -1,0 +1,20 @@
+﻿@model Service
+
+@{
+    ActionBarHelper.AddPdfLink();
+    var tabs = Html.Tabs()
+                   .WithTab("Details", "_ShowService", Model)
+                   .WithTab("Renewals", "_Renewals", Model, itemCount: Model.Renewals.Count())
+                   .WithTab("Restorations", "_Restorations", Model, itemCount: Model.Restorations.Count)
+                   .WithTab("WorkOrders", "_WorkOrders", Model, itemCount: Model.WorkOrdersForDisplay.Count(), isVisible: Model.OperatingCenter.WorkOrdersEnabled)
+                   .WithTab("Tap Images", "_TapImages", Model, itemCount: Model.TapImages.Count)
+                   .WithTab("Related Images", "_RelatedImages", Model, itemCount: Model.RelatedTapImages.Count)
+                   .WithTab("Customer Issues", "_ServiceLineProtectionInvestigations", Model, itemCount: Model.ServiceLineProtectionInvestigations.Count, isVisible: Model.ServiceLineProtectionInvestigations.Any())
+                   .WithTab("Sample Site", "_SampleSite", Model, isVisible: Model.Premise != null && Model.Premise.SampleSite != null)
+                   .WithTab("Account Contacts", "_PremiseContacts", Model, itemCount: Model.PremiseContacts.Count)
+                   .WithTab("Water Quality Samples", "_Flushes", Model, itemCount: Model.Flushes.Count)
+                   .WithNotesAndDocuments()
+                   .WithLog();
+}
+
+@tabs

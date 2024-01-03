@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateAsBuiltImage
+
+@using (Form.BeginForm("Create", "AsBuiltImage", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.FileUpload)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

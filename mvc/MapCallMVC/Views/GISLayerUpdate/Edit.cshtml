@@ -1,0 +1,12 @@
+﻿@model EditGISLayerUpdate
+
+@using (Form.BeginForm("Update", "GISLayerUpdate", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "GISLayerUpdate", new {Model.Id})
+                           </text>)
+    </div>
+}

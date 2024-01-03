@@ -1,0 +1,29 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.Authentication
+@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Utilities
+@model SystemDeliveryEntry
+
+@{
+    var adjustments = Model.Adjustments.OrderBy(y => y.SystemDeliveryFacilityEntry.Facility.Id).ThenBy(y => y.AdjustedDate);
+    var table = Html.TableFor(x => adjustments, new { id = "system-delivery-entry-reversals-table" });
+    var authServ = _container.GetInstance<IAuthenticationService<User>>();
+    var currentUser = authServ.CurrentUser;
+}
+
+@if (SystemDeliveryEntryHelpers.IsSystemDeliveryEntryReversable(_container.GetInstance<IDateTimeProvider>().GetCurrentDate(), Model.WeekOf, currentUser))
+{
+    var model = ViewModelFactory.Build<AddSystemDeliveryEquipmentEntryReversal, SystemDeliveryEntry>(Model);
+    <div class="collapse-panel" data-title="Make Adjustment">
+        @Html.Partial("_AddReversals", model)
+    </div>
+}
+
+@(table.ColumnFor(x => x.Facility.OperatingCenter)
+       .ColumnFor(x => x.Facility)
+       .ColumnFor(x => x.EnteredBy)
+       .ColumnFor(x => x.DateTimeEntered)
+       .ColumnFor(x => x.AdjustedDate, "Date For Adjustment")
+       .ColumnFor(x => x.OriginalEntryValue)
+       .ColumnFor(x => x.AdjustedEntryValue, "Updated Value")
+       .ColumnFor(x => x.Comment) ) 

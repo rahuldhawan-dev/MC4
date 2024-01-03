@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="system.web.extensions" type="System.Web.Configuration.SystemWebExtensionsSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <sectionGroup name="scripting" type="System.Web.Configuration.ScriptingSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <sectionGroup name="webServices" type="System.Web.Configuration.ScriptingWebServicesSectionGroup, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        </sectionGroup>
+      </sectionGroup>
+    </sectionGroup>
+    <section name="roleManager" type="MMSINC.Utilities.Permissions.RoleManagerConfiguration" />
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" requirePermission="false" />
+  </configSections>
+
+  <configProtectedData>
+    <providers>
+      <remove name="customProvider"/>
+      <add name="customProvider"
+           type="System.Configuration.RsaProtectedConfigurationProvider, System.Configuration, Version=2.0.0.0,Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+           keyContainerName="mcDevKeys"
+           useMachineContainer="true" />
+    </providers>
+  </configProtectedData>
+
+  <appSettings configProtectionProvider="customProvider">
+    <EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element"
+      xmlns="http://www.w3.org/2001/04/xmlenc#">
+      <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc" />
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#">
+          <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p" />
+          <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <KeyName>Rsa Key</KeyName>
+          </KeyInfo>
+          <CipherData>
+            <CipherValue>sVj5TYGlBMnYN0vIKXTjYYPHjUquxl3uyXPhVGb19rL2sk0mn4kd26VFzCVmtB7JrXeMRgjT12WsifLp08j8cwsAcbT5+6RV5pP8jfa2dipWohJ7YZfrEpigXs1bvB1f05gdYmzO5g2DFgOP0HGThBBRMrF91PtBN/b+iBuBq6I=</CipherValue>
+          </CipherData>
+        </EncryptedKey>
+      </KeyInfo>
+      <CipherData>
+        <CipherValue>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</CipherValue>
+      </CipherData>
+    </EncryptedData>
+  </appSettings>
+
+  <roleManager connectionStringName="MCProd" />
+
+  <connectionStrings configProtectionProvider="customProvider">
+    <EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element"
+      xmlns="http://www.w3.org/2001/04/xmlenc#">
+      <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc" />
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#">
+          <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p" />
+          <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <KeyName>Rsa Key</KeyName>
+          </KeyInfo>
+          <CipherData>
+            <CipherValue>B+XeK0tSPkeRe34WCmxh2fKPosmsXhs2OVt52b9R9ydOR8qdG4/mRsm9A+fM+2PNL8xFITr0sF3xln2tNtCBuZis8k9cfTtCTd8l85KY961RysaerkyPVQX/h2zKtW9Wphf0ZAntXg+cvCLihOsgX9MNcidt7M9nvXPRQ1rcVWw=</CipherValue>
+          </CipherData>
+        </EncryptedKey>
+      </KeyInfo>
+      <CipherData>
+        <CipherValue>KRkDTJtk7dayVcL30OVVsqwJglxu2wH40PULpEaktrwRoprjBEdDkomk1lh6SLNRRgKciYwBV9VUEraUZGzl2tM2pWrxDFS5JrlNJD1zLwCKhQZFCpu+UOZpyNAIhRXba2lPeHxi1T77Pp5AQEldmvQxGTQ54sSY9j5Wc4pGkzHklQseHa0u8x75ckL34OMGFPJUUeaGMmRQAne/0GGWyn+1/8pM/j8dEBp3P8l1+JRHK+jHBHAIwGcdjK7+zH7MWg3sggC5D+xO94N8luIZm95R/xLR2epZz7Ml40kSU1PE0RXhYve+hqiTJYaNpybOF8JOJD3YVPraI/3hhniYJe6dSv1M727PtS6B0jr1X34XkJuLn+Ry3BbyIAw+A1uzgKBbc5mtMhpoD6fD+u04pkeqLwyJyDxDcE66rcst2L+6rcIh6lREKsiszjyozBZ4Sx+IoPaiKt87HJtqKwFBIrYProcZJQBkIZlUQIv0QsPkLpQDu6D8khaXyvo46utupfgjaleKWxjGHtTpxQBs7l7WAaYoazvWZqdXULSio5ZJRFqrizZkdAqPz969yhjYBlAJ14Xr3JOfuJp9hHvYmH2iG/NwIQNOmw/kgnCGptKX3K1bYZSel/tunE6KhLjKZq9ZdJp5w1yA9e7++tP76afUnEsVBsI1brahnfaG94Li17HclxcaKnfwqi2anwHbvrMTI0LQPaCNYslRvJRRaWJPFB/WKT0kz13c+sBtF3we1ZyhyT97myzOgnDcGW9YOV7NnbtWEaM3566Ay+8IfcZXjucWcKG9Ka+c2GX4+SV0OSzVFm+mqdS8Vgy4fvwCV1zmvZEkoPzLzKKtTU7vlhTF0QpP9/ws/CC4Aiq1ZXUT9Qx7/6yc8zAm6ALd1tLJSkq1kJp1PUDs67D9mvC9girHc4zOgoTlEiti2onShQ902hnMykbntpkGknMpEEWeXKHfP34Z45vNz0ZxgPnKw8UZetFwFxgdnM39apWU3zRsGCbCE/1sbrZis78K2gT/</CipherValue>
+      </CipherData>
+    </EncryptedData>
+  </connectionStrings>
+
+  <system.net>
+    <mailSettings>
+      <smtp deliveryMethod="Network" from="noreply@mapcall.com">
+        <network host="mail.amwater.net" port="25" />
+      </smtp>
+    </mailSettings>
+  </system.net>
+
+  <system.web>
+    <machineKey validationKey="C2C3C8C63108F971D295D1EB569C94E416E81DFE4512728ECAF18057017D3FF275CFFD337C0545B177411E68E7A7A4D24D34F0AEB51C5F35238737DF53FE538D" decryptionKey="900203A9092F28E8A248542CEE2E1E8CBB06AB42BF374DB7CDE30E4019C6C98E" validation="SHA1" decryption="AES"></machineKey>
+    <anonymousIdentification enabled="false" />
+    <authentication mode="Forms">
+      <!-- timeout is set to 24 hours. AuthenticationService will time it out after two hours though. 
+           AuthenticationService handles slidingexpiration. -->
+      <forms timeout="1440" slidingExpiration="false" cookieless="UseCookies"></forms>
+    </authentication>
+    <authorization>
+      <deny users="?" />
+      <allow users="*" />
+    </authorization>
+    <webServices>
+      <protocols>
+        <add name="HttpGet" />
+      </protocols>
+    </webServices>
+    <compilation debug="true" batch="false">
+      <buildProviders>
+        <add extension=".rdlc" type="Microsoft.Reporting.RdlBuildProvider, Microsoft.ReportViewer.Common, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </buildProviders>
+    </compilation>
+    <customErrors mode="RemoteOnly" defaultRedirect="public/exceptionhandler.aspx">
+      <error statusCode="404" redirect="public/NotFound.aspx" />
+    </customErrors>
+    <hostingEnvironment shadowCopyBinAssemblies="false" />
+    <httpRuntime maxRequestLength="151200" executionTimeout="1440" enable="true" requestValidationMode="2.0" maxQueryStringLength="9999" />
+    <httpHandlers>
+      <remove path="*.asmx" verb="*" />
+      <add path="*.asmx" verb="*" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" validate="false" />
+      <add path="*_AppService.axd" verb="*" type="System.Web.Script.Services.ScriptHandlerFactory, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" validate="false" />
+      <add path="ScriptResource.axd" verb="GET,HEAD" type="System.Web.Handlers.ScriptResourceHandler, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" validate="false" />
+      <add path="Reserved.ReportViewerWebControl.axd" verb="*" type="Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" validate="false" />
+      <add verb="*" path="*.css" type="System.Web.StaticFileHandler" />
+      <add verb="*" path="*.ico" type="System.Web.StaticFileHandler" />
+      <add verb="*" path="*.js" type="System.Web.StaticFileHandler" />
+      <add verb="*" path="*.png" type="System.Web.StaticFileHandler" />
+      <add verb="*" path="*.gif" type="System.Web.StaticFileHandler" />
+    </httpHandlers>
+    <httpModules>
+      <add name="ErrorModule" type="MMSINC.Utilities.ErrorHandling.ErrorModule" />
+      <add name="ScriptModule" type="System.Web.Handlers.ScriptModule, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    </httpModules>
+    <membership>
+      <providers>
+        <clear />
+        <add name="AspNetSqlMembershipProvider" type="System.Web.Security.SqlMembershipProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" connectionStringName="ProductionSqlServer" applicationName="/MapCall" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="true" requiresUniqueEmail="false" passwordFormat="Hashed" maxInvalidPasswordAttempts="15" minRequiredPasswordLength="3" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="15" passwordStrengthRegularExpression="" />
+        <add name="AspNetSqlMembershipProviderNoQuestion" type="System.Web.Security.SqlMembershipProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" connectionStringName="ProductionSqlServer" applicationName="/MapCall" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="false" passwordFormat="Hashed" maxInvalidPasswordAttempts="15" minRequiredPasswordLength="3" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="15" passwordStrengthRegularExpression="" />
+      </providers>
+    </membership>
+    <roleManager enabled="true">
+      <providers>
+        <clear />
+        <add connectionStringName="ProductionSqlServer" applicationName="/MapCall" name="AspNetSqlRoleProvider" type="System.Web.Security.SqlRoleProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <add applicationName="/MapCall" name="AspNetWindowsTokenRoleProvider" type="System.Web.Security.WindowsTokenRoleProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </providers>
+    </roleManager>
+    <!-- Pages - Makes all the pages inherit this stuff. -->
+    <!-- The viewStateEncryptionMode=Never is specifically for debug mode only. It should be encrypted on .info and .net. -->
+    <pages enableEventValidation="true" viewStateEncryptionMode="Never">
+      <controls>
+        <add tagPrefix="asp" namespace="System.Web.UI" assembly="System.Web.Extensions" />
+        <add tagPrefix="mmsi" src="~/Controls/Data/DataField.ascx" tagName="DataField" />
+        <add tagPrefix="rsweb" namespace="Microsoft.Reporting.WebForms" assembly="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral" />
+        <add tagPrefix="cc1" namespace="AjaxControlToolkit" assembly="AjaxControlToolkit" />
+      </controls>
+    </pages>
+    <sessionState timeout="120"></sessionState>
+  </system.web>
+
+  <system.web.extensions>
+    <scripting>
+      <webServices>
+        <jsonSerialization maxJsonLength="128000000" />
+      </webServices>
+    </scripting>
+  </system.web.extensions>
+  <location path="proxies">
+    <system.web>
+      <httpHandlers>
+        <add verb="*" path="ESRIProxy.ashx" type="MapCall.Common.Utility.Proxies.ESRIProxy, MapCall.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" validate="false" />
+      </httpHandlers>
+    </system.web>
+  </location>
+  <location path="resources">
+    <system.web>
+      <httpHandlers>
+        <add verb="*" path="*.css" type="MapCall.Common.Web.ResourceHandler, MapCall.Common.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        <add verb="*" path="*.ico" type="MapCall.Common.Web.ResourceHandler, MapCall.Common.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        <add verb="*" path="*.png" type="MapCall.Common.Web.ResourceHandler, MapCall.Common.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        <add verb="*" path="*.gif" type="MapCall.Common.Web.ResourceHandler, MapCall.Common.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+        <add verb="*" path="*.js" type="MapCall.Common.Web.ResourceHandler, MapCall.Common.WebForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+      </httpHandlers>
+    </system.web>
+  </location>
+  <!-- why would this even be authenticated? -->
+  <location path="favicon.ico">
+    <system.web>
+      <authorization>
+        <allow users="?" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="resources/bender">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="resources/scripts">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="resources/images/favicon.ico">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="images">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="includes">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="app_themes">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="crossdomain.xml">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="OAuth2Consume.aspx">
+    <system.web>
+      <authorization>
+        <allow users="?" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="Impersonate.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" ></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="robots.txt">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="Environmental">
+    <system.web>
+      <authorization>
+        <allow users="*"></allow>
+      </authorization>
+    </system.web>
+  </location>
+  <location path="ActiveReports">
+    <system.web>
+      <authorization>
+        <deny users="?" />
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="Reports/Forms">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="Public">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="modules/api">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path="public/MMSIWebServices">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+      <pages enableEventValidation="true">
+        <tagMapping>
+          <clear />
+        </tagMapping>
+      </pages>
+    </system.web>
+  </location>
+  <system.webServer>
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="154857640" maxQueryString="9999" />
+      </requestFiltering>
+    </security>
+    <modules runAllManagedModulesForAllRequests="true" />
+    <handlers>
+      <remove name="ESRIProxy" />
+      <remove name="MapCall ResourceHandler ICO" />
+      <remove name="MapCall ResourceHandler PNG" />
+      <remove name="MapCall ResourceHandler GIF" />
+      <remove name="MapCall ResourceHandler JS" />
+      <remove name="MapCall ResourceHandler CSS" />
+      <remove name="ASP.Net-ISAPI-Wildcard" />
+      <add name="ESRIProxy" path="/proxies/ESRIProxy.ashx" verb="*" type="MapCall.Common.Utility.Proxies.ESRIProxy, MapCall.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" resourceType="Unspecified" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_isapi.dll" requireAccess="Script" />
+      <add name="MapCall ResourceHandler ICO" path="*.ico" verb="*" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+      <add name="MapCall ResourceHandler PNG" path="*.png" verb="*" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+      <add name="MapCall ResourceHandler GIF" path="*.gif" verb="*" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+      <add name="MapCall ResourceHandler JS" path="*.js" verb="*" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+      <add name="MapCall ResourceHandler CSS" path="*.css" verb="*" modules="IsapiModule" scriptProcessor="C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+      <add name="ASP.Net-ISAPI-Wildcard" path="*" verb="*" type="" modules="IsapiModule" scriptProcessor="c:\Windows\Microsoft.Net\Framework64\v4.0.30319\aspnet_isapi.dll" resourceType="Unspecified" requireAccess="None" allowPathInfo="false" preCondition="classicMode,runtimeVersionv4.0,bitness64" />
+    </handlers>
+    <staticContent>
+      <remove fileExtension=".v1" />
+      <mimeMap fileExtension=".v1" mimeType="application/octet-stream" />
+    </staticContent>
+    <defaultDocument>
+      <files>
+        <add value="login.aspx" />
+      </files>
+    </defaultDocument>
+  </system.webServer>
+  
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="log4net" publicKeyToken="669e0ddf0bb1aa2a" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.0.8.0" newVersion="2.0.8.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
+  <log4net>
+    <appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %level %logger - %message%newline" />
+      </layout>
+    </appender>
+    
+    <logger name="NHibernate">
+      <level value="FATAL" />
+    </logger>
+    
+    <root>
+      <level value="INFO" />
+      <appender-ref ref="ConsoleAppender" />
+    </root>
+  </log4net>
+</configuration>

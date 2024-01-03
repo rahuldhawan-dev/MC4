@@ -1,0 +1,8 @@
+﻿@model MainCrossing 
+    
+@(Html.TableFor(x => x.Valves)
+      .TemplateColumnFor("Valve", x => Html.ActionLink(x.Id.ToString(), "Show", "Valve", new { id = x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.ValveSize)
+      .ColumnFor(x => x.LastInspectionDate)
+      .ColumnFor(x => x.Description)
+)

@@ -1,0 +1,59 @@
+﻿@using MapCall.Common.Model.Repositories
+@model Equipment
+
+@{
+    var generatorView = (Model.Generator != null) ? "~/Views/Generator/_ShowGenerator.cshtml" : "_CreateGenerator";
+    var generatorModel = (Model.Generator != null) ? (object)Model.Generator : (object)Model;
+    var redTagPermitTabIsVisible = (Model.EquipmentType != null && Model.EquipmentType.IsEligibleForRedTagPermit);
+
+    var isWellTestsTabVisible = (Model.EquipmentType != null && Model.EquipmentType.Id == EquipmentType.Indices.WELL);
+
+    if (!Model.HasNoSAPEquipmentId && Model.OperatingCenter.CanSyncWithSAP)
+    {
+        ActionBarHelper.AddAuthorizedLink("Replace", "ab-replace", "Replace", "Equipment", new {Model.Id}, null);
+    }
+    if (Model.CanBeCopied)
+    {
+        ActionBarHelper.AddCopyButton();
+    }
+}
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+
+@{
+    var filterIsSelected = Model.EquipmentPurpose.EquipmentLifespan != null ? Model.EquipmentPurpose.EquipmentLifespan.Id.Equals(EquipmentLifespan.Indices.FILTER) : false;
+    var tabs = Html.Tabs()
+        .WithTab("Equipment", "_ShowEquipment", Model)
+        .WithTab("Attributes", "_ShowCharacteristics", Model)
+        .WithTab("Risk Characteristics", "_RiskCharacteristics", Model)
+        .WithAjaxTab("Linked Equipment", "_ShowLinkedEquipment", Model, isVisible: (bool)ViewData["HasLinkedEquipment"])
+        .WithTab("Generator", generatorView, generatorModel, Model.IsGenerator)
+        .WithTab("Work Orders", "_WorkOrders", isVisible: Model.WorkOrderAccessible)
+        .WithAjaxTab("Production Work Orders", "_ShowProductionWorkOrders", updateTargetId: "productionWorkOrderTablePartial")
+        .WithTab("Maintenance Plans", "_MaintenancePlans", Model)
+        .WithTab("Red Tag Permits", "_RedTagPermits", isVisible: redTagPermitTabIsVisible)
+        .WithAjaxTab("Facility Maintenance Plans", "_ShowMaintenancePlanByFacility", Model)
+        .WithTab("Measurement Points", "_MeasurementPoints", Model)
+        .WithAjaxTab("EQ Maintenance Plans", "_MaintenancePlansEquipment", Model)
+        .WithAjaxTab("FL Maintenance Plans", "_MaintenancePlansFunctionalLocation", Model)
+        .WithTab("Well Test Results", "_WellTests", Model, isVisible: isWellTestsTabVisible);
+
+    if (Model.ScadaTagName != null)
+    {
+        tabs = tabs
+            .WithAjaxTab("SCADA Readings", "_ScadaReadings", new SearchEquipmentScadaReadings {Id = Model.Id});
+    }
+
+    tabs = tabs
+    .WithTab("Links", "_Links", Model, itemCount:Model.Links.Count)
+    .WithTab("Filter Media", "~/Views/FilterMedia/_Equipment_Index.cshtml", filterIsSelected)
+    .WithTab("Asset Reliability", "_AssetReliability", Model)
+    .WithTab("Tank Inspections", "_TankInspections", isVisible: Model.EquipmentIsTank)
+    .WithVideos()
+    .WithNotesAndDocuments()
+    .WithLog();
+}
+
+@tabs

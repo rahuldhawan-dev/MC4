@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SupervisorApproveProductionWorkOrder
+
+@Html.ScriptFor("~/Scripts/Areas/Production/ProductionWorkOrder/SupervisorApprovalForm.js", ScriptLoadType.LoadFromPartial)
+
+@using (var f = Form.BeginForm("SupervisorApproveProductionWorkOrder", "ProductionWorkOrder", "Production", new {Model.Id}))
+{
+    f.HtmlAttributes["id"] = "ApproveForm";
+
+    if (Model.Corrective.GetValueOrDefault())
+    {
+        @Html.HiddenFor(x => x.Corrective)
+        @Html.EditorFor(x => x.CauseCode)
+    }
+    @Html.DisplayFor(x => x.WBSElement)
+    //It was requested that this field be added to the screen even though it doesn't have anything backing it at the moment.
+    //There is ticket MC-5290 to populate it in the future.
+    @Html.DisplayFor(x => x.AccountType)
+}
+
+
+@using (var f = Form.BeginForm("RejectProductionWorkOrder", "ProductionWorkOrder", "Production", new { Model.Id }))
+{
+    f.HtmlAttributes["id"] = "RejectForm";
+}
+
+@Html.ButtonGroup(@<text>
+                      @Control.Button("Approve Order").WithId("ApproveButton")
+                      @Control.Button("Reject Order").WithId("RejectButton")
+                   </text>)

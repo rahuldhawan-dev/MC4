@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditTrafficControlTicketCheck
+
+@using (Form.BeginForm("Update", "TrafficControlTicketCheck", "FieldOperations", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+        @Html.EditorFor(x => x.Reconciled) 
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TrafficControlTicketCheck", new {Model.Id})
+                           </text>)
+    </div>
+}

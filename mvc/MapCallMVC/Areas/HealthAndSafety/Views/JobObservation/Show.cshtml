@@ -1,0 +1,8 @@
+﻿@model JobObservation
+@{
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.Tabs()
+    .WithTab("General", "_ShowJobObservation")
+    .WithNotesDocumentsAndEmployees())

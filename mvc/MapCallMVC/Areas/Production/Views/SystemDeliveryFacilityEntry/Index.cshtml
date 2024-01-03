@@ -1,0 +1,33 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchSystemDeliveryFacilityEntry
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { Controller = "SystemDeliveryEntry", x.SystemDeliveryEntry.Id }))
+      .SortableColumnFor(x => x.SystemDeliveryEntry.Id)
+      .SortableColumnFor(x => x.EntryDate, "Date", "EntryDate")
+      .SortableColumnFor(x => x.Facility.OperatingCenter, "fac.OperatingCenter")
+      .SortableColumnFor(x => x.SystemDeliveryType)
+      .SortableColumnFor(x => x.Facility.FacilityIdWithFacilityName, "Facility", "Facility")
+      .SortableColumnFor(x => x.Facility.PublicWaterSupply, "Facility.PublicWaterSupply")
+      .TemplateColumnFor("Purchase Supplier", x => @<text>
+                                                  @if (x.SystemDeliveryEntryType.Id == SystemDeliveryEntryType.Indices.PURCHASED_WATER
+                                                       && x.Facility.FacilitySystemDeliveryEntryTypes.Any(z => z.SystemDeliveryEntryType.Id == SystemDeliveryEntryType.Indices.PURCHASED_WATER && z.IsEnabled))
+                                                  {
+                                                      @Html.DisplayValueFor(_ => x.Facility.FacilitySystemDeliveryEntryTypes.Single(z =>
+                                                          z.SystemDeliveryEntryType.Id == SystemDeliveryEntryType.Indices.PURCHASED_WATER)
+                                                                            .PurchaseSupplier)
+                                                  }
+                                               </text>)
+      .SortableColumnFor(x => x.SystemDeliveryEntryType)
+      .ColumnFor(x => x.HasBeenAdjusted, "Adjustment")
+      .SortableColumnFor(x => x.EntryValue, "Value", "EntryValue")
+      .SortableColumnFor(x => x.SystemDeliveryEntry.IsValidatedNotNull, "Is Validated", "sysDelEntry.IsValidated")
+      .SortableColumnFor(x => x.IsInjection)
+      .SortableColumnFor(x => x.EnteredBy)
+      .ColumnFor(x => x.AdjustmentComment)
+      .SortableColumnFor(x => x.SystemDeliveryEntry.IsHyperionFileCreated, "SystemDeliveryEntry.IsHyperionFileCreated")
+    )

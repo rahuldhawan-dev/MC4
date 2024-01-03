@@ -1,0 +1,52 @@
+﻿@model MapCall.Common.Model.Entities.Users.User
+
+@Html.Partial("_PaymentInformation", Model)
+
+@* These actions are specifically for site admins, not user admins, as they're only needed for API access. *@
+@if (AuthenticationService.CurrentUserIsAdmin)
+{
+    @Control.SubmitButton("Reset API Password").With("form", "reset-api-password-form").WithId("reset-api-password-button")
+    @Control.SubmitButton("Unlock User").With("form", "unlock-user-form").WithId("unlock-user-button")
+    using (var f = Form.BeginForm("ResetApiPassword", "User", new { id = Model.Id }))
+    {
+        f.Confirmation = "Are you sure you want to reset this user account's API password? Any external applications using this account will need to be updated to use this new password.";
+        f.HtmlAttributes["id"] = "reset-api-password-form";
+    }
+
+    using (var f = Form.BeginForm("UnlockUser", "User", new { id = Model.Id }))
+    {
+        f.HtmlAttributes["id"] = "unlock-user-form";
+    }
+    if (!MMSINC.Common.HttpApplicationBase.IsProduction)
+    {
+        @(Html.LinkButton("Login as User(Site admin only)",
+        "Pretend",
+        "Home",
+        new { username = Model.UserName, area = string.Empty },
+        new { onclick = "return confirm('This will log you into MapCall as this user. You will only be able to access the site as this user until you logout and log back in. Do you want to continue?');"}))
+    }
+}
+
+<div class="field-column fc300">
+    @Html.DisplayFor(x => x.UserName)
+    @Html.DisplayFor(x => x.UserType)
+    @Html.DisplayFor(x => x.Email)
+    @Html.DisplayFor(x => x.HasAccess)
+    @Html.DisplayFor(x => x.FullName)
+    @Html.DisplayFor(x => x.Employee)
+    @Html.DisplayFor(x => x.Employee.EmployeeId)
+    @Html.DisplayFor(x => x.DefaultOperatingCenter)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.City)
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.ZipCode)
+    @Html.DisplayFor(x => x.PhoneNumber)
+    @Html.DisplayFor(x => x.CellPhoneNumber)
+    @Html.DisplayFor(x => x.FaxNumber)
+    @if (AuthenticationService.CurrentUser.IsAdmin || AuthenticationService.CurrentUser.IsUserAdmin)
+    {
+        @Html.DisplayFor(x => x.IsAdmin)
+        @Html.DisplayFor(x => x.IsUserAdmin)
+    }
+    @Html.DisplayFor(x => x.CustomerProfileId)
+</div>

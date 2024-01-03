@@ -1,0 +1,128 @@
+﻿@model LockoutForm
+
+    <div class="field-column fc400">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.LockoutDateTime)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { Model.Facility.Id, area = "" }, null))
+        @Html.DisplayFor(x => x.Facility.Address)
+        @Html.DisplayFor(x => x.EquipmentType)
+        @if (Model.Equipment != null)
+        {
+            @Html.RenderDisplayTemplate("Equipment", Html.ActionLink(Model.Equipment.Description, "Show", "Equipment", new { Model.Equipment.Id, area = "" }, null))
+            @Html.HiddenFor(x => x.Equipment.Id)
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.Equipment)
+        }
+        @Html.DisplayFor(x => x.Coordinate)
+        @Html.RenderDisplayTemplate(Html.DisplayLabelFor(x => x.EmployeeAcknowledgedTraining), @<text>
+            <div>
+                @Html.DisplayValueFor(x => x.EmployeeAcknowledgedTraining)
+            </div>
+            @if (Model.Equipment != null && Model.Equipment.StandardOperatingProcedureDocumentId.HasValue)
+            {@Html.ActionLink("Equipment Documents", "Show", "Equipment", new { id = Model.Equipment.Id, area = "" }, new { frag = "DocumentsTab" })}
+        </text>)
+
+        @Html.RenderDisplayTemplate("Production Work Order", @<text>
+            @if (Model.ProductionWorkOrder != null)
+            {
+                @Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { area = "Production", id = Model.ProductionWorkOrder.Id }, null)
+            }
+        </text>)
+
+        @Html.DisplayFor(x => x.LockoutReason)
+        @Html.DisplayFor(x => x.ReasonForLockout)
+        @Html.DisplayFor(x => x.ContractorLockOutTagOut)
+        @if (Model.ContractorLockOutTagOut != null && Model.ContractorLockOutTagOut.Value)
+        {
+            <fieldset>
+                <legend>Contractor</legend>
+                @Html.DisplayFor(x => x.Contractor)
+                @Html.DisplayFor(x => x.ContractorFirstName)
+                @Html.DisplayFor(x => x.ContractorLastName)
+                @Html.DisplayFor(x => x.ContractorPhone)
+            </fieldset>
+        }
+
+        @Html.RenderDisplayTemplate(Html.LabelFor(x => x.IsolationPoint),
+                @<text>
+                    @Html.DisplayValueFor(x => x.IsolationPoint)
+                    @Html.DisplayValueFor(x => x.IsolationPointDescription)
+                </text>)
+        @Html.DisplayFor(x => x.LocationOfLockoutNotes)
+
+        @Html.DisplayFor(x => x.LockoutDevice)
+
+        @if (Model.LockoutConditionAnswers.Any(x => x.LockoutFormQuestion.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS))
+        {
+            <fieldset>
+                <legend>Lockout Conditions</legend>
+                @foreach (var answer in Model.LockoutConditionAnswers)
+                {
+                    @Html.DisplayFor(x => answer)
+                }
+            </fieldset>
+        }
+
+        <fieldset>
+            <legend>Out of Service</legend>
+            @foreach (var answer in Model.OutOfServiceConditionAnswers)
+            {
+                @Html.DisplayFor(x => answer)
+            }
+            @Html.DisplayFor(x => x.AdditionalLockoutNotes)
+            @Html.DisplayFor(x => x.OutOfServiceAuthorizedEmployee)
+            @Html.DisplayFor(x => x.OutOfServiceDateTime)
+        </fieldset>
+
+        <fieldset>
+            <legend>Return to Service</legend>
+            @foreach (var answer in Model.ReturnToServiceAnswers)
+            {
+                @Html.DisplayFor(x => answer)
+            }
+            @Html.DisplayFor(x => x.ReturnToServiceAuthorizedEmployee)
+            @Html.DisplayFor(x => x.ReturnedToServiceDateTime)
+            @Html.DisplayFor(x => x.ReturnedToServiceNotes)
+            @Html.DisplayFor(x => x.SameAsInstaller)
+        </fieldset>
+
+        @* This section had questions in-between questions, so they are being selected in that manner using Skip and Take *@
+        @if (Model.SameAsInstaller.HasValue && !Model.SameAsInstaller.Value)
+        {
+            <fieldset>
+                <legend>Management</legend>
+                @if (Model.ManagementAnswers.Any())
+                {
+                    var answer = Model.ManagementAnswers.Take(1).First();
+                    @Html.DisplayFor(x => answer)
+                }
+                @if (Model.ManagementAnswers.Count() > 1)
+                {
+                    var answer = Model.ManagementAnswers.Skip(1).Take(1).First();
+                    @Html.DisplayFor(x => answer)
+                }
+
+                @Html.DisplayFor(x => x.SupervisorInvolved)
+                @Html.DisplayFor(x => x.DateOfContact)
+                @Html.DisplayFor(x => x.MethodOfContact)
+                @Html.DisplayFor(x => x.OutcomeOfContact)
+                @if (Model.ManagementAnswers.Count() > 1)
+                {
+                    var answer = Model.ManagementAnswers.Skip(2).Take(1).First();
+                    @Html.DisplayFor(x => answer)
+                }
+                @Html.DisplayFor(x => x.AuthorizedManagementPerson)
+                @if (Model.ManagementAnswers.Count() > 3)
+                {
+                    foreach (var answer in Model.ManagementAnswers.Skip(3))
+                    {
+                        @Html.DisplayFor(x => answer)
+                    }
+                }
+                @Html.DisplayFor(x => x.LockRemovalMethod)
+            </fieldset>
+        }
+    </div>

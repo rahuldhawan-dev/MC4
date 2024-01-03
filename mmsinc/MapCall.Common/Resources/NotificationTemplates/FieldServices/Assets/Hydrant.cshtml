@@ -1,0 +1,27 @@
+﻿@model MapCall.Common.Model.ViewModels.HydrantNotification
+@{
+    var hydrant = Model.Hydrant;
+}
+<h2>Hydrant Billing Adjustment Notification</h2>
+
+<a href="@Model.RecordUrl">View on Site</a><br />
+
+Town: @hydrant.Town<br />
+Fire District: @hydrant.FireDistrict<br />
+Utility District: @(hydrant.FireDistrict != null ? hydrant.FireDistrict.UtilityDistrict : null)<br />
+Billing Party: @(hydrant.FireDistrict != null ? hydrant.FireDistrict.UtilityName : null)<br />
+Billing Start Date: @hydrant.BillingDate<br />
+Date Retired: @hydrant.DateRetired<br />
+Premise Number: @hydrant.PremiseNumber<br />
+Hydrant Number: @hydrant.HydrantNumber<br />
+Hydrant Status: @hydrant.Status<br />
+Street: @hydrant.Street<br />
+Cross Street: @hydrant.CrossStreet<br />
+WBS #: @hydrant.WorkOrderNumber<br />
+
+Total # of Hydrants to be billed to this premise after this change: @Model.ActiveHydrantsOnPremise<br />
+<br />
+This report is being provided by the Operations to advise Billing of a change in the total number of hydrants to be billed to the above premise.<br />
+
+UserName: @Model.UserName<br />
+Email: @Model.UserEmail<br />

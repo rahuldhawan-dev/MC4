@@ -1,0 +1,16 @@
+﻿@model SearchAssetUpload
+
+@using (Form.BeginForm("Index", "AssetUpload", ""))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.CreatedBy)
+        @Html.EditorFor(x => x.CreatedAt)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.FileName)
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

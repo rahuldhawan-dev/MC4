@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.SAP.Models.ViewModels.EditSapFixCall
+
+@using (var form = Form.BeginForm("SAPFixDate", "SAPMaintenancePlan", new { Model.MaintenancePlan, Model.CallNumber }))
+{
+    @Html.EditorWithoutWrapperFor(x => x.CorrectedPlanDate, new { id = Model.CallNumber + "CorrectedPlanDate" })
+    @Control.SubmitButton("Fix Call").WithName("FixCall")
+}

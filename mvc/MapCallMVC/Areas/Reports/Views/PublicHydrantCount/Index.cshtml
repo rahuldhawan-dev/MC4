@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchPublicHydrantCountReport
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new{ id = "results"})
+    // Leaving records found caption off because it doesn't display the correct number due to group by in query.
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.FireDistrict)
+    .ColumnFor(x => x.Status)
+    .ColumnFor(x => x.PremiseNumber)
+    .ColumnFor(x => x.Total)
+    .WithPaginatedFooter())

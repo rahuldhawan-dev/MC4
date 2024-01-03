@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchHydrantDSIC
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+      .WithCaption(String.Format("{0} Records", Model.Count))
+      .SortableColumnFor(x => x.Id)
+      .SortableTemplateColumnFor("Hydrant Number", "HydrantNumber", x => Html.ActionLink(x.HydrantNumber,"Show", "Hydrant", new { x.Id, area = "FieldOperations"}, null))
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.WBSNumber)
+      .SortableColumnFor(x => x.Latitude)
+      .SortableColumnFor(x => x.Longitude)
+      .SortableColumnFor(x => x.SAPEquipmentId)
+      .SortableColumnFor(x => x.DateInstalled)
+      .SortableColumnFor(x => x.PremiseNumber)
+      .WithPaginatedFooter()
+)

@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NUnit.3.13.1\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.1\build\NUnit.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C738EAEC-B959-4544-AD06-F2474FB5F56A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RegressionTests</RootNamespace>
+    <AssemblyName>RegressionTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <LangVersion>7.3</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA2\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA3\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TC|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\TC\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AppConfig>App.TC.config</AppConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Training\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.13.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\..\packages\NUnit.3.13.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.Selenium.Core, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.RC.3.1.0\lib\net40\ThoughtWorks.Selenium.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lib\TestParts\Globals.cs" />
+    <Compile Include="Lib\TestParts\Types.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\DataPageBaseStarTest.cs" />
+    <Compile Include="Tests\DataStarPageStarTest.cs" />
+    <Compile Include="Tests\RoleStarTest.cs" />
+    <Compile Include="Tests\PleaseDontCrashTest.cs" />
+    <Compile Include="Tests\ReportsStarTest.cs" />
+    <Compile Include="Tests\SickBankTest.cs" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="TestSource\CreateGrievance.cs" />
+    <None Include="TestSource\CreateHydrant.cs" />
+    <None Include="TestSource\CreateNewContractor.cs" />
+    <None Include="TestSource\CreatePermit.cs" />
+    <None Include="TestSource\CreateService.cs" />
+    <None Include="TestSource\CreateSewerMainCleaning.cs" />
+    <None Include="TestSource\CreateSewerManhole.cs" />
+    <None Include="TestSource\CreateSickBank.cs" />
+    <None Include="TestSource\CreateStormwaterAsset.cs" />
+    <None Include="TestSource\CreateTailgateTalk.cs" />
+    <None Include="TestSource\CreateTapOrderImage.cs" />
+    <None Include="TestSource\CreateValve.cs" />
+    <None Include="TestSource\CreateVehicle.cs" />
+    <None Include="TestSource\CreateWQComplaint.cs" />
+    <None Include="TestSource\Login.cs" />
+    <None Include="TestSource\NavigateToContractors_New.cs" />
+    <None Include="TestSource\NavigateToGrievances_New.cs" />
+    <None Include="TestSource\NavigateToHydrant_New.cs" />
+    <None Include="TestSource\NavigateToPermits_New.cs" />
+    <None Include="TestSource\NavigateToService_New.cs" />
+    <None Include="TestSource\NavigateToSewerMainCleaning_New.cs" />
+    <None Include="TestSource\NavigateToSewerManhole_New.cs" />
+    <None Include="TestSource\NavigateToSickBank_New.cs" />
+    <None Include="TestSource\NavigateToStormwaterAsset_New.cs" />
+    <None Include="TestSource\NavigateToTailgateTalk_New.cs" />
+    <None Include="TestSource\NavigateToTapOrderImage_New.cs" />
+    <None Include="TestSource\NavigateToUser_New.cs" />
+    <None Include="TestSource\NavigateToValve_New.cs" />
+    <None Include="TestSource\NavigateToVehicles_New.cs" />
+    <None Include="TestSource\NavigateToWQComplaints_New.cs" />
+    <None Include="TestSource\SetupHydrantVariables.cs" />
+    <None Include="TestSource\SetupNewContractorVariables.cs" />
+    <None Include="TestSource\SetupNewGrievancesVariables.cs" />
+    <None Include="TestSource\SetupNewPermitVariables.cs" />
+    <None Include="TestSource\SetupNewSickBankVariables.cs" />
+    <None Include="TestSource\SetupNewTailgateTalkVariables.cs" />
+    <None Include="TestSource\SetupNewUserVariables.cs" />
+    <None Include="TestSource\SetupNewVehicleVariables.cs" />
+    <None Include="TestSource\SetupServiceVariables.cs" />
+    <None Include="TestSource\SetupSewerMainCleaningsVariables.cs" />
+    <None Include="TestSource\SetupSewerManholeVariables.cs" />
+    <None Include="TestSource\SetupStormwaterAssetVariables.cs" />
+    <None Include="TestSource\SetupTapOrderImageVariables.cs" />
+    <None Include="TestSource\SetupValveVariables.cs" />
+    <None Include="TestSource\SetupWQComplaintVariables.cs" />
+    <None Include="TestSource\VerifyNewContractor.cs" />
+    <None Include="TestSource\VerifyNewGrievance.cs" />
+    <None Include="TestSource\VerifyNewHydrant.cs" />
+    <None Include="TestSource\VerifyNewService.cs" />
+    <None Include="TestSource\VerifyNewSewerMainCleaning.cs" />
+    <None Include="TestSource\VerifyNewSewerManhole.cs" />
+    <None Include="TestSource\VerifyNewSickBank.cs" />
+    <None Include="TestSource\VerifyNewStormwaterAsset.cs" />
+    <None Include="TestSource\VerifyNewTailgateTalk.cs" />
+    <None Include="TestSource\VerifyNewTapOrderImage.cs" />
+    <None Include="TestSource\VerifyNewUser.cs" />
+    <None Include="TestSource\VerifyNewValve.cs" />
+    <None Include="TestSource\VerifyNewVehicle.cs" />
+    <None Include="TestSource\VerifyNewWQComplaint.cs" />
+    <None Include="TestSource\VerifyPermit.cs" />
+    <Compile Include="Lib\BaseTest.cs" />
+    <Compile Include="Tests\MapCallSetUpFixture.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4BBA-87D8-D8F49FB41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\NUnit.3.13.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.1\build\NUnit.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

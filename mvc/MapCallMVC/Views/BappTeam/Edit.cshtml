@@ -1,0 +1,14 @@
+﻿@model EditBappTeam
+
+@using (Form.BeginForm("Update", "BappTeam", new {id = Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.ButtonGroup(@<text>
+                                @Control.SubmitButton("Save")
+                                @Html.AuthorizedActionLinkButton("Cancel", "Show", "BappTeam", new { id = Model.Id })
+                           </text>)
+    </div>
+}

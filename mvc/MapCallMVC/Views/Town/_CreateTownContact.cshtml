@@ -1,0 +1,11 @@
+﻿@model CreateTownContact
+    
+@using (Form.BeginForm("CreateTownContact", "Town", new{ id = Model.Id}))
+{
+    <fieldset class="field-column fc100">
+        @Html.EditorFor(x => x.Contact)
+        @Html.EditorFor(x => x.ContactType)
+        @Html.ButtonGroup(@<text>@Control.SubmitButton("Save Town Contact").WithId("saveTownContactButton") 
+        @Control.Button("Cancel").WithId("cancelAddContactButton").WithCssClass("cancel")</text>)
+    </fieldset>
+}

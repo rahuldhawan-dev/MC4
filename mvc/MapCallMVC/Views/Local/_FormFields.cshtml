@@ -1,0 +1,11 @@
+﻿@model LocalViewModel
+
+@Html.EditorFor(m => m.Union)
+@Html.EditorFor(m => m.Name)
+@Html.EditorFor(m => m.Coordinate)
+@Html.EditorFor(x => x.State)
+@Html.EditorFor(m => m.Description)
+@Html.EditorFor(m => m.OperatingCenter)
+@Html.EditorFor(x => x.IsActive)
+@Html.EditorFor(x => x.SAPUnionDescription)
+@Html.EditorFor(x => x.Division, new { Container = @Model })

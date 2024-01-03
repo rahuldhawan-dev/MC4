@@ -1,0 +1,11 @@
+﻿@model EditBusinessUnit
+
+@using (Form.BeginForm("Update", "BusinessUnit", new { Model.Id }))
+{
+    @Html.Partial("_FormFields", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "BusinessUnit", new { Model.Id })
+    </text>)
+}

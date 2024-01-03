@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCommercialDriversLicensesDue
+    
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+.WithCaption("Records found: " + Model.Count)
+.TemplateColumnFor(x => (Html.CurrentUserCanDo("Show", "Employee", "")) ? Html.ActionLink("View", "Show", "Employee", new { x.Id, area = "" }, null) : new MvcHtmlString(string.Empty))
+.SortableColumnFor(x => x.OperatingCenter)
+.SortableColumnFor(x => x.PositionGroup)
+.SortableColumnFor(x => x.EmployeeId)
+.SortableColumnFor(x => x.LastName)
+.SortableColumnFor(x => x.FirstName)
+.SortableColumnFor(x => x.Status)
+.SortableColumnFor(x => x.CommercialDriversLicenseProgramStatus)
+.SortableColumnFor(x => x.IsCDLCompliant)
+.SortableColumnFor(x => x.ViolationCertificateExpirationDate)
+.ColumnFor(x => x.ViolationCertificateCertificateDaysOverdue)
+.SortableColumnFor(x => x.MedicalCertificateExpirationDate)
+.ColumnFor(x => x.MedicalCertificateDaysOverdue)
+.ColumnFor(x => x.DriversLicense)
+.SortableColumnFor(x => x.DriversLicenseRenewalDate)
+.ColumnFor(x => x.DriversLicenseRenewalDaysOverdue)
+
+.WithPaginatedFooter()
+)

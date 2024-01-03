@@ -1,0 +1,48 @@
+﻿@model MarkoutDamage
+
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.WorkOrder)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.NearestCrossStreet)
+    @Html.DisplayFor(x => x.Coordinate)
+
+    @Html.DisplayFor(x => x.SAPWorkOrderId)
+    @Html.DisplayFor(x => x.DamageOn)
+    @Html.DisplayFor(x => x.MarkoutDamageToType)
+    @Html.RenderDisplayTemplate("Request Number",
+                        @<text>
+                            @if (Model.RequestNumber != null)
+                            {
+                                @Html.ActionLink(Model.RequestNumber, "Index", "OneCallMarkoutTicket", new { area = "FieldOperations", Model.RequestNumber }, null)
+                            }
+                        </text>)
+    @Html.DisplayFor(x => x.DamageComments)
+    @Html.RenderDisplayTemplate("Utility Damages",
+                        @<span id="UtilityDamages">
+                            @string.Join(", ", Model.UtilityDamages.Select(x => x.Description))
+                        </span>)
+    @if (!string.IsNullOrWhiteSpace(Model.UtilitiesDamaged))
+    {
+        @Html.DisplayFor(x => x.UtilitiesDamaged)
+    }
+    @Html.DisplayFor(x => x.EmployeesOnJob)
+    @Html.DisplayFor(x => x.IsMarkedOut)
+    @Html.DisplayFor(x => x.IsMismarked)
+    @Html.DisplayFor(x => x.MismarkedByInches)
+    @Html.DisplayFor(x => x.ExcavatorDiscoveredDamage)
+    @Html.DisplayFor(x => x.ExcavatorCausedDamage)
+    @Html.DisplayFor(x => x.Was911Called)
+    @Html.DisplayFor(x => x.WerePicturesTaken)
+
+    @Html.DisplayFor(x => x.Excavator)
+    @Html.DisplayFor(x => x.ExcavatorAddress)
+    @Html.DisplayFor(x => x.ExcavatorPhone)
+
+    @Html.DisplayFor(x => x.SupervisorSignOffEmployee, new { Container = Model })
+    @Html.DisplayFor(x => x.ApprovedOn)
+</div>

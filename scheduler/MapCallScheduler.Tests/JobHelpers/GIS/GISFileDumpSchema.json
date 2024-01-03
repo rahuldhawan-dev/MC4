@@ -1,0 +1,819 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Non Revenue Water JSON schema to exchange data from MapCall to AMWater GIS",
+  "version": "1.0.5",
+  "definitions": {
+    "AsBuiltImage": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "PdfLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Latitude": {
+          "type": "number"
+        },
+        "Longitude": {
+          "type": "number"
+        },
+        "County": {
+          "$ref": "#/definitions/County"
+        },
+        "Comments": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DateInstalled": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "InServiceDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "FullStreet": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "CrossStreet": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WorkOrderNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Town": {
+          "$ref": "#/definitions/Town"
+        },
+        "OperatingCenter": {
+          "$ref": "#/definitions/OperatingCenter"
+        }
+      }
+    },
+    "AssetStatus": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "County": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "EPACode": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Hydrant": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "HydrantBilling": {
+          "$ref": "#/definitions/HydrantBilling"
+        },
+        "HydrantNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DateInstalled": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "Status": {
+          "$ref": "#/definitions/AssetStatus"
+        },
+        "HydrantManufacturer": {
+          "$ref": "#/definitions/HydrantManufacturer"
+        },
+        "PremiseNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Route": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "SAPEquipmentId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Stop": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "LastUpdated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "LastUpdatedBy": {
+          "$ref": "#/definitions/User"
+        },
+        "WBSNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WorkOrderId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "State": {
+          "$ref": "#/definitions/State"
+        }
+      }
+    },
+    "HydrantBilling": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "HydrantManufacturer": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "OperatingCenter": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "OperatingCenterCode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "OperatingCenterName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Service": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "PremiseNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Installation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ServiceMaterial": {
+          "$ref": "#/definitions/ServiceMaterial"
+        },
+        "CustomerSideMaterial": {
+          "$ref": "#/definitions/ServiceMaterial"
+        },
+        "EpaCompanySideMaterial": {
+          "$ref": "#/definitions/ServiceEPACode"
+        },
+        "EpaCustomerSideMaterial": {
+          "$ref": "#/definitions/ServiceEPACode"
+        },
+        "EpaCustomerSideMaterialExternal": {
+          "$ref": "#/definitions/ServiceEPACode"
+        },
+        "EpaConsolidatedCustomerSideMaterial": {
+          "$ref": "#/definitions/ServiceEPACode"
+        },
+        "DateInstalled": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "LastUpdated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "Town": {
+          "$ref": "#/definitions/Town"
+        },
+        "OperatingCenter": {
+          "$ref": "#/definitions/OperatingCenter"
+        },
+        "State": {
+          "$ref": "#/definitions/State"
+        },
+        "ServiceUtilityType": {
+          "$ref": "#/definitions/ServiceUtilityType"
+        },
+        "ServiceMaterialSetBy": {
+          "$ref": "#/definitions/User"
+        },
+        "CustomerMaterialSetBy": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "ServiceEPACode": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ServiceMaterial": {
+          "$ref": "#/definitions/EPACode"
+        }
+      }
+    },
+    "ServiceMaterial": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ServiceUtilityType": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SewerOpening": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "DepthToInvert": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "DateInstalled": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "Status": {
+          "$ref": "#/definitions/AssetStatus"
+        },
+        "SewerOpeningMaterial": {
+          "$ref": "#/definitions/SewerOpeningMaterial"
+        },
+        "RimElevation": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Route": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "SAPEquipmentId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Stop": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "OpeningNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "SewerOpeningType": {
+          "$ref": "#/definitions/SewerOpeningType"
+        },
+        "LastUpdated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "LastUpdatedBy": {
+          "$ref": "#/definitions/User"
+        },
+        "WBSNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WorkOrderId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "State": {
+          "$ref": "#/definitions/State"
+        }
+      }
+    },
+    "SewerOpeningMaterial": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "SewerOpeningType": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "State": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Abbreviation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Town": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FullName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "User": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FullName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "UserName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Valve": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ValveControls": {
+          "$ref": "#/definitions/ValveControl"
+        },
+        "ValveSize": {
+          "$ref": "#/definitions/ValveSize"
+        },
+        "DateInstalled": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "Status": {
+          "$ref": "#/definitions/AssetStatus"
+        },
+        "ValveMake": {
+          "$ref": "#/definitions/ValveMake"
+        },
+        "NormalPosition": {
+          "$ref": "#/definitions/ValveNormalPosition"
+        },
+        "OpenDirection": {
+          "$ref": "#/definitions/ValveOpenDirection"
+        },
+        "Route": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "SAPEquipmentId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "Stop": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Turns": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ValveNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ValveType": {
+          "$ref": "#/definitions/ValveType"
+        },
+        "LastUpdated": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "LastUpdatedBy": {
+          "$ref": "#/definitions/User"
+        },
+        "WBSNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "WorkOrderId": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "State": {
+          "$ref": "#/definitions/State"
+        }
+      }
+    },
+    "ValveControl": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ValveMake": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ValveNormalPosition": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ValveOpenDirection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ValveSize": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Size": {
+          "type": "number"
+        }
+      }
+    },
+    "ValveType": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "SchemaVersion": {
+      "type": "string"
+    },
+    "DataType": {
+      "type": "string"
+    },
+    "SourceSystem": {
+      "type": "string"
+    },
+    "Hydrants": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/Hydrant"
+      }
+    },
+    "Valves": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/Valve"
+      }
+    },
+    "SewerOpenings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/SewerOpening"
+      }
+    },
+    "Services": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/Service"
+      }
+    },
+    "AsBuiltImages": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/AsBuiltImage"
+      }
+    }
+  },
+  "required": [
+    "SchemaVersion",
+    "DataType",
+    "SourceSystem"
+  ]
+}

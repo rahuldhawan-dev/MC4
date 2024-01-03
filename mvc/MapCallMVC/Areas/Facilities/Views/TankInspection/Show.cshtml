@@ -1,0 +1,14 @@
+﻿@model TankInspection
+@{
+    Func<int, IEnumerable<TankInspectionQuestion>> getQuestionsFor = (x) => Model.TankInspectionQuestions.Where(q => q.TankInspectionQuestionType.TankInspectionQuestionGroup.Id == x);
+}
+@(Html.Tabs()
+      .WithTab("General", "DisplayPartials/_Show")
+      .WithTab("Security & Vandalism", "DisplayPartials/_questions", getQuestionsFor(TankInspectionQuestionGroup.Indices.SECURITY_AND_VANDALISM))
+      .WithTab("General Site Info", "DisplayPartials/_questions", getQuestionsFor(TankInspectionQuestionGroup.Indices.GENERAL_SITE_INFO))
+      .WithTab("Foundation", "DisplayPartials/_questions", getQuestionsFor(TankInspectionQuestionGroup.Indices.FOUNDATION))
+      .WithTab("Exterior Condition", "DisplayPartials/_questions", getQuestionsFor(TankInspectionQuestionGroup.Indices.EXTERIOR_CONDITION))
+      .WithTab("Exterior Roof", "DisplayPartials/_questions", getQuestionsFor(TankInspectionQuestionGroup.Indices.EXTERIOR_ROOF))
+      .WithTab("Overflow Piping, Vaults, Accessory Bldgs. & Valves", "DisplayPartials/_questions_tab6")
+      .WithNotesAndDocuments()
+    )

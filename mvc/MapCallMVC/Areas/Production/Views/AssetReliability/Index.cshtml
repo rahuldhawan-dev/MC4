@@ -1,0 +1,21 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MapCallMVC.Areas.Production.Models.ViewModels.SearchAssetReliability
+
+@(Html.TableFor(_ => Model, new { id = "WorkOrderSearchResultsTable" })
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.Id)
+      .TemplateColumnFor("Work Order", x => Html.ActionLink(x.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { id = x.ProductionWorkOrder.Id, area = "Production" }, null))
+      .SortableColumnFor(x => x.ProductionWorkOrder.Facility)
+      .TemplateColumnFor("Equipment",x => Html.ActionLink(x.Equipment.Id.ToString(), "Show", "Equipment", new { id = x.ProductionWorkOrder.Id, area = "" }, null))
+      .SortableColumnFor(x => x.Equipment.Description)
+      .SortableColumnFor(x => x.Employee)
+      .SortableColumnFor(x => x.DateTimeEntered)
+      .SortableColumnFor(x => x.AssetReliabilityTechnologyUsedType)
+      .SortableColumnFor(x => x.RepairCostNotAllowedToFail)
+      .SortableColumnFor(x => x.RepairCostAllowedToFail)
+      .SortableColumnFor(x => x.CostAvoidance)
+      .SortableColumnFor(x => x.CostAvoidanceNote)
+      .WithPaginatedFooter()
+)
+

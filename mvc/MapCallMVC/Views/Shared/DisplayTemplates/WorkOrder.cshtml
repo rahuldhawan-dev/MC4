@@ -1,0 +1,17 @@
+﻿@model WorkOrder
+    
+@Html.RenderDisplayTemplate("Work Order",
+    @<text>
+        @if (Model != null)
+        {
+            if (Model.DateCompleted.HasValue)
+            {
+                @Html.AuthorizedActionLinkOrText(Model, "Show", "WorkOrder", new {id = Model.Id, area = "FieldOperations"})
+            }
+            else
+            {
+	            @Html.AuthorizedActionLinkOrText(Model.Id.ToString(), "Edit", "WorkOrderFinalization", new { id = Model.Id, area = "FieldOperations" })
+            }
+        }
+     </text>
+)

@@ -1,0 +1,15 @@
+﻿@model SecureSearchAuditLogEntryForSingleRecord
+@Html.StylesheetFor("~/Content/css/AuditLogEntry/AuditLogEntryTable.css")
+@(Html.TableFor(x => Model, new { id = "auditLogEntryTable"})
+    .WithCaption("Records found: " + Model.Count)
+    .ColumnFor(x => x.User.FullName, "User")
+    .TemplateColumnFor("Contractor", x => @<text>@if (x.ContractorUser != null && x.ContractorUser.Contractor != null){ @String.Format("{0} - {1}",x.ContractorUser.Contractor.Name,x.ContractorUser.Email) }</text>)
+    .ColumnFor(x => x.EntityName) /* Useless column but makes it easy to debug that we're seeing the correct entries.*/
+    .ColumnFor(x => x.EntityId) /* Useless column but makes it easy to debug that we're seeing the correct entries.*/
+    .ColumnFor(x => x.AuditEntryType)
+    .ColumnFor(x => x.Timestamp)
+    .ColumnFor(x => x.FieldName)
+    .ColumnFor(x => x.PropertyEntityType)
+    .ColumnFor(x => x.OldValue)
+    .ColumnFor(x => x.NewValue)
+    .WithPaginatedFooter())

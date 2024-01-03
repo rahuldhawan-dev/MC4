@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ServiceSizeViewModel
+    
+@using (Form.BeginForm("Update", "ServiceSize", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ServiceSize", new { Model.Id })
+        </text>)
+    </div>
+}

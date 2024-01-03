@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddEmployeeProductionSkillSet
+
+@using (var form = Form.BeginRouteForm("Employee", "ProductionSkillSets", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "employeeProductionSkillSet");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.ProductionSkillSet)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Add Production Skill Set")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

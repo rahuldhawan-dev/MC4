@@ -1,0 +1,21 @@
+﻿@*
+ HOW DO USE? 
+ -----------
+ For your basic needs, you just need to do this in your view:
+    @Html.EditorFor(m => m.StringProperty)
+
+ That's it. If you want to pass additional parameters in, you'll want to pass
+ them in through the additionalViewData parameter.
+    Ex: @Html.EditorFor(m => m.StringProperty, new { Parameter = value })
+
+ Parameter       | Type(default) | What do
+ -------------------------------------------------------------------
+ DisplayName     | string(empty) | Set the label to a custom value if you don't
+                 |               | want it to automagically find it for you.
+*@
+@using MMSINC.Helpers
+@model long?
+@{
+    ViewTemplateHelper.HtmlAttributes["class"] = "numeric";
+}
+@RenderGenericSingleLineTextBoxEditorForTemplate()

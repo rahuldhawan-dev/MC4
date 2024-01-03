@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.FacilityProcessStepTriggerActionViewModel
+
+@using (Form.BeginForm("Create", "FacilityProcessStepTriggerAction", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Sequence)
+        @Html.EditorFor(x => x.Action)
+        @Html.EditorFor(x => x.ActionResponse)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "FacilityProcessStepTriggerAction", new { id = Model.Id })
+        </text>)
+    </div>
+}

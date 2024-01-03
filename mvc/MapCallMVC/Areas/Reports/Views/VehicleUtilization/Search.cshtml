@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchVehicleUtilizationReport 
+           
+@using (Form.BeginForm("Index", "VehicleUtilization"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.AssignmentStatus)
+        @Html.EditorFor(x => x.AssignmentCategory)
+        @Html.EditorFor(x => x.AssignmentJustification)
+        @Html.EditorFor(x => x.PoolUse)
+        @Html.EditorFor(x => x.AccountingRequirement)
+        @Html.EditorFor(x => x.Flag)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model EmployeeAssignment
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Production Work Order", Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { Model.ProductionWorkOrder.Id }, null))
+    @Html.DisplayFor(x => x.AssignedOn)
+    @Html.DisplayFor(x => x.AssignedTo)
+    @Html.DisplayFor(x => x.AssignedBy)
+    @Html.DisplayFor(x => x.AssignedFor)
+    @Html.RenderDisplayTemplate("Date Started", @<text>
+        @if (Model.DateStarted.HasValue)
+        {
+            @Html.DisplayValueFor(x => x.DateStarted)
+        }
+        else
+        {
+            if (!Model.CanBeStarted)
+            {
+                <div>@EmployeeAssignment.CANNOT_BE_STARTED</div>
+            }
+            else
+            {
+                var model = ViewModelFactory.Build<StartEmployeeAssignment, EmployeeAssignment>(Model);
+                using (Form.BeginForm("Start", "EmployeeAssignment", "Production", new { Model.Id }))
+                {
+                    @Html.EditorWithoutWrapperFor(x => model.DateStarted, new { style = "width:150px !important;" })
+                    @Control.SubmitButton("Start")
+                }
+            }
+        }
+    </text>)
+    @Html.RenderDisplayTemplate("Date Ended", @<text>
+        @if (Model.DateEnded.HasValue)
+        {
+            @Html.DisplayValueFor(x => x.DateEnded)
+        }
+        else if (Model.IsOpen)
+        {
+            var model = ViewModelFactory.Build<EndEmployeeAssignment, EmployeeAssignment>(Model);
+            using (Form.BeginForm("End", "EmployeeAssignment", "Production", new { Model.Id }))
+            {
+                @Html.EditorWithoutWrapperFor(_ => model.DateEnded, new { style = "width:150px !important;" })
+                @Control.SubmitButton("End")
+            }
+        }
+    </text>)
+    @Html.DisplayFor(x => x.HoursWorked)
+    @Html.DisplayFor(x => x.EmployeesOnJob)
+    @Html.DisplayFor(x => x.TimeToComplete)
+    @Html.DisplayFor(x => x.IsOpen)
+</div>

@@ -1,0 +1,37 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditBlowOffInspection
+
+@using (var f = Form.BeginForm("Update", "BlowOffInspection", "FieldOperations", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "BlowOffInspection", new { Model.Id }, new{ id = "cancel-button"})
+            @Control.Button("Done").WithId("done-button")
+        </text>)
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        var cancelButton = $('#cancel-button');
+        var doneButton = $('#done-button');
+        var par = window.parent;
+        if (Application.isInsideIframe) {
+            $('#IsMapPopup').val('true');
+            cancelButton.hide();
+            doneButton.show();
+            doneButton.on('click', function() {
+                par.Maps.hideInfoWindow();
+            });
+        } else {
+            cancelButton.show();
+            doneButton.hide();
+        }
+        @* We only want this script running if it's loaded in an iframe from the AssetMap page.*@
+        if (par && par.AssetMaps) {
+            par.AssetMaps.updateLastSelectedMarkerIcon('@Url.Action("Index", "Valve", new{ ext = "map", EntityId = Model.Valve })');
+        }
+    </script>
+}

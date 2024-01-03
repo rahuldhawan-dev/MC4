@@ -1,0 +1,51 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Controllers
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MMSINC.Models.ViewModels
+@model Service
+
+@{
+    var userCanAdd = RoleService.CanAccessRole(ServiceController.ROLE, RoleActions.Add);
+    var userCanEdit = RoleService.CanAccessRole(ServiceController.ROLE, RoleActions.Edit);
+    var orderedFlushes = Model.Flushes.OrderBy(x => x.SampleDate).ToList();
+    var table = Html.TableFor(x => orderedFlushes, new{ id = "flushes-table"})
+                    .ColumnFor(x => x.FlushType)
+                    .ColumnFor(x => x.SampleType)
+                    .ColumnFor(x => x.SampleStatus)
+                    .ColumnFor(x => x.TakenBy)
+                    .ColumnFor(x => x.SampleDate)
+                    .ColumnFor(x => x.SampleResultPassed)
+                    .ColumnFor(x => x.SampleId)
+                    .ColumnFor(x => x.ReplacementType)
+                    .ColumnFor(x => x.ContactMethod)
+                    .ColumnFor(x => x.PremiseContactDate)
+                    .ColumnFor(x => x.NotifiedCustomerServiceCenter)
+                    .ColumnFor(x => x.FlushingNotes)
+                    .ColumnFor(x => x.CreatedBy);
+}
+
+@if (userCanAdd || userCanEdit)
+{
+    <div style="margin-bottom: 6px;">
+        @Html.DisplayInlineNotification(new NotificationItem { Message = "Please create a new flushing entry for each occurrence and do not update an existing entry except to make corrections.", NotificationType = NotificationItemType.Warning })
+    </div>
+}
+
+@if (userCanAdd)
+{
+    <div class="collapse-panel" data-title="Add Water Quality Sample">
+        @Html.Partial("_AddFlush", ViewModelFactory.Build<CreateServiceFlushViewModel, Service>(Model))
+    </div>
+}
+@if (userCanEdit)
+{
+    table = table.TemplateColumnFor(x => Control.ActionLink("Edit", "Edit", "ServiceFlush", new { id = x.Id }).WithCssClass("link-button"));
+    using (var form = Form.BeginRouteForm("Service", "ServiceFlush", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this service flush record?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("ServiceFlushId").WithValue(x.Id))
+    }
+}
+else
+{
+	@table
+} 

@@ -1,0 +1,23 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels
+@model EndOfPipeExceedanceViewModel
+
+@Html.EditorFor(x => x.State)
+@if (Model is CreateEndOfPipeExceedance)
+{
+    @Html.EditorFor(x => ((CreateEndOfPipeExceedance)x).OperatingCenter)
+}
+else
+{
+    @Html.EditorFor(x => x.OperatingCenter)
+}
+@Html.EditorFor(x => x.WasteWaterSystem)
+@Html.EditorFor(x => x.Facility)
+@Html.EditorFor(x => x.LimitationType)
+@Html.EditorFor(x => x.EventDate)
+@Html.EditorFor(x => x.EndOfPipeExceedanceType)
+@Html.EditorFor(x => x.EndOfPipeExceedanceTypeOtherReason)
+@Html.EditorFor(x => x.EndOfPipeExceedanceRootCause)
+@Html.EditorFor(x => x.EndOfPipeExceedanceRootCauseOtherReason)
+@Html.EditorFor(x => x.ConsentOrder)
+@Html.EditorFor(x => x.NewAcquisition)
+@Html.EditorFor(x => x.BriefDescription)

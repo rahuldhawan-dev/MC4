@@ -1,0 +1,17 @@
+﻿@model CreateGeneralLiabilityClaim
+           
+@using (var form = Form.BeginForm("Create", "GeneralLiabilityClaim"))
+{
+    form.HtmlAttributes.Add("data-confirm", "Remember to:\nAttach Pictures to Document\nAttach Employee Statement to Document\nCall Claim rep. for Questions");
+        
+    <div class="field-column fc200">
+        @(Html.Tabs()
+              .WithTab("GeneralLiabilityClaim", "_New")
+              .WithTab("Five Whys", "_AddNewFiveWhys")
+            );
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

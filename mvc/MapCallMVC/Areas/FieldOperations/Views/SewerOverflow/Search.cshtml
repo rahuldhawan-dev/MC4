@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerOverflows.SearchSewerOverflow
+
+@using (Form.BeginForm("Index", "SewerOverflow"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.Street)
+    @Html.EditorFor(x => x.IncidentDate)
+    @Html.EditorFor(x => x.Id)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

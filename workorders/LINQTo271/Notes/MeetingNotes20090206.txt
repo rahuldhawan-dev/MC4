@@ -1,0 +1,34 @@
+﻿FINISHED:
+
+PENDING:
+  Crew Assignments:
+    Clicking 'Start' should show the print form.  Clicking 'End' should show the finalization form.  Clicking 'Save' on the finalization
+    form should ask 'Is the work complete?'.  Clicking yes will 'finalize' the work order, otherwise any changes will simply be recorded,
+    and work can procede on that job.
+
+    The field workers shouldn't be able to see their work in advance, only the work for the given date.
+
+  Input Form:
+    The safety stuff (traffic control required?, street opening permit required?) should only display when Requester is Employee, I'm
+    not sure why that didn't work.
+
+    Local Government Info box still does not show when Local Government is chosen as the requester as it should.  Same with Employee.
+
+    In the history table, if an existing order shows that's not completed, the Save button's validation should also prompt with
+    "There is an existing order for this asset, which has not been completed.  Are you sure you want to create a new order?".
+
+  Scheduling:
+    Search Screen:
+      Selecting a specific asset type should filter the descriptions of work (this needs to happen for another form as well).
+
+  Finalization:
+    RESTORATION.
+
+    Need Valves operated, hours of shutdown, and # of customers affected.  Valves operated becomes required if hours of shutdown
+    and/or # of customers affected are entered.
+
+    Which Valves were turned -
+      Do NOT need the valve between, just which two were turned.
+
+    Need to get into the valve inspection screen for valve work orders, probably as a popup.  It should popluate the OpCntr
+    and town from the values on the current form.

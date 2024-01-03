@@ -1,0 +1,18 @@
+﻿{
+    "LOCATION_SEQ": 62721,
+    "LOCATION": "mitch test sample si",
+    "LOCATION_DESC": "4022 Leslie Ct, Franklin, Indiana, 46131",
+    "ACTIVE": "Inactive",
+    "SAMPLESITEID": 1,
+    "CLIENT_ID": "IN",
+    "PROFILE_NO": 868,
+    "FACILITY_ID": "null",
+    "SITE_ID": "mws01",
+    "PSCODE": null,
+    "ADDRESS": "4022 Leslie Ct, Franklin, Indi",
+    "CITY": "Franklin",
+    "STATE": "IN",
+    "ZIP": "46131",
+    "LATITUDE": "39.5357049925",
+    "LONGITUDE": "-86.0861133051"
+}

@@ -1,0 +1,6 @@
+﻿@model UnionContractProposal
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowContractProposal", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

@@ -1,0 +1,12 @@
+﻿@model JobSiteCheckList
+<div class="field-column fc-left-label fc400">
+    @Html.DisplayFor(x => x.IsMarkoutValidForSite)
+    @Html.RenderDisplayTemplate("Markout Number", @<text>
+                                                       @if (!String.IsNullOrWhiteSpace(Model.MarkoutNumber))
+                                                       {
+                                                           @Html.ActionLink(Model.MarkoutNumber, "Index", "OneCallMarkoutTicket", new {RequestNumber = Model.MarkoutNumber, area = "FieldOperations"}, null)
+                                                       }
+                                                   </text>)
+    @Html.DisplayFor(x => x.IsEmergencyMarkoutRequest)
+    @Html.RenderDisplayTemplate("C. Have the following underground utilities been marked and are their locations known?", Html.Partial("DisplayPartials/_MarkedFields"))
+</div>

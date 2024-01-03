@@ -1,0 +1,58 @@
+﻿@model IThingWithActionItems
+@{
+    Layout = null;
+
+    bool canEdit;
+    if (Model is IThingWithOperatingCenter)
+    {
+        canEdit = Html.CurrentUserCanEditWithOperatingCenter(Model as IThingWithOperatingCenter);
+    }
+    else
+    {
+        canEdit = Html.CurrentUserCanEdit();
+    }
+}
+@Html.ScriptFor("~/Scripts/ActionItem/Index.js", ScriptLoadType.LoadFromPartial)
+@if (canEdit)
+{
+    if (Model.OperatingCenter != null)
+    {
+        <div id="pnlNewActionItem" class="collapse-panel" data-title="New Action Item">
+            @Html.Action("New", "ActionItem", new { LinkedId = @Model.Id, @Model.TableName, area = "", State = @Model.OperatingCenter.State.Id })
+        </div>
+    }
+    else
+    {
+        <div class="notification notifications-warning">
+            <div class="message">Operating center needs to be populated before Action Items can be selected.</div>
+        </div>
+    }
+}
+<div class="container">
+    @(Html.TableFor(x => x.LinkedActionItems, new {@class = "single-line-header no-hover", id = "actionItemsTable"})
+          .TemplateColumnFor("Action Item", n => @<span>
+                                                     <span class="actionItemDisplay">@n.ActionItem.Note</span>
+                                                     @if (canEdit)
+                                                     {
+                    @* form needs to be in a partial or it won't render properly*@
+                     @* Were fancy and able to use action helpers, BUT Delete doesn't like that so thats still loading a partial directy*@
+                                                     }
+                                                 </span>)
+          .ColumnFor(n => n.ActionItem.Type)
+          .ColumnFor(n => n.ActionItem.NotListedType)
+          .ColumnFor(n => n.ActionItem.ResponsibleOwner.FullName, "Responsible Owner")
+          .ColumnFor(n => n.ActionItem.TargetedCompletionDate)
+          .ColumnFor(n => n.ActionItem.DateCompleted)
+          .ColumnFor(n => n.ActionItem.CreatedBy)
+          .ColumnFor(n => n.ActionItem.CreatedAt)
+          .TemplateColumnFor("Actions", n => @<span>
+                            @if (canEdit)
+                             {
+                                 <span class="editDeleteActionItem">
+                                     @Html.ActionLink("Edit", "Edit", "ActionItem", new { Id = @n.ActionItem.Id, area = "", State = @Model.OperatingCenter.State.Id }, new {Class = "link-button"})
+                                     @Html.Partial("~/Views/ActionItem/_DeleteForm.cshtml", ViewModelFactory.Build<DeleteActionItem, ActionItem>(n.ActionItem))
+                                 </span>
+                             }
+ 
+                        </span>))
+</div>

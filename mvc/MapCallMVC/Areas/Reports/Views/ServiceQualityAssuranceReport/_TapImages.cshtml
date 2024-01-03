@@ -1,0 +1,37 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServiceQAReport
+
+@{
+    var filtered = Model.Results.Where(x => x.IsTapImageReport);
+}
+
+@helper GetPercentage(int total, int val)
+{
+    var perc = (decimal)val / total;
+    <text>@string.Format("{0:P0}", perc)</text>
+}
+
+<table>
+
+    @foreach (var opcGroup in filtered.GroupBy(x => x.OperatingCenter.ToString()).OrderBy(x => x.Key))
+    {
+        <tr>
+            <td style="font-weight:bold;">@opcGroup.Key</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Total Services Installed/Replaced</td>
+            <td style="font-weight:bold;">@opcGroup.Sum(x => x.Total)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Missing Tap Images</td>
+            <td>@opcGroup.Sum(x => x.MissingTapImages)</td>
+            <td>Percent False</td>
+            <td>@GetPercentage(opcGroup.Sum(x => x.Total), opcGroup.Sum(x => x.MissingTapImages))</td>
+        </tr>
+    }
+
+</table>

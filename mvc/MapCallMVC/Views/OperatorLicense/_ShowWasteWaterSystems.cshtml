@@ -1,0 +1,29 @@
+﻿@using MapCallMVC.Models.ViewModels.OperatorLicenses
+@model OperatorLicense
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(x => x.WasteWaterSystems, new { id = "wasteWaterSystemTable" })
+                    .ColumnFor(x => x.Description, "Waste Water System");
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add New Waste Water System">
+        @Html.Partial("_AddWasteWaterSystem", ViewModelFactory.BuildWithOverrides<AddOperatorLicenseWasteWaterSystem>(new {Model.Id}))
+    </div>
+}
+
+@if (userCanEdit)
+{
+    using (var form = Form.BeginRouteForm("OperatorLicense", "WasteWaterSystem", new {Model.Id}, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeWasteWaterSystemForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this waste water system?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Waste Water System").WithName("WasteWaterSystem").WithValue(x.Id))
+    }
+}
+else
+{
+    @table
+}

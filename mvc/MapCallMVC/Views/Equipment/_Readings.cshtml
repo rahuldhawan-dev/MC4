@@ -1,0 +1,46 @@
+﻿@model SearchEquipmentReadings
+
+@* NOTE: This whole view renders during the Show action too. So any dropdown data
+    needs to be added there and during the Readings action. *@
+@using (var f = Form.BeginAjaxRouteForm("DefaultShowChild", new { id = Model.Id }))
+{
+    f.IsAjaxContentPreloaded = true;
+    f.Action = "Readings";
+    f.Controller = "Equipment";
+    
+    <div class="field-column fc50">
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(x => x.Sensors)
+        @Html.EditorFor(x => x.Interval)
+        @Html.ButtonGroup(@Control.SubmitButton("Display Readings"))
+    </div>
+
+    @* Don't wanna display the "No readings were found" message when modelstate is invalid. *@
+    if (ViewData.ModelState.IsValid)
+    {
+        if (Model.Readings == null || !Model.Readings.Any())
+        {
+            <div class="container">
+                No readings were found for the selected sensors and date.
+            </div>
+        }
+        else
+        {
+            <div class="container">
+                @ViewData["Chart"]
+            </div>
+
+            <div class="collapse-panel" data-title="Raw Readings Data">
+                @(Html.TableFor(x => x.Readings, new { id = "readings-table" })
+                    .ColumnFor(x => x.DateTimeStamp)
+                    .ColumnFor(x => x.RawData)
+                    .ColumnFor(x => x.ScaledData)
+                    .ColumnFor(x => x.Interpolate)
+                    .ColumnFor(x => x.CheckSum)
+                    .ColumnFor(x => x.Sensor)
+                    .ColumnFor(x => x.Sensor.MeasurementType))
+            </div>
+        }
+    }
+}

@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchAuthenticationLog
+@(Html.TableFor(x => x)
+      .SortableTemplateColumnFor("User", "user.UserName", x => Html.AuthorizedActionLink(x.User.UserName, "Show", "User", new { area = string.Empty, id = x.User.Id }))
+      .SortableColumnFor(x => x.LoggedInAt)
+      .SortableColumnFor(x => x.LoggedOutAt)
+      .ColumnFor(x => x.IpAddress)
+      .WithPaginatedFooter())

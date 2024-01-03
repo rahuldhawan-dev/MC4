@@ -1,0 +1,58 @@
+﻿@using MapCall.Common.Model.Repositories
+@using MMSINC.Models.ViewModels
+@model EditMeasurementPointEquipmentType
+
+@{
+    var isInUse = _container.GetInstance<IMeasurementPointEquipmentTypeRepository>()
+                            .IsCurrentlyInUse(Model.Id, Model.EquipmentType);
+}
+
+@if (isInUse)
+{
+    @Html.DisplayInlineNotification(new NotificationItem {
+        Message = "This Measurement Point is already being used. Editing is limited to certain fields.",
+        NotificationType = NotificationItemType.Warning
+    })
+}
+
+@using (Form.BeginForm("Update", "MeasurementPointEquipmentType", new {Model.Id}))
+{
+    @Control.HiddenFor(x => x.EquipmentType)
+    
+    <div class="field-column fc200">
+            @Html.DisplayFor(x => x.Id)
+        
+            @if (isInUse)
+            {
+                @Control.HiddenFor(x => x.Category)
+                @Control.HiddenFor(x => x.Position)
+                @Control.HiddenFor(x => x.UnitOfMeasure)
+                @Control.HiddenFor(x => x.Min)
+                @Control.HiddenFor(x => x.Max)
+                
+                // The disabled text boxes are just for display purposes. The data is being held within the hidden fields. Without the hidden fields the disabled inputs get 
+                // treated as empty when the form validates.
+                @Html.EditorFor(x => x.Category, new { html = new { disabled = "disabled", id = "CategoryDisplay" }})
+                @Html.EditorFor(x => x.Description)
+                @Html.EditorFor(x => x.Position, new { html = new { disabled = "disabled", id = "PositionDisplay" }})
+                @Html.EditorFor(x => x.UnitOfMeasure, new { html = new { disabled = "disabled", id = "UnitOfMeasureDisplay" }})
+                @Html.EditorFor(x => x.Min, new { html = new { disabled = "disabled", id = "MinDisplay" }})
+                @Html.EditorFor(x => x.Max, new { html = new { disabled = "disabled", id = "MaxDisplay" }})
+                @Html.EditorFor(x => x.IsActive)
+            }
+            else
+            {
+                @Html.EditorFor(x => x.Category)
+                @Html.EditorFor(x => x.Description)
+                @Html.EditorFor(x => x.Position)
+                @Html.EditorFor(x => x.UnitOfMeasure)
+                @Html.EditorFor(x => x.Min)
+                @Html.EditorFor(x => x.Max)
+                @Html.EditorFor(x => x.IsActive)
+            }
+            @Html.ButtonGroup(@<text>
+                                  @Control.SubmitButton("Save")
+                                  @Html.LinkButton("Cancel", "Show", "EquipmentType", new { Id = Model.EquipmentType })
+                               </text>)
+    </div>
+}

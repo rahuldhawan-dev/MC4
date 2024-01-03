@@ -1,0 +1,14 @@
+﻿@model CreateFacilityKwhCost
+
+@using (Form.BeginForm("Create", "FacilityKwhCost"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility, new {Container = @Model})
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

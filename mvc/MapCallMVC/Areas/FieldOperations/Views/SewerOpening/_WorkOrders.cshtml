@@ -1,0 +1,21 @@
+﻿@model SewerOpening
+
+@if (Model.OperatingCenter.WorkOrdersEnabled)
+{
+    if (Model.WorkOrdersEnabled)
+    {
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateWorkOrder(_container, Model), new {area = "FieldOperations", Class = "link-button"})
+        </div>
+    }
+    else
+    {
+        <div style="color: red">This Asset is Currently Inactive.</div>
+    }
+}
+
+@(Html.TableFor(x => x.WorkOrders)
+      .TemplateColumnFor("Work Order", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrder", new{ id = x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.WorkDescription)
+      .ColumnFor(x => x.DateStarted)
+      .ColumnFor(x => x.DateCompleted))

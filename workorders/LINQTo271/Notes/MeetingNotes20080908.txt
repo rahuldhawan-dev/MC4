@@ -1,0 +1,16 @@
+﻿FINISHED:
+1. EmployeeWorkOrder#TimeJobCompleted to be renamed to TimeLeftJob.
+2. Add "WorkCompleted" boolean field to EmployeeWorkOrder.
+3. Setting EmployeeWorkOrder#WorkCompleted to true should set the parent WorkOrder's DateCompleted to the value of EmployeeWorkOrder#TimeLeftJob.
+4. Add WorkOrderPurpose object, to specify "Customer", "Revenue", "Complaince", or "Safety".
+5. Add "DrivenBy" field to WorkOrder, to store WorkOrderPurpose.
+6. Add WorkOrderRequester object, to specify "Customer", "Employee", or "Local Government".
+7. Replace WorkOrder#RequestedBy with a reference to a WorkOrderRequester object.
+8. Add "RequestingEmployee" field to WorkOrder, as a reference to an Employee object.
+9. Mockups of WorkOrder input screen in html.
+10. Add AssetType object, to specify "Valve", "Hydrant", "Main", or "Service".
+11. Setup validation requirements on WorkOrder object for the value of the RequestedBy field.
+  a. If Customer, customer information must be filled out.
+  b. If Employee, RequestingEmployee must be set.
+
+PENDING:

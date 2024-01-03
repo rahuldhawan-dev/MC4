@@ -1,0 +1,35 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the work order general tab. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/Markout/Index.js", ScriptLoadType.LoadFromPartial)
+@{
+	Markout temp = null;
+	var displayActions = Model.ApprovedOn.HasValue ? "none" : "";
+}
+
+@if (Model.MarkoutRequirement != null && Model.MarkoutRequirement.Id != (int)MarkoutRequirement.Indices.NONE)
+{
+    @Ajax.ActionLink("Add New Markout", "New", "Markout",
+        new { area = "FieldOperations", workOrderId = @Model.Id },
+        new AjaxOptions { HttpMethod = "GET" },
+        new { data_ajax_table = "#markoutsTable", Class = "link-button" })
+}
+<br/>
+<table id="markoutsTable">
+    <thead>
+        <tr>
+            <th style="display: @displayActions">Action</th>
+            <th>@Html.DisplayLabelFor(_ => temp.MarkoutNumber)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.MarkoutType)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Note)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.DateOfRequest)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.ReadyDate)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.ExpirationDate)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var markout in Model.Markouts)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/Markout/_Show.cshtml", markout)
+        }
+    </tbody>
+</table>

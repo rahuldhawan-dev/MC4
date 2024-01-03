@@ -1,0 +1,9 @@
+﻿@model Employee
+
+    @(Html.TableFor(x => Model.AbsenceNotifications, new { id = "AbsenceNotification" })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "AbsenceNotification", new { x.Id, Area = "Operations" }, null))
+        .ColumnFor(x => x.StartDate)
+        .ColumnFor(x => x.LastDayOfWork)
+        .ColumnFor(x => x.EndDate)
+        .ColumnFor(x => x.EmployeeAbsenceClaim)
+        .ColumnFor(x => x.AbsenceStatus))

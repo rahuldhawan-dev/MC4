@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchUserTracking
+<div id="reminder-messages" class="notification">
+    <div class="message">
+        NOTE: User tracking is only available in detail for users who have logged in since 7/27/2015.
+        For other users, only record of their last login date are available.
+    </div>
+</div>
+@(Html.TableFor(x => x)
+      .WithCaption("Records found: " + Model.Count)
+      .SortableTemplateColumnFor("User", "UserName", x => @<text>
+        <div>@Html.AuthorizedActionLink(x.UserName, "Show", "User", new { area = string.Empty, id = x.Id })</div>
+        <div>@Html.AuthorizedActionLink("View History", "Index", "AuthenticationLog", new { User = x.Id, SortBy = "LoggedInAt", SortAscending = false })</div>
+    </text>)
+                  .SortableColumnFor(x => x.LastLoggedInAt)
+                  .SortableColumnFor(x => x.FullName)
+                  .ColumnFor(x => x.DefaultOperatingCenter)
+                  .SortableColumnFor(x => x.Employee.EmployeeId)
+                  .ColumnFor(x => x.Address)
+                  .ColumnFor(x => x.City)
+                  .ColumnFor(x => x.State)
+                  .ColumnFor(x => x.ZipCode)
+                  .ColumnFor(x => x.HasAccess)
+                  .WithPaginatedFooter())

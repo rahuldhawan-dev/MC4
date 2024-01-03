@@ -1,0 +1,17 @@
+﻿@model SearchOperatingCenterTrainingSummary
+           
+@using (Form.BeginForm("Index", "OperatingCenterTrainingSummary", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter) 
+        @Html.EditorFor(x => x.TrainingRequirement)
+        @Html.EditorFor(x => x.IsOSHARequirement)
+        @Html.EditorFor(x => x.DueBy)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

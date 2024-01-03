@@ -1,0 +1,633 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<MapCallMVC.Areas.Reports.Models.SearchRegulatoryCompliance>
+@{
+    Layout = null;
+    IsLandscape = true;
+}
+
+<style>
+    * {
+        vertical-align: top;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        font-weight: inherit
+    }
+
+    html,
+    body,
+    div,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    address,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strong,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    input,
+    textarea,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    button {
+        margin: 0;
+        padding: 0;
+        color: inherit;
+        font-family: 'Trebuchet MS', Helvetica, sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: inherit
+    }
+
+    html {
+        background-color: #fff;
+        min-height: 100%
+    }
+
+    body {
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+        color: #000;
+        line-height: 1.5
+    }
+
+    h1 {
+        font-size: 32px
+    }
+
+    h2 {
+        font-size: 21px
+    }
+
+    h3 {
+        font-size: 17px
+    }
+
+    h4 {
+        font-size: 16px
+    }
+
+    h5 {
+        font-size: 13px
+    }
+
+    h6 {
+        font-size: 10.5px
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 12px;
+        font-family: inherit
+    }
+
+    pre,
+    fieldset {
+        margin: 0;
+        padding: 0
+    }
+
+    ul,
+    ol {
+        list-style-position: inside
+    }
+
+    table {
+        background: #fff;
+        border: none;
+        border-collapse: collapse;
+        border-spacing: 0;
+        position: relative
+    }
+
+        table td,
+        table th {
+            border: solid 1px #83b9de;
+            padding: 5px;
+            vertical-align: middle
+        }
+
+        table th {
+            text-align: left;
+            background-color: #fff
+        }
+
+            table th a {
+                display: inline-block;
+                text-decoration: none
+            }
+
+            table th span {
+                display: inline-block;
+                margin-left: 6px
+            }
+
+            table th.sort-asc,
+            table th.sort-desc {
+                background: #bcd6ed;
+                color: #346ea1
+            }
+
+                table th.sort-asc a,
+                table th.sort-desc a,
+                table th.sort-asc span,
+                table th.sort-desc span {
+                    background: #bcd6ed;
+                    color: #346ea1
+                }
+
+            table th:hover,
+            table th:hover * {
+                background: #83b9de;
+                color: #346ea1
+            }
+
+        table caption {
+            text-align: left;
+            color: #000
+        }
+
+        table.results-table {
+            width: 100%
+        }
+
+        table.single-line-header th {
+            white-space: nowrap
+        }
+
+        table > tbody > tr.odd > td,
+        table.no-hover > tbody > tr.odd:hover > td {
+            background: #fff
+        }
+
+        table > tbody > tr:nth-child(odd) > td,
+        table.no-hover > tbody > tr:nth-child(odd):hover > td {
+            background: #fff
+        }
+
+        table > tbody > tr.even > td,
+        table.no-hover > tbody > tr.even:hover > td {
+            background: #e1eef7
+        }
+
+        table > tbody > tr:nth-child(even) > td,
+        table.no-hover > tbody > tr:nth-child(even):hover > td {
+            background: #e1eef7
+        }
+
+        table > tbody > tr:hover > td {
+            background: #83b9de
+        }
+
+        table.for-structure {
+            background: transparent !important
+        }
+
+            table.for-structure > tbody > tr > td,
+            table.for-structure > tbody > tr:hover > td,
+            table.for-structure > tbody > tr:nth-child(even):hover > td,
+            table.for-structure > tbody > tr:nth-child(odd):hover > td {
+                background: transparent !important;
+                border: none !important
+            }
+
+    .table-wrapper table {
+        width: 100%
+    }
+
+    .table-wrapper .table-footer {
+        display: table;
+        width: 100%
+    }
+
+        .table-wrapper .table-footer .page-links {
+            display: table-cell;
+            text-align: left
+        }
+
+        .table-wrapper .table-footer .page-links-results-per-page {
+            display: table-cell;
+            text-align: right
+        }
+
+    fieldset {
+        border: solid 1px #ddd;
+        padding: 12px
+    }
+
+    legend {
+        white-space: nowrap
+    }
+
+    fieldset.field-column {
+        margin: 0;
+        padding: 0;
+        border: none
+    }
+
+    .field-column {
+        overflow: hidden
+    }
+
+        .field-column .field-pair {
+            position: relative;
+            clear: both;
+            overflow: hidden;
+            margin-top: 6px
+        }
+
+            .field-column .field-pair:first-child {
+                margin-top: 0
+            }
+
+            .field-column .field-pair > .label,
+            .field-column .field-pair > .label label {
+                font-weight: bold
+            }
+
+            .field-column .field-pair > .label {
+                z-index: 2;
+                text-align: left
+            }
+
+                .field-column .field-pair > .label .fp-description {
+                    display: block;
+                    text-align: right;
+                    color: #555;
+                    font-size: 10px;
+                    font-weight: bold;
+                    line-height: 1.2em
+                }
+
+            .field-column .field-pair > .field {
+                z-index: 1;
+                text-align: left
+            }
+
+                .field-column .field-pair > .field > div > input[type="text"],
+                .field-column .field-pair > .field > div > input[type="password"],
+                .field-column .field-pair > .field > div > textarea {
+                    width: 100%
+                }
+
+                .field-column .field-pair > .field > div > select {
+                    width: auto;
+                    max-width: 100%
+                }
+
+                .field-column .field-pair > .field > div > input.date {
+                    width: 70px !important
+                }
+
+                .field-column .field-pair > .field > div > input.date-time {
+                    width: 140px !important
+                }
+
+                .field-column .field-pair > .field > div > input.numeric {
+                    width: 100px !important
+                }
+
+            .field-column .field-pair.fp-edit > .label {
+                line-height: 24px
+            }
+
+        .field-column.fc-stretch .field-pair > .field > div > input[type="text"],
+        .field-column.fc-stretch .field-pair > .field > div > select {
+            width: 100%
+        }
+
+        .field-column.fc50 .field-pair > .label {
+            width: 50px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc50 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 56px
+        }
+
+        .field-column.fc75 .field-pair > .label {
+            width: 75px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc75 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 81px
+        }
+
+        .field-column.fc100 .field-pair > .label {
+            width: 100px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc100 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 106px
+        }
+
+        .field-column.fc125 .field-pair > .label {
+            width: 125px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc125 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 131px
+        }
+
+        .field-column.fc150 .field-pair > .label {
+            width: 150px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc150 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 156px
+        }
+
+        .field-column.fc175 .field-pair > .label {
+            width: 175px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc175 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 181px
+        }
+
+        .field-column.fc200 .field-pair > .label {
+            width: 200px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc200 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 206px
+        }
+
+        .field-column.fc225 .field-pair > .label {
+            width: 225px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc225 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 231px
+        }
+
+        .field-column.fc250 .field-pair > .label {
+            width: 250px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc250 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 256px
+        }
+
+        .field-column.fc275 .field-pair > .label {
+            width: 275px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc275 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 281px
+        }
+
+        .field-column.fc300 .field-pair > .label {
+            width: 300px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc300 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 306px
+        }
+
+        .field-column.fc325 .field-pair > .label {
+            width: 325px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc325 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 331px
+        }
+
+        .field-column.fc350 .field-pair > .label {
+            width: 350px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc350 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 356px
+        }
+
+        .field-column.fc375 .field-pair > .label {
+            width: 375px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc375 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 381px
+        }
+
+        .field-column.fc400 .field-pair > .label {
+            width: 400px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc400 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 406px
+        }
+
+        .field-column.fc425 .field-pair > .label {
+            width: 425px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc425 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 431px
+        }
+
+        .field-column.fc450 .field-pair > .label {
+            width: 450px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc450 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 456px
+        }
+
+        .field-column.fc475 .field-pair > .label {
+            width: 475px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc475 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 481px
+        }
+
+        .field-column.fc500 .field-pair > .label {
+            width: 500px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc500 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 506px
+        }
+
+        .field-column.fc525 .field-pair > .label {
+            width: 525px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc525 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 531px
+        }
+
+        .field-column.fc550 .field-pair > .label {
+            width: 550px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc550 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 556px
+        }
+
+        .field-column.fc575 .field-pair > .label {
+            width: 575px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc575 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 581px
+        }
+
+        .field-column.fc600 .field-pair > .label {
+            width: 600px;
+            float: left;
+            margin-right: -100%
+        }
+
+        .field-column.fc600 .field-pair > .field {
+            padding-left: 12px;
+            margin-left: 606px
+        }
+
+    .ie8 .field-column .field-pair > .field > div > select {
+        max-width: 98%
+    }
+
+    .fp-buttons {
+        clear: both
+    }
+
+    .field-pair.range-pair .range input {
+        width: 80px !important
+    }
+
+    .field-pair.range-pair .range select {
+        width: 100px !important
+    }
+
+    .field-pair.search-string > .field > div > input[type="text"] {
+        width: 50%
+    }
+
+    .fp-display pre {
+        white-space: pre-wrap
+    }
+
+    .fc-left-label .label {
+        text-align: left
+    }
+
+    .field-pair.indent .label {
+        padding-left: 24px
+    }
+
+    .field-column-default {
+        width: 400px
+    }
+</style>
+
+<h2>Asset Compliance</h2>
+
+@Html.Partial("_Index", Model)

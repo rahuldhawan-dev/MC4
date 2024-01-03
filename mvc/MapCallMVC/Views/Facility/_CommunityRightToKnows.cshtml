@@ -1,0 +1,17 @@
+﻿@model Facility
+
+@{
+    var communityRightToKnows = Model.CommunityRightToKnows.OrderByDescending(x => x.Id);
+}
+
+@Html.LinkButton("Create New Community Right To Know", "New", "CommunityRightToKnow", new { state = Model.OperatingCenter.State.Id, operatingCenter = Model.OperatingCenter.Id, facility = Model.Id, area = "Facilities" })
+
+@(Html.TableFor(x => x.CommunityRightToKnows, new { id = "arc-flash-studies-table" })
+      .TemplateColumnFor(x => Control.ActionLink("View", "Show", "CommunityRightToKnow", new { id = x.Id, area = "Facilities" }))
+      .ColumnFor(x => x.Id)
+      .ColumnFor(x => x.Facility.FacilityId, "Facility ID")
+      .ColumnFor(x => x.CommunityRightToKnowFacilityId, "CRTK Facility ID Number")
+      .ColumnFor(x => x.SubmissionDate)
+      .ColumnFor(x => x.ExpirationDate)
+      .ColumnFor(x => x.Expired)
+)

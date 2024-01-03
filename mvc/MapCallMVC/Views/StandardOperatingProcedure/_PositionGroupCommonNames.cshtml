@@ -1,0 +1,23 @@
+﻿@model StandardOperatingProcedure
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}           
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Requirement">
+        @Html.Partial("_AddRequirement", ViewModelFactory.BuildWithOverrides<AddSOPPGCN>(new { Id = Model.Id }))
+    </div>
+}
+
+@(Html.TableFor(x => x.PGCNRequirements)
+    .ColumnFor(x => x.PositionGroupCommonName)
+    .ColumnFor(x => x.Frequency)
+    .ColumnFor(x => x.FrequencyUnit)
+    .TemplateColumnFor(x => @<text>
+        @using (Form.BeginRouteForm("StandardOperatingProcedure", "StandardOperatingProcedurePositionGroupCommonNameRequirement", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            @Control.SubmitButton("Remove").WithValue(x.Id).WithName("PositionGroupCommonNameRequirement")
+        }
+    </text>).IsVisible(userCanEdit)
+)

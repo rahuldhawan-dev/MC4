@@ -1,0 +1,94 @@
+﻿@using MMSINC.Results
+@model MapCall.Common.Model.Entities.MeterChangeOut
+
+@Html.LinkButton("Edit", "Edit", "MeterChangeOut", new { id = Model.Id }) @* Bug 3405: put edit button at the top because they don't like scrolling. *@
+@Html.LinkButton("Export to PDF", "Show", "MeterChangeOut", new { Model.Id, ext = ResponseFormatter.KnownExtensions.PDF })
+<fieldset>
+    <legend>Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x, new { DisplayName = "Meter" })
+        @Html.DisplayFor(x => x.Contract.Description, new { DisplayName = "Contract Description" })
+        @Html.DisplayFor(x => x.Contract.OperatingCenter)
+        @Html.DisplayFor(x => x.Contract.Contractor)
+        @Html.DisplayFor(x => x.PremiseNumber)
+        @Html.DisplayFor(x => x.AccountNumber)
+        @Html.DisplayFor(x => x.CustomerName)
+        @Html.DisplayFor(x => x.ServiceStreetNumber)
+        @Html.DisplayFor(x => x.ServiceStreet)
+        @Html.DisplayFor(x => x.ServiceCity)
+        @Html.DisplayFor(x => x.ServiceZip)
+        @Html.DisplayFor(x => x.RemovedSerialNumber)
+        @Html.DisplayFor(x => x.RouteNumber)
+        @Html.DisplayFor(x => x.MeterSize)
+        @Html.DisplayFor(x => x.EquipmentID)
+        @Html.DisplayFor(x => x.YearInstalled)
+        @Html.DisplayFor(x => x.SAPOrderNumber)
+        @Html.DisplayFor(x => x.NumberOfDials)
+        @Html.DisplayFor(x => x.WorkScope)
+        @Html.DisplayFor(x => x.ProjectYear)
+        @Html.DisplayFor(x => x.TypeOfPlumbing)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Scheduling</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.DateScheduled)
+        @Html.DisplayFor(x => x.MeterScheduleTime)
+        @Html.DisplayFor(x => x.AssignedContractorMeterCrew)
+        @Html.DisplayFor(x => x.ServicePhone)
+        @Html.DisplayFor(x => x.ServicePhoneExtension)
+        @Html.DisplayFor(x => x.ServicePhone2)
+        @Html.DisplayFor(x => x.ServicePhone2Extension)
+        @Html.DisplayFor(x => x.MeterChangeOutStatus)
+        @Html.DisplayFor(x => x.MeterCommentsPremise)
+        @Html.DisplayFor(x => x.OwnerCustomerMeterLocation)
+        @Html.DisplayFor(x => x.OwnerLocationOther)
+        @Html.DisplayFor(x => x.FieldNotes)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Meter Change</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Email)
+        @Html.DisplayFor(x => x.CalledInByContractorMeterCrew)
+        @Html.DisplayFor(x => x.DateStatusChanged)
+        @Html.DisplayFor(x => x.OutReadPadded)
+        @Html.DisplayFor(x => x.NewSerialNumber)
+        @Html.DisplayFor(x => x.NewRFNumber)
+        @Html.DisplayFor(x => x.StartRead)
+        @Html.DisplayFor(x => x.MeterLocation)
+        @Html.DisplayFor(x => x.MeterSupplementalLocation)
+        @Html.DisplayFor(x => x.MeterDirection)
+        @Html.DisplayFor(x => x.RFLocation)
+        @Html.DisplayFor(x => x.RFSupplementalLocation)
+        @Html.DisplayFor(x => x.RFDirection)
+        @Html.DisplayFor(x => x.MeterReadCode1)
+        @Html.DisplayFor(x => x.MeterReadComment1)
+        @Html.DisplayFor(x => x.MeterReadCode2)
+        @Html.DisplayFor(x => x.MeterReadComment2)
+        @Html.DisplayFor(x => x.MeterReadCode3)
+        @Html.DisplayFor(x => x.MeterReadComment3)
+        @Html.DisplayFor(x => x.MeterReadCode4)
+        @Html.DisplayFor(x => x.MeterReadComment4)
+        @Html.DisplayFor(x => x.IsNeptuneRFOnly)
+        @Html.DisplayFor(x => x.IsHotRodRFOnly)
+        @Html.DisplayFor(x => x.OperatedPointOfControlAtAnyValve)
+        @Html.DisplayFor(x => x.IsMuellerMeter)
+        @Html.DisplayFor(x => x.StartStatus)
+        @Html.DisplayFor(x => x.EndStatus)
+        @Html.DisplayFor(x => x.TurnedOffWater)
+        @Html.DisplayFor(x => x.MeterTurnedOnAfterHours)
+        @Html.DisplayFor(x => x.MovedMeterToPit)
+        @Html.DisplayFor(x => x.RanNewWire)
+        @Html.DisplayFor(x => x.InstalledJumperBar)
+        @Html.DisplayFor(x => x.ContractorDrilledLid)
+        @Html.DisplayFor(x => x.PartialExcavation)
+        @Html.DisplayFor(x => x.CutBolts)
+        @Html.DisplayFor(x => x.Canvassed)
+        @Html.DisplayFor(x => x.ClickAdvantexUpdated)
+    </div>
+</fieldset>
+
+@Html.LinkButton("Edit", "Edit", "MeterChangeOut", new { id = Model.Id })

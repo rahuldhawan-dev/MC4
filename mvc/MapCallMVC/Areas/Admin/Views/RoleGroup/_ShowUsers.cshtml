@@ -1,0 +1,8 @@
+﻿@model RoleGroup
+
+@{
+    var users = Model.Users.OrderBy(x => x.UserName);
+}
+
+@(Html.TableFor(x => users, new { id = "users-table" })
+      .TemplateColumnFor("Username", x => Html.ActionLink(x.UserName, "Show", "User", new { id = x.Id, area = string.Empty}, null)))

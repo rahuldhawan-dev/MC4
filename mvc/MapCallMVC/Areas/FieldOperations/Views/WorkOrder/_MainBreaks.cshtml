@@ -1,0 +1,18 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.MainBreaks)
+      .ColumnFor(x => x.ServiceSize)
+      .ColumnFor(x => x.MainBreakMaterial)
+      .ColumnFor(x => x.FootageReplaced)
+      .ColumnFor(x => x.ReplacedWith)
+      .ColumnFor(x => x.MainCondition)
+      .ColumnFor(x => x.MainFailureType)
+      .ColumnFor(x => x.Depth)
+      .ColumnFor(x => x.MainBreakSoilCondition)
+      .ColumnFor(x => x.CustomersAffected)
+      .ColumnFor(x => x.ShutdownTime)
+      .ColumnFor(x => x.MainBreakDisinfectionMethod)
+      .ColumnFor(x => x.MainBreakFlushMethod)
+      .ColumnFor(x => x.ChlorineResidual)
+      .ColumnFor(x => x.BoilAlertIssued)
+	)

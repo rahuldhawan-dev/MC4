@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchCorrectiveOrderProblemCode
+
+@using (Form.BeginForm("Index", "CorrectiveOrderProblemCode", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Code)
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

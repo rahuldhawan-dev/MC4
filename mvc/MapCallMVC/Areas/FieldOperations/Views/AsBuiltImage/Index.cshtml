@@ -1,0 +1,33 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchAsBuiltImage
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(x => x, new { @class = "results-table" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .TemplateColumnFor(x => Html.ActionLink("PDF", "Show", new { x.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.PhysicalInService)
+    .ColumnFor(x => x.Comments)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town.County.State)
+    .ColumnFor(x => x.Town.County)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.TownSection)
+    .SortableColumnFor(x => x.ProjectName)
+    .SortableColumnFor(x => x.StreetPrefix)
+    .SortableColumnFor(x => x.ApartmentNumber)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.StreetSuffix)
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.TaskNumber)
+    .ColumnFor(x => x.HasCoordinate)
+    .SortableColumnFor(x => x.OfficeReviewRequired)
+    .SortableColumnFor(x => x.FileName)
+    .SortableColumnFor(x => x.CoordinatesModifiedOn)
+    .SortableColumnFor(x => x.CreatedAt) 
+    .WithPaginatedFooter())

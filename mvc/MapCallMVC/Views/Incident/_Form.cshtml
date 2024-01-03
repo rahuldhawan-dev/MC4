@@ -1,0 +1,192 @@
+﻿@using MapCallMVC.Controllers
+@model EditIncident
+
+@Html.ScriptFor("~/Scripts/Incident/Form.js", ScriptLoadType.LoadFromPartial)
+@{
+    // MC 2576: Certain fields are only viewable by userAdmin
+    var hasDrugSectionEditAccess = RoleService.CanAccessRole(RoleModules.OperationsIncidentsDrugTesting, RoleActions.Edit, Model.CurrentOperatingCenter);
+}
+<fieldset>
+    <legend>Incident Data</legend>
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+
+        @if (Authentication.CurrentUserIsAdmin)
+        {
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.Facility)
+            @Html.EditorFor(x => x.Department)
+            @Control.HiddenFor(x => x.EmployeeType)
+            if (Model.EmployeeType == MapCall.Common.Model.Entities.EmployeeType.Indices.EMPLOYEE)
+            {
+                @Html.EditorFor(x => x.Employee)
+            }
+            else
+            {
+                @Html.EditorFor(x => x.ContractorName)
+                @Html.EditorFor(x => x.ContractorCompany)
+            }
+            @Html.EditorFor(x => x.Supervisor)
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.CurrentOperatingCenter)
+            @Control.HiddenFor(x => x.OperatingCenter)
+            @Html.DisplayFor(x => x.CurrentFacility)
+            @Control.HiddenFor(x => x.Facility)
+            @Html.DisplayFor(x => x.CurrentDepartment)
+            if (Model.EmployeeType == MapCall.Common.Model.Entities.EmployeeType.Indices.EMPLOYEE)
+            {
+                @Html.DisplayFor(x => x.CurrentEmployee)
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.CurrentContractorName)
+                @Html.DisplayFor(x => x.CurrentContractorCompany)
+            }
+            @Control.HiddenFor(x => x.Employee)
+            @Control.HiddenFor(x => x.EmployeeType)
+            @Html.HiddenFor(x => x.ContractorName)
+            @Html.HiddenFor(x => x.ContractorCompany)
+            @Html.DisplayFor(x => x.CurrentSupervisor)
+            @Control.HiddenFor(x => x.Supervisor)
+            @Html.DisplayFor(x => x.EmployeeType)
+        }
+
+        @Html.EditorFor(x => x.IncidentStatus)
+        @Html.EditorFor(x => x.IncidentDate)
+        @Html.EditorFor(x => x.IncidentReportedDate)
+        @Html.EditorFor(x => x.DateInvestigationWillBeCompleted)
+        @Html.EditorFor(x => x.IncidentShift)
+        @Html.EditorFor(x => x.IsOvertime)
+        @Html.EditorFor(x => x.NumberOfHoursOvertimeInPastWeek)
+        @Html.EditorFor(x => x.IncidentClassification)
+        @Html.EditorFor(x => x.IncidentType)
+        @Html.EditorFor(x => x.EventExposureType)
+        @Html.EditorFor(x => x.GeneralLiabilityCode)
+        @Html.EditorFor(x => x.MotorVehicleCode)
+        @Html.EditorFor(x => x.IncidentSummary)
+        @Html.EditorFor(x => x.AnyImmediateCorrectiveActionsApplied)
+        @Html.EditorFor(x => x.IsInLitigation)
+        @Html.EditorFor(x => x.IsOSHARecordable)
+        @Html.EditorFor(x => x.IsSafetyCodeViolation)
+        @Html.EditorFor(x => x.IsChargeableMotorVehicleAccident)
+        @* NOTE: Vehicle is not an actual cascading dropdown here! *@
+        @Html.EditorFor(x => x.Vehicle)
+        @Html.EditorFor(x => x.CaseNumber)
+        @Html.EditorFor(x => x.CaseManager)
+        @Html.EditorFor(x => x.Claimant)
+        @Html.EditorFor(x => x.MarkoutNumber)
+        @Html.EditorFor(x => x.PremiseNumber)
+        @Html.EditorFor(x => x.MapCallWorkOrder)
+        @Html.EditorFor(x => x.AtRiskBehaviorSection)
+        @Html.EditorFor(x => x.AtRiskBehaviorSubSection)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Incident Data</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.AccidentState)
+        @Html.EditorFor(x => x.AccidentCounty)
+        @Html.EditorFor(x => x.AccidentTown)
+        @Html.EditorFor(x => x.AccidentStreetNumber)
+        @Html.EditorFor(x => x.AccidentStreetName)
+        @Html.EditorFor(x => x.AccidentCoordinate)
+        @Html.EditorFor(x => x.PoliceReportFiled)
+        @Html.EditorFor(x => x.WitnessName)
+        @Html.EditorFor(x => x.WitnessPhone)
+        @Html.EditorFor(x => x.QuestionEmployeeDoingBeforeIncidentOccurred)
+        @Html.EditorFor(x => x.QuestionWhatHappened)
+        @Html.EditorFor(x => x.QuestionInjuryOrIllness)
+        @Html.EditorFor(x => x.BodyParts)
+        @Html.EditorFor(x => x.QuestionWhatObjectOrSubstanceDirectlyHarmedEmployee)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Prior Injuries</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionHaveHadSimilarInjuryBefore)
+        @Html.EditorFor(x => x.PriorInjuryDate)
+        @Html.EditorFor(x => x.NatureOfPriorInjury)
+        @Html.EditorFor(x => x.PriorInjuryMedicalProvider)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Activities</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionParticipatedInAthleticActivitiesInLastTwelveMonths)
+        @Html.EditorFor(x => x.AthleticActivitiesInLastTwelveMonths)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Other Employers</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.QuestionHaveJobOutsideOfAmericanWater)
+        @Html.EditorFor(x => x.OtherEmployers)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Initial Evaluation by Nurse</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EmployeeSpokeWithNurse)
+        @Html.EditorFor(x => x.IncidentNurseRecommendationType)
+        @Html.EditorFor(x => x.RecommendedMedicalProvider, new { @class = "recommended-medical-provider" })
+        @Html.EditorFor(x => x.NonMedicalTreatmentRecommendation, new { @class = "non-medical-treatment-recommendation" })
+        @Html.EditorFor(x => x.EmployeeAcceptedRecommendationByNurse)
+        @Html.EditorFor(x => x.NursePhone)
+        @Html.EditorFor(x => x.ReasonEmployeeDidNotAcceptRecommendationByNurse)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Medical</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.SoughtMedicalAttention)
+        @Html.EditorFor(x => x.MedicalProviderName)
+        @Html.EditorFor(x => x.MedicalProviderPhone)
+        @Html.EditorFor(x => x.MedicalProviderState)
+        @Html.EditorFor(x => x.MedicalProviderCounty)
+        @Html.EditorFor(x => x.MedicalProviderTown)
+    </div>
+</fieldset>
+
+@if (hasDrugSectionEditAccess)
+{
+    <fieldset>
+        <legend>Drug and Alcohol Testing</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.DrugAndAlcoholTestingDecision)
+            @Html.EditorFor(x => x.DrugAndAlcoholTestingResult)
+            @Html.EditorFor(x => x.DrugAndAlcoholTestingNotes)
+        </div>
+    </fieldset>
+}
+else
+{
+    // MC- 3335 This field is required so it is needed here and the value doesn't matter in this scenario as it's being replaced in MapToEntity
+    @Html.HiddenFor(x => x.DrugAndAlcoholTestingDecision) 
+}
+
+<fieldset>
+    <legend>Incident Committee Report</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.IncidentCommitteeReportCompletionDate)
+        @Html.EditorFor(x => x.IncidentCommitteeReportResults)
+        @Html.EditorFor(x => x.SeriousInjuryOrFatalityType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Insurance Carrier</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.WorkersCompensationClaimStatus)
+        @Html.EditorFor(x => x.ClaimsCarrierId)
+        @Html.EditorFor(x => x.TravelersReport)
+    </div>
+</fieldset>

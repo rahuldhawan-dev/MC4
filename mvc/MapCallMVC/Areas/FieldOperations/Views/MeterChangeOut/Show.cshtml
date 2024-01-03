@@ -1,0 +1,9 @@
+﻿@model MeterChangeOut
+@{
+    ActionBarHelper.AddPdfLink();
+}
+@(Html.Tabs()
+    .WithTab("Details", "_ShowMeterChangeOut")
+    .WithNotesAndDocuments()
+    .WithLog()
+)

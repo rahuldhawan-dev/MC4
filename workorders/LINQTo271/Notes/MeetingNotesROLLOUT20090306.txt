@@ -1,0 +1,21 @@
+THESE ARE THE REQUIREMENTS FOR THEM TO START USING THIS:
+1. Mains / Services
+- Create Mains Table/Class - IAsset
+- Create Services Table - Adjust class to use this new table.
+- Fix ID recording for Services
+- Implement Mains in Input Screen
+
+2. Google Map Key
+
+3. Move Fields - Street Number, ZipCode on Work Order Details
+
+4. Display/Search New/Old Work Order IDs
+
+5. Data Issues - Cleaning imported data - dates
+
+6. Materials Used - asmx location may be incorrect
+
+7. Restoration Screen
+- Validation
+- Edit Button
+- Done Button (Closes Window)

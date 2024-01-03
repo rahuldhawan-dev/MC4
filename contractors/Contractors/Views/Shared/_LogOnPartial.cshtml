@@ -1,0 +1,16 @@
+﻿@using MMSINC.Authentication
+@{
+    var authServ = _container.GetInstance<IAuthenticationService<ContractorUser>>();
+}
+<div id="logindisplay">
+@if(authServ.CurrentUserIsAuthenticated) {
+    var currentUser = authServ.CurrentUser;
+    //if (currentUser != null) /* How the hell can this ever be null if they're authenticated? */ {
+        <text>Logged in as @Html.ActionLink(currentUser.Email, "Show", "User", new {id = currentUser.Id}, new {id = "loginName"})
+        [ @Html.ActionLink("Log Off", "LogOff", "Authentication") ]</text>
+   // }
+}
+else {
+    @:[ @Html.ActionLink("Log On", "LogOn", "Authentication") ]
+}
+</div>

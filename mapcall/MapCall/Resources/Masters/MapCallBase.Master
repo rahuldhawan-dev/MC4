@@ -1,0 +1,36 @@
+<%-- 
+
+HI!
+
+ARE YOU LOOKING AT THIS FILE TO EDIT IT?
+
+THEN STOP!
+
+IT ISN'T THE REAL MASTERPAGE BEING USED BY THE SITE
+
+IT'S JUST HERE TO MAKE VISUAL STUDIO'S INTELLISENSE WORK PROPERLY IN ASPX MARKUP
+
+THE CONTENT IN THIS FILE ISN'T PARTICULARY IMPORTANT
+
+IT JUST NEEDS TO BE HERE IN THIS FILE PATH THAT MATCHES WHERE IT WOULD BE IN MAPCALL.COMMON
+
+THANK YOU
+
+AND HAVE A NICE DAY!
+
+P.S. SET THE BUILD ACTION FOR THIS FILE TO "NONE" AND "Copy to Output Directory" TO "DO NOT COPY"
+
+ --%>
+
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="MapCall.Common.Resources.Masters.MapCallBase" %>
+<!DOCTYPE html>
+<html>
+<head runat="server" enableviewstate="false"> <%--Needed or else all the ResolveUrls used will get saved to viewstate.--%>
+    <title><%= Page.Title %>  - MapCall</title> <%--MMSI company name is appended to title in code behind--%>
+    <link rel="shortcut icon" href="<%# ResolveUrl("~/resources/images/favicon.ico")%>" type="image/x-icon" />
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <asp:ContentPlaceHolder ID="content" runat="server" />
+</body>
+</html>

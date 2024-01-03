@@ -1,0 +1,61 @@
+﻿@model MaintenancePlan
+
+<fieldset>
+    <legend>Plan Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PlanNumber)
+        @Html.DisplayFor(x => x.Name)
+        @Html.DisplayFor(x => x.IsActive)
+        @Html.RenderDisplayTemplate("Compliance", @<text>
+            <div class="compliance-div-section">
+                <div>
+                    @Html.CheckBoxFor(x => x.HasPsmRequirement, new { disabled = true })
+                    @Html.LabelFor(x => x.HasPsmRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasCompanyRequirement, new { disabled = true })
+                    @Html.LabelFor(x => x.HasCompanyRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasRegulatoryRequirement, new { disabled = true })
+                    @Html.LabelFor(x => x.HasRegulatoryRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasOshaRequirement, new { disabled = true })
+                    @Html.LabelFor(x => x.HasOshaRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasOtherCompliance, new { disabled = true })
+                    @Html.LabelFor(x => x.HasOtherCompliance)
+                </div>
+            </div>
+        </text>)
+        @Html.DisplayForIfNotNullOrWhiteSpace(x => x.OtherComplianceReason)
+        @if (!Model.IsActive)
+        {
+            @Html.DisplayFor(x => x.DeactivationReason)
+            @Html.DisplayFor(x => x.DeactivationEmployee)
+            @Html.DisplayFor(x => x.DeactivationDate)
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Facility Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.State)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.PlanningPlant)
+        @Html.DisplayFor(x => x.Facility)
+        @Html.RenderDisplayTemplate("Facility Areas", @Html.TableFor(x => x.FacilityAreas, new { id = "facilityAreas" }).ColumnFor(x => x.FacilityArea.Description, "Area").ColumnFor(x => x.FacilitySubArea.Description, "Sub Area"))
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Scheduling Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.ProductionWorkOrderFrequency)
+        @Html.DisplayFor(x => x.Start)
+        @Html.DisplayFor(x => x.HasACompletionRequirement)
+    </div>
+</fieldset>

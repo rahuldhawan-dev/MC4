@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.CreateEnvironmentalPermitFee
+
+@{
+    // This form initially renders as a partial inside a tab on Environmmentalpermit/Show. 
+    // However, if server validation fails, then we need to display the full view.
+    if (Html.ViewContext.IsChildAction)
+    {
+        Layout = null;
+    }
+}
+
+@using (Form.BeginForm("Create", "EnvironmentalPermitFee", "Environmental"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Fee")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

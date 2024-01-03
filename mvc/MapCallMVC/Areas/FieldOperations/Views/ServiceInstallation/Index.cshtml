@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchServiceInstallation
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .TemplateColumnFor("Work Order", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrder", new { id = x.WorkOrder.Id, area = "FieldOperations" }, null))
+    .ColumnFor(x => x.MeterManufacturerSerialNumber)
+    .ColumnFor(x => x.Activity1)
+    .WithPaginatedFooter()
+)

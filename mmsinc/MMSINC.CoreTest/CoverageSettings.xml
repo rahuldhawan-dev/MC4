@@ -1,0 +1,7 @@
+<PartCoverSettings>
+  <Target>C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\MSTest.exe</Target>
+  <TargetWorkDir>c:\Solutions\MMSINC</TargetWorkDir>
+  <TargetArgs>/noisolation /testcontainer:C:\Solutions\MMSINC\MMSINC.CoreTest\bin\Debug\MMSINC.CoreTest.dll</TargetArgs>
+  <Rule>+[MMSINC.Core*]*</Rule>
+  <Rule>-[MMSINC.CoreTest*]*</Rule>
+</PartCoverSettings>

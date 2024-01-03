@@ -1,0 +1,14 @@
+﻿@model CreateOperatingCenterStockedMaterial
+
+@using (Form.BeginForm("Create", "OperatingCenterStockedMaterial", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.EditorFor(m => m.OperatingCenter)
+        @Html.EditorFor(m => m.Material)
+        @Html.EditorFor(x => x.Cost)
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}    

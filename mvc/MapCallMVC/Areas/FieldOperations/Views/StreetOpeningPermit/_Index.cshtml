@@ -1,0 +1,50 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the work order general & finalization tab. There is no specific Index action. *@
+@Html.ScriptFor(
+    "~/Scripts/Areas/FieldOperations/StreetOpeningPermit/Index.js",
+    ScriptLoadType.LoadFromPartial)
+@{
+    StreetOpeningPermit temp = null;
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+    var isFinalizationView = controllerName.ToLower() == "workorderfinalization";
+}
+
+@if (!isFinalizationView)
+{
+    <div class="container">
+        @Ajax.ActionLink(
+            "Add Street Opening Permit",
+            "New",
+            "StreetOpeningPermit",
+            new { area = "FieldOperations", workOrderId = @Model.Id },
+            new AjaxOptions { HttpMethod = "GET" },
+            new { data_ajax_table = "#streetOpeningPermitsTable", Class = "link-button" })
+
+        @{
+            var beginPermitUrl = Url.Action("New", "ExternalStreetOpeningPermit", new { workOrderId = Model.Id });
+        }
+        @Control.Button("Submit New Permit").WithId("submit-new-permit-button").With("data-url", @beginPermitUrl)
+    </div>
+}
+
+<table id="streetOpeningPermitsTable" style="margin-top:6px;">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>@Html.DisplayLabelFor(_ => temp.StreetOpeningPermitNumber)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.DateRequested)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.PermitId)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.HasMetDrawingRequirement)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.IsPaidFor)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.DateIssued)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.ExpirationDate)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Notes)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var permit in Model.StreetOpeningPermits)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/StreetOpeningPermit/_Show.cshtml", permit)
+        }
+    </tbody>
+</table>

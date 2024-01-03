@@ -1,0 +1,27 @@
+﻿@using MMSINC.Results
+@model SecureSearchDocumentForSingleEntity
+
+@if (Model.UserCanEdit.GetValueOrDefault())
+{
+    <div id="pnlLinkDocument" class="collapse-panel" data-title="Link Existing Document">
+        @Html.Action("New", "DocumentLink", new { LinkedId = Model.LinkedId, Model.TableName, area = "" })
+    </div>
+
+    <div id="pnlNewDocument" class="collapse-panel" data-title="New Document">
+        @Html.Action("New", "Document", new { LinkedId = Model.LinkedId, Model.TableName, area = "" })
+    </div>
+}
+
+@* This ajax's secure values are taken from this view's model *@
+@using (var f = Form.BeginAjaxForm("SecureIndexForSingleRecord", "DocumentLink", string.Empty, new RouteValueDictionary { { ResponseFormatter.ROUTE_EXTENSION_PARAMETER_NAME, ResponseFormatter.KnownExtensions.FRAGMENT } }))
+{
+   
+}
+@* This div *must* exist outside of the ajax form, otherwise when the tab loads, the delete button forms become nested forms
+    and stuff stops working correctly. The first delete button's form gets stripped out by jQuery(it seems) and the data-confirm
+    alerts stop appearing. We need to stop including forms inside of table rows. *@
+<div id="document-results">
+    @* If the user hits the back button, the page will load with the cached form that has an expired secure forms token.
+        There is no simple way to solve this issue at the moment. *@
+    <div>Please reload the page if the documents table has not loaded.</div>
+</div>

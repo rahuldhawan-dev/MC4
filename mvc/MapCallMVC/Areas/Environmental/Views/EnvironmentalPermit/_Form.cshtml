@@ -1,0 +1,46 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits
+@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.EnvironmentalPermitViewModel
+
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.EnvironmentalPermitType)
+    @Html.EditorFor(x => x.EnvironmentalPermitStatus)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.FacilityType)
+    @if (Model is CreateEnvironmentalPermit)
+    {
+        @Html.EditorFor(x => ((CreateEnvironmentalPermit)x).OperatingCenters)
+    }
+    else
+    {
+        @Html.EditorFor(x => x.OperatingCenters)
+    }
+    @Html.EditorFor(x => x.PublicWaterSupply)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.PermitName)
+    @Html.EditorFor(x => x.PermitNumber)
+    @Html.EditorFor(x => x.ReportingRequired)
+    @*This can only be set from No to Yes if there are requirements*@
+    @*This can only be set from Yes from No if there are requirements*@
+    @if (Model is CreateEnvironmentalPermit)
+    {
+        @Html.EditorFor(x => ((CreateEnvironmentalPermit)x).Facilities)
+        @Html.EditorFor(x => ((CreateEnvironmentalPermit)x).Equipment)
+        @Html.RenderDisplayTemplate(Html.DisplayLabelFor("RequiresRequirements"), @<text>
+            @Html.EditorWithoutWrapperFor(x => x.RequiresRequirements)
+            <span id="EnvironmentalPermitRequiresRequirementsText" style="color: red; display: none;">Please fill out the Requirement information on the "Requirements Tab" before submitting.</span>
+        </text>)
+    }
+    else
+    {
+        @Html.EditorFor(x => ((EditEnvironmentalPermit)x).RequiresRequirements)
+    }
+
+    @Html.EditorFor(x => x.ProgramInterestNumber)
+    @Html.EditorFor(x => x.PermitCrossReferenceNumber)
+    @Html.EditorFor(x => x.PermitExpires)
+    @Html.EditorFor(x => x.PermitEffectiveDate)
+    @Html.EditorFor(x => x.PermitRenewalDate)
+    @Html.EditorFor(x => x.PermitExpirationDate)
+    @Html.EditorFor(x => x.Description)
+    @Html.EditorFor(x => x.RequiresFees)
+</div>

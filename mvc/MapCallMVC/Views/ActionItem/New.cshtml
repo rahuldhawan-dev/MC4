@@ -1,0 +1,19 @@
+﻿@model NewActionItem
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null; 
+}
+@using (var form = Form.BeginForm("Create", "ActionItem")) {
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.NotListedType)
+        @Html.EditorFor(x => x.Note)
+        @Html.EditorFor(x => x.ResponsibleOwner)
+        @Html.EditorFor(x => x.TargetedCompletionDate)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Add Action Item").WithName("Submit")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model Equipment
+@{
+    var searchModel = new {
+        ext = "frag",
+        Facility = Model.Facility.Id,
+        EquipmentPurpose = Model.EquipmentPurpose.Id,
+        NotEqualEntityId = Model.Id,
+        OriginalEquipmentId = ((Model.ReplacedEquipment != null)) ? Model.ReplacedEquipment.Id : (int?)null
+    };
+}
+@using (var f = Form.BeginAjaxForm("Index", "Equipment", searchModel)) { }

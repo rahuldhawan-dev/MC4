@@ -1,0 +1,14 @@
+﻿@model EditTrainingRecord
+
+@using (Form.BeginForm("Update", "TrainingRecord", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.Canceled)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TrainingRecord", new {Model.Id})
+                           </text>)
+    </div>
+}

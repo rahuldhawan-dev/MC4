@@ -1,0 +1,13 @@
+﻿@model ChoosePaymentMethod
+
+@Html.ValidationMessage("SelectedProfileId")
+
+@foreach (var profile in Model.PaymentProfiles)
+{
+    <div>
+        @Html.RadioButton("SelectedProfileId", profile.ProfileID, new Dictionary<string, object> {
+            {"data-val", "true"}, {"data-val-required", "Please choose a payment method."}
+        })
+        @profile.CardType - @profile.CardNumber
+    </div>
+}

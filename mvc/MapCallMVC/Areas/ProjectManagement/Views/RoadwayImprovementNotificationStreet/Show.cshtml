@@ -1,0 +1,17 @@
+﻿@model RoadwayImprovementNotificationStreet
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Roadway Improvement Notification", Html.ActionLink(Model.RoadwayImprovementNotification.Description, "Show", "RoadwayImprovementNotification", new { id = Model.RoadwayImprovementNotification.Id,  area = "ProjectManagement" }, null))
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.StartPoint)
+    @Html.DisplayFor(x => x.Terminus)
+    @Html.DisplayFor(x => x.MainSize)
+    @Html.DisplayFor(x => x.MainType)
+    @Html.DisplayFor(x => x.RoadwayImprovementNotificationStreetStatus)
+    @Html.DisplayFor(x => x.MainBreakActivity)
+    @Html.DisplayFor(x => x.NumberOfServicesToBeReplaced)
+    @Html.DisplayFor(x => x.OpenWorkOrders)
+    @Html.DisplayFor(x => x.MoratoriumEndDate)
+    @Html.DisplayFor(x => x.Notes)
+</div>

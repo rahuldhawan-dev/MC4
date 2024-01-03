@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.CreateApcFormAnswer
+
+<tr>
+    <td>
+        @Control.HiddenFor(x => x.FacilityInspectionFormQuestion)
+        @Control.HiddenFor(x => x.Category)
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.ApcInspectionItem)
+     
+        @Html.DisplayTextFor(x => Model.FacilityInspectionFormQuestionDisplay.Question)
+    </td>
+    <td>
+        @Html.DisplayTextFor(x => x.FacilityInspectionFormQuestionDisplay.Weightage)
+    </td>
+    <td>
+        @Html.EditorWithoutWrapperFor(x => x.IsSafe, new { data_weightage = Model.FacilityInspectionFormQuestionDisplay.Weightage })
+    </td>
+    <td>
+        @Html.EditorWithoutWrapperFor(x => x.IsPictureTaken)
+    </td>
+    <td>
+        @Html.EditorWithoutWrapperFor(x => x.Comments, new { style = "width: 300px;" })
+    </td>
+</tr>

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditEmployeeAssignment
+    
+@using (Form.BeginForm("Update", "EmployeeAssignment", "Production", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.AssignedTo)
+        @Html.EditorFor(x => x.AssignedFor)
+        @Html.EditorFor(x => x.DateStarted)
+        @Html.EditorFor(x => x.DateEnded)
+        @Html.EditorFor(x => x.HoursWorked)
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "EmployeeAssignment", new { Model.Id })
+                           </text>)
+    </div>
+}

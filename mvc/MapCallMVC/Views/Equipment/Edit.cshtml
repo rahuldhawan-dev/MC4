@@ -1,0 +1,22 @@
+﻿@model EditEquipment
+
+@Html.ScriptFor("~/Scripts/Equipment/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Equipment/Edit.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Equipment/FieldVisibility.js", ScriptLoadType.LoadFromPartial)
+
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+@using (Form.BeginForm("Update", "Equipment", new { Model.Id }))
+{
+    @Control.Hidden("FacilityShowUrl").WithValue(Url.Action("Show", "Facility", new { area = "" }))
+    @(Html.Tabs()
+                  .WithTab("General", "_Edit")
+                  .WithTab("Attributes", "_EditCharacteristics")
+                  .WithTab("Risk Characteristics", "_RiskCharacteristicsForm"))
+    <div class="field-column fc200">
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "Equipment", new { Model.Id })
+        </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model SearchUnion
+
+@using (Form.BeginForm("Index", "Union")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

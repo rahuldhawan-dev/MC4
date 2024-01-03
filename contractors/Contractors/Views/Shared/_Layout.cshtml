@@ -1,0 +1,52 @@
+﻿@using MMSINC
+@{
+    Layout = "~/Views/Shared/_NoFrills.cshtml";
+}
+@section styles {
+    @Styles.Render("~/content/base-css")
+    @Styles.Render("~/content/map-css")
+    @RenderSection("styles", required: false)
+    @Html.ResourceRegistry().StyleSheets.ToMvcHtmlString()
+
+    @if (MvcApplication.IsStaging)
+    {
+        <style>
+            #site-header {
+                background-color: #00cccc !important;
+                background-image:none !important;
+            }
+        </style>
+    }
+}
+@section scripts {
+    @Scripts.Render("~/scripts/site-js")
+    @Scripts.Render("~/scripts/map-js")
+    @RenderSection("scripts", required: false)
+    @Html.ResourceRegistry().Scripts.ToMvcHtmlString()
+    @Html.Partial("~/Views/Shared/_ApplicationJSBridge.cshtml")
+}
+
+<noscript><div>This site requires javascript to be enabled.</div></noscript>
+<div class="siteWrap">
+    <div class="left">
+        <div class="inner">
+            <div>
+                @RenderSection("nav", required: false)
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="inner">
+            <div id="site-header" class="header">@ViewBag.Title
+                @Html.Partial("_LogOnPartial")
+            </div>
+            <div class="body">
+				<div class="content">
+					@Html.DisplayNotifications()
+					@RenderBody()
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+@RenderSection("footer", required: false)

@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchRecurringProject
+
+@using (Form.BeginForm("Index", "RecurringProject")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.WBSNumber)
+        @Html.EditorFor(x => x.ProjectTitle)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.HistoricProjectID)
+        @Html.EditorFor(x => x.RegulatoryStatus)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.RecurringProjectType)
+        @Html.EditorFor(x => x.EstimatedInServiceDate)
+        @Html.EditorFor(x => x.ActualInServiceDate)
+        @Html.EditorFor(x => x.FoundationalFilingPeriod)
+        @Html.EditorFor(x => x.AssetCategory)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.HasMainsSelected)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@model TapImage
+@{
+    ActionBarHelper.AddAuthorizedLink("Copy", "ab-replace", "New", "TapImage", new { originalImageId = Model.Id, area = "FieldOperations" }, null);
+}
+
+@(Html.Tabs()
+    .WithTab("TapImage", "_ShowTapImage", Model)
+    .WithLog()
+)
+

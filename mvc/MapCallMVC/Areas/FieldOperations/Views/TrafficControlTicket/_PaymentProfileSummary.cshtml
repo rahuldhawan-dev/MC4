@@ -1,0 +1,4 @@
+﻿@model AuthorizeNet.PaymentProfile
+
+@Html.DisplayForIfNotNullOrWhiteSpace(m => m.CardType)
+@Html.DisplayFor(m => m.CardNumber)

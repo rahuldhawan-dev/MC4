@@ -1,0 +1,18 @@
+﻿@model JobSiteCheckList
+<div class="field-column fc200">
+	@Html.DisplayFor(x => x.PressurizedRiskRestrainedType)
+
+	@* This value is not set on older records. *@
+	@if (Model.PressurizedRiskRestrainedType != null)
+	{
+		if (Model.PressurizedRiskRestrainedType.Description == "No")
+		{
+			@Html.DisplayFor(x => x.NoRestraintReason)
+		}
+		else if (Model.PressurizedRiskRestrainedType.Description == "Yes")
+		{
+			@Html.DisplayFor(x => x.RestraintMethod)
+		}
+		@* else do nothing. Really don't know why this isn't a bool. -Ross 1/24/2018 *@
+	}
+</div>

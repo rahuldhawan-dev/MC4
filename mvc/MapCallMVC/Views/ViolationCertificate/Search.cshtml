@@ -1,0 +1,16 @@
+﻿@model SearchViolationCertificate
+           
+@using (Form.BeginForm("Index", "ViolationCertificate"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Employee, new { Container = @Model })
+        @Html.EditorFor(x => x.CertificateDate)
+        @Html.EditorFor(x => x.Expired)
+        @Html.EditorFor(x => x.EmployeeStatus)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

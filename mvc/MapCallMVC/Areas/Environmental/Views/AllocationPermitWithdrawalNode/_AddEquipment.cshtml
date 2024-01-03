@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.AddAllocationPermitWithdrawalNodeEquipment
+    
+@using (var form = Form.BeginRouteForm("AllocationPermitWithdrawalNode", "Equipment", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "allocationPermitEquipmentForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Equipment")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

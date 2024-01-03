@@ -1,0 +1,12 @@
+﻿@model SearchCutoffSawQuestionnaire
+
+@using (Form.BeginForm("Index", "CutoffSawQuestionnaire"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatedOn)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,15 @@
+﻿@model WaterSample
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.SampleDate)
+    @Html.RenderDisplayTemplate("SampleIdMatrix", Html.ActionLink(Model.SampleIdMatrix.ToString(), "Show", "SampleIdMatrix", new { Model.SampleIdMatrix.Id, area = "WaterQuality"}, null))
+    @Html.RenderDisplayTemplate("Sample Site", Html.ActionLink(Model.SampleIdMatrix.SampleSite.ToString(), "Show", "SampleSite", new { Model.SampleIdMatrix.SampleSite.Id, area = "WaterQuality" }, null))
+    @Html.DisplayFor(x => x.AnalysisPerformedBy)
+    @Html.DisplayFor(x => x.SampleIdMatrix)
+    @Html.DisplayFor(x => x.UnitOfMeasure)
+    @Html.DisplayFor(x => x.NonDetect)
+    @Html.DisplayFor(x => x.IsInvalid)
+    @Html.DisplayFor(x => x.SampleValue)
+    @Html.DisplayFor(x => x.CollectedBy)
+    @Html.DisplayFor(x => x.Notes)
+</div>

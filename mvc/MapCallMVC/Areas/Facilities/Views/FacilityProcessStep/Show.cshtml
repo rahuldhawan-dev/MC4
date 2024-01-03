@@ -1,0 +1,21 @@
+﻿@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model FacilityProcessStep
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+
+@{
+    var tabs = Html.Tabs()
+        .WithTab("Facility Process Step", "_ShowFacilityProcessStep", Model)
+        .WithTab("Triggers", "_ShowTriggers");
+
+    if (Model.Equipment != null && Model.Equipment.ScadaTagName != null)
+    {
+        tabs = tabs.WithAjaxTab("SCADA Readings", "_ScadaReadings", new SearchFacilityProcessStepScadaReadings {EquipmentId = Model.Equipment.Id});
+    }
+
+    tabs = tabs.WithNotesAndDocuments();
+}
+
+@tabs

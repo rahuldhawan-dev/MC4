@@ -1,0 +1,24 @@
+﻿@model SearchTrainingRecord
+
+@(Html.TableFor(x => Model)
+            .WithCaption("Records found: " + Model.Count)
+            .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+            .SortableColumnFor(x => x.Id, "Id")
+            .SortableColumnFor(x => x.ScheduledDate, "ScheduledDate")
+            .SortableColumnFor(x => x.HeldOn, "HeldOn")
+            .SortableColumnFor(x => x.ClassLocation)
+            .SortableColumnFor(x => x.TrainingModule.TotalHours, "TrainingModule.TotalHours")
+            .SortableColumnFor(x => x.CreatedBy)
+            .SortableColumnFor(x => x.HasEnoughTrainingSessionsHoursForTrainingModule, "Enough Sessions", "HasEnoughTrainingSessionsHoursForTrainingModule")
+            .SortableTemplateColumnFor(x => x.TrainingModule.Title, "TrainingModule.Title", x => @<text>
+                                                                                                @if (x.TrainingModule != null)
+                                                                                                {
+                                                                                                    @Html.ActionLink(x.TrainingModule.Title,"Show", "TrainingModule", new {id = x.TrainingModule.Id, area = ""}, null)
+                                                                                                }
+                                                                                            </text>)
+            .SortableColumnFor(x => x.TrainingModule.Description, "TrainingModule.Description")
+            .SortableColumnFor(x => x.TrainingModule.AmericanWaterCourseNumber, "TrainingModule.AmericanWaterCourseNumber")
+            .ColumnFor(x => x.Instructor.OperatingCenter, "Instructor Operating Center")
+            .ColumnFor(x => x.ScheduledCount, "Employees Scheduled")
+            .ColumnFor(x => x.AttendedCount, "Eployees Attended")
+            .WithPaginatedFooter())

@@ -1,0 +1,23 @@
+﻿@model SearchJobObservation
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "search-results" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.ObservationDate)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.CreatedBy)
+    .SortableColumnFor(x => x.Coordinate)
+    .SortableColumnFor(x => x.Address)
+    .SortableColumnFor(x => x.TaskObserved)
+    .SortableColumnFor(x => x.WorkOrder)
+    .SortableColumnFor(x => x.OverallQualityRating)
+    .SortableColumnFor(x => x.OverallSafetyRating)
+    .SortableColumnFor(x => x.Deficiencies)
+    .SortableColumnFor(x => x.Department)
+    .WithPaginatedFooter()
+)

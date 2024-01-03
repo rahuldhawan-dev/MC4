@@ -1,0 +1,446 @@
+﻿@using MapCall.Common.Controllers
+@using MMSINC.ClassExtensions
+@model LayoutController.LayoutModel
+@* ReSharper disable Razor.SectionNotResolved *@
+@* ReSharper disable once ReplaceWithSingleAssignment.True *@
+@{
+    // Do not set the Layout property. Allow whatever site that's running this have its layout set instead.
+    ViewBag.Title = "Page Title";
+    TempData[MMSINC.Controllers.ControllerBase.SUCCESS_MESSAGE_KEY] = new List<string>(new[] { "I am successful" });
+    TempData[MMSINC.Controllers.ControllerBase.NOTIFICATION_MESSAGE_KEY] = new List<string>(new[] { "I am informative" });
+    TempData[MMSINC.Controllers.ControllerBase.ERROR_MESSAGE_KEY] = new List<string>(new[] { "I am an error", "I am another error" });
+    ViewData.ModelState.AddModelError("TextGoesHere", "Some validation error");
+    ViewData.ModelState.AddModelError("DropDownWithError", "A validation error that should line up next to the dropdown");
+
+    Model.CheckBoxing = new List<int>();
+    Model.CheckBoxing.Add(1);
+    Model.CheckBoxing.Add(3);
+
+    ViewData["CheckBoxing"] = new[] {
+        new SelectListItem {Text = "First", Value = "1"},
+        new SelectListItem {Text = "Second", Value = "2"},
+        new SelectListItem {Text = "Third", Value = "3"},
+        new SelectListItem {Text = "Fourth", Value = "4"},
+        new SelectListItem {Text = "Fifth", Value = "5"},
+        new SelectListItem {Text = "Sixth", Value = "6"},
+        new SelectListItem {Text = "Seventh", Value = "7"},
+        new SelectListItem {Text = "Eighth", Value = "8"},
+        new SelectListItem {Text = "Ninth", Value = "9"},
+        new SelectListItem {Text = "Tenth", Value = "10"},
+        new SelectListItem {Text = "Elephant", Value = "11"},
+        new SelectListItem {Text = "Twelfth", Value = "12"},
+    };
+
+    ViewData["ParentOfCheckBoxList"] = new[] {
+        new SelectListItem {Text = "First", Value = "1"},
+        new SelectListItem {Text = "Second", Value = "2"},
+        new SelectListItem {Text = "Third", Value = "3"},
+        new SelectListItem {Text = "Fourth", Value = "4"},
+        new SelectListItem {Text = "Fifth", Value = "5"},
+        new SelectListItem {Text = "Sixth", Value = "6"},
+        new SelectListItem {Text = "Seventh", Value = "7"},
+        new SelectListItem {Text = "Eighth", Value = "8"},
+        new SelectListItem {Text = "Ninth", Value = "9"},
+        new SelectListItem {Text = "Tenth", Value = "10"},
+        new SelectListItem {Text = "Elephant", Value = "11"},
+        new SelectListItem {Text = "Twelfth", Value = "12"},
+    };
+
+    Model.MultilineText =
+        @"This is a long incoherent string of text: ooaoe g ogoag ho goase gouasghasoueg haosg uhogaheo ga ohaesg ouasegouh ao ghaoeuhnagon aseona gonagogao oa
+
+And here's a line break!
+";
+
+    var dropItem = new SelectListItem { Text = "Neat", Value = "1" };
+    ViewData["DropDown"] = new[] { dropItem };
+    ViewData["ParentThatWillNotReturnResults"] = new[] { dropItem };
+    var comboItems = new[] { dropItem };
+    ViewData["ComboBoxTwo"] = new[] { new SelectListItem { Value = "123", Text = "Description" } };
+
+    var dependsOnDropDownItem = new SelectListItem { Text = "A thing", Value = "1" };
+    ViewData["RegularDropDownPreSelectedValue"] = new[] { dependsOnDropDownItem };
+    Model.RegularDropDownPreSelectedValue = 1;
+    ViewData["CascadeParent1"] = new[] { dependsOnDropDownItem };
+    ViewData["CascadeParent2"] = new[] { dependsOnDropDownItem };
+    ViewData["CascadeParent3"] = new[] { dependsOnDropDownItem };
+    Model.CascadeParent3 = 1;
+    ViewData["CascadeParent4"] = new[] { dependsOnDropDownItem };
+    ViewData["CascadeParent5"] = new[] { dependsOnDropDownItem };
+    Model.CascadeParent5 = 1;
+    ViewData["CascadeParent6"] = new[] { dependsOnDropDownItem };
+    ViewData["CascadeParentNotRequired"] = new[] { dependsOnDropDownItem };
+
+    IHtmlString customPartial = null;
+    if (Html.ViewExists("~/Views/Layout/_Custom.cshtml"))
+    {
+        // ReSharper disable once Mvc.PartialViewNotResolved
+        customPartial = Html.Partial("~/Views/Layout/_Custom.cshtml");
+    }
+
+    var canDoComboBox = true;
+    if (SharedViewData.ContainsKey("CanDoComboBox") && (bool)SharedViewData["CanDoComboBox"] == false)
+    {
+        canDoComboBox = false;
+    }
+
+}
+
+@section styles {
+    <style>
+        .faux-table {
+            display: table;
+            width: 100%;
+        }
+
+            .faux-table > div {
+                display: table-cell;
+                padding: 6px;
+                vertical-align: top;
+            }
+
+        #layout-tabs {
+            margin-bottom: 12px;
+        }
+    </style>
+}
+
+@section scripts {
+
+    <script>
+
+        var Layout = {
+            AUTOCOMPLETE_DATA: [ // I'm going on a picnic, and I'm bringing
+                'aardvark',
+                'banana',
+                'chameleon',
+                'dodo',
+                'effervescence',
+                'farsightedness',
+                'gastronomy',
+                'hamburger helper',
+                'incense',
+                'jambalaya',
+                'kraken',
+                'llamas',
+                'mangos',
+                'n\'ere dowells',
+                'opal',
+                'pastina',
+                'quazars',
+                'ratchet',
+                'somalia',
+                'tamarind',
+                'usurpation',
+                'vasculitis',
+                'wombat',
+                'x-rays',
+                'yams',
+                'zebras'
+            ],
+
+            initialize: function () {
+                $("#inlineDatePicker").datepicker();
+                $('#autocomplete').autocomplete({
+                    source: Layout.AUTOCOMPLETE_DATA
+                });
+            }
+        };
+
+        $(document).ready(Layout.initialize);
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var tests = [];
+
+            var addTest = function (title, test) {
+                tests.push({ title: title, test: test });
+            }
+
+            addTest("Buttons all have same font size", function () {
+                var normalButton = $('#NormalButton').css('font-size');
+                var linkButton = $('#LinkButton').css('font-size');
+                var uploadButton = $('#FileUpload .button div').css('font-size');
+                return normalButton === linkButton && linkButton === uploadButton;
+            });
+
+            var ul = $('<ul></ul>');
+
+            for (var i = 0; i < tests.length; i++) {
+                var cur = tests[i];
+                var result = cur.test();
+                var li = $('<li>' + cur.title + '</li>');
+
+                if (result === true) {
+                    li.css('color', 'green');
+                } else {
+                    li.css('color', 'red');
+                }
+
+                ul.append(li);
+
+            }
+
+            $('#tests').append(ul);
+
+        });
+    </script>
+}
+
+<div id="tests"></div>
+
+@Html.EditorFor(x => x.DropDown)
+
+@(Html.Tabs(new { id = "layout-tabs" })
+    .WithTab("General", @<div class="faux-table">
+        <div>
+            <fieldset>
+                <legend>Headers</legend>
+                <h1>Header 1</h1>
+                <h2>Header 2</h2>
+                <h3>Header 3</h3>
+                <h4>Header 4</h4>
+                <h5>Header 5</h5>
+                <h6>Header 6</h6>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>Links</legend>
+                <a href="#">Link</a>
+                <a href="#" class="hover">Hovered link</a>
+                <a href="http://www.google.com">Visited link(visit google!)</a>
+            </fieldset>
+            <fieldset>
+                <legend>General site text</legend>
+                <p style="width:200px;">I'm in a paragraph tag. Why'd you rope me into this?! Because that guy over there, he roped me into this! Well he roped me into this! Also make sure my line height looks alright.</p>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>Lists</legend>
+                <ul>
+                    <li>Order!</li>
+                    <li>Order in the unordered list!</li>
+                </ul>
+            </fieldset>
+        </div>
+    </div>)
+.WithTab("Tables", @<div>
+        @(Html.TableFor(x => x.TableResultSet)
+        .WithPaginatedFooter()
+        .ColumnFor(x => x.Id)
+        .SortableColumnFor(x => x.SomeDate)
+        .ColumnFor(x => x.SomeString))
+    </div>)
+    .WithTab("Controls", @<div class="faux-table">
+        <div>
+            <fieldset>
+                <legend>Buttons</legend>
+                These buttons should all have identical position/text alignment.
+                <div style="margin-bottom:6px;">
+                    <h6>Button tag buttons</h6>
+                    @Control.Button("Button").WithId("NormalButton")
+                    @Control.SubmitButton("Submit")
+                    @Control.ResetButton()
+                    @* ReSharper disable once Mvc.ActionNotResolved, Mvc.ControllerNotResolved *@
+                    @Html.LinkButton("Link Button", "Layout", "Home", null, new { id = "LinkButton" })
+                </div>
+                <div style="margin-bottom:6px;">
+                    <h6>Disabled buttons(hover to make sure they don't do anything)</h6>
+                    <button type="button" disabled>Button</button>
+                </div>
+
+                <div class="field-column">
+                    @Html.ButtonGroup(Control.Button("Inside a field column"))
+                </div>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>DropDown</legend>
+                <div>
+                    <select>
+                        <option>I've got items</option>
+                        <option>You can't see me!</option>
+                    </select>
+                </div>
+                <div><select disabled><option>I should be disabled</option></select></div>
+            </fieldset>
+            <fieldset>
+                <legend>AutoComplete</legend>
+                <p>Ensure that the menu aligns with the textbox and that the color when you select an item is legible.</p>
+                <input type="text" id="autocomplete" />
+            </fieldset>
+            <fieldset>
+                <legend>AutoComplete With DependsOn</legend>
+                <p>Some paragraph stuff</p>
+                @Html.EditorFor(x => x.AutoCompleteDependsOn)
+            </fieldset>
+            <fieldset>
+                <legend>ComboBox</legend>
+                @if (canDoComboBox)
+                {
+                    @Html.ComboBox("ComboBox", comboItems, "Select a thing", null)
+                }
+                else
+                {
+                    <div>This site does not support ComboBox, or someone didn't remove the CanDoComboBox setting from _Custom.cshtml</div>
+                }
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend>DatePicker</legend>
+                <div id="inlineDatePicker"></div>
+            </fieldset>
+        </div>
+    </div>)
+    .WithTab("Alignment", @<div>
+        <div>
+            <h3>All of these things should be the same height with the text vertically aligned.</h3>
+            @Control.TextBox().WithValue("Text box with value")
+            @Control.Button("Button")
+            @Control.DropDownFor(x => x.DropDown)
+            @Control.DatePicker()
+        </div>
+        <div>
+            <h3>These should also be vertically aligned. Thes are inside a table because sometimes alignment works in different table cells but not when they're together.</h3>
+            <table>
+                <tr>
+                    <td><a href="#">A normal link</a></td>
+                    <td><button class="button-link">A button link</button></td>
+                    <td><a href="#">A normal link</a> <button class="button-link">next to a button link</button></td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+    )
+    .WithTab("Display For", @<div>
+        <h3>All labels should be vertically aligned with values</h3>
+        <div class="field-column fc100">
+            @Html.DisplayFor(x => x.DropDown)
+            @Html.DisplayFor(x => x.IsItTrue)
+            @Html.DisplayFor(x => x.Pi)
+            @Html.DisplayFor(x => x.TextGoesHere)
+            @Html.DisplayFor(x => x.MultilineText)
+            @Html.DisplayFor(x => x.TodaysDate)
+            @Html.RenderDisplayTemplate("No label tag", Html.Raw("<a href='#'>A link in a display template</a>"))
+        </div>
+    </div>)
+
+    .WithTab("Editor For", @<div>
+        <h3>All labels should be vertically aligned with control</h3>
+        <div class="field-column fc100">
+            @Html.RenderEditorTemplate("No label tag", Control.TextBox())
+            @Html.EditorFor(x => x.DropDownWithError)
+            @Html.EditorFor(x => x.IsItTrue)
+            @Html.EditorFor(x => x.Pi)
+            @Html.EditorFor(x => x.TextGoesHere)
+            @Html.EditorFor(x => x.MultilineText)
+            @Html.EditorFor(x => x.TodaysDate)
+            @Html.EditorFor(x => x.NumericRange)
+            @Html.EditorFor(x => x.DateRange)
+            @Html.EditorFor(x => x.EqualsDateRange)
+            @Html.EditorFor(x => x.RequiredDateRange)
+            @Html.EditorFor(x => x.DateTimePicker)
+            @Html.EditorFor(x => x.CheckBoxing)
+            @Html.EditorFor(x => x.MultiInput)
+            @Html.EditorFor(x => x.MultiString)
+        </div>
+    </div>)
+    .WithTab("Cascades", @<div>
+        <h3>Make sure the correct items are selected.</h3>
+		 <div style="display:flex;">
+			<div>
+				<fieldset>
+					<legend>Basic cascading</legend>
+					<div class="field-column fc200">
+						@Html.EditorFor(x => x.RegularDropDown)
+						@Html.EditorFor(x => x.RegularDropDownPreSelectedValue)
+						@Html.EditorFor(x => x.CascadeDropDownWithNoSelectedValue)
+						@Html.EditorFor(x => x.CascadeListBox)
+					</div>
+				</fieldset>
+				 <fieldset>
+					 <legend>Cascades with prepopulated parents</legend>
+					 <div class="field-column fc200">
+						 @Html.EditorFor(x => x.CascadeParent3)
+						 @Html.EditorFor(x => x.CascadeParent4)
+						 @Html.EditorFor(x => x.ChildPrepopulatesWithOnePopulatedParent)
+						 @Html.EditorFor(x => x.CascadeParent5)
+						 @Html.EditorFor(x => x.CascadeParent6)
+						 @Html.EditorFor(x => x.ChildHasOneParentPrepopulatedButNeedsBoth)
+					 </div>
+				 </fieldset>
+			 </div>
+			 <div>
+				 <fieldset>
+					 <legend>Cascades that require one or more parents</legend>
+					 <div class="field-column fc200">
+					 	@Html.EditorFor(x => x.CascadeParent1)
+						 @Html.EditorFor(x => x.CascadeParent2)
+						 @Html.EditorFor(x => x.ChildRequiresAtleastOnePopulatedParent)
+						 @Html.EditorFor(x => x.ChildRequiresBothNonPopulatedParents)
+					 </div>
+				 </fieldset>
+				 <fieldset>
+					 <legend>Cascades that do not require parents</legend>
+					 <div class="field-column fc200">
+						 @Html.EditorFor(x => x.CascadeParentNotRequired)
+						 @Html.EditorFor(x => x.ChildDoesNotRequireParent)
+					 </div>
+				 </fieldset>
+			 </div>
+			<div>
+				 <fieldset>
+					 <legend>Cascading Checkbox List</legend>
+					 <div class="field-column fc200">
+						 @Html.EditorFor(x => x.ParentOfCheckBoxList)
+						 @Html.EditorFor(x => x.CascadingCheckBoxList)
+						 @Html.EditorFor(x => x.ChildOfCheckBoxList)
+					 </div>
+				 </fieldset>
+				<fieldset>
+					<legend>Cascading when there are no results</legend>
+					<div class="field-column fc200">
+						@Html.EditorFor(x => x.ParentThatWillNotReturnResults)
+						@Html.EditorFor(x => x.DropDownWithoutResults)
+						@Html.EditorFor(x => x.MultiSelectWithoutResults)
+						@Html.EditorFor(x => x.CheckBoxListWithoutResults)
+                        @* For the below, the parent value is intentionally left off thet page. 
+                           Seeing an error in this dropdown tells you it's making a request it shouldn't.*@
+                        @Html.EditorFor(x => x.PreRenderedChildShouldDisplayNoResultsAndNotMakeAServerRequest)
+					</div>
+				</fieldset>
+			 </div>
+		 </div>
+
+	</div>)
+	.WithTab("ComboBoxes", @<div>
+		                       @if (canDoComboBox)
+		                       {
+								   <form> @* Form needed for validation. *@
+									   <div>Make sure asterisk shows up next to ComboBoxTwo for RequiredWhen. </div>
+									   <div class="field-column fc100">
+										   @Html.EditorFor(x => x.ComboBoxTwoRequiresThis)
+										   @Html.EditorFor(x => x.ComboBoxTwo)
+									   </div>
+								   </form>
+		                       }
+		                       else
+		                       {
+			                       <div>This site does not support ComboBox, or someone didn't remove the CanDoComboBox setting from _Custom.cshtml</div>
+		                       }
+	                    </div>)
+)
+
+<div class="container">
+    Site specific stuff goes in a view under ~/Views/Layout/_Custom.cshtml in the site project itself.
+</div>
+
+@customPartial

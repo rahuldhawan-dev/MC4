@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateBillingPartyContact
+           
+@using (Form.BeginForm("CreateBillingPartyContact", "BillingParty", new {id = Model.Id}))
+{
+    <fieldset class="field-column fc100">
+        @Html.EditorFor(x => x.Contact)
+        @Html.EditorFor(x => x.ContactType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Billing Party Contact").WithId("saveBillingPartyContactButton")
+            @Control.Button("Cancel").WithId("cancelAddBillingPartyContactButton").WithCssClass("cancel")
+            @if (Html.CurrentUserCanDo("New", "Contact", ""))
+            {
+                @Html.ActionLink("Add New Contact", "New", "Contact", new { area = ""}, new { Class="link-button"})
+            }
+        </text>)
+    </fieldset>
+}

@@ -1,0 +1,5 @@
+﻿@model Premise
+
+@using (Form.BeginAjaxForm("Index", "GeneralWorkOrder", "FieldOperations", new { ext = "frag", PremiseNumber = Model.PremiseNumber, SortBy = "Id" }))
+{
+}

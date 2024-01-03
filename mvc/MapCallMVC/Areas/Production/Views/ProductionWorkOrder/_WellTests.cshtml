@@ -1,0 +1,14 @@
+﻿@model ProductionWorkOrder
+@{
+    var wellTests = Model.WellTests.OrderByDescending(x => x.DateOfTest);
+}
+
+<div class="container">
+    @(Html.TableFor(x => wellTests, new { id = "well-tests-table" })
+        .TemplateColumnFor(string.Empty, x => Html.ActionLink("View", "Show", "WellTest", new { id = x.Id, area = "Production" }, null))
+        .TemplateColumnFor(string.Empty, x => Html.ActionLink("Edit", "Edit", "WellTest", new { id = x.Id, area = "Production" }, null))
+        .ColumnFor(x => x.Id)
+        .ColumnFor(x => x.Equipment)
+        .ColumnFor(x => x.DateOfTest)
+        .ColumnFor(x => x.Employee))
+</div>

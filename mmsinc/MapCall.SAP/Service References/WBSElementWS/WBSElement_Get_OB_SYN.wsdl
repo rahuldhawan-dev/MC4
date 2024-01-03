@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="http://amwater.com/EAM/0020/MAPCALL/GetWBSElement" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="WBSElement_Get_OB_SYN" targetNamespace="http://amwater.com/EAM/0020/MAPCALL/GetWBSElement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_WBSElement_Get_OB_SYN" />
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/EAM/0020/MAPCALL/GetWBSElement" targetNamespace="http://amwater.com/EAM/0020/MAPCALL/GetWBSElement" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="WBSElementRequest" type="p1:WBSElementQuery" />
+      <xsd:element name="WBSElementResponse" type="p1:WBSElementInfo" />
+      <xsd:complexType name="WBSElementQuery">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">b9094ebb28ec11e7947500000083afea</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Record">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">5497f624242111e787c5005056860098</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="WBSNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f618242111e7cf4b005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="WBSDescription" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f619242111e7a838005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ProjectDefinition" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61a242111e7b49d005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="PlanningPlant" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61b242111e78477005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ProjectType" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61c242111e78b28005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ProfitCentre" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61d242111e7c2f4005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ProfitCentreFieldName" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61e242111e7ad2a005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="AssetCode" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61f242111e7cd59005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Year" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f620242111e79b48005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="SystemStatus" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f623242111e7bda9005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WBSElementInfo">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">1b3ecf0534ba11e7a5b400000083afea</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">5497f624242111e787c5005056860098</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="WBSElement" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f618242111e7cf4b005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="WBSDescription" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f619242111e7a838005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="StatusCode" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5497f61a242111e7b49d005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="StartDate" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">38508dbd267511e7bcc5005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="EndDate" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SAPStatus" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">1b334f7f34ba11e7b3c5005056860098</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="WBSElementRequest">
+    <wsdl:documentation />
+    <wsdl:part name="WBSElementRequest" element="p1:WBSElementRequest" />
+  </wsdl:message>
+  <wsdl:message name="WBSElementResponse">
+    <wsdl:documentation />
+    <wsdl:part name="WBSElementResponse" element="p1:WBSElementResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WBSElement_Get_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="WBSElement_Get_OB_SYN">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_WBSElement_Get_OB_SYN" />
+      </wsp:Policy>
+      <wsdl:input message="p1:WBSElementRequest" />
+      <wsdl:output message="p1:WBSElementResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WBSElement_Get_OB_SYNBinding" type="p1:WBSElement_Get_OB_SYN">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="WBSElement_Get_OB_SYN">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WBSElement_Get_OB_SYNService">
+    <wsdl:port name="HTTP_Port" binding="p1:WBSElement_Get_OB_SYNBinding">
+      <address location="http://dp2.amwaternp.net:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=WBSElement_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0020%2FMAPCALL%2FGetWBSElement" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:WBSElement_Get_OB_SYNBinding">
+      <address location="https://dp2.amwaternp.net:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=WBSElement_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0020%2FMAPCALL%2FGetWBSElement" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

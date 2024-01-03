@@ -1,0 +1,12 @@
+﻿@model SearchStandardOperatingProcedureReview
+
+@using (Form.BeginForm("Index", "StandardOperatingProcedureReview"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.RequiresReview)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

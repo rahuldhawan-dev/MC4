@@ -1,0 +1,7 @@
+﻿@model MarkoutViolation
+
+@(Html.Tabs()
+      .WithTab("Details", "_ShowMarkoutViolation", Model)
+      .WithNotesAndDocuments()
+      .WithLog())
+

@@ -1,0 +1,29 @@
+﻿@model MapCall.Common.Model.Entities.AsBuiltImage
+
+<h2>As Built Image Coordinate Changed</h2>
+
+AsBuiltImageId: @Model.Id <br />
+@if (Model.Coordinate != null)
+{
+<text>Coordinates:</text> @String.Format("{0}, {1}", Model.Coordinate.Latitude, Model.Coordinate.Longitude) <br />
+}
+Changed By User: @Model.CoordinatesModifiedBy <br />
+WBS #: @Model.TaskNumber <br />
+State: @Model.Town.County.State <br />
+County: @Model.Town.County <br />
+Town: @Model.Town <br />
+Town Section: @Model.TownSection <br />
+Project Name: @Model.ProjectName <br />
+Street Prefix: @Model.StreetPrefix <br />
+Street: @Model.Street <br />
+Street Suffix: @Model.StreetSuffix <br />
+Cross Street Prefix: @Model.CrossStreetPrefix <br />
+Cross Street: @Model.CrossStreet <br />
+Cross Street Suffix: @Model.CrossStreetSuffix
+@if (Model.PhysicalInService != null)
+{
+<br />
+<text>Physical In Service: </text>@Model.PhysicalInService.Value.ToString("MM/dd/yyyy")
+}
+<br />
+File Name: @Model.FileName

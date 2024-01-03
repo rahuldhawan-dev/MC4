@@ -1,0 +1,56 @@
+﻿@model EnvironmentalPermit
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@helper ShowPaymentMethod(EnvironmentalPermitFee fee)
+{
+    if (fee.PaymentMethod != null)
+    {
+        switch (fee.PaymentMethod.Id)
+        {
+            case EnvironmentalPermitFeePaymentMethod.Indices.MAIL:
+                @Html.DisplayValueFor(x => fee.PaymentMethodMailAddress)
+                break;
+            case EnvironmentalPermitFeePaymentMethod.Indices.PHONE:
+                @Html.DisplayValueFor(x => fee.PaymentMethodPhone)
+                break;
+            case EnvironmentalPermitFeePaymentMethod.Indices.URL:
+                @Html.Link(fee.PaymentMethodUrl, fee.PaymentMethodUrl)
+                break;
+        }
+    }
+}
+
+@if (userCanEdit)
+{
+    @* Everything in this script is only relevent to users that can edit. *@
+    @Html.ScriptFor("~/Scripts/Areas/Environmental/EnvironmentalPermitFee/Show.js", ScriptLoadType.LoadFromPartial)
+    <div class="collapse-panel" data-title="Add Fee">
+        @Html.Action("New", "EnvironmentalPermitFee", new
+        {
+            EnvironmentalPermit = Model.Id,
+        })
+    </div>
+
+    using (var f = Form.BeginRouteForm("EnvironmentalPermit", "EnvironmentalPermitFee", null, ManyToManyRouteAction.Remove))
+    {
+        f.HtmlAttributes["id"] = "delete-fee-form";
+        @Control.Hidden().WithName("EnvironmentalPermitFeeId")
+    }
+}
+
+@(Html.TableFor(x => x.Fees, new { id = "fees-table" })
+        .ColumnFor(x => x.Fee)
+        .ColumnFor(x => x.EnvironmentalPermitFeeType)
+        .ColumnFor(x => x.PaymentEffectiveDate)
+        .ColumnFor(x => x.PaymentFrequency)
+        .TemplateColumnFor("Payment Method", x => ShowPaymentMethod(x))
+        .ColumnFor(x => x.PaymentOrganizationName)
+        .ColumnFor(x => x.PaymentOrganizationContactInfo)
+        .ColumnFor(x => x.PaymentOwner)
+        .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EnvironmentalPermitFee", new { id = x.Id }, null))
+            .IsVisible(userCanEdit)
+        .TemplateColumnFor(x => Control.Button("Delete").WithValue(x.Id).WithCssClass("button-link").WithCssClass("delete-fee"))
+            .IsVisible(userCanEdit)
+)

@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterQualityComplaintByStateForYear
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+  .ColumnFor(x => x.OperatingCenterCode)
+  .ColumnFor(x => x.ComplaintType)
+  .ColumnFor(x => x.Jan)
+  .ColumnFor(x => x.Feb)
+  .ColumnFor(x => x.Mar)
+  .ColumnFor(x => x.Apr)
+  .ColumnFor(x => x.May)
+  .ColumnFor(x => x.Jun)
+  .ColumnFor(x => x.Jul)
+  .ColumnFor(x => x.Aug)
+  .ColumnFor(x => x.Sep)
+  .ColumnFor(x => x.Oct)
+  .ColumnFor(x => x.Nov)
+  .ColumnFor(x => x.Dec))

@@ -1,0 +1,75 @@
+﻿@using NHibernate.Util
+@model IEnumerable<MapCall.SAP.Model.Entities.SAPMaintenancePlanLookup>
+@{
+    var table = Html.TableFor().WithCaption("Records found: " + Model.Count())
+        .TemplateColumnFor("Action", x => @<text>
+            @{
+                var rvd = new RouteValueDictionary();
+                rvd["MaintenancePlan"] = x.MaintenancePlan;
+            }
+            @Html.ActionLink("Show", "Show", rvd, null)
+        </text>
+        );
+}
+@if (ViewData["ShowAddToMaintenancePlan"] != null && (bool)ViewData["ShowAddToMaintenancePlan"])
+{
+        table = table.TemplateColumnFor("Maintenance Item", x => @Html.Partial("_AddToMaintenancePlan", x));
+        table = table
+            .ColumnFor(x => x.MaintenancePlan)
+            .ColumnFor(x => x.MaintenancePlanCategory)
+            .ColumnFor(x => x.MaintenancePlanText)
+            .ColumnFor(x => x.MaintenancePlanSort)
+            .ColumnFor(x => x.Createdon)
+            .ColumnFor(x => x.CreatedBy);
+        
+
+        if (Model.First().SAPErrorCode.ToUpper().Contains("SUCCESS"))
+        {
+             @table
+        }
+        else
+        {
+            <div>No matching maintenance plans were found.</div>
+        }
+}
+
+@if (ViewData["ShowRemoveFromMaintenancePlan"] != null && (bool)ViewData["ShowRemoveFromMaintenancePlan"])
+{
+    using (var form = Form.BeginForm("RemoveEquipmentFromMaintenancePlan", "SAPMaintenancePlan", new { Equipment = ViewData["Equipment"], MapCallEquipmentId = ViewData["MapCallEquipmentId"], FunctionalLocation = ViewData["FunctionalLocation"]}))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this equipment from the maintenance plan?");
+        
+        table = table.TemplateColumnFor(x => @<text>
+                                                 @Html.HiddenFor(_ => x.SapMaintenanceItemList.First().MaintenanceItem)
+                                                 @Control.SubmitButton("Remove from Plan").WithName("MaintenancePlan").WithValue(x.MaintenancePlan)
+                                              </text>);
+        table = table
+            .ColumnFor(x => x.MaintenancePlan)
+            .ColumnFor(x => x.MaintenancePlanCategory)
+            .ColumnFor(x => x.MaintenancePlanText)
+            .ColumnFor(x => x.MaintenancePlanSort)
+           .ColumnFor(x => x.Createdon)
+            .ColumnFor(x => x.CreatedBy);
+
+        if (Model.First().SAPErrorCode.ToUpper().Contains("SUCCESS"))
+        {
+            @table
+        }
+        else
+        {
+            <div>No matching maintenance plans were found.</div>
+        }
+    }
+}
+
+@if (ViewData["ShowRemoveFromMaintenancePlan"] == null && ViewData["ShowAddToMaintenancePlan"] == null)
+{
+    table
+        .ColumnFor(x => x.MaintenancePlan)
+        .ColumnFor(x => x.MaintenancePlanCategory)
+        .ColumnFor(x => x.MaintenancePlanText)
+        .ColumnFor(x => x.MaintenancePlanSort)
+        .ColumnFor(x => x.Createdon)
+        .ColumnFor(x => x.CreatedBy);
+    @table
+}

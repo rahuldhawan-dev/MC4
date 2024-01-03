@@ -1,0 +1,11 @@
+﻿@model SearchTrainingContactHoursProgramCoordinator
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.ProgramCoordinator)
+    .WithPaginatedFooter())

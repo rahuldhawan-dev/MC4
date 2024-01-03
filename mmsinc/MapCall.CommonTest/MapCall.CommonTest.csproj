@@ -1,0 +1,813 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\librdkafka.redist.1.8.2\build\librdkafka.redist.props" Condition="Exists('..\..\packages\librdkafka.redist.1.8.2\build\librdkafka.redist.props')" />
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3EBC02C2-A1F2-44E7-976D-666A546C3004}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapCall.CommonTest</RootNamespace>
+    <AssemblyName>MapCall.CommonTest</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\MMSINC\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <LangVersion>7.3</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.35.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Azure.Core.1.35.0\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Identity, Version=1.10.3.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Azure.Identity.1.10.3\lib\netstandard2.0\Azure.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Confluent.Kafka, Version=1.8.2.0, Culture=neutral, PublicKeyToken=12c514ca49093d1e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Confluent.Kafka.1.8.2\lib\net45\Confluent.Kafka.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.3.3.1\lib\net461\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Abstractions, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Abstractions.3.3.1\lib\net461\FluentMigrator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.Oracle, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Extensions.Oracle.3.3.1\lib\net461\FluentMigrator.Extensions.Oracle.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.Postgres, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Extensions.Postgres.3.3.1\lib\net461\FluentMigrator.Extensions.Postgres.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.SqlAnywhere, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Extensions.SqlAnywhere.3.3.1\lib\net461\FluentMigrator.Extensions.SqlAnywhere.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Extensions.SqlServer, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Extensions.SqlServer.3.3.1\lib\net461\FluentMigrator.Extensions.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.3.3.1\lib\net461\FluentMigrator.Runner.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Core.3.3.1\lib\net461\FluentMigrator.Runner.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Db2, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Db2.3.3.1\lib\net461\FluentMigrator.Runner.Db2.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Firebird, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Firebird.3.3.1\lib\net461\FluentMigrator.Runner.Firebird.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Hana, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Hana.3.3.1\lib\net461\FluentMigrator.Runner.Hana.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Jet, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Jet.3.3.1\lib\net461\FluentMigrator.Runner.Jet.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.MySql, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.MySql.3.3.1\lib\net461\FluentMigrator.Runner.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Oracle, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Oracle.3.3.1\lib\net461\FluentMigrator.Runner.Oracle.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Postgres, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Postgres.3.3.1\lib\net461\FluentMigrator.Runner.Postgres.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.Redshift, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.Redshift.3.3.1\lib\net461\FluentMigrator.Runner.Redshift.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlAnywhere, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.SqlAnywhere.3.3.1\lib\net461\FluentMigrator.Runner.SqlAnywhere.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SQLite, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.SQLite.3.3.1\lib\net461\FluentMigrator.Runner.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlServer, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.SqlServer.3.3.1\lib\net461\FluentMigrator.Runner.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Runner.SqlServerCe, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Runner.SqlServerCe.3.3.1\lib\net461\FluentMigrator.Runner.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Humanizer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Humanizer.Core.2.13.14\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.13\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.SqlClient, Version=4.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Data.SqlClient.4.0.0\lib\net461\Microsoft.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.6.0.0\lib\net461\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Options.6.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.6.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Identity.Client.4.56.0\lib\net461\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Extensions.Msal, Version=4.56.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Identity.Client.Extensions.Msal.4.56.0\lib\netstandard2.0\Microsoft.Identity.Client.Extensions.Msal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Abstractions, Version=6.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Abstractions.6.22.0\lib\net472\Microsoft.IdentityModel.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.JsonWebTokens.6.14.1\lib\net472\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Logging.6.14.1\lib\net472\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.6.14.1\lib\net472\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.6.14.1\lib\net472\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Tokens.6.14.1\lib\net472\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=5.0.0.6, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\packages\NuGet.Frameworks.5.0.0\lib\net472\NuGet.Frameworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Collections.Immutable.6.0.0\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Configuration.ConfigurationManager.6.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=6.14.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.6.14.1\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.FileSystem.AccessControl.5.0.0\lib\net461\System.IO.FileSystem.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.Data.6.0.0\lib\net461\System.Memory.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.ProtectedData.6.0.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Permissions.6.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Json.6.0.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\ContractorUserCredentialPolicyTest.cs" />
+    <Compile Include="Configuration\MapCallDependenciesTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\Environmental\EnvironmentalNonComplianceActionItemAssignedTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\FieldServices\Assets\FlushingResultsNotReceivedTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\Facilities\ArcFlashStudyExpiresIn1YearTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HealthandSafety\EnvironmentalNearMissNotificationTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HealthandSafety\SafetyNearMissNotificationTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\DriversLicenseRenewalDueTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\GasMonitorCalibrationDueTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\OperatorLicenseExpirationBaseTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\OperatorLicenseExpirationIn90DaysTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\OperatorLicenseExpirationIn60DaysTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\OperatorLicenseExpirationIn30DaysTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Employee\OperatorLicenseExpirationIn15DaysTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Environmental\EnvironmentalPermitRenewalExpiresIn4MonthsTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Environmental\EnvironmentalPermitRenewalExpiresIn6MonthsTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Environmental\EnvironmentalPermitRenewalExpiresIn1DayTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\HumanResources\Environmental\EnvironmentalPermitExpirationBaseTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\Production\SystemDeliveryEntryAdjustmentMadeTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\Production\SystemDeliveryEntryDueTest.cs" />
+    <Compile Include="Configuration\NotificationTasks\Production\SystemDeliveryEntryValidatedTest.cs" />
+    <Compile Include="Controls\DateTimePickerTest.cs" />
+    <Compile Include="Extensions\UserExtensionsTest.cs" />
+    <Compile Include="Model\Entities\BelowGroundHazardTest.cs" />
+    <Compile Include="Model\Entities\ChemicalTest.cs" />
+    <Compile Include="Model\Entities\ConfinedSpaceFormAtmosphericTestTest.cs" />
+    <Compile Include="Model\Entities\FacilityFacilityAreaTest.cs" />
+    <Compile Include="Model\Entities\GasMonitorTest.cs" />
+    <Compile Include="Model\Entities\AllEntitiesTest.cs" />
+    <Compile Include="Model\Entities\ArcFlashStudyTest.cs" />
+    <Compile Include="Model\Entities\CovidIssueTest.cs" />
+    <Compile Include="Model\Entities\EchoshoreSiteTest.cs" />
+    <Compile Include="Model\Entities\EmployeeAssignmentTest.cs" />
+    <Compile Include="Model\Entities\EnvironmentalPermitFeeTest.cs" />
+    <Compile Include="Model\Entities\LocalityTest.cs" />
+    <Compile Include="Model\Entities\MaintenancePlanTest.cs" />
+    <Compile Include="Model\Entities\MostRecentlyInstalledServiceTest.cs" />
+    <Compile Include="Model\Entities\ProductionWorkOrderFrequencyTest.cs" />
+    <Compile Include="Model\Entities\RedTagPermitTest.cs" />
+    <Compile Include="Model\Entities\ServiceMaterialTest.cs" />
+    <Compile Include="Model\Entities\SewerAuthorityCodeTest.cs" />
+    <Compile Include="Model\Entities\ConfinedSpaceFormTest.cs" />
+    <Compile Include="Model\Entities\SkillSetTest.cs" />
+    <Compile Include="Model\Entities\TaskGroupCategoryTest.cs" />
+    <Compile Include="Model\Entities\TaskGroupTest.cs" />
+    <Compile Include="Model\Entities\WellTestTest.cs" />
+    <Compile Include="Model\Entities\SmartCoverAlertTest.cs" />
+    <Compile Include="Model\Entities\WasteWaterSystemTest.cs" />
+    <Compile Include="Model\Mappings\AggregateRoleMapTest.cs" />
+    <Compile Include="Model\Mappings\EnvironmentalPermitMapTest.cs" />
+    <Compile Include="Model\Mappings\IncidentInvestigationMapTest.cs" />
+    <Compile Include="Model\Mappings\OperatorLicenseMapTest.cs" />
+    <Compile Include="Model\Mappings\ProductionWorkOrderMapTest.cs" />
+    <Compile Include="Model\Mappings\PublicWaterSupplyTest.cs" />
+    <Compile Include="Model\Mappings\WorkOrderMapTest.cs" />
+    <Compile Include="Model\Entities\PremiseTest.cs" />
+    <Compile Include="Model\Repositories\AuthenticationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\BelowGroundHazardRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CovidRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CrewRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CustomerLocationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EndOfPipeExceedanceRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\DriversLicenseRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EnvironmentalNonComplianceEventActionItemRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EquipmentRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EstimatingProjectRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HelpTopicRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MeasurementPointEquipmentTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\NPDESRegulatorInspectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ProductionWorkDescriptionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MaintenancePlanRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\OpeningConditionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\WellTestRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\GasMonitorRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\GeneralWorkOrderRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HepatitisBVaccinationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\LockoutFormQuestionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MedicalCertificateRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MostRecentlyInstalledServiceRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\NearMissRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\OperatorLicenseRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ProductionWorkOrderRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ProductionWorkOrdersEquipmentRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\RedTagPermitRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ScadaTagNameRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SeverityTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SewerOpeningInspectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SystemDeliveryEntryRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SystemDeliveryFacilityEntryRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\UserViewedRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ViolationCertificateRepositoryTest.cs" />
+    <Compile Include="Model\TestData\FactoryTests.cs" />
+    <Compile Include="Model\Entities\AbsenceNotificationTest.cs" />
+    <Compile Include="Model\Entities\AddressTest.cs" />
+    <Compile Include="Model\Entities\AsBuiltImageTest.cs" />
+    <Compile Include="Model\Entities\AssetTypeTest.cs" />
+    <Compile Include="Model\Entities\AuditLogEntryTest.cs" />
+    <Compile Include="Model\Entities\ContactTest.cs" />
+    <Compile Include="Model\Entities\ContractorTest.cs" />
+    <Compile Include="Model\Entities\ContractorUserTest.cs" />
+    <Compile Include="Model\Entities\CoordinateTest.cs" />
+    <Compile Include="Model\Entities\CrewAssignmentTest.cs" />
+    <Compile Include="Model\Entities\CrewTest.cs" />
+    <Compile Include="Model\Entities\CutoffSawQuestionnaireTest.cs" />
+    <Compile Include="Model\Entities\DepartmentTest.cs" />
+    <Compile Include="Model\Entities\DocumentTypeTest.cs" />
+    <Compile Include="Model\Entities\EmployeeTest.cs" />
+    <Compile Include="Model\Entities\EquipmentCharacteristicDropDownValueTest.cs" />
+    <Compile Include="Model\Entities\EquipmentCharacteristicFieldTest.cs" />
+    <Compile Include="Model\Entities\EquipmentCharacteristicFieldTypeTest.cs" />
+    <Compile Include="Model\Entities\EquipmentCharacteristicTest.cs" />
+    <Compile Include="Model\Entities\EquipmentManufacturerTest.cs" />
+    <Compile Include="Model\Entities\EquipmentTest.cs" />
+    <Compile Include="Model\Entities\EquipmentPurposeTest.cs" />
+    <Compile Include="Model\Entities\Equipment\ProjectTest.cs" />
+    <Compile Include="Model\Entities\Equipment\SiteTest.cs" />
+    <Compile Include="Model\Entities\Equipment\BoardTest.cs" />
+    <Compile Include="Model\Entities\Equipment\SensorTest.cs" />
+    <Compile Include="Model\Entities\EstimatingProjectMaterialTest.cs" />
+    <Compile Include="Model\Entities\EstimatingProjectTest.cs" />
+    <Compile Include="Model\Entities\FacilityOwnerTest.cs" />
+    <Compile Include="Model\Entities\FacilityStatusTest.cs" />
+    <Compile Include="Model\Entities\FacilityTest.cs" />
+    <Compile Include="Model\Entities\FEMAFloodRatingTest.cs" />
+    <Compile Include="Model\Entities\HydrantTest.cs" />
+    <Compile Include="Model\Entities\IAssetTest.cs" />
+    <Compile Include="Model\Entities\InterconnectionTest.cs" />
+    <Compile Include="Model\Entities\LocalTest.cs" />
+    <Compile Include="Model\Entities\LockoutDeviceTest.cs" />
+    <Compile Include="Model\Entities\MapIconTest.cs" />
+    <Compile Include="Model\Entities\MaterialTest.cs" />
+    <Compile Include="Model\Entities\OperatingCenterTest.cs" />
+    <Compile Include="Model\Entities\OrderTypeTest.cs" />
+    <Compile Include="Model\Entities\PipeDataLookupValueTest.cs" />
+    <Compile Include="Model\Entities\PipeDiameterTest.cs" />
+    <Compile Include="Model\Entities\PositionGroupTest.cs" />
+    <Compile Include="Model\Entities\ProductionWorkOrderTest.cs" />
+    <Compile Include="Model\Entities\PublicWaterSupplyTest.cs" />
+    <Compile Include="Model\Entities\RecurringProjectTest.cs" />
+    <Compile Include="Model\Entities\SamplePlanTest.cs" />
+    <Compile Include="Model\Entities\SampleSiteTest.cs" />
+    <Compile Include="Model\Entities\SewerMainCleaningTest.cs" />
+    <Compile Include="Model\Entities\SewerOpeningTest.cs" />
+    <Compile Include="Model\Entities\StormWaterAssetTest.cs" />
+    <Compile Include="Model\Entities\StreetTest.cs" />
+    <Compile Include="Model\Entities\IncidentTest.cs" />
+    <Compile Include="Model\Entities\RoleMatchTest.cs" />
+    <Compile Include="Model\Entities\TrafficControlTicketTest.cs" />
+    <Compile Include="Model\Entities\TrainingModuleTest.cs" />
+    <Compile Include="Model\Entities\ModuleTest.cs" />
+    <Compile Include="Model\Entities\ServiceTest.cs" />
+    <Compile Include="Model\Entities\ServiceSizeTest.cs" />
+    <Compile Include="Model\Entities\TapImageTest.cs" />
+    <Compile Include="Model\Entities\RegulationTest.cs" />
+    <Compile Include="Model\Entities\TrainingRecordTest.cs" />
+    <Compile Include="Model\Entities\TrainingSessionTest.cs" />
+    <Compile Include="Model\Entities\MainCrossingTest.cs" />
+    <Compile Include="Model\Entities\FireDistrictTest.cs" />
+    <Compile Include="Model\Entities\StandardOperatingProcedureTest.cs" />
+    <Compile Include="Model\Entities\RestorationTest.cs" />
+    <Compile Include="Model\Entities\RestorationTypeTest.cs" />
+    <Compile Include="Model\Entities\WaterSampleComplianceMonthYearTest.cs" />
+    <Compile Include="Model\Entities\WaterSampleComplianceFormTest.cs" />
+    <Compile Include="Model\Entities\ValveImageTest.cs" />
+    <Compile Include="Model\Entities\UserTest.cs" />
+    <Compile Include="Model\Entities\JobSiteCheckListTest.cs" />
+    <Compile Include="Model\Entities\VehicleTest.cs" />
+    <Compile Include="Model\Entities\ValveTest.cs" />
+    <Compile Include="Model\Entities\WorkDescriptionTest.cs" />
+    <Compile Include="Model\Entities\WorkOrderInvoiceScheduleOfValueTest.cs" />
+    <Compile Include="Model\Entities\WorkOrderInvoiceTest.cs" />
+    <Compile Include="Model\Entities\WorkOrderPriorityTest.cs" />
+    <Compile Include="Model\Entities\WorkOrderPurposeTest.cs" />
+    <Compile Include="Model\Entities\WorkOrderTest.cs" />
+    <Compile Include="Model\EntityLookupsTest.cs" />
+    <Compile Include="Model\Mappings\AllMappingsTest.cs" />
+    <Compile Include="Model\Mappings\DocumentMapTest.cs" />
+    <Compile Include="Model\Mappings\DocumentDataMapTest.cs" />
+    <Compile Include="Model\Mappings\EmployeeMapTest.cs" />
+    <Compile Include="Model\Mappings\SpecialLinkMapTest.cs" />
+    <Compile Include="Model\Mappings\EquipmentMapTest.cs" />
+    <Compile Include="Model\Mappings\TrainingRequirementMapTest.cs" />
+    <Compile Include="Model\Mappings\TrainingModuleMapTest.cs" />
+    <Compile Include="Model\Mappings\MainCrossingMapTest.cs" />
+    <Compile Include="Model\Mappings\HydrantMapTest.cs" />
+    <Compile Include="Model\Mappings\RestorationMapTest.cs" />
+    <Compile Include="Model\Mappings\TrafficControlTicketCheckMapTest.cs" />
+    <Compile Include="Model\Mappings\SampleSiteMapTest.cs" />
+    <Compile Include="Model\Mappings\UserMapTest.cs" />
+    <Compile Include="Model\Mappings\ValveMapTest.cs" />
+    <Compile Include="Model\Entities\MarkoutRequirementTest.cs" />
+    <Compile Include="Model\Migrations\MigrationTest.cs" />
+    <Compile Include="Model\Repositories\AbsenceNotificationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\AssetTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\AuditLogEntryRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\BacterialWaterSampleAnalystRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\BacterialWaterSampleRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\BlowOffInspectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\BodyOfWaterRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ContactRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ContractorRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ContractorUserRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CrewAssignmentRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CustomerCoordinateRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CutoffSawQuestionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\DivisionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\DocumentTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EquipmentModelRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\FamilyMedicalLeaveActCaseRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\FunctionalLocationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\GeneralLiabilityClaimRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HydrantInspectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HydrantRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\InterconnectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\LocalRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\LockoutFormRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MainBreakRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MaterialRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MarkoutDamageRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ModuleRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MunicipalValveZoneRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\NotificationConfigurationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\OperatingCenterRepositoryTest.cs" />
+    <Compile Include="Model\Entities\StateTest.cs" />
+    <Compile Include="Model\Repositories\PositionGroupRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\PremiseRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\PublicWaterSupplyRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\RecurringProjectRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EquipmentManufacturerRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ScheduleOfValueRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SecureFormTokenRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ServiceFlushRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ServiceLineProtectionInvestigationRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ServiceRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ServiceRestorationContractorRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SewerMainCleaningRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SewerOpeningRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\StandardOperatingProcedureReviewRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TailgateTalkRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TownRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\DocumentDataRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\DocumentRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\FacilityRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EmployeeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\IncidentRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\GrievanceRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\JobSiteCheckListRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\OneCallTicketRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\StateRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SensorRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TownSectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TrainingModuleRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TrainingRecordRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\EmployeeStatusRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\AsBuiltImageRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TapImageRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\StreetRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MapImageRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TrainingSessionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\RecurringFrequencyUnitRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MainCrossingInspectionAssessmentRatingRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MarkoutRequirementRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HydrantBillingRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\AbbreviationTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\HydrantModelRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\PositionGroupCommonNameRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\TrainingModuleVideoRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\RestorationMethodRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\MeterChangeOutRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\CoordinateRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\SampleSiteRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\GradientRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ServiceMaterialRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\UserTypeRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\VideoRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ValveInspectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ValveOpenDirectionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ValveNormalPositionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ValveRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\ValveImageRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\UserRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\VehicleRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\WaterSystemRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\WorkDescriptionRepositoryTest.cs" />
+    <Compile Include="Model\Repositories\WorkOrderRepositoryTest.cs" />
+    <Compile Include="Model\TestData\StaticListEntityLookupFactoryTest.cs" />
+    <Compile Include="Model\ViewModels\AssetCoordinateTest.cs" />
+    <Compile Include="Model\ViewModels\PremiseCoordinateTest.cs" />
+    <Compile Include="Model\ViewModels\ScheduledMaintenancePlanTest.cs" />
+    <Compile Include="Model\ViewModels\ProductionWorkOrderPerformanceResultViewModelTest.cs" />
+    <Compile Include="Model\ViewModels\UserAdministrativeRoleAccessTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\NotificationTemplates\PublicWaterSupplyPressureZoneCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\AcousticMonitoringWorkOrderCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ChemicalSampleSiteCreated.cs" />
+    <Compile Include="Resources\NotificationTemplates\ChemicalSampleSiteStatusChanged.cs" />
+    <Compile Include="Resources\NotificationTemplates\EnvironmentalNonComplianceActionItemTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\EquipmentNotificationsTests.cs" />
+    <Compile Include="Resources\NotificationTemplates\NearMissActionItemCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\BelowGroundHazardTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperatorLicenseExpirationTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ProductionWorkOrderEquipmentTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\SmartCoverAlertTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\RiskRegisterNotificationTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\WasteWaterSystemBasinCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\WasteWaterSystemTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ProductionSystemDeliveryEntryTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\WorkOrderWithSampleSiteTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ServicesNotificationsTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\GasMonitorCalibrationDueTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\HydrantInspectionTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\BlowOffInspectionTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\NewHireEmployeeNotificationTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\PWSIDUpdatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesSewerOpeningTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ProductionWorkOrderTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\EnvironmentalGeneralTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServiceHydrantTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\HumanResourcesPositionsTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsLockoutFormTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\PermitRelatedEquipmentWorkOrderCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\PWSIDCreatedTest.cs" />
+    <Compile Include="Utility\ArcCollectorLinkGeneratorTest.cs" />
+    <Compile Include="Utility\Kafka\KafkaProducerTest.cs" />
+    <Compile Include="Utility\Kafka\KafkaConsumerTest.cs" />
+    <Compile Include="Utility\MapCallUrlHelperTest.cs" />
+    <Compile Include="Utility\Notifications\MapCallNotifierTaskTest.cs" />
+    <Compile Include="Validation\BacterialWaterSampleValidationHelperTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MapCall.Common.Mvc\MapCall.Common.Mvc.csproj">
+      <Project>{2bf5a04b-77d0-435b-ae0f-d9e3c5370030}</Project>
+      <Name>MapCall.Common.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4BBA-87D8-D8F49FB41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMSINC.Testing.Mvc\MMSINC.Testing.Mvc.csproj">
+      <Project>{E6C5BFE0-B68E-427C-9A4C-8C801ED6CA9C}</Project>
+      <Name>MMSINC.Testing.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\NotificationTemplates\EnvironmentalPermitTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesServiceInstalledTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesServiceLargeOrFireTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesServiceRenewalCreatedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesSewerOverflowTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\HumanResourcesFacilitiesTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsManagementTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesValvesTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesWorkManagementTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\HumanResourcesEmployeeTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesImagesTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\JobObservationTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsIncidentsTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsHealthAndSafetyTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsJobSiteCheckListsTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\OperationsTrainingTrainingRecordTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\FieldServicesProjectsRPTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\BaseNotificationTest.cs" />
+    <Compile Include="AssemblyTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\ServiceLineProtectionTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\TrafficControlPaymentSubmittedTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\TrafficControlTicketEnteredTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\TrafficControlTicketInvoiceEnteredTest.cs" />
+    <Compile Include="Resources\NotificationTemplates\WaterQualityGeneralTest.cs" />
+    <Compile Include="Utility\Notifications\NotificationServiceTest.cs" />
+    <Compile Include="Utility\Notifications\NotifierBaseTest.cs" />
+    <Compile Include="Utility\Permissions\IModulePermissionsExtensionsTest.cs" />
+    <Compile Include="Utility\Permissions\LookupCacheTest.cs" />
+    <Compile Include="Utility\Permissions\ModulePermissionsHelperTest.cs" />
+    <Compile Include="Utility\Permissions\RoleApplicationNameAttributeTest.cs" />
+    <Compile Include="Utility\Permissions\Roles\RoleCacheManagerTest.cs" />
+    <Compile Include="Utility\WorkOrdersWorkDayEngineTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+		  if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
+		  xcopy /s /y "$(SolutionDir)..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
+		  if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
+		  xcopy /s /y "$(SolutionDir)..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"
+	  </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Data.SqlClient.SNI.4.0.0\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets'))" />
+    <Error Condition="!Exists('..\..\packages\FluentMigrator.Runner.SqlServerCe.3.3.1\build\netstandard2.0\FluentMigrator.Runner.SqlServerCe.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\FluentMigrator.Runner.SqlServerCe.3.3.1\build\netstandard2.0\FluentMigrator.Runner.SqlServerCe.targets'))" />
+    <Error Condition="!Exists('..\..\packages\librdkafka.redist.1.8.2\build\librdkafka.redist.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\librdkafka.redist.1.8.2\build\librdkafka.redist.props'))" />
+  </Target>
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
+  <Import Project="..\..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
+  <Import Project="..\..\packages\FluentMigrator.Runner.SqlServerCe.3.3.1\build\netstandard2.0\FluentMigrator.Runner.SqlServerCe.targets" Condition="Exists('..\..\packages\FluentMigrator.Runner.SqlServerCe.3.3.1\build\netstandard2.0\FluentMigrator.Runner.SqlServerCe.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

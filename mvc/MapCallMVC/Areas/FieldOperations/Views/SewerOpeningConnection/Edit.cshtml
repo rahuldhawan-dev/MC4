@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSewerOpeningConnection
+           
+@using (Form.BeginForm("Update", "SewerOpeningConnection", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.OriginalOpeningId)
+        @Html.EditorFor(x => x.UpstreamOpening)
+        @Html.EditorFor(x => x.DownstreamOpening)
+        @Html.EditorFor(x => x.IsInlet)
+        @Html.EditorFor(x => x.SewerPipeMaterial)
+        @Html.EditorFor(x => x.Size)
+        @Html.EditorFor(x => x.Invert)
+        @Html.EditorFor(x => x.SewerTerminationType)
+        @Html.EditorFor(x => x.Route)
+        @Html.EditorFor(x => x.Stop)
+        @Html.EditorFor(x => x.InspectionFrequency)
+        @Html.EditorFor(x => x.InspectionFrequencyUnit)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "SewerOpening", new { Id=Model.OriginalOpeningId },null)
+                           </text>)
+    </div>
+}

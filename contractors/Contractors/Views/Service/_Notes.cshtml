@@ -1,0 +1,25 @@
+﻿@using Contractors.Models.ViewModels
+@model MapCall.Common.Model.Entities.IThingWithNotes
+@{
+    Layout = null;
+
+    // Bug-2427: Don't allow users with edit rights in one operating center edit the records
+    // of another operating center when they do not have edit rights for the other operating center.
+    var canEdit = Html.CurrentUserCanEdit();
+}
+@Html.ScriptFor("~/Scripts/Note/Index.js", ScriptLoadType.LoadFromPartial)
+@if (canEdit)
+{
+    <div id="pnlNewNote" class="collapse-panel" data-title="New Note">
+        @Html.Action("New", "Note", new { LinkedId = @Model.Id, @Model.TableName, area = "" })
+    </div>
+}
+<div class="container">
+    @(Html.TableFor(x => x.LinkedNotes, new { @class = "single-line-header no-hover", id = "notesTable" })
+            .TemplateColumnFor("Note", n => @<span>
+                        <span class="noteDisplay">@n.Note.Text</span>
+                                            </span>)
+         .ColumnFor(n => n.Note.CreatedBy)
+         .ColumnFor(n => n.Note.CreatedAt)
+)
+</div>

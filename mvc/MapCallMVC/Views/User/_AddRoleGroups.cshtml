@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Admin.Models.ViewModels.Users.AddUserRoleGroup
+
+<details id="add-role-group-collapse">
+    <summary>Add Role Group</summary>
+    @using (Form.BeginForm("AddRoleGroup", "User", new { Model.Id, area = string.Empty }))
+    {
+        <div class="field-column fc100">
+            @Html.EditorFor(x => x.RoleGroup)
+            @Html.ButtonGroup(@<text>
+                    @Html.ActionLink("View Selected Role Group", "Show", "RoleGroup", new { area = "Admin" }, new { @class = "link-button", id = "view-selected-group-link", target = "_new" })
+                    @Control.SubmitButton("Add Role Group")
+            </text>)
+        </div>
+    }
+</details>

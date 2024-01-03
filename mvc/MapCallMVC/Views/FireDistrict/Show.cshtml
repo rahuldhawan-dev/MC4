@@ -1,0 +1,21 @@
+﻿@model FireDistrict
+
+@{
+    if (Model.CanBeDeleted)
+    {
+        ActionBarHelper.AddDeleteButton(true);
+    }
+}
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.DistrictName)
+    @Html.DisplayFor(x => x.Abbreviation)
+    @Html.DisplayFor(x => x.PremiseNumber)
+    @Html.DisplayFor(x => x.Contact)
+    @Html.DisplayFor(x => x.Phone)
+    @Html.DisplayFor(x => x.Fax)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.AddressCity)
+    @Html.DisplayFor(x => x.AddressZip)
+    @Html.DisplayFor(x => x.State)
+</div>

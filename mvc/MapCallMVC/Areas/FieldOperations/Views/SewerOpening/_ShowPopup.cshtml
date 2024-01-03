@@ -1,0 +1,50 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model SewerOpening
+
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink(Model.OpeningNumber, "Show", "SewerOpening", "FieldOperations", new { id = Model.Id }, new { target = "_blank" })
+    </h2>
+    <h3>
+        @Html.DisplayPrettyNameFor(x => x.OldNumber): @Html.DisplayValueFor(x => x.OldNumber) 
+    </h3>
+
+    @if (Model.OperatingCenter.WorkOrdersEnabled && Model.WorkOrdersEnabled)
+    {
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model), new { area = "FieldOperations", Class = "link-button", target = "_new" })
+        </div>
+    }
+    @if (Model.OperatingCenter.IsActive && !Model.IsInactive)
+    { 
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create New Sewer Main Inspection / Cleaning", "NewFromSewerOpening", "SewerMainCleaning", new { id = Model.Id }, new { area = "FieldOperations", Class = "link-button", target = "_new" })
+            @Html.AuthorizedActionLinkButton("New Inspection", "New", "SewerOpeningInspection", new { id = Model.Id }, new { area = "FieldOperations", Class = "link-button", target = "_new" })
+            @if (Model.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR)
+            {
+                @Html.AuthorizedActionLinkButton("New NPDES Regulator Inspection", "New", "NPDESRegulatorInspection", new { id = Model.Id }, new { area = "FieldOperations", id = "btnNewInspection", @class = "inspect-button" })
+            }
+        </div>
+    }
+<div class="field-column fc100">
+    @if (Model.Critical)
+    {
+        @Html.DisplayFor(x => x.CriticalNotes, new { @class = "critical-notes-display" })
+    }
+    @Html.DisplayFor(x => x.SewerOpeningType)
+    @Html.DisplayFor(x => x.SAPEquipmentId)
+    @Html.DisplayFor(x => x.Status)
+    @Html.DisplayFor(x => x.LastInspectionDate)
+    @if (Model.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR)
+    {
+        @Html.DisplayFor(x => x.LastNpdesRegulatorInspectionDate);
+    }
+    @Html.DisplayFor(x => x.LastManholeCleaningDate)
+    @Html.DisplayFor(x => x.FunctionalLocation)
+    @Html.DisplayFor(x => x.SewerOpeningMaterial)
+    @Html.DisplayFor(x => x.TaskNumber)
+    @Html.DisplayFor(x => x.DateInstalled)
+    @Html.DisplayFor(x => x.IsDoghouseOpening)
+    @Html.DisplayFor(x => x.IsEpoxyCoated)
+</div>
+</div>

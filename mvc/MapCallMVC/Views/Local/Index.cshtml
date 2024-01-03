@@ -1,0 +1,17 @@
+﻿@model SearchLocal
+
+@{
+    ActionBarHelper.AddMapLink();
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.Name)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Union.BargainingUnit, "Union.BargainingUnit")
+    .SortableColumnFor(x => x.SAPUnionDescription)
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount)
+    .WithPaginatedFooter())

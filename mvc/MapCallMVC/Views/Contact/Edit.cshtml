@@ -1,0 +1,9 @@
+﻿@model ContactViewModel
+
+@{
+    ViewBag.ContactFormAction = "Update";
+    ViewBag.ContactFormRouteValues = new {id = Model.Id};
+}
+
+@Html.Partial("_Form")
+

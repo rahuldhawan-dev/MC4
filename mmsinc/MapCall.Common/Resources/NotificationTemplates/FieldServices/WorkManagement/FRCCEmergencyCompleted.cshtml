@@ -1,0 +1,22 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.WorkOrder
+
+<h2>Work Order FRCC Emergency Order Completed</h2>
+
+Work Order #: <a href="@Model.RecordUrl">@Model.WorkOrderID</a><br />
+Priority: @Model.Priority <br/>
+Purpose: @Model.Purpose <br/>
+Operating Center: @Model.OperatingCenter <br />
+Entered By: @Model.CreatedBy <br />
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br />
+SAP Notification #: @Model.SAPNotificationNumber <br />
+SAP Work Order #: @Model.SAPWorkOrderNumber <br />
+Date Received: @Model.DateReceived <br />
+Completed By: @Model.CompletedBy <br />
+Date Completed: @String.Format(CommonStringFormats.DATE, Model.DateCompleted)<br />
+Notes:<br />
+@Model.Notes

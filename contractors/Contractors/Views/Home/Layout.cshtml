@@ -1,0 +1,156 @@
+﻿@model Contractors.Models.ViewModels.LayoutModel
+@{
+        ViewBag.Title = "Page title";
+        ViewData.ModelState.AddModelError("TextGoesHere", "Some validation error");
+        ViewData.ModelState.AddModelError("DropDown", "A validation error");
+        TempData[MMSINC.Controllers.ControllerBase.ERROR_MESSAGE_KEY] = new List<string>(new[] { "I am an error that would appear in a notification bar if one existed" });
+        TempData[MMSINC.Controllers.ControllerBase.NOTIFICATION_MESSAGE_KEY] = new List<string>(new[] { "I am a notification of sorts if a notification bar existed"});
+        TempData[MMSINC.Controllers.ControllerBase.SUCCESS_MESSAGE_KEY] = new List<string>(new[] { "I am succesful if a notification bar existed"});
+    }
+
+    @section scripts {
+    <script>
+        $("#inlineDatePicker").datepicker();
+    </script>
+}
+
+<fieldset>
+    <legend>Colors(and a fieldset!)</legend>
+    
+    <table class="no-hover" id="colors-table">
+        <tbody>
+            <tr>
+                <th>50 Shades of Gray</th>
+                <td class="black-color">@@black</td>
+                <td class="bright-gray-color">@@bright-gray</td>
+                <td class="g5-gray-color">@@5-gray</td>
+                <td class="g9-gray-color">@@9-gray</td>
+                <td class="d-gray-color">@@d-gray</td>
+                <td class="e6-gray-color">@@e6-gray</td>
+                <td class="f6-gray-color">@@f6-gray</td>
+                <td class="white-color">@@white</td>
+            </tr>
+            <tr>
+                <th>Blues and Rhythm</th>
+                <td class="astral-color">@@astral</td>
+                <td class="boston-blue-color">@@boston-blue</td>
+                <td class="regent-st-blue-color">@@regent-st-blue</td>
+                <td class="spindle-blue-color">@@spindle-blue</td>
+                <td class="not-as-ice-water-color">@@not-as-ice-water</td>
+                <td class="ice-water-color">@@ice-water</td>
+            </tr>
+            <tr>
+                <th>Joke about Red</th>
+                <td class="bittersweet-color">@@bittersweet</td>
+                <td class="your-pink-color">@@your-pink</td>
+            </tr>
+            <tr>
+                <th>Others</th>
+                <td class="successfully-green-color">@@successfully-green</td>
+                <td class="dolly-color">@@dolly</td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>
+
+<div style="margin-top:6px;">
+    @(Html.Tabs()
+.WithTab("Bits and Pieces", @<div>
+        <div style="width:100%; display:table;">
+                    <div style="display:table-cell;">
+                        <h1>Header 1</h1>
+                        <h2>Header 2</h2>
+                        <h3>Header 3</h3>
+                        <h4>Header 4</h4>
+                        <h5>Header 5</h5>
+                        <h6>Header 6</h6>
+                    </div>
+                    <div style="display:table-cell;">
+                        <div style="margin-bottom:6px;">
+                            <h6>Links</h6>
+                            @Html.ActionLink("This is a link", "Layout")
+                            @Html.ActionLink("This is a hovered link", "Layout", null, new { @class = "hover" })
+
+                            <h6>Lists</h6>
+                            <ul>
+                                <li>I am a list</li>
+                                <li>and I have some items</li>
+                            </ul>
+                        </div>
+                        <div style="margin-bottom:6px;">
+                            @Control.TextBox().WithValue("TextBox next to select")
+                            <select>
+                                <option>Item</option>
+                            </select>
+                            @Control.Button("Button")
+                        </div>
+                    </div>
+                    <div style="display:table-cell;">
+                        These buttons should all have identical position/text alignment.
+                        <div style="margin-bottom:6px;">
+                            <h6>Button tag buttons</h6>
+                            @Control.Button("Button")
+                            @Control.SubmitButton("Submit")
+                            @Control.ResetButton("Reset")
+                        </div>
+                        <div style="margin-bottom:6px;">
+                            <h6>Buttons mixed with Link Buttons</h6>
+                            @Html.LinkButton("Link Button", "Layout", "Home")
+                            <button type="button">Button Button</button>
+                        </div>
+                        <div style="margin-bottom:6px;">
+                            <h6>Disabled buttons(hover to make sure they don't do anything)</h6>
+                            <button type="button" disabled>Button</button>
+                        </div>
+                        <div style="margin-bottom:6px;">
+                            @Control.TextBox().WithValue("Textbox next to a button")
+                            @Control.Button("Button")
+                            @Control.FileUpload()
+                        </div>
+                    </div>
+                    <div style="display:table-cell;">
+                        @(Html.TableFor(x => x.TableRows)
+                        .WithCaption("This is a table caption")
+                        .ColumnFor(x => x.IsItTrue)
+                        .ColumnFor(x => x.TodaysDate))
+                    </div>
+                    <div style="display:table-cell;background-color:#cccccc;">
+                        You should not be able to see through the date picker.
+                        <div id="inlineDatePicker"></div>
+                    </div>
+        </div>
+    </div>)
+.WithTab("Details", @<text>
+        <fieldset>
+            <legend>I'm in a fieldset with DisplayFor things</legend>
+            <div class="field-column fc100">
+                @Html.DisplayFor(x => x.DropDown)
+                @Html.DisplayFor(x => x.IsItTrue)
+                @Html.DisplayFor(x => x.Pi)
+                @Html.DisplayFor(x => x.TextGoesHere)
+                @Html.DisplayFor(x => x.MultilineText)
+                @Html.DisplayFor(x => x.TodaysDate)
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>EditorFor things</legend>
+            <div class="field-column fc100">
+                @Html.RenderEditorTemplate("Render Editor template", Control.TextBox())
+                @Html.EditorFor(x => x.DropDown)
+                @Html.EditorFor(x => x.IsItTrue)
+                @Html.EditorFor(x => x.Pi)
+                @Html.EditorFor(x => x.TextGoesHere)
+                @Html.EditorFor(x => x.MultilineText)
+                @Html.EditorFor(x => x.TodaysDate)
+                @Html.EditorFor(x => x.NumericRange)
+                @Html.EditorFor(x => x.DateRange)
+                @Html.EditorFor(x => x.EqualsDateRange)
+                @Html.EditorFor(x => x.RequiredDateRange)
+                @Html.EditorFor(x => x.DateTimePicker)
+                @Html.EditorFor(x => x.CheckBoxing)
+                @Html.EditorFor(x => x.MultiInput)
+            </div>
+        </fieldset>
+</text>)
+.WithTab("Tab Fifteen", @<div>Nothing here</div>))
+</div>

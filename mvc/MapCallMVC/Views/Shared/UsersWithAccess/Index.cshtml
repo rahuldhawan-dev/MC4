@@ -1,0 +1,41 @@
+﻿@using MapCall.Common.Configuration
+@using MapCall.Common.Model.Repositories
+@using MMSINC.ClassExtensions.ObjectExtensions
+@using StructureMap
+@model dynamic
+@{
+    OperatingCenter opCenter = null;
+
+    if (ObjectExtensions.HasPublicProperty(Model, "OperatingCenter"))
+    {
+        dynamic opCenterId = Model.OperatingCenter;
+        if (opCenterId is int && opCenterId > 0)
+        {
+            opCenter = _container.GetInstance<IOperatingCenterRepository>().Find((int)opCenterId);
+        }
+        else if (opCenterId is int? && ((int?)opCenterId).HasValue)
+        {
+            opCenter = _container.GetInstance<IOperatingCenterRepository>().Find(((int?)opCenterId).Value);
+        }            
+    }
+}
+
+@if (opCenter != null) {
+    <h2>Limited to Operating Center @opCenter.Description</h2>    
+}    
+
+<ul>
+@foreach (var user in RoleService.GetUsersWithAccessToCurrentRoute(opCenter))
+{
+    <li>@user.UserName - @user.FullName@(user.HasAccess ? "" : " (inactive)")</li>
+}
+</ul>
+
+<h2>Current Required Roles:</h2>
+
+<ul>
+@foreach (var role in RoleService.GetRequiredRolesForCurrentRoute())
+{
+    <li>@role.Module - @role.Action</li>
+}
+</ul>

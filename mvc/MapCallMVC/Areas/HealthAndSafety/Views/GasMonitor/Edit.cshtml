@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditGasMonitor
+
+@using (Form.BeginForm("Update", "GasMonitor", "HealthAndSafety", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "GasMonitor", new { Model.Id })
+        </text>)
+    </div>
+}

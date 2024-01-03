@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchNpdesRegulatorInspection
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => Model, new { id = "results", style = "width:auto;" })
+    .WithCaption("Records found: " + Model.Count).SortableColumnFor(x => x.InspectionId)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.WasteWaterSystem)
+    .SortableColumnFor(x => x.PermitNumber)
+    .SortableColumnFor(x => x.LocationDescription)
+    .SortableColumnFor(x => x.OutfallNumber)
+    .SortableColumnFor(x => x.DepartureDateTime)
+    .SortableColumnFor(x => x.InspectedBy)
+    .SortableColumnFor(x => x.InspectionType)
+    .SortableColumnFor(x => x.BlockCondition)
+    .SortableColumnFor(x => x.DischargePresent)
+    .SortableColumnFor(x => x.WeatherRelated)
+    .SortableColumnFor(x => x.RainfallEstimate)
+    .SortableColumnFor(x => x.BodyOfWater)
+    .SortableColumnFor(x => x.DischargeFlow)
+    .SortableColumnFor(x => x.DischargeCause)
+    .SortableColumnFor(x => x.DischargeDuration)
+    .SortableColumnFor(x => x.Remarks)
+    .WithPaginatedFooter()
+    )

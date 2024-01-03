@@ -1,0 +1,20 @@
+﻿@model MapCall.Common.Model.Entities.ServiceFlush
+
+@{
+    var service = Model.Service;
+}
+<h2>Flushing Results have not been received for the following Premise:</h2>
+    
+Operating Center: @service.OperatingCenter.OperatingCenterCode<br />
+Town: @service.Town.ToString()<br />
+Address: @service.StreetAddress<br />
+
+
+<text>Service Number: <a href="@service.RecordUrl">@service.ServiceNumber</a><br /></text>
+
+Premise Number: @service.PremiseNumber<br />
+Initial Contact Date: @service.ContactDate<br />
+Date Installed: @service.DateInstalled<br />
+Sample Taken By: @Model.TakenBy<br />
+Sample Date: @Model.SampleDate.ToShortDateString()<br />
+Sample Status: @Model.SampleStatus<br />

@@ -1,0 +1,26 @@
+﻿@model Service
+
+<fieldset>
+    <legend>Read Me</legend>
+    This is a list of tap images that exist with the same operating center, town, service number, and premise number.
+    Some of these are linked to services that have different service types. Some are unlinked. If it is the correct image
+    for this service please update it on the tap image page. It will then link under the Tap Images tab instead.
+</fieldset>
+
+@(Html.TableFor(x => Model.RelatedTapImages, new { id = "relatedTapImagesTable" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TapImage", new { id = x.Id }, new { area = "FieldOperations" }))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.ServiceNumber)
+    .ColumnFor(x => x.PremiseNumber)
+    .TemplateColumnFor("Linked Service", x => @<text>
+                                             @if (x.Service != null)
+                                             {
+                                                 var linktext = string.IsNullOrEmpty(Model.PremiseNumber) ? "N/A" : Model.PremiseNumber;
+                                                 @Html.ActionLink(linktext, "Show", "Service", new {id = x.Service.Id, area = "FieldOperations"}, null)
+                                             }
+                                             else { }
+                                          </text>)
+    .ColumnFor(x => x.DateCompleted)
+    .ColumnFor(x => x.CreatedAt)
+)

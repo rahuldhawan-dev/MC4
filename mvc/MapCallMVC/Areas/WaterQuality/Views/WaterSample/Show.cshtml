@@ -1,0 +1,8 @@
+﻿@model WaterSample
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+@(Html.Tabs()
+    .WithTab("Details", "_ShowWaterSample", Model)
+    .WithTab("Recent", "_ShowChart", Model)
+    .WithNotesAndDocuments())

@@ -1,0 +1,16 @@
+﻿@using MMSINC.Helpers;
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites.AddSampleSiteSamplePlan
+
+@using (var form = Form.BeginRouteForm("SampleSite", "SamplePlan", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "samplePlanForm");
+    <div class="field-column fc100">
+        
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.SamplePlan)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Sample Plan")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿@model AddEquipmentLink
+
+@using (var form = Form.BeginRouteForm("Equipment", "Link", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "linkForm");
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.LinkType)
+        @Html.EditorFor(x => x.Url, "Url")
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Link")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

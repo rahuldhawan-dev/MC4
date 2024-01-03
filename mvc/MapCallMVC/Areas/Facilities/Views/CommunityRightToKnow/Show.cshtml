@@ -1,0 +1,11 @@
+﻿@model CommunityRightToKnow
+@{
+    ActionBarHelper.AddCopyButton();
+}
+
+@(Html.Tabs()
+      .WithTab("Details", "_CommunityRightToKnow", Model)
+      .WithDocuments()
+      .WithNotes()
+      .WithLog()
+)

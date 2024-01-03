@@ -1,0 +1,84 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.Customer.Models.ViewModels.SearchSAPTechnicalMasterAccount
+    
+@Html.ScriptFor("~/Scripts/Areas/Customer/SAPTechnicalMasterAccount/Find.js")
+@Control.Hidden("InstallationSearchUrl").WithValue(Url.Action("Index", "SAPTechnicalMasterAccount", new { area = "Customer", ext = ResponseFormatter.KnownExtensions.JSON }))
+@using (Ajax.BeginForm("Find", "SAPTechnicalMasterAccount", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id="SAPTechnicalMasterAccountForm", title = "Find SAP Technical Master Account" }))
+{
+    <style type="text/css">
+        #DoSearch {
+            position: relative;
+            margin-left: 3px;
+            height: inherit !important;
+            min-height: 24px;
+        }
+
+        table.search, table.search td {
+            border: none 0px !important;
+            padding: 0px;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+        table.search td {
+            vertical-align: top;
+        }
+
+        .ui-button-icon-only .ui-icon {
+            top: -2px;
+            left: -1px;
+        }
+    </style>
+
+    <div style="width:1080px;">
+        <fieldset>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.PremiseNumber)
+                @Html.EditorFor(x => x.InstallationType)
+                @Html.EditorFor(x => x.Equipment)
+                <div class="field-pair">
+
+                    <div class="label"></div>
+                    <div class="field">
+                        <button type="submit" id="DoSAPTechnicalMasterAccountSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="field-column fc100" style="height: 400px; overflow: auto;">
+            <table id="installationResults" style="width: 100%; cursor: pointer;">
+                <thead>
+                    <tr>
+                        <th>Installation Type</th>
+                        <th>Device Location</th>
+                        <th>Equipment</th>
+                        <th>Installation</th>
+                        <th>Device Serial #</th>
+                        <th>Meter Serial #</th>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+                        <th>Meter Size</th>
+                        <th>Billing Classification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 6px;">
+            <input type="hidden" id="selectedInstallation" />
+            <input type="hidden" id="selectedDeviceLocation" />
+            <input type="hidden" id="selectedEquipment" />
+            <input type="hidden" id="selectedMeterSerialNumber" />
+        </div>
+        <div class="editor-buttons">
+
+            @Control.Button("Select").WithId("selectInstallation")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </div>
+    </div>
+}

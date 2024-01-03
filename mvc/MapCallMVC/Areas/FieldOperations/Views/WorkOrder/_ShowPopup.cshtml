@@ -1,0 +1,17 @@
+﻿@model WorkOrder
+
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink( "Work Order #"  + Model.Id.ToString(), "Show", "WorkOrder", "FieldOperations", new {id = Model.Id}, new {target = "_blank"})
+    </h2>
+</div>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.StreetAddress)
+    @Html.DisplayFor(x => x.DateCompleted)
+    @Html.DisplayFor(x => x.WorkDescription)
+    @Html.DisplayFor(x => x.AssetType)
+    @Html.DisplayFor(x => x.AssetId)
+</div>

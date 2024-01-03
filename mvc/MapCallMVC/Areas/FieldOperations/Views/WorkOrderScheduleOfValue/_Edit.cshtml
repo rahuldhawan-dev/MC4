@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderScheduleOfValues.EditWorkOrderScheduleOfValue
+
+@using (var f = Form.BeginAjaxForm("Update", "WorkOrderScheduleOfValue", new { id = Model.Id, Model.WorkOrder }))
+{
+	f.HtmlAttributes["title"] = "Edit Schedule Of Value";
+	@Html.Partial("_Form", Model)
+}

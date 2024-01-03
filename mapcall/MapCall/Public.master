@@ -1,0 +1,52 @@
+﻿<%--This is meant for public pages--%>
+
+<%@ Master Language="C#" MasterPageFile="~/Resources/Masters/MapCallBase.Master" AutoEventWireup="true" CodeBehind="Public.master.cs" Inherits="MapCall.Public" %>
+<asp:Content ID="CHead" ContentPlaceHolderID="head" runat="server">
+    
+    <link type="text/css" href="<%#ResolveUrl("~/resources/bender/bender.css")%>" rel="Stylesheet" />
+    <% if (MMSINC.Common.HttpApplicationBase.IsStaging) { %>
+        <style>
+            .slogan {
+                background: #c00000 !important;
+            }
+        </style>
+    <% } %>
+    <script type="text/javascript">
+        var href = window.location.href;
+        var isHttps = (href.indexOf("https") > -1);
+        if (href.indexOf('mapcall.') > 0 && !isHttps) {
+            window.location = href.replace('http://', 'https://www.');
+        }
+        if (href.indexOf('www.mapcall.') > 0 && !isHttps) {
+            window.location = href.replace('http://', 'https://');
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="cphHead" runat="server" />
+</asp:Content>
+<asp:Content ID="CContent" ContentPlaceHolderID="content" runat="server">
+    <div class="body">
+        <div class="header">
+            <h3><asp:ContentPlaceHolder ID="cphHeading" runat="server" /></h3>
+        </div>
+        <div class="slogan">
+        Safety ▪ Quality ▪ Efficiency ▪ Sustainability
+        </div>
+        <div>
+            <div>
+                <asp:ContentPlaceHolder ID="cphContent" runat="server" />
+            </div>
+            <div class="dualCol footWrap">
+                <div class="left">
+                    <asp:ContentPlaceHolder ID="cphFooterLeft" runat="server" />
+                </div>
+                <div class="right">
+                    <div class="footer">
+                        powered by MapCall™ ©<%=DateTime.Now.Year%>
+                        <a href="http://www.amwater.com/" title="American Water">American Water</a>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</asp:Content>

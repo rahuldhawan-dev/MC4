@@ -1,0 +1,19 @@
+﻿@using MMSINC.Utilities
+@model dynamic
+@* because the model is generic, we need to use dynamic. We can't use 
+   the expression html helpers here either. *@
+
+@{
+    var controllerName = new RouteContext(ViewContext).ControllerName;
+}
+
+@using (Form.BeginForm("Create", controllerName))
+{
+    <div class="field-column fc200">
+        @Html.Editor("Description")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.AuthorizedActionLinkButton("Cancel", "Index", controllerName)
+                           </text>)
+    </div>
+}

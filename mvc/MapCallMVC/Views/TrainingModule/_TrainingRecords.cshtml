@@ -1,0 +1,14 @@
+﻿@using MMSINC.ClassExtensions.EnumExtensions
+@model TrainingModule
+
+@{
+    var records = Model.TrainingRecords.OrderByDescending(x => x.HeldOn);
+}
+@(Html.TableFor(x => records)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrainingRecord", new { id = x.Id}, null))
+    .ColumnFor(x => x.HeldOn)
+    .ColumnFor(x => x.ScheduledDate)
+    .ColumnFor(x => x.TrainingModule.TotalHours)
+    .ColumnFor(x => x.TrainingModule)
+    .ColumnFor(x => x.TrainingModule.Description)
+)

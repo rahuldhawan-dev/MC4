@@ -1,0 +1,122 @@
+﻿@using StructureMap
+@using MMSINC.Authentication
+@using MapCall.Common.Model.Entities.Users
+@using MMSINC
+@using MMSINC.Helpers
+@{
+    Layout = "~/Views/Shared/_NoFrills.cshtml";
+    var authServ = DependencyResolver.Current.GetService<IAuthenticationService<User>>();
+    var currentUserIsAuthenticated = authServ.CurrentUserIsAuthenticated;
+    User currentUser = (currentUserIsAuthenticated ? authServ.CurrentUser : null);
+
+    // TODO: Move this out to a helper method.
+    var currentPageTitle = (string)ViewData["Title"];
+    var currentPageCrumbs = (CrumbBuilder)ViewData["TitleCrumbs"];
+    IHtmlString headingTitle;
+    if (currentPageTitle != null)
+    {
+        headingTitle = new HtmlString(currentPageTitle);
+    }
+
+    else if (currentPageCrumbs != null)
+    {
+        headingTitle = currentPageCrumbs.ToHtmlString(Html);
+        currentPageCrumbs.TextOnlySeparator = " - ";
+        ViewData["Title"] = currentPageCrumbs.ToTextOnlyHtmlString(Html);
+    }
+    else
+    {
+        ViewData["Title"] = Html.DisplayTitleCrumbs("Id", " - ");
+        headingTitle = Html.DisplayCrumbs("Id", " : ");
+    }
+    if (!currentUserIsAuthenticated)
+    {
+        DocumentClasses.Add("no-menu");
+    }
+}
+
+@section head {
+    <link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" />
+}
+@section styles {
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/content/base-css")
+    @RenderSection("styles", required: false)
+    @if (MvcApplication.IsStaging)
+    {
+        <style>
+            #topMenu {
+                background-color: #c00000 !important;
+            }
+        </style>
+    }
+    @if (MvcApplication.IsTraining)
+    {
+        <style>
+            #topMenu {
+                background-color: darkorange !important;
+            }
+        </style>
+    }
+    @Html.ResourceRegistry().StyleSheets.ToMvcHtmlString()}
+@section scripts {
+    @Scripts.Render("~/scripts/site-js")
+    @Scripts.Render("~/scripts/web-components")
+    @Html.RenderScriptExportModules("~/scripts/lit-components", "MCLitComponents")
+    @RenderSection("scripts", required: false)
+    @Html.ResourceRegistry().Scripts.ToMvcHtmlString()
+    @Html.Partial("~/Views/Shared/_ApplicationJSBridge.cshtml")
+}
+
+<noscript><div>This site requires javascript to be enabled.</div></noscript>
+<div class="junk-bar" id="topMenu">
+    <div class="left">
+        <ul>
+            <li class="icon"><a href="/Modules/HR/home.aspx" class="home" title="Home"></a></li>
+            <li class="icon">@Control.Button().WithId("toggleMenuButton").With("title", "Show/Hide Menu")</li>
+            @if (currentUserIsAuthenticated)
+            {
+                @Html.Partial("_AdminPanel")
+            }
+        </ul>
+    </div>
+    <div class="right">
+        <ul>
+            @if (currentUserIsAuthenticated)
+            {
+                <li>Logged in as @Html.ActionLink(currentUser.UniqueName, "Show", "User", new { id = currentUser.Id, area = "" }, null)</li>
+            }
+            else
+            {
+                <li>Log in</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@if (currentUserIsAuthenticated)
+{
+    <div id="menuScrollWrap">
+        <div class="menu-scroll-child">
+            @Html.Partial("_Menu")
+            @RenderSection("nav", required: false)
+        </div>
+    </div>
+}
+
+@Html.Partial("_ActionBar")
+
+<div id="siteContent">
+    @Html.DisplayNotifications()
+    @* TODO: This doesn't need to be a junkbar anymore. *@
+    <div class="junk-bar" id="bodyHeader">
+        <div class="left">
+            <ul>
+                <li>@headingTitle</li>
+            </ul>
+        </div>
+    </div>
+    <div class="body">
+        @RenderBody()
+    </div>
+</div>  

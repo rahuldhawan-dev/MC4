@@ -1,0 +1,26 @@
+﻿@model SewerOpening
+
+@{
+    var inspections = Model.SewerOpeningInspections.OrderByDescending(x => x.DateInspected);
+}
+@if (Model.OperatingCenter.IsActive && !Model.IsInactive)
+{
+    <div style="padding: 3px;">
+        @Html.AuthorizedActionLinkButton("New Inspection", "New", "SewerOpeningInspection", new { id = Model.Id })
+        @if (Model.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR)
+        {
+            @Html.AuthorizedActionLinkButton("New NPDES Regulator Inspection", "New", "NpdesRegulatorInspection", new { id = Model.Id })
+        }
+    </div>
+}
+
+@(Html.TableFor(x => inspections, new { id = "inspections-table" })
+    .TemplateColumnFor(x => @Html.ActionLink("View", "Show", "SewerOpeningInspection", new { x.Id }, null))
+    .ColumnFor(x => x.DateInspected)
+    .ColumnFor(x => x.InspectedBy)
+    .ColumnFor(x => x.PipesIn)
+    .ColumnFor(x => x.PipesOut)
+    .ColumnFor(x => x.RimHeightAboveBelowGrade)
+    .ColumnFor(x => x.RimToWaterLevelDepth)
+    .ColumnFor(x => x.AmountOfDebrisGritCubicFeet)
+)

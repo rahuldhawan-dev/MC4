@@ -1,0 +1,47 @@
+﻿@using MMSINC.Helpers
+@model SampleIdMatrix
+@{
+    var data = Model.WaterSamples;
+}
+
+
+@if (!data.Any())
+{
+    <div class="container">
+        No water samples were found.
+    </div>
+}
+else
+{
+    <style>
+        .chart {
+            height: 350px;
+        }
+    </style>
+    <div class="container">
+        @*@{
+            var cb = new ChartBuilder<DateTime, float>();
+            cb.Interval = ChartIntervalType.Minute;
+            cb.Type = ChartType.Line;
+            cb.Title = Model.Description;
+            cb.YMinValue = (float)0;
+            cb.LegendPosition = ChartLegendPosition.Bottom;
+
+            foreach (var item in data)
+            {
+                if (item.SampleValue.HasValue)
+                {
+                    cb.AddSeriesValue(item.SampleIdMatrix.WaterConstituent.ToString(), item.SampleDate.Value, item.SampleValue.Value);
+                }
+            }
+        }
+
+        @cb*@
+        @(Html.TableFor(x => data)
+              .TemplateColumnFor("WaterSampleID", x => Html.ActionLink(x.Id.ToString(), "Show", "WaterSample", new {id = x.Id, area = "WaterQuality"}, null))
+              .TemplateColumnFor("SampleIdMatrix", x => Html.ActionLink(x.SampleIdMatrix.Id.ToString(), "Show", "SampleIdMatrix", new {id = x.SampleIdMatrix.Id, area = "WaterQuality"}, null))
+              .ColumnFor(x => x.SampleIdMatrix.WaterConstituent)
+              .ColumnFor(x => x.SampleDate)
+              .ColumnFor(x => x.SampleValue))
+    </div>
+}

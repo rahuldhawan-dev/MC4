@@ -1,0 +1,151 @@
+﻿@using MapCall.Common.Model.ViewModels
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.ClassExtensions.IEnumerableExtensions
+@model MapCallMVC.Areas.Reports.Models.SearchRegulatoryCompliance
+
+@{
+    ViewBag.Title = "Regulatory Compliance";
+
+    var modelHasFacilities = Model.Facility.Any();
+    var modelHasStates = Model.State.Any();
+    var modelHasOperatingCenters = Model.OperatingCenter.Any();
+    var modelHasPlanningPlants = Model.PlanningPlant.Any();
+    var modelHasEquipmentTypes = Model.EquipmentType.Any();
+    var modelHasEquipmentPurposes = Model.EquipmentPurpose.Any();
+}
+
+@functions {
+
+    IHtmlString GenerateWorkOrderSearchLink(RegulatoryCompliance reportItem, int displayCount, PerformanceSearchType countType, DateTime? completedDateTime = null, int? lastCompletedWorkOrderId = null)
+    {
+        if (displayCount <= 0)
+        {
+            // No point in generating a link to a page with zero results.
+            return new HtmlString(displayCount.ToString());
+        }
+
+        var queryRvd = new RouteValueDictionary {
+            { "area", "Production" },
+            { "DateReceived.Start", Model.DateReceived.Start.ToString() },
+            { "DateReceived.Operator", (int)Model.DateReceived.Operator },
+            { "DateReceived.End", Model.DateReceived.End.ToString() },
+            { "State", reportItem.StateId },
+            { "PerformanceSearchType", (int)countType }, // All other filtering related to this is done in the SearchProductionWorkOrder model.
+            { "OperatingCenter", reportItem.OperatingCenterId },
+            { "PlanningPlant", reportItem.PlanningPlantId },
+            { "Facility", reportItem.FacilityId },
+            { "Equipments", reportItem.EquipmentId },
+            { "RegulatoryComplianceSearch", true },
+            { "OrderType", OrderType.Indices.PLANT_MAINTENANCE_WORK_ORDER_11 }
+        };
+
+        if (completedDateTime.HasValue)
+        {
+            return Html.ActionLink(completedDateTime.Value.ToString(), "Show", "ProductionWorkOrder", new { id = lastCompletedWorkOrderId.Value, area = "Production" }, null);
+        }
+
+        return Html.ActionLink(displayCount.ToString(), "Index", "ProductionWorkOrder", queryRvd, null);
+    }
+}
+
+<fieldset>
+    <legend>Selected Values:</legend>
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.DateReceived)
+
+        @if (modelHasStates)
+        {
+            @Html.DisplayFor(x => x.SelectedStates)
+        }
+        @if (modelHasOperatingCenters)
+        {
+            @Html.DisplayFor(x => x.SelectedOperatingCenters)
+        }
+        @if (modelHasPlanningPlants)
+        {
+            @Html.DisplayFor(x => x.SelectedPlanningPlants)
+        }
+        @if (modelHasFacilities)
+        {
+            @Html.DisplayFor(x => x.SelectedFacilities)
+        }
+        @if (modelHasEquipmentTypes)
+        {
+            @Html.DisplayFor(x => x.SelectedEquipmentTypes)
+        }
+        @if (modelHasEquipmentPurposes)
+        {
+            @Html.DisplayFor(x => x.SelectedEquipmentPurposes)
+        }
+    </div>
+</fieldset>
+
+<table id="results">
+    <thead>
+        <tr>
+            <th>State</th>
+            <th>Operating Center</th>
+            <th>Public Water Supply</th>
+            <th>Facility</th>
+            <th>Equipment Description</th>
+            <th>Compliance Flag Values</th>
+            <th># of WO's Completed</th>
+            <th>Date of Last Completed Order</th>
+            <th># of WO's Incomplete</th>
+            <th># of WO's Cancelled</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            var complianceText = new List<string>();
+        <tr>
+            <td>@item.State</td>
+            <td>@item.OperatingCenterCode  -  @item.OperatingCenterName</td>
+            <td>@item.PublicWaterSupply</td>
+            <td>@item.Facility</td>
+            <td>@item.Description</td>
+            @if (@item.HasProcessSafetyManagement)
+            {
+                complianceText.Add("Process Safety Management");
+            }
+            @if (@item.HasCompanyRequirement)
+            {
+                complianceText.Add("Company Requirement");
+            }
+            @if (@item.HasOshaRequirement)
+            {
+                complianceText.Add("OSHA Requirement");
+            }
+            @if (@item.HasRegulatoryRequirement)
+            {
+                complianceText.Add("Environmental / Water Quality Regulatory Requirement");
+            }
+            @if (@item.OtherCompliance)
+            {
+                complianceText.Add(@item.OtherComplianceReason);
+            }
+            <td>@string.Join(",", complianceText)</td>
+            <td>@GenerateWorkOrderSearchLink(item, item.NumberCompleted, PerformanceSearchType.Completed)</td>
+            @if (@item.DateCompleted.HasValue)
+            {
+                <td>@GenerateWorkOrderSearchLink(item, item.NumberCompleted, PerformanceSearchType.Completed, item.DateCompleted, item.LastCompletedWorkOrderId)</td>
+            }
+            else
+            {
+                <td>@item.DateCompleted</td>
+            }
+            <td>@GenerateWorkOrderSearchLink(item, item.NumberIncomplete, PerformanceSearchType.Incomplete)</td>
+            <td>@GenerateWorkOrderSearchLink(item, item.NumberCancelled, PerformanceSearchType.Canceled)</td>
+        </tr>
+        }
+        <tr>
+            <td colspan="6">Grand Total:</td>
+            <td>@Model.Results.Sum(x => x.NumberCompleted)</td>
+            <td></td>
+            <td>@Model.Results.Sum(x => x.NumberIncomplete)</td>
+            <td>@Model.Results.Sum(x => x.NumberCancelled)</td>
+        </tr>
+    </tbody>
+</table>

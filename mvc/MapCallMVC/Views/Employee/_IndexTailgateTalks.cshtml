@@ -1,0 +1,9 @@
+﻿@model Employee
+
+<div class="container">
+    @(Html.TableFor(x => Model.LinkedTailgateTalks, new {@class = "single-line-header no-hover", id = "tailgateTalksTable"})
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TailgateTalk", new { x.Id, area = "HealthAndSafety" }, null))
+        .ColumnFor(x => x.Topic)
+        .ColumnFor(x => x.HeldOn)
+    )
+</div>

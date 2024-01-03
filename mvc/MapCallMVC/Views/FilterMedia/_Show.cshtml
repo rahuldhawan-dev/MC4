@@ -1,0 +1,49 @@
+﻿@model FilterMedia
+
+<div class="field-column fc150">
+    @Html.RenderDisplayTemplate("Facility ID", @<div>
+        @if (Model.Facility != null) {
+            @Html.ActionLink(Model.Facility.FacilityId, "Show", new {Controller = "Facility", Model.Facility.Id})
+        }
+    </div>)
+    @Html.DisplayFor(m => m.Facility.FacilityName)
+    @Html.DisplayFor(m => m.FilterNumber)
+    @Html.DisplayFor(m => m.EquipmentIdentifier)
+    @Html.RenderDisplayTemplate("Equipment", @<div>
+        @if (Model.Equipment != null) {
+            @Html.ActionLink(Model.Equipment.Identifier, "Show", new {Controller = "Equipment", Model.Equipment.Id})
+        } else {
+            @Html.ActionLink("Create", "New", new {Controller = "Equipment", FacilityId = (Model.Facility != null) ? Model.Facility.Id : 0, Identifier = Model.EquipmentIdentifier})
+        }            
+    </div>)
+    @Html.DisplayFor(m => m.YearInService)
+    @Html.DisplayFor(m => m.MediaType)
+    @Html.DisplayFor(m => m.EstimatedMediaLifecycle)
+    @Html.DisplayFor(m => m.CapacityMGD)
+    @Html.DisplayFor(m => m.Coefficient)
+    @Html.DisplayFor(m => m.FilterDimensions)
+    @Html.DisplayFor(m => m.MediaArea)
+    @Html.DisplayFor(m => m.MediaVolume)
+    @Html.DisplayFor(m => m.GravelSupportMedia)
+    @Html.DisplayFor(m => m.MonthlyMediaExpense)
+    @Html.DisplayFor(m => m.AnnualInspectionCosts)
+    @Html.DisplayFor(m => m.AnnualAnalysisCosts)
+    @Html.DisplayFor(m => m.AnnualCompanyLaborCosts)
+    @Html.DisplayFor(m => m.EquipmentCriticalRating)
+    @Html.DisplayFor(m => m.YearLastPainted)
+    @Html.DisplayFor(m => m.ServedByStandbyPower)
+    @Html.DisplayFor(m => m.TurbidimeterModel)
+    @Html.DisplayFor(m => m.WashType)
+    @Html.DisplayFor(m => m.LevelControlMethod)
+    @Html.DisplayFor(m => m.ProductCode)
+    @Html.DisplayFor(m => m.FilterType)
+    @Html.DisplayFor(m => m.Location)
+    @Html.DisplayFor(m => m.AnthraciteDepth)
+    @Html.DisplayFor(m => m.GACDepth)
+    @Html.DisplayFor(m => m.SandDepth)
+    @Html.DisplayFor(m => m.GravelDepth)
+    @Html.DisplayFor(m => m.LastTimeChanged)
+    @Html.DisplayFor(m => m.LastTimeCleaned)
+    @Html.DisplayFor(m => m.AirScouring)
+    @Html.DisplayFor(m => m.Recycling)
+</div>

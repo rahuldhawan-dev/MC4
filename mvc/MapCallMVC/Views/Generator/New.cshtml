@@ -1,0 +1,11 @@
+﻿@model CreateGenerator
+
+@using(Form.BeginForm("Create", "Generator", new {Model.Id, Model.Equipment})) {
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.ActionLink("Cancel", "Show", "Equipment", null, null, "Generator", new { Id = Model.Equipment }, new { Class="link-button"})
+                           </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<GISLayerUpdate>
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count())
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .ColumnFor(x => x.MapId)
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.Updated)
+    .ColumnFor(x => x.CreatedBy)
+    .ColumnFor(x => x.CreatedAt)
+    .ColumnFor(x => x.IsActive))

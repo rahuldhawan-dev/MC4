@@ -1,0 +1,27 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderFinalizationSearch
+@{
+    ViewBag.Title = "Work Order - Finalization - Results";
+}
+        * Orders in green are completed
+
+@(Html.TableFor(x => x)
+	  .WithRowBuilder((wo, tag) => {
+		  if (wo.DateCompleted.HasValue)
+		  {
+			  tag.AddCssClass("completed");
+		  }
+	  })
+	  .TemplateColumnFor(x => @<text>@Html.ActionLink("Select", "Edit", new { id = x.Id })</text>)
+	  .SortableColumnFor(x => x.Id)
+	  .SortableColumnFor(x => x.StreetNumber)
+	  .SortableColumnFor(x => x.Street, "Street.FullStName")
+	  .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+	  .SortableColumnFor(x => x.Town, "Town.ShortName")
+	  .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+	  .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+	  .ColumnFor(x => x.WorkDescription, "Description of Job (Hover for Notes)")
+		  .WithCellBuilder((wo, tag) => {
+			  tag.Attributes.Add("title", wo.Notes);
+		  })
+	  .ColumnFor(x => x.CurrentAssignment.Crew, "Last Assigned To")
+      .WithPaginatedFooter())

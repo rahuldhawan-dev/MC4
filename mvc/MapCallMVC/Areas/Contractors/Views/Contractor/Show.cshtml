@@ -1,0 +1,10 @@
+﻿@model Contractor
+
+@(Html.Tabs()
+      .WithTab("Contractor", "_Show", Model)
+      .WithTab("Contacts", "Contacts", Model, itemCount: Model.Contacts.Count)
+      .WithAjaxTab("Agreements", "Agreements", Model)
+      .WithAjaxTab("Insurance", "Insurances", Model)
+      .WithAjaxTab("Users", "Users", Model)
+      .WithNotesAndDocuments()
+      .WithLog())

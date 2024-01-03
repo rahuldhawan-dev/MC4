@@ -1,0 +1,17 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+@{
+    var table = Html.TableFor(x => x.RedTagPermits, new { id = "red-tag-permits-table" })
+                    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "RedTagPermit", new { id = x.Id, area = "HealthAndSafety" }, null))
+                    .TemplateColumnFor("Production Work Order", x => Html.ActionLink(x.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { area = "Production", id = x.ProductionWorkOrder.Id }, null))
+                    .ColumnFor(x => x.PersonResponsible)
+                    .ColumnFor(x => x.AuthorizedBy)
+                    .ColumnFor(x => x.EquipmentImpairedOn)
+                    .ColumnFor(x => x.EquipmentRestoredOn)
+                    .ColumnFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+                    .ColumnFor(x => x.ProductionWorkOrder.OperatingCenter)
+                    .ColumnFor(x => x.ProductionWorkOrder.Facility);
+}
+
+@table

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorInsurance
+
+@using (Form.BeginForm("Index", "ContractorInsurance"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.InsuranceProvider)
+        @Html.EditorFor(x => x.MeetsCurrentContractualLimits)
+        @Html.EditorFor(x => x.EffectiveDate)
+        @Html.EditorFor(x => x.TerminationDate)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

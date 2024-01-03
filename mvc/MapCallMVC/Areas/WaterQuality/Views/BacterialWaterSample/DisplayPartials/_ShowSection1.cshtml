@@ -1,0 +1,32 @@
+﻿@model BacterialWaterSample
+
+@{
+    var ep = Model.EstimatingProject;
+}
+
+<div class="field-column fc200">
+	@Html.DisplayFor(x => x.Id)
+	@Html.DisplayFor(x => x.OperatingCenter)
+	@Html.DisplayFor(x => x.SampleSite)
+	@Html.DisplayFor(x => x.SampleCollectionDTM)
+	@Html.DisplayFor(x => x.CollectedBy)
+	@Html.DisplayFor(x => x.BacterialSampleType)
+	@Html.DisplayFor(x => x.RepeatLocationType)
+	@Html.RenderDisplayTemplate("Original Bacterial Water Sample", @<div>
+			                                                            @if (Model.OriginalBacterialWaterSample != null) {
+				                                                            @Html.ActionLink(Model.OriginalBacterialWaterSample.Id.ToString(), "Show", "BacterialWaterSample", new { id = Model.OriginalBacterialWaterSample.Id, area = "WaterQuality"}, null)                   
+			                                                            }
+		                                                            </div>)
+	@Html.RenderDisplayTemplate("Capital Main Project", @<div>
+			                                                @if (ep != null){
+				                                                @String.Format("{0}-{1}-{2}-{3} [{4}]", ep.OperatingCenter, ep.Town, ep.Street, ep.WBSNumber, ep.Id)
+			                                                }
+		                                                </div>)
+	@Html.DisplayFor(x => x.SAPWorkOrderId)
+	@Html.DisplayFor(x => x.ComplianceSample)
+	@Html.DisplayFor(x => x.Address)
+	@Html.DisplayFor(x => x.Town)
+	@Html.DisplayFor(x => x.Location)
+	@Html.DisplayFor(x => x.Coordinate)
+	@Html.DisplayFor(x => x.DataEntered)
+</div>

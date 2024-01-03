@@ -1,0 +1,121 @@
+body, html
+{
+	margin:0px;
+	padding:0px;
+	width:100%;
+	height:100%;
+	/*overflow:hidden;*/
+	font-family:Arial;
+	text-align:center;
+	/*background-image:url(bg.jpg);*/
+}
+.MapCallHeaderShadow
+{
+	display:none;
+}
+.MapCallContentTable
+{
+	width:1.5in;			
+}
+.pIE_Hidden
+{
+	display:none;
+}
+
+.pink
+{
+	background-color:#AA0000;
+}
+.valveInspectionTable
+{
+	width:250px;
+	background-color:White;
+	text-align:left;
+	margin-top:14px;
+	font-size:large;
+	/*width:400px;background-color:White;text-align:left;margin-top:14px*/
+}
+.valveInspectionTableLeft
+{
+	float:left;padding-right:10px;margin-right:10px;
+}
+.ErrorMessage
+{
+	color: Red;
+}
+
+/* classes for skin */
+.GridView
+{
+	color: #333;
+}
+.GridViewHeader
+{
+	background-color: #507CD1;
+	font-weight: bold;
+	color: White;
+}
+.GridViewRow
+{
+	background-color: #EFF3FB;
+}
+.GridViewAlternatingRow
+{
+	background-color: White;
+}
+.GridViewSelectedRow
+{
+	background-color: #D1DDF1;
+	font-weight: bold;
+	color: #333;
+}
+.GridViewEditRow
+{
+	background-color: #2461BF;
+}
+.GridViewFooter
+{
+	background-color: #507CD1;
+	font-weight: bold;
+	color: White;
+}
+.GridViewPager
+{
+	background-color: #2461BF;
+	color: White;
+	text-align: center;
+}
+.DetailsView
+{
+	color: #333;
+}
+.DetailsViewHeader
+{
+	background-color: #507CD1;
+	font-weight: bold;
+	color: White;
+}
+.DetailsViewRow
+{
+	background-color: #EFF3FB;
+}
+.DetailsViewAlternatingRow
+{
+	background-color: White;
+}
+.DetailsViewFooter
+{
+	background-color: #507CD1;
+	font-weight: bold;
+	color: White;
+}
+.ReadableDDL
+{
+	font-size: larger;
+	width: 170px;
+}
+.AddButton
+{
+	width: 44px;
+	height: 34px;
+}

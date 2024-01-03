@@ -1,0 +1,18 @@
+﻿@model AllocationPermitWithdrawalNode
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.AllocationCategory)
+    @Html.DisplayFor(x => x.Facility.OperatingCenter)
+    @Html.DisplayFor(x => x.Facility)
+	@Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.WellPermitNumber)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.AllowableGpm)
+    @Html.DisplayFor(x => x.AllowableGpd)
+    @Html.DisplayFor(x => x.AllowableMgm)
+    @Html.DisplayFor(x => x.CapableGpm)
+    @Html.DisplayFor(x => x.WithdrawalConstraint)
+    @Html.DisplayFor(x => x.HasStandByPower)
+    @Html.DisplayFor(x => x.CapacityUnderStandbyPower)
+</div>

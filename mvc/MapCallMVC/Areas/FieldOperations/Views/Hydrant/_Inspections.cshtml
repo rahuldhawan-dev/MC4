@@ -1,0 +1,28 @@
+﻿@model Hydrant
+
+@{
+    var inspections = Model.HydrantInspections.OrderByDescending(x => x.DateInspected);
+}
+
+@if (Model.IsInspectable && Model.OperatingCenter.IsActive)
+{
+    @Html.AuthorizedActionLinkButton("New Inspection", "New", "HydrantInspection", new {id = Model.Id})
+    if (Model.LateralValve != null)
+    {
+        @Html.AuthorizedActionLinkButton("New Inspection for Lateral Valve", "New", "ValveInspection", new {id = Model.LateralValve.Id})
+    }
+}
+else
+{
+    <div class="notification notifications-warning">
+		<div class="message">New inspection records can not be created for assets that are cancelled, inactive, retired, or removed.</div>
+    </div>
+}
+@(Html.TableFor(x => inspections, new { id = "inspections-table" })
+    .TemplateColumnFor(x => @Html.ActionLink("View", "Show", "HydrantInspection", new { x.Id }, null))
+    .ColumnFor(x => x.DateInspected)
+    .ColumnFor(x => x.HydrantInspectionType)
+    .ColumnFor(x => x.FullFlow)
+    .ColumnFor(x => x.GallonsFlowed)
+    .ColumnFor(x => x.StaticPressure)
+)

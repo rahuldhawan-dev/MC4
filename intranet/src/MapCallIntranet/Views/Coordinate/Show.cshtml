@@ -1,0 +1,30 @@
+﻿@model Coordinate
+
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.MapId = "pickerMap";
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Coordinate/Show.js")
+    <script type="text/javascript">
+        $(document).ready(CoordinateShow.initialize);
+    </script>
+}
+
+@section styles {
+    <style>
+        #default-legend-header,
+        #default-legend {
+            display: none;
+        }
+    </style>
+}
+
+@section aboveMap {
+    @Control.HiddenFor(x => x.Latitude)
+    @Control.HiddenFor(x => x.Longitude)
+    <input type="hidden" id="iconUrl" value="@Html.UrlFor(Model.Icon.Url)" />
+    <input type="hidden" id="iconWidth" value="@(Model.Icon.Width)" />
+    <input type="hidden" id="iconHeight" value="@(Model.Icon.Height)" />
+}

@@ -1,0 +1,45 @@
+﻿@using MapCall.Common.Model.Repositories
+@using MMSINC.Utilities
+@model SearchFacilityReadings
+
+@* NOTE: This whole view renders during the Show action too. So any dropdown data
+    needs to be added there and during the Readings action. *@
+@using (var f = Form.BeginAjaxRouteForm("DefaultShowChild", new { id = Model.Id }))
+{
+    f.IsAjaxContentPreloaded = true;
+    f.Action = "Readings";
+    f.Controller = "Facility";
+
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(x => x.Interval)
+        @Html.ButtonGroup(@Control.SubmitButton("Display Readings"))
+    </div>
+
+    <div class="container">
+        @ViewData["Chart"]
+    </div>
+
+    <div class="collapse-panel" data-title="Raw Readings Data and Costs">
+        <div class="field-column fc50">
+            @Html.DisplayFor(x => x.Total)
+        </div>
+
+        @(Html.TableFor(x => x.ReadingCosts, new { id = "readings-table" })
+              .TemplateColumnFor("Date", x => @<text>
+                    @if (Model.Interval == ReadingGroupType.Daily)
+                    {
+                        var format = string.Format(CommonStringFormats.DATE, x.Date);
+                        @format
+                    }
+                    else
+                    {
+                        @x.Date
+                    }
+                                          </text>)
+                .ColumnFor(x => x.ReadingValue)
+                .ColumnFor(x => x.KwhCost)
+                .ColumnFor(x => x.Total))
+    </div>
+}

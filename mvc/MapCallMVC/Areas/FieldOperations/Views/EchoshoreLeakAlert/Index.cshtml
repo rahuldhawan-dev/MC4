@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchEchoshoreLeakAlert
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(x => Model)
+      .WithCaption("Records Found:" + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.EchoshoreSite)
+      .SortableColumnFor(x => x.Hydrant1)
+      .SortableColumnFor(x => x.Hydrant1Text)
+      .SortableColumnFor(x => x.Hydrant2)
+      .SortableColumnFor(x => x.Hydrant2Text)
+      .SortableColumnFor(x => x.DatePCNCreated)
+      .SortableColumnFor(x => x.FieldInvestigationRecommendedOn)
+      .WithPaginatedFooter()
+)

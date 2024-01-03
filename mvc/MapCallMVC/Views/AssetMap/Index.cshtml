@@ -1,0 +1,51 @@
+﻿@using MMSINC.ClassExtensions
+@model MapCall.Common.Model.ViewModels.MapView
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.Title = "Assets Map";
+    DocumentClasses.Add("mapsPage");
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Content/JS/Map.Index.js")
+    @Html.ScriptFor("~/Scripts/AssetMap/Index.js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Maps.init(@Html.Raw(Json.Encode(Model.MapConfiguration)));
+        });
+    </script>
+}
+
+@section styles {
+    <style>
+        .tool-button {
+            border: none;
+            padding: 0px;
+            height: 40px;
+            width: 40px;
+        }
+
+        .tool-button[disabled] {
+            border: none;
+        }
+
+        #load-related-data-button { background: url('Content/images/map-related-assets-button.png') no-repeat center center; }
+        #load-related-data-button[disabled] { background: url('Content/images/map-related-assets-button-disabled.png') no-repeat center center; }
+
+        #reset-data-button { background: url('Content/images/map-reset-button.png') no-repeat center center; }
+        #reset-data-button[disabled] { background: url('Content/images/map-reset-button-disabled.png') no-repeat center center; }
+
+        #extents-button { background: url('Content/images/map-extents-button.png') no-repeat center center; }
+        #extents-button[disabled] { background: url('Content/images/map-extents-button-disabled.png') no-repeat center center; }
+    </style>
+}
+
+@section extraLegendItemsTop {
+    <div style="text-align:right;">
+        <button class="tool-button" id="extents-button" title="Displays all assets that exist for the current map extent" disabled="disabled"></button>
+        <button class="tool-button" id="load-related-data-button" title="Loads related assets" disabled="disabled"></button>
+        <button class="tool-button" id="reset-data-button" title="Resets the map to the initial data that was loaded" disabled="disabled"></button>
+    </div>
+
+}
+

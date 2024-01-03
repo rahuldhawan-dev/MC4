@@ -1,0 +1,19 @@
+@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.TailgateTalk
+
+<h2>Tailgate Talk</h2>
+
+Held On: @String.Format(CommonStringFormats.DATE, Model.HeldOn)<br />
+Held By: @Model.PresentedBy<br />
+Tailgate Topic ID: @Model.Topic.Id<br />
+Topic: @Model.Topic.Topic<br />
+Topic Description: @Model.Topic<br />
+Training Time Hours: @Model.TrainingTimeHours<br />
+TailgateTalkID: @Model.Id<br />
+ORM Reference #: @Model.OrmReferenceNumber<br />
+
+<h3>Attendees (@Model.LinkedEmployees.Count)</h3>
+@foreach (var e in Model.LinkedEmployees)
+{
+    @e.Employee.Display;<br/>
+}

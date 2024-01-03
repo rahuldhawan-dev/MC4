@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="RootUrl" value="http://localhost:4932/mapcall" />
+    <add key="WebProjectPath" value="c:\Solutions\mapcall_workorders\LINQTo271" />
+    <add key="IISExpressSiteName" value="MapCall" />
+  </appSettings>
+  <connectionStrings>
+    <add name="McProd" connectionString="Data Source=localhost;Initial Catalog=mapcall_workorders;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+</configuration>

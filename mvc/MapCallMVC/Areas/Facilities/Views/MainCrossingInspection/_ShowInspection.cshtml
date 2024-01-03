@@ -1,0 +1,67 @@
+﻿@model MainCrossingInspection
+
+<fieldset>
+    <legend>General</legend>
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Main Crossing", @Html.AuthorizedActionLink(Model.MainCrossing.ToString(), "Show", "MainCrossing", new { id = Model.MainCrossing.Id }))
+        @Html.DisplayFor(x => x.InspectedBy)
+        @Html.DisplayFor(x => x.InspectedOn)
+        @Html.DisplayFor(x => x.AssessmentRating)
+        @Html.DisplayFor(x => x.Comments)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Adjacent Facility</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.AdjacentFacilityHasBankErosion)
+        @Html.DisplayFor(x => x.AdjacentFacilityHasBridgeDamage)
+        @Html.DisplayFor(x => x.AdjacentFacilityHasPavementFailure)
+        @Html.DisplayFor(x => x.AdjacentFacilityHasPropertyDamage)
+        @Html.DisplayFor(x => x.AdjacentFacilityOverheadPowerLinesAreDown)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Environment</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.EnvironmentHasDebrisBuildUp)
+        @Html.DisplayFor(x => x.EnvironmentIsExposedToVehicleImpact)
+        @Html.DisplayFor(x => x.EnvironmentIsInHazardousLocation)
+        @Html.DisplayFor(x => x.EnvironmentIsNotSecuredFromPublic)
+        @Html.DisplayFor(x => x.EnvironmentIsSubmergedInWater)
+        @Html.DisplayFor(x => x.EnvironmentIsSusceptibleToStormDamage)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Joints</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.JointsAreLeaking)
+        @Html.DisplayFor(x => x.JointsBondStrapsDamaged)
+        @Html.DisplayFor(x => x.JointsFailedSeparated)
+        @Html.DisplayFor(x => x.JointsRestraintDamaged)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Pipe</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PipeHasConcreteSpools)
+        @Html.DisplayFor(x => x.PipeHasCracks)
+        @Html.DisplayFor(x => x.PipeHasDelaminatedSteel)
+        @Html.DisplayFor(x => x.PipeHasExcessiveCorrosion)
+        @Html.DisplayFor(x => x.PipeIsDamaged)
+        @Html.DisplayFor(x => x.PipeIsInService)
+        @Html.DisplayFor(x => x.PipeLacksInsulation)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Support</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.SupportsAreDamaged)
+        @Html.DisplayFor(x => x.SupportsHaveCorrosion)
+        @Html.DisplayFor(x => x.SupportsHaveDeficientSupport)
+    </div>
+</fieldset>

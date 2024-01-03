@@ -1,0 +1,52 @@
+﻿@using MMSINC.Utilities
+@model IThingWithNotes
+@{
+    Layout = null;
+
+    // Bug-2427: Don't allow users with edit rights in one operating center edit the records
+    // of another operating center when they do not have edit rights for the other operating center.
+    bool canEdit;
+    if (Model is IThingWithOperatingCenter)
+    {
+        canEdit = Html.CurrentUserCanEditWithOperatingCenter(Model as IThingWithOperatingCenter);
+    }
+    else
+    {
+        canEdit = Html.CurrentUserCanEdit();
+    }
+}
+@Html.ScriptFor("~/Scripts/Note/Index.js", ScriptLoadType.LoadFromPartial)
+@if (canEdit)
+{
+    <div id="pnlNewNote" class="collapse-panel" data-title="New Note">
+        @Html.Action("New", "Note", new { LinkedId = @Model.Id, @Model.TableName, area = "" })
+    </div>
+}
+<div class="container">
+    @(Html.TableFor(x => x.LinkedNotes, new { @class="single-line-header no-hover", id = "notesTable" })
+            .TemplateColumnFor("Note", n => @<span>
+                <span class="noteDisplay">@n.Note.Text</span>
+                    @if (canEdit)
+                    {
+                        @* form needs to be in a partial or it won't render properly *@
+                        <span class="noteEdit">
+                            @Html.Partial("~/Views/Shared/Note/_EditForm.cshtml", ViewModelFactory.Build<EditNote, Note>(n.Note))
+                        </span>
+                    }
+                </span>)
+            .ColumnFor(n => n.Note.CreatedBy)
+            .TemplateColumnFor("DATE ADDED", n => @<text>@string.Format(CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE, n.Note.CreatedAt)</text>)
+            .TemplateColumnFor("Actions", n => @<span>
+                @if (canEdit)
+                {
+                    <span class="editDelete">
+                        @Control.Button("Edit").WithCssClass("editNote")
+                        @Html.Partial("~/Views/Shared/Note/_DeleteForm.cshtml", ViewModelFactory.Build<DeleteNote, Note>(n.Note))
+                    </span>
+                    <span class="updateCancel" style="display: none">
+                        @Control.Button("Update").WithValue(n.Note.Id).WithCssClass("updateNote")
+                        @Control.Button("Cancel").WithCssClass("cancelEditNote")
+                    </span>
+                }
+            </span>))
+</div>

@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MainBreaks.EditMainBreak
+
+@using (var f = Form.BeginAjaxForm("Update", "MainBreak", new { id = Model.Id, Model.WorkOrder }))
+{
+    f.HtmlAttributes["title"] = "Edit Main Break";
+    @Html.Partial("_Form", Model)
+}

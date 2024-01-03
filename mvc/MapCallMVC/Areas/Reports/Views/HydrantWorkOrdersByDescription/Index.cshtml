@@ -1,0 +1,35 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchHydrantWorkOrdersByDescription
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results" })
+    //.WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor("View", x => @<text>@Html.AuthorizedActionLinkOrText(x.Id.ToString(), "Show", "Hydrant", new { id = x.Id, area = "FieldOperations" })</text>)
+    .SortableColumnFor(x => x.HydrantNumber)
+    .SortableColumnFor(x => x.HydrantSuffix)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.FireDistrict)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.HydrantManufacturer)
+    .SortableColumnFor(x => x.YearManufactured)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.HydrantStatus)
+    .SortableColumnFor(x => x.HydrantBilling)
+    .ColumnFor(x => x.WorkDescription)
+    
+    )
+
+@*
+    FireDistrict
+    StreetNumber
+    Street
+    CrossStreet
+    HydrantManufacturer
+    YearManufactured
+    DateInstalled
+    HydrantStatus
+    HydrantBilling*@

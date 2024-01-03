@@ -1,0 +1,15 @@
+﻿@model OneCallMarkoutTicket
+
+@(Html.TableFor(x => Model.Responses, new { id = "responseTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "OneCallMarkoutResponse", new { id = x.Id}, new { area = "FieldOperations"}))
+    .ColumnFor(x => x.CompletedBy)
+    .ColumnFor(x => x.CompletedAt)
+    .ColumnFor(x => x.OneCallMarkoutResponseStatus)
+    .ColumnFor(x => x.OneCallMarkoutResponseTechnique)
+    .ColumnFor(x => x.ReqNotified)
+    .ColumnFor(x => x.Paint)
+    .ColumnFor(x => x.Flag)
+    .ColumnFor(x => x.Stake)
+    .ColumnFor(x => x.Over500Feet)
+    .ColumnFor(x => x.CrewMarkoutIsNeeded)
+)

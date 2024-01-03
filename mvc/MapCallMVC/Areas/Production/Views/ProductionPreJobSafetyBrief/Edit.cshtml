@@ -1,0 +1,20 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels.PreJobSafetyBriefs
+@model EditProductionPreJobSafetyBriefBase
+
+@{
+    var formAction = Model is EditProductionPreJobSafetyBriefWithWorkOrder
+        ? "UpdateWithOrder"
+        : "Update";
+}
+
+@using (Form.BeginForm(formAction, "ProductionPreJobSafetyBrief", "Production", new { Model.Id }))
+{
+    <div class="field-column fc300">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ProductionPreJobSafetyBrief", new { Model.Id })
+        </text>)
+    </div>
+}

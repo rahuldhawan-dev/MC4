@@ -1,0 +1,21 @@
+﻿@model BacterialWaterSample
+
+<fieldset>
+	<legend>Validation Issues</legend>
+	<span>Any items listed below may be preventing this sample from being submitted to LIMS.</span>
+	<ul>
+	@foreach (var result in Model.ValidateForLIMS())
+	{
+		<li>@result.ErrorMessage</li>
+	}
+	</ul>
+</fieldset>
+
+<fieldset>
+	<legend>LIMS Result</legend>
+	<div class="field-column fc200">
+		@Html.DisplayFor(x => x.SubmittedToLIMSAt)
+		@Html.DisplayFor(x => x.LIMSStatus)
+		@Html.DisplayFor(x => x.LIMSResponse)
+	</div>
+</fieldset>

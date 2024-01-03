@@ -1,0 +1,27 @@
+﻿@using MMSINC.Models.ViewModels
+@model MapCallMVC.Areas.Events.Models.ViewModels.SearchEvent
+
+<div class="container" style="margin-bottom: 12px;">
+    @Html.DisplayInlineNotification(new NotificationItem {
+        Message = "Important: This is for Planned Events only, for Unplanned Events, please contact the ECRT team.",
+        NotificationType = NotificationItemType.Warning
+    })
+</div>
+
+@using (Form.BeginForm("Index", "Event"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.EventCategory)
+        @Html.EditorFor(x => x.EventSubcategory)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.NumberCustomersImpacted)
+        @Html.EditorFor(x => x.EstimatedDurationHours)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,9 @@
+﻿@model DeleteDocumentLink
+
+@using (var form = Form.BeginForm("Destroy", "DocumentLink", ""))
+{
+    form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this document?");
+    <text>
+        @Control.SubmitButton("Delete")
+    </text>
+}

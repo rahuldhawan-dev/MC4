@@ -1,0 +1,18 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreateBidForm
+
+@using (Form.BeginForm("Create", "Bid", new {Model.Id, ext = ResponseFormatter.KnownExtensions.PDF}))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ProjectBidTitle)
+        @Html.EditorFor(x => x.Employee)
+        @Html.EditorFor(x => x.DueDateTime)
+        @Html.EditorFor(x => x.SubstantiallyCompleteDate)
+        @Html.EditorFor(x => x.CompleteAndReadyForBillingDate)
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Get PDF")
+                               @Html.LinkButton("Cancel", "Show", "EstimatingProject", new { Model.Id })
+                           </text>)
+    </div>
+}

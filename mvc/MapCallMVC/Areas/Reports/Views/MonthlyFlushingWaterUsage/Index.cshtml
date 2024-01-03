@@ -1,0 +1,11 @@
+﻿@using System.Globalization
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchHydrantFlushing
+@{
+    var dti = new DateTimeFormatInfo();
+}
+<div id="resultsTitle">Results for <em>@ViewData["FullOperatingCenter"]</em> in <strong>@Model.Year</strong> </div>
+@(Html.TableFor(x => x, new{ id = "results", style = "width:auto;"})
+    .TemplateColumnFor("Month", x => @<text>@dti.GetAbbreviatedMonthName(x.Month)</text>)
+    .ColumnFor(x => x.BusinessUnit)
+    .ColumnFor(x => x.TotalGallons))
+    

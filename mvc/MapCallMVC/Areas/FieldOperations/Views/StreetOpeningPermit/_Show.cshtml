@@ -1,0 +1,43 @@
+﻿@model StreetOpeningPermit
+
+@{
+	var actionName = this.ViewContext.RouteData.Values["action"].ToString();
+	var displayEditLink = actionName.ToLower() != "show";
+}
+
+<tr>
+    <td>
+        @if (displayEditLink)
+        {
+            <div>
+                @Ajax.ActionLink(
+                    "Edit",
+                    "Edit",
+                    "StreetOpeningPermit",
+                    new { area = "FieldOperations", id = Model.Id },
+                    new AjaxOptions { HttpMethod = "GET" })
+            </div>
+            <div>
+                @Ajax.SecureActionLink(
+                    SecureFormTokenService,
+                    AuthenticationService.CurrentUser,
+                    "Delete",
+                    "Destroy",
+                    "StreetOpeningPermit",
+                    new { area = "FieldOperations", streetOpeningPermitId = Model.Id},
+                    new AjaxOptions {
+                        HttpMethod = "DELETE",
+                        Confirm = "Are you sure you want to delete this permit?"
+                    })
+            </div>            
+        }
+    </td>
+    <td>@Html.DisplayValueFor(x => x.StreetOpeningPermitNumber)</td>
+    <td>@Html.DisplayValueFor(x => x.DateRequested)</td>
+    <td>@Html.DisplayValueFor(x => x.PermitId)</td>
+    <td>@Html.DisplayValueFor(x => x.HasMetDrawingRequirement)</td>
+    <td>@Html.DisplayValueFor(x => x.IsPaidFor)</td>
+    <td>@Html.DisplayValueFor(x => x.DateIssued)</td>
+    <td>@Html.DisplayValueFor(x => x.ExpirationDate)</td>
+    <td>@Html.DisplayValueFor(x => x.Notes)</td>
+</tr>

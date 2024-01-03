@@ -1,0 +1,8 @@
+﻿@model TrafficControlTicket
+
+@(Html.TableFor(x => Model.TrafficcControlTicketChecks, new { id = "checksTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrafficControlTicketCheck", new { id = x.Id }, new { area = "FieldOperations"}))
+    .ColumnFor(x => x.CheckNumber)
+    .ColumnFor(x => x.Amount)
+    .ColumnFor(x => x.Memo)
+)

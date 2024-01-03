@@ -1,0 +1,16 @@
+﻿@model SearchPositionGroup
+@{
+    ActionBarHelper.AddExportLink();
+}           
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.PositionDescription)
+    .SortableColumnFor(x => x.Group)
+    .SortableColumnFor(x => x.BusinessUnit)
+    .SortableColumnFor(x => x.BusinessUnitDescription)
+    .SortableColumnFor(x => x.SAPCompanyCode)
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.CommonName)
+    .SortableColumnFor(x => x.SAPPositionGroupKey)
+    .WithPaginatedFooter())

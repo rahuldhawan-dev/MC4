@@ -1,0 +1,109 @@
+﻿@using System.Data
+@using MMSINC.Utilities
+@inherits MapCall.Common.Views.PdfViewBase<TrafficControlTicket>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ShowPageNumbersInFooter = false;
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 35;
+    LeftMargin = MarginWidth.Inch;
+    RightMargin = MarginWidth.Inch;
+
+    const string MMSIPhone = "(732) 530-3280 x8";        
+    const string MMSITrafficControl = "Traffic Control";
+    
+    var billingContact = Model.BillingParty.BillingPartyContacts.First(x => x.ContactType.Id == ContactType.Indices.TRAFFIC_CONTROL).Contact;
+}
+
+@section head {
+    <style>
+        #header {
+            text-align: center;
+        }
+
+        #header img {
+            width: 230px;
+        }
+
+        #body {
+            font-family: Calibri;
+            font-size: 23px;
+            line-height: 1.25em;
+        }
+
+        table td, table th {
+            border-collapse: collapse;
+            border: solid 1px black;
+            padding: 0em 0.4em;
+            vertical-align: bottom;
+            font-size: 21px;
+        }
+
+        table th {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .no-linebreak {
+            white-space: nowrap;
+        }
+    </style>
+}
+
+@section body {
+
+    <div id="header">
+        <img src="@Server.MapPath("~/Content/Images/mmsi-letterhead.png")" />
+    </div>
+
+    <div id="body">
+        <div style="margin-bottom:1em;">
+            @DateTime.Today.ToString("MMMM d, yyyy")
+        </div>
+
+        <div style="margin-bottom:1em;">
+            @billingContact.FullName<br/>
+            @*@billingContact.Title <br />*@
+            @billingContact.Address.Address1<br />
+            @if (!string.IsNullOrWhiteSpace(billingContact.Address.Address2))
+            {
+                @billingContact.Address.Address2 <br />
+            }
+
+            @billingContact.Address.Town, @billingContact.Address.State @billingContact.Address.ZipCode
+        </div>
+
+        <div style="margin-bottom:1em;">
+            Invoice #: @Model.InvoiceNumber<br/>
+            Amount: @String.Format(CommonStringFormats.CURRENCY, Model.InvoiceAmount)<br/>
+            @if (Model.TrafficcControlTicketChecks.Any()){
+                <text>Check #: @Model.TrafficcControlTicketChecks.First().CheckNumber<br/></text>
+            }
+            SAP Work Order #: @Model.SAPWorkOrderNumber<br/>
+            <br/>
+            The enclosed check is payment for traffic control services provided on @Model.WorkStartDate.ToShortDateString(), 
+            submitted on behalf of New Jersey American Water. For any questions about this submission please call
+            @MMSIPhone.
+        </div>
+
+        <div style="page-break-before:avoid;">
+            <div style="margin-bottom:4em;">Sincerely,</div>
+
+            <div style="margin-bottom:1em;">@MMSITrafficControl</div>
+        </div>
+    </div>
+}
+
+@helper FooterHelper()
+{
+    @*Styles need to be embedded for footers/headers because the pdf renderer renders it outside of the page.*@
+    <div id="footer" style="text-align:center;font-family:'Lucida Sans Unicode';">
+        <span style="font-size:14px;">
+            <strong style="font-size:20px;">Measuring & Monitoring Services, Inc.</strong><br /><br />
+            3 Sheila Drive, Tinton Falls, New Jersey 07724   (732) 530-3280
+        </span>
+    </div>
+}

@@ -1,0 +1,31 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateNpdesRegulatorInspection
+
+@using (Form.BeginForm("Create", "NpdesRegulatorInspection", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Index", "NpdesRegulatorInspection", null, new { id = "cancel-button" })
+            @Control.Button("Cancel").WithId("done-button")
+        </text>)
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        var cancelButton = $('#cancel-button');
+        var doneButton = $('#done-button');
+        if (Application.isInsideIframe) {
+            $('#IsMapPopup').val('true');
+            cancelButton.hide();
+            doneButton.show();
+            doneButton.on('click', function() {
+                window.parent.Maps.hideInfoWindow();
+            });
+        } else {
+            cancelButton.show();
+            doneButton.hide();
+        }
+    </script>
+}

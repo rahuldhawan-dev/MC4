@@ -1,0 +1,25 @@
+﻿@using MapCall.Common.Helpers.ClassExtensions
+@using MapCallMVC.Controllers
+@model OperatorLicense
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.Employee.OperatingCenter)
+    @if (Html.CurrentUserCanDo(AuthenticationService.CurrentUser, EmployeeController.ROLE))
+    {
+        @Html.RenderDisplayTemplate("Employee", Html.ActionLink(Model.Employee.ToString(), "Show", "Employee", new { id = Model.Employee.Id }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Employee)
+    }
+    @Html.DisplayFor(x => x.Employee.EmployeeId)
+    @Html.DisplayFor(x => x.Employee.Status)
+    @Html.DisplayFor(x => x.OperatorLicenseType)
+    @Html.DisplayFor(x => x.LicensedOperatorOfRecord)
+    @Html.DisplayFor(x => x.LicenseLevel)
+    @Html.DisplayFor(x => x.LicenseSubLevel)
+    @Html.DisplayFor(x => x.LicenseNumber)
+    @Html.DisplayFor(x => x.ValidationDate)
+    @Html.DisplayFor(x => x.ExpirationDate)
+</div>

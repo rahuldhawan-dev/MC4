@@ -1,0 +1,107 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.RedTagPermits
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.RedTagPermits.RedTagPermitViewModel
+
+@{
+    var isAllowedToEdit = false;
+    var equipmentHasBeenRestored = false;
+
+    if (Model is EditRedTagPermitViewModel)
+    {
+        isAllowedToEdit = Authentication.CurrentUserIsAdmin || !((EditRedTagPermitViewModel)Model).EquipmentRestoredOn.HasValue;
+        equipmentHasBeenRestored = ((EditRedTagPermitViewModel)Model).EquipmentRestoredOn.HasValue;
+    }
+}
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Work Order</legend>
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.ProductionWorkDescription)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.OperatingCenter.State)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.OperatingCenter)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.Facility)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.Facility.Address, new { DisplayName = RedTagPermit.DisplayNames.FACILITY_ADDRESS }))
+    </fieldset>
+
+    <fieldset>
+        <legend>Equipment</legend>
+        @Html.DisplayFor(x => x.EquipmentDisplay.Description)
+        @Html.DisplayFor(x => x.EquipmentDisplay.EquipmentManufacturer)
+        @Html.DisplayFor(x => x.EquipmentDisplay.EquipmentModel)
+        @Html.DisplayFor(x => x.EquipmentDisplay.SerialNumber)
+    </fieldset>
+
+    @Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/RedTagPermit/Form.js")
+
+<fieldset>
+    <legend>Permit</legend>
+    @if (Model is EditRedTagPermitViewModel && equipmentHasBeenRestored)
+    {
+        @Html.DisplayFor(x => x.PersonResponsible)
+        @Html.HiddenFor(x => x.PersonResponsible)
+        @Html.DisplayFor(x => x.ProtectionType)
+        @Html.HiddenFor(x => x.ProtectionType)
+        @Html.DisplayFor(x => x.AdditionalInformationForProtectionType)
+        @Html.HiddenFor(x => x.AdditionalInformationForProtectionType)
+        @Html.DisplayFor(x => x.AreaProtected)
+        @Html.HiddenFor(x => x.AreaProtected)
+        @Html.DisplayFor(x => x.ReasonForImpairment)
+        @Html.HiddenFor(x => x.ReasonForImpairment)
+        @Html.DisplayFor(x => x.NumberOfTurnsToClose)
+        @Html.HiddenFor(x => x.NumberOfTurnsToClose)
+        @Html.DisplayFor(x => x.AuthorizedBy)
+        @Html.HiddenFor(x => x.AuthorizedBy)
+        @Html.DisplayFor(x => x.FireProtectionEquipmentOperator)
+        @Html.HiddenFor(x => x.FireProtectionEquipmentOperator)
+    }
+    else
+    {
+        @Html.EditorFor(x => x.PersonResponsible)
+        @Html.EditorFor(x => x.ProtectionType)
+        @Html.EditorFor(x => x.AdditionalInformationForProtectionType)
+        @Html.EditorFor(x => x.AreaProtected)
+        @Html.EditorFor(x => x.ReasonForImpairment)
+        @Html.EditorFor(x => x.NumberOfTurnsToClose)
+        @Html.EditorFor(x => x.AuthorizedBy)
+        @Html.EditorFor(x => x.FireProtectionEquipmentOperator)
+    }
+
+    @if (Model is CreateRedTagPermitViewModel)
+    {
+        @Html.EditorFor(x => ((CreateRedTagPermitViewModel)x).EquipmentImpairedOn)
+    }
+    else if (Model is EditRedTagPermitViewModel)
+    {
+        @Html.DisplayFor(x => x.EquipmentImpairedOn)
+        @Html.HiddenFor(x => x.EquipmentImpairedOn)
+        if (isAllowedToEdit)
+        {
+            @Html.EditorFor(x => ((EditRedTagPermitViewModel)x).EquipmentRestoredOn)
+            @Html.EditorFor(x => ((EditRedTagPermitViewModel)x).EquipmentRestoredOnChangeReason)
+        }
+        else
+        {
+            @Html.DisplayFor(x => ((EditRedTagPermitViewModel)x).EquipmentRestoredOn)
+            if (equipmentHasBeenRestored)
+            {
+                @Html.DisplayFor(x => ((EditRedTagPermitViewModel)x).EquipmentRestoredOnChangeReason)
+            }
+        }
+    }
+</fieldset>
+
+<fieldset id="red-tag-permit-precautions">
+    <legend>Precautions Taken</legend>
+        @Html.EditorFor(x => x.EmergencyOrganizationNotified)
+        @Html.EditorFor(x => x.PublicFireDepartmentNotified)
+        @Html.EditorFor(x => x.HazardousOperationsStopped)
+        @Html.EditorFor(x => x.HotWorkProhibited)
+        @Html.EditorFor(x => x.SmokingProhibited)
+        @Html.EditorFor(x => x.ContinuousWorkAuthorized)
+        @Html.EditorFor(x => x.OngoingPatrolOfArea)
+        @Html.EditorFor(x => x.HydrantConnectedToSprinkler)
+        @Html.EditorFor(x => x.PipePlugsOnHand)
+        @Html.EditorFor(x => x.FireHoseLaidOut)
+        @Html.EditorFor(x => x.HasOtherPrecaution)
+        @Html.EditorFor(x => x.OtherPrecautionDescription)
+</fieldset>
+</div>

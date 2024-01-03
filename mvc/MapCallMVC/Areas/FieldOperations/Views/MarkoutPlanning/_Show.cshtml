@@ -1,0 +1,28 @@
+﻿@model MapCall.Common.Model.Entities.WorkOrder
+
+<tr>
+    <td>@Html.DisplayValueFor(m => m.Id)</td>
+    <td>@Html.DisplayValueFor(m => m.CreatedBy)</td>
+    <td>@Html.DisplayValueFor(m => m.SAPNotificationNumber)</td>
+    <td>@Html.DisplayValueFor(m => m.SAPWorkOrderNumber)</td>
+    <td>@Html.DisplayValueFor(m => m.DateReceived)</td>
+    <td>@Html.DisplayValueFor(m => m.StreetNumber)</td>
+    <td>@Html.DisplayValueFor(m => m.Street)</td>
+    <td>@Html.DisplayValueFor(m => m.NearestCrossStreet)</td>
+    <td>@Html.DisplayValueFor(m => m.Town.ShortName)</td>
+    <td>@Html.DisplayValueFor(m => m.TownSection)</td>
+    <td>@Html.DisplayValueFor(m => m.AssetType)</td>
+    <td>@Html.DisplayValueFor(m => m.AssetId)</td>
+    <td>@Html.DisplayValueFor(m => m.WorkDescription)</td>
+    <td>@Html.DisplayValueFor(m => m.Priority)</td>
+    <td>@Html.DisplayValueFor(m => m.DateMarkoutNeeded)</td>
+    <td>@Html.DisplayValueFor(m => m.MarkoutToBeCalled)</td>
+    <td>@Html.DisplayValueFor(m => m.MarkoutTypeNeeded)</td>
+    <td>@Html.DisplayValueFor(m => m.RequiredMarkoutNote)</td>
+    <td>
+        @Ajax.ActionLink("Edit Markout Plan", "Edit", "MarkoutPlanning",
+        new { id = Model.Id, area = "FieldOperations" },
+        new AjaxOptions { HttpMethod = "GET" },
+        new { Class = "link-button" })
+    </td>
+</tr>

@@ -1,0 +1,21 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Resources/Masters/MapCallHR.Master" CodeBehind="MapCallSite.master.cs" Inherits="MapCall.MapCallSite"  %>
+
+<asp:Content ContentPlaceHolderID="cphHeadTag" runat="server">
+    <link type="text/css" href="<%#ResolveUrl("~/includes/mapcall.site.css")%>" rel="stylesheet"/>
+    <link type="text/css" href="<%#ResolveUrl("~/includes/lightview-3.2.7/css/lightview/lightview.css")%>" rel="stylesheet"/>
+    <asp:ContentPlaceHolder runat="server" ID="cphHeadTag" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphHeadTagScripts" runat="server">
+     <asp:ContentPlaceHolder runat="server" ID="cphHeadTagScripts" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphHeader" runat="server">
+    <asp:ContentPlaceHolder runat="server" ID="cphHeader" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphInstructions" runat="server"><asp:ContentPlaceHolder ID="cphInstructions" runat="server" /></asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphMain" runat="server">
+    <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+</asp:Content>

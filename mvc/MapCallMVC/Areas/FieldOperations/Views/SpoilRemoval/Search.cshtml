@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSpoilRemoval
+
+@using (var f = Form.BeginForm("Index", "SpoilRemoval"))
+{
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.RemovedFrom)
+    @Html.EditorFor(x => x.FinalDestination)
+    @Html.EditorFor(x => x.DateRemoved)
+    @Html.EditorFor(x => x.Quantity, new { DisplayName = "Quantity (cubic yards)" })
+    
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

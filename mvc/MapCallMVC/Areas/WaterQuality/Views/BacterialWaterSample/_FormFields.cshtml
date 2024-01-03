@@ -1,0 +1,68 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Controllers
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.BacterialWaterSampleViewModel
+@{
+	// WO0000000195491: Certain fields are only editable by userAdmin in role
+	var isUserAdmin = RoleService.CanAccessRole(BacterialWaterSampleController.ROLE, RoleActions.UserAdministrator);
+}
+@Html.ScriptFor("~/Scripts/Areas/BacterialWaterSample/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+<fieldset>
+	<legend>Section 1. Collection Information</legend>
+	<div class="field-column fc225">
+		@Html.EditorFor(x => x.OperatingCenter)
+		@Html.EditorFor(x => x.SampleSite)
+		@Html.EditorFor(x => x.SampleCollectionDTM)
+		@if (isUserAdmin)
+		{
+			@Html.EditorFor(x => x.CollectedBy)
+		}
+		else
+		{
+			@Html.DisplayFor(x => x.CollectedBy)
+		}
+		@Html.EditorFor(x => x.BacterialSampleType)
+		@Html.EditorFor(x => x.RepeatLocationType)
+		@Html.EditorFor(x => x.OriginalBacterialWaterSample)
+		@Html.EditorFor(x => x.EstimatingProject)
+		@Html.EditorFor(x => x.SAPWorkOrderId)
+		@Html.EditorFor(x => x.ComplianceSample)
+		@Html.EditorFor(x => x.Address)
+		@Html.EditorFor(x => x.SampleTown)
+		@Html.EditorFor(x => x.Location)
+		@Html.EditorFor(x => x.SampleCoordinate)
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>Section 2. Field Values</legend>
+	<table class="for-structure">
+		<tr>
+			<td>
+				<div class="field-column fc200">
+					@Html.EditorFor(x => x.Ph)
+					@Html.EditorFor(x => x.Temperature)
+					@Html.EditorFor(x => x.Cl2Free)
+					@Html.EditorFor(x => x.Cl2Total)
+					@Html.EditorFor(x => x.Monochloramine)
+					@Html.EditorFor(x => x.FreeAmmonia)
+					@Html.EditorFor(x => x.Nitrite)
+					@Html.EditorFor(x => x.Nitrate)
+				</div>
+			</td>
+			<td>
+				<div class="field-column fc200">
+					@Html.EditorFor(x => x.Alkalinity)
+					@Html.EditorFor(x => x.Iron)
+					@Html.EditorFor(x => x.Manganese)
+					@Html.EditorFor(x => x.Turbidity)
+					@Html.EditorFor(x => x.Conductivity)
+					@Html.EditorFor(x => x.OrthophosphateAsP)
+					@Html.EditorFor(x => x.OrthophosphateAsPO4)
+				</div>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+

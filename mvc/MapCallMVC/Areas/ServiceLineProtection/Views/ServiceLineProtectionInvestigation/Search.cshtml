@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels.SearchServiceLineProtectionInvestigation
+
+@using (Form.BeginForm("Index", "ServiceLineProtectionInvestigation")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.CustomerCity)
+        @Html.EditorFor(x => x.CustomerName)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Contractor)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreatePipeDataLookupValue
+
+@using (Form.BeginForm("Create", "PipeDataLookupValue", "ProjectManagement")) {
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.PipeDataLookupType)
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "PipeDataLookupValue")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,8 @@
+﻿@model SearchCompanyLaborCost
+
+@using (Form.BeginForm("Index", "CompanyLaborCost", FormMethod.Get))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}

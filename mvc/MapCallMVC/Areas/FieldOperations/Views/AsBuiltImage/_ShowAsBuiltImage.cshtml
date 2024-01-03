@@ -1,0 +1,25 @@
+﻿@using MMSINC.Results
+@model AsBuiltImage
+    
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("View PDF", Html.ActionLink(Model.FileName, "Show", new { Controller = "AsBuiltImage", ext = ResponseFormatter.KnownExtensions.PDF, Model.Id }, new { target = "_blank" }))
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.ApartmentNumber)
+    @Html.DisplayFor(x => x.ProjectName)
+    @Html.DisplayFor(x => x.FullStreet)
+    @Html.DisplayFor(x => x.FullCrossStreet)
+    @Html.DisplayFor(x => x.MapPage)
+    @Html.DisplayFor(x => x.TaskNumber)
+    @Html.DisplayFor(x => x.DateInstalled)
+    @Html.DisplayFor(x => x.PhysicalInService)
+    @Html.DisplayFor(x => x.Comments)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.CoordinatesModifiedOn)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.OfficeReviewRequired)
+    @Html.DisplayFor(x => x.FileName)
+</div>

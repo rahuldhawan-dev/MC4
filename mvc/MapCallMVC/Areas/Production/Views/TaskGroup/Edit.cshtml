@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.TaskGroupViewModel
+
+@using (Form.BeginForm("Update", "TaskGroup", "Production", new { Model.Id }))
+{
+    @(Html.Tabs()
+          .WithTab("Task Group", "_EditTask", Model)
+          .WithTab("Equipment", "_EditEquipment", Model)
+        )
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "TaskGroup", new { Model.Id })
+        </text>)
+    </div>
+}

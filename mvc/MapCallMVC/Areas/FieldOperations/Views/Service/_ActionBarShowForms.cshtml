@@ -1,0 +1,11 @@
+﻿<ul class="linkList">
+    <li>@Html.AuthorizedActionLink("Inspector Signoff Sheet", "Show", "InspectorSignOffSheet", new { id = Model.Id, area = "FieldOperations", ext = "pdf" })</li>
+    @*<li>@Html.AuthorizedActionLink("New Service Application", "Show", "ServiceApplication", new {id = Model.Id, area = "FieldOperations", ext = "pdf" })</li>*@
+    @*@<li>@Html.AuthorizedActionLink("Water Survey Questionaire", "Show", "WaterSurveyQuestionaire", new {id = Model.Id, area = "FieldOperations", ext = "pdf" })</li>*@
+    <li>@Html.AuthorizedActionLink("Tap Order", "Show", "TapOrder", new {id = Model.Id, area = "FieldOperations", ext = "pdf" })</li>
+    @*<li>@Html.AuthorizedActionLink("Residential Customers", "Show", "ResidentialCustomers", new { id = Model.Id, area = "FieldOperations", ext = "pdf" })</li>*@
+    @if (Model.CustomerSideMaterial != null && Model.CustomerSideMaterial.ToString() == "Lead")
+    {
+        <li>@Html.AuthorizedActionLink("Service Line Replacement License", "Show", "Service", new {area = "FieldOperations", ext = "pdf"})</li>
+    }
+</ul>

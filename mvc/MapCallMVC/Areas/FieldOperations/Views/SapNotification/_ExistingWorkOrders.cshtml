@@ -1,0 +1,48 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateSapNotificationWorkOrder
+@{
+    IEnumerable<WorkOrder> workOrders = null;
+
+    if (Model.Hydrant != null )//&& Model.OpenWorkOrderCount > 0)
+    {
+        workOrders = Model.Hydrant.WorkOrders; //.Where(wo => !wo.Completed && wo.CancelledAt == null);
+    }
+    else if (Model.Valve!= null )//&& Model.OpenWorkOrderCount > 0)
+    {
+        workOrders = Model.Valve.WorkOrders;//.Where(wo => !wo.Completed && wo.CancelledAt == null);
+    }
+    else if (Model.SewerOpening != null)// && Model.OpenWorkOrderCount > 0)
+    {
+        workOrders = Model.SewerOpening.WorkOrders;//.Where(wo => !wo.Completed && wo.CancelledAt == null);
+    }
+
+    var table = Html.TableFor(_ => workOrders)
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.SAPNotificationNumber, "SAP Notif No.")
+    .ColumnFor(x => x.SAPWorkOrderNumber, "SAP WO No.")
+    .ColumnFor(x => x.StreetNumber)
+    .ColumnFor(x => x.Street)
+    .ColumnFor(x => x.NearestCrossStreet)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.TownSection)
+    .ColumnFor(x => x.AssetType)
+    .ColumnFor(x => x.AssetId)
+    .ColumnFor(x => x.WorkDescription)
+    .ColumnFor(x => x.Priority)
+    .ColumnFor(x => x.CreatedBy)
+    .ColumnFor(x => x.Purpose)
+    .ColumnFor(x => x.RequestingEmployee)
+    .ColumnFor(x => x.DateReceived)
+    .ColumnFor(x => x.DateCompleted)
+    .ColumnFor(x => x.CancelledAt)
+    .ColumnFor(x => x.SAPErrorCode);
+    }
+
+    @if (workOrders != null && workOrders.Any())
+    {
+        <fieldset>
+            <legend>Existing Work Orders</legend>
+            @table
+        </fieldset>
+    }

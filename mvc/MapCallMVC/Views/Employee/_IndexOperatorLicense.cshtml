@@ -1,0 +1,11 @@
+﻿@model Employee
+
+@(Html.TableFor(x => Model.OperatorLicenses, new { id = "operatorLicenses" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "OperatorLicense", new { x.Id }, null))
+    .ColumnFor(x => x.LicenseLevel)
+    .ColumnFor(x => x.LicenseSubLevel)
+    .ColumnFor(x => x.LicenseNumber)
+    .ColumnFor(x => x.OperatorLicenseType)
+    .ColumnFor(x => x.State)
+    .ColumnFor(x => x.ValidationDate)
+    .ColumnFor(x => x.ExpirationDate))

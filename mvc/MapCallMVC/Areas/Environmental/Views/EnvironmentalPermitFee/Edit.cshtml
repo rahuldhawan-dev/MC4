@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.EditEnvironmentalPermitFee
+
+@using (Form.BeginForm("Update", "EnvironmentalPermitFee", "Environmental", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Fee")
+            @Html.LinkButton("Cancel", "Show", "EnvironmentalPermit", new { id = Model.EnvironmentalPermit.Value })
+        </text>)
+    </div>
+}

@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="MainCrossingsServiceView.asmx.cs" Class="LINQTo271.Views.MainCrossings.MainCrossingsServiceView" %>

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<FilterMedia>
+
+@(Html.TableFor(x => Model, new {style = "width:100%"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "FilterMedia", new {id = x.Id}, null))
+    .ColumnFor(x => x.FilterNumber)
+    .ColumnFor(x => x.EquipmentIdentifier)
+    .ColumnFor(x => x.MediaType))

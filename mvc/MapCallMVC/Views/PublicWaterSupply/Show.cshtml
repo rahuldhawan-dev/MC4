@@ -1,0 +1,11 @@
+﻿@model PublicWaterSupply
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowPublicWaterSupply", Model)
+    .WithTab("Pending PWSID Mergers", "_ShowMergePWSIDS", Model)
+    .WithTab("Operating Centers", "_ShowOperatingCenters", Model)
+    .WithTab("Licensed Operators", "_ShowLicensedOperators", Model, itemCount:Model.LicensedOperators.Count)
+    .WithTab("Environmental Permits", "_ShowEnvironmentalPermits", Model)
+    .WithTab("Planning Plants", "_ShowPlanningPlants", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

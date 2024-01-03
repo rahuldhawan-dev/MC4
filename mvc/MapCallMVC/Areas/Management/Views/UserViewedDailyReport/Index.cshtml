@@ -1,0 +1,21 @@
+﻿@using MapCall.Common.Model.ViewModels
+@model MapCallMVC.Areas.Management.Models.SearchUserViewedDailyRecordItem
+@{
+	Func<UserViewedDailyRecordItem, RouteValueDictionary> getRouteValues = (item) => {
+		var rvd = new RouteValueDictionary();
+		rvd["User"] = item.UserId;
+		rvd["ViewedAt.End"] = item.ViewedAt;
+		rvd["ViewedAt.Operator"] = (int)RangeOperator.Equal;
+		return rvd;
+	};
+}
+@(Html.TableFor(x => Model, new{ id = "search-results" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Index", "UserViewed", getRouteValues(x), null))
+    .ColumnFor(x => x.ViewedAt)
+    .ColumnFor(x => x.Username)
+    .ColumnFor(x => x.EmployeeId)
+    .ColumnFor(x => x.UserAddress)
+    .ColumnFor(x => x.TapImages)
+    .ColumnFor(x => x.ValveImages)
+    .ColumnFor(x => x.AsBuiltImages))

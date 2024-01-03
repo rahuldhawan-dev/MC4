@@ -1,0 +1,50 @@
+﻿@model EmployeeAccountabilityAction
+<fieldset>
+    <div class="field-column fc200">
+        @*  Original  *@
+        <Legend>Original Discipline Issued</Legend>
+        @Html.RenderDisplayTemplate("Employee", @Html.DefaultActionLink(Model.Employee.FullName, "Show", "Employee", "", new { id = @Model.Employee.Id }, null))
+        @Html.DisplayFor(e => e.Employee.OperatingCenter.OperatingCenterCode)
+        @Html.DisplayFor(e => e.DisciplineAdministeredBy)
+        @Html.DisplayFor(e => e.AccountabilityActionTakenType)
+        @Html.DisplayFor(x => x.AccountabilityActionTakenDescription)
+        @Html.DisplayFor(x => x.DateAdministered)
+        @Html.DisplayFor(x => x.StartDate)
+        @Html.DisplayFor(x => x.EndDate)
+        @Html.DisplayFor(x => x.NumberOfWorkDays)
+
+        @if (Model.Incident != null)
+        {
+            @Html.RenderDisplayTemplate("Incident", @Html.DefaultActionLink(Model.DescriptionOfIncident.ToString(), "Show", "Incident", "", new { id = @Model.Incident.Id }, null))
+        }
+        else
+        {
+            @Html.RenderDisplayTemplate("Incident", @<text></text>)
+        }
+        
+        @if (Model.Grievance != null)
+        {
+            @Html.RenderDisplayTemplate("Grievance", @Html.DefaultActionLink(Model.DescriptionOfGrievance.ToString(), "Show", "Grievance", "", new { id = @Model.Grievance.Id }, null))
+        }
+        else
+        {
+            @Html.RenderDisplayTemplate("Grievance", @<text></text>)
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="field-column fc200">
+        @*  Modified  *@
+        <Legend>Modified Discipline Issued</Legend>
+        @Html.DisplayFor(x => x.HasModifiedDiscipline)
+        @Html.DisplayFor(e => e.ModifiedDisciplineAdministeredBy)
+        @Html.DisplayFor(e => e.ModifiedAccountabilityActionTakenType)
+        @Html.DisplayFor(e => e.ModifiedAccountabilityActionTakenDescription)
+        @Html.DisplayFor(e => e.DateModified)
+        @Html.DisplayFor(e => e.ModifiedStartDate)
+        @Html.DisplayFor(e => e.ModifiedEndDate)
+        @Html.DisplayFor(e => e.ModifiedNumberOfWorkDays)
+        @Html.DisplayFor(e => e.BackPayRequired)
+    </div>
+</fieldset>

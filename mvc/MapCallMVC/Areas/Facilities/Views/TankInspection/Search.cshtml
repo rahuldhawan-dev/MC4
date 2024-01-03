@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchTankInspection
+
+@using (Form.BeginForm("Index", "TankInspection"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.TankInspectionType)
+        @Html.EditorFor(m => m.Id)
+        @Html.EditorFor(m => m.State)
+        @Html.EditorFor(m => m.OperatingCenter)
+        @Html.EditorFor(m => m.ObservationDate)
+        @Html.EditorFor(m => m.Equipment)
+        @Html.EditorFor(m => m.TankObservedBy)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

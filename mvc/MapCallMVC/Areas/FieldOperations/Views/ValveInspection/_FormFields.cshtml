@@ -1,0 +1,38 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ValveInspectionViewModel
+@Html.ScriptFor("~/Scripts/ValveInspection/Form.js", ScriptLoadType.LoadFromPartial)
+<fieldset>
+    <legend>Inspection Data</legend>
+    @Html.RenderDisplayTemplate("Valve", Html.ActionLink(Model.ValveDisplay.ToString(), "Show", "Valve", new { id = Model.Valve }, null))
+    @if (Model.ValveDisplay.Critical)
+    {
+        @Html.DisplayFor(x => x.ValveDisplay.CriticalNotes, new { @class = "critical-notes-display"})
+    }
+    @Html.DisplayFor(x => x.ValveDisplay.ValveLocation)
+    @if (Authentication.CurrentUserIsAdmin)
+    {
+        @Html.EditorFor(x => x.DateInspected)
+    }
+    else
+    {
+        // This only needs to be secured for non-admins since they can't edit it.
+        // Secured from the view that renders this partial
+        @Html.DisplayFor(x => x.DateInspected)
+    }
+    @Html.EditorFor(x => x.Inspected, new { html = new { autofocus = "autofocus" } })
+    @Html.EditorFor(x => x.PositionFound)
+    @Html.EditorFor(x => x.PositionLeft)
+    @Html.DisplayFor(x => x.ValveDisplay.OpenDirection)
+    @Html.DisplayFor(x => x.ValveDisplay.NormalPosition)
+    @Html.DisplayFor(x => x.ValveDisplay.Turns)
+    @Html.EditorFor(x => x.Turns)
+    @Html.HiddenFor(x => x.ValveDisplay.MinimumRequiredTurns, new { id="hidMinimumRequiredTurns"})
+    @Html.DisplayFor(x => x.ValveDisplay.MinimumRequiredTurns)
+    @Html.EditorFor(x => x.TurnsNotCompleted)
+
+    @Html.DisplayFor(x => x.Display.SAPErrorCode)
+    @Html.DisplayFor(x => x.Display.SAPNotificationNumber)
+</fieldset>
+<fieldset>
+    @Html.EditorFor(x => x.Remarks)
+    @Html.HiddenFor(x => x.IsMapPopup) @* script call for this is in New and Edit.cshtml *@
+</fieldset>

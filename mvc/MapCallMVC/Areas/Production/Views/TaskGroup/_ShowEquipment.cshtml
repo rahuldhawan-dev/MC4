@@ -1,0 +1,6 @@
+﻿@model TaskGroup
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate(TaskGroup.Display.EQUIPMENT_DETAIL_TYPE, @Html.TableFor(x => x.EquipmentLifespans, new { id = "equipmentLifespans" }).ColumnFor(x => x.Description))
+    @Html.RenderDisplayTemplate(TaskGroup.Display.EQUIPMENT_PURPOSE, @Html.TableFor(x => x.EquipmentPurposes, new { id = "equipmentPurposes" }).ColumnFor(x => x.Description))
+</div>

@@ -1,0 +1,8 @@
+﻿@model WorkOrder
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.AccountCharged)
+    @Html.DisplayFor(x => x.WorkDescription.AccountingType)
+    @Html.DisplayFor(x => x.BusinessUnit)
+    @Html.DisplayFor(x => x.ApprovedBy.FullName, new { DisplayName = "Previously Approved By" })
+</div>

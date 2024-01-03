@@ -1,0 +1,23 @@
+﻿@model NewEmployeeLink
+@{ 
+    Layout = null;
+}
+
+@Html.ScriptFor("~/Scripts/EmployeeLink/New.js", ScriptLoadType.LoadFromPartial)
+
+<div class="container">
+        @using (var form = Form.BeginForm("Create", "EmployeeLink"))
+        {
+            form.HtmlAttributes["id"] = "linkEmployees";
+            
+			<div class="field-column fc100">
+				@Html.EditorFor(x => x.OperatingCenter)
+			    @Html.EditorFor(x => x.EmployeeIds)
+			</div>
+            
+            <span>
+                @Control.SubmitButton("Link Employees").WithId("linkEmployees")
+                @Control.Button("Cancel").WithId("cancelLinkEmployee").WithCssClass("cancel")
+            </span>
+        }
+</div>

@@ -1,0 +1,17 @@
+﻿@model Contractors.Models.ViewModels.CrewAssignmentEnd
+@* These are null because the javascript involved takes the anchor
+   tag that submits this form and uses its url as the action url.
+   id is nulled out to prevent duplicate elements with the same id
+   since this is inside a table. *@
+@{
+    // We have to force a freakin' form to ensure the textbox
+    // gets rendered with unobtrusive validation attributes.
+    // This is required. If there are multiple rows with the same
+    // field name, they both require a separate FormContext
+    // so that their unobtrusive attributes get rendered.
+    ViewContext.FormContext = new FormContext();
+ }
+<div class="formGoesHere">
+    @Control.TextBoxFor(x => x.EmployeesOnJob).WithId(null).WithName("EmployeesOnJob")
+    @Html.ValidationMessageFor(m => m.EmployeesOnJob)
+</div>

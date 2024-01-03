@@ -1,0 +1,93 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.ScheduleOfValuesForm
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@section head {
+    <style>
+        div.header {
+            width: 100%;
+            text-align: center
+        }
+
+        table#costs th, table#costs td {
+            border: 1px solid black;
+        }
+
+        th, td, div {
+            padding: 4px;
+        }
+
+        table#signatures td {
+            width: 0%;
+            white-space: nowrap;
+            padding-top: 25px;
+            padding-bottom: 0;
+        }
+
+        td.signature {
+            width: 60% !important;
+            border-bottom: 1px solid black;
+        }
+
+        td.date {
+            width: 40% !important;
+            border-bottom: 1px solid black;
+        }
+    </style>
+}
+
+@section body {
+    <div class="header">
+        <h2>New Jersey American Water - @Model.OperatingCenter</h2>
+        <h3>Pipeline Replacement - Framework Schedule of Values</h3>
+    </div>
+
+    <div>
+        <table id="costs">
+            <thead>
+                <tr>
+                    <th>Work Description</th>
+                    <th>Unit of Measure</th> 
+                    <th>Estimated Qty.</th>
+                    <th>Final As-Built Qty.</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var cost in Model.ContractorLaborCosts)
+                {
+                    <tr>
+                        <td>@cost.ContractorLaborCost.JobDescription</td>
+                        <td>@cost.ContractorLaborCost.Unit</td>
+                        <td>@cost.Quantity</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                }                
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p>
+            Quantities Reviewed and Approved for Invoicing
+        </p>
+
+        <table id="signatures">
+            <tbody>
+                <tr>
+                    <td>NJAW Representative:</td>
+                    <td class="signature" colspan="4"></td>
+                    <td>Date:</td>
+                    <td class="date" colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Contractor Representative:</td>
+                    <td class="signature" colspan="4"></td>
+                    <td>Date:</td>
+                    <td class="date" colspan="2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}

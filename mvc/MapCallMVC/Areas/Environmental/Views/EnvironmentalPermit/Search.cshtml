@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.SearchEnvironmentalPermit
+
+@using (Form.BeginForm("Index", "EnvironmentalPermit"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.Id)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.EnvironmentalPermitType, new { html = new { autofocus = "autofocus" } })
+    @Html.EditorFor(x => x.EnvironmentalPermitStatus)
+    @Html.EditorFor(x => x.PublicWaterSupply)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.PermitName)
+    @Html.EditorFor(x => x.PermitNumber)
+    @Html.EditorFor(x => x.ProgramInterestNumber)
+    @Html.EditorFor(x => x.PermitCrossReferenceNumber)
+    @Html.EditorFor(x => x.Description)
+    @Html.EditorFor(x => x.PermitEffectiveDate)
+    @Html.EditorFor(x => x.PermitExpirationDate)
+    @Html.EditorFor(x => x.PermitRenewalDate)
+    @Html.EditorFor(x => x.IsLinkedToFacilityOrEquipment)
+    @Html.EditorFor(x => x.Fees)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

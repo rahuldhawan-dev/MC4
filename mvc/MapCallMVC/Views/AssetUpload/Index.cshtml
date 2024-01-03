@@ -1,0 +1,10 @@
+﻿@model SearchAssetUpload
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+      .SortableColumnFor(x => x.FileName)
+      .SortableColumnFor(x => x.CreatedAt)
+      .SortableColumnFor(x => x.CreatedBy)
+      .SortableColumnFor(x => x.Status)
+      .WithPaginatedFooter())

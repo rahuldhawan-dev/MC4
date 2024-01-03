@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchNearMiss
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.ReportedBy)
+    .SortableColumnFor(x => x.Type)
+    .SortableColumnFor(x => x.Category)
+    .SortableColumnFor(x => x.CreatedAt)
+    .SortableColumnFor(x => x.OccurredAt)
+    .SortableColumnFor(x => x.Severity)
+    .SortableColumnFor(x => x.ReviewedDate)
+    .SortableColumnFor(x => x.DateCompleted)
+    .WithPaginatedFooter())

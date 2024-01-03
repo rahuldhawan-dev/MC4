@@ -1,0 +1,24 @@
+﻿@model Interconnection
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.DeliveryMethod)
+            @Html.DisplayFor(x => x.InletConnectionSize)
+            @Html.DisplayFor(x => x.OutletConnectionSize)
+            @Html.DisplayFor(x => x.InletStaticPressure)
+            @Html.DisplayFor(x => x.OutletStaticPressure)
+        </div>
+    }
+
+    using (g.FlexBox())
+    {
+        <div class="field-column fc250">
+            @Html.DisplayFor(x => x.MaximumFlowCapacity)
+            @Html.DisplayFor(x => x.MaximumFlowCapacityStressedCondition)
+            @Html.DisplayFor(x => x.FlowControlMethod)
+        </div>
+    }    
+}

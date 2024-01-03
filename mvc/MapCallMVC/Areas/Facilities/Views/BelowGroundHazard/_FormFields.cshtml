@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.BelowGroundHazardViewModel
+
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@Html.HiddenFor(x => x.WorkOrder)
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town)
+@Html.EditorFor(x => x.TownSection)
+@Html.EditorFor(x => x.StreetNumber)
+@Html.EditorFor(x => x.Street)
+@Html.EditorFor(x => x.CrossStreet)
+@Html.EditorFor(x => x.Coordinate)
+@Html.EditorFor(x => x.HazardArea)
+@Html.EditorFor(x => x.HazardType)
+@Html.EditorFor(x => x.DepthOfHazard)
+@Html.EditorFor(x => x.AssetStatus)
+@Html.EditorFor(x => x.HazardDescription)
+@Html.EditorFor(x => x.ProximityToAmWaterAsset)
+@Html.EditorFor(x => x.HazardApproachRecommendedType)

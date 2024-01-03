@@ -1,0 +1,25 @@
+﻿@model MapCall.SAP.Model.Entities.SAPCreatePreventiveWorkOrder
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OrderNumber)
+    @Html.DisplayFor(x => x.ShortText)
+    @Html.DisplayFor(x => x.LongText)
+    @Html.DisplayFor(x => x.MaintenanceActivityType)
+    @Html.DisplayFor(x => x.MaintenancePlant, new { DisplayName = "Maintenance Plan" })
+    @Html.DisplayFor(x => x.MaintenanceWorkcenter)
+    @Html.DisplayFor(x => x.BasicStart)
+    @Html.DisplayFor(x => x.BasicFinish)
+    @Html.DisplayFor(x => x.Priority)
+    
+    @Html.DisplayFor(x => x.Equipment)
+    @Html.DisplayFor(x => x.SAPNotificationNumber)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.SearchTerm)
+    @Html.DisplayFor(x => x.Category)
+    @Html.DisplayFor(x => x.PlannerGroup)
+    @Html.DisplayFor(x => x.SettlementReceiver)
+    
+    
+    
+    @Html.DisplayFor(x => x.ListSAPWorkOrder)
+</div>

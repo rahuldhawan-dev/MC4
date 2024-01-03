@@ -1,0 +1,28 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalDelivery
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.Storage)
+    .SortableColumnFor(x => x.UnitCost)
+    .SortableColumnFor(x => x.Chemical)
+    .SortableColumnFor(x => x.DateOrdered)
+    .SortableColumnFor(x => x.ScheduledDeliveryDate)
+    .SortableColumnFor(x => x.ActualDeliveryDate)
+    .SortableColumnFor(x => x.ConfirmationInformation)
+    .SortableColumnFor(x => x.ReceiptNumberJde)
+    .SortableColumnFor(x => x.BatchNumberJde)
+    .SortableColumnFor(x => x.EstimatedDeliveryQuantityGallons)
+    .SortableColumnFor(x => x.ActualDeliveryQuantityGallons)
+    .SortableColumnFor(x => x.EstimatedDeliveryQuantityPounds)
+    .SortableColumnFor(x => x.ActualDeliveryQuantityPounds)
+    .SortableColumnFor(x => x.DeliveryTicketNumber)
+    .SortableColumnFor(x => x.DeliveryInstructions)
+    .SortableColumnFor(x => x.SplitFacilityDelivery)
+    .SortableColumnFor(x => x.Facility.OperatingCenter)
+    .WithPaginatedFooter())

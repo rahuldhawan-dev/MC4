@@ -1,0 +1,8 @@
+﻿@model MapCall.SAP.Model.Entities.SAPMaintenancePlanLookup
+
+@(Html.TableFor(_ => Model.SapRecordCycleList)
+    .ColumnFor(x => x.Cycle)
+    .ColumnFor(x => x.CycleText)
+    .ColumnFor(x => x.CycleUnit)
+
+)

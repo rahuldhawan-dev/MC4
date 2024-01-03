@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderSupervisorApproval.SearchWorkOrderSupervisorApproval
+
+@using (Form.BeginForm("Index", "WorkOrderSupervisorApproval"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.RenderDisplayTemplate(string.Empty, @<text>-OR-</text>)
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.WorkDescription)
+        @Html.EditorFor(x => x.ApartmentAddtl)
+        @Html.EditorFor(x => x.RequestedBy)
+        @Html.EditorFor(x => x.LastCrewAssigned)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.IsApproved)
+        @Html.EditorFor(x => x.Purpose)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+        </text>)
+    </div>
+}

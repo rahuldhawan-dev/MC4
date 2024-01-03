@@ -1,0 +1,10 @@
+﻿@model IEnumerable<AggregatedService>
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@section styles {
+    @Styles.Render("~/content/report.css")
+}
+
+@Html.Partial("_Index")

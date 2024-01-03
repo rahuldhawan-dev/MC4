@@ -1,0 +1,42 @@
+﻿@using MapCallMVC.Areas.Production.Controllers
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(x => x.MaintenancePlans, htmlAttributes: new { id = "equipmentMaintenancePlanTable" }).WithCaption("Records found: " + Model.MaintenancePlans.Count())
+                    .TemplateColumnFor("Plan Number", x => Html.ActionLink(x.MaintenancePlan.PlanNumber.ToString(), "Show", "MaintenancePlan", new { area = "Production", id = x.MaintenancePlan.Id }, null))
+                    .TemplateColumnFor(x => @<text>
+                                                @using (var form = Form.BeginForm("RemoveEquipmentMaintenancePlan", "MaintenancePlan", "Production", new { Equipment = x.Equipment.Id, Id = x.MaintenancePlan.Id }))
+                                                {
+                                                    @Html.HiddenFor(_ => x.MaintenancePlan.Id, new { @id = "Id" })
+                                                    @Control.SubmitButton("Remove from Plan").WithId("RemoveEquipment").WithName("RemoveEquipment").WithValue(x.MaintenancePlan.Id).WithCssClass("Submit")
+                                                }
+                                             </text>)
+                    .ColumnFor(x => x.MaintenancePlan.Name)
+                    .ColumnFor(x => x.MaintenancePlan.PlanType)
+                    .ColumnFor(x => x.MaintenancePlan.HasComplianceRequirement)
+                    .ColumnFor(x => x.MaintenancePlan.IsActive)
+                    .ColumnFor(x => x.MaintenancePlan.LastWorkOrderCompleted)
+                    .ColumnFor(x => x.MaintenancePlan.NextWorkOrderDueDate);
+}
+
+@if (canEdit & RoleService.CanAccessRole(MaintenancePlanController.ROLE))
+{
+    <div class="collapse-panel" data-title="Add to Maintenance Plan">
+        @if (Model.Facility != null && Model.EquipmentType != null)
+        {
+            @Html.Partial("_AddToMaintenancePlan", ViewModelFactory.BuildWithOverrides<AddSingleEquipmentMaintenancePlan>(new { Model.Id, Facility = Model.Facility.Id, EquipmentType = Model.EquipmentType.Id, ControlId = "MaintenancePlan" }))
+        }
+    </div>
+}
+
+@if ((int)Model.MaintenancePlans.Count() > 0)
+{
+    @table
+}   
+else
+{
+    <div>No matching maintenance plans were found.</div>
+}

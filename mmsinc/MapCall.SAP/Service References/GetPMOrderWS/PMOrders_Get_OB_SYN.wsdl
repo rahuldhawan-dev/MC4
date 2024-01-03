@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="http://amwater.com/EAM/0028/MAPCALL/PreventiveMaintenanceOrders" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="PMOrders_Get_OB_SYN" targetNamespace="http://amwater.com/EAM/0028/MAPCALL/PreventiveMaintenanceOrders" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_PMOrders_Get_OB_SYN" />
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/EAM/0028/MAPCALL/PreventiveMaintenanceOrders" targetNamespace="http://amwater.com/EAM/0028/MAPCALL/PreventiveMaintenanceOrders" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="PMOrders_Response" type="p1:PMOrdersInfo" />
+      <xsd:element name="PMOrders_Request" type="p1:PMOrdersQuery" />
+      <xsd:complexType name="PMOrdersQuery">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">86ecbe12c08511e78da100000066337a</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="PlanningPlant" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">e66dd5eeb26811e7aec90050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="OrderType" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">e66dd5efb26811e7a7a10050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CreatedOn" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">e66dd5f0b26811e78e430050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="CompanyCode" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">df703aa5bfc011e7a54e0050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="LastRunTime" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">86f4a1d9c08511e7b091005056860098</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Order" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PMOrdersInfo">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">c09f236bb26111e78db900000066337a</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad6afff11e7955b005056860094</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="OrderNo" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa2afff11e7b9fd005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="PlanningPlant" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa3afff11e7a07f005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="OrderType" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa4afff11e78489005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="ShortText" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa5afff11e7bffd005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="SystemStatus" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa6afff11e784e9005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="LongText" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa7afff11e79351005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="PlannerGroup" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa8afff11e7cbfb005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="MaintWorkcenter" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aa9afff11e7abf3005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="MaintActivitytype" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aaaafff11e794c6005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="BasicStart" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aabafff11e7b1f2005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="BasicFinish" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aacafff11e7a324005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Priority" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aadafff11e7add0005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="FunctionalLocation" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aaeafff11e79249005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Equipment" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3aafafff11e7979d005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="SAPNotificationNo" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab0afff11e7c1fd005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Address" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab1afff11e7c6da005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Searchterm1_2" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab2afff11e7ca12005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Category" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab3afff11e7b735005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="SettlementReceiver" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab4afff11e7b050005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="MaintPlan" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab5afff11e7b8db005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="ListSAPWO" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab6afff11e79366005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="TaskListType" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab7afff11e7a6b2005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="TaskListGroup" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab8afff11e7ad88005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="TaskListCounter" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ab9afff11e7ae27005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="OperationList">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac3afff11e799c7005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="OperationNo" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abaafff11e7ab16005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="ShortText" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abbafff11e7c8c4005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="WorkCenter" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abcafff11e7ab0a005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="Plant" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abdafff11e78dd1005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="OperationDuration" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abeafff11e7c1f3005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="NumberOfPersons" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3abfafff11e7c254005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="WorkDuration" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac0afff11e7a4f5005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="StdTextKey" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac1afff11e7ba8f005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="Unit" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac2afff11e791e6005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ComponentList">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3acdafff11e79591005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="OrderItemNo" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac4afff11e7b6b0005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="OrderOperationno" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac5afff11e793a4005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="OrderComponent" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac6afff11e7aad2005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="Desciption" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac7afff11e7bb28005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="QtyRequired" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac8afff11e7ca73005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="UOM" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ac9afff11e7cfdf005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="ItemCategory" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3acaafff11e789d7005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="StorageLocation" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3acbafff11e7cee0005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="Orderplantdate" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3accafff11e78a4a005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ObjectList">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad1afff11e7b49f005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="Counter" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3aceafff11e79df3005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="SAPEquipmentNo" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3acfafff11e7b255005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="EquipmentDesc" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad0afff11e78179005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="Permits">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad5afff11e7a442005056860094</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="Counter" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad2afff11e79ed1005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="Permit" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad3afff11e7bcc1005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="PermitCategory" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">697c3ad4afff11e7944b005056860094</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="SAPStatus" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PMOrders_Request">
+    <wsdl:documentation />
+    <wsdl:part name="PMOrders_Request" element="p1:PMOrders_Request" />
+  </wsdl:message>
+  <wsdl:message name="PMOrders_Response">
+    <wsdl:documentation />
+    <wsdl:part name="PMOrders_Response" element="p1:PMOrders_Response" />
+  </wsdl:message>
+  <wsdl:portType name="PMOrders_Get_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="PMOrders_Get_OB_SYN">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_PMOrders_Get_OB_SYN" />
+      </wsp:Policy>
+      <wsdl:input message="p1:PMOrders_Request" />
+      <wsdl:output message="p1:PMOrders_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PMOrders_Get_OB_SYNBinding" type="p1:PMOrders_Get_OB_SYN">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="PMOrders_Get_OB_SYN">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PMOrders_Get_OB_SYNService">
+    <wsdl:port name="HTTP_Port" binding="p1:PMOrders_Get_OB_SYNBinding">
+      <address location="http://dp2.amwaternp.net:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=PMOrders_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0028%2FMAPCALL%2FPreventiveMaintenanceOrders" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:PMOrders_Get_OB_SYNBinding">
+      <address location="https://dp2.amwaternp.net:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=PMOrders_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0028%2FMAPCALL%2FPreventiveMaintenanceOrders" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

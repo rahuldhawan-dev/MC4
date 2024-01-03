@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRecurringProjectEndorsement
+
+@using (Form.BeginForm("Update", "RecurringProjectEndorsement", "ProjectManagement", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.RecurringProject)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.ProjectTitle)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.ProjectDescription)
+        @Html.DisplayFor(x => x.DisplayRecurringProjectEndorsement.User)
+        @Html.DisplayFor(x => x.DisplayRecurringProjectEndorsement.EndorsementDate)
+        @Html.EditorFor(x => x.EndorsementStatus)
+        @Html.EditorFor(x => x.Comment)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "RecurringProject", new { id = Model.RecurringProject})
+        </text>)
+    </div>
+}

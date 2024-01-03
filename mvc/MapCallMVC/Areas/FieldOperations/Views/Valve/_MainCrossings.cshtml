@@ -1,0 +1,6 @@
+﻿@model Valve
+
+@(Html.TableFor(x => x.MainCrossings)
+      .TemplateColumnFor("Main Crossing", x => Html.ActionLink(x.Id.ToString(), "Show", "MainCrossing", new { id = x.Id, area = "Facilities" }, null))
+      .ColumnFor(x => x.Display)
+      )

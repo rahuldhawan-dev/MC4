@@ -1,0 +1,401 @@
+﻿@model GeneralLiabilityClaim
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@helper CheckBoxWithLabel(string label, bool? isChecked)
+{
+    <div class="checkbox-label-wrap">
+        @if (isChecked.HasValue && isChecked.Value)
+        {
+            <input type="checkbox" checked="checked" />
+        }
+        else
+        {
+            <input type="checkbox" />
+        }
+        <label class="checkbox-label">@label</label>
+    </div>
+}
+
+@helper YesNahCheckBox(bool? isChecked)
+{
+    @CheckBoxWithLabel("Yes", isChecked.HasValue && isChecked == true)
+    @CheckBoxWithLabel("N/A", !isChecked.HasValue || isChecked == false)
+}
+
+@section head {
+    <style type="text/css">
+        /* Just for this pdf*/
+        * {
+            font-family: Arial;
+            font-size: 16px;
+            line-height: 1.2em;
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 12px;
+        }
+        td {
+            vertical-align: top;
+            padding: 4px;
+            border:1px solid lightgray;
+        }
+        .header {
+            font-size: 34px;
+            border: none;
+        }
+        .logo {
+            text-align: right;
+            border: none;
+        }
+        .noborder td {
+            border: none;
+        }
+        .headerPartDeux {
+            padding-top: 20px;
+            text-align: center;
+        }
+        .signature-box td {
+            border-top: 2px solid gray;
+            border-bottom: 2px solid gray;
+            font-weight: bold;
+        }
+        div.checkbox-label-wrap {
+			display: inline-block;
+			margin-right: 12px;
+            height: 26px;
+        }
+        input[type='checkbox'] {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 2px;
+            border: 2px solid #555;
+            top: 2px;
+        }
+        input[type='checkbox']:checked {
+            background: #444;
+        }
+        .checkbox-label {
+            position: relative;
+            top: -4px;
+            padding-left: 4px;
+        }
+    </style>
+}
+
+@section body {
+    <table>
+        @*Header*@ 
+        <tr>
+            <td class="header" colspan="6">
+                General Liability Form
+            </td>
+            <td class="logo" colspan="2">
+                <img id="aw-logo" style="width:150px;" src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <h1>Today’s Date: @DateTime.Now.ToShortDateString()</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                TRAVELERS:  (800) 832-7839   PHH  877-744-2962
+            </td>
+        </tr>
+        @*Contact*@
+        <tr>
+            <td colspan="4">
+                <strong>Company Contact for Claim:</strong>
+                <br />@Html.DisplayValueFor(x => x.CompanyContact)
+                <br/>
+                <br />
+                <strong>District:</strong>
+                @Html.DisplayValueFor(x => x.OperatingCenter)
+            </td>
+            <td colspan="4">
+                <table class="noborder">
+                    <tr>
+                        <td>
+                            <strong>Phone #:</strong>
+                            @Html.DisplayValueFor(x => x.CompanyContact.PhoneWork)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Cell #:</strong>
+                            @Html.DisplayValueFor(x => x.CompanyContact.PhoneCellular)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Claims Rep:</strong>
+                @Html.DisplayValueFor(x => x.ClaimsRepresentative)
+            </td>
+            <td colspan="4">
+                <strong>Claim Number:</strong>
+                @Html.DisplayValueFor(x => x.ClaimNumber)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Crash Type:</strong>
+                @Html.DisplayValueFor(x => x.CrashType)
+            </td>
+
+            @if (Model.CrashType != null && Model.CrashType.Id == CrashType.Indices.OTHER)
+            {
+                <td colspan="4">
+                    <strong>Describe Other:</strong>
+                    @Html.DisplayValueFor(x => x.OtherTypeOfCrash)
+                </td>
+            }
+        </tr>
+        <tr>
+            <td colspan="8" class="headerPartDeux">
+                <h1>GENERAL LIABILITY FORM</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Describe Liability:</strong>
+                @Html.DisplayValueFor(x => x.LiabilityType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Claimant Name:</strong>
+                @Html.DisplayValueFor(x => x.Name)
+            </td>
+            <td colspan="4">
+                <strong>Claimant Phone #</strong>
+                @Html.DisplayValueFor(x => x.PhoneNumber)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Claimant Address:</strong>
+                @Html.DisplayValueFor(x => x.Address)
+            </td>
+            <td colspan="4">
+                <strong>Claimant Email or other:</strong>
+                @Html.DisplayValueFor(x => x.Email)
+            </td>
+        </tr>
+        @*Property/Processes*@
+        <tr>
+            <td colspan="4">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <strong>Company property or process involved:</strong>
+                            <br />
+                            (check below boxes that pertain)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Meter Box", Model.MeterBox)</td>
+                        <td>@CheckBoxWithLabel("Curb/Valve Box", Model.CurbValveBox)</td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Excavation", Model.Excavation)</td>
+                        <td>@CheckBoxWithLabel("Barricades", Model.Barricades)</td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Vehicle", Model.Vehicle)</td>
+                        <td>@CheckBoxWithLabel("Water Meter", Model.WaterMeter)</td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Fire Hydrant", Model.FireHydrant)</td>
+                        <td>@CheckBoxWithLabel("Backhoe", Model.Backhoe)</td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Water Quality", Model.WaterQuality)</td>
+                        <td>@CheckBoxWithLabel("Water Pressure", Model.WaterPressure)</td>
+                    </tr>
+                    <tr>
+                        <td>@CheckBoxWithLabel("Water Main", Model.WaterMain)</td>
+                        <td>@CheckBoxWithLabel("Service Line", Model.ServiceLine)</td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan="4">
+                <h1>Complaint / Auto / Description:</h1>
+                @Html.DisplayValueFor(x => x.Description)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>AL -  Auto Vehicle</strong>
+            </td>
+            <td colspan="3">
+                <strong>Driver/Employee Name:</strong>
+                @Html.DisplayValueFor(x => x.DriverName)
+            </td>
+            <td colspan="3">
+                <strong>Driver/Employee Phone #</strong>
+                @Html.DisplayValueFor(x => x.DriverPhone)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <em>Has PHH/Element been contacted for damage to our fleet vehicle?</em>
+            </td>
+            <td colspan="4">
+                @YesNahCheckBox(Model.PhhContacted)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Other Auto Information</strong>
+            </td>
+            <td>
+                <strong>Other Driver:</strong>
+                @Html.DisplayValueFor(x => x.OtherDriver)
+            </td>
+            <td>
+                <strong>Phone #</strong>
+                @Html.DisplayValueFor(x => x.OtherDriverPhone)
+            </td>
+            <td>
+                <strong>Other Vehicle Year:</strong>
+                @Html.DisplayValueFor(x => x.VehicleYear)
+            </td>
+            <td>
+                <strong>Other Vehicle Make:</strong>
+                @Html.DisplayValueFor(x => x.VehicleMake)
+            </td>
+            <td>
+                <strong>Other Vehicle VIN:</strong>
+                @Html.DisplayValueFor(x => x.VehicleVin)
+            </td>
+            <td colspan="2">
+                <strong>Other Vehicle License #:</strong>
+                @Html.DisplayValueFor(x => x.LicenseNumber)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Other Driver’s Address:</strong>
+                @Html.DisplayValueFor(x => x.OtherDriverAddress)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Location of Incident:</strong>
+                @Html.DisplayValueFor(x => x.LocationOfIncident)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Date/Time of Incident:</strong>
+                @Html.DisplayValueFor(x => x.IncidentDateTime)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+
+                @CheckBoxWithLabel("Were Police Called?", Model.PoliceCalled)
+            </td>
+            <td colspan="3">
+                Police Dept:
+                @Html.DisplayValueFor(x => x.PoliceDepartment)
+            </td>
+            <td colspan="3">
+                Case #
+                @Html.DisplayValueFor(x => x.PoliceCaseNumber)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>Witness Info:</strong>
+            </td>
+            <td colspan="3">
+                Witness:
+                @Html.DisplayValueFor(x => x.Witness)
+            </td>
+            <td colspan="3">
+                Phone #:
+                @Html.DisplayValueFor(x => x.WitnessPhone)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @CheckBoxWithLabel("Was anyone injured?", Model.AnyInjuries)
+            </td>
+            <td colspan="6">
+                If yes – Complete Incident Injury Report
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                Person making this report:
+                @Html.DisplayValueFor(x => x.ReportedBy)
+            </td>
+            <td colspan="4">
+                Phone #:
+                @Html.DisplayValueFor(x => x.ReportedByPhone)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Date Notified of Incident:</strong>
+                @Html.DisplayValueFor(x => x.IncidentNotificationDate)
+            </td>
+            <td colspan="4">
+                <strong>Date Reported Incident:</strong>
+                @Html.DisplayValueFor(x => x.IncidentReportedDate)
+            </td>
+        </tr>
+        <tr class="signature-box">
+            <td colspan="6">
+                Supervisor:
+            </td>
+            <td colspan="2">
+                Date:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Signature:
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr class="signature-box">
+            <td colspan="6">
+                Operations Manager/Superintendent:
+            </td>
+            <td colspan="2">
+                Date:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Signature:
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr class="signature-box">
+            <td colspan="6">
+                Employee:
+            </td>
+            <td colspan="2">
+                Date:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Signature:
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+}

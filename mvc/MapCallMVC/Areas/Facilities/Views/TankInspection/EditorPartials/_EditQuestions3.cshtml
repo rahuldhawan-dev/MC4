@@ -1,0 +1,15 @@
+﻿@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model MapCallMVC.Areas.Facilities.Models.ViewModels.TankInspectionViewModel
+
+@{
+    // This variable name is required to setup the control ids/names for posting back this collection
+    var tankInspectionQuestions = Model.TankInspectionQuestions.OrderBy(x => x.Id).ToList();
+}
+
+@for (var i = 0; i < tankInspectionQuestions.Count; i++)
+{
+    if (tankInspectionQuestions[i].QuestionGroupId == TankInspectionQuestionGroup.Indices.FOUNDATION)
+    {
+        @Html.EditorFor(x => tankInspectionQuestions[i])
+    }
+}

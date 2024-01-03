@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.ArcFlash.CreateArcFlashStudy
+    
+@using (Form.BeginForm("Create", "ArcFlashStudy", "Engineering"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.Partial("_FormFields", Model)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "ArcFlashStudy")
+                           </text>)
+    </div>
+}

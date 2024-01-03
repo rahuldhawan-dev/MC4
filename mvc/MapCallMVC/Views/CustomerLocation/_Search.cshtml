@@ -1,0 +1,18 @@
+﻿@model SearchCustomerLocation
+@{
+    Layout = "_PartialLayout.cshtml";
+}
+
+@using (var f = Form.BeginForm("Index", "CustomerLocation", Html.ViewContext.RouteData.Values))
+{
+    f.HtmlAttributes["id"] = "searchForm";
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.HasVerifiedCoordinate)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.City, new {Container = @Model})
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,14 @@
+﻿@model CreateGeneralLiabilityClaim
+
+<fieldset>
+    <legend>General Liability Claim - Five Whys</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.FiveWhysCompleted)
+        @Html.EditorFor(x => x.Why1)
+        @Html.EditorFor(x => x.Why2)
+        @Html.EditorFor(x => x.Why3)
+        @Html.EditorFor(x => x.Why4)
+        @Html.EditorFor(x => x.Why5)
+        @Html.EditorFor(x => x.DateSubmitted)
+    </div>
+</fieldset>

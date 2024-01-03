@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.AwiaCompliance.EditAwiaCompliance
+
+@using (Form.BeginForm("Update", "AwiaCompliance", "Engineering"))
+{
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form")
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "AwiaCompliance", new { Id = Model.Id })
+                           </text>)
+    </div>
+}

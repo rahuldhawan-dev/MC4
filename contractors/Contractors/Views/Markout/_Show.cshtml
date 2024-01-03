@@ -1,0 +1,26 @@
+﻿@using MMSINC.Authentication
+@using MMSINC.Metadata
+@model MapCall.Common.Model.Entities.Markout
+@{
+    var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+}
+<tr>
+    @if (!isGeneralReadOnly)
+    {
+        <td>
+            @if (!Model.WorkOrder.WorkStarted)
+            {
+                @Ajax.ActionLink("Edit", "Edit", "Markout", new { id = Model.Id }, new AjaxOptions { HttpMethod = "GET" })
+                var meh = Ajax.SecureActionLink<ContractorUser>(_container.GetInstance<ISecureFormTokenService>(), _container.GetInstance<IAuthenticationService<ContractorUser>>().CurrentUser,
+                    "Delete", "Destroy", "Markout", new { MarkoutID = Model.Id }, new AjaxOptions { HttpMethod = "DELETE", Confirm = "Are you sure you want to delete this markout?" });
+                @meh
+            }
+        </td>
+    }
+    <td>@Html.DisplayValueFor(m => m.MarkoutNumber)</td>
+    <td>@Html.DisplayValueFor(m => m.MarkoutType)</td>
+    <td>@Html.DisplayValueFor(m => m.Note)</td>
+    <td>@Html.DisplayValueFor(m => m.DateOfRequest)</td>
+    <td>@Html.DisplayValueFor(m => m.ReadyDate)</td>
+    <td>@Html.DisplayValueFor(m => m.ExpirationDate)</td>
+</tr>

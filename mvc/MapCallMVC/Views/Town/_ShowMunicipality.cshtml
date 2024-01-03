@@ -1,0 +1,23 @@
+﻿@model Town
+
+<div class="field-column fc200">
+    @Html.DisplayFor(t => t.ShortName)
+    @Html.DisplayFor(x => x.AbbreviationType)
+    <!-- Hyd/Val Abbreviation From -->
+    @Html.DisplayFor(t => t.Address)
+    @Html.DisplayFor(t => t.FullName)
+    @Html.DisplayFor(t => t.State.Abbreviation, new { DisplayName = "State"})
+    @Html.DisplayFor(t => t.Zip)
+    @Html.DisplayFor(t => t.County.Name, new { DisplayName = "County"})
+    @Html.DisplayFor(x => x.CriticalMainBreakNotes)
+    @Html.DisplayFor(t => t.Lat)
+    @Html.DisplayFor(t => t.Lon)
+    @Html.DisplayFor(t => t.ContactName)
+    @Html.DisplayFor(t => t.Phone)
+    @Html.DisplayFor(t => t.Fax)
+    @Html.DisplayFor(t => t.DistrictId)
+    <!-- DivisionId -->
+    @Html.DisplayFor(t => t.FD1Contact)
+    @Html.DisplayFor(t => t.FD1Phone)
+    @Html.DisplayFor(t => t.FD1Fax)
+</div>

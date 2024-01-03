@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.BaseJobSiteCheckListViewModel
+<div class="field-column fc-left-label fc400">
+    @Html.EditorFor(x => x.IsMarkoutValidForSite)
+    @Html.EditorFor(x => x.MarkoutNumber)
+    @Html.EditorFor(x => x.IsEmergencyMarkoutRequest)
+    @Html.RenderEditorTemplate("C. Have the following underground utilities been marked and are their locations known?", Html.Partial("EditorPartials/_MarkedFields"))
+</div>

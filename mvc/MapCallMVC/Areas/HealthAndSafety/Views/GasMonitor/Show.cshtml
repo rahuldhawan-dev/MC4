@@ -1,0 +1,7 @@
+﻿@model GasMonitor
+
+@(Html.Tabs()
+    .WithTab("Details", "_Show")
+    .WithTab("Calibrations", "_ShowCalibrations", itemCount: Model.Calibrations.Count)
+    .WithNotesAndDocuments()
+    .WithLog())

@@ -1,0 +1,46 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model ProductionWorkOrder
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.ProductionWorkOrderMaterialUsed, new { id = "productionWorkOrderMaterialsUsedTable" })
+        //.TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrderMaterialUsed", new { id = x.Id, area = "Production" }, null))
+        .ColumnFor(x => x.StockLocation)
+        .ColumnFor(x => x.Material)
+        .ColumnFor(x => x.NonStockDescription)
+        .ColumnFor(x => x.Quantity);
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Material">
+        @Html.Partial("_AddProductionWorkOrderMaterialUsed", ViewModelFactory.BuildWithOverrides<AddProductionWorkOrderMaterialUsedProductionWorkOrder>(new { Id = Model.Id }))
+    </div>
+    using (var form = Form.BeginRouteForm("ProductionWorkOrder", "ProductionWorkOrderMaterialUsed", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeProductionWorkOrderMaterialUsedForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this material?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Material").WithName("ProductionWorkOrderMaterialUsed").WithValue(x.Id))
+    }
+
+    <div style="color:#333">
+        To edit a material that has been added, add a new one for the values you need, then remove the old one you did not need. 
+        Inline editing feature will be added soon.
+    </div>
+
+    if (Model.CanBeMaterialPlanned)
+    {
+        using (Form.BeginForm("CompleteMaterialPlanning", "ProductionWorkorder", "Production", new {Model.Id}))
+        {
+            @Control.SubmitButton("Complete Material Planning").With("onclick", "return confirm('Are you sure you want to complete Material Planning?');").WithCssClass("no-double-submit");
+        }
+    }
+    if (Model.MaterialsPlannedOn.HasValue)
+    {
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.MaterialsPlannedOn)
+        </div>
+    }
+}
+else
+{
+    @table
+}

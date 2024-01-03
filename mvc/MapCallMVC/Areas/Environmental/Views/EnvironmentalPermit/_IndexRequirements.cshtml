@@ -1,0 +1,50 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits
+@model EnvironmentalPermit
+
+@{
+    var table = Html.TableFor(_ => Model.Requirements, new {id = "requirementsTable", style = "width:100%;"});
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EnvironmentalPermitRequirement", new { x.Id }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("environmentalPermitRequirementId").WithValue(x.Id));
+    }
+
+    table = table
+        .ColumnFor(x => x.RequirementType)
+        .ColumnFor(x => x.Requirement)
+        .ColumnFor(x => x.ValueUnit)
+        .ColumnFor(x => x.ValueDefinition)
+        .ColumnFor(x => x.TrackingFrequency)
+        .ColumnFor(x => x.ReportingFrequency)
+        .ColumnFor(x => x.ReportingFrequencyDetails)
+        .ColumnFor(x => x.ProcessOwner)
+        .ColumnFor(x => x.ReportingOwner)
+        .ColumnFor(x => x.ReportDataStorageLocation)
+        .ColumnFor(x => x.ReportCreationInstructions)
+        .ColumnFor(x => x.ReportSendTo)
+        .ColumnFor(x => x.CommunicationType)
+        .ColumnFor(x => x.CommunicationEmail)
+        .ColumnFor(x => x.CommunicationLink)
+        .ColumnFor(x => x.Notes);
+
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Requirement">
+        @Html.Partial("_AddEnvironmentalPermitRequirement", ViewModelFactory.Build<CreateEnvironmentalPermitRequirement, EnvironmentalPermit>(Model))
+    </div>
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("EnvironmentalPermit", "EnvironmentalPermitRequirement", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteEnvironmentalPermitRequirementForm");
+
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

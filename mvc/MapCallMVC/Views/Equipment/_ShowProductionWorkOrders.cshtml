@@ -1,0 +1,27 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+@{
+    var rvd = new RouteValueDictionary(new CreateProductionWorkOrder(_container, Model));
+    rvd["area"] = "Production";
+    var htmlAttributes = new RouteValueDictionary();
+    htmlAttributes["Class"] = "link-button";
+
+    if ((Model.EquipmentStatus == null || Model.EquipmentStatus.Id != EquipmentStatus.Indices.RETIRED)
+        && Model.Facility != null
+        && (Model.Facility.FacilityStatus == null || Model.Facility.FacilityStatus.Id != FacilityStatus.Indices.INACTIVE)
+        && (Model.Facility.FacilityName == null || !Model.Facility.FacilityName.ToLower().Contains("archive")))
+    {
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create Production Work Order", "New", "ProductionWorkOrder", rvd, htmlAttributes)
+        </div>
+    }
+    
+    var searchModel = new {
+        ext = "frag",
+        Equipments = Model.Id
+    };
+
+    using (var f = Form.BeginAjaxForm("Index", "ProductionWorkOrder", "Production", searchModel)) { }
+    
+    <div id="productionWorkOrderTablePartial"></div>
+}

@@ -1,0 +1,63 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.NpdesRegulatorInspectionViewModel
+@{
+    var creating = Model is CreateNpdesRegulatorInspection;
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/NpdesRegulatorInspection/Form.js", ScriptLoadType.LoadFromPartial)
+
+@if (creating && Model.SewerOpeningDisplay.OperatingCenter.WorkOrdersEnabled)
+{
+    <div style="float: right;">
+        @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model.SewerOpeningDisplay), new { area = "FieldOperations", Class = "link-button", target = "_new" })
+    </div>
+}
+<div style="float: left; width: auto;">
+    @Html.RenderDisplayTemplate("NPDES Regulator #",
+        Html.ActionLink(Model.SewerOpeningDisplay.OpeningNumber, "Show", "SewerOpening", new {
+            id = Model.SewerOpening
+        }, null))
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.Street)
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.LocationDescription)
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.NpdesPermitNumber)
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.OutfallNumber)
+    @Html.EditorFor(x => x.ArrivalDateTime)
+    @if (!creating)
+    {
+        @Html.DisplayFor(x => x.InspectedBy)
+        @Html.EditorFor(x => x.DepartureDateTime)
+    }
+    else
+    {
+        @Html.HiddenFor(x => x.DepartureDateTime)
+    }
+    @Html.EditorFor(x => x.NpdesRegulatorInspectionType)
+    @Html.EditorFor(x => x.HasInfiltration)
+    @Html.EditorFor(x => x.WeatherCondition)
+    @Html.EditorFor(x => x.OutfallCondition)
+    @Html.EditorFor(x => x.GateStatusAnswerType)
+    @Html.EditorFor(x => x.BlockCondition)
+    @Html.EditorFor(x => x.IsDischargePresent)
+    @Html.EditorFor(x => x.DischargeWeatherRelatedType)
+    @Html.EditorFor(x => x.RainfallEstimate)
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.BodyOfWater.Name, new { DisplayName = "Body Of Water" })
+    @Html.EditorFor(x => x.DischargeFlow)
+    @Html.EditorFor(x => x.DischargeCause)
+    @Html.EditorFor(x => x.DischargeDuration)
+    @Html.EditorFor(x => x.IsPlumePresent)
+    @Html.EditorFor(x => x.IsErosionPresent)
+    @Html.EditorFor(x => x.IsSolidFloatPresent)
+    @Html.EditorFor(x => x.IsAdditionalEquipmentNeeded)
+    @Html.EditorFor(x => x.HasSamplesBeenTaken)
+    @Html.EditorFor(x => x.SampleLocation)
+    @Html.EditorFor(x => x.HasFlowMeterMaintenanceBeenPerformed)
+    @Html.EditorFor(x => x.HasDownloadedFlowMeterData)
+    @Html.EditorFor(x => x.HasCalibratedFlowMeter)
+    @Html.EditorFor(x => x.HasInstalledFlowMeter)
+    @Html.EditorFor(x => x.HasRemovedFlowMeter)
+    @Html.EditorFor(x => x.HasFlowMeterBeenMaintainedOther)
+    @Html.EditorFor(x => x.Remarks)
+    @Html.HiddenFor(x => x.InspectedBy)
+    @Html.HiddenFor(x => x.SewerOpening)
+    @Html.HiddenFor(x => x.IsMapPopup)
+</div>

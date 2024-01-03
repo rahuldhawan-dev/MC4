@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSewerOpeningInspection
+    
+@using (Form.BeginForm("Index", "SewerOpeningInspection"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Route)
+        @Html.EditorFor(x => x.InspectedBy)
+        @Html.EditorFor(x => x.DateInspected)
+        @Html.EditorFor(x => x.OpeningSuffix)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchMainCrossing
+           
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter, controller = "AssetMap" });
+}
+
+@(Html.TableFor(x => Model) 
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+      .TemplateColumnFor("Id", x => @<text>@String.Format("CR{0}",x.Id)</text>)
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.MainCrossingStatus, "MainCrossingStatus")
+    .SortableColumnFor(x => x.AssetCategory, "AssetCategory")
+    .SortableColumnFor(x => x.ConsequenceOfFailure)
+    .SortableColumnFor(x => x.CrossingCategory)
+    .SortableColumnFor(x => x.InspectionType)
+    .SortableColumnFor(x => x.IsolationValves)
+    .SortableColumnFor(x => x.IsCriticalAsset, "IsCriticalAsset")
+    .SortableColumnFor(x => x.Street, "Street")
+    .SortableColumnFor(x => x.ClosestCrossStreet, "ClosestCrossStreet")
+    .SortableColumnFor(x => x.CrossingType, "CrossingType")
+    .SortableColumnFor(x => x.SupportStructure, "SupportStructure")
+    .SortableColumnFor(x => x.LastInspectedOn)
+    .SortableColumnFor(x => x.MainInCasing)
+    .SortableColumnFor(x => x.HasWorkOrder)
+    .WithPaginatedFooter()
+)

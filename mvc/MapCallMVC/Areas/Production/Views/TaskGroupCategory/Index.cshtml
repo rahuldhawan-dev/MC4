@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchTaskGroupCategory
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+      .ColumnFor(x => x.Type)
+      .ColumnFor(x => x.Abbreviation)
+      .ColumnFor(x => x.IsActive)
+      .ColumnFor(x => x.Description)
+      .WithPaginatedFooter()
+    )

@@ -1,0 +1,21 @@
+﻿@using MMSINC.Helpers
+@model CreateMedicalCertificate
+@{
+    var cb = new CrumbBuilder(ViewContext, Model);
+    cb.Separator = " : ";
+    cb.WithLinkCrumb("Medical Certificates", "MedicalCertificate", "Index");
+    cb.WithTextCrumb("Renewing");
+    ViewData["TitleCrumbs"] = cb;
+}
+@using (Form.BeginForm("Create", "MedicalCertificate"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Employee, new { Container = @Model })
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "MedicalCertificate", new{ Model.Id })
+        </text>)
+    </div>
+}

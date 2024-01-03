@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchBactiSamplesChlorineHighLow
+           
+@using (Form.BeginForm("Index", "BactiSamplesChlorineHighLow"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.SampleCollectionDTM)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,53 @@
+﻿@using MapCall.Common.Helpers.ClassExtensions
+@using MapCall.Common.Model.Entities.Users
+@using MapCallMVC.Controllers
+@using MMSINC.Authentication
+@model DriversLicense
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Employee.OperatingCenter)
+    @if (Html.CurrentUserCanDo(AuthenticationService.CurrentUser, EmployeeController.ROLE)) {
+        @Html.RenderDisplayTemplate("Employee", Html.ActionLink(Model.Employee.ToString(), "Show", "Employee", new { id = Model.Employee.Id }, null))
+    } else {
+        @Html.DisplayFor(x => x.Employee)
+    }
+    @Html.DisplayFor(x => x.DriversLicenseClass)
+    @if (Model.Endorsements.Any())
+    {
+        @Html.RenderDisplayTemplate("Endorsements",
+    @<text>
+        <ul>
+            @foreach (var endorsement in Model.Endorsements)
+            {
+                <li>@endorsement.DriversLicenseEndorsement.Description</li>
+            }                
+        </ul>
+    </text>)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Endorsements", @<text>None</text>)
+    }
+        
+    @if (Model.Restrictions.Any())
+    {
+        @Html.RenderDisplayTemplate("Restrictions",
+            @<text>
+                 <ul>
+                     @foreach (var restriction in Model.Restrictions)
+                     {
+                         <li>@restriction.DriversLicenseRestriction.Description</li>
+                     }                
+                 </ul>
+             </text>)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Restrictions", @<text>None</text>)
+    }   
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.LicenseNumber)
+    @Html.DisplayFor(x => x.IssuedDate)
+    @Html.DisplayFor(x => x.RenewalDate)
+    @Html.DisplayFor(x => x.Expired)
+</div>

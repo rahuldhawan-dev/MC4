@@ -1,0 +1,23 @@
+﻿@model CreateOperatingCenterTown
+
+<div class="collapse-panel" data-title="Add New Operating Center">
+        @using (var form = Form.BeginForm("Create", "OperatingCenterTown", new { area = "" }))
+        {
+            <fieldset class="field-column fc200">
+                @Html.EditorFor(x => x.OperatingCenter)
+                @Html.EditorFor(x => x.Abbreviation)
+                @Control.HiddenFor(x => x.Town)
+                @Html.EditorFor(x => x.MainSAPEquipmentId)
+                @Html.EditorFor(x => x.MainSAPFunctionalLocation)
+                @Html.EditorFor(x => x.SewerMainSAPEquipmentId)
+                @Html.EditorFor(x => x.SewerMainSAPFunctionalLocation)
+                @Html.EditorFor(x => x.DistributionPlanningPlant)
+                @Html.EditorFor(x => x.SewerPlanningPlant)
+                @Html.ButtonGroup(
+                @<text>
+                    @Control.SubmitButton("Add Operating Center").WithId("addOperatingCenterButton")
+                    @Control.Button("Cancel").WithId("cancelAddOperatingCenterButton").WithCssClass("cancel")
+                </text>)
+            </fieldset>
+        }
+</div>

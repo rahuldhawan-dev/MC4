@@ -1,0 +1,27 @@
+﻿@model GeneratorViewModel
+
+@Html.EditorFor(x => x.EngineManufacturer)
+@Html.EditorFor(x => x.EngineModel, new {Container = @Model})
+@Html.EditorFor(x => x.EngineSerialNumber)
+@Html.EditorFor(x => x.GeneratorManufacturer) 
+@Html.EditorFor(x => x.GeneratorModel, new { Container = @Model})
+@Html.EditorFor(x => x.GeneratorSerialNumber)
+@Html.EditorFor(x => x.EmergencyPowerType)
+@Html.EditorFor(x => x.OutputVoltage)
+@Html.EditorFor(x => x.OutputKW)    
+@Html.EditorFor(x => x.LoadCapacity)
+@Html.EditorFor(x => x.HasParallelElectricOperation)
+@Html.EditorFor(x => x.HasAutomaticStart)
+@Html.EditorFor(x => x.HasAutomaticPowerTransfer)
+@Html.EditorFor(x => x.IsPortable)  
+@Html.EditorFor(x => x.SCADA)
+@Html.EditorFor(x => x.TrailerVIN)
+@Html.EditorFor(x => x.GVWR)
+@Html.EditorFor(x => x.FuelType)
+@Html.EditorFor(x => x.FuelGPH)
+@Html.EditorFor(x => x.BTU)
+@Html.EditorFor(x => x.HP)
+@Html.EditorFor(x => x.AQPermitNumber)
+
+
+

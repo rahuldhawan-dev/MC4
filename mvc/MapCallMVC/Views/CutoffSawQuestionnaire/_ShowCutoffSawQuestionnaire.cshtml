@@ -1,0 +1,32 @@
+﻿@model CutoffSawQuestionnaire
+
+<div class="field-column fc300">
+    @*@Html.DisplayFor(x => x.Id)*@
+    @Html.DisplayFor(x => x.WorkOrder.Id, new { DisplayName = "WorkOrderID"})
+    @Html.DisplayFor(x => x.WorkOrderSAP)
+    @Html.DisplayFor(x => x.LeadPerson.FullName, new { DisplayName = "Lead Person"} )
+    @Html.DisplayFor(x => x.SawOperator.FullName, new { DisplayName = "Saw Operator"})
+    @Html.DisplayFor(x => x.OperatedOn)
+    @Html.DisplayFor(x => x.WorkOrderLocation, new { DisplayName = "Location"})
+    @Html.DisplayFor(x => x.PipeMaterial)
+    @Html.DisplayFor(x => x.PipeDiameter.Diameter, new { DisplayName = "Pipe Diameter"})
+    
+    <fieldset>
+        <legend>Questions</legend>
+        <div>The employee agreed to the following questions:</div>
+        @for (var q = 0;q < Model.CutoffSawQuestions.Count;q++)
+        {
+            @*@Html.DisplayFor(x => x.CutoffSawQuestions[q].Question, new { DisplayName = ""})*@
+            <div class="field-pair">
+                <div class="label"></div>
+                <div class="field">
+                    @Model.CutoffSawQuestions[q].Question
+                </div>
+            </div>
+            
+        }
+    </fieldset>
+    @Html.DisplayFor(x => x.Comments)
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

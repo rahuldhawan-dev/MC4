@@ -1,0 +1,18 @@
+﻿@model IconSet
+
+@{
+    Layout = null;
+    const int squareSize = 40;
+}
+
+<div id="iconList">
+    @foreach (var icon in Model.Icons) {
+        var height = icon.Height > squareSize ? squareSize : icon.Height;
+        var width = icon.Width > squareSize ? squareSize : icon.Width;
+        var style = string.Format("height: {0}px; width: {1}px", height, width);
+        var defaultStr = icon == Model.DefaultIcon ? "data-default-icon=true" : "";
+        <button name="iconId" value="@icon.Id" style="@style">
+            <img src="@Html.UrlFor(icon.Url)" alt="" style="@style"@defaultStr data-icon-offset="@icon.Offset.Description" />
+        </button>
+    }
+</div>

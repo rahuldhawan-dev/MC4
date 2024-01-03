@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderStreetOpeningPermitProcessing.SearchWorkOrderStreetOpeningPermitProcessing
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(x => x, new { id="sopProcessingWorkOrdersTable"})
+      .WithCaption("Records found:" + Model.Count)
+      .SortableTemplateColumnFor("", "Id", x => 
+	      @<text>
+		      @Html.ActionLink("Select", "Show", "WorkOrderStreetOpeningPermitProcessing", new { x.Id, area = "FieldOperations" }, null)
+	      </text>)
+      .WithWorkOrderRowStyles()
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street, "Street.Name")
+      .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.Name")
+      .SortableColumnFor(x => x.Town, "Town.ShortName")
+      .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+      .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+      .WithCellBuilder((model, tag) => {
+	      tag.Attributes.Add("title", model.Notes);
+      })
+      .ColumnFor(x => x.CurrentCrew)
+      .SortableColumnFor(x => x.Priority)
+      .SortableColumnFor(x => x.Completed)
+      .WithPaginatedFooter()
+	)

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Models.ViewModels.FireDistricts.SearchFireDistrict
+
+@(Html.TableFor(x => Model)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "FireDistrict", new {id = x.Id}, null))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.DistrictName)
+      .SortableColumnFor(x => x.Abbreviation)
+      .SortableColumnFor(x => x.PremiseNumber)
+      .SortableColumnFor(x => x.AddressCity)
+      .SortableColumnFor(x => x.State)
+      .SortableColumnFor(x => x.Contact)
+      .SortableColumnFor(x => x.Phone)
+      .WithPaginatedFooter())

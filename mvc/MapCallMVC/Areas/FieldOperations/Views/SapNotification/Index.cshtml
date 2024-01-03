@@ -1,0 +1,70 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCall.SAP.Model.Entities
+@model IEnumerable<SAPNotification>
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/SAPNotificationSearchStorage.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor("Action", x => @<text>
+                                            @{
+                                                var model = x;
+                                                var rvd = new RouteValueDictionary();
+                                                rvd["SapNotificationNumber"] = x.SAPNotificationNumber;
+                                                rvd["PlanningPlant"] = x.PlanningPlant;
+                                                rvd["DateCreatedTo"] = x.DateCreatedTo;
+                                                rvd["DateCreatedFrom"] = x.DateCreatedFrom;
+                                                var htmlAttributes = new RouteValueDictionary();
+                                                htmlAttributes["Class"] = "link-button";
+                                                htmlAttributes["style"] = "width:160px;";
+                                                rvd["IndexSearch"] = Request.QueryString;
+                                                //Request.QueryString["DateCreatedFrom"]  "12/1/2016" string
+                                                //Request.QueryString["DateCreatedTo"]    "12/31/2016"    string
+                                                //Request.QueryString["NotificationType"] "20,33,35,36,40"    string
+                                                //Request.QueryString["PlanningPlant"]    "D201,D202,D203,D205,D208,D209,D210,D215,D217,S213,S205,S203,P201,P202,P203,P204,P208,P210,P212,P214,P216,P218" string
+                                                //x.PlanningPlant "S205"  string
+                                                //x.NotificationType  "40"    string
+                                                var viewModel = ViewModelFactory.BuildWithOverrides<EditSapNotification>(new { SAPNotificationNumber = x.SAPNotificationNumber});
+                                            }
+                                            <div>
+                                                @Html.Partial("_Cancel", viewModel)
+                                                @Html.Partial("_Complete", viewModel)
+                                                @Html.ActionLink("Create Work Order", "Show", "SapNotification", rvd, htmlAttributes)
+                                            </div>
+</text>)
+      .ColumnFor(x => x.SAPNotificationNumber)
+      .ColumnFor(x => x.PlanningPlant)
+      .ColumnFor(x => x.Installation)
+      .ColumnFor(x => x.NotificationType)
+      .ColumnFor(x => x.NotificationTypeText, "Notification Type Description")
+      .ColumnFor(x => x.NotificationShortText)
+      .TemplateColumnFor("Notes", x => @<text>
+        <div style="width: 250px;">
+            @x.NotificationLongText
+        </div>
+        </text>)
+      .TemplateColumnFor("Special Instructions", x => @<text>
+                                           <div style="width: 250px;">
+                                               @x.SpecialInstructions
+                                           </div>
+        </text>)
+    .ColumnFor(x => x.House)
+    .ColumnFor(x => x.Street1, "Street")
+    .ColumnFor(x => x.Street2, "Cross Street")
+    .ColumnFor(x => x.City)
+    .ColumnFor(x => x.OtherCity, "Town Section")
+    .ColumnFor(x => x.Locality)
+    .ColumnFor(x => x.LocalityDescription)
+    .ColumnFor(x => x.Priority)
+    .ColumnFor(x => x.Purpose)
+    .ColumnFor(x => x.ReportedBy)
+    .ColumnFor(x => x.CustomerName)
+    .ColumnFor(x => x.Telephone)
+    .ColumnFor(x => x.UserStatus, "Status")
+    .ColumnFor(x => x.FunctionalLocation)
+    .ColumnFor(x => x.Equipment)
+    .ColumnFor(x => x.Premise)
+    .ColumnFor(x => x.DateCreated)
+    .ColumnFor(x => x.TimeCreated)
+)

@@ -1,0 +1,30 @@
+﻿FINISHED:
+  Restoration:
+    Need header lines to divide between the Partial and Final fields.
+  
+    Need to send Doug the list of Types of Restoration and Methods of Final Restoration so he can match the parent/child relationship.
+
+    Need to show Linear Ft. Of Curb when Type Of Restoration involves curb, and Paving Square Footage otherwise.
+  
+    Pull Method of Final Asphalt Repair values and stick them into a table.
+  
+    Need to turn this into a one-to-many.  The basic table in the tab should show Type of Restoration and the sq. footage, and the
+	'Select' link will open that form in a popup.
+
+    Change 'Partial' to 'Initial'.
+
+    Add 'Method of Initial Repair', and any other fields that 'Final' has, but 'Partial' (now 'Initial') does not.
+
+    The RestorationMethods are going to change, there needs to be a separate list for 'Initial' and 'Final'.
+
+    Remote the word 'Asphalt'.
+
+    Approved By and Rejected By are users, should automatically be the user that filled in the date and hit 'save'.
+  
+PENDING:
+  Restoration:
+    Partial Restoration By and Final Restoration By are drop downs filled out by a list of contractors.  See the existing form for this.
+  
+    This table needs to get merged out to the existing Restoration table.
+  
+    Will need to eventually use Size of Hole instead of Paving Square Footage.

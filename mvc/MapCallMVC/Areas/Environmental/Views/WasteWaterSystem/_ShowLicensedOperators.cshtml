@@ -1,0 +1,11 @@
+﻿@model WasteWaterSystem
+
+@(Html.TableFor(x => x.OperatorLicenses, new { id = "OperatorLicenseTable"})
+    .TemplateColumnFor("Employee", x => Html.ActionLink(x.Employee.ToString(), "Show", "OperatorLicense", new { id = x.Id, area = "" }, null))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.OperatorLicenseType)
+    .ColumnFor(x => x.LicenseLevel)
+    .ColumnFor(x => x.LicenseSubLevel)
+    .ColumnFor(x => x.LicenseNumber)
+    .ColumnFor(x => x.ValidationDate)
+    .ColumnFor(x => x.ExpirationDate))

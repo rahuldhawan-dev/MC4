@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Customer.Models.ViewModels.SearchSAPTechnicalMasterAccount
+    
+@using (Form.BeginForm("Index", "SAPTechnicalMasterAccount"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.InstallationType)
+        @Html.EditorFor(x => x.PremiseNumber)
+    </div>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+}

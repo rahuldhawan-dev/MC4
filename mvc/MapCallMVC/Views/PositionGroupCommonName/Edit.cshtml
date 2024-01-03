@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Models.EditPositionGroupCommonName
+
+@using (Form.BeginForm("Update", "PositionGroupCommonName", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "PremiseType", new { Model.Id })
+        </text>)
+    </div>
+}

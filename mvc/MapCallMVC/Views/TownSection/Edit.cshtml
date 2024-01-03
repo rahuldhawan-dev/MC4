@@ -1,0 +1,12 @@
+﻿@model EditTownSection
+
+@using (Form.BeginForm("Update", "TownSection", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields")
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "TownSection", new{Model.Id})
+                           </text>)
+    </div>
+}

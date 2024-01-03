@@ -1,0 +1,15 @@
+﻿@model SearchMaterial
+
+@using (Form.BeginForm("Index", "Material")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.DoNotOrder)
+        @Html.EditorFor(x => x.PartNumber)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

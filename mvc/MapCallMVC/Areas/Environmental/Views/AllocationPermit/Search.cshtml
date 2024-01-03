@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchAllocationPermit
+
+@using (Form.BeginForm("Index", "AllocationPermit"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.EnvironmentalPermit)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

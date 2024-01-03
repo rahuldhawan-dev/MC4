@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMapImage
+
+@using (Form.BeginForm("Index", "MapImage"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.County, new { Container = Model })
+        @Html.EditorFor(x => x.Town, new { Container = Model })
+        @Html.EditorFor(x => x.MapPage)
+        @Html.EditorFor(x => x.North)
+        @Html.EditorFor(x => x.South)
+        @Html.EditorFor(x => x.East)
+        @Html.EditorFor(x => x.West)
+        @Html.EditorFor(x => x.DateRevised)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

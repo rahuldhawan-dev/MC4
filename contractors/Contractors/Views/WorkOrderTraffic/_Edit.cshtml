@@ -1,0 +1,19 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderTrafficDetails
+@*Disable the number of employees if traffic required = false.
+Display yes/no instead of checkbox.*@
+@using (var f = Form.BeginAjaxForm("Update", "WorkOrderTraffic", new { id = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+
+	if (Request.IsAjaxRequest())
+	{
+        <div id="trafficEdit" class="field-column fc200">
+            @Html.DisplayFor(m => m.TrafficControlRequired)
+            @Html.EditorFor(m => m.NumberOfOfficersRequired)
+            @Html.DisplayFor(m => m.Notes)
+            @Html.EditorFor(m => m.AppendedNotes)
+        </div>
+        @Control.SubmitButton("Save Traffic Requirements").WithName("SaveTrafficRequirements")
+	}
+}

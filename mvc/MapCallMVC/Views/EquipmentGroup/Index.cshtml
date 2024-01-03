@@ -1,0 +1,8 @@
+﻿@model SearchEquipmentGroup
+
+@(Html.TableFor(x => Model)
+      .SortableColumnFor(x => x.Id )
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.Code)
+    .SortableColumnFor(x => x.Definition)
+    )

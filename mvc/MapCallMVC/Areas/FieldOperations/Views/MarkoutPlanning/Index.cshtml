@@ -1,0 +1,33 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrder
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MarkoutPlanning/Index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor(x => Model, new { id = "markoutPlanningTable" })
+      .WithCaption("Records found: " + Model.Count)
+      .SortableTemplateColumnFor("Order #", "Id", x => @<text>
+                                                           @Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+                                                           </text>)
+      .SortableColumnFor(x => x.CreatedBy.FullName,"CreatedBy.FullName")
+      .SortableColumnFor(x => x.SAPNotificationNumber)
+      .SortableColumnFor(x => x.SAPWorkOrderNumber)
+      .SortableColumnFor(x => x.DateReceived)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street, "Street.FullStName")
+      .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+      .SortableColumnFor(x => x.Town.ShortName, "Town", "Town.ShortName")
+      .SortableColumnFor(x => x.TownSection)
+      .SortableColumnFor(x => x.AssetType)
+      .ColumnFor(x => x.AssetId, "Asset Id")
+      .SortableTemplateColumnFor("Description of Job", "WorkDescription.Description", 
+          x => @<text><div title="@x.Notes">@x.WorkDescription.Description</div></text>)
+      .SortableColumnFor(x => x.Priority)
+      .ColumnFor(x => x.DateMarkoutNeeded)
+      .SortableColumnFor(x => x.MarkoutToBeCalled, "MarkoutToBeCalled")
+      .SortableColumnFor(x => x.MarkoutTypeNeeded, "Markout Type", "MarkoutTypeNeeded")
+      .ColumnFor(x => x.RequiredMarkoutNote, "Markout Note")
+      .TemplateColumnFor("Edit", x => @<text>@Ajax.ActionLink("Edit Markout Plan", "Edit", "MarkoutPlanning",
+                                                 new { id = x.Id, area = "FieldOperations" },
+                                                 new AjaxOptions { HttpMethod = "GET" },
+                                                 new { Class = "link-button" } )
+                                       </text>)
+      .WithPaginatedFooter())

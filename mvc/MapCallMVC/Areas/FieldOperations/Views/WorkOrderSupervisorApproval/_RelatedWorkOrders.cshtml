@@ -1,0 +1,16 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.RelatedWorkOrders)
+      .TemplateColumnFor("", x => Html.ActionLink("Select", "Edit", "GeneralWorkOrder", new { id = x.Id }, new { target = "_blank" }))
+      .ColumnFor(x => x.Id, "Order Number")
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.Town)
+      .ColumnFor(x => x.StreetNumber)
+      .ColumnFor(x => x.Street)
+      .ColumnFor(x => x.NearestCrossStreet)
+      .ColumnFor(x => x.WorkDescription, "Description of Job (Hover for Notes)").WithCellBuilder((x, tag) => {
+	      tag.Attributes.Add("title", x.Notes);
+      })
+      .ColumnFor(x => x.Priority)
+      .ColumnFor(x => x.DateReceived)
+      .ColumnFor(x => x.DateCompleted))

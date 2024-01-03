@@ -1,0 +1,22 @@
+﻿@model OneCallMarkoutResponse
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OneCallMarkoutTicket.OperatingCenter)
+    @Html.RenderDisplayTemplate("One Call Markout Ticket", @<text>
+                                                                @Html.ActionLink(Model.OneCallMarkoutTicket.ToString(), "Show", "OneCallMarkoutTicket", new { area = "FieldOperations", id = Model.OneCallMarkoutTicket.Id}, null)
+                                                            </text>)
+    @Html.DisplayFor(x => x.CompletedBy)
+    @Html.DisplayFor(x => x.CompletedAt)
+    @Html.DisplayFor(x => x.OneCallMarkoutResponseStatus)
+    @Html.DisplayFor(x => x.Comments)
+    @Html.DisplayFor(x => x.OneCallMarkoutResponseTechnique)
+    @Html.DisplayFor(x => x.ReqNotified)
+    @Html.DisplayFor(x => x.Paint)
+    @Html.DisplayFor(x => x.Flag)
+    @Html.DisplayFor(x => x.Stake)
+    @Html.DisplayFor(x => x.Over500Feet)
+    @Html.DisplayFor(x => x.CrewMarkoutIsNeeded)
+    @Html.DisplayFor(x => x.NumberOfCsmo)
+    @Html.DisplayFor(x => x.NumberOfCsmoUnableToLocate)
+    @Html.DisplayFor(x => x.TotalTimeSpentForCsmo)
+</div>

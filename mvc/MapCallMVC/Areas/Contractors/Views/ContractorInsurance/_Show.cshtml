@@ -1,0 +1,11 @@
+﻿@model ContractorInsurance
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.Contractor), Html.ActionLink(Model.Contractor.ToString(), "Show", "Contractor", new { Model.Contractor.Id, area = "Contractors" }, null))
+    @Html.DisplayFor(x => x.InsuranceProvider)
+    @Html.DisplayFor(x => x.PolicyNumber)
+    @Html.DisplayFor(x => x.ContractorInsuranceMinimumRequirement)
+    @Html.DisplayFor(x => x.MeetsCurrentContractualLimits)
+    @Html.DisplayFor(x => x.EffectiveDate)
+    @Html.DisplayFor(x => x.TerminationDate)
+</div>

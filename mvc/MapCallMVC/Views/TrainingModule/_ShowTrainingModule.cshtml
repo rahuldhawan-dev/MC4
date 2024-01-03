@@ -1,0 +1,33 @@
+﻿@model TrainingModule
+
+<div class="field-column fc300">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.TrainingModuleCategory)
+    @Html.DisplayFor(x => x.Title)
+    @Html.DisplayFor(x => x.AmericanWaterCourseNumber)
+    @Html.DisplayFor(x => x.LEARNItemType)
+    @Html.DisplayFor(x => x.CourseApprovalNumber)
+    @Html.DisplayFor(x => x.TCHCertified)
+    @Html.DisplayFor(x => x.TCHCreditValue) 
+    @Html.DisplayFor(x => x.TotalHours)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.TrainingObjectives)
+    @Html.DisplayFor(x => x.PracticalTestStandards)
+    @Html.DisplayFor(x => x.TrainingModuleRecurrantType)
+    @if (Model.TrainingRequirement != null)
+    {
+        @Html.RenderDisplayTemplate("Training Requirement", Html.ActionLink(Model.TrainingRequirement.ToString(), "Show", "TrainingRequirement", new { Model.TrainingRequirement.Id }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.TrainingRequirement)
+    }
+  
+    @Html.DisplayFor(x => x.SafetyRelated)
+
+    @Html.DisplayFor(x => x.Production)
+    @Html.DisplayFor(x => x.OperatingCenter.OperatingCenterCode) 
+    @Html.DisplayFor(x => x.Facility.FacilityId)   
+    @Html.DisplayFor(x => x.EquipmentID)
+    @Html.DisplayFor(x => x.IsActive)
+</div>

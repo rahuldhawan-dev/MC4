@@ -1,0 +1,19 @@
+﻿@using MMSINC.Results
+@model Service
+
+@Html.ActionLink("New Tap Image", "New", "TapImage", new { id = Model.Id }, new { area = "FieldOperations", Class = "link-button" })
+@Html.ActionLink(
+    "Print Current Tap Image",
+    "Show",
+    "TapOrder",
+    new { Model.Id, ext = ResponseFormatter.KnownExtensions.PDF },
+    new { Class = "link-button" })
+
+@(Html.TableFor(x => Model.TapImages, new { id = "tapImagesTable" })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TapImage", new { id = x.Id }, new { area = "FieldOperations" }))
+        .ColumnFor(x => x.OperatingCenter)
+        .ColumnFor(x => x.ServiceNumber)
+        .ColumnFor(x => x.PremiseNumber)
+        .ColumnFor(x => x.DateCompleted)
+        .ColumnFor(x => x.CreatedAt)
+)

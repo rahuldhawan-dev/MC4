@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WorkOrdersImport" Class="WorkOrdersImportDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=WorkOrdersImport;Integrated Security=True" SettingsObjectName="WorkOrderImportHelper.Properties.Settings" SettingsPropertyName="WorkOrdersImportConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblEmployeeWorkOrder" Member="tblEmployeeWorkOrders">
+    <Type Name="tblEmployeeWorkOrder">
+      <Column Name="[Job Number]" Member="Job_Number" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[Order Number]" Member="Order_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Employee Assigned to Job]" Member="Employee_Assigned_to_Job" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Date Assigned]" Member="Date_Assigned" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Truck Number]" Member="Truck_Number" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Total # of Employees on Job]" Member="Total___of_Employees_on_Job" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Total Time to Complete]" Member="Total_Time_to_Complete" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Job Notes]" Member="Job_Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="[Approved By]" Member="Approved_By" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="[Time Arrived On Job]" Member="Time_Arrived_On_Job" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Total Time to Completed]" Member="Total_Time_to_Completed" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tblWorkInputTable_tblEmployeeWorkOrder" Member="tblWorkInputTable" ThisKey="Order_Number" OtherKey="Order_Number" Type="tblWorkInputTable" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblWorkInputTable" Member="tblWorkInputTables">
+    <Type Name="tblWorkInputTable">
+      <Column Name="[Order Number]" Member="Order_Number" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CreationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Date Received]" Member="Date_Received" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Date Started]" Member="Date_Started" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Customer Name]" Member="Customer_Name" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="[Street Number]" Member="Street_Number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Street Name]" Member="Street_Name" Type="System.String" DbType="NVarChar(35)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Nearest Cross Street]" Member="Nearest_Cross_Street" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Town" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="[Town Section]" Member="Town_Section" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="[Phone Number]" Member="Phone_Number" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Customer Account Number]" Member="Customer_Account_Number" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Requested By]" Member="Requested_By" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="[Service Number]" Member="Service_Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[Account Charged]" Member="Account_Charged" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="[Description of Job]" Member="Description_of_Job" Type="System.String" DbType="NVarChar(45)" CanBeNull="true" />
+      <Column Name="[Markout Required Y or N]" Member="Markout_Required_Y_or_N" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="[Job Priority]" Member="Job_Priority" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="[Date Completed]" Member="Date_Completed" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[print record]" Member="print_record" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="[Date Report Sent]" Member="Date_Report_Sent" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Supervisor Approval]" Member="Supervisor_Approval" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[Municipality Code]" Member="Municipality_Code" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Backhoe Operator]" Member="Backhoe_Operator" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="[Date of Excavation]" Member="Date_of_Excavation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Date Completed On PC]" Member="Date_Completed_On_PC" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[Premise Number]" Member="Premise_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Palm Work Order Number]" Member="Palm_Work_Order_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InvoiceNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CreatorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StreetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NearestCrossStreetID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TownID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TownSectionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PriorityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupervisorApproval" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BackhoeOperator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RequestingEmployeeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="WorkDescriptionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OfficialInfo" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="RequesterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PurposeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ValveID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HydrantID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainLineID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AssetTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MarkoutRequirementID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tblWorkInputTable_tblEmployeeWorkOrder" Member="tblEmployeeWorkOrders" ThisKey="Order_Number" OtherKey="Order_Number" Type="tblEmployeeWorkOrder" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BarrierWorkOrders" Member="BarrierWorkOrders">
+    <Type Name="BarrierWorkOrder">
+      <Column Name="[Operating Center]" Member="Operating_Center" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Town" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Town Section]" Member="Town_Section" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Premise_ID" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="StreetID" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[House Number]" Member="House_Number" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Street Name]" Member="Street_Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Full Street Address ]" Member="Full_Street_Address_" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Street ID /Cross Street]" Member="Street_ID__Cross_Street" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Nearest Cross Street (From the Streets Tab)]" Member="Nearest_Cross_Street__From_the_Streets_Tab_" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Asset Type]" Member="Asset_Type" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Requested by]" Member="Requested_by" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Employee Name]" Member="Employee_Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="X" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Y" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Description of Work ]" Member="Description_of_Work_" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Orcom Service Order Number]" Member="Orcom_Service_Order_Number" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Purpose" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Markout ?]" Member="Markout__" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

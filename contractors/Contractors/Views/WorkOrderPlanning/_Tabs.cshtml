@@ -1,0 +1,17 @@
+﻿@using Contractors.ClassExtensions
+@using Contractors.Models.ViewModels
+@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.Entities.WorkOrder
+
+@(Html.Tabs()
+    .WithTab("Details", "detailsTab", "~/Views/WorkOrderInitial/_Show.cshtml")
+    .WithAjaxTab("Map", "mapTab", "~/Views/WorkOrderMap/_Show.cshtml")
+    .WithTab("Markouts", "markoutsTab", "~/Views/Markout/_Index.cshtml", isVisible: Model.MarkoutRequired, tabHtmlAttributes: new { id = "markoutsTabLink" })
+    .WithAjaxTab("Traffic Control/Notes", "trafficTab", "~/Views/WorkOrderTraffic/_Show.cshtml", Model)
+    .WithTab("Main Break", "mainBreaksTab", "~/Views/MainBreak/_Index.cshtml", isVisible: Model.IsMainBreak())
+    .WithAjaxTab("Street Opening Permit", "streetPermitTab", "~/Views/StreetOpeningPermit/_Index.cshtml", isVisible: Model.StreetOpeningPermitRequired, tabHtmlAttributes: new {id = "streetPermitTabLink"})
+    .WithAjaxTab("Crew Assignments", "crewAssignmentsTab", @<text>@Html.Action("IndexTabs", "CrewAssignment", new { workOrderId = Model.Id })</text>)
+    .WithTab("Service", "serviceTab", "~/Views/Service/_ShowServiceTab.cshtml", Model.Service, isVisible: Model.Service != null)
+    .WithDocuments()
+    .WithTab("Tap Images", "tapImagesTab", "~/Views/TapImage/_Index.cshtml", ViewModelFactory.Build<WorkOrderWithTapImages, WorkOrder>(Model), isVisible: (Model.AssetType.Id == (int)AssetTypeEnum.Service))
+    .WithTab("Valve Images", "valveImagesTab", "~/Views/ValveImage/_Index.cshtml", isVisible: (Model.AssetType.Id == (int)AssetTypeEnum.Valve)))

@@ -1,0 +1,8 @@
+﻿@model IEnumerable<MapCall.Common.Model.Entities.Users.User>
+           
+@(Html.TableFor(new{ @id = "results-table"})
+    .TemplateColumnFor("User Name", x => Html.ActionLink(x.UserName, "Show", "User", new { area = string.Empty, id = x.Id }, null))
+    .ColumnFor(x => x.FullName)
+    .ColumnFor(x => x.DefaultOperatingCenter)
+    .ColumnFor(x => x.Employee.EmployeeId)
+    .ColumnFor(x => x.HasAccess))

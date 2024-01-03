@@ -1,0 +1,14 @@
+﻿@model AddOperatingCenterWaterSystem
+
+@using (var form = Form.BeginRouteForm("OperatingCenter", "WaterSystem", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.WaterSystem, new { html = new { autofocus = "autofocus" } })
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Water System")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

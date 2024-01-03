@@ -1,0 +1,20 @@
+﻿@model SearchTrainingModule
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrainingModule", new { x.Id, area="" }, null))
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.TrainingModuleCategory)
+    .ColumnFor(x => x.TrainingRequirement)
+    .ColumnFor(x => x.TrainingRequirement.Id, "TrainingRequirementID")
+    .ColumnFor(x => x.Title)
+    .ColumnFor(x => x.Id, "TrainingModuleID")
+    .ColumnFor(x => x.IsActiveInitialTrainingModule)
+    .ColumnFor(x => x.IsActiveRecurringTrainingModule)
+    .ColumnFor(x => x.IsActiveInitialAndRecurringTrainingModule)
+    .WithPaginatedFooter()
+)

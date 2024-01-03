@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateWorkOrderInvoice
+
+@using (Form.BeginForm("Create", "WorkOrderInvoice", "FieldOperations")) {
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.InvoiceDate)
+        @Html.EditorFor(x => x.ScheduleOfValueType)
+        @Html.EditorFor(x => x.WorkOrder)
+        @Html.EditorFor(x => x.IncludeMaterials)
+        @Html.EditorFor(x => x.InvoiceNotes)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "WorkOrderInvoice")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditMeterChangeOutContract
+
+@using (Form.BeginForm("Update", "MeterChangeOutContract", new { Model.Id }))
+{
+    <div class="field-column fc150">
+        @* Operating Center intentionally left out because all of the towns associated with the original import
+           would then be incorrect. *@
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "MeterChangeOutContract", new {Model.Id})
+                           </text>)
+    </div>
+}

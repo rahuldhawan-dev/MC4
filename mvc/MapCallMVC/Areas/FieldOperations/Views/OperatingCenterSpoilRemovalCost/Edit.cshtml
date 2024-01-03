@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditOperatingCenterSpoilRemovalCost
+
+@using (Form.BeginForm("Update", "OperatingCenterSpoilRemovalCost", "FieldOperations", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Cost)
+        @Html.ButtonGroup(@<text>
+                            @Control.SubmitButton("Save")
+                            @Html.LinkButton("Cancel", "Show", "OperatingCenterSpoilRemovalCost", new { area = "FieldOperations", Model.Id })
+                          </text>)
+    </div>
+}

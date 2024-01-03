@@ -1,0 +1,11 @@
+﻿@model string
+@* If you're trying to find where this template is used, look for [UIHint("FunctionalLocation")] *@
+@RenderEditorForTemplate(@<text>
+    <div id="wbsElementLookupLink">
+        @* ReSharper disable once Mvc.ActionNotResolved, Mvc.ControllerNotResolved, Mvc.AreaNotResolved *@
+        @Ajax.ActionLink("Click here to Lookup and Verify the Functional Location", "Find", "SAPFunctionalLocation", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#functionalLocationTable" })
+    </div>
+
+    @Control.TextBox("")
+    @Html.ValidationMessage("")
+</text>)

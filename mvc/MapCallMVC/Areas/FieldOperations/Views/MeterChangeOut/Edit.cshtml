@@ -1,0 +1,124 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditMeterChangeOut
+
+@Html.ScriptFor("~/Scripts/MeterChangeOut/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Control.Hidden().WithId("ValidateNewSerialNumberService").WithValue(Url.Action("ValidateNewSerialNumber", "MeterChangeOut", new { Model.Id }))
+
+@using (Form.BeginForm("Update", "MeterChangeOut", "FieldOperations", new {Model.Id}))
+{
+    <fieldset>
+        <legend>Information</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.Display, new { DisplayName = "Meter" })
+            @Html.DisplayFor(x => x.Display.Contract.Description)
+            @Html.DisplayFor(x => x.Display.Contract.OperatingCenter)
+            @Html.DisplayFor(x => x.Display.Contract.Contractor)
+            @Html.DisplayFor(x => x.Display.PremiseNumber)
+            @Html.DisplayFor(x => x.Display.AccountNumber)
+            @Html.DisplayFor(x => x.Display.CustomerName)
+            @Html.DisplayFor(x => x.Display.ServiceStreetNumber)
+            @Html.DisplayFor(x => x.Display.ServiceStreet)
+            @Html.DisplayFor(x => x.Display.ServiceCity)
+            @Html.DisplayFor(x => x.Display.ServiceZip)
+            @Html.DisplayFor(x => x.Display.RouteNumber)
+            @Html.DisplayFor(x => x.Display.MeterSize)
+            @Html.DisplayFor(x => x.Display.EquipmentID)
+            @Html.DisplayFor(x => x.Display.YearInstalled)
+            @Html.EditorFor(x => x.SAPOrderNumber)
+            @Html.DisplayFor(x => x.Display.NumberOfDials)
+            @Html.EditorFor(x => x.WorkScope)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Scheduling</legend>
+        <table style="width: 100%;" class="no-hover">
+            <tr>
+                <td style="width: 50%;vertical-align: top;">
+                    <div class="field-column fc100">
+                        @Html.EditorFor(x => x.ServicePhone)
+                        @Html.EditorFor(x => x.ServicePhoneExtension)
+                        @Html.EditorFor(x => x.ServicePhone2)
+                        @Html.EditorFor(x => x.ServicePhone2Extension)
+                        @Html.EditorFor(x => x.OwnerCustomerMeterLocation)
+                    </div>
+                    <div class="field-column fc100">
+                        @Html.EditorFor(x => x.DateScheduled)
+                        @Html.EditorFor(x => x.MeterScheduleTime)
+                        @Html.EditorFor(x => x.AssignedContractorMeterCrew)
+                        @Html.EditorFor(x => x.MeterChangeOutStatus)
+                        @Html.EditorFor(x => x.FieldNotes)
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <div class="field-column fc100">
+                        @Html.DisplayFor(x => x.Display.MeterReadComment2)
+                        @Html.DisplayFor(x => x.Display.MeterReadComment3)
+                        @Html.EditorFor(x => x.MeterReadComment4)
+                        @Html.DisplayFor(x => x.Display.MeterCommentsPremise)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Meter Change</legend>
+        <table style="width: 100%;" class="no-hover">
+            <tr>
+                <td style="width: 50%;vertical-align: top;">
+                    <div class="field-column fc200">
+                        @Html.DisplayFor(x => x.Display.ServiceStreetNumber)
+                        @Html.DisplayFor(x => x.Display.ServiceStreet)
+                        @Html.DisplayFor(x => x.Display.RemovedSerialNumber)
+                        @Html.EditorFor(x => x.DateStatusChanged)
+                        @Html.EditorFor(x => x.CalledInByContractorMeterCrew)
+                        @Html.EditorFor(x => x.OutRead)
+                        @Html.EditorFor(x => x.NewSerialNumber)
+                        @Html.EditorFor(x => x.NewRFNumber)
+                        @Html.EditorFor(x => x.StartRead)
+                        @Html.DisplayFor(x => x.Display.MeterReadCode1)
+                        @Html.DisplayFor(x => x.Display.MeterReadComment1)
+                        @Html.DisplayFor(x => x.Display.MeterReadCode2)
+                        @Html.DisplayFor(x => x.Display.MeterReadCode3)
+                        @Html.DisplayFor(x => x.Display.MeterReadCode4)
+                        @Html.EditorFor(x => x.IsNeptuneRFOnly)
+                        @Html.EditorFor(x => x.IsHotRodRFOnly)
+                        @Html.EditorFor(x => x.IsMuellerMeter)
+                        @Html.EditorFor(x => x.TurnedOffWater)
+                        @Html.EditorFor(x => x.MeterTurnedOnAfterHours)
+                        @Html.EditorFor(x => x.MovedMeterToPit)
+                        @Html.EditorFor(x => x.RanNewWire)
+                        @Html.EditorFor(x => x.InstalledJumperBar)
+                        @Html.EditorFor(x => x.ContractorDrilledLid)
+                        @Html.EditorFor(x => x.PartialExcavation)
+                        @Html.EditorFor(x => x.CutBolts)
+                        @Html.EditorFor(x => x.Canvassed)
+                        @Html.EditorFor(x => x.ClickAdvantexUpdated)
+                    </div>
+                </td>
+                <td style="vertical-align: top;">
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.MeterLocation)
+                        @Html.EditorFor(x => x.MeterSupplementalLocation)
+                        @Html.EditorFor(x => x.MeterDirection)
+                        @Html.EditorFor(x => x.RFLocation)
+                        @Html.EditorFor(x => x.RFSupplementalLocation)
+                        @Html.EditorFor(x => x.RFDirection)
+                        @Html.EditorFor(x => x.StartStatus)
+                        @Html.EditorFor(x => x.EndStatus)
+                        @Html.EditorFor(x => x.OperatedPointOfControlAtAnyValve)
+                        @Html.EditorFor(x => x.TypeOfPlumbing)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "MeterChangeOut", new {Model.Id})
+                           </text>)
+    </div>
+}

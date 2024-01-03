@@ -1,0 +1,19 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MaintenancePlanForecastResults
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Scheduled Assignments">
+        @Html.Partial("_ForecastAddAssignments", Model)
+    </div>
+    <div class="collapse-panel" data-title="Remove Scheduled Assignments">
+        @Html.Partial("_ForecastRemoveAssignments", Model)
+    </div>
+}
+
+<br />
+@Html.Partial("_ForecastResultsTable", Model)

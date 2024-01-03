@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddProductionWorkOrderMaterialUsedProductionWorkOrder
+
+@using (var form = Form.BeginRouteForm("ProductionWorkOrder", "ProductionWorkOrderMaterialUsed", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "productionWorkOrderMaterialsUsedForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.StockLocation)
+        @Html.EditorFor(x => x.Material)
+        @Html.EditorFor(x => x.NonStockDescription)
+        @Html.EditorFor(x => x.Quantity)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Material Used")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

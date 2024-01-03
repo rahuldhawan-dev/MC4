@@ -1,0 +1,22 @@
+﻿@model CreateEquipment
+
+@Html.ScriptFor("~/Scripts/Equipment/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Equipment/New.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Equipment/FieldVisibility.js", ScriptLoadType.LoadFromPartial)
+
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+@using (Form.BeginForm("Create", "Equipment", new { Model.Id }))
+{
+    @(Html.Tabs()
+          .WithTab("General", "_New")
+          .WithTab("Risk Characteristics", "_RiskCharacteristicsForm"))
+
+    @Control.HiddenFor(x => x.EquipmentTypesWithLockoutRequirements)
+
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

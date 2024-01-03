@@ -1,0 +1,64 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.Utilities
+@using OfficeOpenXml.FormulaParsing.Excel.Functions.Math
+@model MapCallMVC.Areas.Production.Models.ViewModels.SearchEmployeeAssignment
+
+@helper StartOrEndLink(string action, int id)
+{
+    using (Form.BeginForm(action, "EmployeeAssignment", "Production"))
+    {
+        @Control.SubmitButton(action).WithValue(id).WithName("Id")
+    }
+}
+
+@Html.ScriptFor("~/Scripts/Areas/Production/EmployeeAssignment/Index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor(_ => Model.Results, new{ id = "employeeAssignmentsTable" })
+.TemplateColumnFor("Production Work Order", x => @Html.ActionLink(x.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { x.ProductionWorkOrder.Id }, null))
+.ColumnFor(x => x.ProductionWorkOrder.Equipment.Facility)
+.ColumnFor(x => x.ProductionWorkOrder.Equipment.Description, "Equipment")
+.ColumnFor(x => x.ProductionWorkOrder.ProductionWorkDescription, "Work Description")
+.ColumnFor(x => x.ProductionWorkOrder.LocalTaskDescription, "Local Task Description")
+.ColumnFor(x => x.ProductionWorkOrder.OrderNotes)
+.ColumnFor(x => x.AssignedTo)
+.ColumnFor(x => x.AssignedBy)
+.TemplateColumnFor("Start", x =>
+@<text>
+@if (!x.DateStarted.HasValue && x.CanBeStarted && Html.CurrentUserCanEditWithOperatingCenter(x.ProductionWorkOrder))
+{
+	@StartOrEndLink("Start", x.Id)
+}
+else
+{
+    if (!x.DateStarted.HasValue && !x.CanBeStarted)
+    {
+        <div>@EmployeeAssignment.CANNOT_BE_STARTED</div>
+    }
+    else
+    {
+        @Html.ValueFor(_ => x.DateStarted, CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE)
+    }
+}
+</text>)
+.TemplateColumnFor("End", x =>
+@<text>
+@if (!x.DateEnded.HasValue && x.DateStarted.HasValue && Html.CurrentUserCanEditWithOperatingCenter(x.ProductionWorkOrder) &&
+     (x.ProductionWorkOrder.OrderType.Id == OrderType.Indices.ROUTINE_13 || !x.RequiredTankInspectionNotCompleted))
+{
+	@(Control.Button("End")
+	         .WithName("EmployeeAssignmentEndButton")
+		     // NOTE: It has to be ToString or else the formatting is wrong.
+	         .With("data-datestarted", x.DateStarted.ToString())
+	         .With("data-assignmentid", x.Id)
+	         .With("data-productionworkorder", x.ProductionWorkOrder.Id))
+}
+else
+{
+    @Html.ValueFor(_ => x.DateEnded, CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE)
+}
+</text>)
+.ColumnFor(x => x.AssignedFor)
+)
+@* This partial is being used as a template, so it's safe to pass null. *@
+@Html.Partial("_EndEmployeeAssignment", ViewModelFactory.Build<EndEmployeeAssignment, EmployeeAssignment>(null))
+

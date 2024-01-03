@@ -1,0 +1,51 @@
+﻿@model TrainingRecord
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var addModel = ViewModelFactory.Build<AddTrainingSession, TrainingRecord>(Model);
+    if (Model.ScheduledDate.HasValue)
+    {
+        addModel.StartDateTime = Model.ScheduledDate.Value.AddHours(8);
+    }
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Training Session">
+        @Html.Partial("_AddTrainingSession", addModel)
+    </div>
+}
+
+<div>
+    <span>Training Module - Total Required Hours: </span>
+    <span>
+        @if (Model.TrainingModule != null && Model.TrainingModule.TotalHours.HasValue)
+        { @Model.TrainingModule.TotalHours}
+    </span>
+</div>
+
+@{
+    var table = Html.TableFor(x => x.TrainingSessions, new { id = "trainingSessions", style = "width: 100%;" });
+
+    table = table.ColumnFor(x => x.Id)
+        .ColumnFor(x => x.StartDateTime)
+        .ColumnFor(x => x.EndDateTime)
+        .ColumnFor(x => x.Duration)
+        .TemplateColumnFor(m => @<div>
+            @if (userCanEdit)
+            {
+                @Control.SubmitButton("Remove").WithName("trainingSessionId").WithValue(m.Id)
+                ;
+            }
+        </div>);
+              
+        if (Html.CurrentUserCanEdit())
+        {
+            table = table.TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "TrainingSession", new { id = x.Id, area = "" }, new { Class = "link-button" }));
+        }
+}
+
+@using (var form = Form.BeginRouteForm("TrainingRecord", "TrainingSession", new { Model.Id }, ManyToManyRouteAction.Remove))
+{
+    form.HtmlAttributes.Add("id", "deleteTrainingSession");
+    @table
+}

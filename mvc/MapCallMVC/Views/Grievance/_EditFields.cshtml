@@ -1,0 +1,16 @@
+﻿@model EditGrievance
+
+@Html.EditorFor(m => m.OperatingCenter)
+@Html.EditorFor(m => m.LaborRelationsBusinessPartner)
+@Html.EditorFor(m => m.Contract, new {Container = @Model})
+@Html.EditorFor(m => m.GrievanceCategory)
+@Html.EditorFor(m => m.Categorization)
+@Html.EditorFor(m => m.Status)
+@Html.EditorFor(m => m.Number)
+@Html.EditorFor(m => m.DateReceived)
+@Html.EditorFor(m => m.EstimatedImpactValue)
+@Html.EditorFor(m => m.IncidentDate)
+@Html.EditorFor(m => m.Description)
+@Html.EditorFor(m => m.DescriptionOfOutcome)
+@Html.EditorFor(x => x.UnionDueDate)
+@Html.EditorFor(x => x.ManagementDueDate)

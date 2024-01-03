@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.TankInspectionQuestionViewModel
+
+<fieldset>
+    <div class="hazard-item">
+        <div class="field-column fc250">
+            @Html.EditorFor(x => x.TankInspectionAnswer, new { DisplayName = Model.QuestionTypeDescription })
+            @Control.HiddenFor(x => x.TankInspectionQuestionType)
+        </div>
+        <div class="field-column fc250">
+            @Html.EditorFor(x => x.RepairsNeeded)
+            @Html.EditorFor(x => x.ObservationAndComments)
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.OneCallMarkoutResponseViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/OneCallMarkoutResponse/FormFields.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.CompletedAt)
+@Html.EditorFor(x => x.OneCallMarkoutResponseStatus)
+@Html.EditorFor(x => x.Comments)
+@Html.EditorFor(x => x.OneCallMarkoutResponseTechnique)
+@Html.EditorFor(x => x.ReqNotified)
+@Html.EditorFor(x => x.Paint)
+@Html.EditorFor(x => x.Flag)
+@Html.EditorFor(x => x.Stake)
+@Html.EditorFor(x => x.Over500Feet)
+@Html.EditorFor(x => x.CrewMarkoutIsNeeded)
+@Html.EditorFor(x => x.NumberOfCsmo)
+@Html.EditorFor(x => x.NumberOfCsmoUnableToLocate)
+@Html.EditorFor(x => x.TotalTimeSpentForCsmo)

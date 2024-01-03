@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchSystemDeliveryFacilityEntry
+@Html.ScriptFor("~/Scripts/Areas/Production/SystemDeliveryEntry/FieldVisibility.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Index", "SystemDeliveryFacilityEntry", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntryId)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.SystemDeliveryType)
+        @Html.EditorFor(x => x.PublicWaterSupplies)
+        @Html.EditorFor(x => x.WasteWaterSystems)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.SystemDeliveryEntryType)
+        @Html.EditorFor(x => x.EnteredBy)
+        @Html.EditorFor(x => x.IsHyperionFileCreated)
+        @Html.EditorFor(x => x.EntryDate)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

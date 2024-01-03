@@ -1,0 +1,14 @@
+﻿@model SearchEquipmentPurpose
+
+@using (Form.BeginForm("Index", "EquipmentPurpose"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Abbreviation)
+        @Html.EditorFor(x => x.HasNoEquipmentType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

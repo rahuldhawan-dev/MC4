@@ -1,0 +1,12 @@
+﻿@model SearchMedicalCertificate
+           
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Employee.OperatingCenter)
+    .SortableColumnFor(x => x.Employee)
+    .SortableColumnFor(x => x.CertificationDate)
+    .SortableColumnFor(x => x.ExpirationDate)
+    .SortableColumnFor(x => x.Expired)
+    .WithPaginatedFooter()
+)

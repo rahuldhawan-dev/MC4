@@ -1,0 +1,44 @@
+﻿@using MapCallMVC.Controllers
+@model SearchEmployee
+
+@using (Form.BeginForm("Index", "Employee")) {
+    <div class="field-column fc200 searchFields">
+
+        @{
+            var curUser = AuthenticationService.CurrentUser;
+            var module = MapCall.Common.Model.Entities.RoleModules.HumanResourcesAccountabilityAction;
+            var hasAccountabilityRole = MapCall.Common.Helpers.ClassExtensions.HtmlHelperExtensions.CurrentUserCanDo(this.Html,
+                curUser, module);
+        }
+       
+        @Html.EditorFor(x => x.EmployeeId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PersonnelArea)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.LastName)
+        @Html.EditorFor(x => x.Category)
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.CurrentPosition)
+        @Html.EditorFor(x => x.DateHired)
+        @Html.EditorFor(x => x.ReportsTo)
+        @Html.EditorFor(x => x.HumanResourcesManager)
+        @Html.EditorFor(x => x.EssentialPosition)
+        @Html.EditorFor(x => x.EmergencyResponsePriority)
+        @Html.EditorFor(x => x.CommercialDriversLicenseProgramStatus)
+        @Html.EditorFor(x => x.IsCDLCompliant)
+        @Html.EditorFor(x => x.HasOneDayDoctorsNoteRestriction)
+
+        @if (hasAccountabilityRole)
+        {
+            @Html.EditorFor(x => x.AccountabilityActionTakenType)
+            @Html.EditorFor(x => x.ModifiedAccountabilityActionTakenType)
+            @Html.EditorFor(x => x.EmployeeAccountabilityActions, new { DisplayName = "Accountability Action Records Attached" })
+        }
+        
+        @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+             </text>)
+    </div>
+}

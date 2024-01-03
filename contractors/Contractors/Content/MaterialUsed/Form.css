@@ -1,0 +1,10 @@
+﻿#DoSearch
+{
+    position:relative;
+    margin-left:3px;
+    height: inherit !important;
+    min-height: 24px;
+}
+
+table.search, table.search td { border: none 0px !important;padding: 0px; border-collapse:collapse;border-spacing: 0px; }
+table.search td { vertical-align:top; }

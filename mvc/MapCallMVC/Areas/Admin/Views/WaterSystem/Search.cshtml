@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Admin.Models.SearchWaterSystem
+
+@using (Form.BeginForm("Index", "WaterSystem"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.LongDescription)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

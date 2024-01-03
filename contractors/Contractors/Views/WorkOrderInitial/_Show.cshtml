@@ -1,0 +1,210 @@
+﻿@using WorkOrderRequester = MapCall.Common.Model.Entities.WorkOrderRequester
+@model WorkOrder
+@{
+    var displayOriginalOrder = (Model.OriginalOrderNumber == null) ? "none" : "run-in" ;
+    var displayColumnsForOrderNumber = (Model.OriginalOrderNumber == null) ? 3 : 1;
+    var displayMainBreak = (Model.WorkDescription.IsMainReplaceOrRepair) ? "" : "none";
+    var displayServiceLineInfo = WorkDescription.SERVICE_LINE_RENEWALS.Contains(Model.WorkDescription.Id)
+                                         && Model.PreviousServiceLineMaterial != null;
+}
+<table class="grid WorkOrderDisplay">
+    <tr>
+        <td>Order Number:</td>
+        <td colspan='@displayColumnsForOrderNumber'>
+            @Html.DisplayTextFor(m => m.Id)
+        </td>
+        <td style='display: @displayOriginalOrder'>
+            Original Order Number:
+        </td>
+        <td style='display: @displayOriginalOrder'>
+            @Html.DisplayTextFor(m => m.OriginalOrderNumber)
+            @(Model.OriginalOrderNumber == null)
+        </td>
+    </tr>
+
+    <tr>
+        <td>Town:</td>
+        <td>@Html.DisplayTextFor(m => m.Town)</td>
+        <td>Town Section:</td>
+        <td>@Html.DisplayTextFor(m => m.TownSection)</td>
+    </tr>
+    <tr>
+        <td>Street Number:</td>
+        <td>@Html.DisplayTextFor(m => m.StreetNumber)</td>
+        <td>Street:</td>
+        <td>@Html.DisplayTextFor(m => m.Street)</td>
+    </tr>
+
+    <tr>
+        <td>
+            <div>Asset Type:</div>
+        </td>
+        <td>@Html.DisplayTextFor(m => m.AssetType)</td>
+        <td>
+            <div id="divAssetLabel">Asset #</div>
+            <div>
+                Data Collection:
+                <a href="@Model.ArcCollectorLink" target="_blank">
+                    <img src="~/Content/images/collector.png" alt style="height:20px;width:20px" />
+                </a>
+            </div>
+        </td>
+        <td>
+            @Html.DisplayTextFor(m => m.AssetId)
+        </td>
+    </tr>
+    <tr>
+        <td>Requested By:</td>
+        <td>
+            @Model.RequestedBy.Description
+        </td>
+        <td>
+            @switch (Model.RequestedBy.Id)
+            {
+                case WorkOrderRequester.Indices.ACOUSTIC_MONITORING:
+                    <text>Acoustic Monitoring Type:</text>
+                    break;
+                case WorkOrderRequester.Indices.EMPLOYEE:
+                    <text>Requesting Employee:</text>
+                    break;
+            }
+        </td>
+        <td>
+            @switch (Model.RequestedBy.Id)
+            {
+                case WorkOrderRequester.Indices.ACOUSTIC_MONITORING:
+                    <text>@Model.AcousticMonitoringType</text>
+                    break;
+                case WorkOrderRequester.Indices.CUSTOMER:
+                    <text>@Model.CustomerName</text>
+                    break;
+                case WorkOrderRequester.Indices.EMPLOYEE:
+                    <text>@Model.RequestingEmployee.FullName</text>
+                    break;
+            }
+        </td>
+    </tr>
+    <tr class="trCustomerInfo" style="">
+        <td>Phone Number:</td>
+        <td>
+            @if (Model.RequestedBy.Id == WorkOrderRequester.Indices.CUSTOMER)
+            {
+                @Model.PhoneNumber
+            }
+        </td>
+        <td>Secondary Number:</td>
+        <td>
+            @if (Model.RequestedBy.Id == WorkOrderRequester.Indices.CUSTOMER)
+            {
+                @Model.SecondaryPhoneNumber
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Purpose:</td>
+        <td>@Html.DisplayTextFor(m => m.Purpose)</td>
+        <td>Job Priority:</td>
+        <td>@Html.DisplayTextFor(m => m.Priority)</td>
+    </tr>
+    <tr>
+        <td>Description of Work:</td>
+        <td colspan="3">@Html.DisplayTextFor(m => m.WorkDescription)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.AccountCharged):</td>
+        <td colspan="3" id="tdAccountCharged">@Html.DisplayTextFor(m => m.AccountCharged)</td>
+    </tr>
+    <tr class="trMainBreakInfo" style="display: @displayMainBreak">
+        <td>Estimated Customer Impact</td>
+        <td>@Html.DisplayTextFor(m => m.EstimatedCustomerImpact)</td>
+        <td>Anticipated Repair Time</td>
+        <td>@Html.DisplayTextFor(m => m.AnticipatedRepairTime)</td>
+    </tr>
+    <tr class="trMainBreakInfo" style="display: @displayMainBreak">
+        <td>Alert ID</td>
+        <td>@Html.DisplayTextFor(m => m.AlertID)</td>
+        <td>Significant Traffic Impact</td>
+        <td>@Html.DisplayTextFor(m => m.SignificantTrafficImpact)</td>
+    </tr>
+    <tr>
+        <td>Confined Space Required:</td>
+        <td>@Html.DisplayTextFor(m => m.IsConfinedSpaceFormRequired)</td>
+        <td>Markout Requirement:</td>
+        <td>@Html.DisplayTextFor(m => m.MarkoutRequirement)</td>
+    </tr>
+    <tr id="trSafetyRequirements">
+        <td>Traffic Control Required?</td>
+        <td>@Html.DisplayTextFor(m => m.TrafficControlRequired)</td>
+        <td>Street Opening Permit Required?</td>
+        <td>@Html.DisplayTextFor(m => m.StreetOpeningPermitRequired)</td>
+    </tr>
+    <tr>
+        <td>Notes:</td>
+        <td colspan="3">
+            <pre class="scrollable">@Html.DisplayTextFor(m => m.Notes)</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>Created By:</td>
+        <td>@* Contractors don't get to see this *@</td>
+        <td>Date Received:</td>
+        <td>@Html.DisplayTextFor(m => m.DateReceived)</td>
+    </tr>
+    <tr>
+        <td>Completed By:</td>
+        <td>@* Contractors don't get to see this *@</td>
+        <td>Date Completed:</td>
+        <td>@Html.DisplayTextFor(m => m.DateCompleted)</td>
+    </tr>
+    @if (displayServiceLineInfo || WorkDescription.SERVICE_LINE_RETIRE.Contains(Model.WorkDescription.Id))
+    {
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend>Service Line Renewal Info</legend>
+                    <div class="field-column fc200">
+                        @if (displayServiceLineInfo)
+                        {
+                            @Html.DisplayFor(x => x.PreviousServiceLineMaterial)
+                            @Html.DisplayFor(x => x.PreviousServiceLineSize)
+                        }
+                        @Html.DisplayFor(x => x.CompanyServiceLineMaterial)
+                        @Html.DisplayFor(x => x.CompanyServiceLineSize)
+                        @if (displayServiceLineInfo)
+                        {
+                            @Html.DisplayFor(x => x.CustomerServiceLineMaterial)
+                            @Html.DisplayFor(x => x.CustomerServiceLineSize)
+                            @Html.DisplayFor(x => x.DoorNoticeLeftDate)
+                            @Html.DisplayFor(x => x.FlushingNoticeType)
+                        }
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+    }
+
+    @if (Model.WorkDescription.HasPitcherFilterRequirement)
+    {
+        <tr>
+            <td colspan="4">
+                <fieldset>
+                    <legend>Compliance Data</legend>
+                    <div class="field-column fc300">
+                        @Html.DisplayFor(x => x.InitialServiceLineFlushTime)
+                        @Html.DisplayFor(x => x.ContractorName)
+                        @Html.DisplayFor(x => x.InitialFlushTimeEnteredAt)
+
+                        @Html.DisplayFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+
+                        @Html.DisplayFor(x => x.DatePitcherFilterDeliveredToCustomer)
+                        @Html.DisplayFor(x => x.PitcherFilterCustomerDeliveryMethod)
+
+                        @Html.DisplayFor(x => x.PitcherFilterCustomerDeliveryOtherMethod)
+
+                        @Html.DisplayFor(x => x.DateCustomerProvidedAWStateLeadInformation)
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+    }
+</table>

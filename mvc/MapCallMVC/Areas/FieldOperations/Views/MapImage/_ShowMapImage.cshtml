@@ -1,0 +1,54 @@
+﻿@using MMSINC.Results
+@model MapImage
+
+@{
+    var north = (MapImage)ViewData["North"];
+    var south = (MapImage)ViewData["South"];
+    var east = (MapImage)ViewData["East"];
+    var west = (MapImage)ViewData["West"];
+}
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("View PDF", Html.ActionLink(Model.FileName, "Show", new { Controller = "MapImage", ext = ResponseFormatter.KnownExtensions.PDF, Model.Id }, new { target = "_blank" }))
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.MapPage)
+    @Html.DisplayFor(x => x.Gradient)
+    @if (north != null)
+    {
+        @Html.RenderDisplayTemplate("North", Html.ActionLink(Model.North, "Show", new { Controller = "MapImage", north.Id }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.North)
+    }
+
+    @if (south != null)
+    {
+        @Html.RenderDisplayTemplate("South", Html.ActionLink(Model.South, "Show", new { Controller = "MapImage", south.Id }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.South)
+    }
+
+    @if (east != null)
+    {
+        @Html.RenderDisplayTemplate("East", Html.ActionLink(Model.East, "Show", new { Controller = "MapImage", east.Id }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.East)
+    }
+
+    @if (west != null)
+    {
+        @Html.RenderDisplayTemplate("West", Html.ActionLink(Model.West, "Show", new { Controller = "MapImage", west.Id }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.West)
+    }
+    @Html.DisplayFor(x => x.DateRevised)
+</div>

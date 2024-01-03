@@ -1,0 +1,7 @@
+﻿@model ServiceLineProtectionInvestigation
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowServiceLineProtectionInvestigation", Model)
+    .WithNotesAndDocuments()
+    .WithLog()
+    )

@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchUserTracking
+    
+@using (Form.BeginForm("Index", "UserTracking"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.DefaultOperatingCenter)
+        @Html.EditorFor(x => x.User)
+        @Html.EditorFor(x => x.LastLoggedInAt)
+        @Html.EditorFor(x => x.NotLoggedInAt)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

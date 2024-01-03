@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MaterialsUsed.EditMaterialUsed
+
+@using (var f = Form.BeginAjaxForm("Update", "MaterialUsed", new { id = Model.Id, Model.WorkOrder }))
+{
+    f.HtmlAttributes["title"] = "Edit Material Used";
+	@Control.Hidden("OperatingCenter").WithValue(Model.OperatingCenter);
+    @Html.Partial("_Form", Model)
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MaterialUsed/Edit.js")

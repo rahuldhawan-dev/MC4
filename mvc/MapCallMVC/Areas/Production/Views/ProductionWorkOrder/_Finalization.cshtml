@@ -1,0 +1,89 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model ProductionWorkOrder
+
+
+<fieldset>
+    <legend>Completion</legend>
+    <div class="field-column fc200">
+        @if (Model.CanBeCompleted)
+        {
+            @Html.Partial("_CompletionForm", ViewModelFactory.Build<CompleteProductionWorkOrder, ProductionWorkOrder>(Model))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.DateCompleted)
+            @Html.DisplayFor(x => x.CompletedBy)
+        }
+    
+        @if (Model.FailureCode != null || Model.ActionCode != null)
+        {
+            @Html.DisplayFor(x => x.FailureCode)
+            @Html.DisplayFor(x => x.ActionCode)
+        }
+    </div>
+</fieldset>
+
+@* We only want to display this section if the work order has a supervisor approval order type.
+	However, older records with different order types were approved, so their values need to be visible. *@
+@if (Model.HasSupervisorApprovableOrderType || Model.ApprovedOn != null)
+{
+	<fieldset>
+		<legend>Supervisor Approval</legend>
+		<div class="field-column fc200">
+			@if (Model.CanBeSupervisorApproved)
+			{
+				@Html.Partial("_SupervisorApprovalForm", ViewModelFactory.Build<SupervisorApproveProductionWorkOrder, ProductionWorkOrder>(Model))
+			}
+			else
+			{
+				@Html.DisplayFor(x => x.ApprovedOn)
+				@Html.DisplayFor(x => x.ApprovedBy)
+				
+				// CauseCode is only ever set during approval when the OrderType is Corrective. 
+				if (Model.CauseCode != null)
+				{
+					@Html.DisplayFor(x => x.CauseCode)
+				}
+
+                @Html.DisplayFor(x => x.WBSElement)
+                //It was requested that this field be added to the screen even though it doesn't have anything backing it at the moment.
+                //There is ticket MC-5290 to populate it in the future.
+                @Html.DisplayFor(x => x.AccountType)
+			}
+		</div>
+	</fieldset>
+}
+
+<fieldset>
+    <legend>Cancel Order</legend>
+    <div class="field-column fc200">
+        @if (!Model.CanBeCancelled)
+        {
+            @Html.DisplayFor(x => x.DateCancelled)
+            @Html.DisplayFor(x => x.CancellationReason)
+            @Html.DisplayFor(x => x.CancelledBy.FullName, new { DisplayName = "Cancelled By" })
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.DateCancelled)
+            @Html.Partial("_Cancel", ViewModelFactory.Build<CancelProductionWorkOrder, ProductionWorkOrder>(Model))
+        }
+    </div>
+</fieldset>
+@if(!Model.HasComplianceOrderType)
+{
+<fieldset>
+    <legend>Capitalize</legend>
+    <div class="field-column fc200">
+
+        @if (!string.IsNullOrWhiteSpace(Model.CapitalizationReason))
+        {
+            @Html.DisplayFor(x => x.CapitalizationReason)
+        }
+        else
+        {
+            @Html.Partial("_Capitalize", ViewModelFactory.Build<CapitalizeProductionWorkOrder, ProductionWorkOrder>(Model))
+        }    
+    </div>
+</fieldset>
+}

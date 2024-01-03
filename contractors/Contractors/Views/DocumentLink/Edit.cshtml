@@ -1,0 +1,16 @@
+﻿@model Contractors.Models.ViewModels.EditDocumentLink
+
+@using (Form.BeginForm("Update", "DocumentLink", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.UrlReferrer)
+        @Html.DisplayFor(x => x.Document.Id)
+        @Html.DisplayFor(x => x.Document.FileName)
+        @Html.DisplayFor(x => x.Document.CreatedAt)
+        @Html.EditorFor(x => x.DocumentType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", Model.UrlReferrer, new { Class = "link-button" })
+        </text>)
+    </div>
+}

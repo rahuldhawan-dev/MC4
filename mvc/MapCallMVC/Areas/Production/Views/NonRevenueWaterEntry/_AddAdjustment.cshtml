@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddNonRevenueWaterAdjustment
+
+
+@using (var form = Form.BeginRouteForm("NonRevenueWaterEntry", "NonRevenueWaterAdjustment", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "AdjustmentForm");
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.TotalGallons)
+        @Html.EditorFor(x => x.BusinessUnit)
+        @Html.EditorFor(x => x.Comments)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save").WithId("AddAdjustment").WithCssClass("no-double-submit")
+            @Control.ResetButton("Clear")
+        </text>)
+    </div>
+}

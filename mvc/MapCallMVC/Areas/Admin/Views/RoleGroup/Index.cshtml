@@ -1,0 +1,6 @@
+﻿@model MapCallMVC.Areas.Admin.Models.ViewModels.RoleGroups.SearchRoleGroup
+
+@(Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Results.Count())
+        .TemplateColumnFor("Name", x => Html.ActionLink(x.Name, "Show", new { x.Id }))
+        .WithPaginatedFooter())

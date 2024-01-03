@@ -1,0 +1,33 @@
+﻿.init-sub-table-heading 
+{
+    border-bottom: 1px solid darkgray;
+}
+
+.sub-table-heading 
+{
+    border-bottom:1px solid darkgray;
+    padding-top:30px;
+}
+
+tr.sub-table-row td 
+{
+    border-bottom:1px solid darkgray;
+}
+tr.sub-table-row td:first-child 
+{
+    border-left: 1px solid darkgray;
+}
+tr.sub-table-row td:last-child 
+{
+    border-right: 1px solid darkgray;
+}
+
+.sub-sub-table 
+{
+    width: 100%;
+}
+.sub-sub-table-div
+{
+    padding:6px;
+    border:1px solid black;
+}

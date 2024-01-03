@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Events.Models.ViewModels.EditEventType
+@using (Form.BeginForm("Update", "EventType", "Events", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "EventType", new { Model.Id })
+                           </text>)
+    </div>
+}

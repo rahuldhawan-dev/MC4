@@ -1,0 +1,65 @@
+﻿@model WaterSampleComplianceForm
+
+<fieldset>
+    <legend>Compliance Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PublicWaterSupply)
+        @Html.DisplayFor(x => x.PublicWaterSupply.State)
+        @Html.DisplayFor(x => x.CertifiedMonthYearDisplay)
+        @Html.DisplayFor(x => x.DateCertified)
+    </div>
+</fieldset>
+
+<fieldset>
+    <div class="field-column fc500">
+        @Html.DisplayFor(x => x.CentralLabSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.CentralLabSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.CentralLabSamplesReason))
+        {
+            @Html.DisplayFor(x => x.CentralLabSamplesReason)
+        }
+        @Html.DisplayFor(x => x.ContractedLabsSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.ContractedLabsSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.ContractedLabsSamplesReason))
+        {
+            @Html.DisplayFor(x => x.ContractedLabsSamplesReason)
+        }
+        @Html.DisplayFor(x => x.InternalLabsSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.InternalLabsSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.InternalLabSamplesReason))
+        {
+            @Html.DisplayFor(x => x.InternalLabSamplesReason)
+        }
+        @Html.DisplayFor(x => x.BactiSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.BactiSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.BactiSamplesReason))
+        {
+            @Html.DisplayFor(x => x.BactiSamplesReason)
+        }
+        @Html.DisplayFor(x => x.LeadAndCopperSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.LeadAndCopperSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.LeadAndCopperSamplesReason))
+        {
+            @Html.DisplayFor(x => x.LeadAndCopperSamplesReason)
+        }
+        @Html.DisplayFor(x => x.WQPSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.WQPSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.WQPSamplesReason))
+        {
+            @Html.DisplayFor(x => x.WQPSamplesReason)
+        }
+        @Html.DisplayFor(x => x.SurfaceWaterPlantSamplesHaveBeenCollected)
+        @Html.DisplayFor(x => x.SurfaceWaterPlantSamplesHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.SurfaceWaterPlantSamplesReason))
+        {
+            @Html.DisplayFor(x => x.SurfaceWaterPlantSamplesReason)
+        }
+        @Html.DisplayFor(x => x.ChlorineResidualsHaveBeenCollected)
+        @Html.DisplayFor(x => x.ChlorineResidualsHaveBeenReported)
+        @if (!string.IsNullOrWhiteSpace(Model.ChlorineResidualsReason))
+        {
+            @Html.DisplayFor(x => x.ChlorineResidualsReason)
+        }
+        @Html.DisplayFor(x => x.NoteText)
+    </div>
+</fieldset>

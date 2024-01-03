@@ -1,0 +1,14 @@
+﻿@using MapCall.Common.Configuration
+@using MapCallMVC.Controllers
+@model StandardOperatingProcedure
+@{
+    var canEdit = RoleService.CanAccessRole(StandardOperatingProcedureController.ROLE, RoleActions.UserAdministrator);
+}
+
+@(Html.Tabs()
+.WithTab("Details", "_ShowStandardOperatingProcedure", Model)
+.WithTab("Position Groups", "_PositionGroupCommonNames")
+.WithTab("Training Modules", "_TrainingModules")
+.WithTab("Questions", "_Questions", isVisible: canEdit)
+.WithVideos()
+.WithNotesAndDocuments())

@@ -1,0 +1,28 @@
+﻿@model SearchJobObservation
+
+@using (Form.BeginForm("Index", "JobObservation"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.ObservationDate)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.JobObservedBy)
+
+        <fieldset>
+            <legend>Created By</legend>
+            @Html.EditorFor(x => x.CreatedByOperatingCenter)
+            @Html.EditorFor(x => x.CreatedBy, new { Container = @Model })
+        </fieldset>
+
+        @Html.EditorFor(x => x.OverallSafetyRating)
+        @Html.EditorFor(x => x.Address)
+        @Html.EditorFor(x => x.TaskObserved)
+        @Html.EditorFor(x => x.Department)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

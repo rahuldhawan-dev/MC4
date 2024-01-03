@@ -1,0 +1,1 @@
+﻿ALTER TABLE [StockLocations] ADD [SAPStockLocation] varchar(50) null

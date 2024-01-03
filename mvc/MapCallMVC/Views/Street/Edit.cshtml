@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Models.ViewModels.Streets.EditStreet
+
+@using (Form.BeginForm("Update", "Street", new { Id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Display.Town.State)
+        @Html.DisplayFor(x => x.Display.Town.County)
+        @Html.DisplayFor(x => x.Display.Town)
+        @Html.Partial("_FormFields")
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalWarehouseNumber
+
+@using (Form.BeginForm("Index", "ChemicalWarehouseNumber")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.WarehouseNumber)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="iMap.master.cs" Inherits="MapCall.iMap" %>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Flushing Schedule</title>
+    <link rel="Stylesheet" href="<%# ResolveUrl("~/includes/lightview-3.2.7/css/lightview/lightview.css") %>" type="text/css" />
+    <link rel="Stylesheet" href="<%# ResolveClientUrl("~/resources/bender/bender.css") %>" type="text/css" />
+    <style type="text/css">
+        body {font-family:arial;font-size:12px;margin:0px;padding:0px;text-align:left;}
+        .leftCol {vertical-align:top;text-align:right;font-weight:bold;border-bottom:1px solid black;width:150px;}
+        .rightCol {vertical-align:top;text-align:left;font-weight:normal;border-bottom:1px solid black}
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager runat="server" ID="smMain" />
+        <asp:ContentPlaceHolder ID="cphMain" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

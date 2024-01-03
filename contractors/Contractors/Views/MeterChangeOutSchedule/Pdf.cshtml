@@ -1,0 +1,61 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<IEnumerable<MapCall.Common.Model.Entities.MeterChangeOut>>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ViewBag.ShowPageNumbersInFooter = true;
+    ShowPageNumbersInFooter = true;
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 24;
+
+    var mcoByAssignedCrew = Model.GroupBy(x => x.AssignedContractorMeterCrew);
+}
+
+@helper FooterHelper()
+{
+    <div style="text-align: left; width: 100%; font-family: arial; font-size: 12px;">
+        @DateTime.Now.ToShortDateString()
+    </div>
+}
+
+@section body {
+    <style>
+        * { font-family:Calibri; }
+        td { padding:3px;}
+    </style>
+    @foreach (var mcoGroup in mcoByAssignedCrew)
+    {
+        <div style="page-break-after:always;">
+            <table>
+                <thead>
+                <td colspan="4" style="font-size:30px; text-align:left; background-color:#dddddd;">Scheduled Work for the Week: @mcoGroup.Key.Description</td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight:bold;">Service City</td>
+                        <td style="font-weight:bold;">Date</td>
+                        <td style="font-weight:bold;">Meter Size</td>
+                        <td style="font-weight:bold;">Location</td>
+                    </tr>
+                    @*// Need to group by city
+                        // Then sort by date*@
+
+                    @foreach (var byCity in mcoGroup.GroupBy(x => x.ServiceCity != null ? x.ServiceCity.ToString() : string.Empty).OrderBy(x => x.Key))
+                    {
+                        <tr>
+                            <td colspan="4">@Html.DisplayValueFor(x => byCity.Key)</td>
+                        </tr>
+                        foreach (var oh in byCity)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@Html.DisplayValueFor(x => oh.DateScheduled)</td>
+                                <td>@Html.DisplayValueFor(x => oh.MeterSize)</td>
+                                <td>@Html.DisplayValueFor(x => oh.OwnerCustomerMeterLocation)</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+}

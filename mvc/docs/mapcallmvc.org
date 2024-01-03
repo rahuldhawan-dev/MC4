@@ -1,0 +1,49 @@
+TODO: This isn't an actual org file
+
+
+* Related bug numbers
+	- Contractors - 1406
+	- Permits - 1407
+	- MapCall - 1408
+	- 271 - 1409
+* Related branches
+	- MMSINC - mapcallmvc 
+	- MapCallMVC - roles(at the moment)
+	- Others are by bug number
+* Integration
+** MapCall/271 WebForms stuff
+	- DONE: If we're logging in through the WebForms MapCall, 
+      the Forms Authentication cookie from MapCall will not 
+	  work with the Authentication Service on MVC. AuthServ is 
+	  expecting a cookie with the user id and email in it, MapCall 
+	  only gives the email address.
+	- DONE: RoleManager uses a userid that's linked to aspnet_users. Sad face.
+	- DONE: IAdministratedUser won't be able to map 
+	  HasAccess/Password/PasswordSalt to tblPermissions
+	- The current thing we have setup for keeping track of table 
+	  changes won't work with the Audit table and the Log page 
+	  that returns all that jazz.
+	- DONE: AuthenticationRepository is explicit with 
+	  using "Email" for trying to get users when no Id 
+	  is present. MapCall/271 uses "UserName" though. 
+	- DONE: MapCall's Roles page/control needs to be updated 
+	  to use the new UserId column.
+	- DONE: Whatever changes Membership.IsApproved in MapCall needs to 
+	  update the tblPermissions.HasAccess too. Users.aspx
+	- DONE: Changes to Application/Module's Id properties might mess 
+	  up notifications, need to make sure tests pass. 
+	  Specifically NotificationConfigurationRepository
+	- Do we need to do anything to with keeping a user logged in
+	  in sync with the other sites(like when the user's session
+	  expires due to inactivity)?
+* Authentication
+	- Need a proper logoff redirect to regular MapCall.
+	- Logon/Logoff urls in _Layout.
+* Roles
+	- DONE: Roles table needs new UserId column that links 
+	  to tblPermissions.RecId instead of aspnet_users.
+	- DONE: Create ActionFilter for role checks, isAdminInRole check.
+		- Maybe have it throw an exception or otherwise conflict with AdminOnlyAttribute 
+		  since AdminOnly would be site admins, not role admins.
+	- DONE: MapCall.Common.Model>entities.User(I guess?) needs a Roles property.
+		- DONE: Needs Nhibernate mapping too

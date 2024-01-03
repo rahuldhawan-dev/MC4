@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRecurringProject
+
+<style>
+    .checkbox-list-wider {
+        width: 300px;
+    }
+
+    #mainPickerDiv {
+        width: 90%;
+        height: 90%;
+        top: 5% !important;
+        bottom: 5% !important;
+    }
+</style>
+
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RecurringProject/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RecurringProject/Edit.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "RecurringProject", "ProjectManagement", new { Model.Id }))
+{
+    @(Html.Tabs()
+                .WithTab("General", "EditorPartials/_Edit")
+                .WithTab("Mains", "EditorPartials/_EditMains")
+    )
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "RecurringProject", new { Model.Id })
+    </text>)
+}

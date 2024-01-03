@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchUserRole
+
+@using (Form.BeginForm("Index", "UserRole"))
+{
+    <div class="field-column fc150">
+        @Html.EditorFor(x => x.Module)
+        @Html.EditorFor(x => x.RoleAction)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.UserHasAccess)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@model CreateIncident
+
+@using (Form.BeginForm("Create", "Incident"))
+{
+    @(Html.Tabs()
+          .WithTab("Incident", "_New")
+          .WithTab("Five Whys", "_AddNewFiveWhys")
+        );
+
+
+    <div class="field-column">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search", "Incident")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,528 @@
+﻿@{
+    // The menu opens to Field Operations because there's a redundant link to reports in there.
+    DocumentClasses.Add("disable-automatic-menu");
+}
+@section styles {
+    <style>
+        .box-container { position:relative; overflow:auto; }
+        .box-container > div {  float:left; } /* 49.9 stops IE from dropping to the next line on odd-numbered widths */
+        .box-container > div > .bc-box { margin-left:6px;}
+        .box-container>div:first-child>.bc-box { margin-left:0px; }
+
+        .box-container ul { list-style:none outside !important; margin:6px; padding: 0px; padding-left:18px;}
+        .box-container h2 { margin: 0px;}
+
+        .bc-1col > div { width: 100%; }
+        .bc-2col > div { width:49.9999%; } /* 49.9999 stops IE from dropping to the next line on odd-numbered widths. 50% causes it to round up. */
+        .bc-3col > div { width: 33.3%; }
+
+        .bc-box { position:relative; border:solid 1px #eaeaea; padding:6px; border-radius:3px; }
+        .bc-box h2 { color:#21539B; font-size:18px; padding:0px; margin:0px; font-weight:normal; }
+        .bc-box:hover { border-color: #A6C9E2; }
+    </style>
+}
+
+<div class="box-container bc-3col container">
+    <div>
+        <div class="bc-box bc-box-field-services container">
+            <h2>Field Operations</h2>
+            <ul>
+                <li>
+                    @Html.Link("/modules/workorders/views/reports/AverageCompletionTimes.aspx", "Average Completion Times")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/CompletedWorkOrders.aspx", "Complete Work Orders")
+                </li>
+                <li>
+                    @Html.ActionLink("Crew Assignment Summary", "Search", "CrewAssignmentSummary", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/DSICMainBreaks.aspx", "DSIC Main Breaks")
+                </li>
+                <li>
+                    @Html.ActionLink("Field Completed Backlog - Quality Assurance", "Search", "FieldCompletedBacklogQAReport")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/IncompleteLeaks.aspx", "Incomplete Leaks")
+                </li>
+                <li>
+                    @Html.ActionLink("Incomplete Restorations", "Search", "Restoration", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/IncompleteWorkOrders.aspx", "Incomplete Work Orders")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/IncompleteWorkOrdersWithMaterials.aspx", "Incomplete Work Orders with Materials")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/MaterialsUsed.aspx", "Inventory Usage")
+                </li>
+                <li>
+                    KPI Report
+                    @Html.Link("/modules/workorders/Views/Reports/KPIReport.aspx", "By Order Count")
+                    @Html.Link("/modules/workorders/Views/Reports/KPIReportByHours.aspx", "By Total Man Hours")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/MainBreaksAndServiceLineRepairs.aspx", "Main Breaks / Service Line Repairs - Regulated")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/MainBreaksAndServiceLineRepairsUnregulated.aspx", "Main Breaks / Service Line Repairs - Unregulated")
+                </li>
+                <li>
+                    @Html.ActionLink("Main Breaks Repairs For GIS", "Search", "MainBreakRepairsForGIS", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Main Breaks / Service Line Repairs By Month", "Search", "MainBreaksAndServiceLineRepairsByMonth")
+                </li>
+                <li>
+                    @Html.ActionLink("Main Breaks", "Search", "MainBreakReport", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Markout Damage BPU", "Search", "MarkoutDamageBPU", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Power Plant Main Breaks", "Search", "MainBreakPowerPlant", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/ReportUseReport.aspx", "Report Usage Report")
+                </li>
+                <li>
+                    @Html.ActionLink("Restoration Accrual Reports", "Search", "RestorationAccrualReport", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/SpoilsTotalsReport.aspx", "Spoils Totals")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/WorkOrdersCreatedBy.aspx", "Work Orders Created/Completed By Counts")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/Views/Reports/TrafficControlRequirement.aspx", "Traffic Control Requested")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/views/reports/SpoilsPerWorkOrder.aspx", "Spoils per WorkOrder")
+                </li>
+                <li>
+                    @Html.ActionLink("Street Opening Permits", "Search", new { controller = "StreetOpeningPermitReport", area = "Reports" })
+                </li>
+                <li>
+                    @Html.Link("/Reports/Permits/OutstandingLiability.aspx", "Street Opening Permits - Outstanding Liability")
+                </li>
+                <li>
+                    @Html.Link("/modules/workorders/views/workorders/sopprocessing/SOPProcessingResourceView.aspx", "Street Opening Permits - Work Without Permit Attached")
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/InterconnectionInspections.aspx", "Interconnects Inspection")
+                </li>
+                <li>
+                    @Html.ActionLink("Water Loss Management", "Search", new { Controller = "WaterLossManagement", area = "Reports" })
+                </li>
+            </ul>
+        </div>
+
+        <div class="bc-box bc-box-field-services container">
+            <h2>Employees</h2>
+            <ul>
+                @if (Html.CurrentUserCanDo("Search", "CovidStatusReport", "Reports"))
+                {
+                    <li>
+                        @Html.ActionLink("Covid Status Report", "Search", new {Controller = "CovidStatusReport", area = "Reports"})
+                    </li>
+                }
+                <li>
+                    @Html.Link("/Reports/HR/Employee/EmployeeEssentialEmergencyResponsePriority.aspx", "Essential Emergency Response Priority")
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/EmployeePositionControlReport.aspx", "Employee Position Controls Report")
+                </li>
+                <li>
+                    @Html.ActionLink("Employee NJDEP Licenses", "Search", "EmployeeNJDEPLicense", new {area = "Reports"}, null)
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/emp_Licenses.aspx", "Licenses")
+                </li>
+                <li>
+                    @Html.ActionLink("Occurrence", "Search", "Occurrence", new {area = "Reports"}, null)
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/emp_Seniority.aspx", "Seniority")
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/emp_SickBank.aspx", "Sick Bank")
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/SickBankHours.aspx", "Sick Bank Total Hours")
+                </li>
+            </ul>
+        </div>
+
+        <div class="bc-box newDoc container">
+            <h2>KPI</h2>
+            <ul>
+                <li>
+                    @Html.Link("/modules/workorders/views/reports/AverageCompletionTimesByWorkDescription.aspx", "Average Completion Times by Work Description")
+                </li>
+                <li>
+                    @Html.ActionLink("Completed Work Orders With Pre Job Safety Briefs (Must search Date Completed starting 11/15/2020)", "Search", "CompletedWorkOrdersWithPreJobSafetyBriefs")
+                </li>
+                <li>
+                    @Html.ActionLink("Completed Work Orders with Job Site Check List", "Search", "CompletedWorkOrdersWithJobSiteCheckLists")
+                </li>
+                <li>
+                    @Html.ActionLink("Completed Work Orders with Material", "Search", "CompletedWorkOrdersWithMaterial")
+                </li>
+                <li>
+                    @Html.ActionLink("Completed Work Orders with Markouts", "Search", "CompletedWorkOrdersWithMarkout")
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/InterconnectionInspections.aspx", "Interconnection Inspections")
+                </li>
+                <li>
+                    @Html.Link("/modules/WorkOrders/Views/Reports/MainBreaksAndServiceLineRepairs.aspx", "Main Breaks / Service Line Repairs - Regulated")
+                </li>
+                <li>
+                    @Html.Link("/modules/WorkOrders/Views/Reports/MainBreaksAndServiceLineRepairsUnregulated.aspx", "Main Breaks / Service Line Repairs - Unregulated")
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrant Inspections", "Search", "KPIHydrantInspectionByMonth")
+                </li>
+                <li>
+                    @Html.ActionLink("Inspection Productivity", "Search", "InspectionProductivity")
+                </li>
+                <li>
+                    @Html.Link("/Modules/WorkOrders/Views/Reports/PowerPlantAsbuiltReport.aspx", "Power Plant Asbuilt Report")
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Inspections - Required", "Search", "ValveInspectionsByMonth")
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Inspections - Required/Visited", "Search", "RequiredValvesOperatedByMonth")
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Inspections - All", "Search", "ValvesOperatedByMonth")
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="bc-box bc-box-field-services container">
+            <h2>Hydrants</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Aged Pending Assets", "Search", "AgedPendingAsset")
+                </li>
+                <li>
+                    @Html.ActionLink("BPU Counts", "Search", "ActiveHydrant")
+                </li>
+                <li>
+                    @Html.ActionLink("BPU Detail", "Search", "ActiveHydrantDetail")
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrants Due Inspection", "Search", "HydrantsDueInspection")
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrants Due Painting", "Search", "HydrantsDuePainting")
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrant Flushing for GIS", "Search", "HydrantInspection", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrant Log", "Search", "Hydrant", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrant Manufacturers", "Search", "Hydrant", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrant Routes", "Search", "HydrantRoute")
+                </li>
+                <li>
+                    @Html.ActionLink("Hydrants with Work Orders", "Search", "HydrantWorkOrdersByDescription")
+                </li>
+                <li>
+                    @Html.ActionLink("Out of Service", "Search", "Hydrant", new { area = "FieldOperations", noFormState = true, OutOfService = true }, null)
+                    @*<asp:hyperlink runat="server" navigateurl="/Modules/Mvc/FieldOperations/Hydrant/Search?noFormState=True&OutOfService=True"
+                    text="Out Of Service" />*@
+                </li>
+                <li>
+                    @Html.ActionLink("Public Hydrant Totals", "Search", "PublicHydrantCount")
+                </li>
+                <li>
+                    @Html.ActionLink("SAP Hydrant Inspection Report", "Search", "HydrantInspection", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Water Usage for Flushing", "Search", "MonthlyFlushingWaterUsage")
+                </li>
+            </ul>
+        </div>
+
+        <div class="bc-box bc-box-field-services container">
+            <h2>Services</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("BPU Report for Services", "Search", "BPUReportForServices", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Current Material Search", "Search", "CurrentMaterialSearch", new { area = "Reports"}, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Completed Services by Category", "Search", "ServicesCompletedByCategory", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Developer Services Installed", "Search", "Service", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Developer Services NOT Installed", "Search", "Service", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Monthly Services Installed by Category", "Search", "MonthlyServicesInstalledByCategory", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Open Issued Services", "Search", "OpenIssuedServices", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Overdue Rush Services", "Search", "Service", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Pending Services by Town", "Search", "Service", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Service Renewals", "Search", "ServicesRenewedSummary", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Services Renewed(Footage)", "Search", "ServicesRenewed")
+                </li>
+                <li>
+                    @Html.ActionLink("Services Installed(Footage)", "Search", "ServicesInstalled")
+                </li>
+                <li>
+                    @Html.ActionLink("Services Retired Data", "Search", "ServicesRetired", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("T/D Issued Services Status", "Search", "Service", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("T/D Pending Services / KPI", "Search", "ServicesTDPendingServicesKPI", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Service Quality Assurance", "Search", "ServiceQualityAssuranceReport", new { area = "Reports" }, null)
+                </li>
+            </ul>
+        </div>
+
+        <div class="bc-box bc-box-field-services container">
+            <h2>DSIC</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("DSIC Reporting – Hydrants", "Search", "HydrantDSIC", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("DSIC Reporting – Services", "Search", "ServiceDSIC", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("DSIC Reporting – Valves", "Search", "ValveDSIC", new { area = "Reports" }, null)
+                </li>
+            </ul>
+        </div>
+
+        <div class="bc-box bc-box-field-services container">
+            <h2>Engineering</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Risk Register Action Item", "Search", "RiskRegisterActionItem", new { area = "Engineering" }, null)
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div>
+	    <div class="bc-box container">
+		    <h2>Environmental</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Environmental Non Compliance Event Action Items", "Search", "EnvironmentalNonComplianceEventActionItem", new { area = "Environmental" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Yearly Water Sample Compliance", "Search", "YearlyWaterSampleComplianceReport", new { area = "Reports" }, null)
+                </li>
+            </ul>
+	    </div>
+        <div class="bc-box bc-box-health container">
+            <h2>Health & Safety</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("OSHA Recordable Summary", "Search", "IncidentsOSHARecordableSummary", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/JobObservationSummary.aspx", "Job Observation Summary")
+                </li>
+                <li>
+                    @Html.ActionLink("Incident Action Item", "Search", "IncidentActionItem", new { area = "HealthAndSafety" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("General Liability Action Item", "Search", "GeneralLiabilityClaimActionItem", new { area = "HealthAndSafety" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Near Miss Action Item", "Search", "NearMissActionItem", new { area = "HealthAndSafety" }, null)
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-health container">
+            <h2>Paving</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Paving - Pending Approval", "Search", "ServiceRestoration", new { area = "FieldOperations" }, null)
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-work-management container">
+            <h2>Production</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Risk Characteristic Data", "Search", "FacilityRiskCharacteristicData", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Equipment Risk Characteristic Data", "Search", "EquipmentRiskCharacteristicData", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Work Order Performance", "Search", "ProductionWorkOrderPerformance", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Asset Compliance", "Search", "RegulatoryComplianceReport", new { area = "Reports" }, null)
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-training container">
+            <h2>Project Management</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Project List", "Search", "RecurringProjectList")
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-field-services container">
+            <h2>Sewer</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Inspection / Cleaning Footage Summary", "Search", "SewerMainCleaningFootage", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/SewerOverflowReport.aspx", "Sewer Overflow Report")
+                </li>
+                <li>
+                    @Html.ActionLink("NPDES Regulators Due Inspection", "Search", "NpdesRegulatorsDueInspectionReport", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("NPDES Regulator Inspections", "Search", "NpdesRegulatorInspection", new { area = "Reports" }, null)
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-health container">
+            <h2>Tailgate Talks</h2>
+            <ul>
+                <li>
+                    @Html.Link("/Reports/FieldServices/tailgatetalksattendance.aspx", "Attendance")
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/TailgateTalksTrainingHours.aspx", "Employee Training Hours")
+                </li>
+                <li>
+                    @Html.Link("/Reports/FieldServices/tailgatetalksSummary.aspx", "Summary")
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-training container">
+            <h2>Training Records</h2>
+            <ul>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/TrainingRecordsAttendance.aspx", "Attendance")
+                </li>
+                <li>
+                    @Html.Link("/Reports/HR/Employee/TrainingRecordsTrainingHours.aspx", "Employee Training Hours")
+                </li>
+                <li>
+                    @Html.ActionLink("Employee Training Export", "Search", "EmployeeTrainingRecordExport")
+                </li>
+                <li>
+                    @Html.Link("https://app.powerbi.com/groups/me/apps/fe7ddbb6-0481-4364-b267-840958154d5b/reports/2cb591d8-0fad-4daf-9727-7e7cd4b237ba/ReportSection?ctid=35378cf9-dac0-45f0-84c7-1bfb98207b59", "Link to LEARN Records")
+                </li>
+                <li>
+                    @Html.ActionLink("Operating Center - Training Summary", "Search", "OperatingCenterTrainingSummary", new { area = "Reports"}, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Operating Center - Training Overview", "Search", "OperatingCenterTrainingOverview", new { area = "Reports" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Training Requirements", "Index", "TrainingModuleReport")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Training Requirements Missing Training Modules", "Index", "TrainingRequirement", new { area = string.Empty, HasActiveTrainingModules = false, IsActive = true, PageNumber =1, SortAscending=false, PageSize = 31}, null)
+                    @*<asp:hyperlink runat="server" text="Training Requirements missing Training Modules"
+                                   navigateurl="/Modules/mvc/TrainingRequirement?HasActiveTrainingModules=False&IsActive=True&PageNumber=1&SortAscending=False&PageSize=31" />*@
+                </li>
+                <li>
+                    @Html.ActionLink("Training Modules / Position Group Common Names", "Search", "TrainingModulePositionGroupCommonName")
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-waterquality container">
+            <h2>Water Quality</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Chlorine Hi / Low Per Month", "Search", "BactiSamplesChlorineHighLow")
+                </li>
+                <li>
+                    @Html.ActionLink("Bacterial Water Sample Requirements (per month)", "Search", "BacterialWaterSampleRequirement")
+                </li>
+                <li>
+                    @Html.Link("/Reports/WaterQuality/WQComplaints.aspx", "Water Quality Complaints")
+                </li>
+                <li>
+                    @Html.ActionLink("Water Quality Complaints By State", "Search", "WaterQualityComplaintCountByStateForYear")
+                </li>
+                <li>
+                    @Html.Link("/Reports/WaterQuality/WQComplaintsDetails.aspx", "Water Quality Complaints - Details")
+                </li>
+            </ul>
+        </div>
+        <div class="bc-box bc-box-field-services container">
+            <h2>Valves</h2>
+            <ul>
+                <li>
+                    @Html.ActionLink("Aged Pending Assets", "Search", "AgedPendingAsset")
+                </li>
+                <li>
+                    @Html.ActionLink("BPU Counts", "Search", "ValveBPU")
+                </li>
+                <li>
+                    @Html.ActionLink("Broken Valves", "Search", "Valve", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Critical Valves", "Search", "Valve", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Municipal Valve Zones", "Search", "MunicipalValveZone")
+                </li>
+                <li>
+                    @Html.ActionLink("Valves Due Inspection (Summary)", "Search", "ValvesDueInspection")
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Inspections for GIS", "Search", "ValveInspection", new { area = "FieldOperations" }, null)
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Not in Normal Position", "Search", "Valve", new { area = "FieldOperations", noFormState = true, InNormalPosition = false }, null)
+                    @*asp:hyperlink runat="server" navigateurl="/Modules/mvc/FieldOperations/Valve/Search?noFormState=True&InNormalPosition=False"
+                text="Valves Not in Normal Position" />*@
+                </li>
+                <li>
+                    @Html.ActionLink("Valve Routes", "Search", "ValveRoute")
+                </li>
+                <li>
+                    @Html.Link("/Modules/Data/Valves/Mismatches.aspx", "Valve Image Mismatches")
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>

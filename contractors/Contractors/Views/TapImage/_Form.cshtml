@@ -1,0 +1,60 @@
+﻿@model Contractors.Models.ViewModels.BaseTapImageViewModel
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town, new { Container = Model })
+@Html.EditorFor(x => x.TownSection)
+@Html.EditorFor(x => x.StreetNumber)
+
+@Html.RenderEditorTemplate("Street", @<text>
+    @* EditorWithoutWrapperFor does not work for cascades. *@
+    @Html.EditorFor(x => x.StreetIdentifyingInteger, new { Container = Model, IncludeWrapperHtml = false })
+
+    <div>If you can't locate the street in the dropdown list, you can enter it in the textboxes below.</div>
+    <table class="for-structure">
+        <tbody>
+            <tr>
+                <td>Prefix</td>
+                <td>Name</td>
+                <td>Suffix</td>
+            </tr>
+            <tr>
+                <td>@Html.EditorWithoutWrapperFor(x => x.StreetPrefix)</td>
+                <td>@Html.EditorWithoutWrapperFor(x => x.Street)</td>
+                <td>@Html.EditorWithoutWrapperFor(x => x.StreetSuffix)</td>
+            </tr>
+        </tbody>
+    </table>
+</text>)
+
+@Html.RenderEditorTemplate("Cross Street", @<text>
+    @* EditorWithoutWrapperFor does not work for cascades. *@
+    @Html.EditorFor(x => x.CrossStreetIdentifyingInteger, new { Container = Model, IncludeWrapperHtml = false })
+
+    <div>If you can't locate the cross street in the dropdown list, you can enter it in the textboxes below.</div>
+    <table class="for-structure">
+        <tbody>
+            <tr>
+                <td>Name</td>
+            </tr>
+            <tr>
+                <td>@Html.EditorWithoutWrapperFor(x => x.Street)</td>
+            </tr>
+        </tbody>
+    </table>
+</text>)
+@Html.EditorFor(x => x.PremiseNumber)
+@Html.EditorFor(x => x.ServiceNumber)
+@Html.EditorFor(x => x.Service, new { Container = Model })
+@Html.EditorFor(x => x.ApartmentNumber)
+@Html.EditorFor(x => x.Lot)
+@Html.EditorFor(x => x.Block)
+@Html.EditorFor(x => x.ServiceType)
+@Html.EditorFor(x => x.DateCompleted)
+@Html.EditorFor(x => x.IsDefaultImageForService)
+@Html.EditorFor(x => x.LengthOfService)
+@Html.EditorFor(x => x.ServiceSize)
+@Html.EditorFor(x => x.ServiceMaterial)
+@Html.EditorFor(x => x.PreviousServiceSize)
+@Html.EditorFor(x => x.PreviousServiceMaterial)
+@Html.EditorFor(x => x.CustomerSideMaterial)
+@Html.EditorFor(x => x.CustomerSideSize)

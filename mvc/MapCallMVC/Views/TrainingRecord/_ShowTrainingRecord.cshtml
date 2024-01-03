@@ -1,0 +1,40 @@
+﻿@using FluentNHibernate.Conventions
+@using MapCallMVC.Controllers
+@model TrainingRecord
+@{
+    var isUserAdmin = RoleService.CanAccessRole(TrainingRecordController.ROLE_MODULE, RoleActions.UserAdministrator);
+}           
+<div class="field-column fc300">
+    @if (Model.EmployeesAttended.IsEmpty() && isUserAdmin && !Model.Canceled.GetValueOrDefault())
+    {
+        using (Form.BeginForm("Finalize", "TrainingRecord", new {Model.Id}))
+        {
+            @Control.SubmitButton("Finalize")
+        }
+    }
+
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.HeldOn)
+    @if (Model.TrainingModule != null)
+    {
+        @Html.RenderDisplayTemplate("Training Module", Html.ActionLink(Model.TrainingModule.ToString(), "Show", "TrainingModule", new { Model.TrainingModule.Id }, null))
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Training Module", @<text></text>)
+    }
+    @Html.DisplayFor(x => x.TrainingModule.TotalHours)
+    @Html.DisplayFor(x => x.TrainingModule.TCHCreditValue)
+    @Html.DisplayFor(x => x.ScheduledDate)
+    @Html.DisplayFor(x => x.MaximumClassSize)
+    @Html.DisplayFor(x => x.Instructor)
+    @Html.DisplayFor(x => x.SecondInstructor)
+    @Html.DisplayFor(x => x.OutsideInstructor)
+    @Html.DisplayFor(x => x.OutsideInstructorTitle)
+    @Html.DisplayFor(x => x.ClassLocation)
+    @Html.DisplayFor(x => x.CourseLocation)
+    @Html.DisplayFor(x => x.ProgramCoordinator)
+    @Html.DisplayFor(x => x.Canceled)
+    @Html.DisplayFor(x => x.CreatedBy)
+</div>
+

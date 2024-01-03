@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchInterconnectionTest
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .SortableTemplateColumnFor("Id", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "InterconnectionTest", new { area = "Facilities", x.Id }, null))
+      .ColumnFor(x => x.Facility.OperatingCenter.State)
+      .SortableColumnFor(x => x.Facility.OperatingCenter, "Facility.OperatingCenter")
+      .SortableColumnFor(x => x.Facility)
+      .SortableColumnFor(x => x.InspectionDate)
+      .SortableColumnFor(x => x.InterconnectionInspectionRating)
+      .SortableColumnFor(x => x.MaxFlowMGDAchieved)
+      .SortableColumnFor(x => x.AllValvesOperational)
+      .SortableColumnFor(x => x.Employee)
+      .SortableColumnFor(x => x.Contractor)
+      .SortableColumnFor(x => x.WorkOrder)
+      .ColumnFor(x => x.InspectionComments)
+      .WithPaginatedFooter())

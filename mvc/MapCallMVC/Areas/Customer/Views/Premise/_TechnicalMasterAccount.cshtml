@@ -1,0 +1,13 @@
+﻿@model Premise
+
+
+
+@using (Form.BeginAjaxForm("Index", "SAPTechnicalMasterAccount", new { area = "Customer", ext = "frag", Model.PremiseNumber, InstallationType = (Model.ServiceUtilityType != null) ? Model.ServiceUtilityType.Type : string.Empty }))
+{
+
+}
+<div>
+    Searching.....
+    <div>Premise #: @Model.PremiseNumber</div>
+    <div>Installation Type: @Model.ServiceUtilityType</div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTrafficControlTicketCheck
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.CheckNumber)
+    .SortableColumnFor(x => x.Amount)
+    .SortableColumnFor(x => x.Memo)
+    .WithPaginatedFooter())

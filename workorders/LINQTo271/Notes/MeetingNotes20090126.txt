@@ -1,0 +1,45 @@
+﻿FINISHED:
+  Need to add "Leak Detection" to purposes.
+
+  FINALIZATION:
+    WORK:
+      # of total man hours
+
+    LOST WATER:
+      Gallons (this was to become more complex as per my early discussions with Doug)
+
+    MATERIALS USED:
+      Stock vs NonStock for each, + qty.
+
+      Need Stock # Search box w/ "use" button
+    
+  Need the Work Order printout based on the report they currently have (copy on my c: drive).
+
+  FINALIZATION:
+	RESTORATION:
+	  Everything in the form.
+
+PENDING:
+  FINALIZATION:
+    Need to link right from crew assignments to allow crews to finalize their work right from the assignments view screen.
+
+    SEARCH:
+      Need crew.
+
+  NOT NEEDED BY MONDAY:
+    LEAK SURVEY:
+      Type of Area (in db) -- may not need this at all
+      Leak Reported by
+        (Survey, Utility Mech., Field Service Rep., Production, Call Center)
+      Starting and Ending Point (valve?)
+      Map Page
+      Hydrants, Mains (valves), Services Sounded (count)
+      Equipment Used?
+        (Perma Log, Aqua Log, Tele Log, Correlator, S20 Ground Survey)
+      Map Distance (Feet)?
+
+    SAFETY MARKERS:
+      # of safety markers on site
+      Date retrieved
+
+    TRAFFIC CONTROL:

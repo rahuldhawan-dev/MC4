@@ -1,0 +1,54 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSmartCoverAlert
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+    var viewModel = ViewModelFactory.BuildWithOverrides<EditSmartCoverAlert>(new {
+        Acknowledged = true,
+        User = AuthenticationService.CurrentUser
+    });
+    var alerts = Model.Results.Distinct();
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SmartCoverAlert/index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor(x => alerts, new { id = "smartCoverAlertsTable" })
+    .WithCaption("Records found: " + alerts.Count())
+    .TemplateColumnFor("Action", x => @<text>
+                                          <div>
+                                              @(Control.Button("Acknowledge")
+                                                       .WithName("acknowledgeButton")
+                                                       .With("Id", x.Id))
+                                              @if (x.SewerOpening != null)
+                                              {
+                                                  @Html.ActionLink("Create Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, x), new { area = "FieldOperations", Class = "link-button" })
+                                              }
+                                          </div>
+                                       </text>)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.SewerOpening.State)
+    .ColumnFor(x => x.SewerOpening.OperatingCenter)
+    .ColumnFor(x => x.SewerOpening.Town)
+    .ColumnFor(x => x.SewerOpeningNumber)
+    .ColumnFor(x => x.DateReceived)
+    .ColumnFor(x => x.Acknowledged)
+    .ColumnFor(x => x.MostRecentWorkOrder, "Work Order Number")
+    .ColumnFor(x => x.ApplicationDescription)
+    .TemplateColumnFor("Notes", x => @<text>
+                                         @if (x.SmartCoverAlertSmartCoverAlertTypes.Any() && x.SmartCoverAlertAlarms.Any())
+                                         {
+                                             @String.Format("Alarms: {0}, Alerts: {1}", x.SmartCoverAlertAlarms, x.SmartCoverAlertSmartCoverAlertTypes.ToString())
+                                         }
+                                         else if (x.SmartCoverAlertSmartCoverAlertTypes.Any())
+                                         {
+                                             @String.Format("Alerts: {0}", x.SmartCoverAlertSmartCoverAlertTypes.ToString())
+                                         }
+                                         else if (x.SmartCoverAlertAlarms.Any())
+                                         {
+                                             @String.Format("Alarms: {0}", x.SmartCoverAlertAlarms)
+                                         }
+                                      </text>)
+    )
+
+@Html.Partial("_Acknowledge", viewModel)

@@ -1,0 +1,17 @@
+﻿@model SearchRegulation
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Id")
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.RegulationShort, "Regulation", "RegulationShort")
+    .ColumnFor(x => x.Title)
+    .SortableColumnFor(x => x.Agency)
+    .SortableColumnFor(x => x.AllAreas)
+    .SortableColumnFor(x => x.FieldOperations)
+    .SortableColumnFor(x => x.Production)
+    .SortableColumnFor(x => x.Environmental)
+    .SortableColumnFor(x => x.WaterQuality)
+    .SortableColumnFor(x => x.Engineering)
+    .WithPaginatedFooter())

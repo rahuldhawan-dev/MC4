@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditContractorOverrideLaborCost
+
+@using (Form.BeginForm("Update", "ContractorOverrideLaborCost", new{ Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ContractorOverrideLaborCost", new{ id = Model.Id })
+        </text>)
+    </div>
+}

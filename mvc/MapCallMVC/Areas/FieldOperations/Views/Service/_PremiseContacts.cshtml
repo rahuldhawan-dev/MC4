@@ -1,0 +1,38 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Controllers
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model Service
+
+@{
+    var userCanAdd = RoleService.CanAccessRole(ServiceController.ROLE, RoleActions.Add);
+    var userCanEdit = RoleService.CanAccessRole(ServiceController.ROLE, RoleActions.Edit);
+    var orderedContacts = Model.PremiseContacts.OrderBy(x => x.ContactDate).ToList();
+    var table = Html.TableFor(x => orderedContacts, new { id = "customer-contacts-table" })
+                    .ColumnFor(x => x.ContactDate)
+                    .ColumnFor(x => x.ContactMethod)
+                    .ColumnFor(x => x.ContactType)
+                    .ColumnFor(x => x.NotifiedCustomerServiceCenter)
+                    .ColumnFor(x => x.CertifiedLetterSent)
+                    .ColumnFor(x => x.ContactInformation)
+                    .ColumnFor(x => x.CommunicationResults)
+                    .ColumnFor(x => x.CreatedBy);
+}
+
+@if (userCanAdd)
+{
+    <div class="collapse-panel" data-title="Add Account Contact">
+        @Html.Partial("_AddPremiseContact", ViewModelFactory.Build<CreateServicePremiseContactViewModel, Service>(Model))
+    </div>
+} 
+@if(userCanEdit)
+{
+    table = table.TemplateColumnFor(x => Control.ActionLink("Edit", "Edit", "ServicePremiseContact", new { id = x.Id }).WithCssClass("link-button"));
+    using (var form = Form.BeginRouteForm("Service", "ServicePremiseContact", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this premise contact?");
+		@table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("PremiseContactId").WithValue(x.Id))
+	}
+}
+else
+{
+	@table
+} 

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<BacterialWaterSampleAnalyst>
+
+@(Html.TableFor(x => x)
+	  .WithCaption("Records found: " + Model.Count())
+	  .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+	  .ColumnFor(x => x.Employee)
+	  .ColumnFor(x => x.IsActive))

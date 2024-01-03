@@ -1,0 +1,26 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model EditSapNotification
+@{
+    // Complete Notification	This action will set the Notification System status to NOCO in SAP
+
+    object indexSearch = null;
+    if (!String.IsNullOrWhiteSpace(Request["IndexSearch"]))
+    {
+        indexSearch = Request["IndexSearch"];
+    }
+    else
+    {
+        indexSearch = Request.QueryString;
+    }
+}
+
+@using (Form.BeginForm("Update", "SAPNotification", "FieldOperations", null))
+{
+    @Control.HiddenFor(x => x.Remarks)
+    @Control.HiddenFor(x => x.SAPNotificationNumber).WithValue(Model.SAPNotificationNumber)
+    @Html.Hidden("IndexSearch", indexSearch)
+    @Html.Hidden("Complete", "Yes")
+	@Control.HiddenFor(x => x.ReadOnlyNotes).WithId(null)
+	@Control.HiddenFor(x => x.RedirectUrl).WithId(null)
+    @Control.SubmitButton("Complete SAP Notification").WithCssClass("complete-notification").With("style", "width:170px;")
+}

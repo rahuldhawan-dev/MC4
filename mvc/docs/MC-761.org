@@ -1,0 +1,58 @@
+#+TITLE: MC-761 Changes/Notes
+
+* Note
+  These changes are transitional, laying the groundwork so that further
+  refactoring is not only possible but much easier.  Of note, accepting an
+  IContainer as a constructor argument is a bad practice, and anywhere that
+  happens it's going to eventually be replaced with a specialized
+  service/factory/builder class for whatever the task IContainer is being used
+  for.
+
+* DI/IoC Changes
+  Constructor injection is to be used everywhere.  There are some places where
+  this is impossible; MvcViewBase and the NHibernate entities all use Setter
+  Injection because the framework has them limited to empty constructors, and
+  the SpecFlow Step Definitions still use DependencyResolver.Current.GetService
+  because they're all static methods.  Also anything consumed by WebForms
+  projects (MapCall proper and 271) still use DependencyResolver.
+
+* Repositories
+  All repositories accept an IContainer as a constructor argument.  This is used
+  so that container.BuildUp(entity) can be called on entities loaded with
+  session.Get(id), which for some reason don't seem to get run through the
+  StructureMapInterceptor.
+
+* View Models
+  All view models now accept an IContainer as a constructor argument to resolve
+  any behavorial dependencies they may have.  This is temporary; the plan is to
+  remove the second constructor with TEntity and use the .Map(entity) method
+  where an entity needs to be mapped into the view model instead.  This will
+  simplify some things in the custom model binder, and then view models will be
+  able to consume through their constructors any dependencies they may need, or
+  none if that's the case.
+
+* Views and ViewHelpers
+  All views now have available an IRoleService as 'RoleService', an
+  IAuthenticationService<User> as 'AuthenticationService', and an
+  IDateTimeProvider as 'DateTimeProvider'.  These were the 3 most commonly
+  resolved dependencies in views via ObjectFactory, so the properties have been
+  added for conventience.  There is also a "_container" field, this is available
+  temporarily until a ViewModelFactory can be provided and also because some
+  views depend directly on repositories (this is an aggregious pattern
+  violation, but one which I did not have time to fix over the course of all
+  this).
+
+  If a ViewHelper extension method as a dependency, it should be consumed via an
+  argument rather than retrieved from DependencyResolver.  Often rather than an
+  IDateTimeProvider a helper method just needs the current date, or rather than
+  an IAuthenticationService<User> it just needs the current user, so it's usually
+  better to use a value-like object as an argument rather than inject in a whole
+  service dependency.
+
+* In Memory Database Tests (and Inheritors)
+  There is now an IContainer available which should be used to create your
+  target with _container.GetInstance<T>().  Any real or mocked dependencies
+  should be configured in InitializeObjectFactory rather than injected.  *DO
+  NOT* call _container.Inject(obj) in TestInitialize, either configure it in
+  InitializeObjectFactory for all the tests or inject in your test method
+  as-needed.

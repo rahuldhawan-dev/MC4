@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSmartCoverAlert
+
+@(Html.TableFor(x => Model.Results, new {id = "smartCoverAlerts"})
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor("Smart Cover Alert", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+      .ColumnFor(x => x.ApplicationDescription)
+      .ColumnFor(x => x.SmartCoverAlertSmartCoverAlertTypes, "Alert Types")
+      .ColumnFor(x => x.DateReceived)
+      .ColumnFor(x => x.Acknowledged)
+      .ColumnFor(x => x.MostRecentWorkOrder)
+    )

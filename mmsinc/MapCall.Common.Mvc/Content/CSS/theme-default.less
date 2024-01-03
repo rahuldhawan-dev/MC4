@@ -1,0 +1,224 @@
+﻿/* 
+    Use this to set any theme-specific fonts, font colors, border colors, background
+    colors, color colors, and whatever else that is referenced from shared mvc stylesheets.
+
+    If you're creating .css and .map files when you save/build the project, go to 
+    Tools -> Options -> Web Essentials -> LESS and set all of the values to false. Visual
+    Studio should not be compiling our .less files for us.
+/*
+
+/* 
+    NOTES:
+        1) This file is only for defining variables and creating mixins that are used by
+           the shared mvc stylesheets or elsewhere in other stylesheets. DO NOT SET ANY
+           SITE-SPECIFIC STYLE RULES IN HERE!
+        2) A theme MUST COPY THIS WHOLE FILE!
+        3) The theme-default.less file should act as a skeleton/outline style and nothing
+           more. It should have sane default values for new sites, but no real coloring or
+           styling.
+
+*/
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------NAMED COLORS--------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+/* 
+    This theme's colors are intentionally set to terrible so you see if you missed
+    a variable.
+
+    NOTE: Themes SHOULD NOT RELY ON THESE NAMED COLOR VARIABLES EXISTING
+*/
+@white: white;
+@black: black;
+@light-gray: #bbbbbb; 
+@medium-gray: #999999;
+@dark-gray: #222222;
+@blue: blue; 
+@red: red;
+@yellow: yellow;
+@green: green;
+
+
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------COMMONLY USED-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@page-background-color: @white;
+@default-link-color: @light-gray;
+@default-link-hover-color: @default-link-color; 
+@default-link-visited-color: @default-link-color;
+@default-something-is-active-background-color: @dark-gray;
+@default-something-is-active-color: @white;
+@default-something-is-not-active-background-color: @light-gray;
+@default-something-is-not-active-color: @black;
+@default-text-color: @black;
+@default-font-family: 'Calibri';
+@default-font-size: 12px;
+@default-font-weight: normal;
+@default-letter-spacing: inherit;
+@noscript-background-color: @red;
+@noscript-color: @white;
+@dark-background-text-color: @white;
+@light-background-text-color: @default-text-color;
+@body-line-height: 1;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------- FORM ELEMENTS-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@default-form-control-border: solid 1px @light-gray;
+@default-form-control-height: @default-font-size * 2;
+@fieldset-border: @default-form-control-border;
+@fieldset-padding: 6px;
+@default-form-control-font-family: @default-font-family;
+@default-form-control-font-size: @default-font-size;
+@numericpicker-textbox-width: 100px;
+@default-form-control-padding: 0px;
+@validation-error-text-color: @red;
+@validation-input-error-border: solid 1px @red;
+@validation-input-error-background-color: @red;
+@field-description-color: @medium-gray;
+@field-description-font-size: @default-font-size;
+@field-description-font-weight: bold;
+@field-description-text-align: right;
+@field-description-line-height: @body-line-height;
+@default-form-control-disabled-text-color: #eeeeee;
+@default-form-control-disabled-background-color: @light-gray;
+@default-form-control-disabled-border: solid 1px @medium-gray;
+
+/* Sets the common styles for all form controls. */
+.default-form-control-style() { }
+
+/*----------------------------------------------------------------------------*/
+/*-----------------------------------BUTTONS----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@button-default-font-family: @default-font-family;
+@button-default-font-size: @default-font-size;
+@button-default-font-weight: @default-font-weight;
+@button-default-height: @default-form-control-height;
+@button-default-text-color: @white;
+@button-default-background-color: @light-gray;
+@button-default-border: @default-form-control-border;
+@button-default-padding-top: 0px; /* Should most likely always be 0 for text alignment reasons */
+@button-default-padding-left: @default-form-control-padding;
+@button-default-padding-bottom: 0px; /* Should most likely always be 0 for text alignment reasons */
+@button-default-padding-right: @default-form-control-padding;
+@button-border-line-height-offset: 2px; /* This must be equal for the sum size values for the top and bottom border */
+@button-disabled-text-color: #eeeeee;
+@button-disabled-background-color: @light-gray;
+@button-disabled-border: solid 1px @medium-gray;
+@button-hover-text-color: @dark-background-text-color;
+@button-hover-background-color: @blue;
+@button-hover-border: @default-form-control-border;
+
+.button-default-state() {}
+.button-hover-state() {}
+.button-disabled-state() {}
+
+/*----------------------------------------------------------------------------*/
+/*-----------------------------------DATEPICKER-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@datepicker-width: 200px;
+@datepicker-shadow:  0px 0px 5px @dark-gray;
+@datepicker-background-color: @white;
+@datepicker-border: @default-form-control-border;
+@datepicker-calendar-border: none;
+@datepicker-header-background: @default-something-is-not-active-background-color;
+@datepicker-header-color: @dark-background-text-color;
+@datepicker-textbox-width: 70px; /* the textbox widths need to be adjusted with font size. */
+@datetimepicker-textbox-width: @datepicker-textbox-width * 2;
+@datepicker-default-day-background: @white;
+@datepicker-default-day-color: @black;
+@datepicker-today-anchor-background-color: @white;
+@datepicker-current-day-anchor-background-color: @default-something-is-active-background-color;
+@datepicker-current-day-anchor-text-color: @white;
+@datepicker-hovered-anchor-background-color: @default-something-is-active-background-color;
+@datepicker-hovered-anchor-text-color: @default-something-is-active-color;
+@datepicker-unselectable-date-background-color: @light-gray;
+@datepicker-unselectable-date-color: @dark-gray;
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------NOTIFICATIONS-------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@notification-error-color: @red;
+@notification-warning-color: @yellow;
+@notification-success-color: @green;
+@notification-reminder-color: @blue;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------------TABLES----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@table-background-color: @white;
+@table-border: solid 1px @black;
+@table-cell-border: solid 1px @black;
+@table-cell-padding: 5px;
+@table-cell-vertical-align: middle;
+@table-row-default-background-color: @table-background-color;
+@table-row-odd-background: @table-row-default-background-color;
+@table-row-even-background: @table-row-default-background-color;
+@table-row-hover-background: @table-row-default-background-color;
+@table-caption-color: @default-text-color;
+@table-header-cell-border: solid 1px @black;
+@table-header-cell-background-color: @black;
+@table-header-sorted-background-color: @default-something-is-active-background-color;
+@table-header-sorted-color: @default-text-color;
+@table-header-hover-background-color: @table-header-cell-background-color;
+
+/* Sets the style for all cells in a row when the row is moused over */
+.table-row-hover-cell-style() {}
+
+/*----------------------------------------------------------------------------*/
+/*-------------------------------------TABS-----------------------------------*/
+/*----------------------------------------------------------------------------*/
+@tab-header-border: solid 1px @default-something-is-active-background-color;
+@tab-header-height: 32px;
+@tab-header-background: transparent;
+@tab-header-padding: 6px;
+@tab-height: @tab-header-height - 1; /* This is adjustable in case borders start messing things up */
+@tab-default-background: @default-something-is-not-active-background-color;
+@tab-default-border: @light-gray;
+@tab-default-color: @default-something-is-not-active-color;
+@tab-active-border: @dark-gray;
+@tab-active-background: @default-something-is-active-background-color;
+@tab-active-color: @default-something-is-active-color;
+@tab-content-border: @default-form-control-border;
+@tab-content-padding: 0px;
+
+.tab-header-font() {}
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------------MODALS----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@modal-window-background-color: @white;
+@modal-window-text-color: @default-text-color;
+@modal-window-border: solid 1px @black;
+@modal-window-overlay-color: @black;
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------------AUTOCOMPLETE-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@autocomplete-border: @default-form-control-border;
+@autocomplete-hover-background-color: @default-something-is-active-background-color;
+@autocomplete-hover-color: @default-something-is-active-color;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------------MIXINS----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+/*
+    NOTE:
+        Generally, mixins should NOT have any default values in them. This way
+        the overridding mixins don't have to worry about the resetting any base
+        values that are included. Add the values to the actual shared style rule
+        that the mixin is called in. See where reset is called for an example. 
+*/
+
+/* Sets the default values that resets ALL tags. */
+.reset() {}
+
+/* Sets the background color of the html tag for a page. */
+.html-background() {}

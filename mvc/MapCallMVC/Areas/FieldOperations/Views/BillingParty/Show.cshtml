@@ -1,0 +1,5 @@
+﻿@model BillingParty
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowBillingParty", Model)
+    .WithTab("Contacts", "_ShowContacts", Model))

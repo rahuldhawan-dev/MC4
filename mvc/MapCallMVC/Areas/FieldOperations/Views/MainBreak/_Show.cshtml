@@ -1,0 +1,31 @@
+﻿@model MainBreak
+@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Authentication
+@using MMSINC.Metadata
+
+<tr>
+	<td>@Html.DisplayTextFor(m => m.ServiceSize)</td>
+	<td>@Html.DisplayTextFor(m => m.MainBreakMaterial)</td>
+	<td>@Html.DisplayTextFor(m => m.FootageReplaced)</td>
+	<td>@Html.DisplayTextFor(m => m.ReplacedWith)</td>
+	<td>@Html.DisplayTextFor(m => m.MainCondition)</td>
+	<td>@Html.DisplayTextFor(m => m.MainFailureType)</td>
+	<td>@Html.DisplayTextFor(m => m.Depth)</td>
+	<td>@Html.DisplayTextFor(m => m.MainBreakSoilCondition)</td>
+	<td>@Html.DisplayTextFor(m => m.CustomersAffected)</td>
+	<td>@Html.DisplayTextFor(m => m.ShutdownTime)</td>
+	<td>@Html.DisplayTextFor(m => m.MainBreakDisinfectionMethod)</td>
+	<td>@Html.DisplayTextFor(m => m.MainBreakFlushMethod)</td>
+	<td>@Html.DisplayTextFor(m => m.ChlorineResidual)</td>
+	<td>@Html.DisplayTextFor(m => m.BoilAlertIssued)</td>
+	<td>
+		<div>@Ajax.ActionLink("Edit", "Edit", "MainBreak", new { Model.Id }, new AjaxOptions { HttpMethod = "GET" })</div>
+		<div>
+			@{
+				var meh = Ajax.SecureActionLink<User>(_container.GetInstance<ISecureFormTokenService>(), _container.GetInstance<IAuthenticationService<User>>().CurrentUser,
+					"Delete", "Destroy", "MainBreak", new { area = "FieldOperations", id = Model.Id }, new AjaxOptions { HttpMethod = "DELETE", Confirm = "Are you sure you want to delete this record?" });
+				@meh
+			}
+		</div>
+	</td>
+</tr>

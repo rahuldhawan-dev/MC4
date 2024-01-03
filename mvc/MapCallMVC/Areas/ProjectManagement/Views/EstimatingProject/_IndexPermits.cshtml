@@ -1,0 +1,44 @@
+﻿@using MapCallMVC.Areas.ProjectManagement.Models.ViewModels
+@model EstimatingProject
+
+@{
+    var table = Html.TableFor(_ => Model.Permits, new { id = "permitsTable", style = "width:100%;" })
+        .ColumnFor(x => x.PermitType)
+        .ColumnFor(x => x.Quantity)
+        .ColumnFor(x => x.AssetType)
+        .ColumnFor(x => x.Cost)
+        .ColumnFor(x => x.TotalCost)
+        .WithCaption(String.Format("Total Permit Cost: {0:c}", Model.TotalPermitCost));
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EstimatingProjectPermit", new { x.Id }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove Permit").WithName("estimatingProjectPermitId").WithValue(x.Id));
+    }
+}
+
+<div class="container">
+    <a href="https://permits.mapcall.net">File a New Permit</a>
+</div>
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Permit">
+        @Html.Partial("_AddPermit", ViewModelFactory.Build<AddEstimatingProjectPermit, EstimatingProject>(Model))
+    </div>
+
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectPermit", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deletePermitForm");
+
+            @table
+        }
+    </div>
+}
+else
+{
+    <div class="container">
+        @table
+    </div>
+}

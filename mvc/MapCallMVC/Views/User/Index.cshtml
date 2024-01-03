@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Models.ViewModels.Users.SearchUser
+
+@(Html.TableFor(x => x, new { @class = "results-table" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.UserName)
+    .SortableColumnFor(x => x.FullName)
+    .SortableColumnFor(x => x.DefaultOperatingCenter)
+    .TemplateColumnFor("Employee ID", x => @<text>
+                                               @if (x.Employee != null)
+                                               {
+                                                   @Html.ActionLink(x.Employee.EmployeeId, "Show", "Employee", new { id = x.Employee.Id }, null)
+                                               }
+                                            </text>)
+    .SortableColumnFor(x => x.HasAccess)
+    .SortableColumnFor(x => x.UserType)
+    .SortableColumnFor(x => x.IsAdmin)
+    .SortableColumnFor(x => x.IsUserAdmin)
+    .WithPaginatedFooter())

@@ -1,0 +1,14 @@
+﻿@model ConfinedSpaceForm
+@{ActionBarHelper.AddPdfLink();}
+@Html.StylesheetFor("~/Content/css/HealthAndSafety/ConfinedSpaceForm.css")
+@(Html.Tabs()
+    .WithTab("Section 1", "_DisplaySection1")
+    .WithTab("Section 2", "_DisplaySection2")
+    .WithTab("Section 3", "_DisplaySection3", isVisible: Model.IsSection2Completed)
+    .WithTab("Section 4", "_DisplaySection4", isVisible: Model.IsSection2Completed)
+    // Entrants is part of section 5 so these tabs need to be grouped together
+    .WithTab("Section 5", "_DisplaySection5", isVisible: Model.IsSection5Enabled) 
+    .WithTab("Role Assignment", "_DisplayEntrants", isVisible: Model.IsSection5Enabled)
+    .WithNotesAndDocuments()
+    .WithLog()
+)

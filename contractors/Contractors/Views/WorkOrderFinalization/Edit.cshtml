@@ -1,0 +1,83 @@
+﻿@using Contractors.Models.ViewModels
+@model Contractors.Models.ViewModels.WorkOrderFinalizationDetails
+@Html.ScriptFor("~/Scripts/WorkOrderFinalization/Edit.js", ScriptLoadType.LoadFromPartial)
+@{
+    ViewBag.Title = "Work Order - Finalization - Details";
+
+    var displayServiceLineInfo = WorkDescription.SERVICE_LINE_RENEWALS.Contains(Model.WorkOrder.WorkDescription.Id);
+    var isServiceWorkOrder = Model.AssetTypeId == AssetType.Indices.SERVICE;
+}
+
+<h3>Order Number: @Html.DisplayTextFor(m => m.Id)</h3>
+@if (Model.WorkOrder.SpecialInstructions != null)
+{
+    <h5>
+        @Html.DisplayLabelFor(x => x.WorkOrder.SpecialInstructions):
+        <span style="color: red" id="WorkOrderSpecialInstructions">@Html.DisplayTextFor(m => m.WorkOrder.SpecialInstructions)</span>
+    </h5>
+}
+@Html.Partial("_Tabs", Model)
+@using (var f = Form.BeginForm("Update", "WorkOrderFinalization", new { id = Model.Id }))
+{
+    f.HtmlAttributes["id"] = "WorkOrderFinalizationEditForm";
+
+    <div class="field-column fc100" >
+        @Control.HiddenFor(m => m.Id)
+        @Control.HiddenFor(m => m.DisplayComplianceInfo)
+        @Control.HiddenFor(m => m.AssetTypeId)
+
+        @if (displayServiceLineInfo || WorkDescription.SERVICE_LINE_RETIRE.Contains(Model.WorkOrder.WorkDescription.Id))
+        {
+            <fieldset>
+                <legend>Service Line Renewal Info</legend>
+                <div class="field-column fc200">
+                    @Html.HiddenFor(x => x.WorkDescription)
+                    @if (displayServiceLineInfo)
+                    {
+                        @Html.EditorFor(x => x.PreviousServiceLineMaterial)
+                        @Html.EditorFor(x => x.PreviousServiceLineSize)
+                    }
+                    @Html.EditorFor(x => x.CompanyServiceLineMaterial)
+                    @Html.EditorFor(x => x.CompanyServiceLineSize)
+                    @if (displayServiceLineInfo)
+                    {
+                        @Html.EditorFor(x => x.CustomerServiceLineMaterial)
+                        @Html.EditorFor(x => x.CustomerServiceLineSize)
+                        @Html.EditorFor(x => x.DoorNoticeLeftDate)
+                        @Html.EditorFor(x => x.FlushingNoticeType)
+                    }
+                </div>
+            </fieldset>
+        }
+
+        @if (Model.DisplayComplianceInfo)
+        {
+            <fieldset>
+                <legend>Compliance Data</legend>
+                <div class="field-column fc300">
+                    @Html.RenderEditorTemplate(Html.DisplayLabelFor(x => x.InitialServiceLineFlushTime),
+                                @<text>
+                                    @Html.EditorFor(x => x.InitialServiceLineFlushTime, new { Container = Model, IncludeWrapperHtml = false })
+                                    <div id="flush-time-below-minimum-message" @{if (Model.InitialServiceLineFlushTime >= WorkOrderFinalizationDetails.MINIMUM_FLUSH_TIME_MINUTES) { <text>class="hidden"</text> } }>@WorkOrderFinalizationDetails.FLUSH_TIME_BELOW_MINIMUM</div>
+                                </text>)
+                    @Html.EditorFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+                    <div id="pitcher-filter-delivered" class="field-pair">
+                        @Html.EditorFor(x => x.DatePitcherFilterDeliveredToCustomer)
+                        @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryMethod)
+                        <div id="pitcher-filter-delivery-other" class="field-pair">
+                            @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryOtherMethod)
+                        </div>
+                    </div>
+                    @Html.EditorFor(x => x.DateCustomerProvidedAWStateLeadInformation)
+                </div>
+            </fieldset>
+        }
+
+        @Html.EditorFor(m => m.DateCompleted)
+        @if (isServiceWorkOrder)
+        {
+            @Html.EditorFor(m => m.MeterLocation)
+        }
+        @Html.ButtonGroup(Control.SubmitButton("Save").WithId("Submit"))
+    </div>
+}

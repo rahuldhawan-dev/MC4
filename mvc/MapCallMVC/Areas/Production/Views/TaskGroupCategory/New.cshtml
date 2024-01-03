@@ -1,0 +1,12 @@
+﻿@model  MapCallMVC.Areas.Production.Models.ViewModels.TaskGroupCategoryViewModel
+
+@using (Form.BeginForm("Create", "TaskGroupCategory", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

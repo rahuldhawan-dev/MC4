@@ -1,0 +1,13 @@
+﻿@model FacilityProcess
+
+@(Html.Tabs()
+    .WithTab("Details", @<div class="field-column fc200">
+        @Html.DisplayFor(x => x.Facility.OperatingCenter)
+        @Html.RenderDisplayTemplate("Facility", Html.AuthorizedActionLinkOrText(Model.Facility.ToString(), "Show", "Facility", new { id = Model.Facility.Id, area = string.Empty }))
+        @Html.DisplayFor(x => x.Process.ProcessStage)
+        @Html.DisplayFor(x => x.Process)
+        @Html.DisplayFor(x => x.FacilityProcessDescription)
+    </div>)
+            .WithTab("Process Steps", "_FacilityProcessSteps", Model, itemCount: Model.FacilityProcessSteps.Count)
+            .WithVideos()
+            .WithNotesAndDocuments())

@@ -1,0 +1,13 @@
+﻿@model SearchTrainingRecord
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@Html.ScriptFor("~/Scripts/TrainingRecord/Index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.Tabs(new { id = "resultTabs"})
+      .WithTab("Results", @<text>
+            @(Html.Partial("_Index", Model))
+        </text>)
+      .WithTab("Calendar", "_Calendar", Model)
+)

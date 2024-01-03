@@ -1,0 +1,33 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Authentication
+@using HtmlHelperExtensions = MMSINC.ClassExtensions.HtmlHelperExtensions
+@model Employee
+
+
+@{
+    var curUser = AuthenticationService.CurrentUser;
+    var module = MapCall.Common.Model.Entities.RoleModules.HumanResourcesAccountabilityAction;
+    var action = MapCall.Common.Model.Entities.RoleActions.Edit;
+    var opc = Model.OperatingCenter;
+}
+@(
+    Html.Tabs()
+    .WithTab("Employee", "_ShowEmployee", Model)
+    .WithTab("Tailgate Talks", "_IndexTailgateTalks", Model, Html.CurrentUserCanDo("Show", "TailgateTalk", "HealthAndSafety"))
+    .WithTab("Training Records", "~/Views/TrainingRecord/_AjaxIndex.cshtml", Html.CurrentUserCanDo("Show", "TrainingRecord"))
+    .WithAjaxTab("Training Requirements", "_TrainingRequirements", Model)
+    .WithTab("Position History", "_IndexPositionHistory", Model)
+    .WithTab("Grievances", "_IndexGrievances", Model, Html.CurrentUserCanDo("Show", "Grievance"))
+    .WithTab("Accountability Actions", "_IndexAccountabilityActions", Model, MapCall.Common.Helpers.ClassExtensions.HtmlHelperExtensions.CurrentUserCanDo(this.Html,
+        curUser, module,RoleActions.Read, opc))
+    .WithTab("Job Observations", "_IndexJobObservations", Model, Html.CurrentUserCanDo("Show", "JobObservation", "HealthAndSafety"))
+    .WithTab("Hepatitis B", "_IndexHepatitisB", Model, Html.CurrentUserCanDo("Show", "HepatitisBVaccination"))
+    .WithTab("Drivers Licenses", "_IndexDriversLicenses", Model)
+    .WithTab("Medical Cert.", "_IndexMedicalCertificates", Model)
+    .WithTab("Cert. of Violation", "_IndexViolationCertificates", Model)
+    .WithTab("Operator Licenses", "_IndexOperatorLicense", Model)
+    .WithTab("Production Skill Sets", "_ProductionSkillSets", Model)
+    .WithTab("Incidents", "_IndexIncident", Model)
+    .WithTab("General Liability Claim", "_IndexGeneralLiabilityClaim", Model)
+    .WithTab("Absence Notification", "_IndexAbsenceNotification", Model)
+.WithNotesAndDocuments())

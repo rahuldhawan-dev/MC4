@@ -1,0 +1,58 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.BaseMainCrossingInspectionViewModel
+ 
+@* General fields have to be rendered from New/Edit due to differences. *@
+
+<fieldset>
+    <legend>Adjacent Facility</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.AdjacentFacilityHasBankErosion)
+        @Html.EditorFor(x => x.AdjacentFacilityHasBridgeDamage)
+        @Html.EditorFor(x => x.AdjacentFacilityHasPavementFailure)
+        @Html.EditorFor(x => x.AdjacentFacilityHasPropertyDamage)
+        @Html.EditorFor(x => x.AdjacentFacilityOverheadPowerLinesAreDown)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Environment</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EnvironmentHasDebrisBuildUp)
+        @Html.EditorFor(x => x.EnvironmentIsExposedToVehicleImpact)
+        @Html.EditorFor(x => x.EnvironmentIsInHazardousLocation)
+        @Html.EditorFor(x => x.EnvironmentIsNotSecuredFromPublic)
+        @Html.EditorFor(x => x.EnvironmentIsSubmergedInWater)
+        @Html.EditorFor(x => x.EnvironmentIsSusceptibleToStormDamage)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Joints</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.JointsAreLeaking)
+        @Html.EditorFor(x => x.JointsBondStrapsDamaged)
+        @Html.EditorFor(x => x.JointsFailedSeparated)
+        @Html.EditorFor(x => x.JointsRestraintDamaged)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Pipe</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.PipeHasConcreteSpools)
+        @Html.EditorFor(x => x.PipeHasCracks)
+        @Html.EditorFor(x => x.PipeHasDelaminatedSteel)
+        @Html.EditorFor(x => x.PipeHasExcessiveCorrosion)
+        @Html.EditorFor(x => x.PipeIsDamaged)
+        @Html.EditorFor(x => x.PipeIsInService)
+        @Html.EditorFor(x => x.PipeLacksInsulation)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Supports</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.SupportsAreDamaged)
+        @Html.EditorFor(x => x.SupportsHaveCorrosion)
+        @Html.EditorFor(x => x.SupportsHaveDeficientSupport)
+    </div>
+</fieldset>

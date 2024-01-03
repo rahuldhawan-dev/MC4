@@ -1,0 +1,223 @@
+﻿@model MeterChangeOut
+@{
+    Layout = null;
+    var date = string.Format("{0:ddd, MM/dd/yy}",Model.DateScheduled);
+}
+
+@helper CheckBoxWithLabel(string label)
+{
+    <div class="checkbox"></div> @label
+}
+
+<div class="page-wrapper">
+    <table>
+        <tr>
+            <td colspan="2" style="font-size: 30px; font-weight: bold;">Meter Service Order</td>
+            <td class="label">Op. Ctr.</td>
+            <td class="bold">@Html.DisplayValueFor(x => x.Contract.OperatingCenter)</td>
+        </tr>
+        <tr>
+            <td class="label">Premise Number</td>
+            <td>@Html.DisplayValueFor(x => x.PremiseNumber)</td>
+            <td class="label">Meter Size</td>
+            <td class="bold">@Html.DisplayValueFor(x => x.MeterSize)</td>
+        </tr>
+        <tr>
+            <td class="label">Changeout Status</td>
+            <td>@Html.DisplayValueFor(x => x.MeterChangeOutStatus)</td>
+            <td class="label">Year Installed</td>
+            <td>@Html.DisplayValueFor(x => x.YearInstalled)</td>
+        </tr>
+        <tr>
+            <td class="label">Date</td>
+            <td>@date</td>
+            <td class="label">Tech Assigned</td>
+            <td>@Html.DisplayValueFor(x => x.AssignedContractorMeterCrew)</td>
+        </tr>
+        <tr>
+            <td class="label">Time(AM or PM)</td>
+            <td>@Html.DisplayValueFor(x => x.MeterScheduleTime)</td>
+            <td class="label">WorkScope</td>
+            <td>@Html.DisplayValueFor(x => x.WorkScope)</td>
+        </tr>
+        <tr>
+            <td class="label" style="height: 75px;">Field notes</td>
+            <td colspan="3" style="border: 1px solid lightgray;">@Html.DisplayValueFor(x => x.FieldNotes)</td>
+        </tr>
+        <tr>
+            <td class="label">Account Name</td>
+            <td>@Html.DisplayValueFor(x => x.CustomerName)</td>
+            <td class="label">Tel 1</td>
+            <td>@Html.DisplayValueFor(x => x.ServicePhone) @Html.DisplayValueFor(x => x.ServicePhoneExtension)</td>
+        </tr>
+        <tr>
+            <td class="label">Service Address</td>
+            <td class="bold">@Html.DisplayValueFor(x => x.ServiceStreetNumber) @Html.DisplayValueFor(x => x.ServiceStreet)</td>
+            <td class="label">Tel 2</td>
+            <td>@Html.DisplayValueFor(x => x.ServicePhone2) @Html.DisplayValueFor(x => x.ServicePhone2Extension)</td>
+        </tr>
+        <tr>
+            <td class="label">Service City</td>
+            <td class="bold">@Html.DisplayValueFor(x => x.ServiceCity)</td>
+            <td class="label">Service Zip</td>
+            <td>@Html.DisplayValueFor(x => x.ServiceZip)</td>
+        </tr>
+        <tr>
+            <td class="label">Meter Location</td>
+            <td colspan="3">@Html.DisplayValueFor(x => x.MeterLocation)</td>
+        </tr>
+       <tr>
+            <td class="label">Meter Read Code 2</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadCode2)</td>
+            <td class="label">Meter Read Comment 2</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadComment2)</td>
+        </tr>
+        <tr>
+            <td class="label">Meter Read Code 3</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadCode3)</td>
+            <td class="label">Meter Read Comment 3</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadComment3)</td>
+        </tr>
+        <tr>
+            <td class="label">Meter Read Code 4</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadCode4)</td>
+            <td class="label">Meter Read Comment 4</td>
+            <td>@Html.DisplayValueFor(x => x.MeterReadComment4)</td>
+        </tr>
+        <tr>
+            <td class="label">Meter Read Comments Premise</td>
+            <td colspan="3">@Html.DisplayValueFor(x => x.MeterCommentsPremise)</td>
+        </tr>
+        <tr>
+            <td class="label missing">Meter Read Comments Service</td>
+            <td colspan="3"></td>
+        </tr>
+    </table>
+    @*According to Alex, everything below this line should be filled in by the people in the field with their fancy pens and pencils.
+        Except for old serial #. *@
+    <table>
+        <tr>
+            <td>OLD SERIAL #</td>
+            <td class="bold">@Html.DisplayValueFor(x => x.RemovedSerialNumber)</td>
+            <td>OUT READ</td>
+            <td class="fillin"></td>
+            <td>START READ</td>
+            <td class="fillin"></td>
+        </tr>
+        <tr>
+            <td class="missing">Meter Position</td>
+            <td colspan="2" class="fillin"></td>
+            <td class="missing">RF Position</td>
+            <td colspan="2" class="fillin"></td>
+        </tr>
+        <tr>
+            <td>Meter Supplemental</td>
+            <td colspan="2" class="fillin"></td>
+            <td class="missing">RF Supplemental</td>
+            <td colspan="2" class="fillin"></td>
+        </tr>
+        <tr>
+            <td class="missing">Meter Directional</td>
+            <td colspan="2" class="fillin"></td>
+            <td class="missing">RF Directional</td>
+            <td colspan="2" class="fillin"></td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="missing" colspan="2">@CheckBoxWithLabel("CHANGED METER ONLY")</td>
+                                </tr>
+                                <tr>
+                                    <td class="missing" colspan="2">@CheckBoxWithLabel("CHANGED RF ONLY")</td>
+                                </tr>
+                                <tr>
+                                    <td class="missing" colspan="2">@CheckBoxWithLabel("CHANGED RF AND METER")</td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid lightgray;">
+                                        BRAND OF RF INSTALLED
+                                    </td>
+                                    <td>
+                                        @CheckBoxWithLabel("MUELLER")
+                                        <br/>
+                                        @CheckBoxWithLabel("NEPTUNE")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid lightgray;">
+                                        BRAND OF METER INSTALLED
+                                    </td>
+                                    <td>
+                                        @CheckBoxWithLabel("BADGER")
+                                        <br/>
+                                        @CheckBoxWithLabel("MUELLER")
+                                        <br/>
+                                        @CheckBoxWithLabel("NEPTUNE")
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td class="missing" colspan="2">FOUND SERVICE</td>
+                                    <td>
+                                        @CheckBoxWithLabel("ON")
+                                        <br />
+                                        @CheckBoxWithLabel("OFF")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="missing" colspan="2">LEFT SERVICE</td>
+                                    <td>
+                                        @CheckBoxWithLabel("ON")
+                                        <br/>
+                                        @CheckBoxWithLabel("OFF")
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="missing" colspan="2">OPERATED POINT OF CONTROL AT ANY VALVE?</td>
+                                    <td>
+                                        @CheckBoxWithLabel("YES")
+                                        <br />
+                                        @CheckBoxWithLabel("NO")
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            @CheckBoxWithLabel("GROUND WIRE INSTALLED")
+                            <br/>
+                            @CheckBoxWithLabel("RAN NEW WIRE")
+                            <br/>
+                            @CheckBoxWithLabel("DRILLED LID")
+                            <br />
+                            @CheckBoxWithLabel("REPLACED LID")
+                            <br />
+                            @CheckBoxWithLabel("ABANDONDED METER IN PLACE")
+                            <br />
+                            @CheckBoxWithLabel("MOVED METER TO PIT")
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" style="text-align:center; font-size:30px; font-style:italic; font-weight:bold;">PLACE NEW RF AND METER SERIAL NUMBER STICKERS BELOW</td>
+        </tr>
+        <tr class="rfmeterlabels">
+            <td colspan="2" class="fillin">RF</td>
+            <td colspan="4" class="fillin">METER</td>
+        </tr>
+        <tr>
+            <td>Route Number</td>
+            <td>@Html.DisplayValueFor(x => x.RouteNumber)</td>
+            <td class="missing">Stop</td>
+            <td></td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,10 @@
+﻿@model SOPWrapModel
+@*So we want tabs here, a tab for normal search and a tab to display what reviews they have due. *@
+
+@Html.Partial("_Search", Model.Search, new ViewDataDictionary(Model.Search))
+
+@* Add a thing here that lets a user start an SOP review. *@
+
+@(Html.TableFor(x => x.ReviewableProcedures)
+    .TemplateColumnFor(x => @Control.ActionLink("Start Review", "New", "StandardOperatingProcedureReview", new{ standardOperatingProcedure = x.Id}))
+    .ColumnFor(x => x.Description))

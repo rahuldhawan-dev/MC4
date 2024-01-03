@@ -1,0 +1,46 @@
+﻿@using MMSINC.Helpers
+@model WaterSample
+@{
+    var data = Model.SampleIdMatrix.WaterSamples
+        .Where(x => x.SampleDate.HasValue && x.SampleValue.HasValue)
+        .Select(x => new { x.SampleDate, x.SampleIdMatrix, x.SampleValue}).Distinct()
+        .OrderByDescending(x => x.SampleDate).Take(10).ToList().OrderBy(x => x.SampleDate);
+}
+
+@if (!data.Any())
+{
+    <div class="container">
+        No water samples were found.
+    </div>
+}
+else
+{
+<style>
+    .chart {
+        height: 350px;
+    }
+</style>
+<div class="container">
+    @{
+        var cb = new ChartBuilder<DateTime, float>();
+        cb.Interval = ChartIntervalType.Minute;
+        cb.Type = ChartType.Line;
+        cb.Title = Model.SampleIdMatrix.Description;
+        cb.YMinValue = (float)0;
+        cb.LegendPosition = ChartLegendPosition.Bottom;
+
+        foreach (var item in data)
+        {
+            if (item.SampleValue.HasValue && item.SampleDate.HasValue && item.SampleIdMatrix != null && item.SampleIdMatrix.WaterConstituent != null)
+            {
+                cb.AddSeriesValue(item.SampleIdMatrix.WaterConstituent.ToString(), item.SampleDate.Value, item.SampleValue.Value);
+            }
+        }
+    }
+
+    @cb
+    @(Html.TableFor(x => data)
+    .ColumnFor(x => x.SampleDate)
+    .ColumnFor(x => x.SampleValue))
+</div>
+}

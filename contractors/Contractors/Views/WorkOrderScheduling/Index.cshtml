@@ -1,0 +1,59 @@
+﻿@model Contractors.Models.ViewModels.SchedulingCrewAssignment
+@{
+    ViewBag.Title = "Work Order - Scheduling - Results";
+}
+
+@using (Form.BeginForm("Create", "CrewAssignment"))
+{
+    @Html.ValidationMessageFor(m => m.WorkOrderIDs)
+
+    @(Html.TableFor(x => x.Search)
+	      .TemplateColumnFor("Assign", x => @<text><input type="checkbox" name="WorkOrderIDs" value="@x.Id" data-val-at-least="You must pick at least one order to assign." data-val-at-least-min="1" data-val="true" /></text>)
+	      .SortableColumnFor(x => x.Id)
+	      .SortableTemplateColumnFor(x => x.DateReceived, "DateReceived", x => @<text>
+																				   @if (x.DateReceived.HasValue)
+																				   {
+																					   @x.DateReceived.Value.ToString("d")
+																				   }
+	                                                                            </text>)
+	      .SortableColumnFor(x => x.StreetNumber)
+	      .SortableColumnFor(x => x.Street, "Street.FullStName")
+	      .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+	      .SortableColumnFor(x => x.Town, "Town.ShortName")
+	      .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+	      .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+	      .TemplateColumnFor("Asset ID", x => @<text>@x.AssetKey</text>) // Don't know why it's labeled Asset ID and uses AssetKey
+		  .SortableColumnFor(x => x.WorkDescription, "Description of Job", "WorkDescription.Description")
+		  .SortableColumnFor(x => x.WorkDescription.TimeToComplete)
+		  .SortableColumnFor(x => x.Priority)
+		  .SortableColumnFor(x => x.Purpose)
+		  .SortableColumnFor(x => x.MarkoutRequirement)
+		  .TemplateColumnFor("Markout Ready Date", x => @<text>
+															@if (x.CurrentMarkout != null)
+															{
+															    @String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.CurrentMarkout.ReadyDate)
+															}
+		                                                 </text>)
+		  .TemplateColumnFor("Markout Expiration Date", x => @<text>
+															@if (x.CurrentMarkout != null)
+															{
+															    @String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.CurrentMarkout.ExpirationDate)
+															}
+		                                                 </text>)
+		  .TemplateColumnFor("Assigned Date", x => @<text>
+			                                           @if (x.CurrentAssignment != null)
+			                                           {
+				                                           @x.CurrentAssignment.AssignedFor.Value.ToString("d")
+			                                           }
+		                                            </text>)
+		  .ColumnFor(x => x.CurrentAssignment.Crew, "Assigned To")
+		  .WithPaginatedFooter()
+		  )
+
+    <div class="field-column fc100 field-column-default">
+        @Html.EditorFor(m => m.Crew)
+        @Html.EditorFor(m => m.AssignFor)
+    </div>
+
+    @Control.SubmitButton("Save").WithName("Submit")
+}

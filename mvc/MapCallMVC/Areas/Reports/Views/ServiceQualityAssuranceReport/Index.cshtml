@@ -1,0 +1,9 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServiceQAReport
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.Tabs()
+    .WithTab("Service Renewals", "_ServiceRenewals")
+    .WithTab("New Services", "_NewServices")
+    .WithTab("Tap Images", "_TapImages")
+)

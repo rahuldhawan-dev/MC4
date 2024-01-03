@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditBillingParty
+
+@using (Form.BeginForm("Update", "BillingParty", "FieldOperations", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "BillingParty", new {Model.Id})
+                           </text>)
+    </div>
+}

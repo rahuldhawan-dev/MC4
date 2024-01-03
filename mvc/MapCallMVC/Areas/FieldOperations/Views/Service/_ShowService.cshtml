@@ -1,0 +1,299 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MMSINC.ClassExtensions
+@model Service
+
+@if (Html.CurrentUserCanDo("New", "Service", "FieldOperations"))
+{
+    @Html.ActionLink("Copy", "New", "Service", new { id = Model.Id, copy = true }, new { area = "FieldOperations", Class = "link-button" })
+    @Html.ActionLink("Copy W/Service Number", "New", "Service", new { id = Model.Id, copy = true, withServiceNumber = true }, new { area = "FieldOperations", Class = "link-button" })
+    @Html.ActionLink("Create Sewer Service", "New", "Service", new { id = Model.Id, copy = true, forSewer = true }, new { area = "FieldOperations", Class = "link-button" })
+}
+<fieldset>
+    <legend>Service Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.ServiceNumber)
+        @Html.DisplayFor(x => x.LegacyId)
+        @Html.DisplayFor(x => x.PremiseNumberUnavailable)
+        @if (Model.PremiseNumberUnavailable.GetValueOrDefault())
+        {
+            @Html.DisplayFor(x => x.PremiseUnavailableReason)
+        }
+        @if (Model.PremiseNumber != null && Model.Premise != null)
+        {
+            var linktext = string.IsNullOrEmpty(Model.PremiseNumber) ? "N/A" : Model.PremiseNumber;
+            @Html.RenderDisplayTemplate("Premise Number", Html.ActionLink(linktext, "Show", "Premise", new { Model.Premise.Id, area = "Customer" }, null))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.PremiseNumber)
+        }
+        @Html.DisplayFor(x => x.Installation)
+        @if (!String.IsNullOrWhiteSpace(Model.PlaceHolderNotes))
+        {
+            @Html.DisplayFor(x => x.PlaceHolderNotes)
+        }
+        @Html.DisplayFor(x => x.DeviceLocation)
+        @Html.DisplayFor(x => x.DeviceLocationUnavailable)
+        @Html.DisplayFor(x => x.IsActive)
+        @Html.DisplayFor(x => x.InactiveDate)
+        @Html.DisplayFor(x => x.ServiceType)
+        @if (Model.OperatingCenter.SAPEnabled)
+        {
+            @Html.DisplayFor(x => x.SAPErrorCode)
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>1. Site Information</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.ContactDate)
+                    @Html.RenderDisplayTemplate("Initiator", @<text>
+                        @if (Model.Initiator != null)
+                        {
+                            @Model.Initiator.FullName
+                        }
+                    </text>)
+                    @Html.DisplayFor(x => x.Name)
+                    @Html.DisplayFor(x => x.StreetNumber)
+                    @Html.DisplayFor(x => x.Street)
+                    @Html.DisplayFor(x => x.Town)
+                    @Html.DisplayFor(x => x.TownSection)
+                    @Html.DisplayFor(x => x.Block)
+                    @Html.DisplayFor(x => x.Lot)
+                    @Html.DisplayFor(x => x.Coordinate)
+                    @Html.DisplayFor(x => x.PhoneNumber)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.ApartmentNumber)
+                    @Html.DisplayFor(x => x.CrossStreet)
+                    @Html.DisplayFor(x => x.State)
+                    @Html.DisplayFor(x => x.Zip)
+                    @Html.DisplayFor(x => x.Development)
+                    @Html.DisplayFor(x => x.SubfloorCondition)
+                    @Html.DisplayFor(x => x.YearOfHomeConstruction)
+                    @Html.DisplayFor(x => x.TerminationPoint)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>2. Cost Information</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.RoadOpeningFee)
+                    @Html.DisplayFor(x => x.AmountReceived)
+                    @Html.DisplayFor(x => x.TotalFee)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.ServiceInstallationFee)
+                    @Html.DisplayFor(x => x.PaymentReferenceNumber)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>3. Company Service Information</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.ServiceCategory)
+                    @Html.DisplayFor(x => x.ServiceInstallationPurpose)
+                    @Html.DisplayFor(x => x.TaskNumber1)
+                    @Html.DisplayFor(x => x.LeadServiceReplacementWbs)
+                    @Html.DisplayFor(x => x.NSINumber)
+                    @Html.DisplayFor(x => x.SAPNotificationNumber)
+                    @Html.DisplayFor(x => x.SAPWorkOrderNumber)
+                    @Html.DisplayFor(x => x.DeveloperServicesDriven)
+                    @Html.DisplayFor(x => x.Agreement)
+                    @Html.DisplayFor(x => x.MainType)
+                    @Html.DisplayFor(x => x.MainSize)
+                    @Html.DisplayFor(x => x.DepthMainFeet)
+                    @Html.DisplayFor(x => x.DepthMainInches)
+                    @Html.DisplayFor(x => x.LengthOfService)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.BureauOfSafeDrinkingWaterPermitRequired)
+                    @Html.DisplayFor(x => x.MeterSettingRequirement)
+                    @Html.DisplayFor(x => x.MeterSettingSize)
+                    @Html.DisplayFor(x => x.ServiceMaterial)
+                    @Html.DisplayFor(x => x.ServiceSize)
+                    @Html.DisplayFor(x => x.CompanyOwned)
+                    @Html.DisplayFor(x => x.ServiceSideType)
+                    @Html.DisplayFor(x => x.PitInstalled)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>4. Customer Side Service Information</legend>
+    <table class="double-wide" style="width: 100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.CustomerSideMaterial)
+                    @Html.DisplayFor(x => x.CustomerSideSize)
+                    @Html.DisplayFor(x => x.LeadAndCopperCommunicationProvided)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.RenderDisplayTemplate("Sample Site", @<div>
+                                                                   @if (Model.Premise != null && Model.Premise.SampleSite != null)
+                                                                   {
+                                                                       @Html.ActionLink(Model.Premise.SampleSite.ToString(), "Show", "SampleSite", new { id = Model.Premise.SampleSite.Id, area = "WaterQuality" }, null)
+                                                                   }
+                                                               </div>)
+                    @Html.DisplayFor(x => x.TapOrderNotes)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>5. Street Opening</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.PermitType)
+                    @Html.DisplayFor(x => x.PermitSentDate)
+                    @Html.DisplayFor(x => x.PermitExpirationDate)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.PermitNumber)
+                    @Html.DisplayFor(x => x.PermitReceivedDate)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>6. Work Information</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.DateIssuedToField)
+                    @Html.DisplayFor(x => x.WorkIssuedTo)
+                    @Html.DisplayFor(x => x.ProjectManager)
+                    @Html.DisplayFor(x => x.ServicePriority)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.StreetMaterial)
+                    @Html.DisplayFor(x => x.DateInstalled)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>7. Retirement Information</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.RetiredAccountNumber)
+                    @Html.DisplayFor(x => x.RetireMeterSet)
+                    @Html.DisplayFor(x => x.PreviousServiceMaterial)
+                    @Html.DisplayFor(x => x.PreviousServiceCustomerMaterial)
+                    @Html.DisplayFor(x => x.LeadServiceRetirementWbs)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.OriginalInstallationDate)
+                    @Html.DisplayFor(x => x.RetiredDate)
+                    @Html.DisplayFor(x => x.PreviousServiceSize)
+                    @Html.DisplayFor(x => x.PreviousServiceCustomerSize)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>8. Contractor Installation Invoice</legend>
+    <table class="double-wide" style="width:100%;">
+        <tr>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.InstallationInvoiceNumber)
+                    @Html.DisplayFor(x => x.PurchaseOrderNumber)
+                    @Html.DisplayFor(x => x.UpdatedAt)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.InstallationInvoiceDate)
+                    @Html.DisplayFor(x => x.InstallationCost)
+                    @Html.DisplayFor(x => x.CreatedAt)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>9. Customer Side Lead Service Line Replacement Status</legend>
+    <table class="double-wide" style="width: 100%;">
+        <tr>
+            <td>
+                <div class="field-column fc250">
+                    @Html.DisplayFor(x => x.CustomerSideSLReplacement)
+                    @Html.DisplayFor(x => x.FlushingOfCustomerPlumbing)
+                    @Html.DisplayFor(x => x.CustomerSideSLReplacedBy)
+                    @Html.DisplayFor(x => x.CustomerSideSLReplacementContractor)
+                    @Html.DisplayFor(x => x.LengthOfCustomerSideSLReplaced)
+                    @Html.DisplayFor(x => x.CustomerSideSLReplacementCost)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc250">
+                    @Html.DisplayFor(x => x.CustomerSideReplacementDate)
+                    @Html.DisplayFor(x => x.WarrantyExpirationDate)
+                    @Html.DisplayFor(x => x.CustomerSideSLWarrantyExpiration)
+                    @Html.DisplayFor(x => x.CustomerSideReplacementWBSNumber)
+                    @Html.DisplayFor(x => x.OfferedAgreement)
+                    @Html.DisplayFor(x => x.OfferedAgreementDate)
+                    @Html.DisplayFor(x => x.ServiceRegroundingPremiseType)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <legend>10. Job Notes</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.JobNotes)
+        @Html.DisplayFor(x => x.OtherPoint)
+    </div>
+</fieldset>

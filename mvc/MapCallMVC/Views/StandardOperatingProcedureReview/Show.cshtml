@@ -1,0 +1,51 @@
+﻿@model StandardOperatingProcedureReview 
+
+@functions {
+
+    private static string GetCssClass(bool? isCorrect)
+    {
+        if (!isCorrect.HasValue) { return null; }
+        else if (isCorrect.Value) {  return "correct"; }
+        else { return "incorrect"; }
+    }
+
+}
+
+<fieldset>
+    <legend>Details</legend>
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.StandardOperatingProcedure, new { DisplayName = "SOP" })
+        @Html.DisplayFor(x => x.AnsweredBy)
+        @Html.DisplayFor(x => x.AnsweredAt)
+        @Html.DisplayFor(x => x.ReviewedBy)
+        @Html.DisplayFor(x => x.ReviewedAt)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Questions</legend>
+        @for (var i = 0; i < Model.Answers.Count; i++)
+        {
+            <div class="q-item @GetCssClass(Model.Answers[i].IsCorrect)">
+                <h3>@(i + 1). @Html.DisplayValueFor(x => x.Answers[i].Question.Question)</h3>
+                <table class="for-structure">
+                    <tr>
+                        <th>User's answer</th>
+                        <th>Correct answer</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre>@Html.DisplayValueFor(x => x.Answers[i].Answer)</pre>
+                        </td>
+                        <td>
+                            <pre>@Html.DisplayValueFor(x => x.Answers[i].Question.Answer)</pre>
+
+                        </td>
+                    </tr>
+                </table>
+                <div class="field-column fc100">
+                    @Html.DisplayFor(x => x.Answers[i].IsCorrect)
+                </div>
+            </div>
+        }
+</fieldset>

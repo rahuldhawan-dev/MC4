@@ -1,0 +1,39 @@
+﻿@model ContractorUser
+@{
+	ViewBag.Title = "Your Account";
+}
+
+<style>
+    #boxDetails .boxDetailsContent 
+    {
+        padding:6px;
+    }
+    
+    #boxDetails .bc-box  h2
+    {
+        border-bottom:solid 1px #dddddd;
+        padding-bottom:6px;
+    }
+    #boxDetails a { text-decoration:none; }
+</style>
+
+<div class="fillBox fillBox-200" id="boxDetails">
+    <div class="left">
+        <div>
+            <div class="bc-box">
+            <h2>Actions</h2>
+               <ul class="linkList">
+                    <li>@Html.ActionLink("Change Password Question and Answer", "ChangePasswordQA")</li>
+                    <li>@Html.ActionLink("Change Password", "ChangePassword")</li>
+               </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="field-column">
+            @Html.DisplayFor(m => m.Contractor.Name)
+            @Html.DisplayFor(m => m.Email)
+            @Html.DisplayFor(m => m.PasswordQuestion)
+        </div>
+    </div>
+</div>

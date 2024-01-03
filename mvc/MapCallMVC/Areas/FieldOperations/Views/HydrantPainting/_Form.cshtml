@@ -1,0 +1,39 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.HydrantPaintings
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.HydrantPaintings.HydrantPaintingViewModel
+
+@{
+    var creating = Model is CreateHydrantPainting;
+    var editId = creating ? (int?)null : ((EditHydrantPainting)Model).Id;
+}
+
+<fieldset>
+    @if (creating)
+    {
+        <legend>New Painting Record</legend>
+    }
+    else
+    {
+        <legend>Update Painting Record @editId</legend>
+    }
+
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.PaintedAt)
+
+        @if (creating)
+        {
+            @* need this for the RequiredWhen validation on PaintedAt *@
+            @Html.HiddenFor(x => ((CreateHydrantPainting)x).PaintedToday)
+        }
+    </div>
+
+    <div class="editor-buttons">
+        @if (creating)
+        {
+            @Control.SubmitButton("Add Record")
+        }
+        else
+        {
+            @Control.SubmitButton("Update Record")
+        }
+    </div>
+</fieldset>

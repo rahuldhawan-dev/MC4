@@ -1,0 +1,11 @@
+﻿@model EquipmentViewModel
+
+    <div class="field-column fc300">
+
+        Note: These values will only be sent to SAP when the Characteristics have been entered which can only be entered on the Edit screen.
+        @Html.EditorFor(x => x.StaticDynamicType)
+        @Html.EditorFor(x => x.Condition)
+        @Html.EditorFor(x => x.Performance)
+        @Html.EditorFor(x => x.ConsequenceOfFailure)
+
+    </div>

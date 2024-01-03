@@ -1,0 +1,18 @@
+﻿@model GasMonitor
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.RenderDisplayTemplate("Equipment", @Html.ActionLink(Model.Equipment.ToString(), "Show", "Equipment", new { id = Model.Equipment.Id, area = string.Empty }, null))
+    @Html.DisplayFor(x => x.OwnedBy)
+    @Html.DisplayFor(x => x.Department)
+    @Html.DisplayFor(x => x.EquipmentDescription)
+    @Html.DisplayFor(x => x.Equipment.EquipmentStatus)
+    @Html.DisplayFor(x => x.Manufacturer)
+    @Html.DisplayFor(x => x.EquipmentModel)
+    @Html.DisplayFor(x => x.EquipmentPurpose)
+    @Html.DisplayFor(x => x.SerialNumber)
+    @Html.DisplayFor(x => x.CalibrationFrequencyDays)
+    @Html.DisplayFor(x => x.MostRecentPassingGasMonitorCalibration.DueCalibration)
+    @Html.DisplayFor(x => x.MostRecentPassingGasMonitorCalibration.NextDueDate)
+    @Html.DisplayFor(x => x.AssignedEmployee)
+</div>

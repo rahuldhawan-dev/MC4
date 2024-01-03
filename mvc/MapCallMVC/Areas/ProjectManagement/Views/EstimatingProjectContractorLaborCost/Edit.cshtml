@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditEstimatingProjectContractorLaborCost
+           
+@using (Form.BeginForm("Update", "EstimatingProjectContractorLaborCost", "ProjectManagement", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(m => m.EstimatingProject)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.ContractorLaborCost)
+        @Html.EditorFor(x => x.Quantity)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "EstimatingProject", new { id = Model.EstimatingProject }, null)
+        </text>)
+    </div>
+}

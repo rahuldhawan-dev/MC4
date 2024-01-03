@@ -1,0 +1,23 @@
+* Expectations
+** T&D Side
+*** Hydrants, Valves, Manholes (need sample), Streets, Valve Inspections, Hydrant Inspections (need sample)
+**** Images eventually
+*** Prevents programmers from having to validate data prior to importing data
+**** Manual vs. New Process
+***** Manual
+****** Doug gives us an excel file, we upload to a temp table, process, validate feedback when necessary
+****** Data is moved to actual table from temp after processing
+***** New
+****** Auto-determines file type
+****** Validates records in file
+****** Imports to DEV if validation passes
+
+** Doug's role in new process
+*** Runs validation/import against DEV for varification
+*** If licensing is OK, runs validation/import against QA
+*** Sends valid files to developers to load to live
+
+** Production Side
+*** Facilities (need sample), Equipment (need more samples)
+
+** Updates as opposed to imports?

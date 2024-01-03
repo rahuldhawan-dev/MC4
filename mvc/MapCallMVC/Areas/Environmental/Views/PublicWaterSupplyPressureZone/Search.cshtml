@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyPressureZones.SearchPublicWaterSupplyPressureZoneViewModel
+
+@using (Form.BeginForm("Index", "PublicWaterSupplyPressureZone")) 
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.HydraulicModelName)
+        @Html.EditorFor(x => x.CommonName)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

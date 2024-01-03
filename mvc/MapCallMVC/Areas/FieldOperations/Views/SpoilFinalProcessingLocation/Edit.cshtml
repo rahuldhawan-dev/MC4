@@ -1,0 +1,17 @@
+﻿@using MMSINC.ClassExtensions.ObjectExtensions
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSpoilFinalProcessingLocation
+
+@using (Form.BeginForm("Update", "SpoilFinalProcessingLocation", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Display.OperatingCenter.State)
+        @Html.DisplayFor(x => x.Display.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.Name)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "SpoilFinalProcessingLocation", new {area = "FieldOperations", Model.Id})
+                           </text>)
+    </div>
+}

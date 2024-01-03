@@ -1,0 +1,132 @@
+﻿@using FluentNHibernate.MappingModel.ClassBased
+@using MMSINC.Utilities
+@model TrafficControlTicket
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.WorkOrder)
+    @Html.DisplayFor(x => x.SAPWorkOrderNumber)
+    @Html.DisplayFor(x => x.WorkStartDate)
+    @Html.DisplayFor(x => x.WorkEndDate)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.StreetNumber)
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.TotalHours)
+    @Html.DisplayFor(x => x.EstimatedInvoiceAmount)
+    @Html.DisplayFor(x => x.NumberOfOfficers)
+    @Html.DisplayFor(x => x.TrafficControlTicketNotes)
+    
+    @Html.RenderDisplayTemplate("Billing Party", @<text>
+        @if (Model.BillingParty != null)
+        {
+            @Control.ActionLink(Model.BillingParty.ToString(), "Show", "BillingParty", new { area = "FieldOperations", id = Model.BillingParty.Id }, null)
+        }
+    </text>)
+    
+    @Html.DisplayFor(x => x.AccountingCode)
+    @Html.DisplayFor(x => x.PaidByNJAW)
+    
+    <fieldset>
+        <legend>Invoice</legend>
+        @Html.DisplayFor(x => x.InvoiceNumber)
+        @Html.DisplayFor(x => x.InvoiceAmount)
+        @Html.DisplayFor(x => x.InvoiceDate)
+        @Html.DisplayFor(x => x.InvoiceTotalHours)
+        @Html.DisplayFor(x => x.DateApproved)
+        @Html.RenderDisplayTemplate("Invoice Error", @<div class="@((Model.InvoicePercentageError > .25m) ? "warning" : "safe")">
+                                                          @String.Format(CommonStringFormats.PERCENTAGE,Model.InvoicePercentageError)
+                                                      </div>)
+        @Html.DisplayFor(x => x.InvoiceValid)
+        
+        @if (Model.Payable)
+        {
+            if (Html.CurrentUserCanDo("ChoosePaymentMethod", "TrafficControlTicket", "FieldOperations"))
+            {
+                @Html.RenderDisplayTemplate("Payment",
+                    @<div id="paymentContent">
+                         @Ajax.ActionLink("Begin Payment", "ChoosePaymentMethod", new { Model.Id }, new AjaxOptions { 
+                                HttpMethod = "POST", 
+                                UpdateTargetId = "paymentContent", 
+                                Confirm = (Model.InvoicePercentageError > .25m) ? "There is more than a 25% variance between the invoiced amount and the original estimate. Are you sure you want to submit payment for this invoice?" : null }, new { @class = "link-button" })
+                     </div>
+                    )
+            }
+            else
+            {
+                @Html.RenderDisplayTemplate("Payment",@<div>
+                    You must have a credit card setup in order to submit payment for traffic control tickets. 
+                    Follow the link to your information at the top right of this page and click "Update Payment Information".
+                    You will also need to be a member of the Edit role for Work Management.
+                </div>)
+            }
+        }
+        
+        @if (Model.IsPaidFor)
+        {
+            @Html.DisplayFor(x => x.PaymentReceivedAt)
+            @Html.DisplayFor(x => x.PaymentTransactionId)
+            @Html.DisplayFor(x => x.PaymentAuthorizationCode)
+            @Html.RenderDisplayTemplate("", @<text>
+                @Control.ActionLink("Enter Check", "New", "TrafficControlTicketCheck", new { trafficControlTicketId = Model.Id, area = "FieldOperations" }).WithCssClass("link-button")
+                                             </text>)
+        }
+        
+    </fieldset>
+    
+    <fieldset>
+        <legend>Processing</legend>
+        @Html.DisplayFor(x => x.Status)
+        @if (Model.Status.Id == TrafficControlTicketStatus.Indices.PENDING_SUBMITTAL)
+        {
+            @Html.RenderDisplayTemplate("Print", @<div>
+                @if (Model.BillingParty != null && Model.BillingParty.BillingPartyContacts.Any())
+                {
+                    @Html.ActionLink("Print", "Show", "TrafficControlTicket", new { Id = Model.Id, ext = "pdf" }, new { Class = "link-button" })
+                }
+                else
+                {
+                    <div>Please select a "Traffic Control" billing contact for the billing party.</div>
+                }
+
+            </div>)
+
+        }
+        @Html.DisplayFor(x => x.PaymentReceivedAt)
+        @Html.DisplayFor(x => x.TotalCharged)
+        @Html.DisplayFor(x => x.ProcessingFee)
+        @Html.DisplayFor(x => x.MTOTFee)
+        @Html.RenderDisplayTemplate("Tracking Number", @<text>@Html.TrackingNumberLink(Model.TrackingNumber)</text>)
+        
+        @if (Model.SubmittedAt.HasValue)
+        {
+            @Html.DisplayFor(x => x.SubmittedAt)
+            @Html.DisplayFor(x => x.CanceledAt)
+        }
+        else
+        {
+            if (Model.CanBeSubmitted)
+            {
+                @Html.RenderDisplayTemplate("Mark as Submitted", @<text>
+                    @using (Form.BeginForm("MarkAsSubmitted", "TrafficControlTicket", new { Model.Id }))
+                    {
+                        <div>
+                            @Html.ButtonGroup(Control.SubmitButton("Mark As Submitted"))
+                        </div>
+                    }
+                </text>)
+            }
+            else
+            {
+                @Html.RenderDisplayTemplate("Mark as Submitted", @<text>
+                    <div>
+                        The ticket cannot be marked as submitted unless it has been paid for,
+                        it has the correct check amounts, and it has a tracking number.
+                    </div>
+
+                </text>)
+            }
+        }
+
+    </fieldset>
+</div>

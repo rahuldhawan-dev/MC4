@@ -1,0 +1,24 @@
+﻿@using System.Activities.Statements
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerOpeningInspectionViewModel
+@Html.RenderDisplayTemplate("SewerOpening", Html.ActionLink(Model.SewerOpeningDisplay.ToString(), "Show", "SewerOpening", new { id = Model.SewerOpening }, null))
+
+@if (Model.SewerOpeningDisplay.Critical)
+{
+    @Html.DisplayFor(x => x.SewerOpeningDisplay.CriticalNotes, new { @class = "critical-notes-display" })
+}
+@if (Authentication.CurrentUserIsAdmin)
+{
+    @Html.EditorFor(x => x.DateInspected)
+}
+else
+{
+    @Html.DisplayFor(x => x.DateInspected)
+}
+@Html.Display("InspectedBy")
+@Html.EditorFor(x => x.PipesIn)
+@Html.EditorFor(x => x.PipesOut)
+@Html.EditorFor(x => x.RimHeightAboveBelowGrade)
+@Html.EditorFor(x => x.RimToWaterLevelDepth)
+@Html.EditorFor(x => x.AmountOfDebrisGritCubicFeet)
+@Html.EditorFor(x => x.Remarks)
+@Html.HiddenFor(x => x.IsMapPopup) @* script call for this is in New and Edit.cshtml *@

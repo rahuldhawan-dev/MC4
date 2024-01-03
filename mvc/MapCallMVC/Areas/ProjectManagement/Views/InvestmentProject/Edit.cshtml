@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.InvestmentProjectViewModel
+
+@using (Form.BeginForm("Update", "InvestmentProject", "ProjectManagement", new{ Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "InvestmentProject", new{ Model.Id })
+        </text>)
+    </div>
+}

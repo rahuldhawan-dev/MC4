@@ -1,0 +1,53 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.MostRecentlyInstalledServices
+@model SearchCurrentMaterial
+
+@{
+    ViewBag.Title = "Current Material Search";
+    ActionBarHelper.AddExportLink();
+    if (Model.Count > SearchCurrentMaterialForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchCurrentMaterialForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink();
+    }
+}
+
+@(Html
+    .TableFor(_ => Model)
+    .WithCaption(string.Format("{0} records", Model.Count))
+    .SortableTemplateColumnFor(
+        "Service",
+        "ServiceId",
+        i => Html.ActionLink(
+            i.ServiceId.ToString(),
+            "Show",
+            "Service",
+            new { id = i.ServiceId, area = "FieldOperations" },
+            new { target = "_blank" }))
+    .SortableTemplateColumnFor(
+        "Premise",
+        "PremiseId",
+        i => Html.ActionLink(
+            i.PremiseId.ToString(),
+            "Show",
+            "Premise",
+            new { id = i.PremiseId, area = "Customer" },
+            new { target = "_blank" }))
+    .SortableColumnFor(x => x.OperatingCenter, "Operating Center", "OperatingCenterCode")
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.PremiseNumber)
+    .SortableColumnFor(x => x.InstallationNumber)
+    .SortableColumnFor(x => x.ServiceSize)
+    .SortableColumnFor(x => x.ServiceMaterial)
+    .SortableColumnFor(x => x.CustomerSideSize)
+    .SortableColumnFor(x => x.CustomerSideMaterial)
+    .SortableColumnFor(x => x.InstallDate)
+    .SortableColumnFor(x => x.UpdatedAt)
+    .SortableColumnFor(x => x.ServiceType)
+    .SortableColumnFor(x => x.ServiceCategory)
+    .SortableColumnFor(x => x.PurposeOfInstallation)
+    .WithPaginatedFooter())

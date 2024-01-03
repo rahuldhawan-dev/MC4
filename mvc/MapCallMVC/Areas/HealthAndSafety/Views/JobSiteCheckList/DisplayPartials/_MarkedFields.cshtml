@@ -1,0 +1,39 @@
+﻿@model JobSiteCheckList
+
+<style>
+    #marked-utilities label { vertical-align:middle; }
+</style>
+<table id="marked-utilities" class="for-structure">
+    <tbody>
+        <tr>
+            <td>@Html.LabelFor(x => x.MarkedSanitarySewer)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedSanitarySewer)
+            </td>
+            <td>@Html.LabelFor(x => x.MarkedElectric)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedElectric)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.MarkedTelephone)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedTelephone)
+            </td>
+            <td>@Html.LabelFor(x => x.MarkedWater)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedWater)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.MarkedFuelGas)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedFuelGas)
+            </td>
+            <td>@Html.LabelFor(x => x.MarkedOther)</td>
+            <td>
+                @Html.DisplayValueFor(x => x.MarkedOther)
+            </td>
+        </tr>
+    </tbody>
+</table>

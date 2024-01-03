@@ -1,0 +1,66 @@
+﻿@model SearchYearlyWaterSampleComplianceReport
+
+@{
+	var orderedModel = Model.Results.OrderBy(x => x.PublicWaterSupply.Identifier).ToList();
+
+	// NOTE: Column cell coloring only exists for the current month and earlier. Future months
+	//       do not have coloring since the data does not exist yet. Also, the current month
+	//       is based on water sample compliance months, so the current actual month will not
+	//       start having colors until after the 10th of the month. ie: Don't expect March colors
+	//       until March 11th.
+	//
+	// NOTE 2: WithCellBuilder here is being used as a glorified way of doing a TemplateColumn. You 
+	//         would normally want to do a TemplateColumn and then use CellBuilder only to modify
+	//         the td tag, however due to the added logic needed here, it just makes sense to combine
+	//         the cell value setting and the cell building together.
+	var rightNow = DateTimeProvider.GetCurrentDate();
+	var rightNowYearMonth = new WaterSampleComplianceMonthYear(rightNow);
+	var isSearchYearEarlierThanThisYear = (Model.CertifiedYear < rightNowYearMonth.Year);
+	var isSearchYearThisYear = (Model.CertifiedYear == rightNowYearMonth.Year);
+
+	Action<TagBuilder, WaterSampleComplianceForm, int> doCellBuilderForMonth = (tag, wscForm, monthInt) => {
+		// For this cell we only want to display green/reds if it is the current month
+		// or earlier. 
+		// NOTE: The "NO" and "YES" text just means that there's a form. It has nothing to do with whether the form is compliant.
+		if (isSearchYearEarlierThanThisYear || isSearchYearThisYear && monthInt <= rightNowYearMonth.Month)
+		{
+			if (wscForm != null)
+			{
+				if (wscForm.ComplianceResult == ComplianceResult.NotCompliant)
+				{
+					tag.AddCssClass("is-not-compliant");
+				}
+				else if (wscForm.ComplianceResult == ComplianceResult.PartiallyCompliant)
+			    {
+					tag.AddCssClass("is-compliant-but-not-exactly");
+				}
+				else
+				{
+					tag.AddCssClass("is-compliant");
+				}
+				tag.InnerHtml = Html.ActionLink("View", "Show", "WaterSampleComplianceForm", new {area = "Environmental", id = wscForm.Id}, new {target = "_blank"}).ToHtmlString();
+			}
+			else
+			{
+				tag.AddCssClass("is-not-compliant");
+				tag.InnerHtml = "No";
+			}
+		}
+	};
+}
+
+@(Html.TableFor(_ => orderedModel)
+	.WithCaption("Results for " + Model.CertifiedYear)
+	.ColumnFor(x => x.PublicWaterSupply)
+	.ColumnFor(x => x.JanuaryForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.JanuaryForm, 1))
+	.ColumnFor(x => x.FebruaryForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.FebruaryForm, 2))
+	.ColumnFor(x => x.MarchForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.MarchForm, 3))
+	.ColumnFor(x => x.AprilForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.AprilForm, 4))
+	.ColumnFor(x => x.MayForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.MayForm, 5))
+	.ColumnFor(x => x.JuneForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.JuneForm, 6))
+	.ColumnFor(x => x.JulyForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.JulyForm, 7))
+	.ColumnFor(x => x.AugustForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.AugustForm, 8))
+	.ColumnFor(x => x.SeptemberForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.SeptemberForm, 9))
+	.ColumnFor(x => x.OctoberForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.OctoberForm, 10))
+	.ColumnFor(x => x.NovemberForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.NovemberForm, 11))
+	.ColumnFor(x => x.DecemberForm).WithCellBuilder((x, tag) => doCellBuilderForMonth(tag, x.DecemberForm, 12)))

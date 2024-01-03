@@ -1,0 +1,17 @@
+﻿@* Do not use @model string here. *@
+@*
+ HOW DO USE? 
+ -----------
+
+ If you want this template to show up, your ViewModel's property
+ needs to be decorated with:
+ [DataAnnotationsExtensions.Url]
+    
+ ALSO!
+    
+  If you want this to actually work, and not just render a text
+  box without any of the wrapper divs or label, you need to set
+  the `templateName` argument to `Html.EditorFor` to "Url"
+*@
+
+@RenderEditorForTemplate(@<text>@Control.TextBox("").With("type", "url").WithValue(ViewData.TemplateInfo.FormattedModelValue).With(ViewTemplateHelper.HtmlAttributes) @Html.ValidationMessage("")</text>)

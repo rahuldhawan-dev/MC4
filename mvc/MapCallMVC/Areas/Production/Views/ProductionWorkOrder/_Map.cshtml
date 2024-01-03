@@ -1,0 +1,3 @@
+﻿@model ProductionWorkOrder
+    
+<iframe style="width: 100%; height: 500px" src="@(string.Format("../../../Map?ControllerName=ProductionWorkOrder&AreaName=Production&Search[LeadCopperSite]=true&Search[EntityId]={0}", Model.Id))"></iframe>

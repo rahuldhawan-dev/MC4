@@ -1,0 +1,12 @@
+﻿@model CreatePremiseType
+
+@using (Form.BeginForm("Create", "PremiseType", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,47 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ExternalStreetOpeningPermits.NewExternalStreetOpeningPermitForm
+@{
+    Layout = "_BaseLayout.cshtml";
+}
+
+@* The way the Permits API/Client is setup, we receive a pre-rendered form from the Permits API(WHY????)
+    and then we need to postback that form as-is back to the permits API. So we need to post everything as-is
+    back to MapCall and then pass that along as-is to the permits API.
+    
+    DO NOT inject any other inputs as they will also be sent to the permits API.
+    If you must inject something, you need to be absolutely positive it isn't going to conflict with 
+    the dynamic fields coming from the permits API.
+    *@
+
+@using (Form.BeginForm("Create", "ExternalStreetOpeningPermit"))
+{
+    @Control.HiddenFor(x => x.NoApiConflictWorkOrderId)
+    @Html.Raw(Model.PermitFormHtml)
+    @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+    </text>)
+}
+
+<script>
+    // These are fields that are standardized on the Permits API end
+    // so that we can populate them with predefined values from the workorder.
+    // "What's with the Html.ValueFor().ToString()?"
+    // Some things can end up being null, at least in testing, so we don't want null reference
+    // exceptions from throwing. ToString() is needed for getting the actual string representation,
+    // it otherwise tries to serialize the MvcHtmlString as a json object.
+    const workOrderData = @Html.Raw(Json.Encode(new {
+                            LocationStreetNumber = Html.ValueFor(x => x.WorkOrder.StreetNumber).ToString(),
+                            LocationStreetName = Html.ValueFor(x => x.WorkOrder.Street.FullStName).ToString(),
+                            LocationCity = Html.ValueFor(x => x.WorkOrder.Town.ShortName).ToString(),
+                            LocationState = Html.ValueFor(x => x.WorkOrder.Town.State.Abbreviation).ToString(),
+                            LocationZip = Html.ValueFor(x => x.WorkOrder.ZipCode).ToString(),
+                            ArbitraryIdentifier = Html.ValueFor(x => x.WorkOrder.WorkOrderID).ToString(),
+                            PurposeOfOpening = Html.ValueFor(x => x.WorkOrder.WorkDescription.Description).ToString(),
+                        }));
+
+    Object.keys(workOrderData).forEach((fieldName) => {
+        const el = document.getElementById(fieldName);
+        if (el) {
+            el.value = workOrderData[fieldName];
+        }
+    });
+</script>

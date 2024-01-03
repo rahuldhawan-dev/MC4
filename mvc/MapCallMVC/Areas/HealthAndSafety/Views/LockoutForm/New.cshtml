@@ -1,0 +1,76 @@
+﻿@model CreateLockoutForm
+
+@using (Form.BeginForm("Create", "LockoutForm"))
+{
+    <div class="field-column fc400">
+        @Html.Hidden("EquipmentShowURL", Html.UrlForAction("Show", "Equipment", new { area = "" }))
+        @Html.ScriptFor("~/Scripts/LockoutForm/Form.js", ScriptLoadType.LoadFromPartial)
+
+        @Html.EditorFor(x => x.LockoutDateTime)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Control.Hidden().WithId("facility-show").WithValue(Url.Action("Show", "Facility", new { area = "" }))
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Equipment)
+
+        @Html.RenderDisplayTemplate("Acknowledgement", @<text>
+            <a href="#" id="equipmentShowDocuments" target="_new" style="display:none;">Equipment Documents</a>
+
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.EmployeeAcknowledgedTraining)
+                I acknowledge that I am trained in the operation of this equipment and have read any and all applicable SOP documents.
+            </div>
+        </text>)
+        @Html.EditorFor(x => x.ProductionWorkOrder)
+
+        @Html.EditorFor(x => x.LockoutReason)
+        @Html.EditorFor(x => x.ReasonForLockout)
+        @Html.EditorFor(x => x.ContractorLockOutTagOut)
+        <fieldset id="contractor">
+            <legend>Contractor</legend>
+            @Html.Partial("_Contractor", Model)
+        </fieldset>
+
+        @Html.RenderEditorTemplate("Isolation Point", @<text>
+            @Html.EditorWithoutWrapperFor(x => x.IsolationPoint)
+            @Html.EditorWithoutWrapperFor(x => x.IsolationPointDescription, new { style = "width: inherit;" })
+        </text>)
+        @Html.EditorFor(x => x.LocationOfLockoutNotes)
+
+        @Html.EditorFor(x => x.LockoutDevice)
+
+        @if (Model.CreateLockoutFormAnswers.Any(x => x.LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS))
+        {
+            <fieldset>
+                <legend>Lockout Conditions</legend>
+                @for (var i = 0; i < Model.CreateLockoutFormAnswers.Count(); i++)
+                {
+                    if (Model.CreateLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS)
+                    {
+                        @Html.EditorFor(_ => Model.CreateLockoutFormAnswers[i])
+                    }
+                }
+            </fieldset>
+        }
+        <fieldset>
+            <legend>Out of Service</legend>
+            @for (var i = 0; i < Model.CreateLockoutFormAnswers.Count(); i++)
+            {
+                if (Model.CreateLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.OUT_OF_SERVICE)
+                {
+                    @Html.EditorFor(_ => Model.CreateLockoutFormAnswers[i])
+                }
+            }
+
+            @Html.EditorFor(x => x.AdditionalLockoutNotes)
+
+            @Html.EditorFor(x => x.OutOfServiceAuthorizedEmployee)
+            @Html.EditorFor(x => x.OutOfServiceDateTime)
+        </fieldset>
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,27 @@
+﻿@model SewerOpening
+
+@{
+    ActionBarHelper.AddMapLink();
+
+    if (Model.CanBeCopied)
+    {
+        ActionBarHelper.AddCopyButton();
+    }
+
+    if (Model.IsActive)
+    {
+        ActionBarHelper.AddReplaceButton();
+    }
+
+    Html.ScriptFor("~/Scripts/Areas/FieldOperations/SewerOpening/Show.js", ScriptLoadType.LoadFromPartial);
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowSewerOpening", Model)
+    .WithTab("Inspections", "_Inspections", Model, itemCount:Model.SewerOpeningInspections.Count)
+    .WithTab("Connections", "_ShowConnections", Model, itemCount:Model.SewerOpeningConnections.Count)
+    .WithTab("Work Orders", "_WorkOrders", Model, itemCount:Model.WorkOrders.Count)
+    .WithTab("Main Inspections / Cleaning", "_ShowSewerMainCleanings", Model, itemCount: Model.SewerMainCleanings.Count)
+    .WithAjaxTab("Smart Cover Alerts", "_ShowSmartCoverAlerts", Model, itemCount: Model.SmartCoverAlerts.Count)
+    .WithNotesAndDocuments()
+    .WithLog())

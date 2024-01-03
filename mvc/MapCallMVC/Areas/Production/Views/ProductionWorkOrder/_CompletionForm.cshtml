@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CompleteProductionWorkOrder
+
+@using (Form.BeginForm("CompleteProductionWorkOrder", "ProductionWorkOrder", "Production", new { Model.Id }))
+{
+    if (Model.Corrective)
+    {
+        @Html.HiddenFor(x => x.Corrective)
+        @Html.EditorFor(x => x.FailureCode)
+        @Html.EditorFor(x => x.ActionCode)
+    }
+
+    @Html.ButtonGroup(@<text>@Control.SubmitButton("Complete Order").With("onclick", "return confirm('Are you sure you want to complete this order?');")</text>)
+}

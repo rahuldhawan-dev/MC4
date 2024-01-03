@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateMaintenancePlan
+
+<fieldset>
+    <legend>Equipment Information</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EquipmentTypes)
+        @Html.EditorFor(x => x.EquipmentPurposes)
+        @Html.EditorFor(x => x.Equipment)
+    </div>
+</fieldset>
+

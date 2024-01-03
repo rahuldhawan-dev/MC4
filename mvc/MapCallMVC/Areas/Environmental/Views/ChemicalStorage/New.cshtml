@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.CreateChemicalStorage
+
+@using (Form.BeginForm("Create", "ChemicalStorage", "Environmental")) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "ChemicalStorage")
+                           </text>)
+    </div>
+}

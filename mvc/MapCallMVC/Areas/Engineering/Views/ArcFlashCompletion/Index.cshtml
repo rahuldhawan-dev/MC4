@@ -1,0 +1,10 @@
+﻿@model SearchArcFlashCompletion
+
+@(Html.TableFor(x => Model, new { id = "results" })
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.TotalArcFlashFacilities)
+    .ColumnFor(x => x.NumberCompleted)
+    .ColumnFor(x => x.NumberPending)
+    .ColumnFor(x => x.NumberDeferred)
+    .ColumnFor(x => x.TotalCompletedNotDeferred)
+    )

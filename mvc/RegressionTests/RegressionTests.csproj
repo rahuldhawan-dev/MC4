@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props" Condition="Exists('..\..\packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" />
+  <Import Project="..\..\packages\NUnit.3.13.1\build\NUnit.props" Condition="Exists('..\..\packages\NUnit.3.13.1\build\NUnit.props')" />
+  <Import Project="..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.props" Condition="Exists('..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.props')" />
+  <Import Project="..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{804B85DC-3AFE-499B-B357-5BFD10CCEC68}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RegressionTests</RootNamespace>
+    <AssemblyName>RegressionTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <OutputPath>bin\x64\QA2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <OutputPath>bin\x64\QA3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <OutputPath>bin\x64\Training\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <OutputPath>bin\x64\QA4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="BoDi, Version=1.5.0.0, Culture=neutral, PublicKeyToken=ff7cd5ea2744b496, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BoDi.1.5.0\lib\net45\BoDi.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Gherkin, Version=22.0.0.0, Culture=neutral, PublicKeyToken=86496cfa5b4a5851, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Gherkin.22.0.0\lib\net45\Gherkin.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.13.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
+      <HintPath>..\..\packages\NUnit.3.13.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="SpecFlow.Internal.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.Internal.Json.1.0.8\lib\net45\SpecFlow.Internal.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.3.9.40\lib\net461\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="TechTalk.SpecFlow.NUnit.SpecFlowPlugin, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SpecFlow.NUnit.3.9.40\lib\net461\TechTalk.SpecFlow.NUnit.SpecFlowPlugin.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.WebDriver.4.14.1\lib\netstandard2.0\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Selenium.Support.4.14.1\lib\netstandard2.0\WebDriver.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Features\ActionItem.feature" />
+    <None Include="Features\Areas\Admin\NotificationConfigurationsPage.feature" />
+    <None Include="Features\Areas\Admin\RoleGroups.feature" />
+    <None Include="Features\Areas\Contractors\Contractor.feature" />
+    <None Include="Features\Areas\Contractors\ContractorAgreement.feature" />
+    <None Include="Features\Areas\Contractors\ContractorInsurance.feature" />
+    <None Include="Features\Areas\Engineering\AwiaCompliancePage.feature" />
+    <None Include="Features\Areas\Engineering\RiskRegisterAssetPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalStorageLocationPage.feature" />
+    <None Include="Features\Areas\Environmental\EndOfPipeExceedancePage.feature" />
+    <None Include="Features\Areas\Environmental\PublicWaterSupplyPressureZones.feature" />
+    <None Include="Features\Areas\Environmental\WasteWaterSystemBasin.feature" />
+    <None Include="Features\Areas\Environmental\PublicWaterSupplyFirmCapacity.feature" />
+    <None Include="Features\Areas\Events\EventDocumentPage.feature" />
+    <None Include="Features\Areas\Events\EventPage.feature" />
+    <None Include="Features\Areas\Events\EventTypePage.feature" />
+    <None Include="Features\Areas\Facilities\BelowGroundHazardPage.feature" />
+    <None Include="Features\Areas\Facilities\CommunityRightToKnowPage.feature" />
+    <None Include="Features\Areas\Facilities\EasementPage.feature" />
+    <None Include="Features\Areas\Facilities\FacilityAreaPage.feature" />
+    <None Include="Features\Areas\Facilities\FacilitySubAreaPage.feature" />
+    <None Include="Features\Areas\Facilities\PlanReviewPage.feature" />
+    <None Include="Features\Areas\FieldOperations\CrewAssignmentsPage.feature" />
+    <None Include="Features\Areas\FieldOperations\EchoshoreLeakAlert.feature" />
+    <None Include="Features\Areas\FieldOperations\MarkoutPlanning.feature" />
+    <None Include="Features\Areas\FieldOperations\NpdesRegulatorInspections.feature" />
+    <None Include="Features\Areas\FieldOperations\OperatingCenterSpoilRemovalCost.feature" />
+    <None Include="Features\Areas\FieldOperations\SmartCoverAlert.feature" />
+    <None Include="Features\Areas\FieldOperations\SpoilRemoval.feature" />
+    <None Include="Features\Areas\FieldOperations\SpoilFinalProcessingLocation.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkDescriptionPage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderFinalizationPage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderPlanningPage.feature" />
+    <None Include="Features\Areas\FieldOperations\RestorationProcessing.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderSchedulingPage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderStockToIssue.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderSupervisorApproval.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderStreetOpeningPermitProcessingPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\ConfinedSpaceForms.feature" />
+    <None Include="Features\Areas\HealthAndSafety\GasMonitors.feature" />
+    <None Include="Features\Areas\HumanResources\EmployeeAccountabilityActionPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\ShortCycleWorkOrderSafetyBrief.feature" />
+    <None Include="Features\Areas\HumanResources\CovidIssuePage.feature" />
+    <None Include="Features\Areas\HumanResources\EmployeeHeadCount.feature" />
+    <None Include="Features\Areas\Production\AssetConditionReasonPage.feature" />
+    <None Include="Features\Areas\Production\AsLeftConditionPage.feature" />
+    <None Include="Features\Areas\Production\AssetReliabilityPage.feature" />
+    <None Include="Features\Areas\Production\NonRevenueWaterEntryPage.feature" />
+    <None Include="Features\Areas\Production\ProductionPreJobSafetyBriefs.feature" />
+    <None Include="Features\Areas\Production\AsFoundConditionPage.feature" />
+    <None Include="Features\Areas\Production\SkillSet.feature" />
+    <None Include="Features\Areas\Production\SystemDeliveryEntryPage.feature" />
+    <None Include="Features\Areas\Production\MaintenancePlanTaskType.feature" />
+    <None Include="Features\Areas\Production\TaskGroupCategory.feature" />
+    <None Include="Features\Areas\Reports\RestorationAcctualReports.feature" />
+    <None Include="Features\Areas\Reports\CompletedWorkOrdersWithJobSiteCheckLists.feature" />
+    <None Include="Features\Areas\Reports\CompletedWorkOrdersWithMarkout.feature" />
+    <None Include="Features\Areas\Production\CorrectiveOrderProblemCodePage.feature" />
+    <None Include="Features\Areas\Reports\NpdesRegulatorsDueInspectionReportPage.feature" />
+    <None Include="Features\Areas\Reports\SewerMainCleaningFootagePage.feature" />
+    <None Include="Features\Areas\Reports\WaterLossPage.feature" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\WellTestingForm.steps.cs" />
+    <Compile Include="Steps\CrewAssignmentsPage.steps.cs" />
+    <Compile Include="Steps\RedTagPermit.steps.cs" />
+    <Compile Include="Steps\SearchPageSteps.cs" />
+    <Compile Include="Steps\Data.cs" />
+    <Compile Include="Steps\State.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\Areas\Contractors\ContractorUser.feature" />
+    <None Include="Features\Areas\Customer\PremisePage.feature" />
+    <None Include="Features\Areas\Environmental\AllocationPermitPage.feature" />
+    <None Include="Features\Areas\Environmental\AllocationPermitWithdrawalNodePage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalDeliveryPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalInventoryTransactionPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalStoragePage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalUnitCostPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalVendorPage.feature" />
+    <None Include="Features\Areas\Environmental\ChemicalWarehouseNumberPage.feature" />
+    <None Include="Features\Areas\Environmental\EnvironmentalPermitPage.feature" />
+    <None Include="Features\Areas\Environmental\EnvironmentalNonComplianceEventActionItemPage.feature" />
+    <None Include="Features\Areas\Environmental\EnvironmentalNonComplianceEventPage.feature" />
+    <None Include="Features\Areas\Environmental\WasteWaterSystem.feature" />
+    <None Include="Features\Areas\Environmental\WaterSampleComplianceForm.feature" />
+    <None Include="Features\Areas\Engineering\ArcFlashStudyPage.feature" />
+    <None Include="Features\Areas\Facilities\EmergencyResponsePlanPage.feature" />
+    <None Include="Features\Areas\Facilities\FacilityProcessStep.feature" />
+    <None Include="Features\Areas\Facilities\MainCrossingPage.feature" />
+    <None Include="Features\Areas\FieldOperations\AsBuiltImage.feature" />
+    <None Include="Features\Areas\FieldOperations\BillingPartyPage.feature" />
+    <None Include="Features\Areas\FieldOperations\BlowOffInspectionPage.feature" />
+    <None Include="Features\Areas\FieldOperations\BondPage.feature" />
+    <None Include="Features\Areas\FieldOperations\FunctionalLocationPage.feature" />
+    <None Include="Features\Areas\FieldOperations\GeneralWorkOrderPage.feature" />
+    <None Include="Features\Areas\FieldOperations\SewerOpeningInspections.feature" />
+    <None Include="Features\Areas\FieldOperations\HydrantInspections.feature" />
+    <None Include="Features\Areas\FieldOperations\Hydrants.feature" />
+    <None Include="Features\Areas\FieldOperations\MapImage.feature" />
+    <None Include="Features\Areas\FieldOperations\MeterChangeOuts.feature" />
+    <None Include="Features\Areas\FieldOperations\OneCallMarkoutAuditPage.feature" />
+    <None Include="Features\Areas\FieldOperations\OneCallMarkoutResponsePage.feature" />
+    <None Include="Features\Areas\FieldOperations\OneCallMarkoutTicketPage.feature" />
+    <None Include="Features\Areas\FieldOperations\RestorationTypeCostPage.feature" />
+    <None Include="Features\Areas\FieldOperations\ServiceInstallationPage.feature" />
+    <None Include="Features\Areas\FieldOperations\ServiceRestorationPage.feature" />
+    <None Include="Features\Areas\FieldOperations\SewerMainCleaningPage.feature" />
+    <None Include="Features\Areas\FieldOperations\SewerOpeningPage.feature" />
+    <None Include="Features\Areas\FieldOperations\SewerOverflowPage.feature" />
+    <None Include="Features\Areas\FieldOperations\Restorations.feature" />
+    <None Include="Features\Areas\FieldOperations\SpecialDialogsPage.feature" />
+    <None Include="Features\Areas\FieldOperations\SpoilStorageLocation.feature" />
+    <None Include="Features\Areas\FieldOperations\TrafficControlTicketCheckPage.feature" />
+    <None Include="Features\Areas\FieldOperations\ServicePage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderInvoicePage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderPage.feature" />
+    <None Include="Features\Areas\FieldOperations\WorkOrderPrePlanningPage.feature" />
+    <None Include="Features\Areas\FleetManagement\Vehicle.feature" />
+    <None Include="Features\Areas\HealthAndSafety\ApcInspectionItemPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\NearMissPage.feature" />
+    <None Include="Features\Areas\Management\UserViewed.feature" />
+    <None Include="Features\Areas\Production\EmployeeAssignmentPage.feature" />
+    <None Include="Features\Areas\Production\MaintenancePlanPage.feature" />
+    <None Include="Features\Areas\Production\ProductionWorkDescriptionPage.feature" />
+    <None Include="Features\Areas\Production\ProductionWorkOrderPage.feature" />
+    <None Include="Features\Areas\Production\SchedulingPage.feature" />
+    <None Include="Features\Areas\Production\TaskGroup.feature" />
+    <None Include="Features\Areas\ProjectManagement\ContractorLaborCost.feature" />
+    <None Include="Features\Areas\ProjectManagement\InvestmentProject.feature" />
+    <None Include="Features\Areas\ProjectManagement\LargeServiceProjectPage.feature" />
+    <None Include="Features\Areas\ProjectManagement\PipeDataLookupValuePage.feature" />
+    <None Include="Features\Areas\ProjectManagement\RecurringProjectPage.feature" />
+    <None Include="Features\Areas\ProjectManagement\RoadwayImprovementNotificationPage.feature" />
+    <None Include="Features\Areas\FieldOperations\TapImage.feature" />
+    <None Include="Features\Areas\FieldOperations\TrafficControlTicketPage.feature" />
+    <None Include="Features\Areas\FieldOperations\ValveImage.feature" />
+    <None Include="Features\Areas\FieldOperations\ValveInspectionPage.feature" />
+    <None Include="Features\Areas\FieldOperations\ValvePage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\JobObservationPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\LockoutDevicePage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\LockoutFormPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\GeneralLiabilityClaimPage.feature" />
+    <None Include="Features\Areas\Operations\AbsenceNotificationPage.feature" />
+    <None Include="Features\Areas\Operations\FamilyMedicalLeaveActCasePage.feature" />
+    <None Include="Features\Areas\ProjectManagement\ContractorOverrideLaborCost.feature" />
+    <None Include="Features\Areas\ProjectManagement\EstimatingProjectPage.feature" />
+    <None Include="Features\Areas\FieldOperations\MarkoutDamagePage.feature" />
+    <None Include="Features\Areas\FieldOperations\JobSiteCheckList.feature" />
+    <None Include="Features\Areas\HealthAndSafety\TailgateTopicsPage.feature" />
+    <None Include="Features\Areas\HealthAndSafety\TailgateTalksPage.feature" />
+    <None Include="Features\Areas\Reports\ActiveHydrantDetails.feature" />
+    <None Include="Features\Areas\Reports\ActiveHydrants.feature" />
+    <None Include="Features\Areas\ProjectManagement\DevelopmentProjectPage.feature" />
+    <None Include="Features\Areas\Reports\AgedPendingAssetReport.feature" />
+    <None Include="Features\Areas\Reports\BacterialWaterSampleRequirement.feature" />
+    <None Include="Features\Areas\Reports\BactiSamplesChlorineHighLowPage.feature" />
+    <None Include="Features\Areas\Reports\CompletedWorkOrderReportsPage.feature" />
+    <None Include="Features\Areas\Reports\CompletedWorkOrdersWithPreJobSafetyBriefs.feature" />
+    <None Include="Features\Areas\Reports\CompletedWorkOrdersWithMaterials.feature" />
+    <None Include="Features\Areas\Reports\CovidQuarantineStatusReportPage.feature" />
+    <None Include="Features\Areas\Reports\CrewAssignmentSummaryPage.feature" />
+    <None Include="Features\Areas\Reports\EmployeeNJDEPLicensePage.feature" />
+    <None Include="Features\Areas\Reports\FacilityRiskCharacteristicsDataPage.feature" />
+    <None Include="Features\Areas\Reports\HydrantWorkOrdersByDescriptionPage.feature" />
+    <None Include="Features\Areas\Reports\HydrantMonthlyReportsPage.feature" />
+    <None Include="Features\Areas\Reports\InspectionProductivity.feature" />
+    <None Include="Features\Areas\Reports\MainBreakPowerPlant.feature" />
+    <None Include="Features\Areas\Reports\MeterChangeOutSchedule.feature" />
+    <None Include="Features\Areas\Reports\MonthlyFlushingWaterUsage.feature" />
+    <None Include="Features\Areas\Reports\HydrantsDueInspection.feature" />
+    <None Include="Features\Areas\Reports\MunicipalValveZonePage.feature" />
+    <None Include="Features\Areas\Reports\OperatingCenterTraining.feature" />
+    <None Include="Features\Areas\Reports\OperatorLicenseReportPage.feature" />
+    <None Include="Features\Areas\Reports\ProductionWorkOrderPerformance.feature" />
+    <None Include="Features\Areas\Reports\PublicHydrantTotalsReport.feature" />
+    <None Include="Features\Areas\Reports\RecurringProjectPage.feature" />
+    <None Include="Features\Areas\Reports\RegulatoryCompliance.feature" />
+    <None Include="Features\Areas\Reports\ServicesInstalledPage.feature" />
+    <None Include="Features\Areas\Reports\ServicesRenewedPage.feature" />
+    <None Include="Features\Areas\Reports\TapImageLink.feature" />
+    <None Include="Features\Areas\Reports\UserRole.feature" />
+    <None Include="Features\Areas\Reports\ValveBPUPage.feature" />
+    <None Include="Features\Areas\Reports\ValveImageLink.feature" />
+    <None Include="Features\Areas\Reports\ValveMonthlyReportsPage.feature" />
+    <None Include="Features\Areas\Reports\RoutePage.feature" />
+    <None Include="Features\Areas\ServiceLineProtection\ServiceLineProtectionInvestigationPage.feature" />
+    <None Include="Features\Areas\WaterQuality\BacterialWaterSamplePage.feature" />
+    <None Include="Features\Areas\WaterQuality\SampleIdMatrixPage.feature" />
+    <None Include="Features\Areas\WaterQuality\SampleSitePage.feature" />
+    <None Include="Features\Areas\WaterQuality\SamplePlanPage.feature" />
+    <None Include="Features\Areas\WaterQuality\WaterConstituentPage.feature" />
+    <None Include="Features\Areas\WaterQuality\WaterQualityComplaintPage.feature" />
+    <None Include="Features\Areas\WaterQuality\WaterSamplePage.feature" />
+    <None Include="Features\AssetUploadPage.feature" />
+    <None Include="Features\AuditLogEntryPage.feature" />
+    <None Include="Features\BAPPTeamIdeaPage.feature" />
+    <None Include="Features\BusinessUnit.feature" />
+    <None Include="Features\DocumentPage.feature" />
+    <None Include="Features\Documents.feature" />
+    <None Include="Features\DriversLicensePage.feature" />
+    <None Include="Features\ContactPage.feature" />
+    <None Include="Features\CutoffSawQuestionnairePage.feature" />
+    <None Include="Features\EmployeePage.feature" />
+    <None Include="Features\EquipmentCharacteristicFieldPage.feature" />
+    <None Include="Features\EquipmentPage.feature" />
+    <None Include="Features\EquipmentPurposePage.feature" />
+    <None Include="Features\FacilityKwhCostPage.feature" />
+    <None Include="Features\FacilityPage.feature" />
+    <None Include="Features\FilterMedia.feature" />
+    <None Include="Features\GISLayerUpdatePage.feature" />
+    <None Include="Features\Gradient.feature" />
+    <None Include="Features\GrievancePage.feature" />
+    <None Include="Features\HelpTopicsPage.feature" />
+    <None Include="Features\HepatitisBVaccinationPage.feature" />
+    <None Include="Features\InterconnectionPage.feature" />
+    <None Include="Features\LocalPage.feature" />
+    <None Include="Features\BodyOfWaterPage.feature" />
+    <None Include="Features\MaterialPage.feature" />
+    <None Include="Features\MeasurementPointEquipmentTypePage.feature" />
+    <None Include="Features\MedicalCertificatePage.feature" />
+    <None Include="Features\OperatingCenterPage.feature" />
+    <None Include="Features\OperatorLicensePage.feature" />
+    <None Include="Features\PersonnelAreaPage.feature" />
+    <None Include="Features\PipeDiameterPage.feature" />
+    <None Include="Features\PositionGroupPage.feature" />
+    <None Include="Features\PublicWaterSupplyPage.feature" />
+    <None Include="Features\RegulationsPage.feature" />
+    <None Include="Features\ResetForm.feature" />
+    <None Include="Features\EquipmentManufacturerPage.feature" />
+    <None Include="Features\EquipmentTypePage.feature" />
+    <None Include="Features\ServiceRestorationContractorPage.feature" />
+    <None Include="Features\Site.feature" />
+    <None Include="Features\StandardOperatingProcedurePage.feature" />
+    <None Include="Features\StatePage.feature" />
+    <None Include="Features\StateRegionPage.feature" />
+    <None Include="Features\StreetPage.feature" />
+    <None Include="Features\TownPage.feature" />
+    <None Include="Features\TownSection.feature" />
+    <None Include="Features\TrainingModulePage.feature" />
+    <None Include="Features\IncidentsPage.feature" />
+    <None Include="Features\TrainingRequirementPage.feature" />
+    <None Include="Features\TrainingRecordPage.feature" />
+    <None Include="Features\UnionContractPage.feature" />
+    <None Include="Features\UnionContractProposalPage.feature" />
+    <None Include="Features\UnionPage.feature" />
+    <None Include="Features\UserPage.feature" />
+    <None Include="Features\ViolationCertificatePage.feature" />
+    <None Include="hydrantSAPUpload.xlsx" />
+    <None Include="packages.config" />
+    <None Include="valveSAPUpload.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\Authorize.NET\AuthorizeNET.csproj">
+      <Project>{5D52EAEC-42FB-4313-83B8-69E2F55EBF14}</Project>
+      <Name>AuthorizeNET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\Deleporter\Deleporter.csproj">
+      <Project>{442a205a-2803-4eae-9cc9-0e20a000fae1}</Project>
+      <Name>Deleporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4BBA-87D8-D8F49FB41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing.Mvc\MMSINC.Testing.Mvc.csproj">
+      <Project>{E6C5BFE0-B68E-427C-9A4C-8C801ED6CA9C}</Project>
+      <Name>MMSINC.Testing.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="itsatiff.tiff" />
+    <Content Include="sqlite3.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\..\packages\SpecFlow.3.9.40\build\SpecFlow.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SpecFlow.3.9.40\build\SpecFlow.targets'))" />
+    <Error Condition="!Exists('..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.props'))" />
+    <Error Condition="!Exists('..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.targets'))" />
+    <Error Condition="!Exists('..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.props'))" />
+    <Error Condition="!Exists('..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NUnit.3.13.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.13.1\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\..\packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit3TestAdapter.4.5.0\build\net462\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\packages\Selenium.WebDriver.4.14.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Selenium.WebDriver.4.14.1\build\Selenium.WebDriver.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\..\packages\SpecFlow.3.9.40\build\SpecFlow.targets" Condition="Exists('..\..\packages\SpecFlow.3.9.40\build\SpecFlow.targets')" />
+  <Import Project="..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.40\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
+  <Import Project="..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.targets" Condition="Exists('..\..\packages\SpecFlow.NUnit.3.9.40\build\SpecFlow.NUnit.targets')" />
+  <Import Project="..\..\packages\Selenium.WebDriver.4.14.1\build\Selenium.WebDriver.targets" Condition="Exists('..\..\packages\Selenium.WebDriver.4.14.1\build\Selenium.WebDriver.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

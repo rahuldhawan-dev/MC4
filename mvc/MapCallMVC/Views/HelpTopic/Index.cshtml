@@ -1,0 +1,10 @@
+﻿@model SearchHelpTopic
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Title)
+    .ColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.Category)
+    .SortableColumnFor(x => x.SubjectMatter)
+    .WithPaginatedFooter())

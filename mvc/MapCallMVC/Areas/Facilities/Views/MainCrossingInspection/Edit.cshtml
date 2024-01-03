@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.EditMainCrossingInspection
+
+@using (Form.BeginForm("Update", "MainCrossingInspection", new { area = "Facilities", id = Model.Id }))
+{
+    <fieldset>
+        <legend>General</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.DisplayMainCrossing)
+            @if (Authentication.CurrentUserIsAdmin)
+            {
+                @Html.EditorFor(x => x.InspectedBy)
+            }
+            else
+            {
+                @Control.HiddenFor(x => x.InspectedBy)
+            }
+            @Html.EditorFor(x => x.InspectedOn)
+            @Html.EditorFor(x => x.AssessmentRating)
+            @Html.EditorFor(x => x.Comments)
+        </div>
+    </fieldset>
+
+    @Html.Partial("_Form")
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @*User gets here through inspections tab on main crossing show view, so redirect back that way *@
+        @Html.LinkButton("Cancel", "Show", "MainCrossing", new { id = Model.DisplayMainCrossing.Id })
+    </text>)
+}

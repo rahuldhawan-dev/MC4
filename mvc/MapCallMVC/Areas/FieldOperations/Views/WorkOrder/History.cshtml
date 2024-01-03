@@ -1,0 +1,10 @@
+﻿@model SearchSet<WorkOrder>
+
+@if (Model.Results != null && Model.Results.Any())
+{
+    @Html.Partial("_Index")
+}
+else
+{
+    <text>No historical work orders found for selected asset.</text>
+}

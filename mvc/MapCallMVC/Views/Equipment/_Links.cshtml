@@ -1,0 +1,25 @@
+﻿@model Equipment
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.Links, new { id = "linksTable" })
+                    .ColumnFor(x => x.LinkType)
+                    .TemplateColumnFor("Url", x => @Html.Link(x.Url, x.Url, new {target="_blank"}));
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Link">
+        @Html.Partial("_AddLink", ViewModelFactory.BuildWithOverrides<AddEquipmentLink>(new { Id = Model.Id }))
+    </div>
+    
+        using (var form = Form.BeginRouteForm("Equipment", "Link", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "removeLinkForm");
+            form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this link?");
+            @table.TemplateColumnFor(x => Control.SubmitButton("Remove Link").WithName("EquipmentLink").WithValue(x.Id))
+    }
+}
+else
+{
+    @table
+}

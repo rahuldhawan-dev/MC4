@@ -1,0 +1,13 @@
+﻿@model EditCompanyLaborCost
+
+@using (Form.BeginForm("Update", "CompanyLaborCost", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                                @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "CompanyLaborCost", new { Model.Id })
+                           </text>)
+    </div>
+}

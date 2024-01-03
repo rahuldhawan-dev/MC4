@@ -1,0 +1,11 @@
+﻿@model MapCall.Common.Model.Entities.MaintenancePlan
+
+@using (Form.BeginAjaxForm("Forecast", "MaintenancePlan", new { area = "Production", ext = "frag", maintenancePlanId = Model.Id }))
+{
+    <div class="field-column fc200 searchFields hidden">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

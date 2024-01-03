@@ -1,0 +1,63 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<IEnumerable<UnionContractProposal>>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+
+    // The pdf example from bug 3589 indicates that this should be grouped by contract, then sorted
+    // by the cross reference number ascendingly.
+    var byContract = Model.GroupBy(x => x.Contract);
+
+}
+
+@section head {
+    <style>
+        * {
+            font-family: 'Calibri', 'Arial';
+        }
+        div {
+            padding-top:12px !important;
+            padding-bottom:12px !important;
+        }
+        .page-wrapper {
+            page-break-after: always;
+        }
+    </style>
+}
+
+@section body {
+    @foreach (var contract in byContract)
+    {
+        <div class="page-wrapper">
+            <h2 style="text-align:center;">Contract Proposal Summary</h2>
+
+            <div>
+                <div>
+                    <div style="float:left; font-weight:bold;">
+                        Contract ID: @Html.DisplayValueFor(x => contract.Key.DescriptionWithoutDates)
+                    </div>
+                    <div style="float:right; font-weight:bold;">
+                        Report Date: @DateTime.Now
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+
+                @foreach (var prop in contract.OrderBy(x => x.Id))
+                {
+                    <hr />
+                    <div>
+                        Cross Reference Number @Html.DisplayValueFor(x => prop.CrossReferenceNumber)
+                    </div>
+                    <div>
+                        Status: @Html.DisplayValueFor(x => prop.Status)
+                    </div>
+                    <div>
+                        Proposal Description: @Html.DisplayValueFor(x => prop.ProposalDescription)
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    }
+
+
+}

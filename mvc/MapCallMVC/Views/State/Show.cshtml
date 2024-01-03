@@ -1,0 +1,9 @@
+﻿@model State
+
+@(Html.Tabs()
+      .WithTab("Details", @<div class="field-column fc100">
+                                @Html.DisplayFor(s => s.Id)
+                                @Html.DisplayFor(s => s.Name)
+                                @Html.DisplayFor(s => s.Abbreviation)
+                                @Html.DisplayFor(s => s.ScadaTable)
+                            </div>))

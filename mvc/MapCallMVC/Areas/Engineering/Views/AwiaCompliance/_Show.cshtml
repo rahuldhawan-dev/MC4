@@ -1,0 +1,19 @@
+﻿@model AwiaCompliance
+    
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.PublicWaterSupplies), @<text>
+                                             @foreach (var i in Model.PublicWaterSupplies)
+                                             {
+                                                 <div>@Html.DisplayValueFor(x => i)</div>
+                                             }
+                                          </text>)
+    @Html.DisplayFor(x => x.CertificationType)
+    @Html.DisplayFor(x => x.CreatedBy.FullName, new { DisplayName = "Entered By" })
+    @Html.DisplayFor(x => x.CertifiedBy.FullName, new { DisplayName = "Certified By" })
+    @Html.DisplayFor(x => x.DateSubmitted)
+    @Html.DisplayFor(x => x.DateAccepted)
+    @Html.DisplayFor(x => x.RecertificationDue)
+</div>

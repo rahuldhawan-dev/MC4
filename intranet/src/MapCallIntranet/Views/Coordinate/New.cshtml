@@ -1,0 +1,39 @@
+﻿@model MapCallIntranet.Models.ViewModels.CreateCoordinate
+
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.MapId = "pickerMap";
+    var address = Model.Address ?? string.Empty;
+    address = address.Replace("\n", " ").Replace("\r", " ");
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Coordinate/New.js")
+    <script type="text/javascript">
+        $(document).ready(CoordinateEdit.initialize);
+    </script>
+}
+
+@section aboveMap {
+    <div class="coordinate-picker-controls">
+        <input type="hidden" id="CoordinateId" value="@Model.Id" />
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="Enter an address:" value="@address" />
+        @Control.Button("Find").WithId("find").With("disabled", "disabled")
+        @Control.Button("Use Current Location").WithId("useDeviceLocation").With("style", "display:none")
+
+        @using (var f = Form.BeginAjaxForm("Create", "Coordinate"))
+        {
+            f.Ajax.OnSuccess = "CoordinateEdit.onSave";
+            @Control.HiddenFor(x => x.Latitude)
+            @Control.HiddenFor(x => x.Longitude)
+            @Control.HiddenFor(x => x.IconId)
+            @Control.HiddenFor(x => x.ValueFor)
+            @Control.SubmitButton("Save Coordinates").WithId("saveCoordinates").With("disabled", "disabled")
+        }
+    </div>
+}
+
+@section belowMap {
+    @{ Html.RenderActionFragment("Index", "MapIcon", new {iconSet = Model.IconSet}); }
+}

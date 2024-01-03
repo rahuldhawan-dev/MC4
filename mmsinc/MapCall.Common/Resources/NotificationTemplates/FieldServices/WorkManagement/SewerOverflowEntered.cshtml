@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+<h2>Work Order Sewer Overflow Alert</h2>
+
+Work Order #: @Model.Id <br />
+Operating Center: @Model.OperatingCenter <br/>
+Entered By: @Model.CreatedBy <br/>
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br />
+Notes:<br />
+@Model.Notes

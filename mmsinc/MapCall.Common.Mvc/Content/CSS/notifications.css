@@ -1,0 +1,53 @@
+﻿/* ReSharper disable InvalidValue */
+
+@properHeight: 23px;
+@properWidth: @properHeight;
+
+.notification {
+    padding: 6px;
+    overflow: hidden;
+    width: 100%;
+    display:flex;
+}
+
+.notification img {
+    width: @properWidth;
+    height: @properHeight;
+}
+
+/* The id selectors are for the specific all-purpose notifications at the top of a page. The class level selectors are for 
+   displaying the same style of notification inside tabs without messing things up.
+*/
+.notification-item-error {
+    background: @notification-error-color;
+}
+
+.notification-item-warning {
+    background: @notification-warning-color;
+}
+
+.notification-item-success {
+    background: @notification-success-color;
+}
+
+#reminder-messages {
+    background: @notification-reminder-color;
+    margin-bottom: 12px;
+}
+
+.notification-item-error .message,
+.notification-item-success .message {
+    color: @dark-background-text-color;
+}
+
+#reminder-messages .message,
+.notification-item-warning .message {
+    color: @light-background-text-color;
+}
+
+.notification .message {
+    float: left;
+    line-height: @properHeight; /* For proper vertical alignment, must match icon height */
+    margin-left: 12px;
+    font-weight: bold;
+}

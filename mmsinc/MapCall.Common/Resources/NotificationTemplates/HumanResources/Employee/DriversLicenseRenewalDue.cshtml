@@ -1,0 +1,7 @@
+﻿@model dynamic
+@{ var license = ((IEnumerable<MapCall.Common.Model.Entities.DriversLicense>)Model.CommercialDriversLicenses).Last(); }
+
+Employee: @Model.LastName, @Model.FirstName<br/>
+Employee Id: @Model.EmployeeId<br/>
+
+Renewal Date: @(((DateTime)license.RenewalDate).ToShortDateString())

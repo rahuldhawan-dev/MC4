@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSewerOpeningInspection
+@{
+    ActionBarHelper.AddExportLink();
+    @*ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter, controller = "AssetMap" });*@
+}
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { id = x.Id }))
+    .TemplateColumnFor("SewerOpening", x => Html.AuthorizedActionLink(x.OpeningNumber, "Show", "SewerOpening", new { id = x.SewerOpeningId }))
+    .ColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Town, "sm.Town")
+    .SortableColumnFor(x => x.InspectedBy, "inspectedBy.UserName")
+    .SortableColumnFor(x => x.DateInspected)
+    .SortableColumnFor(x => x.DateAdded)
+    .SortableColumnFor(x => x.AmountOfDebrisGritCubicFeet)
+    .ColumnFor(x => x.Remarks)
+    .SortableColumnFor(x => x.FunctionalLocation, "sm.FunctionalLocation")
+    .ColumnFor(x => x.Latitude)
+    .ColumnFor(x => x.Longitude)
+    .WithPaginatedFooter()
+)

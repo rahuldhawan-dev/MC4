@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateRestoration
+
+@using (Form.BeginForm("Create", "Restoration", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+        @if (Model.WorkOrder.HasValue)
+        {
+            @Html.LinkButton("Cancel", "Show", "WorkOrder", new {id = Model.WorkOrder})
+        }
+        else
+        {
+            @Html.LinkButton("Cancel", "Search", "Restoration")
+        }
+                           </text>)
+    </div>
+}

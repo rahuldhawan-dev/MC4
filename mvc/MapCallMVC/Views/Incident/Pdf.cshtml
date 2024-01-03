@@ -1,0 +1,519 @@
+﻿@using MMSINC.Utilities
+@model Incident
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+@helper BannerHeading(string title)
+{
+    <table class="banner-heading">
+        <tr>
+            <td><hr /></td>
+            <td class="text">@title</td>
+            <td><hr /></td>
+        </tr>
+    </table>
+}
+@helper TableGridEnforcer()
+{
+    <tr class="table-layout-spacing">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+}
+
+@section head {
+    <style type="text/css">
+        /* THIS IS FOR THIS SPECIFIC PDF */
+
+        * {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Times New Roman';
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            vertical-align: bottom;
+        }
+
+        .table-layout-spacing td {
+            visibility: hidden;
+        }
+
+        table#header td {
+            vertical-align: middle;
+        }
+
+        #aw-logo {
+            width: 200px;
+        }
+
+        #location-table {
+            width: auto;
+        }
+
+        .strong {
+            font-weight: bold;
+        }
+
+        .border-bottom {
+            border-bottom: solid 1px black;
+        }
+
+        .border-top {
+            border-top: solid 1px black;
+        }
+
+        .border-left {
+            border-left: solid 1px black;
+        }
+
+        .border-right {
+            border-right: solid 1px black;
+        }
+
+        .underline-cell,
+        .answer-cell {
+            border-bottom: solid 1px black;
+            padding-left: 6px;
+            padding-right: 6px;
+            white-space: nowrap;
+        }
+
+        .answer-cell, .answer-text {
+            color: blue;
+        }
+
+        section {
+            margin-bottom: 6px;
+        }
+
+        .banner-heading {
+            border-collapse: collapse;
+            margin-bottom: 6px;
+        }
+
+            .banner-heading td {
+                vertical-align: middle;
+            }
+
+            .banner-heading hr {
+                height: 6px;
+                background: black;
+                border: none;
+            }
+
+            .banner-heading .text {
+                height: 35px;
+                width: 500px;
+                background: black;
+                color: white;
+                text-align: center;
+                font-weight: bold;
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+
+        #quatre td {
+            width: 25%;
+            text-align: center;
+            border-bottom: none !important;
+        }
+
+        .grid-layout-table td {
+            width: 6.25%;
+        }
+
+        #questions td {
+            padding: 3px;
+            border: solid 1px black;
+        }
+
+        #questions .answer-cell {
+            white-space: normal;
+        }
+
+        .checked,
+        .unchecked {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: solid 1px black;
+        }
+
+        .checked {
+            background: black;
+        }
+
+        .footer {
+            position: absolute;
+            right: 5px;
+        }
+    </style>
+}
+
+@section body {
+    <table id="header">
+        <tr>
+            <td style="text-align:center;" colspan="3">
+                <img id="aw-logo" src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")" />
+            </td>
+            <td colspan="5">
+                <h1>Incident / Injury Reporting Form</h1>
+                <table id="location-table">
+                    <tr>
+                        <td class="strong">Your Location: </td>
+                        <td class="answer-cell" style="min-width:200px;">@Html.DisplayValueFor(x => x.OperatingCenter)</td>
+                        <td class="strong">State:</td>
+                        <td class="answer-cell" style="min-width:50px;">@Html.DisplayValueFor(x => x.OperatingCenter.State)</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+    {
+        @BannerHeading("EMPLOYEE INFORMATION")
+
+        <section>
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr>
+                    <td colspan="3" class="strong" style="width: 130px;">Employee's Name:</td>
+                    <td colspan="13" class="answer-cell">@Html.DisplayValueFor(x => x.Employee.FullName)</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <table id="quatre">
+                <tr>
+                    <td class="strong">Badge/ID No.</td>
+                    <td class="strong">Date of Injury</td>
+                    <td class="strong">Time of Injury</td>
+                    <td class="strong">Date Reported</td>
+                </tr>
+                <tr>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.Employee.EmployeeId)</td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentDate, CommonStringFormats.DATE)</td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentDate, "{0:h:mm tt}")</td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentReportedDate)</td>
+                </tr>
+            </table>
+        </section>
+    }
+    else
+    {
+        @BannerHeading("CONTRACTOR INFORMATION")
+
+        <section>
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr>
+                    <td colspan="3" class="strong" style="width: 130px;">Contractor's Name:</td>
+                    <td colspan="13" class="answer-cell">@Html.DisplayValueFor(x => x.ContractorName)</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="strong" style="width: 130px;">Contractor's Company:</td>
+                    <td colspan="13" class="answer-cell">@Html.DisplayValueFor(x => x.ContractorCompany)</td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <table id="quatre">
+                <tr>
+                    <td class="strong">Badge/ID No.</td>
+                    <td class="strong">Date of Injury</td>
+                    <td class="strong">Time of Injury</td>
+                    <td class="strong">Date Reported</td>
+                </tr>
+                <tr>
+                    <td class="answer-cell">n/a </td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentDate, CommonStringFormats.DATE)</td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentDate, "{0:h:mm tt}")</td>
+                    <td class="answer-cell">@Html.DisplayValueFor(x => x.IncidentReportedDate)</td>
+                </tr>
+            </table>
+        </section>
+
+    }
+
+    <section>
+        <table class="grid-layout-table" style="margin-top:20px;">
+            @TableGridEnforcer()
+            <tr>
+                <td colspan="2">Your Shift?</td>
+                <td colspan="1" class="answer-cell">@Html.DisplayValueFor(x => x.IncidentShift)</td>
+                <td colspan="3">Were you working overtime?</td>
+                <td colspan="1" class="answer-cell">@Html.DisplayValueFor(x => x.IsOvertime)</td>
+                <td colspan="7">@Html.DisplayLabelFor(x => x.NumberOfHoursOvertimeInPastWeek)</td>
+                <td colspan="1">@Html.DisplayValueFor(x => x.NumberOfHoursOvertimeInPastWeek)</td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="14" class="underline-cell"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Contact Phone:</td>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="4" class="answer-cell border-right">@PhoneNumberFormatter.TryFormat(Model.Employee.PhoneHome)</td>
+                }
+                else
+                {
+                    <td colspan="4" class="answer-cell border-right"></td>
+                }
+
+
+                <td colspan="2" style="text-align:right; padding-right:12px;">Home Address</td>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="8" class="answer-cell border-left">@Html.DisplayValueFor(x => x.Employee.Address)</td>
+                }
+                else
+                {
+                    <td colspan="8" class="answer-cell border-left"></td>
+                }
+
+
+            </tr>
+            <tr>
+                <td colspan="2">Alt Phone:</td>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="4" class="answer-cell border-right">@PhoneNumberFormatter.TryFormat(Model.Employee.PhonePersonalCellular)</td>
+                }
+                else
+                {
+                    <td colspan="4" class="answer-cell border-right"></td>
+                }
+
+
+                <td colspan="2" style="text-align:right; padding-right:12px;"></td>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="8" class="answer-cell border-left">@Html.DisplayValueFor(x => x.Employee.City), @Html.DisplayValueFor(x => x.Employee.State) @Html.DisplayValueFor(x => x.Employee.ZipCode)</td>
+                }
+                else
+                {
+                    <td colspan="8" class="answer-cell border-left"></td>
+                }
+
+
+            </tr>
+            <tr>
+                <td colspan="2">Job Title:</td>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="4" class="answer-cell border-right">@Html.DisplayValueFor(x => x.Employee.PositionGroup.PositionDescription)</td>
+                }
+                else
+                {
+                    <td colspan="4" class="answer-cell border-right"></td>
+                }
+                <td colspan="2" class="underline-cell" style="text-align:right; padding-right:12px;">DOB</td>
+                <td colspan="8" class="answer-cell border-left">@* Employee.Birthdate used to be here *@</td>
+            </tr>
+        </table>
+    </section>
+
+    @BannerHeading("INCIDENT DATA")
+
+    <section>
+        <table class="grid-layout-table">
+            @TableGridEnforcer()
+            @if (Model.IsOSHARecordable)
+            {
+                <tr>
+                    <td colspan="3">Is OSHA Recordable</td>
+                    <td colspan="13" class="answer-cell">@Html.DisplayValueFor(x => x.IsOSHARecordable)</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3">Address of Injury?</td>
+                <td colspan="13" class="answer-cell">@Html.DisplayValueFor(x => x.AccidentAddress)</td>
+            </tr>
+            <tr>
+                <td colspan="2">Witness Name</td>
+                <td colspan="5" class="answer-cell">@Html.DisplayValueFor(x => x.WitnessName)</td>
+                <td colspan="1">&nbsp;</td>
+                <td colspan="2">Witness Phone</td>
+                <td colspan="6" class="answer-cell">@Html.DisplayValueFor(x => x.WitnessPhone) @*Can't use PhoneFormatter on this because it may contain multiple numbers*@</td>
+            </tr>
+            <tr>
+                <td colspan="2">Your Supervisor?</td>
+                <td colspan="5" class="answer-cell">@Html.DisplayValueFor(x => x.Supervisor.FullName)</td>
+                <td colspan="1">&nbsp;</td>
+                <td colspan="2">Supervisor Phone</td>
+                <td colspan="6" class="answer-cell">@Html.DisplayValueFor(x => x.Supervisor.PhoneWork) @*Can't use PhoneFormatter on this because it may contain multiple numbers*@</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <table id="questions" class="grid-layout-table">
+            @TableGridEnforcer()
+            <tr>
+                <td colspan="5"><strong>What was the employee doing just before incident occurred?</strong><em>(i.e. climbing ladder)</em></td>
+                <td colspan="11" class="answer-cell" style="vertical-align:top;">@Html.DisplayValueFor(x => x.QuestionEmployeeDoingBeforeIncidentOccurred)</td>
+            </tr>
+            <tr>
+                <td colspan="5"><strong>What happened?</strong><em>(i.e. ladder slipped on wet floor and they fell to floor)</em></td>
+                <td colspan="11" class="answer-cell" style="vertical-align:top;">@Html.DisplayValueFor(x => x.QuestionWhatHappened)</td>
+            </tr>
+            <tr>
+                <td colspan="5"><strong>What was the injury or illness?</strong><em>(i.e. bruised left knee)</em></td>
+                <td colspan="11" class="answer-cell" style="vertical-align:top;">@Html.DisplayValueFor(x => x.QuestionInjuryOrIllness)</td>
+            </tr>
+            <tr>
+                <td colspan="5"><strong>What object or substance directly harmed the employee?</strong><em>(i.e. the concrete floor)</em></td>
+                <td colspan="11" class="answer-cell" style="vertical-align:top;">@Html.DisplayValueFor(x => x.QuestionWhatObjectOrSubstanceDirectlyHarmedEmployee)</td>
+            </tr>
+            <tr>
+                <td colspan="1" style="vertical-align:middle; text-align:center;">1</td>
+                <td colspan="14">
+                    <strong>Have you ever injured or had treatment for this pain / body part before from a motor vehicle incident, workplace incident, or other incident?</strong>
+                    If yes, what was the date of the incident, nature of the injury, and name and address of any medical provider(including chiropractors) who provided medical care?
+                    <br />
+                    <span class="answer-text">@Html.DisplayValueFor(x => x.PriorInjuryDate) - @Html.DisplayValueFor(x => x.NatureOfPriorInjury) - @Html.DisplayValueFor(x => x.PriorInjuryMedicalProvider)</span>
+                </td>
+                <td colspan="1" style="vertical-align:top;">
+                    <strong>@(Model.QuestionHaveHadSimilarInjuryBefore ? "Yes" : "No")</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="1" style="vertical-align:middle; text-align:center;">2</td>
+                <td colspan="14">
+                    <strong>Do you currently (in the last 12 months) participate in any athletic, recreational or sporting activities?</strong>
+                    If yes, please list the activities you participate in.
+                    <br />
+                    <span class="answer-text">@Html.DisplayValueFor(x => x.AthleticActivitiesInLastTwelveMonths)</span>
+                </td>
+                <td colspan="1" style="vertical-align:top;">
+                    <strong>@(Model.QuestionParticipatedInAthleticActivitiesInLastTwelveMonths ? "Yes" : "No")</strong>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="vertical-align:middle; text-align:center;">3</td>
+                <td colspan="14">
+                    <strong>Do you have a side job/volunteer or 2nd occupation outside of American Water?</strong>
+                    If yes, please list names and addresses of these employers.
+                    <br />
+                    <span class="answer-text">@Html.DisplayValueFor(x => x.OtherEmployers)</span>
+                </td>
+                <td colspan="1" style="vertical-align:top;">
+                    <strong>@(Model.QuestionHaveJobOutsideOfAmericanWater ? "Yes" : "No")</strong>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    @BannerHeading("WORK STATUS and/or Medical Care Provider")
+
+    <section>
+        <table class="grid-layout-table">
+            @TableGridEnforcer()
+            <tr>
+                <td colspan="1" style="text-align:center;"><div class="@(Model.SoughtMedicalAttention ? "unchecked" : "checked")"></div></td>
+                <td colspan="15" class="strong">No, I do not wish to seek medical attention at this time. </td>
+            </tr>
+            <tr>
+                <td colspan="1" style="text-align:center;"><div class="@(Model.SoughtMedicalAttention ? "checked" : "unchecked")"></div></td>
+                <td colspan="6" class="strong">Yes, I did seek medical attention:</td>
+            </tr>
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="3" class="strong">Medical Provider:</td>
+                <td colspan="6" class="answer-cell">@Html.DisplayValueFor(x => x.MedicalProviderName)</td>
+            </tr>
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="1">City</td>
+                <td colspan="4" class="answer-cell">@Html.DisplayValueFor(x => x.MedicalProviderTown)</td>
+                <td colspan="1">State</td>
+                <td colspan="4" class="answer-cell">@Html.DisplayValueFor(x => x.MedicalProviderTown.County.State)</td>
+                <td colspan="1">Phone</td>
+                <td colspan="4" class="answer-cell">@PhoneNumberFormatter.TryFormat(Model.MedicalProviderPhone)</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="strong" style="font-size:12px;">
+        <div style="text-align:center;">**** Please attach a copy of the doctor’s work status report with this report ****</div>
+        <div>
+            If seeking treatment outside the preferred occupational network providers, your visit may need to be pre-authorized. This does
+            not apply to emergencies. If you have questions, contact your regional Insurance Claims Representative of the Claims Service Team.
+        </div>
+    </section>
+
+    @BannerHeading("ACKNOWLEDGEMENT")
+
+    <section>
+        <strong>PLEASE ACKNOWLEDGE:</strong>
+        <em style="font-size:11px; line-height:11px;">
+            Workers’ Compensation Law addresses fraud by all parties. Employer / Employee penalties range from fines to
+            incarceration. Examples of Work Comp Abuse: (1) Faking an incident or injury. (2) Collecting benefits for a non-job injury. (3) Taking more time off than is
+            necessary to recover. (4) Exaggerating the seriousness of an injury. (5) Working an equally demanding job while collecting benefits.
+        </em>
+        <strong style="display:block;">
+            I CERTIFY THAT THE ABOVE STATEMENTS MADE BY ME ARE TRUE AND CORRECT. I AM AWARE THAT IF ANY OF THE STATEMENTS ARE WILLFULLY FALSE,
+            I MAY BE SUBJECT TO DISCIPLINARY ACTION BY MY EMPLOYER.
+        </strong>
+    </section>
+
+    <section>
+        <table class="grid-layout-table">
+            @TableGridEnforcer()
+            <tr>
+                @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+                {
+                    <td colspan="3">Employee Signature</td>
+                }
+                else
+                {
+                    <td colspan="3">Contractor Signature</td>
+                }
+                <td colspan="7" class="answer-cell"></td>
+                <td colspan="1" style="text-align: center;">Date</td>
+                <td colspan="5" class="answer-cell"></td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <table class="grid-layout-table">
+            @TableGridEnforcer()
+            <tr>
+                <td colspan="3">Supervisor Signature</td>
+                <td colspan="7" class="answer-cell"></td>
+                <td colspan="1" style="text-align:center;">Date</td>
+                <td colspan="5" class="answer-cell"></td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="footer">
+        Incident ID: @Html.DisplayValueFor(x => x.Id)
+    </div>
+}

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Database Name="Northwind" Class="NorthwindAddressDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings"
+              ConnectionString="Data Source=LOCALHOST;Initial Catalog=Northwind;Integrated Security=True"
+              SettingsObjectName="MMSINCTestImplementation.Properties.Settings"
+              SettingsPropertyName="NorthwindConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Addresses" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="AddressID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+              IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContactID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AddressLine1" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="AddressLine2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CityID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StateID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="ZipFour" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Association Name="City_Address" Member="City" ThisKey="CityID" OtherKey="CityID" Type="City" IsForeignKey="true" />
+      <Association Name="Contact_Address" Member="Contact" ThisKey="ContactID" OtherKey="ContactID" Type="Contact"
+                   IsForeignKey="true" />
+      <Association Name="State_Address" Member="State" ThisKey="StateID" OtherKey="StateID" Type="State"
+                   IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cities" Member="Cities">
+    <Type Name="City">
+      <Column Name="CityID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true"
+              CanBeNull="false" />
+      <Column Name="StateID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CityName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="City_Address" Member="Addresses" ThisKey="CityID" OtherKey="CityID" Type="Address" />
+      <Association Name="State_City" Member="State" ThisKey="StateID" OtherKey="StateID" Type="State"
+                   IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Contacts" Member="Contacts">
+    <Type Name="Contact">
+      <Column Name="ContactID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+              IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ContactName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="Contact_Address" Member="Addresses" ThisKey="ContactID" OtherKey="ContactID" Type="Address" />
+    </Type>
+  </Table>
+  <Table Name="dbo.States" Member="States">
+    <Type Name="State">
+      <Column Name="StateID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+              IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StateName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Abbreviation" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Association Name="State_Address" Member="Addresses" ThisKey="StateID" OtherKey="StateID" Type="Address" />
+      <Association Name="State_City" Member="Cities" ThisKey="StateID" OtherKey="StateID" Type="City" />
+    </Type>
+  </Table>
+</Database>

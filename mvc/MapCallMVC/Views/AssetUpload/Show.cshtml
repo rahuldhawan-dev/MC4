@@ -1,0 +1,10 @@
+﻿@using MMSINC.Results
+@model AssetUpload
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.FileName), Html.ActionLink(Model.FileName, "Show", new {Controller = "AssetUpload", ext = ResponseFormatter.KnownExtensions.EXCEL_2003, Model.Id}, new {target = "_blank"}))
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.Status)
+    @Html.DisplayFor(x => x.ErrorText)
+</div>

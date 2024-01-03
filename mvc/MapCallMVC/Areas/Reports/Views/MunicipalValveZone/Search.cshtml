@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMunicipalValveZoneReport
+
+@using (Form.BeginForm("Index", "MunicipalValveZone"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town, new { Container = @Model })
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}
+

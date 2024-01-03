@@ -1,0 +1,146 @@
+<%--
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+--%>
+<%@ Register Assembly="MMSINC.Core.WebForms" Namespace="MMSINC.Controls" TagPrefix="mmsi" %>
+
+<asp:DetailsView
+    runat="server"
+    skinID="OldSchool"
+    CellPadding="2"
+    ForeColor="#333333"
+    GridLines="None"
+    BorderStyle="solid"
+    BorderWidth="1"
+    BorderColor="ButtonShadow">
+    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"/>
+    <CommandRowStyle BackColor="#D1DDF1" Font-Bold="True"/>
+    <RowStyle BackColor="#EFF3FB"/>
+    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center"/>
+    <FieldHeaderStyle BackColor="#DEE8F5" Font-Bold="True"/>
+    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"/>
+    <AlternatingRowStyle BackColor="White"/>
+</asp:DetailsView>
+
+
+<asp:GridView
+    runat="server"
+    skinID="OldSchool"
+    CellPadding="2"
+    ForeColor="#333333"
+    GridLines="None"
+    BorderStyle="solid"
+    BorderWidth="1"
+    BorderColor="ButtonShadow">
+    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"/>
+    <RowStyle BackColor="#EFF3FB"/>
+    <EditRowStyle BackColor="#2461BF"/>
+    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333"/>
+    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center"/>
+    <HeaderStyle BackColor="#000080" Font-Bold="True" ForeColor="White" BorderColor="Buttonshadow" BorderWidth="1" BorderStyle="Solid"/>
+    <AlternatingRowStyle BackColor="White"/>
+</asp:GridView>
+
+<asp:GridView
+    runat="server"
+    skinID="OldSchoolLines"
+    CellPadding="2"
+    ForeColor="#333333"
+    GridLines="Both"
+    BorderStyle="solid"
+    BorderWidth="1"
+    BorderColor="ButtonShadow">
+    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"/>
+    <RowStyle BackColor="#EFF3FB"/>
+    <EditRowStyle BackColor="#2461BF"/>
+    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333"/>
+    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center"/>
+    <HeaderStyle BackColor="#000080" Font-Bold="True" ForeColor="White" BorderColor="Buttonshadow" BorderWidth="1" BorderStyle="Solid"/>
+    <AlternatingRowStyle BackColor="White"/>
+</asp:GridView>
+
+
+<asp:GridView runat="server" skinID="Export" GridLines="Both">
+</asp:GridView>
+
+<asp:Menu runat="server" BackColor="#D6DFEF" DynamicHorizontalOffset="2" ForeColor="#5279B5"
+          StaticSubMenuIndent="10px" BorderStyle="Solid" BorderColor="Black" BorderWidth="1">
+    <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"/>
+    <DynamicHoverStyle BackColor="#5279B5" ForeColor="White"/>
+    <DynamicMenuStyle BackColor="#D6DFEF"/>
+    <StaticSelectedStyle BackColor="#507CD1"/>
+    <DynamicSelectedStyle BackColor="#507CD1"/>
+    <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px"/>
+    <StaticHoverStyle BackColor="#5279B5" ForeColor="White"/>
+</asp:Menu>
+
+
+<%-- For the default --%>
+<asp:GridView runat="server" CssClass="grid" GridLines="None">
+    <HeaderStyle CssClass="head"/>
+    <RowStyle CssClass="row"/>
+    <AlternatingRowStyle CssClass="alt"/>
+</asp:GridView>
+
+<mmsi:MvpGridView runat="server" CssClass="grid" GridLines="None">
+    <HeaderStyle CssClass="head"/>
+    <RowStyle CssClass="row"/>
+    <AlternatingRowStyle CssClass="alt"/>
+</mmsi:MvpGridView>
+
+<asp:DetailsView
+    runat="server"
+    GridLines="None"
+    CssClass="prettyTable">
+    <HeaderStyle CssClass="head"/>
+    <RowStyle CssClass="row"/>
+    <AlternatingRowStyle CssClass="alt"/>
+    <FieldHeaderStyle CssClass="label"/>
+</asp:DetailsView>
+
+<mmsi:MvpDetailsView
+    runat="server"
+    GridLines="None"
+    CssClass="prettyTable">
+    <HeaderStyle CssClass="head"/>
+    <RowStyle CssClass="row"/>
+    <AlternatingRowStyle CssClass="alt"/>
+    <FieldHeaderStyle CssClass="label"/>
+</mmsi:MvpDetailsView>
+
+
+<mmsi:MvpDetailsView
+    SkinId="PrettyNoBorders"
+    runat="server"
+    GridLines="None"
+    CssClass="prettyTable noBorders">
+    <HeaderStyle CssClass="head"/>
+    <RowStyle CssClass="row"/>
+    <AlternatingRowStyle CssClass="alt"/>
+    <FieldHeaderStyle CssClass="label"/>
+</mmsi:MvpDetailsView>
+
+<%-- Validators --%>
+
+<asp:RequiredFieldValidator CssClass="required" runat="server"/>
+<asp:CompareValidator CssClass="required" runat="server"/>
+<asp:RangeValidator CssClass="required" runat="server"/>
+<asp:RegularExpressionValidator CssClass="required" runat="server"/>
+<asp:CustomValidator CssClass="required" runat="server"/>
+
+<%-- Clean --%>
+
+<asp:TextBox skinID="clean" runat="server"/>
+<asp:DropDownList SkinID="clean" runat="server"/>
+<asp:GridView runat="Server" skinID="clean"/>

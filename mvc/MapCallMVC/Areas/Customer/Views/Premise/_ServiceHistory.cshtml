@@ -1,0 +1,22 @@
+﻿@model Premise
+@{
+    var services = Model.Services.OrderByDescending(x => x.DateInstalled);
+}
+
+@(Html.TableFor(x => services, new { id = "serviceHistoryTable" })
+      .TemplateColumnFor("Service", x => Html.ActionLink(x.Id.ToString(), "Show", "Service", new{ id = x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.ServiceNumber)
+      .ColumnFor(x => x.ServiceCategory)
+      .ColumnFor(x => x.DateInstalled)
+      .ColumnFor(x => x.RetiredDate)
+      .ColumnFor(x => x.ServiceMaterial)
+      .ColumnFor(x => x.ServiceSize)
+      .ColumnFor(x => x.PreviousServiceMaterial)
+      .ColumnFor(x => x.PreviousServiceSize)
+      .ColumnFor(x => x.PreviousServiceCustomerMaterial)
+      .ColumnFor(x => x.PreviousServiceCustomerSize)
+      .TemplateColumnFor("Work Order", x => 
+          @<text>@if (x.MostRecentWorkOrder != null)
+                 {
+                     @Html.ActionLink(x.MostRecentWorkOrder.Id.ToString(), "Show", "WorkOrder", new {id = x.MostRecentWorkOrder.Id, area = "FieldOperations"}, null)
+                 }</text>))

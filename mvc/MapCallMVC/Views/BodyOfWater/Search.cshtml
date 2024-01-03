@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Models.ViewModels.SearchBodyOfWater
+
+@using (Form.BeginForm("Index", "BodyOfWater"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Name)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchInterconnection
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "interconnectionsTable" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Interconnection", new { area = "Facilities", id = x.Id}, null))
+    .ColumnFor(x => x.Facility.OperatingCenter)
+    .ColumnFor(x => x.Facility)
+    .ColumnFor(x => x.DEPDesignation)
+    .ColumnFor(x => x.Category, "Categorization")
+    .ColumnFor(x => x.OperatingStatus, "Operating Status")
+    .ColumnFor(x => x.Direction, "Interconnect Direction")
+    .ColumnFor(x => x.Type, "Interconnect Type")
+    .ColumnFor(x => x.ContractStartDate)
+    .ColumnFor(x => x.ContractEndDate)
+    .WithPaginatedFooter())

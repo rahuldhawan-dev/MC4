@@ -1,0 +1,56 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.BaseMarkoutDamageViewModel
+
+@Html.ScriptFor("~/Scripts/MarkoutDamage/Edit.js", ScriptLoadType.LoadFromPartial)
+
+<style type="text/css">
+    #RequestNumber {
+        width: 100px !important;
+    }
+</style>
+
+<div class="field-column fc200">
+    @Html.RenderEditorTemplate("Request Number", @<text>
+        @Control.TextBoxFor(x => x.RequestNumber)
+        @Control.Hidden().WithId("by-request-number-url").WithValue(Url.Action("ByRequestNumber", "OneCallTicket", new { area = "" }))
+        @Control.Button("Populate Details").WithId("populate-ticket-button")
+        @Html.ValidationMessageFor(x => x.RequestNumber)
+        <span id="ticket-message"></span>
+    </text>)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.County)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.Street)
+    @Html.EditorFor(x => x.NearestCrossStreet)
+    @Html.EditorFor(x => x.MarkoutDamageToType)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.EditorFor(x => x.SAPWorkOrderId)
+    @Html.EditorFor(x => x.WorkOrder)
+    @Html.EditorFor(x => x.DamageOn)
+    @Html.EditorFor(x => x.DamageComments)
+    @Html.EditorFor(x => x.UtilityDamages)
+    @Html.EditorFor(x => x.EmployeesOnJob)
+    @Html.EditorFor(x => x.IsMarkedOut)
+    @Html.EditorFor(x => x.IsMismarked)
+    @Html.EditorFor(x => x.MismarkedByInches)
+    @Html.EditorFor(x => x.ExcavatorDiscoveredDamage)
+    @Html.EditorFor(x => x.ExcavatorCausedDamage)
+    @Html.EditorFor(x => x.Was911Called)
+    @Html.EditorFor(x => x.WerePicturesTaken)
+
+    @Html.EditorFor(x => x.Excavator)
+    @Html.EditorFor(x => x.ExcavatorAddress)
+    @Html.EditorFor(x => x.ExcavatorPhone)
+
+    @if (Model is EditMarkoutDamage)
+    {
+        @Html.EditorFor(x => x.SupervisorSignOffEmployee, new { Container = Model })
+        @Html.EditorFor(x => x.ApprovedOn)
+    }
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "Incident")
+    </text>)
+</div>

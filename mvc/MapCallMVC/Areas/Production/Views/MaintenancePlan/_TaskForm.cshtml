@@ -1,0 +1,28 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.Production.Models.ViewModels.MaintenancePlanViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/Production/MaintenancePlan/TaskForm.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TaskGroupDataEndpointUrl").WithValue(Url.Action("GetTaskDetailAndPlanTypeInformation", "TaskGroup", new { area = "Production", ext = ResponseFormatter.KnownExtensions.JSON }))
+
+<fieldset>
+    <legend>Task Information</legend>
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Plan Type", @<text>
+            @Control.TextBoxFor(x => x.PlanType).With(new { Readonly = "readonly", id = "PlanType" })
+        </text>)
+        @Html.EditorFor(x => x.TaskGroupCategory)
+        @Html.EditorFor(x => x.TaskGroup)
+        @Html.EditorFor(x => x.Resources)
+        @Html.EditorFor(x => x.EstimatedHours)
+        @Html.EditorFor(x => x.ContractorCost)
+        @Html.EditorFor(x => x.SkillSet)
+        @Html.EditorFor(x => x.LocalTaskDescription)
+        @Html.RenderDisplayTemplate("Task Details Summary", @<text>
+            @Control.TextBoxFor(x => x.TaskDetailsSummary).With(new { Readonly = "readonly", id = "TaskDetailsSummary" })
+        </text>)
+        @Html.RenderDisplayTemplate("Task Details", @<text>
+            @Control.TextAreaFor(x => x.TaskDetails).With(new { Readonly = "readonly", id = "TaskDetails" })
+        </text>)
+        @Html.EditorFor(x => x.AdditionalTaskDetails)
+    </div>
+</fieldset>

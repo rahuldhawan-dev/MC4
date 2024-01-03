@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SkillSetViewModel
+
+@using (Form.BeginForm("Create", "SkillSet", "Production"))
+{
+    @Html.Partial("_FormFields", Model)
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Create").WithId("Create")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

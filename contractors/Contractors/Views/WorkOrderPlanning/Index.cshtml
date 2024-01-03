@@ -1,0 +1,21 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderPlanningSearch
+@{
+    ViewBag.Title = "Work Order - Planning - Results";
+}
+@(Html.TableFor(x => x)
+      .SortableTemplateColumnFor(x => x.Id, "Id", x => @<text>@Html.ActionLink(x.Id.ToString(), "Show", new { id = x.Id })</text>)
+      .TemplateColumnFor("Markout Expiration Date", x => @<text>@String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.MarkoutExpirationDate)</text>)
+      .SortableColumnFor(x => x.Town, "Town.ShortName")
+      .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street, "Street.FullStName")
+      .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+      .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+      .ColumnFor(x => x.AssetId)
+      .SortableColumnFor(x => x.WorkDescription, "Description of Job", "WorkDescription.Description")
+      .SortableColumnFor(x => x.MarkoutRequirement)
+      .SortableColumnFor(x => x.Priority)
+	  .SortableColumnFor(x => x.Purpose)
+	  .SortableColumnFor(x => x.StreetOpeningPermitRequired)
+	  .WithPaginatedFooter()
+	  )

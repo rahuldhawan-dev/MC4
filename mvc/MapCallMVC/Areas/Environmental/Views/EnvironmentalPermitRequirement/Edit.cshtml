@@ -1,0 +1,31 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.EditEnvironmentalPermitRequirement
+
+@using (Form.BeginForm("Update", "EnvironmentalPermitRequirement", "Environmental", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(m => m.EnvironmentalPermit)
+        @Html.HiddenFor(m => m.RequiresRequirements)
+        
+        @Html.EditorFor(x => x.RequirementType)
+        @Html.EditorFor(x => x.Requirement)
+        @Html.EditorFor(x => x.ValueUnit)
+        @Html.EditorFor(x => x.ValueDefinition)
+        @Html.EditorFor(x => x.TrackingFrequency)
+        @Html.EditorFor(x => x.ReportingFrequency)
+        @Html.EditorFor(x => x.ReportingFrequencyDetails)
+        @Html.EditorFor(x => x.ProcessOwner)
+        @Html.EditorFor(x => x.ReportingOwner)
+        @Html.EditorFor(x => x.ReportDataStorageLocation)
+        @Html.EditorFor(x => x.ReportCreationInstructions)
+        @Html.EditorFor(x => x.ReportSendTo)
+        @Html.EditorFor(x => x.CommunicationType)
+        @Html.EditorFor(x => x.CommunicationEmail)
+        @Html.EditorFor(x => x.CommunicationLink)
+        @Html.EditorFor(x => x.Notes)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "EnvironmentalPermit", new {Model.Id, area = "Environmental"})
+                           </text>)
+    </div>
+}

@@ -1,0 +1,100 @@
+﻿@using MMSINC.Utilities
+@model MapCallMVC.Areas.Reports.Models.SearchInspectionProductivity
+
+@{
+    var byOpCenter = Model.Results.GroupBy(x => x.OperatingCenter);
+    // TODO: This needs to be aware of dates without any records, the date will get skipped if it's not in here.
+
+    var datesInOrder = new List<DateTime>();
+    var startDate = Model.StartDate.Value;
+    for (var i = 0; i < Model.GetDays(); i++)
+    {
+        datesInOrder.Add(startDate.AddDays(i));
+    }
+}
+
+<style>
+    #results-table td { border:solid 1px black !important; }
+    #results-table .totals td {
+        background-color: #cccccc !important;
+        font-weight: bold;
+        font-style: italic;
+    }
+    #results-table .totals-opc td {
+        background-color: #aaaaaa !important;
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    #results-table .after-opc-row td {
+        height: 50px;
+        border: none !important;
+    }
+</style>
+
+<table id="results-table" class="for-structure no-hover">
+    <tbody>
+        @foreach (var opc in byOpCenter.OrderBy(x => x.Key))
+        {
+            @* This header gets repeated for each op center, so it can't be an actual <thead> row. *@
+            <tr>
+                <th colspan="4">@opc.Key</th>
+                @foreach (var d in datesInOrder)
+                {
+                    @* Because of where the dates come from, DisplayValueFor won't work with a format attribute*@
+                    <th>@Html.DisplayValueFor(_ => d, CommonStringFormats.DATE)</th>
+                }
+            </tr>
+            foreach (var user in opc.GroupBy(x => x.InspectedBy))
+            {
+                foreach (var item in user.GroupBy(x => new { x.AssetType, x.ValveSize, x.InspectionType }))
+                {
+                    var byDate = item.ToLookup(x => x.DateInspected, x => x);
+
+                    <tr>
+                        <td>@user.Key</td>
+                        <td>@item.Key.AssetType</td>
+                        <td>@item.Key.ValveSize</td>
+                        <td>@item.Key.InspectionType</td>
+
+                        @foreach (var d in datesInOrder)
+                        {
+                            var singleRecord = byDate[d].SingleOrDefault();
+                            <td>
+                                @if (singleRecord != null)
+                                {
+                                    @singleRecord.Count
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+
+                var byDateForUser = user.ToLookup(x => x.DateInspected);
+                <tr class="totals">
+                    <td colspan="1"></td>
+                    <td colspan="3">Total</td>
+                    @foreach (var d in datesInOrder)
+                    {
+                        <td>@byDateForUser[d].Sum(x => x.Count)</td>
+                    }
+                </tr>
+                <tr>
+                    <td colspan="42">@*42 will always be greater than the max number of columns in this table*@</td>
+                </tr>
+            }
+
+            var byDateForOpCenter = opc.ToLookup(x => x.DateInspected);
+            <tr class="totals-opc">
+                <td colspan="4">Total</td>
+                @foreach (var d in datesInOrder)
+                {
+                    <td>@byDateForOpCenter[d].Sum(x => x.Count)</td>
+                }
+            </tr>
+            <tr class="after-opc-row">
+                <td colspan="42">@*42 will always be greater than the max number of columns in this table*@</td>
+            </tr>
+        }
+    </tbody>
+</table>

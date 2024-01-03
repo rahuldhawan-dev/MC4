@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMeterChangeOutContract
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Contractor)
+    .SortableColumnFor(x => x.CreatedAt)
+    .ColumnFor(x => x.IsActive)
+    .WithPaginatedFooter()
+)

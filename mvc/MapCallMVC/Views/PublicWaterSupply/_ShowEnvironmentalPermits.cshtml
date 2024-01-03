@@ -1,0 +1,10 @@
+﻿@model PublicWaterSupply
+
+@(Html.TableFor(x => Model.EnvironmentalPermits, new { id = "EnvironmentalPermit" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "EnvironmentalPermit", new { x.Id, Area = "Environmental" }, null))
+      .ColumnFor(x => x.EnvironmentalPermitType)
+      .ColumnFor(x => x.PermitNumber)
+      .ColumnFor(x => x.PermitEffectiveDate)
+      .ColumnFor(x => x.PermitRenewalDate)
+      .ColumnFor(x => x.PermitExpirationDate)
+      .ColumnFor(x => x.EnvironmentalPermitStatus)) 

@@ -1,0 +1,9 @@
+﻿@model SearchBappTeam
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "BappTeam", new { id = x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.CreatedBy))

@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchContractorOverrideLaborCost
+
+@using (Form.BeginForm("Index", "ContractorOverrideLaborCost"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.ContractorLaborCost, new {Container = @Model})
+        @Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}

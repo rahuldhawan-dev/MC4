@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.PlanReviews.SearchPlanReview
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Plan)
+    .SortableColumnFor(x => x.ReviewDate)
+    .ColumnFor(x => x.ReviewedBy)
+    .ColumnFor(x => x.ReviewChangeNotes)
+    .ColumnFor(x => x.NextReviewDate)
+    .ColumnFor(x => x.CreatedBy)
+    .ColumnFor(x => x.CreatedAt)
+    .WithCaption("Records found: " + Model.Count)
+    .WithPaginatedFooter()
+)

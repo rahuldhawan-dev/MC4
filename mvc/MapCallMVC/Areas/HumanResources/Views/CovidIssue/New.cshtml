@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.CreateCovidIssue
+
+@using (Form.BeginForm("Create", "CovidIssue", "HumanResources"))
+{
+    @Html.Partial("_FormFields", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search")
+    </text>)
+}

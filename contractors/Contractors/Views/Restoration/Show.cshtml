@@ -1,0 +1,12 @@
+﻿@using Contractors.ClassExtensions
+@model Restoration
+@{
+    ViewBag.Title = "Restorations";
+}
+@(Html.Tabs().WithTab("Initial Data", "_Initial")
+    .WithTab("Base/Temporary Restoration", "_Partial")
+    .WithTab("Final Restoration", "_Final")
+    .WithTab("Related Restorations", "_Related")
+    .WithDocuments())
+
+@Html.LinkButton("Edit", "Edit", "Restoration", new { id = Model.Id })

@@ -1,0 +1,38 @@
+﻿@using System.Web.UI.HtmlControls
+@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model Facility
+@{
+    var userCanAdd = Html.CurrentUserCanDo("AddSystemDeliveryEntryType", "Facility");
+    var userCanEdit = Html.CurrentUserCanDo("Edit", "FacilitySystemDeliveryEntryType", "Facilities");
+    var userCanRemove = Html.CurrentUserCanDo("RemoveSystemDeliveryEntryType", "Facility");
+    var table = Html.TableFor(x => x.FacilitySystemDeliveryEntryTypes, new { id = "system-delivery-entry-types-table" });
+    if (userCanEdit)
+    {
+        table = table.TemplateColumnFor(x => Control.ActionLink("Edit", "Edit", "FacilitySystemDeliveryEntryType", new { id = x.Id, area = "Facilities" }));
+    }
+}
+@if (userCanAdd)
+{
+    <div class="collapse-panel" data-title="Add System Delivery Entry Type">
+        @Html.Partial("_AddFacilitySystemDeliveryEntryType", ViewModelFactory.Build<AddFacilitySystemDeliveryEntryType, Facility>(Model))
+    </div>
+}
+
+@(table.ColumnFor(x => x.SystemDeliveryEntryType)
+  .ColumnFor(x => x.BusinessUnit)
+  .ColumnFor(x => x.SupplierFacility)
+  .ColumnFor(x => x.PurchaseSupplier)
+  .ColumnFor(x => x.IsEnabled)
+  .ColumnFor(x => x.MinimumValue)
+  .ColumnFor(x => x.MaximumValue)
+  .ColumnFor(x => x.IsInjectionSite)
+  .ColumnFor(x => x.IsAutomationEnabled)
+  .TemplateColumnFor(x => @<text>
+    @using (var f = Form.BeginRouteForm("Facility", "SystemDeliveryEntryType", new { id = Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        f.HtmlAttributes["data-confirm"] = "Are you sure you want to remove this system delivery entry type?";
+        @Control.HiddenFor(y => x.Id).WithId(null).WithName("FacilitySystemDeliveryEntryTypeId")
+        @Control.SubmitButton("Remove")
+    }
+</text>).IsVisible(userCanRemove)
+)

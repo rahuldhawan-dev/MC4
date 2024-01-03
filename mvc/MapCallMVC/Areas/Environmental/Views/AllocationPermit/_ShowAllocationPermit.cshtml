@@ -1,0 +1,34 @@
+﻿@using System.ComponentModel.DataAnnotations
+@model AllocationPermit
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @if (Model.EnvironmentalPermit != null)
+    {
+        @Html.RenderDisplayTemplate("Environmental Permit #", Html.ActionLink(Model.EnvironmentalPermit.PermitNumber, "Show", "EnvironmentalPermit", new {Model.EnvironmentalPermit.Id}, null))
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Environmental Permit #", @<text></text>)
+    }
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.SurfaceSupply)
+    @Html.DisplayFor(x => x.GroundSupply)
+    @Html.DisplayFor(x => x.GeologicalFormation)
+    @Html.DisplayFor(x => x.ActivePermit)
+    @Html.DisplayFor(x => x.EffectiveDateOfPermit)  
+    @Html.DisplayFor(x => x.RenewalApplicationDate)
+    @Html.DisplayFor(x => x.ExpirationDate)
+    @Html.DisplayFor(x => x.SubAllocationNumber)
+    @Html.DisplayFor(x => x.Gpd)
+    @Html.DisplayFor(x => x.Mgm)
+    @Html.DisplayFor(x => x.Mgy)
+    @Html.DisplayFor(x => x.Gpm)
+    @Html.DisplayFor(x => x.PermitType)
+    @Html.DisplayFor(x => x.PermitFee)
+    @Html.DisplayFor(x => x.SourceDescription)
+    @Html.DisplayFor(x => x.SourceRestrictions)
+    @Html.DisplayFor(x => x.PermitNotes)
+</div>

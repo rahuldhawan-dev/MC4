@@ -1,0 +1,125 @@
+﻿@model ConfinedSpaceForm
+@{
+    var hazardTypes = (IEnumerable<ConfinedSpaceFormHazardType>)ViewData["HazardTypes"];
+    var entrants = Html.TableFor(x => x.Entrants, new {id = ""})
+                       .ColumnFor(x => x.EntrantType)
+                       .ColumnFor(x => x.Employee)
+                       .ColumnFor(x => x.ContractingCompany)
+                       .ColumnFor(x => x.ContractorName);
+}
+<fieldset>
+    <legend>Permit</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PermitBeginsAt)
+        @Html.DisplayFor(x => x.PermitEndsAt)
+
+        @if (Model.IsPermitCancelledSectionSigned)
+        {
+            @Html.DisplayFor(x => x.PermitCancelledBy)
+            @Html.DisplayFor(x => x.PermitCancelledAt)
+        }
+    </div>
+</fieldset>
+ 
+<fieldset>
+    <legend>Entry Assignment</legend>
+    <div class="field-column fc200">
+        @entrants
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Hazard Checklist</legend>
+    
+    <div>
+        @* MC-2511: They want to see all of the hazard types even if they weren't selected for the
+        record. The unused ones are styled to look different so that they don't just look like
+        fields the user didn't enter a value for. H&S also wants to see a checkbox for these. Without
+            the checkbox it's not obvious which ones aren't selected when there aren't any selected at all. *@
+        @foreach (var hazardType in hazardTypes)
+        {
+            var matchingHazard = Model.Hazards.SingleOrDefault(x => x.HazardType == hazardType);
+            var hasMatch = matchingHazard != null;
+            var desc = hazardType.Description;
+            var notes = matchingHazard != null ? matchingHazard.Notes : string.Empty;
+          
+            <div class="hazard-item hazard-item-readonly">
+                <div class="hazard-description @(!hasMatch ? "unused-hazard-type" : "")">@desc</div>
+                <div class="hazard-checkbox">@Control.CheckBox().IsChecked(hasMatch).With("disabled", "disabled").WithValue(hazardType.Id).WithName("HazardType")</div>
+                <div class="hazard-notes">@notes</div>
+            </div>
+        }
+
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Required Safety Equipment</legend>
+    
+    <div style="display:flex;">
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.HasWarningSafetyEquipment)
+            @Html.DisplayFor(x => x.HasAccessSafetyEquipment)
+            @Html.DisplayFor(x => x.HasLightingSafetyEquipment)
+            @Html.DisplayFor(x => x.HasVentilationSafetyEquipment)
+            @Html.DisplayFor(x => x.HasGFCISafetyEquipment)
+            @Html.DisplayFor(x => x.HasOtherSafetyEquipment)
+        </div>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.HasHeadSafetyEquipment)
+            @Html.DisplayFor(x => x.HasEyeSafetyEquipment)
+            @Html.DisplayFor(x => x.HasRespiratorySafetyEquipment)
+            @Html.DisplayFor(x => x.HasHandSafetyEquipment)
+            @Html.DisplayFor(x => x.HasFallSafetyEquipment)
+            @Html.DisplayFor(x => x.HasFootSafetyEquipment)
+        </div>
+    </div>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.HasOtherSafetyEquipmentNotes, new { DisplayName = "Other Notes" })
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Method of Comunication</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.MethodOfCommunication)
+        @Html.DisplayFor(x => x.MethodOfCommunicationOtherNotes, new { DisplayName = "Notes" })
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Hot Work Permit</legend>
+    <div>
+        Required when using any open flame or spark producing device.
+    </div>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.IsHotWorkPermitRequired)
+        @Html.DisplayFor(x => x.IsFireWatchRequired)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Method of Rescue of Entrants</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.HasRetrievalSystem)
+        @Html.DisplayFor(x => x.HasContractRescueService)
+        @Html.DisplayFor(x => x.EmergencyResponseAgency)
+        @Html.DisplayFor(x => x.EmergencyResponseContact)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Authorization to Begin Entry Operation</legend>
+    <div class="form-signing-section">
+        <div class="signature-section signature-section-signed">
+            <div>
+                The employee below certifies that all necessary precautions have been taken and that the authorized entrants have been briefed on the purpose of
+                entry, the tasks to be performed and the safeguards or procedures necessary to follow for this entry.
+            </div>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.BeginEntryAuthorizedBy, new { DisplayName = "Signed By" })
+                @Html.DisplayFor(x => x.BeginEntryAuthorizedAt, new { DisplayName = "Signed At" })
+            </div>
+        </div>
+    </div>
+</fieldset>

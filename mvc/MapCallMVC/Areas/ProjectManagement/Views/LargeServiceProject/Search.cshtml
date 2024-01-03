@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchLargeServiceProject
+
+@using (Form.BeginForm("Index", "LargeServiceProject")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.ProjectTitle)
+        @Html.EditorFor(x => x.ProjectAddress)
+        @Html.EditorFor(x => x.AssetCategory)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.ProposedPipeDiameter)
+        @Html.EditorFor(x => x.InServiceDate)
+        @Html.EditorFor(x => x.CreatedBy)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

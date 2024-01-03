@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.PipelineProjectCostEstimate
+           
+@using (Form.BeginForm("Create", "PipelineProjectCostEstimate", "ProjectManagement"))
+{
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.DVSNumber)
+        @Control.SubmitButton("Get PDF")
+        @Html.ActionLink("Cancel", "Show", "EstimatingProject",new { id = Model.Id, area = "ProjectManagement"}, new { Class="link-button"})
+    </div>
+}

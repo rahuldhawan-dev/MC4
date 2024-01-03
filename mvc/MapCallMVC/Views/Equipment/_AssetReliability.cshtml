@@ -1,0 +1,16 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+@{
+
+    var table = Html.TableFor(x => Model.AssetReliabilities, new {id = "assetReliabilitesTable"})
+                    .TemplateColumnFor("Production Work Order", x => Html.ActionLink(x.ProductionWorkOrder.ToString(), "Show", "ProductionWorkOrder", new {x.ProductionWorkOrder.Id, area = "Production"}, null))
+                    .ColumnFor(x => x.DateTimeEntered)
+                    .ColumnFor(x => x.Employee)
+                    .ColumnFor(x => x.RepairCostNotAllowedToFail)
+                    .ColumnFor(x => x.RepairCostAllowedToFail)
+                    .ColumnFor(x => x.CostAvoidance)
+                    .ColumnFor(x => x.AssetReliabilityTechnologyUsedType);
+}
+
+@table

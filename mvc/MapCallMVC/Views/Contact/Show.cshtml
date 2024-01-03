@@ -1,0 +1,16 @@
+﻿@model Contact  
+
+<fieldset class="field-column fc100">
+    <legend>General</legend>
+    @Html.DisplayFor(x => x.ContactName)
+    @Html.DisplayFor(x => x.Email)
+    @Html.DisplayFor(x => x.Address)
+</fieldset>
+
+<fieldset class="field-column fc100">
+    <legend>Phone</legend>
+    @Html.DisplayFor(x => x.BusinessPhoneNumber)
+    @Html.DisplayFor(x => x.FaxNumber)
+    @Html.DisplayFor(x => x.HomePhoneNumber)
+    @Html.DisplayFor(x => x.MobilePhoneNumber)
+</fieldset>

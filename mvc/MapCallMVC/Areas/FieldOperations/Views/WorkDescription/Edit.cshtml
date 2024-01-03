@@ -1,0 +1,46 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditWorkDescription
+
+@{
+    var isSiteAdmin = Authentication.CurrentUserIsAdmin;
+}
+
+@using (Form.BeginForm("Update", "WorkDescription", "FieldOperations", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.Display.Description)
+        @Html.DisplayFor(x => x.Display.AssetType)
+        @Html.DisplayFor(x => x.Display.WorkCategory)
+        @Html.EditorFor(x => x.TimeToComplete)
+        @Html.EditorFor(x => x.AccountingType)
+        @Html.EditorFor(x => x.FirstRestorationAccountingCode)
+        @Html.EditorFor(x => x.FirstRestorationCostBreakdown)
+        @Html.EditorFor(x => x.FirstRestorationProductCode)
+        @Html.EditorFor(x => x.SecondRestorationAccountingCode)
+        @Html.EditorFor(x => x.SecondRestorationCostBreakdown)
+        @Html.EditorFor(x => x.SecondRestorationProductCode)
+        @Html.EditorFor(x => x.ShowBusinessUnit)
+        @Html.EditorFor(x => x.ShowApprovalAccounting)
+        @Html.EditorFor(x => x.PlantMaintenanceActivityType)
+ 
+        @if (isSiteAdmin)
+        {
+            @Html.EditorFor(x => x.MarkoutRequired)
+            @Html.EditorFor(x => x.MaterialsRequired)
+            @Html.EditorFor(x => x.JobSiteCheckListRequired)
+            @Html.EditorFor(x => x.DigitalAsBuiltRequired)
+        }
+        else
+        {
+            @Html.HiddenFor(x => x.MarkoutRequired)
+            @Html.HiddenFor(x => x.MaterialsRequired)
+            @Html.HiddenFor(x => x.JobSiteCheckListRequired)
+            @Html.HiddenFor(x => x.DigitalAsBuiltRequired)
+        }
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "WorkDescription", new { Model.Id })
+        </text>)
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Spoils.CreateSpoil
+
+@using (var f = Form.BeginAjaxForm("Create", "Spoil", new { Model.Id, Model.WorkOrder }))
+{
+    f.HtmlAttributes["title"] = "Add Spoil";
+    @Control.Hidden("OperatingCenter").WithValue(Model.OperatingCenter);
+	<div class="field-column fc100">
+		@Html.EditorFor(m => m.Quantity)
+		@Html.EditorFor(m => m.SpoilStorageLocation)
+	</div>
+	@Html.Partial("_DialogButtons", "Save Spoil")
+}

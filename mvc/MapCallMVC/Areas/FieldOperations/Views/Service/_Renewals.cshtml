@@ -1,0 +1,13 @@
+﻿@model Service
+
+@Html.ActionLink("Add a Renewal", "New", "Service", new { id = Model.Id }, new { area = "FieldOperations", Class = "link-button" })
+
+@(Html.TableFor(x => Model.Renewals, new { id = "renewalsTable" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Service", new { id = x.Id }, new { area = "FieldOperations" }))
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.ServiceNumber)
+      .ColumnFor(x => x.PremiseNumber)
+      .ColumnFor(x => x.ServiceCategory)
+      .ColumnFor(x => x.DateInstalled)
+      .ColumnFor(x => x.RetiredDate)
+)

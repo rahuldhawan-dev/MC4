@@ -1,0 +1,79 @@
+﻿@model MMSINC.Helpers.IRazorTableRowCollection<BacterialWaterSample>
+@*
+	NOTE: If you add/remove/rearrange the fields in here, you must also do the same for _inlineEdit.cshtml
+*@
+@{
+    object attributes = null;
+    var canEdit = Html.CurrentUserCanEdit() && ViewBag.AllowEdit;
+    if (canEdit)
+    {
+        Model
+            .TemplateColumnFor(x => @<text>
+                                        @Html.ActionLink("View", "Show", new {x.Id})                                        
+                                        @Html.ActionLink("Edit", "InlineEdit", new {id = x.Id})
+                                     </text>);
+        attributes = new {
+            @class = "edit-cell"
+        };
+    }
+    else
+    {
+        Model.TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}));
+    }
+
+    Model.SortableColumnFor(x => x.OperatingCenter)
+	    .TemplateColumnFor("Sample Site", x => @<text>
+		                                           @x.SampleSite.Id, @x.Town, @x.SampleSite.CommonSiteName
+	                                            </text>)
+		.SortableColumnFor(x => x.SampleCollectionDTM)
+		.SortableColumnFor(x => x.CollectedBy)
+		.SortableColumnFor(x => x.BacterialSampleType)
+		.SortableColumnFor(x => x.ComplianceSample)
+		.SortableColumnFor(x => x.Location)
+		.SortableColumnFor(x => x.Ph, attributes)
+		.SortableColumnFor(x => x.Temperature, attributes)
+		.SortableColumnFor(x => x.Cl2Free, attributes)
+		.SortableColumnFor(x => x.Cl2Total, attributes)
+		.SortableColumnFor(x => x.Monochloramine, attributes)
+		.SortableColumnFor(x => x.FreeAmmonia, attributes)
+		.SortableColumnFor(x => x.Nitrite, attributes)
+		.SortableColumnFor(x => x.Nitrate, attributes)
+		.SortableColumnFor(x => x.Alkalinity, attributes)
+		.SortableColumnFor(x => x.Iron, attributes)
+		.SortableColumnFor(x => x.Manganese, attributes)
+		.SortableColumnFor(x => x.Turbidity, attributes)
+		.SortableColumnFor(x => x.Conductivity, attributes)
+		.SortableColumnFor(x => x.OrthophosphateAsP, attributes)
+		.SortableColumnFor(x => x.OrthophosphateAsPO4, attributes)
+		.SortableColumnFor(x => x.SampleNumber, attributes)
+		.SortableColumnFor(x => x.ReceivedByLabDTM, attributes)
+		.SortableColumnFor(x => x.IsInvalid) // Not editable
+		.SortableColumnFor(x => x.ColiformConfirm, attributes)
+		.SortableColumnFor(x => x.ColiformConfirmMethod, attributes)
+		.SortableColumnFor(x => x.ColiformSetupAnalyst, attributes)
+	    .SortableColumnFor(x => x.ColiformSetupDTM, attributes)
+	    .SortableColumnFor(x => x.ColiformReadAnalyst, attributes)
+		.SortableColumnFor(x => x.ColiformReadDTM, attributes)
+		.SortableColumnFor(x => x.FinalHPC, attributes)
+		.SortableColumnFor(x => x.IsSpreader, attributes)
+		.SortableColumnFor(x => x.HPCConfirmMethod, attributes)
+		.SortableColumnFor(x => x.HPCSetupAnalyst, attributes)
+		.SortableColumnFor(x => x.HPCSetupDTM, attributes)
+		.SortableColumnFor(x => x.HPCReadAnalyst, attributes)
+		.SortableColumnFor(x => x.HPCReadDTM, attributes)
+		.SortableColumnFor(x => x.LIMSStatus, attributes)
+		;
+
+	if (canEdit)
+	{
+		Model
+			.TemplateColumnFor(x => @<text>
+                                        @Html.ActionLink("View", "Show", new {x.Id})                                        
+                                        @Html.ActionLink("Edit", "InlineEdit", new {id = x.Id})
+                                     </text>);
+    }
+    else
+    {
+        Model.TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}));
+    }
+}

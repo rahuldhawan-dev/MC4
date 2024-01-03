@@ -1,0 +1,12 @@
+﻿@{
+    var data = ViewData.TemplateInfo.FormattedModelValue as string[];
+}
+
+@RenderDisplayForTemplate(@<text>
+                              <ul>
+                                  @foreach (var value in data)
+                                  {
+                                      <li>@value</li>
+                                  }
+                              </ul>
+                           </text>)

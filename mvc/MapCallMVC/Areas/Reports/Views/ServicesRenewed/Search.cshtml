@@ -1,0 +1,15 @@
+﻿@model SearchServicesRenewed
+
+@using (Form.BeginForm("Index", "ServicesRenewed"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.DeveloperServicesDriven)
+        @Html.EditorFor(x => x.TaskNumber1)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

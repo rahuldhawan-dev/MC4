@@ -1,0 +1,7 @@
+﻿@model Equipment
+
+<div>
+    Generator details have not been entered for this equipment. 
+</div>
+
+@Html.AuthorizedActionLinkButton("Add Generator Details", "New", "Generator", new { EquipmentId = Model.Id})

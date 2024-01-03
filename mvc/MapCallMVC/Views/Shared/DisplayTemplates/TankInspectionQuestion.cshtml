@@ -1,0 +1,9 @@
+﻿@model TankInspectionQuestion
+    <fieldset>
+        <legend>@Model.TankInspectionQuestionType.Description</legend>
+        <div class="field-column fc400">@Model.TankInspectionQuestionType.Description: @Model.TankInspectionAnswer</div>
+        <div class="field-column fc400">Observations and Comments: @Model.ObservationAndComments</div>
+        <div class="field-column fc400">Repairs Needed: @Model.RepairsNeeded</div>
+        <div class="field-column fc400">Corrective Work Order Date Created: @Model.CorrectiveWoDateCreated</div>
+        <div class="field-column fc400">Corrective Work Order Date Completed: @Model.CorrectiveWoDateCompleted</div>
+    </fieldset>

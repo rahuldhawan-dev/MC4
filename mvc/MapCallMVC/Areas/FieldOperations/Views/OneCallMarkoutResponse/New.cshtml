@@ -1,0 +1,15 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Controllers
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateOneCallMarkoutResponse
+
+@using (Form.BeginForm("Create", "OneCallMarkoutResponse", "FieldOperations")) {
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.OneCallMarkoutTicket)
+        @Html.Hidden("indexQS", ViewData[OneCallMarkoutTicketController.TICKET_INDEX_QS_KEY])
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "OneCallMarkoutResponse")
+                           </text>)
+    </div>
+}

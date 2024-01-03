@@ -1,0 +1,16 @@
+﻿@model SearchDriversLicense
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Employee.OperatingCenter)
+    .SortableColumnFor(x => x.Employee)
+    .SortableColumnFor(x => x.DriversLicenseClass)
+    .TemplateColumnFor("Endorsements", x => @<text> @foreach (var e in x.Endorsements) { <span>@e.DriversLicenseEndorsement.Letter</span> } </text>)
+    .TemplateColumnFor("Restrictions", x => @<text> @foreach (var e in x.Restrictions) { <span>@e.DriversLicenseRestriction.Letter</span> } </text>) 
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.IssuedDate)
+    .SortableColumnFor(x => x.RenewalDate)
+    .SortableColumnFor(x => x.LicenseNumber)
+    .SortableColumnFor(x => x.Expired)
+    .WithPaginatedFooter())

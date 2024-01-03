@@ -1,0 +1,10 @@
+﻿@model BusinessUnit
+
+@{
+    var tabs = Html.Tabs()
+                   .WithTab("Details", "_Show", Model)
+                   .WithNotesAndDocuments()
+                   .WithLog();
+}
+
+@tabs

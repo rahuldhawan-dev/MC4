@@ -1,0 +1,12 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Sewer Overflow", "New", "SewerOverflow", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button", target = "_blank" })
+<br/>
+@(Html.TableFor(x => x.SewerOverflows, new { Id = "sewerOverflows" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "SewerOverflow", new { area = "FieldOperations", x.Id }, new { target = "_blank" }))
+      .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "SewerOverflow", new { area = "FieldOperations", x.Id }, new { target = "_blank" }))
+      .ColumnFor(x => x.SewerClearingMethod)
+      .ColumnFor(x => x.AreaCleanedUpTo)
+      .ColumnFor(x => x.ZoneType)
+      .ColumnFor(x => x.EnforcingAgencyCaseNumber)
+      .ColumnFor(x => x.IncidentDate))

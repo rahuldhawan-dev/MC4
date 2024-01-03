@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.SearchEnvironmentalNonComplianceEvent
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model , new {id = "environmentalNonComplianceEventTable"})
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.State)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.PublicWaterSupply)
+      .SortableColumnFor(x => x.WasteWaterSystem)
+      .SortableColumnFor(x => x.Facility)
+      .SortableColumnFor(x => x.EventDate)
+      .SortableColumnFor(x => x.IssueYear)
+      .SortableColumnFor(x => x.AwarenessDate)
+      .SortableColumnFor(x => x.DateFinalized)
+      .SortableColumnFor(x => x.IssueStatus)
+      .SortableColumnFor(x => x.IssueType)
+      .SortableColumnFor(x => x.IssueSubType)
+      .SortableColumnFor(x => x.IssuingEntity)
+      .SortableColumnFor(x => x.NameOfEntity)
+      .SortableColumnFor(x => x.NameOfThirdParty)
+      .SortableColumnFor(x => x.DisplayRootCause)
+      .SortableColumnFor(x => x.FailureType)
+      .SortableColumnFor(x => x.CreatedAt)
+      .SortableColumnFor(x => x.CreatedByFullName)
+      .WithPaginatedFooter())

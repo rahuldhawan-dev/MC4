@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:p1="http://amwater.com/EAM/0021/MAPCALL/GetFunctionalLocation" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://amwater.com/EAM/0021/MAPCALL/GetFunctionalLocation" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:UsingPolicy required="true" />
+  <wsp:Policy wsu:Id="BN__binding">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <wsp:ExactlyOne>
+                      <sp:HttpBasicAuthentication />
+                      <sp:RequireClientCertificate />
+                    </wsp:ExactlyOne>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <wsp:ExactlyOne>
+                  <sp:Basic256 />
+                  <sp:Basic192 />
+                  <sp:Basic128 />
+                  <sp:TripleDes />
+                  <sp:Basic256Rsa15 />
+                  <sp:Basic192Rsa15 />
+                  <sp:Basic128Rsa15 />
+                  <sp:TripleDesRsa15 />
+                  <sp:Basic256Sha256 />
+                  <sp:Basic192Sha256 />
+                  <sp:Basic128Sha256 />
+                  <sp:TripleDesSha256 />
+                  <sp:Basic256Sha256Rsa15 />
+                  <sp:Basic192Sha256Rsa15 />
+                  <sp:Basic128Sha256Rsa15 />
+                  <sp:TripleDesSha256Rsa15 />
+                </wsp:ExactlyOne>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/EAM/0021/MAPCALL/GetFunctionalLocation" targetNamespace="http://amwater.com/EAM/0021/MAPCALL/GetFunctionalLocation">
+      <xsd:element name="FunctionalLocationRequest" type="p1:FunctionalLocationQuery" />
+      <xsd:element name="FunctionalLocationResponse" type="p1:FunctionalLocationInfo" />
+      <xsd:complexType name="FunctionalLocationQuery">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="FunctionalLocation" type="xsd:string" />
+          <xsd:element minOccurs="0" name="FunctionalLocationDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="PlanningPlant" type="xsd:string" />
+          <xsd:element minOccurs="0" name="FunctionalLocationCategory" type="xsd:string" />
+          <xsd:element minOccurs="0" name="SortField" type="xsd:string" />
+          <xsd:element minOccurs="0" name="TechnicalObjectType" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FunctionalLocationInfo">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="FunctionalLocation" type="xsd:string" />
+                <xsd:element minOccurs="0" name="FunctionalLocationDescription" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="SAPStatus" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="FunctionalLocationRequest">
+    <wsdl:documentation />
+    <wsdl:part name="FunctionalLocationRequest" element="p1:FunctionalLocationRequest" />
+  </wsdl:message>
+  <wsdl:message name="FunctionalLocationResponse">
+    <wsdl:documentation />
+    <wsdl:part name="FunctionalLocationResponse" element="p1:FunctionalLocationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FunctionalLocation_Get_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="FunctionalLocation_Get_OB_SYN">
+      <wsdl:documentation />
+      <wsdl:input message="p1:FunctionalLocationRequest" />
+      <wsdl:output message="p1:FunctionalLocationResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FunctionalLocation_Get_OB_SYNBinding" type="p1:FunctionalLocation_Get_OB_SYN">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__binding" />
+    </wsp:Policy>
+    <wsdl:operation name="FunctionalLocation_Get_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:FunctionalLocation_Get_OB_SYNBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/GetFunctionalLocation" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,11 @@
+﻿@model SearchCompanyLaborCost
+           
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found:" + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.Cost)
+	.SortableColumnFor(x => x.Unit)
+    .SortableColumnFor(x => x.LaborItem)
+    .WithPaginatedFooter()
+)

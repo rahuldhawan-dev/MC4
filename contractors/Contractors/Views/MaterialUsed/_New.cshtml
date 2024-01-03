@@ -1,0 +1,8 @@
+﻿@model Contractors.Models.ViewModels.CreateMaterialUsed
+
+@using (var f = Form.BeginAjaxForm("Create", "MaterialUsed", new { Model.Id, Model.WorkOrder }))
+{
+	f.HtmlAttributes["title"] = "Add Material Used";
+    @Control.Hidden("WorkOrder").WithValue(Model.WorkOrder);
+    @Html.Partial("_Form", Model)
+}

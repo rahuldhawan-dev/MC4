@@ -1,0 +1,647 @@
+﻿@using System.Data
+@using MMSINC.Utilities
+@inherits MapCall.Common.Views.PdfViewBase<Service>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    var isSewer = (Model.ServiceType == null) ? false : Model.ServiceType.ToString().ToLower().Contains("sewer");
+}
+
+@section head {
+    <style>
+         html {padding: 0in;}
+         body {
+             font-family: arial;
+             font-size: 15px;
+         }
+
+        td {
+            font-weight: bold;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        h3 {
+            font-size: 23px;
+        }
+
+        h4 {
+            font-size: 18px;
+        }
+
+        .outer-table {
+            table-layout: fixed;
+            top: -10px;
+        }
+
+        .left-table {
+            width: 50%;
+            vertical-align: top;
+            padding-right: 5px;
+        }
+
+        .left-table td {
+            text-transform: uppercase;
+        }
+
+        .right-table {
+            width: 50%;
+            vertical-align: top;
+            padding-left: 5px;
+        }
+
+        .right-table td {
+            text-transform: uppercase;
+        }
+
+        .bottom-table {
+            width: 100%;
+        }
+
+        .bottom-table td {
+            /*font-weight: normal;*/
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .underline-cell {
+            border-bottom: solid 1px black;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+
+        .material-div {
+            height: 630px;
+            border-bottom: 1px solid black;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .right-table-bottom-spacer {
+            height: 240px;
+        }
+        .material-table {
+            table-layout: fixed;
+            height: 100%;
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+        .material-table td {
+            line-height: 25px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;padding-left: 3px;
+        }
+
+        .material-table th {
+            line-height: 25px;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;padding-left: 3px;
+        }
+
+        .bottom-left-table {
+            /*border: 1px solid black;*/
+        }
+
+        .bottom-left-table tr td {
+            font-weight: normal;
+        }
+
+        .bottom-left-table .bottom-label {
+            font-weight: bold;
+        }
+
+        .bottom-left-left-table {
+            border-top: 1px solid black;
+        }
+        .bottom-left-left-table tr td {
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 2px;
+        }
+        .bottom-left-right-table {
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+        }
+        .bottom-left-right-table tr td{
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 2px;
+        }
+        .box {
+            height: 20px;
+            width: 20px;
+            border: 1px solid black;
+            margin: 4px;
+        }
+    </style>
+}
+
+@section body {
+
+    <table class="outer-table">
+        <tr>
+            <td class="left-table">
+                <table>
+                    <tr>
+                        <td class="centered">
+                            <h3>@Html.DisplayValueFor(x => x.ServiceCategory)</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centered" style="text-transform: none"><h4>@Html.DisplayValueFor(x => x.ServicePriority)</h4></td>
+                    </tr>
+                    <tr>
+                        <td class="centered">
+                            <h3>Tap Order</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="">
+                            <div>
+                                <table style="table-layout: fixed;">
+                                    <tr>
+                                        <td style="width: 20%;">
+                                            Service Number
+                                        </td>
+                                        <td style="width: 30%;font-size:14pt;" class="underline-cell">
+                                            @Html.DisplayValueFor(x => x.ServiceNumber)
+                                        </td>
+                                        <td style="width: 20%;">
+                                            Task No.'s<br /> Parent:
+                                        </td>
+                                        <td style="width: 30%;" class="underline-cell">
+                                            @Html.DisplayValueFor(x => x.ParentTaskNumber)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">DATE</td>
+                                        <td rowspan="2" class="underline-cell">@Html.DisplayValueFor(x => x.ContactDate)</td>
+                                        <td>Primary:</td>
+                                        <td class="underline-cell">@Html.DisplayValueFor(x => x.TaskNumber1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Secondary:</td>
+                                        <td class="underline-cell">@Html.DisplayValueFor(x => x.TaskNumber2)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="underline-cell" style=""></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td style="width: 18%">Service:</td>
+                                        <td style="width: 22%" class="underline-cell">@Html.DisplayValueFor(x => x.ServiceSize)</td>
+                                        <td style="width: 20%; white-space: nowrap">In. MTR Set</td>
+                                        <td style="width: 15%" class="underline-cell">@Html.DisplayValueFor(x => x.MeterSettingSize)</td>
+                                        <td>IN</td>
+                                        <td style="width: 20%" class="underline-cell">@Html.DisplayValueFor(x => x.ServiceMaterial)</td>
+                                        <td>PIPE</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" class="underline-cell" style=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 20%; white-space: nowrap">Old Service:</td>
+                                                    <td style="width: 30%; white-space: nowrap;" class="underline-cell">@Html.DisplayValueFor(x => x.PreviousServiceMaterial)</td>
+                                                    <td style="width: 10%; white-space: nowrap;">In. Tap</td>
+                                                    <td style="width: 15%" class="underline-cell">@Html.DisplayValueFor(x => x.PreviousServiceSize)</td>
+                                                    <td style="width: 5%;">IN</td>
+                                                    <td style="width: 10%" class="underline-cell">&nbsp;</td>
+                                                    <td style="width: 10%;">PIPE</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Old Service Installation Date:</td>
+                                        <td colspan="3" class="underline-cell">@Html.DisplayValueFor(x => x.OriginalInstallationDate)</td>
+                                        <td>Abandoned</td>
+                                        <td>
+                                            <div class="box" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td style="white-space: nowrap">Company Owned</td>
+                                        <td>
+                                            <div class="box" />
+                                        </td>
+                                        <td>Removed</td>
+                                        <td>
+                                            <div class="box" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7" class="underline-cell" style=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Owner</td>
+                                        <td colspan="6" class="underline-cell">@Html.DisplayValueFor(x => x.Name)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td colspan="6" class="underline-cell">
+                                            @Html.DisplayValueFor(x => x.StreetNumber) 
+                                            @if (Model.ApartmentNumber != null)
+                                            {
+                                                <span>Apt/Bldg @Html.DisplayValueFor(x => x.ApartmentNumber)</span>
+                                            }
+                                            &nbsp;@Html.DisplayValueFor(x => x.Street)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lot</td>
+                                        <td class="underline-cell">&nbsp;&nbsp;@Html.DisplayValueFor(x => x.Lot)</td>
+                                        <td>Block</td>
+                                        <td class="underline-cell">@Html.DisplayValueFor(x => x.Block)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1">Municipality</td>
+                                        <td colspan="2" class="underline-cell">@Html.DisplayValueFor(x => x.Town)</td>
+                                        <td colspan="1">Town Section</td>
+                                        <td colspan="3" class="underline-cell">@Html.DisplayValueFor(x => x.TownSection)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Development</td>
+                                        <td colspan="5" class="underline-cell">@Html.DisplayValueFor(x => x.Development)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Cross Street</td>
+                                        <td colspan="5" class="underline-cell">@Html.DisplayValueFor(x => x.CrossStreet)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="material-div">
+                                <table class="material-table">
+                                    <tr>
+                                        <th style="width: 75px;">Quan.</th>
+                                        <th style="width: 100px; white-space: nowrap">Size</th>
+                                        <th>Material Installed</th>
+                                    </tr>
+                                    @if (Model.ServiceInstallationMaterials != null && Model.ServiceCategory != null && Model.ServiceSize != null && Model.ServiceInstallationMaterials.FirstOrDefault() != null)
+                                    {
+                                        foreach (var serviceInstallationMaterial in Model.ServiceInstallationMaterials.OrderBy(x => x.ServiceInstallationMaterial.SortOrder))
+                                        {
+                                    <tr>
+                                        <td style="font-weight: normal;">
+                                            @Html.DisplayValueFor(_ => serviceInstallationMaterial.ServiceInstallationMaterial.PartQuantity)
+                                        </td>
+                                        <td style="font-weight: normal;">
+                                            @Html.DisplayValueFor(_ => serviceInstallationMaterial.ServiceInstallationMaterial.PartSize)
+                                        </td>
+                                        <td style="font-weight: normal;">
+                                            @Html.DisplayValueFor(_ => serviceInstallationMaterial.ServiceInstallationMaterial.Description)
+                                        </td>
+                                    </tr>
+                                        }
+                                    }
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td style="width: 25%;">Date Installed</td>
+                                        <td style="width: 30%;" class="underline-cell">@Html.DisplayValueFor(x => x.DateInstalled)</td>
+                                        <td style="width: 5%;">By</td>
+                                        <td style="width: 40%;" class="underline-cell">@Html.DisplayValueFor(x => x.WorkIssuedTo)</td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 37%; font-size: smaller;">Posted To Service Database By</td>
+                                        <td style="width: 25%; font-size: smaller;" class="underline-cell">&nbsp;</td>
+                                        <td style="width: 23%; font-size: smaller;">Stock Entered By</td>
+                                        <td style="width: 15%; font-size: smaller;" class="underline-cell"></td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 175px;">Faxed/Scanned By:</td>
+                                        <td class="underline-cell">&nbsp;</td>
+                                    </tr>
+                                </table>
+                                <table>
+                                    <tr>
+                                        <td style="width: 40%;">Purpose of Installation</td>
+                                        <td style="width: 60%;" class="underline-cell">@Html.DisplayValueFor(x => x.ServiceInstallationPurpose)</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="right-table">
+                <table>
+                    <tr>
+                        <td style="text-align: center; font-weight: normal; text-transform: none; ">
+                            <h4>@Html.DisplayValueFor(x => x.OperatingCenter.MailingAddressName), @Html.DisplayValueFor(x => x.OperatingCenter.OperatingCenterName)</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centered">
+                            <h3>LOCATION DATA</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="table-layout: fixed;">
+                                <tr>
+                                    <td style="white-space: nowrap; width: 10%">Top Of</td>
+                                    <td class="underline-cell centered">@Html.DisplayValueFor(x => x.MainSize)</td>
+                                    <td style="width: 5%;">In.</td>
+                                    <td style="width: 25%;" class="underline-cell">@Html.DisplayValueFor(x => x.MainType)</td>
+
+                                    <td style="white-space: nowrap; width: 12%;">Main Is</td>
+                                    <td class="underline-cell"></td>
+                                    <td style="width: 7%;">FT.</td>
+                                    <td class="underline-cell"></td>
+
+                                    <td>IN.</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td colspan="3" style="white-space: nowrap; width: 42%;">Below Surface, And</td>
+                                    <td class="underline-cell"></td>
+                                    <td style="width: 7%">Ft.</td>
+                                    <td class="underline-cell"></td>
+                                    <td>In.</td>
+                                    <td class="underline-cell"></td>
+                                    <td>Of</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td class="underline-cell" style="width: 10%;"></td>
+                                    <td style="white-space: nowrap; width: 38%;">Curb/Prob. Line On</td>
+                                    <td class="underline-cell" style="width: 46%"></td>
+                                    <td style="width: 6%;">St.</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap">TAP IS</td>
+                                    <td class="underline-cell" style="width: 14%;"></td>
+                                    <td style="width: 6%;">Ft.</td>
+                                    <td class="underline-cell" style="width: 14%;"></td>
+                                    <td style="white-space: nowrap; width: 54%;">In. From Intersecting Curb</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap; width: 30%;">Median Line On</td>
+                                    <td class="underline-cell"></td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap; width: 75%;">
+                                        Distance, Tap to 
+                                        @(isSewer ? "Clean Out" : "Meter Pit/Curb Stop" )
+                                    </td>
+                                    <td class="underline-cell"></td>
+                                    <td>FT.</td>
+                                    <td class="underline-cell"></td>
+                                    <td>In.</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap; width: 60%;">
+                                        Distance, Curb To
+                                        @(isSewer ? "Clean Out" : "Curb Stop")
+                                    </td>
+                                    <td class="underline-cell"></td>
+                                    <td>FT.</td>
+                                    <td class="underline-cell"></td>
+                                    <td>In.</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap; width: 65%;">Location of 
+                                    @(isSewer ? "Clean Out" : "Meter Pit/Curb Box" )</td>
+                                    <td class="underline-cell"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="underline-cell">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="underline-cell">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed">
+                                <tr>
+                                    <td style="white-space: nowrap; text-align: right;">Data Furnished By</td>
+                                    <td class="underline-cell">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <table style="table-layout: fixed; margin-top: 40px;">
+                                <tr>
+                                    <td style="-webkit-transform: rotate(-90deg); padding-right: 50px; text-align: right;">Street</td>
+                                    <td class="centered" style="width: 90%;">Main</td>
+                                    <td style="-webkit-transform: rotate(-90deg); padding-right: 50px; text-align: right;">Street</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-bottom: 1px solid black;"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="border-bottom: 1px solid black; padding-top: 2px;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 300px; padding-right: 40px; text-align: right; border-left: 1px dashed black;"></td>
+                                    <td>&nbsp;</td>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 300px; padding-right: 40px; text-align: right; border-right: 1px dashed black;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 30px; padding-right: 40px; text-align: right; border-left: 1px dashed black;"></td>
+                                    <td style="border-top: 1px dashed black;">C.L.</td>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 30px; padding-right: 40px; text-align: right; border-right: 1px dashed black;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 20px; padding-right: 40px; text-align: right; border-left: 1px dashed black;"></td>
+                                    <td>&nbsp;</td>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 20px; padding-right: 40px; text-align: right; border-right: 1px dashed black;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 30px; padding-right: 40px; text-align: right; border-left: 1px dashed black;"></td>
+                                    <td style="border-top: 1px dashed black;">P.L.</td>
+                                    <td style="-webkit-transform: rotate(-90deg); width: 3px; height: 30px; padding-right: 40px; text-align: right; border-right: 1px dashed black;"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="right-table-bottom-spacer">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:20px;">
+                            <table style="table-layout: fixed;">
+                                <tr>
+                                    <td colspan="4" style="border-top: 1px dashed black; width: 100%">B.L.</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed;">
+                                <tr>
+                                    <td style="width: 25%;">Tied In</td>
+                                    <td style="width: 15%;">YES / NO</td>
+                                    <td style="white-space: nowrap; width: 45%;">Plug lock installed?</td>
+                                    <td style="width: 15%;">Yes / No</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed;">
+                                <tr>
+                                    <td style="width: 25%;">Cust. Mat.</td>
+                                    <td style="width: 25%;">@Html.DisplayValueFor(x => x.CustomerSideMaterial)</td>
+                                    <td style="width: 15%;">Size</td>
+                                    <td style="width: 35%;">@Html.DisplayValueFor(x => x.CustomerSideSize)</td>
+                                </tr>
+                            </table>
+                            <table style="table-layout: fixed;">
+                                <tr>
+                                    <td style="width: 40%;">Completed Diagram By</td>
+                                    <td style="width: 60%;" class="underline-cell">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="bottom-table">
+                <table style="table-layout: fixed;">
+                    <tr>
+                        <td style="width: 85%;">
+                            <table class="bottom-left-table">
+                                <tr>
+                                    <td>
+                                        <table class="bottom-left-left-table">
+                                            <tr>
+                                                <td class="bottom-label">District ID:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Town.DistrictId)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Operating Center:</td>
+                                                <td>@Html.DisplayValueFor(x => x.OperatingCenter.OperatingCenterCode)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">County:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Town.County)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Municipality:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Town)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Service Number:</td>
+                                                <td>@Html.DisplayValueFor(x => x.ServiceNumber)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Premise Number:</td>
+                                                <td>@Html.DisplayValueFor(x => x.PremiseNumber)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Street Name:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Street)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Street Number:</td>
+                                                <td>@Html.DisplayValueFor(x => x.StreetNumber)</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        <table class="bottom-left-right-table">
+                                            <tr>
+                                                <td class="bottom-label">Service Type:</td>
+                                                <td>@Html.DisplayValueFor(x => x.ServiceType)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Date Completed:</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">MapCall WorkOrder #:</td>
+                                                <td>@if (Model.WorkOrders.Any())
+                                                    {
+                                                        @Html.DisplayValueFor(x => x.WorkOrders.OrderByDescending(y => y.Id).First().Id)
+                                                    } 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Lot:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Lot)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Block:</td>
+                                                <td>@Html.DisplayValueFor(x => x.Block)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">Apt/Bldg:</td>
+                                                <td>@Html.DisplayValueFor(x => x.ApartmentNumber)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">SAP Notification #</td>
+                                                <td>@Html.DisplayValueFor(x => x.SAPNotificationNumber)</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-label">SAP Work Order #</td>
+                                                <td>@Html.DisplayValueFor(x => x.SAPWorkOrderNumber)</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="centered">THIS BOX FOR OFFICIAL USE ONLY. DO NOT WRITE WITHIN THIS BOX.</div>
+                        </td>
+                        <td style="vertical-align: top;">
+                            <table>
+                                <tr>
+                                    <td style="padding:2px;">
+                                        <div>Job Notes:</div>
+                                        <div style="height: 180px; overflow: hidden; text-decoration: none; font-weight: normal; font-size: smaller; text-transform: none;">@Html.DisplayValueFor(x => x.TapOrderNotes) </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+}

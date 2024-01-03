@@ -1,0 +1,5 @@
+﻿@model ChemicalInventoryTransaction
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowChemicalInventoryTransaction", Model)
+    .WithNotesAndDocuments())

@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.SearchServicePremiseNumberServiceNumber
+
+@Html.ScriptFor("~/Scripts/TapImage/ServiceLookup.js", ScriptLoadType.LoadFromPartial)
+<fieldset>
+    <legend>Service Lookup</legend>
+
+    @using (var f = Form.BeginAjaxForm("ByPremiseNumberAndServiceNumber", "Service"))
+    {
+        f.Ajax.OnSuccess = "ServiceLookup.onSuccess";
+        f.Ajax.OnFailure = "ServiceLookup.onError";
+        f.Ajax.OnBegin = "ServiceLookup.onBegin";
+
+        <div style="font-style:italic;">Enter a service number and premise number to autofill some of the fields below based on the service.
+This may take a moment, so please be patient. </div>
+
+        <table class="for-structure">
+            <tr>
+                <td>Service Number</td>
+                <td>@Control.TextBoxFor(x => x.ServiceNumberSearch)</td>
+                <td>Premise Number</td>
+                <td>@Control.TextBoxFor(x => x.PremiseNumberSearch)</td>
+                <td>@Control.SubmitButton("Look Up")</td>
+            </tr>
+        </table>
+
+        <div>
+            <span id="look-up-error" class="field-validation-error"></span>
+        </div>
+    }
+</fieldset>

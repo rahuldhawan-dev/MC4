@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="RecID">
+      <DataType>Integer</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>RecID</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <rd:ReportID>ef9094bd-1b70-4690-bfae-06c0a6b59034</rd:ReportID>
+  <Width>8.5in</Width>
+  <Body>
+    <ReportItems>
+      <Subreport Name="NewServiceInquiry">
+        <Parameters>
+          <Parameter Name="RecID">
+            <Value>=Parameters!RecID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>11in</Top>
+        <ReportName>NewWaterServiceInquiry</ReportName>
+        <ZIndex>1</ZIndex>
+      </Subreport>
+      <Subreport Name="Questionnaire">
+        <Parameters>
+          <Parameter Name="RecID">
+            <Value>=Parameters!RecID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <ReportName>WaterSurvey</ReportName>
+        <Height>11in</Height>
+      </Subreport>
+    </ReportItems>
+    <Height>22in</Height>
+  </Body>
+  <Language>en-US</Language>
+</Report>

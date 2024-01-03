@@ -1,0 +1,89 @@
+﻿@model JobObservation
+
+<div class="field-column fc300">
+    @Html.DisplayFor(x => x.ObservationDate)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.JobObservedBy)
+    @Html.DisplayFor(x => x.CreatedBy.Description, new { DisplayName = "Created By" })
+    @Html.DisplayFor(x => x.Department)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.TaskObserved)
+    @Html.RenderDisplayTemplate("Work Order", @<text>
+                                                   @if (Model.WorkOrder != null)
+                                                   {
+                                                       @Html.ActionLink(Model.WorkOrder.ToString(), "Show", "WorkOrder", new { area = "FieldOperations", id = Model.WorkOrder.Id }, null)
+                                                   }
+                                               </text>)
+    @Html.RenderDisplayTemplate("Production Work Order", @<text>
+                                                  @if (Model.ProductionWorkOrder != null)
+                                                  {
+                                                      @Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { area = "Production", id = Model.ProductionWorkOrder.Id}, null)
+                                                  }
+                                               </text>)
+    @Html.DisplayFor(x => x.OverallSafetyRating)
+    @Html.DisplayFor(x => x.OverallQualityRating)
+    @Html.DisplayFor(x => x.WhyWasTaskSafeOrAtRisk)
+    @Html.DisplayFor(x => x.Deficiencies)
+    @Html.DisplayFor(x => x.RecommendSolutions)
+   
+    <fieldset>
+        <legend>Equipment</legend>
+        @Html.DisplayFor(x => x.EqTruckForkliftsHoistsLadders)
+        @Html.DisplayFor(x => x.EqFrontEndLoaderOrBackhoe)
+        @Html.DisplayFor(x => x.EqOther)
+    </fieldset>
+
+    <fieldset>
+        <legend>Confined Space</legend>
+        @Html.DisplayFor(x => x.CsPreEntryChecklistOrEntryPermit)
+        @Html.DisplayFor(x => x.CsAtmosphereContinuouslyMonitored)
+        @Html.DisplayFor(x => x.CsRetrievalEquipmentTripodHarnessWinch)
+        @Html.DisplayFor(x => x.CsVentilationEquipment)
+    </fieldset>
+
+    <fieldset>
+        <legend>Personal Protective Equipment</legend>
+        @Html.DisplayFor(x => x.PpeHardHat)
+        @Html.DisplayFor(x => x.PpeReflectiveVest)
+        @Html.DisplayFor(x => x.PpeEyeProtection)
+        @Html.DisplayFor(x => x.PpeEarProtection)
+        @Html.DisplayFor(x => x.PpeFootProtection)
+        @Html.DisplayFor(x => x.PpeGloves)
+    </fieldset>
+
+    <fieldset>
+        <legend>Traffic Control</legend>
+        @Html.DisplayFor(x => x.TcBarricadesConesBarrels)
+        @Html.DisplayFor(x => x.TcAdvancedWarningSigns)
+        @Html.DisplayFor(x => x.TcLightsArrowBoard)
+        @Html.DisplayFor(x => x.TcPoliceFlagman)
+        @Html.DisplayFor(x => x.TcWorkZoneInCompliance)
+    </fieldset>
+
+    <fieldset>
+        <legend>Personal Safety</legend>
+        @Html.DisplayFor(x => x.PsWalkwaysClear)
+        @Html.DisplayFor(x => x.PsMaterialStockpile)
+    </fieldset>
+
+    <fieldset>
+        <legend>Excavation</legend>
+        @Html.DisplayFor(x => x.ExMarkoutRequestedForWorkSite)
+        @Html.DisplayFor(x => x.ExWorkSiteSafetyCheckListUtilized)
+        @Html.DisplayFor(x => x.ExUtilitiesSupportedProtected)
+        @Html.DisplayFor(x => x.ExAtmosphereTestingPerformed)
+        @Html.DisplayFor(x => x.ExSpoilPile2FeetFromEdgeOfExcavation)
+        @Html.DisplayFor(x => x.ExLadderUsedIfGreaterThan4FeetDeep)
+        @Html.DisplayFor(x => x.ExShoringNecessaryOver5FeetDeep)
+        @Html.DisplayFor(x => x.ExProtectiveSystemInUseOver5Feet)
+        @Html.DisplayFor(x => x.ExWaterControlSystemInUse)
+    </fieldset>
+
+    <fieldset>
+        <legend>Ergonomic</legend>
+        @Html.DisplayFor(x => x.ErChecklistUtilized)
+        @Html.DisplayFor(x => x.ErErgonomicFactorsProhibitingGoodBodyMechanics)
+        @Html.DisplayFor(x => x.ErToolsEquipmentUsedCorrectly)
+    </fieldset>
+</div>

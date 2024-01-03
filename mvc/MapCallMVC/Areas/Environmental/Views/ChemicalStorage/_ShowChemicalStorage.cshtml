@@ -1,0 +1,34 @@
+﻿@model ChemicalStorage
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Facility.Town.State)
+    @Html.DisplayFor(x => x.Facility.OperatingCenter)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.WarehouseNumber)
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.Chemical)
+    @if (Model.Chemical.SdsHyperlink != null)
+    {
+        @Html.RenderDisplayTemplate(Html.LabelFor(x => x.Chemical.SdsHyperlink), Html.Link(@Model.Chemical.SdsHyperlink, @Model.Chemical.SdsHyperlink, new { target = "_blank" }))
+    }
+    @Html.DisplayFor(x => x.Chemical.DisplayChemicalStates)
+    @Html.DisplayFor(x => x.MaxStorageQuantityGallons)
+    @Html.DisplayFor(x => x.MinStorageQuantityGallons)
+    @Html.DisplayFor(x => x.MaxStorageQuantityPounds)
+    @Html.DisplayFor(x => x.MinStorageQuantityPounds)
+    @Html.DisplayFor(x => x.ReorderLevelNonPeakProductionGallons)
+    @Html.DisplayFor(x => x.ReorderLevelPeakProductionGallons)
+    @Html.DisplayFor(x => x.ReorderLevelNonPeakProductionPounds)
+    @Html.DisplayFor(x => x.ReorderLevelPeakProductionPounds)
+    @Html.DisplayFor(x => x.TypicalOrderQuantityGallons)
+    @Html.DisplayFor(x => x.TypicalOrderQuantityPounds)
+    @Html.DisplayFor(x => x.Crtk)
+    @Html.DisplayFor(x => x.DeliveryInstructions)
+    @Html.DisplayFor(x => x.Location)
+    @Html.DisplayFor(x => x.ContainerType)
+    @Html.DisplayFor(x => x.MaximumDailyInventory)
+    @Html.DisplayFor(x => x.AverageDailyInventory)
+    @Html.DisplayFor(x => x.DaysOnSite)
+    @Html.DisplayFor(x => x.StoragePressure)
+    @Html.DisplayFor(x => x.StorageTemperature)
+</div>

@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AsFoundConditionViewModel
+
+@using (Form.BeginForm("Create", "AsFoundCondition", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.AuthorizedActionLinkButton("Cancel", "Index", "AsFoundCondition")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels
+@model MapCallMVC.Areas.Environmental.Models.ViewModels.ChemicalStorageViewModel
+
+@Html.EditorFor(x => x.State)
+@if (Model is CreateChemicalStorage)
+{
+    @Html.EditorFor(x => ((CreateChemicalStorage)x).OperatingCenter)
+}
+else
+{
+    @Html.EditorFor(x => x.OperatingCenter)
+}
+@Html.EditorFor(x => x.Facility)
+@Html.EditorFor(x => x.WarehouseNumber)
+@Html.EditorFor(x => x.IsActive)
+@Html.EditorFor(x => x.Chemical)
+@Html.EditorFor(x => x.MaxStorageQuantityGallons)
+@Html.EditorFor(x => x.MinStorageQuantityGallons)
+@Html.EditorFor(x => x.MaxStorageQuantityPounds)
+@Html.EditorFor(x => x.MinStorageQuantityPounds)
+@Html.EditorFor(x => x.ReorderLevelNonPeakProductionGallons)
+@Html.EditorFor(x => x.ReorderLevelPeakProductionGallons)
+@Html.EditorFor(x => x.ReorderLevelNonPeakProductionPounds)
+@Html.EditorFor(x => x.ReorderLevelPeakProductionPounds)
+@Html.EditorFor(x => x.TypicalOrderQuantityGallons)
+@Html.EditorFor(x => x.TypicalOrderQuantityPounds)
+@Html.EditorFor(x => x.Crtk)
+@Html.EditorFor(x => x.DeliveryInstructions)
+@Html.EditorFor(x => x.Location)
+@Html.EditorFor(x => x.ContainerType)
+@Html.EditorFor(x => x.MaximumDailyInventory)
+@Html.EditorFor(x => x.AverageDailyInventory)
+@Html.EditorFor(x => x.DaysOnSite)
+@Html.EditorFor(x => x.StoragePressure)
+@Html.EditorFor(x => x.StorageTemperature)

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <sectionGroup name="AllAboard">
+      <section name="IISExpress" type="AllAboard.Configuration.IISExpressSection, AllAboard" />
+    </sectionGroup>
+  </configSections>
+
+  <AllAboard>
+    <IISExpress use32Bit="false">
+      <site name="MapCall" id="1">
+        <application path="/" applicationPool="Clr4ClassicAppPool">
+          <virtualDirectory path="/" physicalPath="..\mapcall\MapCall" />
+        </application>
+        <application path="/mapcall" applicationPool="Clr4ClassicAppPool">
+          <virtualDirectory path="/" physicalPath="..\mapcall\MapCall" />
+        </application>
+        <application path="/mapcall/modules/WorkOrders" applicationPool="Clr4ClassicAppPool">
+          <virtualDirectory path="/" physicalPath="LINQTo271" />
+        </application>
+      </site>
+      <bindings>
+        <binding protocol="http" bindingInformation="*:4932:localhost" />
+      </bindings>
+    </IISExpress>
+  </AllAboard>
+  <appSettings>
+    <add key="RootUrl" value="http://localhost:4932/mapcall" />
+    <add key="WebProjectPath" value="LINQTo271" />
+  </appSettings>
+  <connectionStrings>
+    <clear/>
+    <add name="McProd" connectionString="Data Source=localhost;Initial Catalog=mapcalldev;Integrated Security=sspi" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+</configuration>

@@ -1,0 +1,14 @@
+﻿@model CreateUnionContractProposal
+
+@using (Form.BeginForm("Create", "UnionContractProposal")) {
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "UnionContractProposal")
+                           </text>)
+   </div>
+}

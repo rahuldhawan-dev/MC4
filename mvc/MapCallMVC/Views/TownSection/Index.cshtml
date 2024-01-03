@@ -1,0 +1,13 @@
+﻿@model SearchTownSection
+
+@(Html.TableFor(x => x)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+      .SortableColumnFor(x => x.Abbreviation)
+      .SortableColumnFor(x => x.Name)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.Town.County)
+      .SortableColumnFor(x => x.Town.State)
+      .SortableColumnFor(x => x.ZipCode)
+      .SortableColumnFor(x => x.Active)
+      .WithPaginatedFooter())

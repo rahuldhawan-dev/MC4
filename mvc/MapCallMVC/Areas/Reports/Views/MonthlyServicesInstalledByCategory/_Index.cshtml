@@ -1,0 +1,41 @@
+﻿@model IEnumerable<MonthlyServicesInstalledByCategoryReportViewModel>
+
+<table>
+    <tr>
+        <th>Operating Center</th>
+        <th>Service Category</th>
+        <th>Jan</th>
+        <th>Feb</th>
+        <th>Mar</th>
+        <th>Apr</th>
+        <th>May</th>
+        <th>Jun</th>
+        <th>Jul</th>
+        <th>Aug</th>
+        <th>Sep</th>
+        <th>Oct</th>
+        <th>Nov</th>
+        <th>Dec</th>
+        <th>Total</th>
+    </tr>
+    @foreach (var row in Model)
+    {
+        <tr>
+            <td>@row.OperatingCenter</td>
+            <td>@row.ServiceCategory</td>
+            <td>@row.Jan</td>
+            <td>@row.Feb</td>
+            <td>@row.Mar</td>
+            <td>@row.Apr</td>
+            <td>@row.May</td>
+            <td>@row.Jun</td>
+            <td>@row.Jul</td>
+            <td>@row.Aug</td>
+            <td>@row.Sep</td>
+            <td>@row.Oct</td>
+            <td>@row.Nov</td>
+            <td>@row.Dec</td>
+            <td>@row.Total</td>
+        </tr>
+    }
+</table>

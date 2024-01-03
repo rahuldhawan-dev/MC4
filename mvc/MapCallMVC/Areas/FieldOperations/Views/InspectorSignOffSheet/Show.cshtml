@@ -1,0 +1,308 @@
+﻿@using System.Linq.Expressions
+@inherits MapCall.Common.Views.PdfViewBase<Service>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    TopMargin = MarginWidth.QuarterInch;
+    BottomMargin = MarginWidth.QuarterInch;
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 24;
+}
+@functions
+{
+    public HelperResult DisplayRowFor<TModel, TResult>(HtmlHelper<TModel> html, Expression<Func<TModel, TResult>> expression, string label = null)
+    {
+        return DisplayRowHelper(!string.IsNullOrEmpty(label) ? html.DisplayLabelFor(label) : html.DisplayLabelFor(expression), html.DisplayValueFor(expression));
+    }
+
+}
+@helper DisplayRowHelper(MvcHtmlString label, IHtmlString value)
+{
+    <tr>
+        <td>
+            @label
+        </td>
+        <td>
+            @value
+        </td>
+    </tr>
+}
+
+
+@section head {
+    <style>
+        body {
+            font-family: arial;
+            font-size: 14px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+            .header h2 {
+                margin-top: 6px;
+                text-transform: uppercase;
+            }
+
+        label {
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .top-table {
+        }
+        
+        .top-table td {
+            vertical-align: top;
+        }
+
+        .top-table .sub-table td {
+            padding-top: 12px;
+            padding-bottom: 6px;
+        }
+
+        .middle-table {
+            font-size: larger;
+        }
+
+        .middle-table tr td {
+            padding: 6px;
+            font-weight: bold;
+        }
+
+        .middle-table-smaller {
+        }
+        .middle-table-smaller tr td {
+            padding: 6px;
+        }
+        .sub-table {
+        }
+
+            .sub-table td {
+                text-align: left;
+                padding: 3px;
+            }
+
+                .sub-table td + td {
+                    border-bottom: 1px solid black;
+                }
+
+        .spacer {
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border-bottom: 1px solid black;
+        }
+    </style>
+}
+
+@section body {
+    <div class="main">
+        <div class="header">
+            <h2>New Jersey American Water, @Html.DisplayValueFor(x => x.OperatingCenter.OperatingCenterName) Operating Center</h2>
+            <h2>Inspector Signoff Sheet</h2>
+        </div>
+        <div>
+            <table class="top-table">
+                <tr>
+                    <td style="width: 33%;">
+                        <table class="sub-table">
+                            @DisplayRowFor(Html, x => x.ServicePriority, "Job Priority")
+                            @DisplayRowFor(Html, x => x.ServiceNumber)
+                            @DisplayRowFor(Html, x => x.Town, "Municipality")
+                            @DisplayRowFor(Html, x => x.StreetNumber)
+                            @DisplayRowFor(Html, x => x.Street, "Street Name")
+                            @DisplayRowFor(Html, x => x.ServiceType)
+                            @DisplayRowFor(Html, x => x.ServiceCategory)
+                            @DisplayRowFor(Html, x => x.MeterSettingRequirement)
+                            @DisplayRowFor(Html, x => x.ServiceSize)
+                            @DisplayRowFor(Html, x => x.WorkIssuedTo)
+                        </table>
+                    </td>
+                    <td style="width: 36%;">
+                        <table class="sub-table">
+                            <tr><td>&nbsp;</td></tr>
+                            @DisplayRowFor(Html, x => x.PremiseNumber)
+                            @DisplayRowFor(Html, x => x.TownSection)
+                            @DisplayRowFor(Html, x => x.Lot)
+                            @DisplayRowFor(Html, x => x.Block)
+                            @DisplayRowFor(Html, x => x.CrossStreet)
+                            @DisplayRowFor(Html, x => x.ServiceInstallationPurpose)
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            @DisplayRowFor(Html, x => x.MeterSettingSize)
+                        </table>
+                    </td>
+                    <td style="width: 30%;">
+                        <table class="sub-table">
+                            <tr><td>&nbsp;</td></tr>
+                            @DisplayRowFor(Html, x => x.Town.County)
+                            @DisplayRowFor(Html, x => x.Development)
+                            @DisplayRowFor(Html, x => x.ApartmentNumber)
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            @DisplayRowFor(Html, x => x.MainType)
+                            @DisplayRowFor(Html, x => x.MainSize)
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="spacer"></div>
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 15%; white-space: nowrap; border: 1px solid black; padding: 3px; font-weight: bold;">Markout Information</td>
+                    <td style="width: 25%; padding-left: 10px;">Closest Intersecting Street</td>
+                    <td style="width: 60%; border-bottom: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td>Date Marked Out</td>
+                    <td colspan="2" style="border-bottom: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td>By Whom</td>
+                    <td colspan="2" style="border-bottom: 1px solid black;"></td>
+                </tr>
+                <tr>
+                    <td>Type (Circle One)</td>
+                    <td colspan="2" style="">
+                        <table>
+                            <tr>
+                                <td>Paint</td>
+                                <td>Offset</td>
+                                <td>Stake/Flag</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="middle-table-smaller">
+                <tr>
+                    <td colspan="3" style="width: 8.5in;">
+                        Markout to be called in" Check off appropriate Markout:
+                    </td>
+                </tr>
+            </table>
+            <table class="middle-table-smaller">
+                <tr>
+                    <td style="border-bottom: 1px solid black; width: 80px;">&nbsp;</td>
+                    <td style="white-space: nowrap;">Call in area marked in white in front of house number</td>
+                    <td style="border-bottom: 1px solid black; width: 55%;">&nbsp;</td>
+                </tr>
+            </table>
+            <table class="middle-table-smaller">
+                <tr>
+                    <td style="width: 80px; border-bottom: 1px solid black;">&nbsp;</td>
+                    <td style="width: 200px; white-space: nowrap;">Call in entire property plus</td>
+                    <td style="width: 70px; border-bottom: 1px solid black;">&nbsp;</td>
+                    <td style="width: 70px;">beyond</td>
+                    <td style="width: 70px; border-bottom: 1px solid black;">&nbsp;</td>
+                    <td style="">curb.</td>
+                </tr>
+            </table>
+            <table class="middle-table-smaller" border="0">
+                <tr>
+                    <td style="border-bottom: 1px solid black; width: 80px;">&nbsp;</td>
+                    <td style="white-space: nowrap;">Other (Explain)</td>
+                    <td style="border-bottom: 1px solid black; width: 75%;">&nbsp;</td>
+                </tr>
+            </table>
+            <table class="middle-table-smaller" border="0">
+                <tr>
+                    <td style="width: 25%;"></td>
+                    <td style="width: 75%;border-bottom: 1px solid black;">&nbsp;</td>
+                </tr>
+            </table>
+
+            <div class="spacer"></div>
+
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 225px;">Type of Service(Circle One)</td>
+                    <td colspan="2" style="">
+                        <table>
+                            <tr>
+                                <td>Leaker</td>
+                                <td>Renewal</td>
+                                <td>New</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 100px; white-space:nowrap;">If new what size and type of line is out to curb?</td>
+                    <td colspan="2" style="border-bottom: 1px solid black;"></td>
+                </tr>
+            </table>
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 100px;">(Circle One)</td>
+                    <td colspan="2" style="">
+                        <table>
+                            <tr>
+                                <td style="width: 100px;">Short Size</td>
+                                <td style="width: 100px;">Long Size</td>
+                                <td style="width: 10px;">/</td>
+                                <td style="width: 150px; white-space: nowrap;">Approximate Length:</td>
+                                <td style="width: 100px;">__________</td>
+                                <td style="width: 300px;">Feet</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 300px;">Traffic Control Needed? (Circle One)</td>
+                    <td colspan="2" style="">
+                        <table>
+                            <tr>
+                                <td style="width: 40px;">Yes</td>
+                                <td>No</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="middle-table">
+                <tr>
+                    <td style="width: 125px;">
+                        Helpful Notes:
+                    </td>
+                    <td style="border-bottom: 1px solid black;">&nbsp;</td>
+                </tr>
+                <tr><td colspan="2" style="border-bottom: 1px solid black">&nbsp;</td></tr>
+                <tr><td colspan="2" style="border-bottom: 1px solid black">&nbsp;</td></tr>
+                <tr><td colspan="2" style="border-bottom: 1px solid black">&nbsp;</td></tr>
+                <tr><td colspan="2" style="border-bottom: 1px solid black">&nbsp;</td></tr>
+                <tr><td colspan="2" style="border-bottom: 1px solid black">&nbsp;</td></tr>
+            </table>
+
+            <table class="middle-table" style="margin-top: 18px;">
+                <tr>
+                    <td>
+                        Job Notes:
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+}
+
+@helper FooterHelper()
+{
+    <div id="footer" style="text-align: right; width: 100%; font-family: arial; font-size: 12px;">
+        ISS-1 070106<br/>
+        Date Printed: @DateTime.Now.ToShortDateString()
+    </div>
+}

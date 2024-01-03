@@ -1,0 +1,21 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+
+@model SearchProductionWorkOrderFromMaintenancePlan
+
+@{
+    var table = Html.TableFor(x => Model, new { id = "productionWorkOrdersTable" })
+        .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))
+        .ColumnFor(x => x.Priority)
+        .ColumnFor(x => x.MaintenancePlan.LocalTaskDescription)
+        .ColumnFor(x => x.Status, ProductionWorkOrder.DisplayNames.STATUS)
+        .ColumnFor(x => x.MaintenancePlan.TaskDescription)
+        .ColumnFor(x => x.EmployeesAssigned)
+        .SortableColumnFor(x => x.DateReceived)
+        .SortableColumnFor(x => x.AssignedOnDate)
+        .SortableColumnFor(x => x.DateCompleted)
+        .WithPaginatedFooter();
+}
+
+@Html.Partial("_CreateWorkOrderFromPlan", Model)
+
+@table

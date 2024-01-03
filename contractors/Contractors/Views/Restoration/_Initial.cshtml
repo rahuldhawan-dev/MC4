@@ -1,0 +1,27 @@
+﻿@model MapCall.Common.Model.Entities.Restoration
+
+<div class="field-column fc200">
+    @if (Model.WorkOrder != null)
+    {
+        @Html.RenderDisplayTemplate("Work Order", Html.AuthorizedActionLinkOrText(Model.WorkOrder, "Edit", "WorkOrderFinalization", new { id = Model.WorkOrder.Id }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.WorkOrder)
+    }
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.WorkOrder.StreetAddress)
+    @Html.DisplayFor(x => x.WorkOrder.NearestCrossStreet)
+    @Html.DisplayFor(x => x.WBSNumber)
+    @Html.DisplayFor(x => x.RestorationType)
+    @Html.DisplayFor(x => x.EstimatedRestorationFootage)
+    @Html.DisplayFor(x => x.RestorationNotes)
+    @Html.DisplayFor(x => x.ResponsePriority)
+    @Html.DisplayFor(x => x.CreatedByContractor)
+    @Html.DisplayFor(x => x.CreatedByContractorAt)
+    @Html.DisplayFor(x => x.AssignedContractorAt)
+    @Html.DisplayFor(x => x.EightInchStabilizeBaseByCompanyForces)
+    @Html.DisplayFor(x => x.TrafficControlRequired)
+    @Html.DisplayFor(x => x.InitialPurchaseOrderNumber)
+</div>

@@ -1,0 +1,12 @@
+﻿@model MapCall.SAP.Model.Entities.SAPCreatePreventiveWorkOrder
+
+@(Html.TableFor(_ => Model.SapWorkOrderObjectList)
+      .ColumnFor(z => z.Counter)
+      .ColumnFor(z => z.EquipmentDescription)
+      .TemplateColumnFor("SAP Equipment Number", x => @<text>
+                                                     @if (!string.IsNullOrWhiteSpace(x.SAPEquipmentNumber))
+                                                     {
+                                                         @x.SAPEquipmentNumber.TrimStart('0')
+                                                     }
+                                                  </text>)
+)

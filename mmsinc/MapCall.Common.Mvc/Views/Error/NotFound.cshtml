@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Looks like there was a problem...";
+}
+<div id="errWrapper">
+    <div id="errMessage">
+        <div class="error-section">
+            <div class="error-section-title">Reason</div>
+            <div class="error-section-message">@Model.Exception.Message</div>
+        </div>
+        <div class="error-section">
+            <div class="error-section-title">Possible causes</div>
+            <div class="error-section-message">
+                <span>1. You may have been given an address to a resource that no longer exists or has been moved to another location.</span>
+                <span>2. If you have entered in the address manually, double check that you have entered the address correctly.</span>
+                <span>3. If you are trying to access this page through a bookmark then you may need to update your bookmark to point at the correct address.</span>
+                <span>4. You may not have the correct security access to acccess this resource. You can check with your site administrator to be sure.</span>
+            </div>
+        </div>
+    </div>
+    <div id="err404">@*This is for backwards compatability with some regression tests that look for this to see if it's a 404 page.*@</div>
+</div>

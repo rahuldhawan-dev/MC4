@@ -1,0 +1,60 @@
+﻿@using MMSINC.ClassExtensions.IEnumerableExtensions
+@using MMSINC.Helpers
+@model SampleSite
+@{
+    var results = (Model.SampleIdMatrices != null) ? Model.SampleIdMatrices.SelectMany(x => x.WaterSamples) : null;
+    if (results != null)
+    {
+        results = results.OrderBy(x => x.SampleIdMatrix.WaterConstituent.Description).ThenBy(x => x.SampleDate);
+    }
+}
+@if (results == null)
+{
+    <div class="container">
+        No water samples were found.
+    </div>
+}
+else
+{
+    <style>
+        .chart {
+            height: 350px;
+        }
+    </style>
+    <div class="container">
+        @Html.DefaultActionLink("New Sample", "New", "WaterSample", "WaterQuality", new { id = Model.Id }, new { Class = "link-button" })
+        @*@{
+            var cb = new ChartBuilder<DateTime, float>();
+            cb.Interval = ChartIntervalType.Minute;
+            cb.Type = ChartType.Line;
+            cb.Title = Model.Description;
+            cb.YMinValue = (float)0;
+            cb.LegendPosition = ChartLegendPosition.Bottom;
+
+            foreach (var item in results.DistinctBy(x => new { x.SampleDate, x.SampleIdMatrix, x.SampleValue }).OrderBy(x => x.SampleDate))
+            {
+                if (item.SampleValue.HasValue && item.SampleDate.HasValue)
+                {
+                    var series = cb.Series.SingleOrDefault(s => s.Name == item.SampleIdMatrix.WaterConstituent.ToString());
+                    if (series == null)
+                    {
+                        cb.AddSeriesValue(item.SampleIdMatrix.WaterConstituent.ToString(), item.SampleDate.Value, item.SampleValue.Value);
+                    }
+                    else if (!series.ContainsKey(item.SampleDate.Value))
+                    {
+                        cb.AddSeriesValue(item.SampleIdMatrix.WaterConstituent.ToString(), item.SampleDate.Value, item.SampleValue.Value);
+                    }
+                }
+            }
+        }
+
+        @cb*@
+
+        @(Html.TableFor(x => results)
+              .TemplateColumnFor("WaterSampleID", x => Html.ActionLink(x.Id.ToString(), "Show", "WaterSample", new {id = x.Id, area = "WaterQuality"}, null))
+              .TemplateColumnFor("SampleIdMatrix", x => Html.ActionLink(x.SampleIdMatrix.Id.ToString(), "Show", "SampleIdMatrix", new {id = x.SampleIdMatrix.Id, area = "WaterQuality"}, null))
+              .ColumnFor(x => x.SampleIdMatrix.WaterConstituent)
+              .ColumnFor(x => x.SampleDate)
+              .ColumnFor(x => x.SampleValue))
+    </div>
+}

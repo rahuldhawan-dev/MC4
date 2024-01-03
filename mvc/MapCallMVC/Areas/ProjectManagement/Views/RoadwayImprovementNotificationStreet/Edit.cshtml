@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRoadwayImprovementNotificationStreet
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RoadwayImprovementNotification/Streets.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Update", "RoadwayImprovementNotificationStreet", "ProjectManagement", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+                               @Html.HiddenFor(x => x.RoadwayImprovementNotification)
+                               @Html.HiddenFor(x => x.Town)
+                               @Html.EditorFor(x => x.Street)
+                               @Html.EditorFor(x => x.Coordinate)
+                               @Html.EditorFor(x => x.StartPoint)
+                               @Html.EditorFor(x => x.Terminus)                   
+                               @Html.EditorFor(x => x.MainSize)
+                               @Html.EditorFor(x => x.MainType)
+                               @Html.EditorFor(x => x.RoadwayImprovementNotificationStreetStatus)
+                               @Html.EditorFor(x => x.MainBreakActivity)
+                               @Html.EditorFor(x => x.NumberOfServicesToBeReplaced)
+                               @Html.EditorFor(x => x.OpenWorkOrders)
+                               @Html.EditorFor(x => x.MoratoriumEndDate)
+                               @Html.EditorFor(x => x.Notes)
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "RoadwayImprovementNotificationStreet", new { id = Model.Id }, null)
+                           </text>)
+    </div>
+}

@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Admin.Models.ViewModels.NotificationConfigurations.EditNotificationConfiguration
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/Admin/NotificationConfiguration/Edit.js")
+}
+
+@using (Form.BeginForm("Update", "NotificationConfiguration", "Admin", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Contact)
+        @Html.EditorFor(x => x.AppliesToAllOperatingCenters)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Application)
+        @Html.EditorFor(x => x.Module)
+        @Html.EditorFor(x => x.NotificationPurposes)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "NotificationConfiguration", new { Model.Id })
+        </text>)
+    </div>
+}

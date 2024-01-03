@@ -1,0 +1,828 @@
+﻿/* 
+    There are three primary "themes" that are used for MapCallMVC.
+        - The default
+        - no-menu, which is identical just with the menu hidden.
+        - slim, which hides the menu, actionbar, and topmenu.
+*/
+/* ReSharper disable InvalidValue */
+
+/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+noscript div {
+    background: @noscript-background-color;
+    padding: 6px;
+    color: @noscript-color;
+    font-weight:bold;
+    text-align:center;
+}
+
+@menu-width: 170px;
+@action-panel-width: 52px;
+/* This was set to 500px cause Alex asked for it to be. */
+@action-help-panel-width: 500px;
+@top-menu-height: 32px;
+
+#topMenu 
+{
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    background:@top-junk-bar-background-color 50% 50% repeat-x;
+    color:@top-junk-bar-text-color;
+    z-index:3;
+    box-shadow: 0px 3px 2px #aaaaaa;
+}
+html.slim #topMenu { display: none !important; }
+
+#menuScrollWrap { position:fixed; z-index:3; width:@menu-width; top:@top-menu-height; left:0px; bottom:0px;  }
+html.no-menu #menuScrollWrap { display:none !important; height: 320px; }
+html.slim #menuScrollWrap { display: none !important; }
+
+#siteContent {
+     position:fixed; 
+     top:@top-menu-height; 
+     left:@menu-width; 
+     right:@action-panel-width; 
+     bottom:0px;
+     overflow:auto;
+     /* I don't understand why this works, but it fixes it
+        so that if there's a table that's far wider than the
+        div, the correct margin-right is added so the horizontal
+        scrollbar scrolls correctly. This does not work in IE7. */
+     z-index:1;
+}
+
+html.no-menu #siteContent { left:0px; margin-left:0px; }
+html.slim #siteContent { position: relative;top: 0;left: 0;right: 0;  }
+
+#actionBar 
+{
+    /* NOTE: Coloring/padding is done in action-bar.css */
+    z-index:3; 
+    position:fixed;
+    top:32px; 
+    bottom:0px; 
+    right:0px; /* hidden by default */
+    width:@action-panel-width;
+}
+html.slim #actionBar { display: none !important; }
+
+.action-bar-flyout-panel {
+    display: none;
+    /* NOTE: Coloring/padding is done in action-bar.css */
+    top:32px;
+    bottom: 0px;
+    right: @action-panel-width - @action-help-panel-width;
+    position: fixed;
+    z-index: 2;
+    width: @action-help-panel-width;
+}
+
+#bodyHeader
+{
+    position:relative;
+	color:@default-text-color;
+	text-decoration:none;
+    font-weight: 400;
+	font-size:20px;
+	text-align:left;
+	padding-bottom:12px !important;
+}
+
+#bodyHeader * { font-size: 20px; }
+
+/* Some conflict with link-buttons I think is moving this over too much. */
+#bodyHeader div.right ul { margin-right:-5px; }
+	
+#siteContent > div.body,
+html.no-menu #siteContent > div.body
+{
+    z-index:1;
+	padding:6px;
+}
+
+/* FORMS */
+
+fieldset {
+    margin-bottom:12px;
+}
+
+legend {
+    font-size:1.2em;
+    font-weight: bold;
+}
+
+.field-column .field-pair 
+{
+    padding-bottom:3px;
+    padding-top:3px;
+}
+
+.field-column .field-pair > .label { text-align:right; }
+
+.field-pair.fp-display {
+    line-height: 2em;
+}
+
+.field-pair .required-label {
+    color: @validation-error-text-color;
+}
+
+/* TABLES */
+table th    
+{
+    padding: 6px;
+    text-align: left;
+    border-right: @table-header-cell-border;
+    border-bottom: solid 3px @default-something-is-not-active-background-color;
+    border-top: none;
+    text-transform:uppercase;
+    white-space: nowrap;
+    vertical-align:middle;
+}
+
+table td {
+    border-top: none;
+    border-bottom: none;
+}
+
+/* table doublewide*/
+table.double-wide {
+    border: none !important;
+}
+
+table.double-wide > tbody > tr:hover > td {
+    background-color:transparent;
+}
+
+table.double-wide td {
+    width: 50%;
+    border: 1px solid @d-gray;
+    padding: 6px;
+	vertical-align:top;
+}
+
+tr.asset-not-inspectable td, td.asset-not-inspectable {
+    background-color: @your-pink !important;
+}
+tr.asset-cancelled td, td.asset-cancelled {
+    background-color: @your-orange !important;
+}
+tr.asset-pending_retirement td, td.asset-pending_retirement {
+    background-color: @your-yellow !important;
+}
+tr.asset-pending td, td.asset-pending {
+    background-color: @your-green !important;
+}
+
+/* The added td specific classes are here for the legend */
+tr.wo-completed td, td.wo-completed { background-color:@your-green !important; }
+tr.wo-cancelled td, td.wo-cancelled { background-color:@your-orange !important; }
+tr.wo-scheduled-previously td, td.wo-scheduled-previously { background-color:@your-yellow !important; }
+tr.wo-scheduled-currently td, td.wo-scheduled-currently { background-color:@your-blue !important; }
+tr.wo-requires-supervisor-approval td, td.wo-requires-supervisor-approval { background-color:#d4cde5 !important; }
+
+/* DATEPICKER */
+/* Need to kill the hover effect created by tables.css */
+.ui-datepicker table > tbody > tr:hover > td {
+   background-color:transparent;
+}
+
+/* TABS */
+.ui-tabs .ui-tabs-nav li:before {
+    border-left: solid 1px @d-gray;
+    position:absolute;
+    left:0px;
+    top:11px;
+    content: "";
+    height:12px !important;
+    overflow:hidden;
+    padding:0px;
+}
+
+.ui-tabs .ui-tabs-nav li:first-child:before {
+    display:none;
+}
+
+/* layout specific */
+.grid-2col > div:first-child { padding-right: 3px; }
+.grid-2col > div:last-child { padding-left:3px; }
+
+.container { margin-top:6px; position:relative; }
+.container:first-child { margin-top:0px; }
+
+ul.linkList { list-style: none outside;padding:0px; margin: 12px 6px 6px 0px; }
+ul.linkList li { margin: 0px;margin-bottom: 6px; }
+ul.linkList li a { display:block; }
+
+.searchFields,
+.search-fields {
+    width:600px;
+}
+
+details {
+    border: solid 2px silver;
+    padding: 6px;
+}
+
+details > summary {
+    cursor: pointer;
+}
+
+details[open] > summary {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+}
+
+/* Dimensions need to be explicitly set for AmCharts to work. */
+.chart { width: 100%;height: 400px;position: relative; }
+
+.ajax-tab-loading, .ajax-map-info-loading {
+    background:white url('Resources/Gif?file=loading.gif') no-repeat center center;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+
+#errWrapper { padding: 15px; }
+
+#errWrapper .error-section {
+    margin-bottom: 2em;
+}
+
+#errWrapper .error-section-title {
+    font-size: 20px;
+}
+
+#errWrapper .error-section-message {
+    padding-left: 20px;
+}
+#errWrapper .error-section-message span {
+    display: block;
+    line-height: 2em;
+}
+
+/* jqModal */
+.jqmWindow {
+    display: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 600px;
+
+    background-color: @modal-window-background-color;
+    color: @modal-window-text-color;
+    border: @modal-window-border;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: @modal-window-overlay-color; }
+
+.jqmTitle {
+    height: 26px;
+}
+
+.jqmTitleText {
+  font-style: italic;
+}
+
+.jqmClose {
+  clear:right;
+  float:right;
+  padding: 0 5px;
+  cursor:pointer;
+}
+
+.jqmContent {
+  width:99%;
+  height:90%;
+  display: block;
+  clear:both;
+  margin:auto;
+  margin-top:10px;
+  border: 1px dotted #444;
+}
+
+.picker-wrapper {
+  display: inline;
+}
+
+.coordinate-picker-icon,
+.coordinate-display-icon {
+    cursor: pointer;
+}
+
+#coordinateManualEntryButton {
+    display: none;
+}
+
+#pickerDiv {
+    width: 90%;
+    height: 90%;
+    top: 5% !important;
+    bottom: 5% !important;
+}
+
+#pickerMap > .google-maps-wrapper {
+    height: 521px;
+}
+
+.coordinate-picker-controls {
+    display:block;
+    position: absolute;
+    margin: 6px auto;
+    padding: 6px;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 550px;
+    z-index: 1;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    padding-top: 5px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.coordinate-picker-controls input,
+.coordinate-picker-controls button {
+    z-index: 1;
+}
+
+.map-legend-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    margin: 6px 6px 6px auto;
+}
+
+@map-legend-font-size: 11px;
+@map-legend-line-height: (@map-legend-font-size * 2);
+
+.map-legend {
+    margin: 0;
+    padding: 6px;
+    min-width: 100px;
+    max-width: 300px;
+    max-height: 100%;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.map-legend-header {
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 6px;
+    border: none;
+    margin: 0;
+}
+
+.map-legend-header.open {
+    border-bottom: 1px solid black;
+    margin-bottom: 6px;
+}
+
+.map-legend-section {
+    display: none;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.map-legend-section fieldset {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding: 0px;
+}
+
+.map-legend-section label {
+    font-size: 11px;
+    line-height: 22px;
+}
+
+.map-legend-section table td {
+    padding: 0px;
+    padding-bottom: 3px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.map-legend-section .label-cell {
+    text-align: left;
+}
+
+.map-legend-section .label-cell label {
+    display: block;
+    margin-left: 3px;
+}
+
+.map-legend-section p {
+    text-align: left;
+}
+
+.esriPopup h2 a { font-size: inherit !important; }
+
+/* fix the basemap gallery images */
+.esriBasemapGalleryNode {
+    float: none !important;    
+}
+
+.map-menu-section {
+    resize: horizontal;
+    min-width: 200px;
+}
+
+/* remove borders and such from the GIS legend table */
+div.esriLegendService td, 
+div.esriLegendService td:hover,
+div.esriLegendService tr:hover td {
+    border: none;
+    background: #fff;
+}
+
+.coordinate-picker-controls label {
+    line-height: @default-form-control-height;
+}
+
+.ie8 .coordinate-picker-controls label {
+    line-height: @default-form-control-height + 1;
+}
+
+#iconList {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto auto 6px 6px;
+    padding: 6px;
+    width: 30%;
+    min-width: 250px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#iconList button {
+    padding: 0;
+    margin: 0px 2px 0px 2px;
+    border: none;
+    max-height: 36px;
+}
+
+/* Notes/Index.cshtml */
+#notesTable {
+    width: 100%;
+}
+
+#notesTable td { white-space:nowrap; }
+#notesTable td:first-child { white-space:normal;width: 100%; }
+
+#notesTable .noteEdit {
+    display:none;
+}
+
+#notesTable textarea {
+    width: 100%;
+    min-height: 100px;
+}
+
+.childTableFooter {
+    padding: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* fixes for fullCalendar */
+
+.fc .fc-view .fc-bg tr:hover td,
+.fc .fc-view .fc-widget-header th:hover {
+    background-color: white;    
+}
+
+td.fc-day-number {
+    border-top: 1px solid rgb(221, 221, 221) !important;
+}
+
+.fc-content-skeleton td {
+    border-left: 1px solid rgb(221, 221, 221) !important;
+    border-right: 1px solid rgb(221, 221, 221) !important;
+}
+
+tr:hover .fc-today,
+th:hover .fc-today,
+.fc-unthemed .fc-today,
+.fc-unthemed .fc-today:hover,
+.fc-today,
+.fc-today:hover {
+    background: @default-something-is-active-background-color !important;
+    background-color: @default-something-is-active-background-color !important;
+}
+
+@media print {
+    #menuScrollWrap { display: none; }
+    #topMenu { display: none; }
+    .action-bar-flyout-panel { display: none; }
+    .jqmWindow { display: none;}
+    #actionBar { display: none;}
+    #siteContent { position: relative;top: 0;left: 0;right: 0; }
+}
+
+.junk-bar {
+    padding: 6px;
+    height:32px;
+}
+
+.junk-bar > div,
+.junk-bar > a 
+{
+    position:absolute;
+    font-weight:inherit;
+    display:block;
+    top:6px;
+}
+ 
+.junk-bar > div,
+.junk-bar > div > ul,
+.junk-bar > div > ul > li,
+.junk-bar > div > ul > li > a {
+     color:inherit;
+ }
+    
+.junk-bar > div.left > ul > li { margin-right:6px; line-height:20px;  /* #topMenu height - padding */}
+.junk-bar > div.right > ul > li { margin-left:6px; line-height:20px;  /* #topMenu height - padding */} 
+
+.junk-bar > div.right {
+    right:12px; /* #topMenu margin + padding */
+}
+
+.junk-bar > div > ul {
+     list-style-type:none;
+     padding: 0px;
+     margin: 0px;
+}
+.junk-bar > div > ul > li {
+     display:inline-block;
+}
+
+.junk-bar li.icon > a,
+.junk-bar li.icon > button {
+    height:20px;
+    display:inline-block;
+    background-repeat: no-repeat !important;
+    border: none;
+}
+
+.junk-bar a.home {
+     background-image: url('Resources/Png?file=Icons/home-24x20.png'); 
+     width:24px;
+}
+
+/* TODO: Think this is obsolete now */
+.junk-bar li > a.link-button
+{
+    /* This vertically centers link buttons. Don't feel like fighting with them in the junk-bar
+       when they shouldn't be there. */
+    top:-3px;
+}
+
+.junk-bar a.new-record {
+     background-image: url('Resources/Png?file=Icons/new-record-20x20.png'); 
+     width:20px;
+     background-position: 50% 50%;
+}
+
+.junk-bar button#toggleMenuButton {
+     background: url('Resources/Png?file=Icons/menu-19x20.png');
+     width:19px;
+     /* this is moved slightly because the image itself looks smaller than the other icons. */
+     top:2px;
+     left:2px;
+}
+
+.critical-notes-display .field {
+    color: red !important;
+}
+
+a.link-button.entity-lookup-settings,
+a.link-button.entity-lookup-settings:hover,
+a.link-button.entity-lookup-settings:focus
+ {
+    background: transparent url('Resources/Png?file=Icons/entity-lookup-settings-20x20.png') center center no-repeat;
+    border: none !important;
+}
+
+.video-picker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 600px;
+    padding: 6px;
+    background-color: @modal-window-background-color;
+    color: @modal-window-text-color;
+}
+.video-picker td {
+    border: none !important;
+    background-color: transparent !important;
+    vertical-align: top;
+}
+
+.vp-title {
+    display: table;
+    width: 100%;
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 6px;
+}
+.vp-title > div {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.vp-title-text {
+    font-family: "Roboto";
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.vp-title button {
+    border: none !important;
+}
+   
+.vp-title > div:first-child {
+    width: 100%;
+}
+
+.vp-items { 
+    width:100%;
+    cursor: pointer;
+}
+
+.vp-items td {
+    font-family: "Roboto";
+    font-weight: 400;
+}
+
+.vp-item:hover td {
+    background-color: @default-something-is-active-background-color !important;
+}
+
+ .q-item {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding: 6px;
+    margin-bottom: 12px;
+}
+
+.q-item.correct {
+    background: @sop-question-correct-background-color;
+}
+
+.q-item.incorrect {
+    background: @sop-question-incorrect-background-color;
+}
+
+.q-item table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.q-item td {
+    background: transparent;
+}
+
+.q-item pre {
+    white-space: pre-wrap;
+    padding-right: 18px;
+}
+
+.q-item textarea {
+    width: 100%;
+}
+
+.multistring button {
+     width:35px !important; 
+     max-width: 35px !important;
+     border-left: none !important; /* The button sits directly next to the textbox which makes the border look thicker when both tb and buttons have borders.*/
+     font-size:18px;
+     line-height:10px;
+}
+.multistring-item-wrapper > div { margin-bottom:6px; }
+.multistring-item-wrapper > div:last-child { margin-bottom:0px; }
+
+td.edit-cell {
+    cursor: pointer;
+}
+
+/* dialogs that use the dialog element */
+dialog::backdrop {
+    backdrop-filter: blur(2px) brightness(40%);
+}
+
+
+/* yearly water sample compliance form */
+
+.is-compliant {
+	background-color: @successfully-green !important;
+}
+
+.is-compliant a {
+	display:block;
+}
+
+.is-compliant-but-not-exactly {
+	background-color: @your-yellow !important; 
+}
+
+.is-not-compliant {
+	background-color: @bittersweet !important;
+}
+
+a.arcgis-collector {
+    width: 24px;
+    height: 24px;
+    background-image: url('Resources/Png?file=Icons/collector.png');
+    display: inline-block;
+    background-color: #aaaaaa;
+    background-size: contain;
+}
+
+/* The following are for Facility Show and Form Attribute table */
+#show-facility-attribute-table td {
+    vertical-align: top;
+}
+
+.form-facility-attribute-table td {
+    vertical-align: top;
+}
+
+/* This is for Show/New/Edit of ConfinedSpaceForms */
+.form-signing-section {
+    max-width: 600px;
+    margin-bottom: 12px;
+}
+
+.form-signing-section ol {
+    margin: 12px;
+}
+
+.signature-section {
+    background-color: #eeeeee;
+    padding: 12px;
+}
+
+/*  
+    Makes the left text section take up all of the remaining space.
+    This keeps it so the big checkbox is always aligned to the right
+    of the container.
+*/
+.signature-section div:first-child {
+    flex-grow: 1;
+    text-align:justify;
+    padding-right:12px;
+}
+
+.form-signing-section .signature-section-unsigned {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.form-signing-section .signature-section-signed {
+    margin-top: 12px;
+}
+
+.form-signing-section input[type=checkbox] {
+    width: 50px;
+    height: 50px;
+}
+
+.form-signing-section .warning {
+    color: red;
+    font-weight: bold;
+    font-size: larger;
+}
+.compliance-div-section {
+    border: 1px solid #ddd;
+    padding: 5px;
+    width: 333px
+}
+
+/* convenience classes for flex containers */
+div.box {
+    display: flex;
+}

@@ -1,0 +1,78 @@
+<%@ Master Language="C#" MasterPageFile="~/Resources/Masters/MapCallBase.Master" AutoEventWireup="true" Inherits="MapCall.Common.Resources.Masters.MapCallHR" %>
+<%@ Register Assembly="System.Web.Extensions" Namespace="System.Web.UI" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="atk" %>
+<%@ Register Assembly="MapCall.Common.WebForms" Namespace="MapCall.Common.Resources.Controls.Menu" TagPrefix="common" %>
+<%@ Register Assembly="MMSINC.Core.WebForms" Namespace="MMSINC.Controls" TagPrefix="mmsinc" %>
+
+<%-- 
+
+HI!
+
+ARE YOU LOOKING AT THIS FILE TO EDIT IT?
+
+THEN STOP!
+
+IT ISN'T THE REAL MASTERPAGE BEING USED BY THE SITE
+
+IT'S JUST HERE TO MAKE VISUAL STUDIO'S INTELLISENSE WORK PROPERLY IN ASPX MARKUP
+
+THE CONTENT IN THIS FILE ISN'T PARTICULARY IMPORTANT
+
+IT JUST NEEDS TO BE HERE IN THIS FILE PATH THAT MATCHES WHERE IT WOULD BE IN MAPCALL.COMMON
+
+THANK YOU
+
+AND HAVE A NICE DAY!
+
+P.S. SET THE BUILD ACTION FOR THIS FILE TO "NONE" AND "Copy to Output Directory" TO "DO NOT COPY"
+
+ --%>
+
+<asp:Content ContentPlaceHolderID="head" runat="server">
+    <link type="text/css" href="<%#ResolveUrl("~/resources/bender/bender.css")%>" rel="Stylesheet" />
+    <link type="text/css" href="<%#ResolveUrl("~/resources/scripts/css/start/jquery-ui-1.8.7.custom.css")%>" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="cphHeadTag" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="content" runat="server">
+    <mmsinc:ScriptInclude runat="server" IncludesPath="~/resources/scripts/" ScriptFileName="jquery.js" />
+    <mmsinc:ScriptInclude runat="server" IncludesPath="~/resources/scripts/" ScriptFileName="jquery-ui.min.js" />
+    <mmsinc:ScriptInclude runat="server" IncludesPath="~/resources/scripts/" ScriptFileName="jquery.treeview.js" />
+    <mmsinc:ScriptInclude runat="server" IncludesPath="~/resources/scripts/" ScriptFileName="mapcall.global.js" />
+    <mmsinc:ScriptInclude runat="server" IncludesPath="~/resources/scripts/" ScriptFileName="utilities.js" />
+
+    <asp:ContentPlaceHolder ID="cphHeadTagScripts" runat="server" />
+    
+<form id="form1" runat="server">
+    <%--DO NOT ENABLE PAGE METHODS
+    It makes everything cry due to a bug in .Net 3.5 when a VirtualPathProvider is used--%>
+    
+    <atk:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" CombineScripts="true" EnablePageMethods="false" EnablePartialRendering="true" />
+    <div class="siteWrap">
+        <div class="left">
+            <div class="inner">
+                <div>
+                    <common:Menu ID="navMenu" runat="server" />
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="inner">
+                <div class="header">
+                    <a href="<%= this.GetHeaderLinkUrl() %>"><asp:ContentPlaceHolder ID="cphHeader" runat="server" /></a>
+                </div>
+                <div class="body">
+                    <div class="instructions">
+                        <asp:ContentPlaceHolder ID="cphInstructions" runat="server" />
+                    </div>
+                    <div class="content">
+                        <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</asp:Content>
+
+

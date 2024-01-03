@@ -1,0 +1,74 @@
+﻿@model MapCallMVC.Areas.SAP.Controllers.SearchWBSElement
+    
+@Html.ScriptFor("~/Scripts/Areas/SAP/WBSElement/Find.js")
+@using (Ajax.BeginForm("Find", "WBSElement", new { }, new AjaxOptions { HttpMethod = "POST" }, new { id = "WBSElementForm", title = "Find WBSElement" }))
+{
+    <style type="text/css">
+        #DoSearch {
+            position: relative;
+            margin-left: 3px;
+            height: inherit !important;
+            min-height: 24px;
+        }
+
+        table.search, table.search td {
+            border: none 0px !important;
+            padding: 0px;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+            table.search td {
+                vertical-align: top;
+            }
+
+        .ui-button-icon-only .ui-icon {
+            top: -2px;
+            left: -1px;
+        }
+    </style>
+
+    <div style="width:1080px;">
+        <fieldset>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.PlanningPlant)
+                @Html.EditorFor(x => x.WBSNumber)
+                @Html.EditorFor(x => x.WBSDescription)
+                @Html.EditorFor(x => x.Year)
+                @Html.EditorFor(x => x.IsOpen)
+                @Html.EditorFor(x => x.SAPProjectType)
+                @Html.EditorFor(x => x.ProjectDefinition)
+                <div class="field-pair">
+
+                    <div class="label"></div>
+                    <div class="field">
+                        <button type="submit" id="DoWBSElementSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="field-column fc100" style="height: 300px; overflow: auto;">
+            <table id="wbsElementResults" style="width: 100%; cursor: pointer;">
+                <thead>
+                    <tr>
+                        <th>WBS Number</th>
+                        <th>WBS Description</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div style="margin-top: 6px;">
+            <input type="hidden" id="selectedWBSNumber" />
+        </div>
+        <div class="editor-buttons">
+
+            @Control.Button("Select").WithId("selectWBSElement")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </div>
+    </div>
+}

@@ -1,0 +1,387 @@
+{
+  "definitions": {
+    "Coordinate": {
+      "type": ["object", "null"],
+      "properties": {
+        "Latitude": {
+          "type": "number"
+        },
+        "Longitude": {
+          "type": "number"
+        }
+      },
+      "required": ["Latitude", "Longitude"]
+    },
+    "Facility": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FacilityName": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "FacilityName"]
+    },
+    "OperatingCenter": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "OperatingCenterCode": {
+          "type": "string"
+        },
+        "OperatingCenterName": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "OperatingCenterCode", "OperatingCenterName"]
+    },
+    "PublicWaterSupply": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Identifier": {
+          "type": "string"
+        },
+        "Status": {
+          "$ref": "#/definitions/PublicWaterSupplyStatus"
+        }
+      },
+      "required": ["Id", "Identifier"]
+    },
+    "PublicWaterSupplyStatus": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteValidationStatus": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteInactivationReason": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteProfileAnalysisType": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteProfile": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type":  "string"
+        },
+        "Number": {
+          "type": "integer"
+        },
+        "PublicWaterSupply": {
+          "$ref": "#/definitions/PublicWaterSupply"
+        },
+        "SampleSiteProfileAnalysisType": {
+          "$ref": "#/definitions/SampleSiteProfileAnalysisType"
+        }
+      },
+      "required": [
+        "Id",
+        "Name",
+        "Number",
+        "PublicWaterSupply",
+        "SampleSiteProfileAnalysisType"
+      ]
+    },
+    "SampleSite": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Coordinate": {
+          "$ref": "#/definitions/Coordinate"
+        },
+        "Street": {
+          "$ref": "#/definitions/Street"
+        },
+        "Town": {
+          "$ref": "#/definitions/Town"
+        },
+        "Facility": {
+          "$ref": "#/definitions/Facility"
+        },
+        "PublicWaterSupply": {
+          "$ref": "#/definitions/PublicWaterSupply"
+        },
+        "OperatingCenter": {
+          "$ref": "#/definitions/OperatingCenter"
+        },
+        "State": {
+          "$ref": "#/definitions/State"
+        },
+        "CustomerPlumbingMaterial": {
+          "$ref": "#/definitions/ServiceMaterial"
+        },
+        "Status": {
+          "$ref": "#/definitions/SampleSiteStatus"
+        },
+        "Availability": {
+          "$ref": "#/definitions/SampleSiteAvailability"
+        },
+        "CollectionType": {
+          "$ref": "#/definitions/SampleSiteCollectionType"
+        },
+        "LocationType": {
+          "$ref": "#/definitions/SampleSiteLocationType"
+        },
+        "ParentSiteId": {
+          "type": ["integer", "null"]
+        },
+        "StreetNumber": {
+          "type": ["string", "null"]
+        },
+        "Zip": {
+          "type": ["string", "null"]
+        },
+        "CommonSiteName": {
+          "type": ["string", "null"]
+        },
+        "LocationNameDescription": {
+          "type": ["string", "null"]
+        },
+        "PremiseNumber": {
+          "type": ["string", "null"]
+        },
+        "LeadCopperSite": {
+          "type": ["boolean", "null"]
+        },
+        "BactiSite": {
+          "type": ["boolean"]
+        },
+        "ValidatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "ValidationStatus": {
+          "$ref": "#/definitions/SampleSiteValidationStatus"
+        },
+        "InactivationReason": {
+          "$ref": "#/definitions/SampleSiteInactivationReason"
+        },
+        "AgencyId": {
+          "type": ["string", "null"]
+        },
+        "LimsFacilityId": {
+          "type": ["string", "null"]
+        },
+        "LimsSiteId": {
+          "type": ["string", "null"]
+        },
+        "LimsPrimaryStationCode": {
+          "type": ["string", "null"]
+        },
+        "LimsSequenceNumber": {
+          "type": ["integer", "null"]
+        },
+        "LimsProfile": {
+          "$ref": "#/definitions/SampleSiteProfile"
+        },
+        "CustomerParticipationConfirmed": {
+          "type": ["boolean", "null"]
+        },
+        "IsAlternateSite": {
+          "type": ["boolean"]
+        },
+        "CustomerName": {
+          "type": ["string", "null"]
+        },
+        "CustomerEmail": {
+          "type": ["string", "null"]
+        },
+        "CustomerHomePhone": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": ["Id"]
+    },
+    "SampleSiteAvailability": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteCollectionType": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteLocationType": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "SampleSiteStatus": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "ServiceMaterial": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "State": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Abbreviation": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Abbreviation"]
+    },
+    "Street": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Prefix": {
+          "$ref": "#/definitions/StreetPrefix"
+        },
+        "Suffix": {
+          "$ref": "#/definitions/StreetSuffix"
+        },
+        "Name": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Name"]
+    },
+    "StreetPrefix": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "StreetSuffix": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "Description"]
+    },
+    "Town": {
+      "type": ["object", "null"],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FullName": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "FullName"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "SchemaVersion": {
+      "type": "string"
+    },
+    "DataType": {
+      "type": "string"
+    },
+    "SourceSystem": {
+      "type": "string"
+    },
+    "SampleSite": {
+      "$ref": "#/definitions/SampleSite"
+    }
+  },
+  "required": ["SchemaVersion", "DataType", "SourceSystem"]
+}

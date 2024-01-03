@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Models.ViewModels.OperatorLicenses.CreateOperatorLicense
+
+@using (Form.BeginForm("Create", "OperatorLicense"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Employee, new { Container = @Model })
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@model EditTown
+
+@Control.HiddenFor(x => x.Id)
+@using (Form.BeginForm("Update", "Town", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(m => m.ShortName)
+        @Html.EditorFor(x => x.AbbreviationType)
+        @*Hyd/Val Abbreviation From*@
+        @Html.EditorFor(m => m.Address)
+        @Html.EditorFor(m => m.FullName)
+        @Html.EditorFor(m => m.State)
+        @Html.EditorFor(m => m.Zip)
+        @Html.EditorFor(m => m.County)
+        @Html.EditorFor(x => x.CriticalMainBreakNotes)
+        @Html.EditorFor(m => m.Lat)
+        @Html.EditorFor(m => m.Lon)
+        @Html.EditorFor(m => m.ContactName)
+        @Html.EditorFor(m => m.Phone)
+        @Html.EditorFor(m => m.Fax)
+        @Html.EditorFor(x => x.DistrictId)
+        @*District ID*@
+        @*Division ID*@
+        @Html.EditorFor(m => m.EmergencyContact)
+        @Html.EditorFor(m => m.EmergencyPhone)
+        @Html.EditorFor(m => m.EmergencyFax)
+        @Html.EditorFor(m => m.FD1Contact)
+        @Html.EditorFor(m => m.FD1Phone)
+        @Html.EditorFor(m => m.FD1Fax)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "Town", new {Model.Id})
+                           </text>)
+    </div>
+}

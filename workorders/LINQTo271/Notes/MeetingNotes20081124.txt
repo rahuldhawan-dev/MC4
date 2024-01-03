@@ -1,0 +1,53 @@
+﻿FINISHED:
+
+  Input:
+    Street opening requirement (yes, no, to be determined) (implemented as checkbox)
+
+    Traffic control requirement (yes, no, to be determined) (implemented as checkbox)
+
+    Main breaks won't have an asset?  Not sure how to record a work order without one.  Perhaps a temporary
+    main asset could be created based off of the lat/lon. (this just works.  the asset system was hacked to fit)
+
+  Planning:
+    Traffic Control:
+      - Do you need traffic control (check box)
+
+    Markouts:
+      - Need to record radius here.  This will be passed along with the rest of the information, including
+        lat/lon, to OneCall via email, so they can process and get us a markout number.
+
+  LatLonPicker:
+    Need to click and drag the point over to where it belongs, and on close it should ask if the chosen point is
+    ok.
+
+PENDING:
+
+  One Call:
+    Need to perhaps draw a 10x10' square around a given point (asset) to provide to OneCall for a markout.  This
+    should be pretty easy, just need to figure out how to translate degrees to feet.
+
+  Input:
+    The possibility of seeing a localized map of valves limited to a couple of streets so they could pick a valve
+    from the map was mentioned.  This would help with street/cross street issues.  It will take some time and
+    planning though.
+
+    Some means to record who set a latitude/longitude for an asset.
+
+  General:
+    Still need to attach documents to work orders.
+
+    Remove "Revenue Related" from priority.
+
+  Planning:
+    Markouts:
+      - OneCall will be sending us emails with the markout numbers.
+
+    Traffic Control:
+      - Local use checkbox? to flag that a set of work should be batch planned.
+
+  Scheduling:
+    Special notification email address per town.  The town already has this in the town table.  This could be
+    county as well.
+
+  Finalization (perhaps v2):
+    -  Need means to record what officers were on site, and the invoice number (attached document).

@@ -1,0 +1,15 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.AddServiceWorkOrder
+
+@using (var form = Form.BeginRouteForm("Service", "WorkOrder", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "serviceWorkOrderForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.WorkOrder)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Add Selected Order")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

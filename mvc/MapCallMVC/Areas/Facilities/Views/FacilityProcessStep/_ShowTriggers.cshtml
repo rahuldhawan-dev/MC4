@@ -1,0 +1,25 @@
+﻿@model FacilityProcessStep
+
+@{
+    var userCanEdit = Html.CurrentUserCanEditWithOperatingCenter(Model);
+    var triggers = Model.Triggers.OrderBy(x => x.Sequence);
+}
+@if (userCanEdit)
+{
+    @Control.ActionLink("Add Trigger", "New", "FacilityProcessStepTrigger", new { facilityProcessStepId = Model.Id }).WithCssClass("link-button")
+}
+@(Html.TableFor(x => triggers)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "FacilityProcessStepTrigger", new { id = x.Id, area = "Facilities" }, null))
+      .ColumnFor(x => x.Sequence)
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.Alarm)
+      .ColumnFor(x => x.TriggerLevel)
+      .ColumnFor(x => x.TriggerType)
+      .TemplateColumnFor(x => @<text>
+        @using (var f = Form.BeginForm("Destroy", "FacilityProcessStepTrigger", new{ id = x.Id}))
+        {
+            f.HtmlAttributes["data-confirm"] = "Are you sure you want to remove this facility process step trigger?";
+            @Control.SubmitButton("Remove")
+        }
+    </text>).IsVisible(userCanEdit)
+)

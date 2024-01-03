@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateProductionWorkOrderMeasurementPointValue
+
+@using (var form = Form.BeginForm("Create", "ProductionWorkOrderMeasurementPointValue"))
+{
+    form.HtmlAttributes.Add("id", "productionWorkOrderMeasurementPointValuesForm");
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.ProductionWorkOrder)
+        @Control.HiddenFor(x => x.Equipment)
+        @Control.HiddenFor(x => x.MeasurementPointEquipmentType)
+        @Html.EditorWithoutWrapperFor(x => x.Value)
+        @Control.SubmitButton("Create Measurement Point")
+}

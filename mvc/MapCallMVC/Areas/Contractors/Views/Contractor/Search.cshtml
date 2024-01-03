@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractor
+
+@using (Form.BeginForm("Index", "Contractor"))
+{
+    <div class="field-column fc200 search-fields">
+        @Html.EditorFor(x => x.Name)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.HouseNumber)
+        @Html.EditorFor(x => x.ApartmentNumber)
+        @Html.EditorFor(x => x.IsUnionShop)
+        @Html.EditorFor(x => x.IsBcpPartner)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.AWR)
+        @Html.EditorFor(x => x.WorkCategory)
+        @Html.EditorFor(x => x.FunctionalArea)
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

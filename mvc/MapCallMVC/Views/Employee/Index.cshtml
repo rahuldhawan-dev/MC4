@@ -1,0 +1,29 @@
+﻿@model SearchEmployee
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new {id = Html.ViewData["employeesTableId"] == null ? "employeesTable" : Html.ViewData["employeesTableId"].ToString()})
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .ColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterName")
+    .SortableColumnFor(x => x.Department)
+    .SortableColumnFor(x => x.EmployeeId)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.LastName)
+    .SortableColumnFor(x => x.FirstName)
+    .SortableColumnFor(x => x.PositionGroup.PositionDescription,"Current Position", "PositionGroup")
+    .SortableColumnFor(x => x.SeniorityRanking)
+    .SortableColumnFor(x => x.SeniorityDate)
+    .SortableColumnFor(x => x.DateHired)
+    .SortableColumnFor(x => x.ReportsTo, "ReportsTo.LastName")
+    .SortableColumnFor(x => x.HumanResourcesManager, "HumanResourcesManager.LastName")
+    .SortableColumnFor(x => x.InactiveDate)
+    .ColumnFor(x => x.CurrentPosition.Essential)
+    .ColumnFor(x => x.CurrentPosition.EmergencyResponsePriority)
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount)
+    .ColumnFor(x => x.GrievanceCount)
+    .WithPaginatedFooter())

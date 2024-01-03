@@ -1,0 +1,20 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.ViewModels.SystemDeliveryEntryNotification
+
+@{
+    var facilities = Model.Entity.Facilities.Where(x => x.OperatingCenter.Id == Model.OperatingCenter.Id);
+    var entries = Model.Entity.FacilityEntries.Where(x => facilities.Contains(x.Facility)).ToList();
+    var displayDates = string.Join(",", entries.Select(x => x.EntryDate.ToShortDateString()).Distinct().ToArray());
+}
+
+<h2>System Delivery Entry has been completed</h2>
+
+<a href="@Model.RecordUrl">@Model.Entity.Id</a><br />
+
+Operating Center: @Model.OperatingCenter <br />
+
+Facilities: @string.Join(",", facilities.Select(x => x.FacilityName)) <br />
+
+Entry Dates: @displayDates <br />
+
+Entered By: @Model.Entity.EnteredBy <br />

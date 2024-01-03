@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditEstimatingProjectPermit
+
+@using (Form.BeginForm("Update", "EstimatingProjectPermit", "ProjectManagement", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(m => m.EstimatingProject)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.PermitType)
+        @Html.EditorFor(x => x.Quantity)
+        @Html.EditorFor(x => x.Cost)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "EstimatingProject", new { id = Model.EstimatingProject }, null)
+        </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model CreateEmployee
+@using (Form.BeginForm("Create", "Employee")) {
+   <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "Employee")
+                           </text>)
+   </div>
+}

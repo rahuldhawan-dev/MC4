@@ -1,0 +1,43 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model WorkOrder
+@{
+    var table = Html.TableFor(x => x.Restorations, new { Id = "restorations" });
+    var controller = Request.RequestContext.RouteData.Values["controller"];
+    var isRestorationProcessingController = controller != null && ((string) controller).ToLower() == "restorationprocessing";
+    if (isRestorationProcessingController && Html.CurrentUserCanDo("Destroy", "Restoration"))
+    {
+        table.TemplateColumnFor("", m => @<div>@Control.SubmitButton("Delete").WithName("id").WithValue(m.Id).With("form", "DeleteRestorationsForm")</div>);
+    }
+
+    using (var f = Form.BeginForm("Destroy", "Restoration"))
+    {
+        f.HtmlAttributes["id"] = "DeleteRestorationsForm";
+        f.HtmlAttributes.Add("data-confirm", "Are you sure you want to delete this restoration?");
+    }
+
+    table.TemplateColumnFor(x => Html.ActionLink("View", "Show", "Restoration", new { area = "FieldOperations", x.Id }, null))
+        .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "Restoration", new { area = "FieldOperations", x.Id }, null))
+        .ColumnFor(x => x.RestorationType)
+        .ColumnFor(x => x.PavingSquareFootage)
+        .ColumnFor(x => x.LinearFeetOfCurb)
+        .ColumnFor(x => x.PartialRestorationDate, "Initial Date")
+        .ColumnFor(x => x.FinalRestorationDate, " Final Date")
+        .ColumnFor(x => x.ResponsePriority, "Response Priority")
+        .ColumnFor(x => x.AssignedContractor);
+
+    var rvd = new RouteValueDictionary(new CreateRestoration(_container));
+    rvd["area"] = "FieldOperations";
+    rvd["Id"] = Model.Id;
+
+    var htmlAttributes = new RouteValueDictionary();
+    htmlAttributes["Class"] = "link-button";
+}
+
+@if (isRestorationProcessingController)
+{
+    <div style="padding: 3px;">
+        @Html.ActionLink("Create Restoration", "New", "Restoration", rvd, htmlAttributes)
+    </div>
+}
+
+@table

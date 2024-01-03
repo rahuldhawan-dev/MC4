@@ -1,0 +1,26 @@
+﻿@model WorkOrder
+
+@* NOTE: This view is loaded directly from the work order finalization tab. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/Spoil/Index.js", ScriptLoadType.LoadFromPartial)
+@{ Spoil temp = null; }
+
+@Ajax.ActionLink("Add Spoil", "New", "Spoil",
+    new { area = "FieldOperations", workOrderId = @Model.Id },
+    new AjaxOptions { HttpMethod = "GET" },
+    new { data_ajax_table = "#spoilsTable", Class = "link-button" })
+
+<table id="spoilsTable">
+    <thead>
+        <tr>
+            <th>@Html.DisplayLabelFor(_ => temp.Quantity)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.SpoilStorageLocation)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var spoil in Model.Spoils)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/Spoil/_Show.cshtml", spoil)
+        }
+    </tbody>
+</table>

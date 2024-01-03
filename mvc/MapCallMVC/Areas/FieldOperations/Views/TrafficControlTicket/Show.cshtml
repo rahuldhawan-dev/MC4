@@ -1,0 +1,17 @@
+﻿@model TrafficControlTicket
+
+@section styles{
+    <style>
+        .warning { color: red; }
+        .safe{ color: green;}
+    </style>
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowTrafficControlTicket", Model)
+    .WithTab("Work Order", "_ShowRelatedWorkOrderTickets", Model)
+    .WithTab("SAP Work Order", "_ShowRelatedSAPWorkOrderTickets", Model)
+    .WithTab("Related", "_ShowRelatedTownStreetTickets", Model)
+    .WithTab("Checks", "_Checks", Model, itemCount: Model.TrafficcControlTicketChecks.Count)
+    .WithNotesAndDocuments()
+    .WithLog())

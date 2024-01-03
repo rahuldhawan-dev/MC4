@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchSewerMainCleaningFootageReport
+
+@using (Form.BeginForm("Index", "SewerMainCleaningFootage"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.InspectionType)
+        @Html.EditorFor(x => x.Year)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("View Report").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

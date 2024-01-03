@@ -1,0 +1,12 @@
+﻿@model CreatePositionGroup
+
+@using (Form.BeginForm("Create", "PositionGroup", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

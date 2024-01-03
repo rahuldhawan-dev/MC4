@@ -1,0 +1,147 @@
+﻿@using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical
+@model Facility
+<div class="field-column fc200">
+    @Html.DisplayFor(f => f.Id)
+    @Html.DisplayFor(x => x.FacilityId)
+    @Html.DisplayFor(x => x.FacilityName)
+    @Html.DisplayFor(x => x.FacilityOwner.Description, new { DisplayName = "Facility Ownership" })
+    @Html.DisplayFor(x => x.FacilityStatus.Description, new { DisplayName = "Facility Status" })
+    @Html.DisplayFor(x => x.CompanySubsidiary)
+    @Html.DisplayFor(x => x.BusinessUnit.BU, new { DisplayName = "Business Unit" })
+    @Html.DisplayFor(x => x.OperatingCenter.OperatingCenterCode, new { DisplayName = "Operating Center" })
+    @Html.DisplayFor(x => x.Town.ShortName, new { DisplayName = "Town" })
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.PlanningPlant)
+    @Html.DisplayFor(x => x.Department.Description, new { DisplayName = "Department" })
+    @Html.DisplayFor(x => x.Operations)
+    @Html.DisplayFor(x => x.System)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.PublicWaterSupplyPressureZone)
+    @Html.DisplayFor(x => x.WasteWaterSystem)
+    @Html.DisplayFor(x => x.WasteWaterSystemBasin)
+    @Html.DisplayFor(x => x.FunctionalLocation)
+    @Html.DisplayFor(x => x.StreetNumber)
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.NearestCrossStreet)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.ZipCode)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.CriticalRating)
+    @Html.DisplayFor(x => x.YearInService)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.SICNumber)
+    @Html.DisplayFor(x => x.EnvironmentalRegulatorIDNumber)
+    @Html.DisplayFor(x => x.WaterShed)
+    @Html.DisplayFor(x => x.RegionalPlanningArea)
+    <fieldset>
+        <legend>Attributes</legend>
+        <table class="no-hover" id="show-facility-attribute-table">
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => x.PropertyOnly)
+                    @Html.DisplayFor(x => x.Administration)
+                    @Html.DisplayFor(x => x.EmergencyPower)
+                    @Html.DisplayFor(x => x.GroundWaterSupply)
+                    @Html.DisplayFor(x => x.BasicGroundWaterSupply)
+                    @Html.DisplayFor(x => x.SurfaceWaterSupply)
+                    @Html.DisplayFor(x => x.Reservoir)
+                    @Html.DisplayFor(x => x.Dam)
+                    @Html.DisplayFor(x => x.Interconnection)
+                    @Html.DisplayFor(x => x.PointOfEntry)
+                    @if (Model.PointOfEntry)
+                    {
+                        @Html.DisplayFor(x => x.SystemDeliveryType)
+                    }
+                    @Html.DisplayFor(x => x.WaterTreatmentFacility)
+                    @Html.DisplayFor(x => x.Radionuclides)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.ChemicalFeed)
+                    @Html.DisplayFor(x => x.DPCC)
+                    @Html.DisplayFor(x => x.PSM)
+                    @Html.DisplayFor(x => x.Filtration)
+                    @Html.DisplayFor(x => x.ResidualsGeneration)
+                    @Html.DisplayFor(x => x.TReport)
+                    @Html.DisplayFor(x => x.DistributivePumping)
+                    @Html.DisplayFor(x => x.BoosterStation)
+                    @Html.DisplayFor(x => x.PressureReducing)
+                    @Html.DisplayFor(x => x.GroundStorage)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.ElevatedStorage)
+                    @Html.DisplayFor(x => x.OnSiteAnalyticalInstruments)
+                    @Html.DisplayFor(x => x.SampleStation)
+                    @Html.DisplayFor(x => x.SewerLiftStation)
+                    @Html.DisplayFor(x => x.WasteWaterTreatmentFacility)
+                    @Html.DisplayFor(x => x.FieldOperations)
+                    @Html.DisplayFor(x => x.SpoilsStaging)
+                    @Html.DisplayFor(x => x.CellularAntenna)
+                    @Html.DisplayFor(x => x.SCADAIntrusionAlarm)
+                    @Html.DisplayFor(x => x.RMP)
+                    @if (Model.RMP)
+                    {
+                        @Html.DisplayFor(x => x.RMPNumber)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.SWMStation)
+                    @Html.DisplayFor(x => x.WellProd)
+                    @Html.DisplayFor(x => x.WellMonitoring)
+                    @Html.DisplayFor(x => x.ClearWell)
+                    @Html.DisplayFor(x => x.RawWaterIntake)
+                    @Html.DisplayFor(x => x.CommunityRightToKnow)
+                    @Html.DisplayFor(x => x.RawWaterPumpStation)
+                    @if (Model.PointOfEntry)
+                    {
+                        @Html.DisplayFor(x => x.WaterStress)
+                    }
+                    @Html.DisplayFor(x => x.IgnitionEnterprisePortal)
+                    @Html.DisplayFor(x => x.ArcFlashLabelRequired)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Capacity Information</legend>
+        @Html.DisplayFor(x => x.FacilityTotalCapacityMGD)
+        @Html.DisplayFor(x => x.FacilityReliableCapacityMGD)
+        @Html.DisplayFor(x => x.FacilityOperatingCapacityMGD)
+        @Html.DisplayFor(x => x.FacilityRatedCapacityMGD)
+        @Html.DisplayFor(x => x.FacilityAuxPowerCapacityMGD)
+        @Html.DisplayFor(x => x.UsedInProductionCapacityCalculation)
+    </fieldset>
+    <fieldset>
+        <legend>Insurance Information</legend>
+        @Html.DisplayFor(x => x.InsuranceId)
+        @Html.DisplayFor(x => x.InsuranceScore)
+        @Html.DisplayFor(x => x.InsuranceScoreQuartile)
+        @Html.DisplayFor(x => x.InsuranceVisitDate)
+    </fieldset>
+    @Html.DisplayFor(x => x.HasConfinedSpaceRequirement)
+    @Html.DisplayFor(x => x.IsInVamp)
+    @if (Model.IsInVamp == true)
+    {
+        @Html.DisplayFor(x => x.VampUrl)
+    }
+    @Html.DisplayFor(x => x.FEMAFloodRating.Description, new { DisplayName = "FEMA Flood Rating" })
+    @Html.DisplayFor(x => x.DesignationTreatmentPlant)
+    @Html.DisplayFor(x => x.DesignationPumpStation)
+    @Html.DisplayFor(x => x.FacilityInspectionFrequency)
+    @Html.DisplayFor(x => x.FacilityLoopGrouping)
+    @Html.DisplayFor(x => x.FacilityLoopGroupingSub)
+    @Html.DisplayFor(x => x.FacilityLoopSequence)
+    @Html.DisplayFor(x => x.SecurityCategory)
+    @Html.DisplayFor(x => x.SecurityGrouping)
+    @Html.DisplayFor(x => x.SecurityInspectionFrequency)
+    @Html.DisplayFor(x => x.SecurityLoopSequence)
+    @Html.DisplayFor(x => x.EntityNotes)
+    @Html.DisplayFor(x => x.FacilityContactInfo)
+    @Html.DisplayFor(x => x.AWSecurityTier)
+    @Html.DisplayFor(x => x.ArcFlashStudyRequired)
+    @Html.DisplayFor(x => x.Process)
+    @foreach (var study in Model.MostRecentArcFlashStudies)
+    {
+        @Html.RenderDisplayTemplate("Most Recent Arc Flash Study", Html.ActionLink(study.Id.ToString(), "Show", "ArcFlashStudy", new { study.Id, area = "Engineering" }, null))
+    }
+</div>

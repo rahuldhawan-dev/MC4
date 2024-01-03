@@ -1,0 +1,71 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderSupervisorApproval
+@model WorkOrder
+
+@helper GetReasonWhyWorkOrderCanNotBeApproved()
+{
+    if (Model.HasServiceApprovalIssue)
+    {
+        <text>This work order is for a service but either no service asset record is linked to this work order, or the linked service does not have an installed date.
+            Please ensure that this work order is linked to a service with a valid installed date.
+            <br />
+            @{
+                var rvd = new RouteValueDictionary();
+                rvd["PremiseNumber.Value"] = Model.PremiseNumber;
+                rvd["PremiseNumber.MatchType"] = (int)SearchStringMatchType.Wildcard;
+            }
+            @Html.ActionLink("Services", "Index", "Service", rvd, null)
+
+        </text>
+    }
+    else if (Model.HasInvestigativeWorkDescriptionApprovalIssue)
+    {
+        <text>Unable to approve a work order with an investigative work order description.</text>
+    }
+    else if (Model.HasSAPNotReleased)
+    {
+        <text>Unable to approve a work order when SAP has not released or has rejected the release.</text>
+    }
+    else if (Model.HasAssetTypeError)
+    {
+        <text>Unable to approve a work order when its asset type does not match its work description's asset type.</text>
+    }
+    else
+    {
+        <text>This work order is unable to be approved at this time.</text>
+    }
+}
+
+<div class="container" style="margin-bottom:12px;">
+    @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem {
+        Message = "Please review Total Gallons Lost field on the Additional tab to help with Lost Water totals.",
+        NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+    })
+</div>
+
+@if (Model.ApprovedOn.HasValue)
+{
+    @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Account.cshtml")
+}
+else
+{
+    @* Nothing in this script is relevant when the work order is already approved, so we can just load it when it allows approval/rejection. *@
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrderSupervisorApproval/Account.js", ScriptLoadType.LoadFromPartial)
+
+    if (Model.CanBeApproved)
+    {
+        @* NOTE: The _Approve view *also* includes the Reject button. It's needed there for layout purposes. *@
+        @Html.Partial("_Approve", ViewModelFactory.Build<SupervisorApproveWorkOrder, WorkOrder>(Model))
+    }
+    else
+    {
+        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem { Message = GetReasonWhyWorkOrderCanNotBeApproved().ToHtmlString(), NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning })
+        @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Account.cshtml")
+        <div class="field-column fc200">
+            @Html.ButtonGroup(@<text>
+                    @Control.Button("Reject").WithCssClass("reject-button")
+            </text>)
+        </div>
+    }
+
+    @Html.Partial("_Reject", ViewModelFactory.Build<SupervisorRejectWorkOrder, WorkOrder>(Model))
+}

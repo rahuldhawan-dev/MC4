@@ -1,0 +1,184 @@
+﻿<div style="margin:10px;float:left;">
+    <b>Accounting Budgets</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Accounting Business Units", "Search", "BusinessUnit", new { area = "" }, null)
+        </li>
+        <li>
+            @Html.Link("/Modules/Production/ExpenseLines.aspx", "Expense Lines")
+        </li>
+        <li>
+            @Html.ActionLink("PWSID", "Search", "PublicWaterSupply", new { area = "" }, null)
+        </li>
+        <li>
+            @Html.ActionLink("PWSID Firm Capacity", "Search", "PublicWaterSupplyFirmCapacity", new { area = "Environmental" })
+        </li>
+        <li>
+            @Html.Link("/Modules/Production/PWSIDCustomerData.aspx", "PWSID Customer Data")
+        </li>
+    </ul>
+
+    <b>Business Performance</b>
+    <ul>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusPerformanceGoals.aspx", "Goals")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusPerformanceInitiatives.aspx", "Initiatives")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusPerformanceKPI.aspx", "KPI")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusPerformanceKPIMeasurement.aspx", "KPI Measurements")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusPerformanceReportingRequirements.aspx", "Reporting Requirements")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/BusProcessFlowDiagrams.aspx", "Flow Diagrams")
+        </li>
+    </ul>
+
+    <b>Employee</b>
+    <ul>
+        <li>
+            @Html.Link("/Modules/HR/Employee/ScheduleType.aspx", "Schedule Types")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Employee/ScheduleTypeDetails.aspx", "Schedule Type Details")
+        </li>
+    </ul>
+
+
+    <b>Field Services</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Tailgate Topics", "Search", "TailgateTalkTopic", new { area = "HealthAndSafety"}, null)
+        </li>
+        <li>
+            @Html.Link("/Modules/Data/Services/Mismatches.aspx", "Service Image Mismatches")
+        </li>
+        <li>
+            @Html.ActionLink("Tap Image Link Export", "Search", "TapImageLink", new { area = "Reports" }, null)
+        </li>
+        <li>
+            @Html.Link("/Modules/Data/Valves/Mismatches.aspx", "Valve Image Mismatches")
+        </li>
+        <li>
+            @Html.ActionLink("Valve Image Link Export", "Search", "ValveImageLink", new { area = "Reports" }, null)
+        </li>
+        <li>
+            @Html.Link("/Reports/Markouts.aspx", "Markouts")
+        </li>
+    </ul>
+    
+    <b>Data Uploads</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Data Uploads", "Search", "AssetUpload", new { area = "" }, null)
+        </li>
+    </ul>
+</div>
+
+<div style="margin:10px;float:left;">
+    <b>Management</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Email Notifications", "Search", "NotificationConfiguration", new { area = "Admin" }, null)
+        </li>
+        <li>
+            @Html.Link("/Admin/Timeout.aspx", "Timeout")
+        </li>
+        <li>
+            @Html.ActionLink("Users", "Search", "User", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Role Groups", "Search", "RoleGroup", new { area = "Admin" }, null)
+        </li>
+    </ul>
+
+    <b>Log</b>
+    <ul>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/Log.aspx", "Log")
+        </li>
+    </ul>
+
+    <b>Contacts</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Contacts", "Search", "Contact", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Contact Types", "Index", "ContactType", new { area = string.Empty }, null)
+
+        </li>
+        <ul>
+            <li>
+                @Html.Link("/Modules/Data/Contacts/ContractorContactTypes.aspx", "Contractor Contact Types")
+            </li>
+            <li>
+                @Html.Link("/Modules/Data/Contacts/TownContactTypes.aspx", "Town Contact Types")
+            </li>
+        </ul>
+    </ul>
+
+    <b>Lookups</b>
+    <ul>
+        <li>
+            @Html.ActionLink("Entity Lookups", "EntityLookups", "Home", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/Counties.aspx", "Counties")
+        </li>
+        <li>
+            @Html.Link("/Modules/Data/Departments.aspx", "Departments")
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/DocumentTypes.aspx", "Document Types")
+        </li>
+        <li>
+            @Html.ActionLink("Functional Locations", "Search", "FunctionalLocation", new { area = "FieldOperations" }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Help Categories", "Index", "HelpCategory", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.Link("/Modules/HR/Administrator/editLookups.aspx", "Lookups")
+        </li>
+        <li>
+            @Html.ActionLink("Operating Centers", "Index", "OperatingCenter", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Premise Types", "Index", "PremiseType", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("States", "Index", "State", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("State Regions", "Index", "StateRegion", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Streets", "Search", "Street", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Towns (new)", "Index", "Town", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Town Sections", "Search", "TownSection", new { area = string.Empty }, null)
+        </li>
+        <li>
+            @Html.ActionLink("Water System", "Search", "WaterSystem", new { area = "Admin" }, null)
+        </li>
+    </ul>
+
+    <b>Production-Treatment</b>
+    <ul>
+        <li>
+            @Html.ActionLink("ProductionWorkOrder Problem Code", "Index", "CorrectiveOrderProblemCode", new { area = "Production" }, null)
+        </li>
+    </ul>
+
+</div>
+<div style="clear:both;"></div>

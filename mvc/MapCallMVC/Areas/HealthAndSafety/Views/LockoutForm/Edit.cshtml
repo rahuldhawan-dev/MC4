@@ -1,0 +1,124 @@
+﻿@model EditLockoutForm
+@using (Form.BeginForm("Update", "LockoutForm", "HealthAndSafety", new { id = Model.Id }))
+{
+    <div class="field-column fc400">
+        @Html.Hidden("EquipmentShowURL", Html.UrlForAction("Show", "Equipment", new { area = "" }))
+        @Html.ScriptFor("~/Scripts/LockoutForm/Form.js", ScriptLoadType.LoadFromPartial)
+
+        @Html.EditorFor(x => x.LockoutDateTime)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Control.Hidden().WithId("facility-show").WithValue(Url.Action("Show", "Facility", new { area = "" }))
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.RenderDisplayTemplate("", @<text>
+            <a href="#" id="equipmentShowDocuments" target="_new" style="display: none;">Equipment Documents</a>
+        </text>)
+        @Html.EditorFor(x => x.EmployeeAcknowledgedTraining)
+        @Html.EditorFor(x => x.ProductionWorkOrder)
+
+        @Html.EditorFor(x => x.LockoutReason)
+        @Html.EditorFor(x => x.ReasonForLockout)
+        @Html.EditorFor(x => x.ContractorLockOutTagOut)
+        <fieldset id="contractor">
+            <legend>Contractor</legend>
+            @Html.Partial("_Contractor", Model)
+        </fieldset>
+
+        @Html.RenderEditorTemplate("Isolation Point", @<text>
+            @Html.EditorWithoutWrapperFor(x => x.IsolationPoint)
+            @Html.EditorWithoutWrapperFor(x => x.IsolationPointDescription)
+        </text>)
+        @Html.EditorFor(x => x.LocationOfLockoutNotes)
+
+        @Html.EditorFor(x => x.LockoutDevice)
+
+        @if (Model.EditLockoutFormAnswers.Any(x => x.LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS))
+        {
+            <fieldset>
+                <legend>Lockout Conditions</legend>
+                @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+                {
+                    if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS)
+                    {
+                        @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                    }
+                }
+            </fieldset>
+        }
+        <fieldset>
+            <legend>Out of Service</legend>
+            @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+            {
+                if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.OUT_OF_SERVICE)
+                {
+                    @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                }
+            }
+
+            @Html.EditorFor(x => x.AdditionalLockoutNotes)
+
+            @Html.EditorFor(x => x.OutOfServiceAuthorizedEmployee)
+            @Html.EditorFor(x => x.OutOfServiceDateTime)
+        </fieldset>
+
+        <fieldset>
+            <legend>Return to Service</legend>
+            @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+            {
+                if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.RETURN_TO_SERVICE)
+                {
+                    @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                }
+            }
+            @Html.EditorFor(x => x.SameAsInstaller)
+        </fieldset>
+
+        <fieldset id="management" style="display: none">
+            <legend>Management</legend>
+
+            @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+            {
+                var ids = Model.EditLockoutFormAnswers.Where(x => x.LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT).Take(2).Select(z => z.LockoutFormQuestion).ToList();
+                if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT
+                    && ids.Contains(Model.EditLockoutFormAnswers[i].LockoutFormQuestion))
+                {
+                    @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                }
+            }
+            @Html.EditorFor(x => x.SupervisorInvolved)
+            @Html.EditorFor(x => x.DateOfContact)
+            @Html.EditorFor(x => x.MethodOfContact)
+            @Html.EditorFor(x => x.OutcomeOfContact)
+            @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+            {
+                var firstId = Model.EditLockoutFormAnswers.Where(x => x.LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT).Skip(2).Take(1).First().LockoutFormQuestion;
+                if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT
+                    && Model.EditLockoutFormAnswers[i].LockoutFormQuestion == firstId)
+                {
+                    @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                }
+            }
+            @Html.EditorFor(x => x.AuthorizedManagementPerson)
+            @for (var i = 0; i < Model.EditLockoutFormAnswers.Count(); i++)
+            {
+                var ids = Model.EditLockoutFormAnswers.Where(x => x.LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT).Skip(3).Select(z => z.LockoutFormQuestion).ToList();
+                if (Model.EditLockoutFormAnswers[i].LockoutFormQuestionDisplay.Category.Id == LockoutFormQuestionCategory.Indices.MANAGEMENT
+                    && ids.Contains(Model.EditLockoutFormAnswers[i].LockoutFormQuestion))
+                {
+                    @Html.EditorFor(_ => Model.EditLockoutFormAnswers[i])
+                }
+            }
+            @Html.EditorFor(x => x.LockRemovalMethod)
+        </fieldset>
+
+        @Html.EditorFor(x => x.ReturnToServiceAuthorizedEmployee)
+        @Html.EditorFor(x => x.ReturnedToServiceDateTime)
+        @Html.EditorFor(x => x.ReturnedToServiceNotes)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "LockoutForm", new { Model.Id })
+        </text>)
+    </div>
+}

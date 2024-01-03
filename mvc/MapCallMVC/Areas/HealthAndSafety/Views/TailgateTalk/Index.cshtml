@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchTailgateTalk
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(m => m.OperatingCenter)
+    .SortableColumnFor(m => m.HeldOn)
+    .SortableColumnFor(m => m.TrainingTimeHours)
+    .SortableColumnFor(m => m.Category)
+    .SortableColumnFor(m => m.Topic)
+    .SortableColumnFor(m => m.PresentedBy)
+    .ColumnFor(m => m.OrmReferenceNumber)
+    .WithPaginatedFooter())

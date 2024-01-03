@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.FacilityProcessStepViewModel
+
+@using (Form.BeginForm("Create", "FacilityProcessStep"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityProcess)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.StepNumber)
+        @Html.EditorFor(x => x.FacilityProcessStepSubProcess)
+        @Html.EditorFor(x => x.ProcessTarget)
+        @Html.EditorFor(x => x.NormalRangeMin)
+        @Html.EditorFor(x => x.NormalRangeMax)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.EditorFor(x => x.ElevationInFeet)
+        @Html.EditorFor(x => x.ContingencyOperation)
+        @Html.EditorFor(x => x.LossOfCommunicationPowerImpact)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

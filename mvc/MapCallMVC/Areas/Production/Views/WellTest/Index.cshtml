@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.WellTests.SearchWellTestsViewModel
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(
+    Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.Id)
+        .SortableColumnFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+        .SortableColumnFor(x => x.Equipment)
+        .SortableColumnFor(x => x.CompanySubsidiary)
+        .SortableColumnFor(x => x.WaterSystem)
+        .SortableColumnFor(x => x.WellName)
+        .SortableColumnFor(x => x.DateOfTest)
+        .SortableColumnFor(x => x.Employee)
+        .WithPaginatedFooter()
+    )

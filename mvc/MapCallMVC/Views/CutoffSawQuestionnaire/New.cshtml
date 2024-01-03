@@ -1,0 +1,35 @@
+﻿@model CreateCutoffSawQuestionnaire
+
+@using (Form.BeginForm("Create", "CutoffSawQuestionnaire", new {Model.Id})) {
+    <div class="field-column fc200">
+
+        @Html.EditorFor(x => x.WorkOrderID)
+        @Html.EditorFor(x => x.WorkOrderSAP)
+        @Html.EditorFor(x => x.LeadPerson, new { Container = @Model})
+        @Html.EditorFor(x => x.SawOperator, new { Container = @Model})
+        @Html.EditorFor(x => x.OperatedOn)
+        @Html.EditorFor(x => x.PipeMaterial, new { Container = @Model })  
+        @Html.EditorFor(x => x.PipeDiameter, new { Container = @Model })
+        <fieldset>
+            <legend>Terms and Conditions</legend>
+
+            @if (Model.CutoffSawQuestions != null) {
+                for (var q = 0; q < Model.CutoffSawQuestions.Count; q++) {
+                    @Html.EditorFor(x => x.CutoffSawQuestions[q], new { DisplayName = ""})
+                }
+            }
+           
+            @Html.RenderEditorTemplate("", @<text>
+	            @Control.CheckBoxFor(x => x.Agree)
+                <strong>I have read and agree to the terms listed above.</strong>
+                <div>@Html.ValidationMessageFor(x => x.Agree)</div>
+            </text>)
+            
+        </fieldset>
+        @Html.EditorFor(x => x.Comments)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

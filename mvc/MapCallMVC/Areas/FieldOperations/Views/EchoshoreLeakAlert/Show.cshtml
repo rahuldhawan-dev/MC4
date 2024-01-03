@@ -1,0 +1,6 @@
+﻿@model EchoshoreLeakAlert
+
+@(Html.Tabs()
+      .WithTab("Alert", "_Show", Model)
+      .WithTab("Work Orders", "_WorkOrders", Model, itemCount:Model.WorkOrders.Count)
+)

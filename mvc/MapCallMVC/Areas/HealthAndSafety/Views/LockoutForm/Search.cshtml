@@ -1,0 +1,28 @@
+﻿@model SearchLockoutForm
+
+@*
+    We will need to search by Operating Center, Facility, SAP Equipment, SAP Work Order Number,
+    Currently Locked out, or Returned to Service, Employee (user) who created original out of service record,
+    and Employee who Returned To Service.
+*@
+
+@using (Form.BeginForm("Index", "LockoutForm"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.OutOfServiceAuthorizedEmployee)
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.LockoutReason)
+        @Html.EditorFor(x => x.IsolationPoint)
+        @Html.EditorFor(x => x.OutOfServiceDateTime)
+        @Html.EditorFor(x => x.ReturnedToServiceDateTime)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MapCallMVC.Controllers.HomeController.ControllerClass>
+<style>
+    h3 {
+        margin-top: 10px;
+    }
+    ul li ul {
+        margin-left:12px;
+    }
+</style>
+
+<div style="width:100%">
+    @{ var curArea = String.Empty; }
+    @{ var actualArea = String.Empty;}
+    @foreach (var controller in Model)
+    {
+        if (curArea != controller.Area)
+        {
+            curArea = controller.Area;
+            actualArea = curArea.Replace("General", string.Empty);
+                        
+            @Html.Raw("</ul>");
+            @Html.Raw(string.Format("<h3>{0}</h3>", controller.Area));
+            @Html.Raw("<ul>");
+        }
+
+        if (controller.HasSearch)
+        {
+            <li>@Html.ActionLink(controller.Name, "Search", controller.Name, new {area = actualArea}, null)</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink(controller.Name, "Index", controller.Name, new {area = actualArea}, null)</li>
+        }
+    }
+</div>

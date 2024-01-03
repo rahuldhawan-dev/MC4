@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.AddFacilityFacilityArea
+
+@using (Form.BeginRouteForm("Facility", "FacilityFacilityArea", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+
+        @Html.EditorFor(x => x.FacilityArea)
+        @Html.EditorFor(x => x.FacilitySubArea)
+        @Html.EditorFor(x => x.Coordinate)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Area")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

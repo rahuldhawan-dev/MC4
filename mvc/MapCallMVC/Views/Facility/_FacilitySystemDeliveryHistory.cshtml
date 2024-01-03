@@ -1,0 +1,9 @@
+﻿@using System.Web.UI.HtmlControls
+@using FluentNHibernate.Conventions
+@using MapCall.Common.Model.Repositories
+@using MapCall.Common.Model.ViewModels
+@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@using MMSINC.Utilities
+@model SearchFacilitySystemDeliveryHistory
+
+@using (var f = Form.BeginAjaxForm("GetSystemDeliveryHistoryForFacility", "Facility", new { Id = Model.Id })){}

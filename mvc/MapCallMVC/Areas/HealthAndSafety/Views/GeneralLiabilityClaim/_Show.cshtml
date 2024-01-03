@@ -1,0 +1,86 @@
+﻿@model GeneralLiabilityClaim
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.CompanyContact)
+
+    @Html.DisplayFor(x => x.CompanyContact.PhoneCellular)
+    @Html.DisplayFor(x => x.CompanyContact.PhoneWork)
+
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.ClaimsRepresentative)
+    @Html.DisplayFor(x => x.ClaimNumber)
+
+    @Html.DisplayFor(x => x.LiabilityType)
+    @Html.DisplayFor(x => x.GeneralLiabilityClaimType)
+    @Html.DisplayFor(x => x.CrashType)
+    @if(Model.CrashType != null && Model.CrashType.Id == CrashType.Indices.OTHER)
+    {
+        @Html.DisplayFor(x => x.OtherTypeOfCrash)
+    }
+
+    @Html.DisplayFor(x => x.Name)
+    @Html.DisplayFor(x => x.PhoneNumber)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.Email)
+
+    <fieldset>
+        <legend>Company Processes Involved</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => x.MeterBox)
+                    @Html.DisplayFor(x => x.Excavation)
+                    @Html.DisplayFor(x => x.Vehicle)
+                    @Html.DisplayFor(x => x.FireHydrant)
+                    @Html.DisplayFor(x => x.WaterQuality)
+                    @Html.DisplayFor(x => x.WaterMain)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.CurbValveBox)
+                    @Html.DisplayFor(x => x.Barricades)
+                    @Html.DisplayFor(x => x.WaterMeter)
+                    @Html.DisplayFor(x => x.Backhoe)
+                    @Html.DisplayFor(x => x.WaterPressure)
+                    @Html.DisplayFor(x => x.ServiceLine)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    @Html.DisplayFor(x => x.Description)
+
+    @Html.DisplayFor(x => x.DriverName)
+    @Html.DisplayFor(x => x.DriverPhone)
+    @Html.DisplayFor(x => x.PhhContacted)
+
+    @Html.DisplayFor(x => x.OtherDriver)
+    @Html.DisplayFor(x => x.OtherDriverPhone)
+    @Html.DisplayFor(x => x.OtherDriverAddress)
+    @Html.DisplayFor(x => x.VehicleYear)
+    @Html.DisplayFor(x => x.VehicleMake)
+    @Html.DisplayFor(x => x.VehicleVin)
+    @Html.DisplayFor(x => x.LicenseNumber)
+
+    @Html.DisplayFor(x => x.LocationOfIncident)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.IncidentDateTime)
+
+    @Html.DisplayFor(x => x.PoliceCalled)
+    @Html.DisplayFor(x => x.PoliceDepartment)
+    @Html.DisplayFor(x => x.PoliceCaseNumber)
+    @Html.DisplayFor(x => x.WitnessStatement)
+
+    @Html.DisplayFor(x => x.Witness)
+    @Html.DisplayFor(x => x.WitnessPhone)
+
+    @Html.DisplayFor(x => x.AnyInjuries)
+    @Html.DisplayFor(x => x.SAPWorkOrderId)
+
+    @Html.DisplayFor(x => x.ReportedBy)
+    @Html.DisplayFor(x => x.ReportedByPhone)
+    @Html.DisplayFor(x => x.IncidentNotificationDate)
+    @Html.DisplayFor(x => x.IncidentReportedDate)
+
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.TaskOrderGeneratorForm
+
+@using (Form.BeginForm("Create", "TaskOrderGenerator", "ProjectManagement"))
+{
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.EffectiveAgreementDate)
+        @Html.EditorFor(x => x.BeginDate)
+        @Html.EditorFor(x => x.SubstantialCompletionDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(x => x.ContractorAgreementDate)
+        @Html.RenderEditorTemplate(@Html.Label("As Detailed In"), @<text>
+                                                                       <input type="radio" name="AsDetailedIn" checked="checked" value="Engineer's Plan" id="plan" />
+                                                                       <label for="plan">Engineer's Plan</label><br/>
+                                                                       <input type="radio" name="AsDetailedIn" value="Sketch" id="sketch" />
+                                                                       <label for="sketch">Sketch</label><br/>
+                                                                       <input type="radio" name="AsDetailedIn" value="Report" id="report" />
+                                                                       <label for="report">Report</label>
+                                                                   </text>)
+        @Control.SubmitButton("Get PDF")
+    </div>
+}

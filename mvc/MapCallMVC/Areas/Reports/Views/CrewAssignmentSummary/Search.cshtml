@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCrewAssignmentSummary
+
+@using (Form.BeginForm("Index", "CrewAssignmentSummary", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.AssignedFor)
+        @Html.EditorFor(x => x.IsOpen)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

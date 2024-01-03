@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchTrainingModulePositionGroupCommonName
+           
+@using (Form.BeginForm("Index", "TrainingModulePositionGroupCommonName"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.TrainingModule)
+        @Html.EditorFor(x => x.IsOSHARequirement)
+        @Html.EditorFor(x => x.Ids)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

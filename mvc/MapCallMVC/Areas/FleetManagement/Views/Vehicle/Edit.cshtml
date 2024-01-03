@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FleetManagement.Models.EditVehicle
+
+@using (Form.BeginForm("Update", "Vehicle", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "Vehicle", new { Model.Id })
+        </text>)
+    </div>
+}

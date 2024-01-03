@@ -1,0 +1,27 @@
+﻿@using MMSINC.Results
+@model Valve
+
+@{
+    ActionBarHelper.AddLink("PDF", "ab-export", "Show", "Valve", new { id = Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }, null);
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter.Id, Town = Model.Town.Id, controller = "AssetMap" });
+    if (Model.CanBeCopied)
+    {
+        ActionBarHelper.AddCopyButton();
+    }
+    if (Model.IsActive)
+    {
+        ActionBarHelper.AddReplaceButton();
+    }
+
+}
+
+@(Html.Tabs()
+    .WithTab("Valve", "_ShowValve", Model)
+    .WithTab("Inspections", "_Inspections")
+    .WithTab("Blow Off Inspections", "_BlowOffInspections", (Model.ValveControls != null && Model.ValveControls.Description == ValveControl.BLOW_OFF_WITH_FLUSHING))
+    .WithTab("Images", "_Images")
+    .WithTab("Work Orders", "_WorkOrders")
+    .WithTab("Main Crossings", "_MainCrossings")
+    .WithNotesAndDocuments()
+    .WithLog()
+)

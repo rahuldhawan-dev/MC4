@@ -1,0 +1,72 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSewerOpening
+
+@{
+    ActionBarHelper.AddExportLink();
+    if (Model.Count > SearchSewerOpeningForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchSewerOpeningForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink(new { Model.OperatingCenter, controller = "AssetMap" });
+    }
+}
+
+@helper TryCreateInspectionLink(SewerOpening sm)
+{
+    if (sm.OperatingCenter.IsActive && !sm.IsInactive)
+    {
+        @Html.AuthorizedActionLink("Inspect", "New", "SewerOpeningInspection", new { id = sm.Id }, new { target = "_blank" })
+    }
+}
+
+@helper TryCreateRegulatorInspectionLink(SewerOpening sm)
+{
+    if (sm.OperatingCenter.IsActive && !sm.IsInactive && sm.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR)
+    {
+        @Html.AuthorizedActionLink("Inspect NPDES", "New", "NpdesRegulatorInspection", new { id = sm.Id }, new { target = "_blank" })
+    }
+}
+
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+	<tr class="asset-not-inspectable">
+		<td class="color-block">Asset Not Inspectable</td>
+	</tr>
+</table>
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .WithRowBuilder((m, help) => {
+	    if (!m.IsInspectable)
+	    {
+		    help.AddCssClass("asset-not-inspectable");
+	    }
+    })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .TemplateColumnFor("", x => TryCreateInspectionLink(x))
+    .TemplateColumnFor("", x => TryCreateRegulatorInspectionLink(x))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.WasteWaterSystem)
+    .SortableColumnFor(x => x.OutfallNumber)
+    .SortableColumnFor(x => x.TownSection)
+    .SortableColumnFor(x => x.SAPEquipmentId)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .SortableColumnFor(x => x.TaskNumber)
+    .SortableColumnFor(x => x.OpeningNumber)
+    .SortableColumnFor(x => x.SewerOpeningType)
+    .SortableColumnFor(x => x.OpeningSuffix)
+    .SortableColumnFor(x => x.OldNumber)
+    .SortableColumnFor(x => x.FunctionalLocation)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.IntersectingStreet)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.GeoEFunctionalLocation)
+    .SortableColumnFor(x => x.FunctionalLocation)
+    .SortableColumnFor(x => x.IsDoghouseOpening)
+    .SortableColumnFor(x => x.Route)
+    .SortableColumnFor(x => x.Stop)
+    .SortableColumnFor(x => x.InspectionFrequency)
+    .SortableColumnFor(x => x.InspectionFrequencyUnit)
+    .WithPaginatedFooter())

@@ -1,0 +1,62 @@
+﻿@model SearchEquipment
+
+@Html.ScriptFor("~/Scripts/Equipment/Search.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "Equipment"))
+{
+<div class="field-column fc200 searchFields" style="width:650px">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(m => m.OperatingCenter)
+    @Html.EditorFor(x => x.EntityId)
+    @Html.EditorFor(x => x.PlanningPlant)
+    @Html.EditorFor(m => m.Facility)
+    @Html.EditorFor(m => m.FacilityArea)
+    @Html.EditorFor(m => m.FacilitySubArea)
+    @Html.EditorFor(x => x.Department)
+    @Html.EditorFor(x => x.FunctionalLocation)
+    @Html.EditorFor(x => x.WBSNumber)
+    @Html.EditorFor(x => x.HasNoSAPEquipmentId)
+    @Html.EditorFor(x => x.SAPEquipmentId)
+    @Html.EditorFor(m => m.Description)
+    @Html.EditorFor(m => m.EquipmentGroup)
+    @Html.EditorFor(q => q.EquipmentType)
+    @Html.EditorFor(x => x.EquipmentManufacturer)
+    @Html.EditorFor(m => m.EquipmentPurpose, new { Container = @Model })
+    @Html.EditorFor(x => x.Portable)
+    @Html.EditorFor(m => m.EquipmentStatus)
+    @Html.EditorFor(x => x.WellTests)
+    @Html.EditorFor(x => x.HasSensorAttached)
+    @Html.RenderEditorTemplate("Compliance", @<text>
+        <div class="compliance-div-section" style="width:425px">
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasProcessSafetyManagement) Process Safety Management
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasCompanyRequirement) Company Requirement
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasRegulatoryRequirement) Environmental / Water Quality Regulatory Requirement
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasOshaRequirement) OSHA Requirement
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.OtherCompliance) Other
+            </div>
+        </div>
+    </text>)
+    @Html.EditorFor(x => x.ArcFlashHierarchy)
+    @Html.EditorFor(x => x.ArcFlashRating)
+    @Html.EditorFor(p => p.IsSignedOffByAssetControl)
+    @Html.EditorFor(x => x.CreatedAt)
+    @Html.EditorFor(x => x.UpdatedAt)
+    @Html.EditorFor(x => x.HasOpenLockoutForms)
+    @Html.EditorFor(x => x.HasOpenRedTagPermits)
+    @Html.EditorFor(x => x.TankInspections)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

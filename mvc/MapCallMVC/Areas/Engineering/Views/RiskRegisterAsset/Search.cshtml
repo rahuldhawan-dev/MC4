@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.RiskRegisterAssets.SearchRiskRegisterAssetViewModel
+
+@using (Form.BeginForm("Index", "RiskRegisterAsset")) 
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.Id)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.PublicWaterSupply)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.RiskRegisterAssetGroup)
+    @Html.EditorFor(x => x.RiskRegisterAssetCategory)
+    @Html.EditorFor(x => x.LofMax)
+    @Html.EditorFor(x => x.CofMax)
+    @Html.EditorFor(x => x.RiskQuadrant)
+    @Html.EditorFor(x => x.TotalRiskWeighted)
+    @Html.EditorFor(x => x.RiskRegisterAssetZone)
+    @Html.EditorFor(x => x.IdentifiedAt)
+    @Html.EditorFor(x => x.Employee)
+    @Html.EditorFor(x => x.CompletionTargetDate)
+    @Html.EditorFor(x => x.CompletionActualDate)
+    @Html.EditorFor(x => x.IsProjectInComprehensivePlanningStudy)
+    @Html.EditorFor(x => x.IsProjectInCapitalPlan)
+    @Html.EditorFor(x => x.RiskRegisterId)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

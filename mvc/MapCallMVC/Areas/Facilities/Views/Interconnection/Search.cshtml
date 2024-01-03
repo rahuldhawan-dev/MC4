@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchInterconnection
+
+@using (Form.BeginForm("Index", "Interconnection", "Facilities")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(i => i.Facility)
+        @Html.EditorFor(i => i.Category)
+        @Html.EditorFor(i => i.OperatingStatus)
+        @Html.EditorFor(i => i.Direction)
+        @Html.EditorFor(i => i.Type)
+        @Html.EditorFor(i => i.ContractStartDate)
+        @Html.EditorFor(i => i.ContractEndDate)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

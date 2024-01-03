@@ -1,0 +1,16 @@
+﻿@using MMSINC.Data.NHibernate
+@model IEnumerable<MapCall.Common.Metadata.RequiresRoleAttribute>
+@{
+    var moduleRepo = _container.GetInstance<IRepository<Module>>();
+
+    var table = Html.TableFor(x => Model)
+        .ColumnFor(x => x.GetActualModule(moduleRepo).Application.Name, headerText: "Application")
+        .ColumnFor(x => x.GetActualModule(moduleRepo).Name, headerText: "Module")
+        .ColumnFor(x => x.Action);
+
+    if (Authentication.CurrentUserIsAdmin)
+    {
+        table = table.TemplateColumnFor("", x => @<text>@Html.ActionLink("View Users", "Index", "UserRole", new {area = "Reports", Module = (int)x.Module, RoleAction = (int)x.Action}, null)</text>);
+    }
+}
+@table 

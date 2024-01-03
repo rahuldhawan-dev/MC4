@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://amwater.com/EAM/0018/MAPCALL/GetDeviceDetails" xmlns:p1="http://amwater.com/EAM/0018/MAPCALL/GetDeviceDetails" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://amwater.com/EAM/0018/MAPCALL/GetDeviceDetails" xmlns="http://amwater.com/EAM/0018/MAPCALL/GetDeviceDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="DeviceDetails_Response" type="DeviceDetailsInfo"/>
+            <xsd:element name="DeviceDetails_Request" type="DeviceDetailsQuery"/>
+            <xsd:complexType name="DeviceDetailsInfo">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Record">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="MeterManufacturerSerialNo" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MaterialNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Size" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Manufacturer" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MeterSerial" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ServiceType" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MeterPositionLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MeterDirectionalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MeterSupplementalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadingDeviceDirectionalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadingDevicePositionalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadingDeviceSupplementalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="DeviceLocationNotes" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="PointOfControlNotes" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MIUNumber1" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MIUNumber2" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EncoderId" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EncoderId2" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="RFMIU" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="TPEncoder" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadType1" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadTypedescription" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="RegisterGroup" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="DeviceCategory" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Installation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="SystemStatus" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="UserStatus" type="xsd:string"/>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="RegisterStructure">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element minOccurs="0" name="RegisterID" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Dials" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="UOM" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="ReadDate" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Read" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="MeterReadType" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="MeterReadReason" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="ReadType" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="SecureAccess" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Exception" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DeviceDetailsQuery">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="SourceIdentifier" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MeterManufacturerSerialNo" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="EquipmentID" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ActionCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="DeviceLocation" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DeviceDetails_Response">
+<wsdl:documentation/>
+    <wsdl:part name="DeviceDetails_Response" element="p1:DeviceDetails_Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeviceDetails_Request">
+<wsdl:documentation/>
+    <wsdl:part name="DeviceDetails_Request" element="p1:DeviceDetails_Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeviceDetails_Get_OB_SYN">
+<wsdl:documentation/>
+    <wsdl:operation name="DeviceDetails_Get_OB_SYN">
+<wsdl:documentation/>
+      <wsdl:input message="p1:DeviceDetails_Request">
+    </wsdl:input>
+      <wsdl:output message="p1:DeviceDetails_Response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeviceDetails_Get_OB_SYNBinding" type="p1:DeviceDetails_Get_OB_SYN">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:Policy>
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+    <wsdl:operation name="DeviceDetails_Get_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:DeviceDetails_Get_OB_SYNBinding">
+      <soap:address location="https://e10028-iflmap.hcisbt.us3.hana.ondemand.com:443/cxf/GetDeviceDetails"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy required="true"/>
+    <wsp:Policy wsu:Id="BN__binding">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <wsp:ExactlyOne>
+                                            <sp:HttpBasicAuthentication/>
+                                            <sp:RequireClientCertificate/>
+                                        </wsp:ExactlyOne>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256/>
+                                    <sp:Basic192/>
+                                    <sp:Basic128/>
+                                    <sp:TripleDes/>
+                                    <sp:Basic256Rsa15/>
+                                    <sp:Basic192Rsa15/>
+                                    <sp:Basic128Rsa15/>
+                                    <sp:TripleDesRsa15/>
+                                    <sp:Basic256Sha256/>
+                                    <sp:Basic192Sha256/>
+                                    <sp:Basic128Sha256/>
+                                    <sp:TripleDesSha256/>
+                                    <sp:Basic256Sha256Rsa15/>
+                                    <sp:Basic192Sha256Rsa15/>
+                                    <sp:Basic128Sha256Rsa15/>
+                                    <sp:TripleDesSha256Rsa15/>
+                                </wsp:ExactlyOne>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

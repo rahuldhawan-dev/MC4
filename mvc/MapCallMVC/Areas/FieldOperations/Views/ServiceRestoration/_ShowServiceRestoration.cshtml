@@ -1,0 +1,41 @@
+﻿@model ServiceRestoration
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Service", @<text>
+        @Html.ActionLink(Model.Service.ToString(), "Show", "Service", new { id = Model.Service.Id}, new { area = "FieldOperations"});
+    </text>)
+    @Html.DisplayFor(x => x.RestorationType)
+    @Html.DisplayFor(x => x.InitiatedBy)
+    @Html.DisplayFor(x => x.Cancel)
+    @Html.DisplayFor(x => x.EstimatedRestorationAmount)
+    @Html.DisplayFor(x => x.EstimatedValue)
+    <fieldset>
+        <legend>Partial Restoration</legend>
+        @Html.DisplayFor(x => x.PartialRestorationInvoiceNumber)
+        @Html.DisplayFor(x => x.PartialRestorationAmount)
+        @Html.DisplayFor(x => x.PartialRestorationDate)
+        @Html.DisplayFor(x => x.PartialRestorationCompletionBy)
+        @Html.DisplayFor(x => x.PartialRestorationMethod)
+        @Html.DisplayFor(x => x.PartialRestorationCost)
+        @Html.DisplayFor(x => x.PartialRestorationTrafficControlHours)
+    </fieldset>
+    <fieldset>
+        <legend>Final Restoration</legend>
+        @Html.DisplayFor(x => x.FinalRestorationInvoiceNumber)
+        @Html.DisplayFor(x => x.FinalRestorationAmount)
+        @Html.DisplayFor(x => x.FinalRestorationDate)
+        @Html.DisplayFor(x => x.FinalRestorationCompletionBy)
+        @Html.DisplayFor(x => x.FinalRestorationMethod)
+        @Html.DisplayFor(x => x.FinalRestorationCost)
+        @Html.DisplayFor(x => x.FinalRestorationTrafficControlHours)
+        @Html.DisplayFor(x => x.PurchaseOrderNumber)
+    </fieldset>
+    <fieldset>
+        <legend>Approval / Rejection</legend>
+        @Html.DisplayFor(x => x.ApprovedBy)
+        @Html.DisplayFor(x => x.ApprovedOn)
+        @Html.DisplayFor(x => x.RejectedBy)
+        @Html.DisplayFor(x => x.RejectedOn)
+    </fieldset>
+    @Html.DisplayFor(x => x.Notes)
+</div>

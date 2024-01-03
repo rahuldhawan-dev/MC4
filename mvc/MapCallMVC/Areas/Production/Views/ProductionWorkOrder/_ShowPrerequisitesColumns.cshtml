@@ -1,0 +1,20 @@
+﻿@model MMSINC.Helpers.IRazorTableRowCollection<ProductionWorkOrderProductionPrerequisite>
+    
+@{
+    var canEdit = Html.CurrentUserCanEdit() && ViewBag.AllowEdit;
+
+    Model.ColumnFor(x => x.ProductionPrerequisite)
+        .ColumnFor(x => x.SatisfiedOn)
+        .ColumnFor(x => x.SkipRequirement)
+        .ColumnFor(x => x.SkipRequirementComments)
+        ;
+
+    if (canEdit)
+    {
+        Model
+            .TemplateColumnFor(x => @<text>
+                                        @Html.ActionLink("Edit", "Edit", "ProductionWorkOrderProductionPrerequisite", new {id = x.Id}, new{ Class="link-button"})
+                                     </text>);
+    }
+}
+

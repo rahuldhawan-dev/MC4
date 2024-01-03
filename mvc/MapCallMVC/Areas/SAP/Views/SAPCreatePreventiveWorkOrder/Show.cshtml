@@ -1,0 +1,12 @@
+﻿@model MapCall.SAP.Model.Entities.SAPCreatePreventiveWorkOrder
+
+@{
+    var tabs = Html.Tabs()
+        .WithTab("Preventative Work Order", "_ShowPreventativeWorkOrder", Model)
+        .WithTab("Work Order Components", "_WorkOrderComponents", Model)
+        .WithTab("Object List", "_ObjectList", Model)
+        .WithTab("Operations", "_Operations", Model)
+        .WithTab("Permissibles", "_Permissibles", Model);
+}
+
+@tabs

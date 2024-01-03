@@ -1,0 +1,15 @@
+﻿@model SearchEmployeeNJDEPLicense
+
+@using (Form.BeginForm("Index", "EmployeeNJDEPLicense", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.LastName)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

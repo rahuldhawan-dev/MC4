@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrder
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@section scripts{
+
+    //Click handler is added on the General Work Orders Search page, if the amount of records found is greater than MAX_RESULTS.
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/MapActionBarButtonAlert.js");
+    <script type="text/javascript">
+        $(document).ready(MapAction.initializeClickHandler(@Model.Count, @WorkOrder.MAX_RESULTS));
+    </script>
+}
+
+@Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Index.cshtml")

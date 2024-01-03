@@ -1,0 +1,8 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MarkBackInServiceHydrant
+@using (Form.BeginForm("SetHydrantBackInService", "Hydrant", "FieldOperations", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.BackInServiceDate)
+        @Html.ButtonGroup(@Control.SubmitButton("Update status"))
+    </div>
+}

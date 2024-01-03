@@ -1,0 +1,2 @@
+"CompanyCode","CostCenter","CostCenterDesc","PersNo","Lastname","Firstname","POSITION_ID","Position","PSgroup","PositionGroupState","OriginalHireDate","EmploymentStatus","PersonnelAreaId","PersonnelAreaDesc","ManagerID","AWHireDate","AddressLine1","AddressLine2","City_Country","State","ZIPCode","Telephone","EmailId"
+"PGCC","P1-30MVA2-01-CM","PGBUDesc","03000002","McChicken","Chicken","11223344","PGPD","45","NJ","06/16/1984","Active","1234","PAD","0054321","06/16/1984","3032 Fifth Street","Addy 2","City town","NJ","07720","9999999999","some@address.com"

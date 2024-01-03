@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditProductionWorkDescription
+
+@using (Form.BeginForm("Update", "ProductionWorkDescription", "Production", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.OrderType)
+        @Html.EditorFor(x => x.PlantMaintenanceActivityType)
+        @Html.EditorFor(x => x.BreakdownIndicator)
+        @Html.EditorFor(x => x.ProductionSkillSet)
+        @Html.EditorFor(x => x.MaintenancePlanTaskType)
+        @Html.EditorFor(x => x.TaskGroup)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "ProductionWorkDescription", new { Model.Id })
+                           </text>)
+    </div>
+}

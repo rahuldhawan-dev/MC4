@@ -1,0 +1,20 @@
+﻿﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchNpdesRegulatorInspection
+
+@using (Form.BeginForm("Index", "NpdesRegulatorInspection"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.NpdesRegulatorInspectionType)
+        @Html.EditorFor(x => x.OutfallNumber)
+        @Html.EditorFor(x => x.LocationDescription)
+        @Html.EditorFor(x => x.BodyOfWater)
+        @Html.EditorFor(x => x.DepartureDateTime)
+        @Html.EditorFor(x => x.IsDischargePresent)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

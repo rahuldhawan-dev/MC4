@@ -1,0 +1,31 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMarkoutDamage
+
+@{
+	ActionBarHelper.AddExportLink();
+	ActionBarHelper.AddMapLink(); 
+}
+
+@(Html.TableFor(x => Model, new { id = "search-results" })
+	.WithCaption("Records found: " + Model.Count)
+	.TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+	.SortableColumnFor(x => x.Id)
+	.SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+	.SortableColumnFor(x => x.Town)
+	.SortableColumnFor(x => x.Street)
+	.SortableColumnFor(x => x.CreatedBy)
+    .SortableTemplateColumnFor("Work Order", "WorkOrder", md => md.WorkOrder == null
+            ? new HtmlString(string.Empty)
+            : Html.ActionLink(
+                md.WorkOrder.Id.ToString(),
+                "Show",
+                "WorkOrder",
+                new {area = "FieldOperations", md.WorkOrder.Id},
+                null))
+	.ColumnFor(x => x.IsSignedOffBySupervisor)
+	.SortableColumnFor(x => x.Excavator)
+	.SortableColumnFor(x => x.IsMarkedOut)
+	.SortableColumnFor(x => x.IsMismarked)
+	.SortableColumnFor(x => x.ExcavatorCausedDamage)
+	.SortableColumnFor(x => x.ExcavatorDiscoveredDamage)
+	.SortableColumnFor(x => x.Was911Called)
+	.WithPaginatedFooter())

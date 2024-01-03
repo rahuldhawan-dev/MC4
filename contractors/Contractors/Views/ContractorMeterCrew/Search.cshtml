@@ -1,0 +1,16 @@
+﻿@model Contractors.Models.ViewModels.SearchContractorMeterCrew
+@{
+    ViewBag.Title = "Meter Crews";
+}
+@Html.LinkButton("Add Crew", "New", "ContractorMeterCrew")
+
+@using (Form.BeginForm("Index", "ContractorMeterCrew"))
+{
+    <div class="field-column fc200 searchFields">
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

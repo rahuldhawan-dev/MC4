@@ -1,0 +1,7 @@
+﻿@using MapCallIntranet.ClassExtensions
+@inherits MapCall.Common.Views.TemplateViewBase<int?>
+		   
+@RenderEditorForTemplate(@<text>
+                             @Html.CoordinatePicker("")
+                             @Html.ValidationMessage("")
+                          </text>)

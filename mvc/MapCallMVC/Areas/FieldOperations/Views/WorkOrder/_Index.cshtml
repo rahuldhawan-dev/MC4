@@ -1,0 +1,42 @@
+﻿@model SearchSet<WorkOrder>
+@using MMSINC.Results
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(x => x, new { id="workOrdersTable"})
+    .WithCaption("Records found:" + Model.Count)
+    .SortableTemplateColumnFor("Order Number", "Id", x => @<text>
+        @Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+        @if (Authentication.CurrentUserIsAdmin)
+        {
+            @Html.ActionLink("(edit)", "EditFromIndex", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+        }
+    </text>)
+    .WithWorkOrderRowStyles()
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+    .SortableColumnFor(x => x.SAPNotificationNumber, "SAP Notif No.", "SAPNotificationNumber")
+    .SortableColumnFor(x => x.SAPWorkOrderNumber, "SAP WO No.", "SAPWorkOrderNumber")
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.ApartmentAddtl)
+    .SortableColumnFor(x => x.Street, "Street.FullStName")
+    .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+    .SortableColumnFor(x => x.Town, "Town.ShortName")
+    .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+    .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+    .SortableTemplateColumnFor(x => x.AssetId, "AssetId.AssetId", x => @<text>@Html.AssetLink(x.Asset)</text>)
+    .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+    .SortableColumnFor(x => x.Priority, "Priority.Description")
+    .SortableColumnFor(x => x.CreatedBy, "CreatedBy.FullName")
+    .SortableColumnFor(x => x.Purpose, "Purpose.Description")
+    .SortableColumnFor(x => x.RequestingEmployee, "RequestingEmployee.FullName")
+    .SortableColumnFor(x => x.DateReceived)
+    .SortableColumnFor(x => x.PlannedCompletionDate)
+    .SortableColumnFor(x => x.DateCompleted)
+    .SortableColumnFor(x => x.CancelledAt)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .SortableColumnFor(x => x.HasJobSiteCheckLists)
+    .SortableColumnFor(x => x.HasPreJobSafetyBriefs)
+    .SortableColumnFor(x => x.AssignedContractor, "AssignedContractor.Name")
+    .SortableColumnFor(x => x.DigitalAsBuiltCompleted)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,285 @@
+﻿{
+  "Header": {
+    "producertime": "Thu Aug 31 08:00:09 EDT 2023",
+    "sub_category": "dev",
+    "subject": "ignition_data",
+    "type": "tag_data",
+    "producerSvr": "entpligbe020",
+    "category": "enterprise"
+  },
+  "value": {
+    "tags": [
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465200,
+        "name": "[Enterprise]American Water/California/Water Systems/Larkfield - Geyserville/Well 1/Well 1/System Delivery",
+        "type": 2,
+        "value": "0.0466461181641",
+        "mapcallid": 5804
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465200,
+        "name": "[Enterprise]American Water/California/Water Systems/Larkfield - Geyserville/Well 3/Well 3/System Delivery",
+        "type": 2,
+        "value": "0.0595397949219",
+        "mapcallid": 5803
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465200,
+        "name": "[Enterprise]American Water/California/Water Systems/Larkfield - Larkfield/Larkfield WTP/Larkfield WTP/System Delivery",
+        "type": 2,
+        "value": "-9.89999971353e-05",
+        "mapcallid": 5811
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Baldwin Hills/48th Street Well/48th Street Well/System Delivery",
+        "type": 2,
+        "value": "0.0189531259239",
+        "mapcallid": 5744
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693033202,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Baldwin Hills/Arlington Well/Arlington Well/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5746
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693378802,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Baldwin Hills/System Interconnects/West Basin 22 IC/West Basin 22 IC/Daily Flow To AW",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": null
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465201,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Baldwin Hills/System Interconnects/West Basin 27 IC/West Basin 27 IC/Daily Flow To AW",
+        "type": 2,
+        "value": "1.62979400158",
+        "mapcallid": null
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465202,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Baldwin Hills/Vernon Well 3/Vernon Well 3/System Delivery",
+        "type": 2,
+        "value": "1.43700003624",
+        "mapcallid": 5755
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465252,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Duarte/Buena Vista Well/Buena Vista Well/System Delivery",
+        "type": 2,
+        "value": "3.05337500572",
+        "mapcallid": 5760
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1691672572,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Duarte/Encanto Well/Encanto Well/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5762
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465202,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Duarte/Lemon Well/Lemon Well/System Delivery",
+        "type": 2,
+        "value": "0.280996084213",
+        "mapcallid": 5768
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465205,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Duarte/Santa Fe Well/Santa Fe Well/System Delivery",
+        "type": 2,
+        "value": "0.259874999523",
+        "mapcallid": 5770
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-Duarte/Wiley Well/Wiley Well/System Delivery",
+        "type": 2,
+        "value": "2.59549999237",
+        "mapcallid": 5775
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465252,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-East Pasadena/Duarte Road Well 9 and 11/Duarte Road Well 9 and 11/System Delivery",
+        "type": 2,
+        "value": "2.12516021729",
+        "mapcallid": 6734
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1691740686,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-East Pasadena/Mountain View Site/Mountain View Site/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 6735
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465200,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Del Mar Well/Del Mar Well/System Delivery",
+        "type": 2,
+        "value": "0.971093773842",
+        "mapcallid": 5780
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465201,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Hall Well/Hall Well/System Delivery",
+        "type": 2,
+        "value": "1.34350001812",
+        "mapcallid": 5783
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Howland Well/Howland Well/System Delivery",
+        "type": 2,
+        "value": "0.0149999996647",
+        "mapcallid": 5784
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Lombardy Well/Lombardy Well/System Delivery",
+        "type": 2,
+        "value": "1.62750005722",
+        "mapcallid": 5786
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Mariposa Well/Mariposa Well/System Delivery",
+        "type": 2,
+        "value": "2.12800002098",
+        "mapcallid": 5790
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Mission View Well/Mission View Well/System Delivery",
+        "type": 2,
+        "value": "1.78824996948",
+        "mapcallid": 5791
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465204,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Rosemead Yard Well/Rosemead Yard Well/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5798
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465205,
+        "name": "[Enterprise]American Water/California/Water Systems/Los Angeles-San Marino/Winston Ave Well/Winston Ave Well/System Delivery",
+        "type": 2,
+        "value": "1.11450004578",
+        "mapcallid": 5800
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Ambler Park/Ambler Park WTP/Ambler Park WTP/System Delivery",
+        "type": 2,
+        "value": "2.55312490463",
+        "mapcallid": null
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Hidden Hills/Hidden Hills WTP/Hidden Hills WTP/System Delivery",
+        "type": 2,
+        "value": "0.0599999986589",
+        "mapcallid": null
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693465202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Monterey/Begonia Iron Removal/Begonia Iron Removal/System Delivery",
+        "type": 2,
+        "value": "3.07898211479",
+        "mapcallid": 5840
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693408202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Monterey/Garzas Well 3/Garzas Well 3/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5899
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693408202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Monterey/Garzas Well 4/Garzas Well 4/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5900
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693408202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Monterey/Los Laureles Well 5/Los Laureles Well 5/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5843
+      },
+      {
+        "unit": "MGD",
+        "system": 1,
+        "last_change_timestamp": 1693408202,
+        "name": "[Enterprise]American Water/California/Water Systems/Monterey-Monterey/Los Laureles Well 6/Los Laureles Well 6/System Delivery",
+        "type": 2,
+        "value": "0.0",
+        "mapcallid": 5844
+      }
+    ],
+    "timestamp": 1693483209
+  }
+}

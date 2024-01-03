@@ -1,0 +1,231 @@
+﻿
+
+/* Firefox is having a really weird quirk with it rendering table/td borders as black. 
+   I haven't figured out the cause yet, but this gets rid of them for the time being.
+   -Ross 2/2/11 
+table,  td  
+{
+    border:solid 1px transparent; 
+}
+*/
+
+.LabelCell {
+  width: 155px;
+}
+
+/* Autocomplete */
+.ac_results {
+  text-align: left;
+  font-family: arial;
+}
+
+
+select, input[type="text"], textarea {
+  width: 178px;
+}
+
+#createEditDiv tr {
+  vertical-align: top;
+}
+
+#searchResultsDiv table {
+  border-collapse: collapse;
+}
+
+#searchResultsDiv th {
+  background-color: #5f87c4;
+  color: white;
+  font-size: larger;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+#searchResultsDiv td {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px dashed black;
+  border-right: 1px dashed black;
+  padding: 2px 4px;
+}
+
+
+#editDiv td,
+#editDiv table {
+  border-collapse: collapse;
+}
+
+tr.odd {
+  background-color: #ccebff;
+}
+
+#editDiv div {
+  width: 90%;
+}
+
+/* END MASTER PAGE */
+
+.label {
+  width: 165px;
+}
+
+td.control {
+  height: 22px;
+  width: 155px;
+}
+
+.control select {
+  width: 155px;
+}
+
+.control input {
+  width: 151px;
+}
+
+/* for the text box that is SubSonic's datepicker */
+.control table tr td input {
+  width: 127px;
+}
+
+select.three-cell {
+  width: 481px;
+}
+
+textarea.three-cell {
+  width: 477px;
+}
+
+#tdNotificationArea {
+  color: red;
+  font-weight: bold;
+}
+
+.required {
+  font-weight: bold;
+}
+
+select.asset-select {
+  width: 134px;
+}
+
+.picker-wrapper {
+  height: 16px;
+  width: 16px;
+}
+
+td.control img {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}
+
+table.ReportTable {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.ReportTable td,
+table.ReportTable th {
+  border: 1px solid black;
+}
+
+#mainbreak input[type="text"], textarea { width: 50px; }
+#mainbreak select { width: auto; }
+
+.grid th
+{
+    white-space: normal !important;
+}
+
+table.grid 
+{
+    border-collapse:collapse;
+    border-spacing:0px;
+    border: solid 1px silver !important;   
+}
+
+/* Weird quirk with tables in IE7, need this for it to work. */
+.ui-tabs-panel { position:relative; }
+.tabsContainer { position:relative; }
+
+@media print 
+{ 
+
+
+	*
+    {
+        font-size: 9pt !important;
+        background-image:none !important;
+        border-color:Silver !important;
+    }
+    
+    div.siteWrap { width:7.8in !important; }
+    div.siteWrap > div.left, 
+    div.siteWrap > div.right > div.inner > div.body > div.instructions,
+    input[type='submit'],
+    .Menu,
+    .ContentTableHeaderRow, .ContentTableInstructionsRow
+    {
+        display: none !important;
+    }
+    div.siteWrap > div.right 
+    {
+        position:relative !important;
+        width:100% !important;
+        float:none !important;
+    }
+    
+    div.siteWrap > div.right > div.inner  
+	{
+	    margin:0px !important;
+	    border:none;
+	}
+	
+	div.siteWrap > div.right > div.inner > div.header
+	{
+	    background:none;
+	}
+	
+	
+	div.siteWrap > div.right > div.inner > div.header > a 
+	{
+	    color:Black;
+	}
+	
+	/* Forces all tabs to display */
+    .ui-tabs-nav, .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { background:none transparent !important; background-color:Transparent !important; color:Black; }
+    a { color:#555555 !important; }
+	.ui-tabs-panel { display:block !important; margin-bottom:6px !important; }
+	    .ui-tabs .ui-tabs-hide { display: block !important; }
+	
+}
+
+/* For the calendar under Crew Assignments: */
+
+.betterCalendar { width:400px; height:400px; border:solid 1px silver; }
+.betterCalendar > table { width:100%; height:370px; border:none !important; }
+.betterCalendar table.header { height:30px; background:#eeeeee; }
+.betterCalendar table.header td { width:1px; }
+.betterCalendar table.header td.dateLabel { width:100%; text-align:center; font-weight:bold; }
+.betterCalendar table.cal td a { text-decoration:none;display:block; width:100%; height:100%; }
+.betterCalendar table.cal td.today  { border:dashed 1px #000 !important; }
+.betterCalendar table.cal td.today a { font-weight:bold; }
+.betterCalendar table.cal td.selected { cursor:pointer; }
+.betterCalendar table.cal td.selected a { font-weight:bold; }
+.betterCalendar table.cal td.outOfRange a { color: #c6c6c6 !important; }
+
+#restoration a, #crewAssignments a, #requisitions a, #document a {
+    background: #f6f6f6;
+    font-weight: bold;
+    font-size: 11px !important;
+    line-height: 26px !important;
+    padding: 2px 12px;
+    border: solid 1px #cccccc;
+    border-radius: 3px;
+}
+
+#restoration a:hover, #crewAssignments a:hover, #requisitions a:hover, #document a:hover {
+    border: 1px solid #448dae;
+    background: #bcd6ed url(images/ui-bg_highlight-soft_75_bcd6ed_1x100.png) 50% 50% repeat-x;
+    color: #026890;
+}

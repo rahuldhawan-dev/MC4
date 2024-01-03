@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.SearchEmployeeHeadCount
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id}))
+      .ColumnFor(x => x.BusinessUnit)
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.BusinessUnit.Department)
+      .ColumnFor(x => x.BusinessUnit.Area)
+      .ColumnFor(x => x.Year)
+      .ColumnFor(x => x.StartDate)
+      .ColumnFor(x => x.EndDate)
+      .ColumnFor(x => x.Category)
+      .ColumnFor(x => x.NonUnionCount)
+      .ColumnFor(x => x.UnionCount)
+      .ColumnFor(x => x.OtherCount)
+      .ColumnFor(x => x.TotalCount)
+      .ColumnFor(x => x.MiscNotes)
+      .ColumnFor(x => x.CreatedAt)
+      .ColumnFor(x => x.CreatedBy)
+      .WithPaginatedFooter()
+    )

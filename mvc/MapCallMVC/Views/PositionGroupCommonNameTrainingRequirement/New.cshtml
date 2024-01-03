@@ -1,0 +1,28 @@
+﻿@model CreatePositionGroupCommonNameTrainingRequirement
+
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null;
+}
+
+<div class="field-column fc100">
+    @using (Form.BeginForm("Create", "PositionGroupCommonNameTrainingRequirement"))
+    {
+        if (Model.TrainingRequirement.HasValue){
+            @Control.HiddenFor(m => m.TrainingRequirement)
+        } else {
+            @Html.EditorFor(m => m.TrainingRequirement)
+        }
+        
+        if (Model.PositionGroupCommonName.HasValue) {
+            @Control.HiddenFor(m => m.PositionGroupCommonName)
+        } else {
+            @Html.EditorFor(m => m.PositionGroupCommonName, new { Container = @Model })
+        }
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Add").WithId("add-common-name")
+                               @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@using MMSINC.Results
+@model Contractors.Models.ViewModels.WorkOrderWithTapImages
+
+@* This isn't setup correctly to be ajaxed. *@
+@{TapImage temp = null;}
+@using (var f = Form.BeginAjaxForm("Index", "TapImage", new { workOrderId = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace; 
+
+    <table id="tapImagesTable">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>@Html.DisplayLabelFor(_ => temp.CreatedAt)</th>
+                <th>@Html.DisplayLabelFor(_ => temp.PremiseNumber)</th>
+                <th>@Html.DisplayLabelFor(_ => temp.ServiceNumber)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tapImage in Model.TapImages) {
+	            <tr>
+		            <td>
+			            @Html.ActionLink("View", "Show", new { tapImage.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" })
+		            </td>
+		            <td>@Html.DisplayValueFor(m => tapImage.CreatedAt)</td>
+		            <td>@Html.DisplayValueFor(m => tapImage.PremiseNumber)</td>
+		            <td>@Html.DisplayValueFor(m => tapImage.ServiceNumber)</td>
+	            </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterQualityComplaintByStateForYear
+
+           
+@using (Form.BeginForm("Index", "WaterQualityComplaintCountByStateForYear"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Year)
+        @Html.EditorFor(x => x.State)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

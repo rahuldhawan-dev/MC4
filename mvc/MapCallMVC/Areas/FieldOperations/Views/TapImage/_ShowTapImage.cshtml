@@ -1,0 +1,41 @@
+﻿@using MMSINC.Results
+@model TapImage
+    
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("View PDF", Html.ActionLink(Model.FileName, "Show", new { ext = ResponseFormatter.KnownExtensions.PDF, Model.Id }, new { target = "_blank" }))
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.StreetNumber)
+    @Html.DisplayFor(x => x.FullStreetName)
+    @Html.DisplayFor(x => x.CrossStreet)
+    @Html.RenderDisplayTemplate("Premise Number", @<text>
+                                                      @if (Model.Service != null)
+                                                      {
+                                                          var linktext = string.IsNullOrEmpty(Model.PremiseNumber) ? "N/A" : Model.PremiseNumber;
+                                                          @Html.ActionLink(linktext, "Show", "Service", new {Id = Model.Service.Id}, new {area = "FieldOperations"})
+                                                      }
+                                                      else
+                                                      {
+                                                          @Model.PremiseNumber
+                                                      }
+                                                  </text>)
+    @Html.DisplayFor(x => x.ServiceNumber)
+    @Html.DisplayFor(x => x.Service)
+    @Html.DisplayFor(x => x.ApartmentNumber)
+    @Html.DisplayFor(x => x.Lot)
+    @Html.DisplayFor(x => x.Block)
+    @Html.DisplayFor(x => x.ServiceType)
+    @Html.DisplayFor(x => x.DateCompleted)
+    @Html.DisplayFor(x => x.IsDefaultImageForService)
+    @Html.DisplayFor(x => x.LengthOfService)
+    @Html.DisplayFor(x => x.ServiceSize)
+    @Html.DisplayFor(x => x.ServiceMaterial)
+    @Html.DisplayFor(x => x.PreviousServiceSize)
+    @Html.DisplayFor(x => x.PreviousServiceMaterial)
+    @Html.DisplayFor(x => x.CustomerSideMaterial)
+    @Html.DisplayFor(x => x.CustomerSideSize)
+    @Html.DisplayFor(x => x.OfficeReviewRequired)
+</div>

@@ -1,0 +1,39 @@
+﻿@using MapCallMVC.Areas.ProjectManagement.Models.ViewModels
+@model EstimatingProject
+
+@{
+    var table = Html.TableFor(_ => Model.OtherCosts, new { id = "otherCostsTable", style = "width: 100%" })
+        .ColumnFor(x => x.Quantity)
+        .ColumnFor(x => x.Description)
+        .ColumnFor(x => x.AssetType)
+        .ColumnFor(x => x.Cost)
+        .ColumnFor(x => x.TotalCost)
+        .WithCaption(String.Format("Total Other Cost: {0:c}", Model.TotalOtherCost));
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EstimatingProjectOtherCost", new { x.Id }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("otherCostId").WithValue(x.Id));
+    }
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Cost">
+        @Html.Partial("_AddOtherCost", ViewModelFactory.Build<AddEstimatingProjectOtherCost, EstimatingProject>(Model))
+    </div>
+
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectOtherCost", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteOtherCostForm");
+
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

@@ -1,0 +1,14 @@
+﻿@model EditGrievance
+
+@using (Form.BeginForm("Update", "Grievance", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        
+        @Html.Partial("_EditFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "Grievance", new {Model.Id})
+                           </text>)
+   </div>
+}

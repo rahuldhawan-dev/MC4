@@ -1,0 +1,28 @@
+﻿@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model Facility
+           
+@{
+    var orderedProcesses = Model.FacilityProcesses.OrderBy(x => x.Process.Sequence);
+    var userCanEdit = Html.CurrentUserCanEditWithOperatingCenter(Model);
+}
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Process to Facility">
+        @Html.Partial("_AddFacilityProcess", ViewModelFactory.Build<AddFacilityProcessForFacilityController, Facility>(Model))
+    </div>
+}
+
+@(Html.TableFor(x => orderedProcesses, new { id = "facility-processes-table" })
+        .TemplateColumnFor(x => Control.ActionLink("View", "Show", "FacilityProcess", new { id = x.Id, area = "Facilities" }))
+        .ColumnFor(x => x.Process.Sequence)
+        .ColumnFor(x => x.Process.ProcessStage)
+        .ColumnFor(x => x.Process)
+        .TemplateColumnFor(x => @<text>
+            @using (var f = Form.BeginRouteForm("Facility", "FacilityProcess", new { id = Model.Id }, ManyToManyRouteAction.Remove))
+            {
+                f.HtmlAttributes["data-confirm"] = "Are you sure you want to remove this facility process?";
+                @Control.HiddenFor(y => x.Id).WithId(null).WithName("FacilityProcessId")
+                @Control.SubmitButton("Remove")
+            }
+        </text>).IsVisible(userCanEdit)
+)

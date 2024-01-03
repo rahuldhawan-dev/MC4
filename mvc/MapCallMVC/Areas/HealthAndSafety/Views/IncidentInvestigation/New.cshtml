@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.CreateIncidentInvestigation
+           
+@using (Form.BeginForm("Create", "IncidentInvestigation", "HealthAndSafety"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save").WithId("save-investigation")
+            @Html.LinkButton("Cancel", "Show", "Incident", new { area = string.Empty, id = Model.Incident })
+        </text>)
+    </div>
+}

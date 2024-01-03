@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchGasMonitorCalibration
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.GasMonitor)
+    .SortableColumnFor(x => x.CalibrationDate)
+    .ColumnFor(x => x.CalibrationPassed)
+    .ColumnFor(x => x.CalibrationFailedNotes)
+    .ColumnFor(x => x.CreatedBy)
+    .ColumnFor(x => x.CreatedAt)
+    .WithCaption("Records found: " + Model.Count)
+    .WithPaginatedFooter()
+)

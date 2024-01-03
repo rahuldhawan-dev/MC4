@@ -1,0 +1,10 @@
+﻿@model Employee
+           
+@(Html.TableFor(x => Model.LinkedJobObservations, new {id = "jobObservations"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "JobObservation", new { x.Id, Area = "HealthAndSafety"}, null))
+    .ColumnFor(x => x.Address)
+    .ColumnFor(x => x.TaskObserved)
+    .ColumnFor(x => x.OperatingCenter.OperatingCenterCode)
+    .ColumnFor(x => x.OverallSafetyRating)
+    .ColumnFor(x => x.OverallQualityRating)
+)

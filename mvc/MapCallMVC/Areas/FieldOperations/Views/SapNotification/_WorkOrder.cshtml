@@ -1,0 +1,43 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model CreateSapNotificationWorkOrder
+    
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Request</legend>
+        @Html.DisplayFor(x => x.SAPNotificationNumber)
+        @Html.DisplayFor(x => x.NotificationTypeText)
+        @Html.DisplayFor(x => x.NotificationShortText)
+        @Html.DisplayFor(x => x.PlanningPlant)
+        @Html.DisplayFor(x => x.City)
+        @Html.DisplayFor(x => x.OtherCity)
+        @Html.DisplayFor(x => x.House)
+        @Html.DisplayFor(x => x.Street1)
+        @Html.DisplayFor(x => x.Street2)
+        @Html.DisplayFor(x => x.Premise)
+        @Html.DisplayFor(x => x.Equipment)
+        @Html.DisplayFor(x => x.Locality)
+        @Html.DisplayFor(x => x.LocalityDescription)
+        @Html.DisplayFor(x => x.FunctionalLocation)
+        @Html.DisplayFor(x => x.Installation)
+        @Html.DisplayFor(x => x.NotificationLongText)
+        @Html.DisplayFor(x => x.SpecialInstructions)
+        @Html.DisplayFor(x => x.AssetType)
+        @Html.DisplayFor(x => x.ReportedBy)
+        @Html.DisplayFor(x => x.CustomerName)
+        @Html.DisplayFor(x => x.Telephone)
+        @Html.DisplayFor(x => x.MapCallPriority)
+        @Html.DisplayFor(x => x.Purpose)
+        @Html.DisplayFor(x => x.NotificationShortText)
+        @Html.DisplayFor(x => x.Latitude)
+        @Html.DisplayFor(x => x.Longitude)
+        
+        @Html.RenderDisplayTemplate("Asset", @<div>
+                        @if (Model.Hydrant != null)
+                        {
+                            @Html.ActionLink("View Hydrant", "Show", "Hydrant", new { id = Model.Hydrant.Id, area = "FieldOperations" }, new { target = "_blank" })
+                        }
+                    </div>)
+    </fieldset>
+
+</div>
+    

@@ -1,0 +1,25 @@
+﻿@using MMSINC
+@inherits MapCall.Common.Views.MvcViewBase<dynamic>
+@* This is just for a basic basic basic layout. Don't put any stylesheets/scripts here. *@
+@{
+    DocumentClasses.Add(ViewBag.PageClass);
+    var pageClass = GetDocumentClasses();
+    var IE7 = "ie ie7 " + pageClass;
+    var IE8 = "ie ie8 " + pageClass;
+    var IE9 = "ie ie9 " + pageClass;
+}
+<!DOCTYPE html>
+<!--[if IE 7 ]><html class="@IE7"><![endif]-->
+<!--[if IE 8 ]><html class="@IE8"><![endif]-->
+<!--[if IE 9 ]><html class="@IE9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="@pageClass"> <!--<![endif]--> @* Yay IE hacks. Also, ugh. *@
+<head>
+    <title>@MvcApplication.ApplicationDisplayName - @ViewBag.Title</title>
+    @RenderSection("head", required: false)
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html> @* VS doesn't see the opening html tag, but this compiles fine. *@

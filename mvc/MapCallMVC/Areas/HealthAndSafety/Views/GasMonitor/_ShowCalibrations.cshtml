@@ -1,0 +1,40 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels;
+@using MMSINC.Results;
+@model GasMonitor
+@{
+    var mostRecentCalibrations = Model.Calibrations.OrderByDescending(x => x.CalibrationDate);
+    var canEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(_ => mostRecentCalibrations, new { id = "calibrations-table" })
+            .TemplateColumnFor(x => Html.ActionLink("View", "Show", "GasMonitorCalibration", new { x.Id }, null))
+            .ColumnFor(x => x.CalibrationDate)
+            .ColumnFor(x => x.CalibrationPassed)
+            .ColumnFor(x => x.CalibrationFailedNotes)
+            .ColumnFor(x => x.CreatedBy.FullName, "Created By")
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "GasMonitorCalibration", new { x.Id }, null)).IsVisible(canEdit)
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("GasMonitorCalibrationId").WithValue(x.Id)).IsVisible(canEdit)
+            ;
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Calibration">
+        @Html.Partial("_AddGasMonitorCalibration", ViewModelFactory.BuildWithOverrides<AddGasMonitorCalibration>(new { Id = Model.Id }))
+    </div>
+}
+
+@Html.ActionLink("Export Calibrations to Excel", "Index", "GasMonitorCalibration", new { ext = ResponseFormatter.KnownExtensions.EXCEL_2003, GasMonitor = Model.Id }, new { @class = "link-button"  })
+
+@if (canEdit) 
+{ 
+    using (var form = Form.BeginRouteForm("GasMonitor", "GasMonitorCalibration", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this gas monitor calibration?");
+            @table
+        }
+    }
+
+else
+{
+    @table
+}

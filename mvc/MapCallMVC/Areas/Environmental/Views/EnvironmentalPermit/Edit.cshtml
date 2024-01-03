@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.EditEnvironmentalPermit
+@Html.ScriptFor("~/Scripts/EnvironmentalPermit/Edit.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "EnvironmentalPermit", "Environmental", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        @Control.HiddenFor(x => x.RequirementCount)
+
+    </div>
+    @Html.Partial("_Form")
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "EnvironmentalPermit", new { Model.Id })
+        </text>)
+    </div>
+}

@@ -1,0 +1,83 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization.EditWorkOrderFinalization
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Finalization/Edit.js", ScriptLoadType.LoadFromPartial)
+@{
+	var isServiceLineRenewal = Model.WorkOrder!= null && Model.WorkOrder.WorkDescription != null &&
+	                           WorkDescription.SERVICE_LINE_RENEWALS.Contains(Model.WorkOrder.WorkDescription.Id);
+	var displayServiceLineInfo = isServiceLineRenewal ? "" : "none";
+	var displayComplianceData = Model.WorkOrder != null && Model.WorkOrder.WorkDescription != null &&
+	                            WorkDescription.PITCHER_FILTER_REQUIREMENT.Contains(Model.WorkOrder.WorkDescription.Id) ? "" : "none";
+    var isServiceWorkOrder = Model.AssetTypeId == AssetType.Indices.SERVICE;
+}
+
+@using (Form.BeginForm("Update", "WorkOrderFinalization", "FieldOperations", new { Model.Id }))
+{
+	@Control.HiddenFor(m => m.WorkOrderPriority)
+    @Control.HiddenFor(m => m.StreetOpeningPermitRequired)
+    @Control.HiddenFor(m => m.DigitalAsBuiltRequired)
+    @Control.HiddenFor(m => m.AssetTypeId)
+
+    <fieldset>
+	    <div class="field-column fc200">
+		    <fieldset id="serviceLineInfo" style="display: @displayServiceLineInfo">
+			    <legend>Service Line Info</legend>
+			    @Html.EditorFor(x => x.PreviousServiceLineMaterial, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.PreviousServiceLineSize, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.CompanyServiceLineMaterial, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.CompanyServiceLineSize, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.CustomerServiceLineMaterial, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.CustomerServiceLineSize, new { Class = "serviceLineRenewalInfo" })
+			    @Html.EditorFor(x => x.DoorNoticeLeftDate, new { Class = "serviceLineRenewalInfo" })
+		    </fieldset>
+		    <fieldset id="complianceInfo" style="display: @displayComplianceData">
+			    <legend>Compliance Data</legend>
+			    <div>
+				    @Html.RenderEditorTemplate(Html.DisplayLabelFor(x => x.InitialServiceLineFlushTime),
+					    @<text>
+						    @Html.EditorWithoutWrapperFor(x => x.InitialServiceLineFlushTime)
+						    <div id="flush-time-below-minimum-message" style="color:#FF0000"> Below minimum </div>
+					     </text>)
+				    @Html.EditorFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+				    <div id="deliveryDetails">
+					    @Html.EditorFor(x => x.DatePitcherFilterDeliveredToCustomer)
+					    @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryMethod)
+				    </div>
+				    <div id="otherDeliveryDescription">
+					    @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryOtherMethod)
+				    </div>
+				    @Html.EditorFor(x => x.DateCustomerProvidedAWStateLeadInformation)
+			    </div>
+		    </fieldset>
+
+		    @Html.EditorFor(x => x.CompletedDate)
+		    @Html.EditorFor(x => x.FlushingNoticeType)
+		    @Html.EditorFor(x => x.DigitalAsBuiltCompleted)
+            @if (isServiceWorkOrder)
+            {
+                @Html.EditorFor(x => x.MeterLocation)
+            }
+
+		    @Control.HiddenFor(x => x.FinalWorkDescription).WithId("WorkDescriptionInit")
+		    @Control.HiddenFor(x => x.CustomerImpact).WithId("EstimatedCustomerImpactInit")
+		    @Control.HiddenFor(x => x.RepairTime).WithId("AnticipatedRepairTimeInit")
+		    @Control.HiddenFor(x => x.AlertIssued).WithId("AlertIssuedInit")
+		    @Control.HiddenFor(x => x.TrafficImpact).WithId("SignificantTrafficImpactInit")
+		    @Control.HiddenFor(x => x.LostWater).WithId("LostWaterInit")
+		    @Control.HiddenFor(x => x.DistanceFromCrossStreet).WithId("DistanceFromCrossStreetInit")
+		    @Control.HiddenFor(x => x.AppendNotes).WithId("AppendNotesInit")
+
+		    @Html.ButtonGroup(
+			    @<text>
+				    @Control.SubmitButton("Finalize").WithId("btnFinalize")
+				    @if (Model.WorkOrder.AssetType != null &&
+				         (Model.WorkOrder.AssetType.Id == (int)AssetType.Indices.SERVICE ||
+				          Model.WorkOrder.AssetType.Id == (int)AssetType.Indices.SEWER_LATERAL) &&
+				         Model.WorkOrder.Service == null)
+				    {
+					    @Html.ActionLink("Create Service", "LinkOrNew", "Service", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+				    }
+				    <div id="main-break-error-message" style="color: #FF0000"> You must enter the main break info before continuing. </div>
+			     </text>)
+	    </div>
+    </fieldset>
+}

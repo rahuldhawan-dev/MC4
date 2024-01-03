@@ -1,0 +1,15 @@
+PartNumber        	Plant	Description                             	UnitOfMeasure	CreatedDate	ChangedDate	Cost         	DeletionFlag
+1404267           	D205 	OBS*,CORP,BALL,TAPERXMIP,1(USE 1411875) 	EA           	20120727   	20140804   	17.58        	X
+1404270           	D205 	OBS*,CORP,BALL,TAPERXMIP,2(USE 1411876  	EA           	20120727   	20141021   	78.12        	X
+1404273           	D205 	OBS*,CORP,BAL,TAPERXMIP,3/4(USE 1411878)	EA           	20120727   	20140804   	9.78         	X
+1404276           	D205 	CORP,BALL,NL,TAPERXMIP,1 1/2            	EA           	20120727   	20141001   	34.81
+1404277           	D205 	OBS*,CORP,BALL,TAPERXCF,1(USE 1411850)  	EA           	20120727   	20141021   	22.36        	X
+1404291           	D205 	CORP,NL,BALL,TAPERXCC,1                 	EA           	20120727   	20150616   	37.60
+1404322           	D205 	VLV,NL,BALL,FIPXMF,LW,CHK,2             	EA           	20120727   	20140918   	85.56
+1404333           	D205 	OBS*CURB STOP,BALL,,1 (USE 1411859)     	EA           	20120727   	20140516   	21.08        	X
+1404336           	D205 	OBS*,CURB STOP,BALL,3/4(USE 1411860)    	EA           	20120727   	20140516   	19.68        	X
+1404348           	D205 	OBS*,CURB STOP,BALL,CF,1(USE 1411865)   	EA           	20120727   	20140804   	33.69        	X
+1404352           	D205 	OBS*,CURB STOP,BALL,CF,3/4 (USE 1411868)	EA           	20120727   	20141211   	18.77        	X
+1404375           	D205 	OBS*,CURB STOP,FIP,3/4 (USE 1411902)    	EA           	20120727   	20141211   	11.11        	X
+1404382           	D205 	OBS*CURB STOP,BALL,1(USE 1411861)       	EA           	20120727   	20140918   	33.13        	X
+1404386           	D205 	OBS*,CURB STOP,BALL,3/4 (USE 1411864)   	EA           	20120727   	20140918   	12.27        	X

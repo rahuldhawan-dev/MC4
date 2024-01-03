@@ -1,0 +1,10 @@
+﻿@model CovidIssue
+
+@{
+    var tabs = Html.Tabs()
+                   .WithTab("Covid Issue", "_ShowCovidIssue", Model)
+                   .WithNotesAndDocuments()
+                   .WithLog();
+}
+
+@tabs

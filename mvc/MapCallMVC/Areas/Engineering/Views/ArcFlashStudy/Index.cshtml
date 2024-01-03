@@ -1,0 +1,21 @@
+﻿@using MapCall.Common.Helpers
+@using StructureMap.Query
+@model MapCallMVC.Areas.Engineering.Models.ViewModels.ArcFlash.SearchArcFlashStudy
+    
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.ArcFlashStatus)
+    .SortableColumnFor(x => x.UtilityCompanyDataReceivedDate)
+    .SortableColumnFor(x => x.DateLabelsApplied)
+    .SortableColumnFor(x => x.UtilityCompany)
+    .SortableColumnFor(x => x.UtilityCompanyOther)
+    .SortableColumnFor(x => x.UtilityAccountNumber)
+    .SortableColumnFor(x => x.PowerPhase)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,18 @@
+﻿@model SearchTrainingClassificationSum
+
+@{
+    ActionBarHelper.AddExportLink();
+    ViewBag.Title = "Training Classification Sums";
+}
+
+@(Html.TableFor(_ => Model)
+    .SortableColumnFor(x => x.OperatingCenter, "opCntr.OperatingCenterCode")
+    .SortableColumnFor(x => x.OSHARequirement, "OSHA Requirement", "requirement.IsOSHARequirement")
+    .SortableColumnFor(x => x.ClassId, "module.AmericanWaterCourseNumber")
+    .SortableColumnFor(x => x.TrainingModule, "module.Title")
+    .SortableColumnFor(x => x.CommonName, "commonName.Description")
+    .SortableColumnFor(x => x.Position, "position.PositionDescription")
+    .SortableColumnFor(x => x.PositionGroup, "position.Group")
+    .ColumnFor(x => x.Year)
+    .ColumnFor(x => x.MonthStr)
+    .ColumnFor(x => x.NumberOfEmployees))

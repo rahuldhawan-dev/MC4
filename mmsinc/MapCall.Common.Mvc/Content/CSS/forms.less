@@ -1,0 +1,371 @@
+﻿
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset {
+    border: @fieldset-border;
+    padding: @fieldset-padding;
+}
+
+legend {
+    white-space: nowrap;
+}
+
+.ie8 {
+    /* IE8 incorrectly sets the padding-top value as a margin-top value. To 
+       correct this, we need to zero out the padding-top on the fieldset and
+       add it as margin-bottom on the legend tag. */
+    fieldset {
+        padding-top: 0px;
+
+        > legend {
+            margin-bottom: @fieldset-padding;
+        }
+    }
+}
+
+/* Form reset/styling */
+
+form {
+    display: inline;
+    margin: 0px;
+    padding: 0px;
+}
+
+input::-moz-focus-inner /*Remove button padding in FF*/ {
+    border: 0px;
+    padding: 0px;
+}
+
+/* Styles related to ALL form elements */
+
+input,
+input[type="text"], /* this is needed so textbox font doesn't get overridden easily */
+textarea,
+select,
+button,
+a.link-button,
+.button, /*For div buttons like the qq file uploader css */
+.checkbox-list {
+    position: relative;
+    margin: 0px;
+    /* DO NOT USE MIN OR MAX HEIGHT OR MIN OR MAX WIDTH IT MAKES IE8 IGNORE BOX SIZING FOR SOME UNGODLY REASON */
+    height: @default-form-control-height;
+    border: @default-form-control-border;
+    font-family: @default-form-control-font-family;
+    font-size: @default-form-control-font-size;
+    padding: @default-form-control-padding;
+    .default-form-control-style;
+}
+
+input[disabled],
+textarea[disabled],
+select[disabled],
+.checkbox-list[disabled] {
+	color: @button-disabled-text-color;
+	background-color: @button-disabled-background-color;
+	border: @button-disabled-border;
+}
+
+textarea {
+    min-height: 75px;
+    font-family: @default-form-control-font-family;
+}
+
+select[multiple] {
+    min-height: 125px;
+    max-height: 300px;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: @default-form-control-height;
+    line-height: inherit; /* Do not set a value for line-height. It messes up cursor alignment in Chrome if there is no text in the box. */
+    padding: 0px 2px;
+}
+
+.ie8 {
+    input[type="text"],
+    input[type="password"] {
+        line-height: @default-form-control-height; /* But do set it for IE8 since IE8 doesn't align anything correctly without it */
+    }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 6px;
+    line-height: 0px;
+}
+
+/* IE puts a border around the checkbox rather than actually setting the border of the checkbox. */
+.ie input[type="checkbox"] {
+    border: none;
+}
+
+/* Hack for getting this to be hidden and also work with jquery validation. */
+.autocomplete-faux-hidden {
+    position: absolute !important; /* this is a textbox, the other input stylings override this to relative if the other important isn't there.*/
+    left: -99999px;
+}
+
+.checkbox-list {
+	display: inline-block;
+	height: auto; /* The actual height should be set via max-height so it can resize to fit. */
+	min-height: 125px;
+	max-height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: relative;
+	background-color: white;
+	padding-left: 6px;
+	padding-right: 6px;
+
+	> mc-checkboxlistitem {
+		display: table;
+
+		input, label {
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+}
+
+.range input {
+    width: 80px !important;
+}
+
+.date {
+    width: @datepicker-textbox-width !important;
+}
+
+.date-picker-wrap {
+    display: table !important;
+
+    input, button {
+        display: table-cell !important;
+    }
+
+    button {
+        width: 24px;
+        height: 24px;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+}
+
+.checkbox-button-toggle {
+    display: inline-flex;
+    flex-direction: row;
+
+    > * {
+        /* Somewhere, the line-height becomes off by a difference of 2 but I can't find out what rule is causing it. */
+        line-height: @button-default-height - 2 !important;
+        font-size: inherit;
+    }
+}
+
+.inline-scroll {
+    position: relative;
+    overflow: auto;
+    overflow-x: visible;
+    display: block;
+    max-height: 200px;
+    border: @default-form-control-border;
+    padding-left: 6px;
+
+    label {
+        position: relative;
+        top: 3px;
+    }
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+
+/* A field-pair is a wrapper that should consist of only
+   one label and one field */
+
+/* Where is this even used? -Ross 11/6/2014 */
+fieldset.field-column {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+.field-column {
+    overflow: hidden;
+
+    .field-pair {
+        position: relative;
+        clear: both;
+        overflow: hidden;
+        margin-top: 6px; /* This needs to go away */
+
+        &:first-child {
+            margin-top: 0px;
+        }
+        /* Not all label fields actually include the label tag. */
+        > .label,
+        > .label label {
+            font-weight: bold;
+        }
+
+        > .label /* Don't float the field */ {
+            z-index: 2;
+            text-align: left;
+
+            .fp-description {
+                display:block;
+                text-align:@field-description-text-align;
+                color: @field-description-color;
+                font-size:@field-description-font-size;
+                font-weight:@field-description-font-weight;
+                line-height:@field-description-line-height;
+            }
+        }
+
+        > .field {
+            z-index: 1;
+            text-align: left;
+
+            > div {
+
+                > input[type="text"],
+                > input[type="password"],
+                > textarea {
+                    width: 100%;
+                }
+
+                > select,
+				> .checkbox-list {
+                    width: auto;
+                    /* This is bad for IE8 because it prevents IE8 from using box-sizing:border-box for some reason.
+                       But it's needed so the auto width doesn't make a dropdown that goes over the width of the parent.
+                       This results in IE8's dropdown being slightly cut off. IE8 users can deal. 
+                        NOTE: There's an IE8 specific rule to set this to 99% below.
+                    */
+                    max-width:100%;
+                }
+
+                > input.date {
+                    width: @datepicker-textbox-width !important;
+                }
+
+                > input.date-time {
+                    width: @datetimepicker-textbox-width !important;
+                }
+
+                > input.numeric {
+                    width: @numericpicker-textbox-width !important;
+                }
+            }
+        }
+        /* fp-display does not need line-height set. Form controls are generally larger though, so 
+            for fp-edit we want the line-height set in order to make the label text vertically align
+            with the control
+        */
+        &.fp-edit > .label {
+            line-height: @default-form-control-height;
+        }
+    }
+
+    /* Add this to the field-column div and it'll display the fields so they all stretch to an equal size */
+    &.fc-stretch {
+        .field-pair > .field > div {
+            > input[type="text"], > select {
+                width: 100%;
+            }
+        }
+    }
+
+    .fc(@size) {
+        .field-pair > .label {
+            width: @size;
+            /* Only do the floating and other alignment tricks when an fcSize column is there */
+            float: left; 
+            margin-right: -100%;
+        }
+
+        .field-pair > .field {
+            padding-left: 12px;
+            margin-left: @size + 6px;
+        }
+    }
+       
+    &.fc50 { .fc(50px); }
+    &.fc75 { .fc(75px); }
+    &.fc100 { .fc(100px); }
+    &.fc125 { .fc(125px); }
+    &.fc150 { .fc(150px); }
+    &.fc175 { .fc(175px); }
+    &.fc200 { .fc(200px); }
+    &.fc225 { .fc(225px); }
+    &.fc250 { .fc(250px); }
+    &.fc275 { .fc(275px); }
+    &.fc300 { .fc(300px); }
+    &.fc325 { .fc(325px); }
+    &.fc350 { .fc(350px); }
+    &.fc375 { .fc(375px); }
+    &.fc400 { .fc(400px); }
+    &.fc425 { .fc(425px); }
+    &.fc450 { .fc(450px); }
+    &.fc475 { .fc(475px); }
+    &.fc500 { .fc(500px); }
+    &.fc525 { .fc(525px); }
+    &.fc550 { .fc(550px); }
+    &.fc575 { .fc(575px); }
+    &.fc600 { .fc(600px); }
+}
+
+.ie8 .field-column .field-pair > .field > div > select {
+    /* There's no way of knowing the dynamic size of the field div or its padding, so best guess is 98%. */
+    max-width:98%;
+}
+
+.fp-buttons {
+    clear: both;
+}
+
+.field-pair.range-pair .range input {
+    width: 80px !important;
+}
+
+.field-pair.range-pair .range select {
+    width: 100px !important;
+}
+
+/* Need to shrink the textbox size so the match dropdown sits next to it. */
+.field-pair.search-string > .field > div > input[type="text"] {
+    width: 50%;
+}
+
+.fp-display pre {
+    white-space: pre-wrap;
+}
+
+/* Wrapper for a group of field-pairs
+   These are setup with defaults.
+ */
+
+
+.fc-left-label .label {
+    text-align: left;
+}
+
+.field-pair.indent .label {
+    padding-left: 24px;
+}
+
+
+/* Any classes that are related to styling a specific field-column container */
+.field-column-default {
+    width: 400px;
+}
+
+.field-pair.recurrence-frequency > .field > div > input[type="text"] {
+    width: 30px;
+}
+
+.field-pair.recurrence-frequency > .field > div > select {
+    width: auto;
+}

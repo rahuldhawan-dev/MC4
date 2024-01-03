@@ -1,0 +1,43 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.ProjectManagement.Models.ViewModels
+@model RoadwayImprovementNotification
+
+@{
+    var table = Html.TableFor(_ => Model.RoadwayImprovementNotificationStreets, new {id = "streetsTable", style = "width:100%;"})
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "RoadwayImprovementNotificationStreet", new { x.Id }, new { Class="link-button"}))
+        .ColumnFor(x => x.Street)
+        .ColumnFor(x => x.StartPoint)
+        .ColumnFor(x => x.Terminus)
+        .ColumnFor(x => x.MainSize)
+        .ColumnFor(x => x.MainType)
+        .ColumnFor(x => x.RoadwayImprovementNotificationStreetStatus, "Status")
+        .ColumnFor(x => x.MainBreakActivity)
+        .ColumnFor(x => x.NumberOfServicesToBeReplaced)
+        .ColumnFor(x => x.OpenWorkOrders)
+        .ColumnFor(x => x.MoratoriumEndDate)
+        .ColumnFor(x => x.Notes);
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "RoadwayImprovementNotificationStreet", new {x.Id}, new {Class = "link-button"}))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("roadwayImprovementNotificationStreetId").WithValue(x.Id).With("onclick", "return confirm('Are you sure you want to remove the selected street?');"));
+    }
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Street">
+        @Html.Partial("_AddRoadwayImprovementNotificationStreet", ViewModelFactory.BuildWithOverrides<AddRoadwayImprovementNotificationStreet>(new {TownId = Model.Town.Id, RoadwayImprovementNotificationStreetStatus = 1, TownText = Model.Town.ShortName }))
+    </div>
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("RoadwayImprovementNotification", "RoadwayImprovementNotificationStreet", new {Model.Id}, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteStreetForm");
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

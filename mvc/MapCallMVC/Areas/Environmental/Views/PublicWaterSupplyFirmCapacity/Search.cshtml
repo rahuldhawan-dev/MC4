@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyFirmCapacities.SearchPublicWaterSupplyFirmCapacityViewModel
+
+@using (Form.BeginForm("Index", "PublicWaterSupplyFirmCapacity")) 
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.TotalCapacityFacilitySumMGD)
+        @Html.EditorFor(x => x.UpdatedAt)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

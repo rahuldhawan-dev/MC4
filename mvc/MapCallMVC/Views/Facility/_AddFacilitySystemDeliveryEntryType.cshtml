@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.AddFacilitySystemDeliveryEntryType
+
+@using(Form.BeginRouteForm("Facility", "SystemDeliveryEntryType", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.SystemDeliveryType)
+        @Html.EditorFor(x => x.SystemDeliveryEntryType)
+        @Html.EditorFor(x => x.BusinessUnit)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.SupplierFacility)
+        @Html.EditorFor(x => x.PurchaseSupplier)
+        @Html.EditorFor(x => x.IsEnabled)
+        @Html.EditorFor(x => x.MinimumValue)
+        @Html.EditorFor(x => x.MaximumValue)
+        @Html.EditorFor(x => x.IsInjectionSite)
+        @Html.EditorFor(x => x.IsAutomationEnabled)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Entry Type")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

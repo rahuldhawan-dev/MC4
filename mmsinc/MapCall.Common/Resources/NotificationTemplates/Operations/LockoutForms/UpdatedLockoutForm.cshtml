@@ -1,0 +1,41 @@
+﻿@model MapCall.Common.Model.Entities.LockoutForm
+
+<h2>Updated Lockout Form</h2>
+
+Operating Center: @Model.OperatingCenter
+<br />
+@if (@Model.ProductionWorkOrder != null)
+{
+    <span>WorkOrder #: <a href="@Model.RecordUrlWorkOrder">@Model.ProductionWorkOrder.Id</a></span>
+    <br />
+}
+Lockout Form ID:<a href="@Model.RecordUrl">@Model.Id</a>
+<br />
+Equipment: @if (@Model.Equipment != null)
+{@Model.Equipment.Description}
+<br />
+Lockout Reason: @Model.LockoutReason
+<br />
+Reason for Lockout: @Model.ReasonForLockout
+<br />
+Lockout DateTime: @Model.LockoutDateTime
+<br />
+Address: @if (Model.Facility != null && !string.IsNullOrWhiteSpace(Model.Facility.Address))
+{@Model.Facility.Address}
+<br />
+Lockout Device: @Model.LockoutDevice
+<br />
+
+Out of Service Authorized Employee: @Model.OutOfServiceAuthorizedEmployee
+<br />
+Out of Service Date/Time: @Model.OutOfServiceDateTime
+<br />
+<br />
+
+Returned to Service Authorized Employee: @Model.ReturnToServiceAuthorizedEmployee
+<br />
+Returned to Service Date/Time: @Model.ReturnedToServiceDateTime
+<br />
+Returned to Service Notes:
+<br />
+@Model.ReturnedToServiceNotes

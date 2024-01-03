@@ -1,0 +1,11 @@
+﻿@model MapCall.Common.Model.Entities.SmartCoverAlert
+
+<h2>MapCall Notification - Smart Cover Alert Acknowledged</h2>
+
+Alert Id: <a href="@Model.RecordUrl">@Model.Id</a><br/>
+State: @Model.SewerOpening.State<br/>
+Operating Center: @Model.SewerOpening.OperatingCenter<br/>
+Town: @Model.SewerOpening.Town<br/>
+Sewer Opening Number: <a href="@Model.SewerOpening.RecordUrl">@Model.SewerOpening.OpeningNumber</a><br/>
+Date Received: @Model.DateReceived<br/>
+Acknowledged: @Model.Acknowledged<br/>

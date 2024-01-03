@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTapImage
+
+@(Html.TableFor(x => Model.Results, new {id = "tapImages"})
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TapImage", new { id = x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.ServiceNumber)
+      .ColumnFor(x => x.PremiseNumber)
+      .ColumnFor(x => x.DateCompleted)
+      .ColumnFor(x => x.CreatedAt)
+      .ColumnFor(x => x.LengthOfService)
+      .ColumnFor(x => x.ServiceMaterial)
+      .ColumnFor(x => x.ServiceSize)
+      .ColumnFor(x => x.PreviousServiceMaterial)
+      .ColumnFor(x => x.PreviousServiceSize)
+      .ColumnFor(x => x.CustomerSideMaterial)
+      .ColumnFor(x => x.CustomerSideSize)
+      .ColumnFor(x => x.ServiceType)
+      .ColumnFor(x => x.IsDefaultImageForService)
+      .ColumnFor(x => x.OfficeReviewRequired)
+    )
+
+<br/> 
+<div>Select @Html.ActionLink("Tap Images", "Search", "TapImage") to view more tap image records.</div>

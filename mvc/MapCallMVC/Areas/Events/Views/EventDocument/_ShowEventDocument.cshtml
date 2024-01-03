@@ -1,0 +1,7 @@
+﻿@model EventDocument
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.Facility)
+        @Html.DisplayFor(x => x.EventType.Description, new {DisplayName = "Event Type"})
+        @Html.DisplayFor(x => x.Description)
+    </div>

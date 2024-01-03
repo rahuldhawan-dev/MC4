@@ -1,0 +1,157 @@
+﻿@using MapCall.Common.Configuration
+@using MapCallMVC.Areas.FieldOperations.Controllers
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditHydrant
+@{
+    // Bug 2432: Certain fields are only editable by userAdmin
+    var isUserAdmin = RoleService.CanAccessRole(HydrantController.ROLE, RoleActions.UserAdministrator);
+}
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Hydrant/Form.js")
+}
+
+@*These hidden fields are for js stuff and don't need to
+  be in the form or posted back to the server *@
+@Control.Hidden("State").WithValue(Model.DisplayHydrant.Town.State.Abbreviation)
+@Control.Hidden("TownName").WithValue(Model.DisplayHydrant.Town.ToString())
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+
+@Control.Hidden("OperatingCenter").WithValue(Model.DisplayHydrant.OperatingCenter.Id)
+
+@using (var f = Form.BeginForm("Update", "Hydrant", "FieldOperations", new { Model.Id }))
+{
+    f.HtmlAttributes.Add("id", "hydrant-form");
+
+    <fieldset>
+        <legend>Details</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.DisplayHydrant.OperatingCenter)
+            @Html.EditorFor(x => x.Zone)
+            @Html.EditorFor(x => x.PaintingZone)
+            @Html.RenderEditorTemplate(new MvcHtmlString("Inspection Frequency"), new MvcHtmlString("This will override Operating Center inspection frequency and/or zone"), @<text>
+                                                                   @Control.TextBoxFor(x => x.InspectionFrequency).WithCssClass("numeric")
+                                                                   @Control.DropDownFor(x => x.InspectionFrequencyUnit)
+                                                                   @Html.ValidationMessageFor(x => x.InspectionFrequency)
+                                                                   @Html.ValidationMessageFor(x => x.InspectionFrequencyUnit)
+                                                                </text>)
+            @Html.RenderEditorTemplate(new MvcHtmlString("Painting Frequency"), new MvcHtmlString("This will override Operating Center painting frequency and/or zone"), @<text>
+                                                                   @Control.TextBoxFor(x => x.PaintingFrequency).WithCssClass("numeric")
+                                                                   @Control.DropDownFor(x => x.PaintingFrequencyUnit)
+                                                                   @Html.ValidationMessageFor(x => x.PaintingFrequency)
+                                                                   @Html.ValidationMessageFor(x => x.PaintingFrequencyUnit)
+                                                                </text>)
+
+            @Html.EditorFor(x => x.WaterSystem)
+            @Html.DisplayFor(x => x.DisplayHydrant.Town)
+            @Html.EditorFor(x => x.TownSection)
+            @Html.EditorFor(x => x.Facility)
+            @if (isUserAdmin)
+            {
+                @Html.EditorFor(x => x.HydrantNumber)
+                @Html.EditorFor(x => x.HydrantSuffix)
+                @Html.EditorFor(x => x.LegacyId)
+                @Html.DisplayFor(x => x.SAPEquipmentId)
+            }
+            else
+                          {
+                @Html.DisplayFor(x => x.DisplayHydrant.HydrantNumber)
+                @Html.DisplayFor(x => x.DisplayHydrant.HydrantSuffix)
+                @Html.DisplayFor(x => x.LegacyId)
+                @Html.DisplayFor(x => x.SAPEquipmentId)
+            }
+            @Html.HiddenFor(x => x.SAPEquipmentId)
+            @Html.DisplayFor(x => x.DisplayHydrant.SAPErrorCode)
+            @Html.EditorFor(x => x.Critical)
+            @Html.EditorFor(x => x.CriticalNotes)
+            @Html.DisplayFor(x => x.DisplayHydrant.Initiator)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Location Information</legend>
+        <div class="field-column fc200">
+            @if (isUserAdmin)
+            {
+                @Html.EditorFor(x => x.HydrantBilling)
+                @Html.EditorFor(x => x.FireDistrict)
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.DisplayHydrant.HydrantBilling)
+                @Html.DisplayFor(x => x.DisplayHydrant.FireDistrict)
+            }
+            @Html.EditorFor(x => x.StreetNumber)
+            @Html.EditorFor(x => x.Street)
+            @Html.EditorFor(x => x.CrossStreet)
+            @if (isUserAdmin)
+            {
+                @Html.EditorFor(x => x.Coordinate)
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.DisplayHydrant.Coordinate)
+            }
+            @Html.EditorFor(x => x.Route)
+            @Html.EditorFor(x => x.Stop)
+            @Html.EditorFor(x => x.MapPage)
+            @Html.EditorFor(x => x.Location)
+            @Html.EditorFor(x => x.ValveLocation)
+            @Html.EditorFor(x => x.Gradient)
+            @Html.EditorFor(x => x.Elevation)
+            @Html.EditorFor(x => x.IsDeadEndMain)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Specifications</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.HydrantSize)
+            @Html.EditorFor(x => x.HydrantManufacturer)
+            @Html.EditorFor(x => x.HydrantModel)
+            @Html.EditorFor(x => x.YearManufactured)
+            @Html.EditorFor(x => x.OpenDirection)
+            @Html.EditorFor(x => x.HydrantMainSize)
+            @Html.EditorFor(x => x.MainType)
+            @Html.EditorFor(x => x.LateralSize)
+            @Html.EditorFor(x => x.LateralValve)
+            @Html.EditorFor(x => x.WorkOrderNumber)
+            @Html.EditorFor(x => x.BranchLengthFeet)
+            @Html.EditorFor(x => x.BranchLengthInches)
+            @Html.EditorFor(x => x.HydrantThreadType)
+            @Html.EditorFor(x => x.HydrantOutletConfiguration)
+            @Html.EditorFor(x => x.DepthBuryFeet)
+            @Html.EditorFor(x => x.DepthBuryInches)
+            @Html.EditorFor(x => x.HydrantType)
+            @if (isUserAdmin)
+            {
+                @Html.EditorFor(x => x.IsNonBPUKPI)
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.DisplayHydrant.IsNonBPUKPI)
+            }
+            @Html.EditorFor(x => x.BillingDate)
+            @Html.EditorFor(x => x.DateInstalled)
+            @Html.EditorFor(x => x.DateRetired)
+            @Html.EditorFor(x => x.Status)
+            <div id="HydrantStatusAlert" class="container" style="margin-bottom: 12px;">
+                @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem { Message = "You are about to Retire/Remove an out of service hydrant.", NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning })
+            </div>
+            @Html.EditorFor(x => x.HydrantTagStatus)
+            @if (isUserAdmin)
+            {
+                @Html.EditorFor(x => x.GISUID)
+                @Html.EditorFor(x => x.FunctionalLocation)
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.GISUID)
+                @Html.DisplayFor(x => x.DisplayHydrant.FunctionalLocation)
+            }
+        </div>
+    </fieldset>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "Hydrant", new { Model.Id })
+    </text>)
+}

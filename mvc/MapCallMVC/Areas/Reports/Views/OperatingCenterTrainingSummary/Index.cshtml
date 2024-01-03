@@ -1,0 +1,92 @@
+﻿@using MMSINC.Results
+@using MMSINC.Utilities
+@model SearchOperatingCenterTrainingSummary
+@{
+    ActionBarHelper.AddExportLink();
+    var dueBefore = String.Format(CommonStringFormats.DATE, (Model.DueBy.HasValue) ? Model.DueBy.Value : DateTime.Now);
+}
+
+<table id="trainingRequirementsTable">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Training Requirement</th>
+            <th>Is OSHA Requirement</th>
+            <th>Recurring</th>
+            <th>Employees in Position Groups</th>
+            
+            <th>Due Initial Before @dueBefore</th>
+            <th>Due Recurring Before @dueBefore</th>
+            <th>Due Initial&Recurring Before @dueBefore</th>
+            
+            <th>Employees Scheduled</th>
+            <th>Classes Scheduled</th>
+            <th>Operating Center Classes Scheduled</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>@item.OperatingCenter</td>
+                <td>
+                    @Html.ActionLink(item.TrainingRequirement.ToString(), "Show", "TrainingRequirement", new { area = "", item.TrainingRequirement.Id }, null)
+                </td>
+                <td>@item.IsOSHARequirement</td>
+                <td>@item.Recurring</td>
+                <td>@item.EmployeesInPositionGroups</td>
+
+                <td>
+                    @Html.ActionLink(item.EmployeesOverDueInitialTraining.ToString(), "Index", "EmployeeTraining", 
+                        new RouteValueDictionary{
+                            {"area", "reports"},
+                            { "OperatingCenter", item.OperatingCenter.Id },
+                            { "TrainingRequirement", item.TrainingRequirement.Id },
+                            { "PageSize", "500"},{"SortBy", "LastName"},{"SortAscending","true"}
+                        }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.EmployeesOverDueRecurringTraining.ToString(), "Index", "EmployeeTraining",
+                        new RouteValueDictionary{
+                            {"area", "reports"},
+                            { "OperatingCenter", item.OperatingCenter.Id },
+                            { "TrainingRequirement", item.TrainingRequirement.Id },
+                            { "PageSize", "500"},{"SortBy", "LastName"},{"SortAscending","true"}
+                        }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.EmployeesOverDueInitialAndRecurringTraining.ToString(), "Index", "EmployeeTraining",
+                        new RouteValueDictionary{
+                            {"area", "reports"},
+                            { "OperatingCenter", item.OperatingCenter.Id },
+                            { "TrainingRequirement", item.TrainingRequirement.Id },
+                            { "PageSize", "500"},{"SortBy", "LastName"},{"SortAscending","true"}
+                        }, null)
+                </td>
+                
+                <td>@item.EmployeesScheduledForClasses</td>
+                <td>
+                    @Html.ActionLink(item.ClassesScheduled.ToString(), "Index", "TrainingRecord", 
+                        new RouteValueDictionary {
+                            {"area", ""}, 
+                            { "TrainingRequirement", item.TrainingRequirement.Id },
+                            { "ScheduledDate.End", DateTime.Now},
+                            { "ScheduledDate.Operator", (int)RangeOperator.GreaterThan}
+                        },null)
+                    
+                </td>
+                <td>
+                    @Html.ActionLink(item.OperatingCenterClassesScheduled.ToString(), "Index", "TrainingRecord",
+                        new RouteValueDictionary {
+                            {"area", ""},
+                            { "TrainingRequirement", item.TrainingRequirement.Id },
+                            { "ScheduledDate.End", DateTime.Now},
+                            { "ScheduledDate.Operator", (int)RangeOperator.GreaterThan},
+                            { "ClassLocationOperatingCenter", item.OperatingCenter.Id}
+                        }, null)
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

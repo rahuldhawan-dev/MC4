@@ -1,0 +1,28 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites
+@model SampleSite 
+@{
+	var canEdit = Html.CurrentUserCanEditWithOperatingCenter(Model);
+
+	var table = Html.TableFor(x => x.BracketSites, new{ id = "bracket-sites-table" })
+		.ColumnFor(x => x.BracketSampleSite)
+		.ColumnFor(x => x.BracketSiteLocationType);
+
+	if (canEdit)
+	{
+		table = table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("SampleSiteBracketSiteId").WithValue(x.Id));
+	}
+}
+
+@if (canEdit)
+{
+	<div class="collapse-panel" data-title="Add Bracket Site">
+		@Html.Partial("_AddBracketSite", ViewModelFactory.Build<AddSampleSiteBracketSite, SampleSite>(Model))
+	</div>
+}
+
+<div class="container">
+	@using (var form = Form.BeginRouteForm("SampleSite", "BracketSite", new {Model.Id}, ManyToManyRouteAction.Remove))
+	{
+		@table
+	}
+</div>

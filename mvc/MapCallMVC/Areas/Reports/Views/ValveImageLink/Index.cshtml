@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValveImageLink
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto"})
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ValveImage", new { id = x.ValveImageId, area = "FieldOperations" }, null))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Valve)
+    .ColumnFor(x => x.SAPEquipmentId)
+    .ColumnFor(x => x.Address)
+    .WithPaginatedFooter()
+)

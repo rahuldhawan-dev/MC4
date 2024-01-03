@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.CreateContractorContact
+
+@using (Form.BeginForm("CreateContractorContact", "Contractor", new {id = Model.Id}))
+{
+    <fieldset class="field-column fc100">
+        @Html.EditorFor(x => x.Contact)
+        @Html.EditorFor(x => x.ContactType)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Contact")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </fieldset>
+}

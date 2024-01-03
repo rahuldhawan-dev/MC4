@@ -1,0 +1,34 @@
+﻿@using MapCall.Common.Helpers
+@using MapCallMVC.Areas.ProjectManagement.Models.ViewModels
+@model RecurringProject
+
+@{ var table = Html.TableFor(_ => Model.ProjectEndorsements, new { id = "endorsements" })
+          .ColumnFor(x => x.User.FullName, "Employee")
+          .ColumnFor(x => x.EndorsementStatus)
+          .ColumnFor(x => x.EndorsementDate)
+          .ColumnFor(x => x.Comment);
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "RecurringProjectEndorsement", new { x.Id }, new { Class="link-button"}))
+            .TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("recurringProjectEndorsementId").WithValue(x.Id));
+    }
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add Endorsement">
+        @Html.Partial("_AddEndorsement", ViewModelFactory.Build<AddRecurringProjectEndorsement, RecurringProject>(Model))
+    </div>
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("RecurringProject", "RecurringProjectEndorsement", new {Model.Id}, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteEndorsementForm");
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

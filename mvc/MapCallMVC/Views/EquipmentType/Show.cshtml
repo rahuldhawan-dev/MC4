@@ -1,0 +1,11 @@
+﻿@model EquipmentType
+
+@{
+    ActionBarHelper.AddLink("Print", "ab-export", "Show", "EquipmentType", new {id = Model.Id, ext = "pdf"}, null);
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowEquipmentType")
+    .WithTab("Equipment Types", "_ShowEquipmentPurposes")
+    .WithTab("Characteristic Fields", "_ShowCharacteristicFields")
+    .WithTab("Measurement Points", "_ShowMeasurementPoints", itemCount: Model.MeasurementPoints.Count))

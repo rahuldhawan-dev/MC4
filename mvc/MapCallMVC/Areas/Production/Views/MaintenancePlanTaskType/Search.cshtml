@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchMaintenancePlanTaskType
+
+@using (Form.BeginForm("Index", "MaintenancePlanTaskType", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Abbreviation)
+        @Html.EditorFor(x => x.Code)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,85 @@
+﻿@model MapCall.Common.Model.Entities.HydrantInspection
+@{
+    var maxChlorineLevel = Model.MAX_CHLORINE_LEVEL;
+    var minChlorineLevel = Model.MIN_CHLORINE_LEVEL;
+    var gallonsFlowed = decimal.ToInt32(Model.GPM ?? 0) * decimal.ToInt32(Model.MinutesFlowed ?? 0);
+    var totChlorine = Model.TotalChlorine ?? 1;
+    var resChlorine = Model.ResidualChlorine ?? 1;
+    var totChloreInRange = false;
+    var resChloreInRange = false;
+    if ((totChlorine > maxChlorineLevel) || (totChlorine < minChlorineLevel))
+    {
+        totChloreInRange = true;
+    }
+    if ((resChlorine > maxChlorineLevel) || (resChlorine < minChlorineLevel))
+    {
+        resChloreInRange = true;
+    }
+}
+<h2>Chlorine Readings Outside of Limits</h2>
+
+Operating Center: @Model.OperatingCenter.OperatingCenterCode - @Model.OperatingCenter.OperatingCenterName
+<br />
+<br />
+Inspected by: @Model.InspectedBy.FullName
+<br />
+<br />
+Inspection Record ID: <a href="@Model.RecordUrl">@Model.Id</a>
+<br />
+<br />
+Asset: <a href="@Model.Hydrant.RecordUrl">@Model.Hydrant.HydrantNumber</a>
+<br />
+<br />
+@if (@resChloreInRange)
+{
+    <b>Post Residual/Free Chlorine: @Model.ResidualChlorine</b>
+}
+@if (!@resChloreInRange)
+{
+    <text>Post Residual/Free Chlorine: @Model.ResidualChlorine</text>
+}
+<br />
+<br />
+@if (@totChloreInRange)
+{
+    <b>Post Total Chlorine: @Model.TotalChlorine</b>
+}
+@if (!@totChloreInRange)
+{
+    <text>Post Total Chlorine: @Model.TotalChlorine</text>
+}
+<br />
+<br />
+Free No Read Reason: @Model.FreeNoReadReason
+<br />
+<br />
+Total No Read Reason: @Model.TotalNoReadReason
+<br />
+<br />
+Inspection Type: @Model.HydrantInspectionType
+<br />
+<br />
+Full Flow: @Model.FullFlow
+<br />
+<br />
+GPM: @Model.GPM
+<br />
+<br />
+Minutes Flowed: @Model.MinutesFlowed
+<br />
+<br />
+Total Gallons: @gallonsFlowed (calculated GPM x Minutes Flowed)
+<br />
+<br />
+Static Pressure: @Model.StaticPressure
+<br />
+<br />
+Town: @Model.Hydrant.Town
+<br />
+Street Number: @Model.Hydrant.StreetNumber
+<br />
+Street: @Model.Hydrant.Street
+<br />
+Cross Street: @Model.Hydrant.CrossStreet
+<br />
+Date Inspected: @Model.DateInspected

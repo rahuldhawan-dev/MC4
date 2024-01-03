@@ -1,0 +1,13 @@
+﻿@using Contractors.ClassExtensions
+@model Service
+
+@{
+    ViewBag.Title = "Services";
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowService", Model)
+    .WithTab("Tap Images", "_TapImages", Model, itemCount: Model.TapImages.Count)
+    .WithTab("Work Orders", "_WorkOrders", Model, itemCount:Model.WorkOrdersForDisplay.Count())
+    .WithTab("Notes", "_Notes", Model, itemCount:Model.Notes.Count)
+    .WithDocuments())

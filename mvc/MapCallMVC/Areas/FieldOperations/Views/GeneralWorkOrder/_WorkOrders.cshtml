@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrder
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(x => Model.Results, new {id = "workOrders"})
+      .WithCaption("Records found: " + Model.Count)
+      .WithWorkOrderRowStyles()
+      .TemplateColumnFor("Work Order General", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrder", new { area = "FieldOperations", id = x.Id }, new { target = "_blank" }))
+      .TemplateColumnFor("Work Order Finalization", x => Html.ActionLink(x.ToString(), "Edit", "WorkOrderFinalization", new { area = "FieldOperations", id = x.Id }, new { target = "_blank" }))
+      .ColumnFor(x => x.WorkDescription)
+      .ColumnFor(x => x.DateReceived)
+      .ColumnFor(x => x.DateCompleted)
+      .ColumnFor(x => x.Priority)
+      .ColumnFor(x => x.Purpose)
+      .ColumnFor(x => x.RequestedBy)
+      .ColumnFor(x => x.AccountCharged, "Accounting")
+    )

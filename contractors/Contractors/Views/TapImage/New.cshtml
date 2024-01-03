@@ -1,0 +1,13 @@
+﻿@model Contractors.Models.ViewModels.CreateTapImage
+
+@using (Form.BeginForm("Create", "TapImage"))
+{
+<div class="field-column fc200">
+    @Html.Partial("_Form")
+    @Html.EditorFor(x => x.FileUpload)
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search")
+    </text>)
+</div>
+}

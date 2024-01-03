@@ -1,0 +1,117 @@
+﻿@model MapCallMVC.Areas.Customer.Models.ViewModels.SearchPremiseFind
+
+@using (Ajax.BeginForm("Find", "Premise", new { }, new AjaxOptions { HttpMethod = "POST" }, new { title = "Find Premise", id = "CustomerPremiseFind" }))
+{
+    <style type="text/css">
+        #DoSearch {
+            position: relative;
+            margin-left: 3px;
+            height: inherit !important;
+            min-height: 24px;
+        }
+
+        table.search, table.search td {
+            border: none 0px !important;
+            padding: 0px;
+            border-collapse: collapse;
+            border-spacing: 0px;
+        }
+
+            table.search td {
+                vertical-align: top;
+            }
+
+        .ui-button-icon-only .ui-icon {
+            top: -2px;
+            left: -1px;
+        }
+    </style>
+    <div style="width: 1080px;">
+        <fieldset>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.OperatingCenter)
+                @Html.EditorFor(x => x.PremiseNumber)
+                @Html.EditorFor(x => x.ServiceAddressHouseNumber)
+                @Html.EditorFor(x => x.ServiceAddressStreet)
+                @Html.EditorFor(x => x.MeterSerialNumber)
+                @Html.EditorFor(x => x.RegionCode, new { html = new { style = "min-height: 80px;" } })
+                @Html.EditorFor(x => x.ServiceUtilityType, new { html = new { style = "min-height: 80px" } })
+                @Html.EditorFor(x => x.MeterLocationFreeText)
+                <div class="field-pair">
+
+                    <div class="label"></div>
+                    <div class="field">
+                        <button type="submit" id="DoPremiseFindSearch">Search</button>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="field-column fc100" style="height: 400px; overflow: auto;">
+            <div style="font-style: italic">
+                Selecting a premise from the list below will overwrite the values used for the
+                Premise Number,
+                Device Location,
+                Equipment,
+                Meter Serial Number,
+                Zip Code,
+                and Coordinates.
+
+                Changes will not be made final until you click 'Save' on the Work Order form.
+                <div id="maxResults" style="color: red;"></div>
+            </div>
+            <table id="premiseResults" style="width: 100%; cursor: pointer;">
+                <thead>
+                    <tr>
+                        <th>Premise Number</th>
+                        <th>Address</th>
+                        <th>Apartment</th>
+                        <th>City</th>
+                        <th>Device Location</th>
+                        <th>Equipment</th>
+                        <th>Device Serial #</th>
+                        <th>Meter Serial #</th>
+                        <th>Installation Type</th>
+                        <th>Installation Number</th>
+                        <th>Meter Location (free text)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 6px;">
+            <input type="hidden" id="SelectedPremise" />
+            <input type="hidden" id="SelectedPremiseNumber"/>
+            <input type="hidden" id="SelectedPremiseAddress"/>
+            <input type="hidden" id="SelectedPremiseApartment"/>
+            <input type="hidden" id="SelectedCity"/>
+            <input type="hidden" id="SelectedRegionCode"/>
+            <input type="hidden" id="SelectedDeviceLocation"/>
+            <input type="hidden" id="SelectedEquipment"/>
+            <input type="hidden" id="SelectedMeterSerialNumber"/>
+            <input type="hidden" id="SelectedLatitude"/>
+            <input type="hidden" id="SelectedLongitude"/>
+            <input type="hidden" id="SelectedInstallation"/>
+            <input type="hidden" id="SelectedZipCode"/>
+            <input type="hidden" id="SelectedCoordinateId"/>
+            <input type="hidden" id="SelectedStreet"/>
+            <input type="hidden" id="SelectedStreetNumber"/>
+            <input type="hidden" id="SelectedServiceUtilityType"/>
+        </div>
+
+        <div class="editor-buttons">
+            <div id="ResultsCount"></div>
+            @Control.Button("Select").WithId("selectPremise")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        PremiseFind.initialize();
+    });
+</script>

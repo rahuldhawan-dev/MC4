@@ -1,0 +1,11 @@
+﻿@model JobSiteCheckList
+
+<h2>
+	@Html.DefaultActionLink(string.Format("Job Site Check List: #{0}", Model.Id), "Show", "JobSiteCheckList", "HealthAndSafety", new { id = @Model.Id }, null)
+</h2>
+
+<div class="field-column fc100">
+	@Html.DisplayFor(x => x.CheckListDate)
+	@Html.DisplayFor(x => x.Address)
+	@Html.DisplayFor(x => x.CompetentEmployee)
+</div>

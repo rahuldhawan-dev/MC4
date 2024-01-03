@@ -1,0 +1,21 @@
+﻿@model BacterialWaterSample
+
+@{
+    ActionBarHelper.AddMapLink();
+}
+
+@section styles {
+	<style>
+		#section-3-sub-table td { vertical-align:top !important; }
+	</style>
+}
+
+@(Html.Tabs()
+    .WithTab("Collection Information", "DisplayPartials/_ShowSection1", Model)
+    .WithTab("Field Values", "DisplayPartials/_ShowSection2", Model)
+    .WithTab("Bacterial Results", "DisplayPartials/_ShowSection3", Model)
+    .WithTab("Linked Samples", "_LinkedBacterialWaterSamples", Model.LinkedBacterialWaterSamples, Model.LinkedBacterialWaterSamples.Any(), itemCount: Model.LinkedBacterialWaterSamples.Count())
+	.WithAjaxTab("Recent Samples by PWSID", "_Recent", Model)
+	.WithTab("LIMS", "_ShowLIMS", isVisible: Authentication.CurrentUserIsAdmin)
+    .WithNotesAndDocuments()
+    .WithLog())

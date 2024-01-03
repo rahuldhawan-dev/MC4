@@ -1,0 +1,60 @@
+﻿@model JobSiteCheckList
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.SafetyBriefDateTime)
+    @Html.DisplayFor(x => x.AnyPotentialWeatherHazards)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefWeatherHazardTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.HadConversationAboutWeatherHazard)
+    @Html.DisplayFor(x => x.HadConversationAboutWeatherHazardNotes)
+    @Html.DisplayFor(x => x.AnyTimeOfDayConstraints)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefTimeOfDayConstraintTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.AnyTrafficHazards)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefTrafficHazardTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.InvolveConfinedSpace)
+    @Html.DisplayFor(x => x.AnyPotentialOverheadHazards)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefOverheadHazardTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.AnyUndergroundHazards)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefUndergroundHazardTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.AreThereElectricalHazards)
+    @Html.RenderDisplayTemplate(JobSiteCheckList.Display.SAFETY_BRIEF_IF_YES, @<text>@string.Join(", ", Model.SafetyBriefElectricalHazardTypes.Select(x => x.Description))</text>)
+    @Html.DisplayFor(x => x.WorkingWithACPipe)
+    @Html.DisplayFor(x => x.CrewMembersTrainedInACPipe)
+    @Html.DisplayFor(x => x.HaveEquipmentToDoJobSafely)
+    @Html.DisplayFor(x => x.HaveEquipmentToDoJobSafelyNotes)
+    @Html.DisplayFor(x => x.HaveYouInspectedSlings)
+    @Html.DisplayFor(x => x.ReviewedErgonomicHazards)
+    @Html.DisplayFor(x => x.ReviewedErgonomicHazardsNotes)
+    @Html.DisplayFor(x => x.ReviewedLocationOfSafetyEquipment)
+    @Html.DisplayFor(x => x.OtherHazardsIdentified)
+    @Html.DisplayFor(x => x.OtherHazardNotes)
+    @Html.DisplayFor(x => x.HadDiscussionAboutHazardsAndPrecautions)
+    @Html.DisplayFor(x => x.HadDiscussionAboutHazardsAndPrecautionsNotes)
+    @Html.DisplayFor(x => x.CrewMembersRemindedOfStopWorkAuthority)
+
+    <fieldset>
+        <legend>Personal Protective Equipment(PPE)(check below boxes that pertain)</legend>
+        <table class="no-hover" id="show-facility-attribute-table">
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => x.HeadProtection)
+                    @Html.DisplayFor(x => x.HandProtection)
+                    @Html.DisplayFor(x => x.ElectricalProtection)
+                    @Html.DisplayFor(x => x.FootProtection)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.EyeProtection)
+                    @Html.DisplayFor(x => x.FaceShield)
+                    @Html.DisplayFor(x => x.SafetyGarment)
+                    @Html.DisplayFor(x => x.HearingProtection)
+                    @Html.DisplayFor(x => x.RespiratoryProtection)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => x.PPEOther)
+                    @Html.DisplayFor(x => x.PPEOtherNotes)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+</div>

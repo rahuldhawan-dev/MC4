@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchNpdesRegulatorsDueInspectionReport
+@(Html.TableFor(x => x, new { id="results", style = "width:auto;" })
+    .ColumnFor(x => x.OperatingCenter)
+    .TemplateColumnFor("Town", x => Html.ActionLink(x.Town, "Index",
+        new RouteValueDictionary {
+            { "id", "NpdesRegulatorsDueInspectionLink" },
+            { "area", "FieldOperations" },
+            { "Controller", "NpdesRegulatorsDueInspection" },
+            { "OperatingCenter", x.OperatingCenterId },
+            { "Town", x.TownId },
+            { "Status", x.StatusId },
+            { "DepartureDateTime.Start", Model.DepartureDateTime.Start },
+            { "DepartureDateTime.End", Model.DepartureDateTime.End },
+            { "DepartureDateTime.Operator", Model.DepartureDateTime.Operator }}))
+    .ColumnFor(x => x.Status)
+    .ColumnFor(x => x.Count)
+        )

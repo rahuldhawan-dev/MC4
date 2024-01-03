@@ -1,0 +1,15 @@
+<%--This requires that pages have the bender theme to render properly.--%>
+
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MapCallBase.master.cs" Inherits="MapCall.Common.Resources.Masters.MapCallBase" %>
+<!DOCTYPE html>
+<html>
+<head runat="server" enableviewstate="false">
+    <%--Needed or else all the ResolveUrls used will get saved to viewstate.--%>
+    <title><%= Page.Title %> - MapCall</title> <%--MMSI company name is appended to title in code behind--%>
+    <link rel="shortcut icon" href="<%# ResolveUrl("~/resources/images/favicon.ico") %>" type="image/x-icon"/>
+    <asp:ContentPlaceHolder ID="head" runat="server"/>
+</head>
+<body>
+<asp:ContentPlaceHolder ID="content" runat="server"/>
+</body>
+</html>

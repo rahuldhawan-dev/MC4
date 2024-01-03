@@ -1,0 +1,14 @@
+﻿@model BlowOffInspection
+ 
+@(Html.Tabs()
+.WithTab("Details", "_ShowBlowOffInspection", Model))
+
+@section scripts {
+    <script type="text/javascript">
+        var par = window.parent;
+        @* We only want this script running if it's loaded in an iframe from the AssetMap page.*@
+        if (par && par.AssetMaps) {
+            par.AssetMaps.updateLastSelectedMarkerIcon('@Url.Action("Index", "Valve", new{ ext = "map", EntityId = Model.Valve.Id })');
+        }
+    </script>
+}

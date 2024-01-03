@@ -1,0 +1,18 @@
+﻿@model MapCall.Common.Model.ViewModels.SearchSapCustomerOrder
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/SAP/SAPCustomerOrder/Search.js")
+}
+
+@using (Form.BeginForm("Index", "SAPCustomerOrder"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.FSR_ID)
+        @Html.EditorFor(x => x.WorkOrder)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,6 @@
+﻿@model EditJobObservation
+           
+@using (Form.BeginForm("Update", "JobObservation", "HealthAndSafety", new {Model.Id}))
+{
+    @Html.Partial("_Form", Model)
+}

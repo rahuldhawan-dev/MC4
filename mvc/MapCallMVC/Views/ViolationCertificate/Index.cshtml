@@ -1,0 +1,11 @@
+﻿@model SearchViolationCertificate
+           
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Employee.OperatingCenter)
+    .SortableColumnFor(x => x.Employee)
+    .SortableColumnFor(x => x.CertificateDate)
+    .SortableColumnFor(x => x.Expired)
+    .WithPaginatedFooter()
+)

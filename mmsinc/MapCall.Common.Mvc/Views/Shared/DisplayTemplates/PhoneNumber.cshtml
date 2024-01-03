@@ -1,0 +1,14 @@
+﻿@*
+HOW DO USE? 
+-----------
+Your model's property needs to have this attribute:
+[DataType(System.ComponentModel.DataAnnotations.DataType.PhoneNumber)]
+*@
+
+@using MMSINC.ClassExtensions
+@using MMSINC.Utilities
+@{
+    var phone = ViewData.TemplateInfo.FormattedModelValue as string;
+    var prettyPhone = PhoneNumberFormatter.TryFormat(phone);
+}
+@RenderDisplayForTemplate(@<text>@prettyPhone</text>)

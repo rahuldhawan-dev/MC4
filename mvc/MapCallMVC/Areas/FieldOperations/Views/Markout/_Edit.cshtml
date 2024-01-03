@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditMarkout
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/Markout/Form.js")
+<div style="width:500px;">
+    @using (var f = Form.BeginAjaxForm("Update", "Markout", new { id = Model.Id }))
+    {
+        f.HtmlAttributes["title"] = "Edit Markout";
+        @Control.HiddenFor(x => x.WorkOrderOperatingCenterMarkoutEditable)
+        @Control.HiddenFor(x => x.WorkOrder)
+        <div class="field-column fc100">
+            @Html.EditorFor(m => m.MarkoutNumber)
+            @Html.EditorFor(m => m.MarkoutType)
+            @Html.EditorFor(m => m.Note)
+            @Html.EditorFor(m => m.DateOfRequest)
+            @if (Model.WorkOrderOperatingCenterMarkoutEditable)
+            {
+                @Html.EditorFor(x => x.ReadyDate)
+                @Html.EditorFor(x => x.ExpirationDate)
+            }
+        </div>
+        @Html.Partial("_DialogButtons", "Save Markout")
+    }
+</div>

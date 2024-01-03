@@ -1,0 +1,51 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateSewerOpening
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/SewerOpening/Form.js")
+}
+
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "SewerOpening", "FieldOperations")) {
+    <div class="field-column fc200">
+        <fieldset>
+            <legend>Details</legend>
+            <div class="field-column fc2000">
+                @Html.EditorFor(x => x.OperatingCenter)
+                @Html.EditorFor(x => x.Town)
+                @Html.EditorFor(x => x.WasteWaterSystem)
+                @Html.EditorFor(x => x.SewerOpeningType)
+                @Html.EditorFor(x => x.TownSection)
+                @Html.EditorFor(x => x.OutfallNumber)
+                @Html.EditorFor(x => x.BodyOfWater)
+                @Html.EditorFor(x => x.LocationDescription)
+                @Html.EditorFor(x => x.OldNumber)
+                @Html.EditorFor(x => x.StreetNumber)
+                @Html.EditorFor(x => x.Street)
+                @Html.EditorFor(x => x.IntersectingStreet)
+                @Html.EditorFor(x => x.Status)
+                @Html.EditorFor(x => x.SewerOpeningMaterial)
+                @Html.EditorFor(x => x.DateInstalled)
+                @Html.EditorFor(x => x.DateRetired)
+                @Html.EditorFor(x => x.MapPage)
+                @Html.EditorFor(x => x.Coordinate)
+                @Html.EditorFor(x => x.DistanceFromCrossStreet)
+                @Html.EditorFor(x => x.IsEpoxyCoated)
+                @Html.EditorFor(x => x.GeoEFunctionalLocation)
+                @Html.EditorFor(x => x.FunctionalLocation)
+                @Html.EditorFor(x => x.IsDoghouseOpening)
+                @Html.EditorFor(x => x.Route)
+                @Html.EditorFor(x => x.Stop)
+                @Html.EditorFor(x => x.TaskNumber)
+                @Html.EditorFor(x => x.Critical)
+                @Html.EditorFor(x => x.CriticalNotes)
+            </div>
+        </fieldset>
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "SewerOpening")
+                           </text>)
+    </div>
+}

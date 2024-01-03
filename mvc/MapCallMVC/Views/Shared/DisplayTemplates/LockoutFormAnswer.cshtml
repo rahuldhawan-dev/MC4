@@ -1,0 +1,16 @@
+﻿@model LockoutFormAnswer
+
+<div class="field-pair fp-display">
+    <div class="label">
+        <label for="answer_@Model.LockoutFormQuestion.Id">
+            @Html.DisplayValueFor(x => x.LockoutFormQuestion.Question)
+        </label>
+    </div>
+    <div class="field">
+        <div>@Html.DisplayValueFor(_ => Model.Answer)</div>
+    </div>
+</div>
+@if (!String.IsNullOrWhiteSpace(Model.Comments))
+{
+    @Html.DisplayFor(x => x.Comments)
+}

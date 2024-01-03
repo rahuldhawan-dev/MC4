@@ -1,0 +1,37 @@
+﻿@model WorkOrder
+
+@* NOTE: This view is loaded directly from the work order finalization tab. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MainBreak/Index.js", ScriptLoadType.LoadFromPartial)
+@{ MainBreak temp = null; }
+
+@Ajax.ActionLink("Add Main Break", "New", "MainBreak",
+	new { area = "FieldOperations", workOrderId = @Model.Id },
+	new AjaxOptions { HttpMethod = "GET" },
+	new { data_ajax_table = "#mainBreaksTable", Class = "link-button" })
+<table id="mainBreaksTable">
+	<thead>
+		<tr>
+			<th>@Html.DisplayLabelFor(_ => temp.ServiceSize)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainBreakMaterial)</th>
+			<th>Footage Replaced</th>
+			<th>@Html.DisplayLabelFor(_ => temp.ReplacedWith)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainCondition)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainFailureType)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.Depth)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainBreakSoilCondition)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.CustomersAffected)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.ShutdownTime)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainBreakDisinfectionMethod)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.MainBreakFlushMethod)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.ChlorineResidual)</th>
+			<th>@Html.DisplayLabelFor(_ => temp.BoilAlertIssued)</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var mainBreak in Model.MainBreaks)
+		{
+			@Html.Partial("~/Areas/FieldOperations/Views/MainBreak/_Show.cshtml", mainBreak)
+		}
+	</tbody>
+</table>

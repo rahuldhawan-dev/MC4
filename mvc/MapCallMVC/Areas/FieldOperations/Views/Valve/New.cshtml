@@ -1,0 +1,84 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateValve
+
+@Html.ScriptFor("~/Scripts/Valve/New.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Valve/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+@using (Form.BeginForm("Create", "Valve", "FieldOperations")) {
+    <div class="field-column fc200">
+        <fieldset>
+            <legend>Details</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.State)
+                @Html.EditorFor(x => x.OperatingCenter)
+                @Html.EditorFor(x => x.WaterSystem)
+                @Html.EditorFor(x => x.Town)
+                @Html.EditorFor(x => x.TownSection)
+                @Html.EditorFor(x => x.Facility)
+                @Html.EditorFor(x => x.IsFoundValve)
+                @Html.EditorFor(x => x.ValveSuffix)
+                @Html.EditorFor(x => x.LegacyId)
+
+                @Html.EditorFor(x => x.Critical)
+                @Html.EditorFor(x => x.CriticalNotes)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Location Information</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.StreetNumber)
+                @Html.EditorFor(x => x.Street)
+                @Html.EditorFor(x => x.CrossStreet)
+                @Html.EditorFor(x => x.Traffic)
+
+                @Html.EditorFor(x => x.Coordinate)
+                @Html.EditorFor(x => x.MapPage)
+                @Html.EditorFor(x => x.Route)
+                @Html.EditorFor(x => x.Stop)
+                @Html.EditorFor(x => x.SketchNumber)
+
+                @Html.EditorFor(x => x.ValveLocation)
+                @Html.EditorFor(x => x.Gradient)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Specifications</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.Status)
+                @Html.EditorFor(x => x.ValveBilling)
+                @Html.EditorFor(x => x.BPUKPI)
+                @Html.EditorFor(x => x.ValveSize)
+                @Html.EditorFor(x => x.ValveMake)
+
+                @Html.EditorFor(x => x.ValveType)
+                @Html.EditorFor(x => x.ValveControls)
+                @Html.EditorFor(x => x.OpenDirection)
+
+                @Html.EditorFor(x => x.NormalPosition)
+                @Html.EditorFor(x => x.Turns)
+
+                @Html.EditorFor(x => x.MainType)
+                @Html.EditorFor(x => x.WorkOrderNumber)
+                @Html.EditorFor(x => x.DepthFeet)
+                @Html.EditorFor(x => x.DepthInches)
+
+                @Html.EditorFor(x => x.DateInstalled)
+                @Html.EditorFor(x => x.DateRetired)
+                @Html.EditorFor(x => x.ValveZone)
+                @Html.EditorFor(x => x.ControlsCrossing)
+                @Html.EditorFor(x => x.MainCrossings)
+                @Html.EditorFor(x => x.GISUID)
+                @Html.EditorFor(x => x.FunctionalLocation)
+
+            </div>
+        </fieldset>
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "Valve")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,44 @@
+﻿@model EnvironmentalPermit
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+<table id="facilityTable">
+    <thead>
+        <tr>
+            <th>Facility</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.Facilities)
+        {
+            <tr>
+                <td>@e.ToString()</td>
+                <td>
+                    @using (Form.BeginRouteForm("EnvironmentalPermit", "Facility", new { id = Model.Id, facilityId = 0 }, ManyToManyRouteAction.Remove))
+					{
+						if (userCanEdit)
+                        {
+                            @Control.Hidden("Id").WithValue(Model.Id)
+                            @Control.Hidden("FacilityId").WithValue(e.Id)
+                            @Control.SubmitButton("Remove Facility").With("onclick", "return confirm('Are you sure?');")
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (userCanEdit)
+{
+    <div class="childTableFooter">
+        @using (Form.BeginRouteForm("EnvironmentalPermit", "Facility", new { id = Model.Id, facilityId = 0 }, ManyToManyRouteAction.Add))
+        {
+            <div class="field-column">
+                @Control.DropDown("FacilityId").WithItems(((IEnumerable<SelectListItem>)ViewData["Facility"]))
+                @Control.SubmitButton("Add Facility").WithId("addFacilityButton")
+            </div>
+        }
+    </div>
+}

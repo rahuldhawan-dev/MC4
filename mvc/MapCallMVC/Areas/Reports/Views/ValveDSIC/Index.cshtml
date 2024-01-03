@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchValveDSIC
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+      .WithCaption(String.Format("{0} Records", Model.Count))
+      .ColumnFor(x => x.Id)
+      .TemplateColumnFor("Valve Number", x => Html.ActionLink(x.ValveNumber, "Show", "Valve", new { x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.StreetNumber)
+      .ColumnFor(x => x.Street)
+      .ColumnFor(x => x.Town)
+      .ColumnFor(x => x.WBSNumber)
+      .ColumnFor(x => x.Latitude)
+      .ColumnFor(x => x.Longitude)
+      .ColumnFor(x => x.SAPEquipmentId)
+      .ColumnFor(x => x.DateInstalled)
+      .WithPaginatedFooter()
+)

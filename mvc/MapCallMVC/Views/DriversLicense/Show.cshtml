@@ -1,0 +1,8 @@
+﻿@model DriversLicense
+@{
+    //ActionBarHelper.AddAuthorizedLink("Renew", "ab-renew", "New", "DriversLicense", null, null);
+    ActionBarHelper.AddRenewLink("Renew", new{ Model.Id });
+}
+@(Html.Tabs()
+    .WithTab("Details", "_Show")
+    .WithNotesAndDocuments())

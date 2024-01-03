@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites.EditSampleSite
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/WaterQuality/SampleSite/Form.js")
+    @Html.ScriptFor("~/Scripts/Areas/Customer/Premise/Find.js")
+}
+
+@using (Form.BeginForm("Update", "SampleSite", "WaterQuality", new { Model.Id }))
+{
+    @(Html.Tabs()
+        .WithTab("General", "_FormFields")
+        .WithTab("Service Record", "_FormServiceRecord")
+        .WithTab("Supplemental Validation", "_FormSupplementalValidation"))
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save").WithId("Save").With("onclick", "return SampleSites.onSaveButtonClick();")
+        @Html.LinkButton("Cancel", "Show", "SampleSite", new { Model.Id })
+    </text>)
+}

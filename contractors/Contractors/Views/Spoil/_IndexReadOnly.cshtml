@@ -1,0 +1,6 @@
+﻿@using MapCall.Common.Model.Entities
+@model WorkOrder
+@(Html.TableFor(x => x.Spoils, new { Id = "spoilsTable" })
+      .ColumnFor(x => x.Quantity)
+      .ColumnFor(x => x.SpoilStorageLocation)
+	)

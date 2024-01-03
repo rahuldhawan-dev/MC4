@@ -1,0 +1,28 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchAbsenceNotification
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Employee.OperatingCenter, "oc.OperatingCenterCode")
+    .SortableColumnFor(x => x.HumanResourcesReviewed, "HumanResourcesReviewed")
+    .SortableColumnFor(x => x.EmployeeAbsenceClaim, "EmployeeAbsenceClaim")
+    .SortableColumnFor(x => x.Employee, "e.LastName")
+    .ColumnFor(x => x.Employee.ReportsTo)
+    .SortableColumnFor(x => x.LastDayOfWork, "LastDayOfWork")
+    .SortableColumnFor(x => x.StartDate, "StartDate")
+    .SortableColumnFor(x => x.EndDate, "EndDate")
+    .TemplateColumnFor("FMLA Case", x => @<text>
+        @if (x.FamilyMedicalLeaveActCase != null)
+        {
+            @Html.ActionLink(x.FamilyMedicalLeaveActCase.Id.ToString(), "Show", "FamilyMedicalLeaveActCase", new {x.Id, area = "Operations"}, null)
+        }
+    </text>)
+    .SortableColumnFor(x => x.CreatedAt, "DateAdded")
+    .SortableColumnFor(x => x.AbsenceStatus, "AbsenceStatus")
+    .SortableColumnFor(x => x.ProgressiveDiscipline)
+    .SortableColumnFor(x => x.ProgressiveDisciplineAdministered)
+    .WithPaginatedFooter())

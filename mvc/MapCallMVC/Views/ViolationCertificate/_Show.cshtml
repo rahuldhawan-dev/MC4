@@ -1,0 +1,20 @@
+﻿@using MapCall.Common.Helpers.ClassExtensions
+@using MapCall.Common.Model.Entities.Users
+@using MapCallMVC.Controllers
+@using MMSINC.Authentication
+@model ViolationCertificate
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Employee.OperatingCenter)
+    @if (Html.CurrentUserCanDo(AuthenticationService.CurrentUser, EmployeeController.ROLE))
+    {
+        @Html.RenderDisplayTemplate("Employee", Html.ActionLink(Model.Employee.ToString(), "Show", "Employee", new { id = Model.Employee.Id }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Employee)
+    }
+   
+    @Html.DisplayFor(x => x.CertificateDate)
+    @Html.DisplayFor(x => x.Comments)
+</div>

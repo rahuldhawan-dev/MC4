@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.EnvironmentalNonComplianceEventSubTypeViewModel
+
+@using (Form.BeginForm("Create", "EnvironmentalNonComplianceEventSubType", new {area = "Environmental"}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("~/Areas/Environmental/Views/EnvironmentalNonComplianceEventSubType/_Form.cshtml", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "EnvironmentalNonComplianceEventSubType")
+                           </text>)
+    </div>
+}

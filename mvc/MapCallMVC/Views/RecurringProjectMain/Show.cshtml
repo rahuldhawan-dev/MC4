@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RecurringProjectMain>
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.MapId = "mainPickerMap";
+}
+
+@section scripts{
+    @Html.ScriptFor("~/Scripts/RecurringProjectMain/Show.js")
+    <script type="text/javascript">
+        $(document).ready(RecurringProjectsMains.initialize());
+    </script>
+}
+
+@section styles{
+<style>
+    table.esriLegendLayer {
+        background: transparent !important;
+    }
+
+    table.esriLegendLayer > tbody > tr > td,
+    table.esriLegendLayer > tbody > tr:hover > td,
+    table.esriLegendLayer > tbody > tr:nth-child(even):hover > td,
+    table.esriLegendLayer > tbody > tr:nth-child(odd):hover > td {
+        background: transparent !important;
+        border: none !important;
+    }
+</style>
+}
+
+@section belowMap {
+    <div id="iconList" style="height: 240px; width: 300px; resize: both; overflow: auto;">
+        <div id="theHelpInfo" style="overflow: auto; width: 100%; padding: 6px; background-color: #E1EEF7;">
+            Use this map to select the water main segments that will be scored and added to your project. 
+            Make sure the layer  “IM - Comprehensive Risk Details (Zoom to View)” is checked on the right under “GIS Layers” and zoom in close enough so that the mains appear in the map. 
+            Navigate to the area where your project is located in the map.
+            <br/><br />
+            Use one of the map tools
+            <img src="@Url.Content("~/Content/images/draw_square_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_polygon_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_line_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_line.png")" />
+            to select the mains you wish to include in your project. These tools allow you to draw different shapes, and any main that intersects your shape will be added to your project. It will appear in the table with its scores, and the total length of the mains that are selected. In the map the mains that are selected will be highlighted red. To unselect a main, pick a tool and reselect that main. To clear all mains that are selected, click the broom icon (“Clear All”).
+            <br /><br />
+            You may select more than one main at a time. If after you make your selection, you want to make another selection to add to your project, you must click on a tool again before making the selection. If you have clicked on a tool mistakenly and don’t want to select anything, click the hand icon (“Cancel Selecting”).
+            <br/><br />
+            When you have the correct mains selected, make sure to click the disk icon (“SAVE”). The mains will then be added to your project.
+
+        </div>
+        <div id="theLayerInfo" style="overflow: auto; width: 100%; padding: 6px; "></div>
+    </div>
+}

@@ -1,0 +1,52 @@
+﻿@model FilterMediaViewModel
+
+<div class="field-column fc150">
+    @if (Model.FacilityObj != null) {
+        @Html.RenderDisplayTemplate("Facility ID", @<div>
+            @Html.ActionLink(Model.FacilityObj.FacilityId, "Show", new {Controller = "Facility", Id = Model.Facility})
+        </div>)
+        @Control.HiddenFor(x => x.Facility)
+    } else {
+        @Html.EditorFor(m => m.Facility)
+    }
+    @Html.EditorFor(m => m.FilterNumber)
+    @Html.DisplayFor(m => m.EquipmentIdentifier)
+    @if (Model.EquipmentObj != null) {
+        @Html.RenderDisplayTemplate("Equipment", @<div>
+            @Html.ActionLink(Model.EquipmentObj.Identifier, "Show", new {Controller = "Equipment", Id = Model.Equipment})
+        </div>)
+        @Control.HiddenFor(x => x.Equipment)
+    } else {
+        @Html.EditorFor(x => x.Equipment, new {Container = @Model})
+    }        
+    @Html.EditorFor(m => m.YearInService)
+    @Html.EditorFor(m => m.MediaType)
+    @Html.EditorFor(m => m.EstimatedMediaLifecycle)
+    @Html.EditorFor(m => m.CapacityMGD)
+    @Html.EditorFor(m => m.Coefficient)
+    @Html.EditorFor(m => m.FilterDimensions)
+    @Html.EditorFor(m => m.MediaArea)
+    @Html.EditorFor(m => m.MediaVolume)
+    @Html.EditorFor(m => m.GravelSupportMedia)
+    @Html.EditorFor(m => m.MonthlyMediaExpense)
+    @Html.EditorFor(m => m.AnnualInspectionCosts)
+    @Html.EditorFor(m => m.AnnualAnalysisCosts)
+    @Html.EditorFor(m => m.AnnualCompanyLaborCosts)
+    @Html.EditorFor(m => m.EquipmentCriticalRating)
+    @Html.EditorFor(m => m.YearLastPainted)
+    @Html.EditorFor(m => m.ServedByStandbyPower)
+    @Html.EditorFor(m => m.TurbidimeterModel)
+    @Html.EditorFor(m => m.WashType)
+    @Html.EditorFor(m => m.LevelControlMethod)
+    @Html.EditorFor(m => m.ProductCode)
+    @Html.EditorFor(m => m.FilterType)
+    @Html.EditorFor(m => m.Location)
+    @Html.EditorFor(m => m.AnthraciteDepth)
+    @Html.EditorFor(m => m.GACDepth)
+    @Html.EditorFor(m => m.SandDepth)
+    @Html.EditorFor(m => m.GravelDepth)
+    @Html.EditorFor(m => m.LastTimeChanged)
+    @Html.EditorFor(m => m.LastTimeCleaned)
+    @Html.EditorFor(m => m.AirScouring)
+    @Html.EditorFor(m => m.Recycling)
+</div>

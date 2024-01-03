@@ -1,0 +1,14 @@
+﻿@model EditIncident
+
+@using (Form.BeginForm("Update", "Incident", new { Model.Id }))
+{
+    @(Html.Tabs()
+          .WithTab("Incident", "_Form")
+          .WithTab("Five Whys", "_AddFiveWhys")
+       );
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "Incident", new {Model.Id})
+                           </text>);
+}

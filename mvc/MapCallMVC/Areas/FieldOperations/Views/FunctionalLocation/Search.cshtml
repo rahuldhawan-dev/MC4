@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchFunctionalLocation
+           
+@using (Form.BeginForm("Index", "FunctionalLocation"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Description, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town, new { Container = @Model })
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

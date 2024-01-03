@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchMainCrossing
+           
+@using (Form.BeginForm("Index", "MainCrossing"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.MainCrossingStatus)
+        @Html.EditorFor(x => x.CrossingCategory)
+        @Html.EditorFor(x => x.ConsequenceOfFailure)
+        @Html.EditorFor(x => x.IsolationValves)
+        @Html.EditorFor(x => x.InspectionType)
+        @Html.EditorFor(x => x.BodyOfWater)
+        @Html.EditorFor(x => x.CrossingType)
+        @Html.EditorFor(x => x.SupportStructure)
+        @Html.EditorFor(x => x.IsCriticalAsset)
+        @Html.EditorFor(x => x.RequiresInspection)
+        @Html.EditorFor(x => x.LastInspectedOn)
+        @Html.EditorFor(x => x.MainInCasing)
+        @Html.EditorFor(x => x.HasWorkOrder)
+        @Html.EditorFor(x => x.TypicalOperatingPressureRange)
+        @Html.EditorFor(x => x.PressureSurgePotentialType)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

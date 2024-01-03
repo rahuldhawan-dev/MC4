@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterQualityComplaint
+
+@using (Form.BeginForm("Index", "WaterQualityComplaint")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.ZipCode)
+        @Html.EditorFor(x => x.OrcomOrderNumber)
+        @Html.EditorFor(x => x.StreetName)
+        @Html.EditorFor(x => x.DateComplaintReceived)
+        @Html.EditorFor(x => x.InitialLocalContact)
+        @Html.EditorFor(x => x.NotificationCompletionDate)
+        @Html.EditorFor(x => x.CustomerSatisfaction)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.SiteVisitRequired)
+        @Html.EditorFor(x => x.RootCauseIdentified)
+        @Html.EditorFor(x => x.NotificationCreatedBy)
+        @Html.EditorFor(x => x.FollowUpPostCardSent)
+        @Html.EditorFor(x => x.IsClosed)
+        @Html.EditorFor(x => x.Imported)
+        @Html.EditorFor(x => x.HasCoordinate)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,39 @@
+﻿FINISHED:
+  Crew Management:
+    Editing crew name did not work.
+
+    Need to record and use "Crew Availability", int, # of hours.
+
+  Work Assignment:
+    Insert time estimates for descriptions of work.
+
+    Need some sort of secondary priority for work as it's been scheduled, aside from the base work order
+    priority (what order should the crew do the work in).
+
+    The "schedule meter" should work up to the shift length of the given crew, based on the estimated time
+    to complete for the work descriptions for the assigned work.
+
+    Needs to happen by day.  This should include a date field on the list resulting from scheduling work.
+
+  Scheduling Search:
+    Need Assigned? drop down (to work like traffic control and markout requirement).
+
+    Need Description of Work (duh).
+
+    Need Markout Expiration Date.
+
+    The screen after assigning should show the crew used and their assigned work.  (Calendar/table).
+
+  Restoration already exists, we'll need to link to that somehow.
+
+PENDING:
+  Scheduling Search:
+    Need the results to be sortable.
+
+    Need to perhaps keep a running total of how many hours of work have been selected, up until
+    the "Assign" button is clicked.
+
+  Date Range Control:
+    Some of the operators (besides "=") need the first text box to dissappear.
+
+  Need to discuss the O&M & Capital stuff.

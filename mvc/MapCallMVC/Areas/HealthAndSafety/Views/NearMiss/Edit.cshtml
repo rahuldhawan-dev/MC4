@@ -1,0 +1,33 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditNearMiss
+
+@section scripts
+{
+    <script>
+        $(function() {
+            NearMiss.init(
+                @NearMissType.Indices.ENVIRONMENTAL,
+                {
+                    tdWorkorderType: @WorkOrderType.Indices.TANDD_DEPARTMENT,
+                    productionWorkorderType: @WorkOrderType.Indices.PRODUCTION,
+                    shortCycleWorkorderType: @WorkOrderType.Indices.SHORT_CYCLE,
+                    unknownWorkorderType: @WorkOrderType.Indices.UNKNOWN,
+                    drinkingWaterSystemType: @SystemType.Indices.DRINKING_WATER,
+                    wasteWaterSystemType : @SystemType.Indices.WASTE_WATER
+                },
+            @SeverityType.Indices.RED);
+        });
+    </script>
+}
+    @Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/NearMiss/Form.js", ScriptLoadType.LoadFromPartial)
+
+    @using (Form.BeginForm("Update", "NearMiss", "HealthAndSafety", new {Model.Id}))
+    {
+        <div class="field-column fc200">
+            @Html.Partial("_FormFields", Model)
+
+            @Html.ButtonGroup(@<text>
+                                  @Control.SubmitButton("Save")
+                                  @Html.LinkButton("Cancel", "Show", "NearMiss", new {Model.Id})
+                               </text>)
+        </div>
+    }

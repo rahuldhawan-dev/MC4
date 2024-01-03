@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOperatingCenterSpoilRemovalCost
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter.State)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Cost)
+    .WithPaginatedFooter())

@@ -1,0 +1,57 @@
+﻿@model SewerMainCleaning
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.Date)
+    @Html.DisplayFor(x => x.InspectedDate)
+    @Html.DisplayFor(x => x.CrossStreet)
+    @Html.DisplayFor(x => x.CrossStreet2)
+    @Html.DisplayFor(x => x.InspectionType)
+    @if (Model.InspectionType != null && Model.InspectionType.RequiresGrade)
+    {
+        @Html.RenderDisplayTemplate(
+            "",
+            Html.Link("~/Content/DefectGradeGuide.pdf", "Defect Grading Guide", new {target = "_blank"}),
+            "defect-grade-guide")
+        @Html.DisplayFor(x => x.InspectionGrade)
+    }
+    @Html.DisplayFor(x => x.GallonsOfWaterUsed)
+    @Html.DisplayFor(x => x.HydrantUsed)
+    @Html.DisplayFor(x => x.FootageOfMainInspected)
+    @Html.RenderDisplayTemplate(@Html.DisplayLabelFor(x => x.Opening1), @<div>
+        @if (Model.Opening1 != null)
+        {
+            @Html.ActionLink(Model.Opening1.OpeningNumber, "Show", "SewerOpening", new { id = Model.Opening1.Id, area = "FieldOperations" }, null)
+        }
+    </div>)
+    @Html.DisplayFor(x => x.Opening1Condition)
+    @Html.DisplayFor(x => x.Opening1FrameAndCover)
+    @Html.RenderDisplayTemplate(@Html.DisplayLabelFor(x => x.Opening2), @<div>
+        @if (Model.Opening2 != null)
+        {
+            @Html.ActionLink(Model.Opening2.OpeningNumber, "Show", "SewerOpening", new { id = Model.Opening2.Id, area = "FieldOperations" }, null)
+        }
+    </div>)
+    @Html.DisplayFor(x => x.Opening2IsATerminus)
+    @Html.DisplayFor(x => x.Opening2Condition)
+    @Html.DisplayFor(x => x.Opening2FrameAndCover)
+    @Html.DisplayFor(x => x.TableNotes)
+    @Html.DisplayFor(x => x.Overflow)
+    @Html.RenderDisplayTemplate("Sewer Overflow", @<div>
+        @if (Model.SewerOverflow != null)
+        {
+            @Html.ActionLink(Model.SewerOverflow.Id.ToString(), "Show", "SewerOverflow", new { id = Model.SewerOverflow.Id, area = "FieldOperations" }, null)
+        }
+    </div>)
+    @Html.DisplayFor(x => x.BlockageFound)
+    @Html.DisplayFor(x => x.CauseOfBlockage)
+    @Html.DisplayFor(x => x.CleaningSchedule)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.CreatedBy)
+
+    @Html.DisplayFor(x => x.SAPErrorCode)
+    @Html.DisplayFor(x => x.SAPNotificationNumber)
+</div>

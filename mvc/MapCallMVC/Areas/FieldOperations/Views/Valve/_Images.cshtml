@@ -1,0 +1,15 @@
+﻿@model Valve
+
+@{
+    var images = Model.ValveImages.OrderByDescending(x => x.CreatedAt);
+}
+
+@(Html.TableFor(x => images)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ValveImage", new { x.Id }, null))
+    .TemplateColumnFor(x => Html.ActionLink("PDF", "Show", "ValveImage", new { x.Id, ext = "pdf" }, new { target = "_blank" }))
+    .ColumnFor(x => x.IsDefaultImageForValve)
+    .ColumnFor(x => x.CreatedAt)
+    .ColumnFor(x => x.DateCompleted)
+)
+
+@Html.LinkButton("New Image", "New", "ValveImage", new { id = Model.Id }, new { style = "margin:6px;" })

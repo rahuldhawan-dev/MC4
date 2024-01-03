@@ -1,0 +1,41 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels
+@model WaterQualityComplaint
+
+@{
+    var table = Html.TableFor(_ => Model.SampleResults, new {id = "sampleResultsTable", style = "width: 100%"})
+        .ColumnFor(x => x.WaterConstituent)
+        .ColumnFor(x => x.SampleDate)
+        .ColumnFor(x => x.SampleValue)
+        .ColumnFor(x => x.UnitOfMeasure)
+        .ColumnFor(x => x.AnalysisPerformedBy);
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => @<text>
+                                        @Html.ActionLink("Edit", "Edit", "WaterQualityComplaintSampleResult", new {x.Id}, new {Class = "link-button"}))
+                                        @Control.SubmitButton("Remove").WithName("sampleResultId").WithValue(x.Id)
+                                     </text>);
+    }
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Sample Result">
+        @Html.Partial("_AddSampleResult", ViewModelFactory.Build<AddWaterQualityComplaintSampleResult, WaterQualityComplaint>(Model))
+    </div>
+
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("WaterQualityComplaint", "WaterQualityComplaintSampleResult", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("data-confirm", "Are you sure?");
+            form.HtmlAttributes.Add("id", "deleteSampleResultForm");
+
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

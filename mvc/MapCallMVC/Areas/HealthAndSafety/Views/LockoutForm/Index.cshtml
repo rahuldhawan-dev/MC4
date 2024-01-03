@@ -1,0 +1,20 @@
+﻿@model SearchSet<LockoutForm>
+@{
+    ActionBarHelper.AddMapLink();
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.Equipment)
+    .SortableColumnFor( x => x.ProductionWorkOrder.Id, "Work Order Number", "Id")
+    .SortableColumnFor(x => x.LockoutReason)
+    .SortableColumnFor(x => x.IsolationPoint)
+    .SortableColumnFor(x => x.LockoutDevice)
+    .SortableColumnFor(x => x.OutOfServiceDateTime)
+    .SortableColumnFor(x => x.ReturnedToServiceDateTime)
+    .WithCaption("Records found: " + Model.Count)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,14 @@
+﻿@model AddSOPPGCN
+           
+@using (var f = Form.BeginRouteForm("StandardOperatingProcedure", "StandardOperatingProcedurePositionGroupCommonNameRequirement", new { id = Model.Id }, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.PositionGroupCommonName)
+        @Html.EditorFor(x => x.Frequency)
+        @Html.EditorFor(x => x.FrequencyUnit)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Requirement")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

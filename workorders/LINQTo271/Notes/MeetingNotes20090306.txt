@@ -1,0 +1,56 @@
+FINISHED:
+  INPUT:
+    1.  Town, Town Section, Street Number, Street, Nearest X Street, and Zip Code, in that order.
+
+    2.  They need to plot the location of a Main Break.  This cuts through the entire design quite nicely.
+
+    4.  Work Order seems to have double inserted?  72978 on live server.
+
+
+  ANY PAGE WITH SEARCH AND RESULTS, AS WELL AS THE INITIAL INPUT TAB SHOULD ASK FOR/DISPLAY THE NEW WORK ORDER # AND THE OLD WORK ORDER #.
+
+
+  RESTORATION:
+    1.  The 2nd field down should be required, as well as type.
+
+    3.  They need a "Done" button next to "Edit".  Also "Edit" is broken.
+
+  FINALIZATION:
+    1.  Need "Is the work complete?".
+
+
+PENDING:
+  INPUT:
+    3.  Need to be able to record Work Orders for assets which may or may not exist.  This is for cases where they're sent out
+        to fix an asset which may not belong to them, or may not necessarily exist in the system.
+
+
+  PLANNING:
+    1.  Deleting a Markout doesn't work.
+
+    2.  Search results table needs to show the street number, and the initial info tab needs to show it as well.
+
+
+  SCHEDULING:
+    1.  They need to be able to schedule work in advance of the markout ready date.  This is difficult because
+        they could then concevably chose a "for date" that falls before the markout will be ready.  The page
+        will need to check for this, disallow it, and prompt the user in an intelligent manner.
+
+
+  FINALIZATION:
+    1.  Need to have a street number field in the search page.
+
+
+  CREW ASSIGNMENTS:
+    1.  Table should be read only unless the chosen date is today.
+
+
+  ANY SEARCH RESULT TABLE:
+    1.  Need a count of the records returned at the top.
+
+
+  NEED A GENERAL WORK ORDER SEARCH PAGE.
+
+
+  RESTORATION:
+    2.  They want length x width instead of Paving Square Footage.

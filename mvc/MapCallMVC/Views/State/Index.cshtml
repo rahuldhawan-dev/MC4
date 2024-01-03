@@ -1,0 +1,7 @@
+﻿@model IEnumerable<State>
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "State", new{ id = x.Id }))
+    .ColumnFor(x => x.Name)
+    .ColumnFor(x => x.Abbreviation))

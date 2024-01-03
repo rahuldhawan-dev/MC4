@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCommercialDriversLicenseCompliance
+           
+@using (Form.BeginForm("Index", "CommercialDriversLicenseCompliance"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.CommercialDriversLicenseProgramStatus)
+        @Html.EditorFor(x => x.IsCDLCompliant)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

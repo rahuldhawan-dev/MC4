@@ -1,0 +1,27 @@
+﻿@using MMSINC.Results
+@model AsBuiltImage
+    
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink(Model.Id.ToString(), "Show", "AsBuiltImage", "FieldOperations", new { id = Model.Id }, new { target = "_blank" })
+    </h2>
+
+    @Html.ActionLink("View Pdf", "Show", new { Controller = "AsBuiltImage", ext = ResponseFormatter.KnownExtensions.PDF, Model.Id }, new { target = "_blank", Class="link-button" })
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.Town.County.State)
+        @Html.DisplayFor(x => x.Town.County)
+        @Html.DisplayFor(x => x.Town)
+        @Html.DisplayFor(x => x.ProjectName)
+        @Html.DisplayFor(x => x.Comments)
+        @Html.DisplayFor(x => x.FullStreet)
+        @Html.DisplayFor(x => x.FullCrossStreet)
+        @Html.DisplayFor(x => x.MapPage)
+        @Html.DisplayFor(x => x.TaskNumber)
+        @Html.DisplayFor(x => x.DateInstalled)
+        @Html.DisplayFor(x => x.CoordinatesModifiedOn)
+        @Html.DisplayFor(x => x.CreatedAt)
+        @Html.DisplayFor(x => x.OfficeReviewRequired)
+        @Html.DisplayFor(x => x.FileName)
+    </div>
+</div>

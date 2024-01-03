@@ -1,0 +1,17 @@
+﻿@model SearchUnionContract
+
+@using (Form.BeginForm("Index", "UnionContract"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Local)
+        @Html.EditorFor(x => x.Union)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

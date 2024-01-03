@@ -1,0 +1,30 @@
+﻿@model dynamic
+
+@{
+    var htmlAttributes = new {id = "contractProposalsTable"};
+    var paginatedModel = Model as SearchSet<UnionContractProposal>;
+    var enumerableModel = Model as IEnumerable<UnionContractProposal>;
+
+    var table = paginatedModel != null ? Html.TableFor(x => paginatedModel, htmlAttributes).WithPaginatedFooter()
+        : Html.TableFor(x => enumerableModel, htmlAttributes);
+
+    table = table.TemplateColumnFor(x => Html.ActionLink("View", "Show", "UnionContractProposal", new {x.Id}, null))
+        .ColumnFor(x => x.Id)
+        .ColumnFor(x => x.Contract.Id, "Contract ID")
+        .ColumnFor(x => x.CrossReferenceNumber)
+        .ColumnFor(x => x.ProposalDescription)
+        .ColumnFor(x => x.Grouping)
+        .ColumnFor(x => x.NegotiationTiming)
+        .ColumnFor(x => x.ManagementOrUnion)
+        .ColumnFor(x => x.Flag)
+        .ColumnFor(x => x.PrintingSequence)
+        .ColumnFor(x => x.Status)
+        .ColumnFor(x => x.NegotiationStrategy)
+        .ColumnFor(x => x.TalkingPoints)
+        .ColumnFor(x => x.AnticipatedResponseFromOppositeSide)
+        .ColumnFor(x => x.CurrentPageNumber)
+        .ColumnFor(x => x.NoteCount)
+        .ColumnFor(x => x.DocumentCount);
+}
+
+@table

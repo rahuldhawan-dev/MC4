@@ -1,0 +1,28 @@
+﻿@using MMSINC.Results
+@model Contractors.Models.ViewModels.SearchAsBuiltImage
+
+@{
+	ViewBag.Title = "As Built Images";
+}
+
+@(Html.TableFor(x => x, new { @class = "results-table" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .TemplateColumnFor(x => Html.ActionLink("PDF", "Show", new { x.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.CreatedAt)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.ProjectName)
+    .ColumnFor(x => x.Town.County.State)
+    .ColumnFor(x => x.Town.County)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.TownSection)
+    .SortableColumnFor(x => x.StreetPrefix)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.StreetSuffix)
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.TaskNumber)
+    .SortableColumnFor(x => x.OfficeReviewRequired)
+    .SortableColumnFor(x => x.CoordinatesModifiedOn)
+    .WithPaginatedFooter())

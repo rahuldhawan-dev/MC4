@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddEmployeeAssignmentProductionWorkOrder
+
+@using (var form = Form.BeginRouteForm("ProductionWorkOrder", "EmployeeAssignment", null, ManyToManyRouteAction.Add))
+    {
+        form.AddCssClass("no-double-submit");
+        form.HtmlAttributes.Add("id", "employeeAssigmentsForm");
+        <div class="field-column fc200">
+            @Control.HiddenFor(x => x.Id)
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.AssignedTo)
+            @Html.EditorFor(x => x.AssignedFor)
+            @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save Employee Assignment")
+                @Control.Button("Cancel").WithCssClass("cancel")
+            </text>)
+    </div>
+}

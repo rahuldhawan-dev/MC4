@@ -1,0 +1,42 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels
+@model PostCompletionConfinedSpaceFormBase
+@{
+    // NOTE: This is specifically named "NewEntrants" to match with the property
+    // on ConfinedSpaceFormViewModel. The form elements will include "NewEntrants" in their
+    // names/id attributes. Form.js then modifies those name/id to include array index accessors
+    // that the model binder can use.
+    var NewEntrants = ViewModelFactory.Build<CreateConfinedSpaceFormEntrant>();
+    NewEntrants.IsEmployee = true;
+    int stateId = 0;
+    if (Model.ProductionWorkOrderDisplay != null)
+    {
+        stateId = Model.ProductionWorkOrderDisplay.OperatingCenter.State.Id;
+    }
+}
+
+<div class="container">	
+    @(Html.TableFor(x => x.Original.Entrants, new { id = "entrantsTable" })	
+          .ColumnFor(x => x.EntrantType)	
+          .ColumnFor(x => x.Employee)	
+          .ColumnFor(x => x.ContractingCompany)	
+          .ColumnFor(x => x.ContractorName)	
+          .TemplateColumnFor("Remove", x => Control.CheckBox("RemovedEntrants").WithValue(x.Id)))	
+</div>
+
+<div id="new-entrants-list"></div>
+@Control.Button("Add An Assignment").WithId("add-entrant")
+
+@* State is needed for cascades, but doesn't need to exist for each entrant individually.*@
+@Control.Hidden().WithId("State").WithValue(stateId)
+
+<template id="new-entrant-template">
+    <div class="field-column fc150 add-entrant-item">
+        @Control.HiddenFor(_ => NewEntrants.State).WithValue(stateId)
+        @Html.EditorFor(_ => NewEntrants.EntrantType)
+        @Html.EditorFor(_ => NewEntrants.IsEmployee)
+        @Html.EditorFor(_ => NewEntrants.Employee)
+        @Html.EditorFor(_ => NewEntrants.ContractingCompany)
+        @Html.EditorFor(_ => NewEntrants.ContractorName)
+        @Html.ButtonGroup(Control.Button("Remove").WithCssClass("remove-new-entrant"))
+    </div>
+</template>

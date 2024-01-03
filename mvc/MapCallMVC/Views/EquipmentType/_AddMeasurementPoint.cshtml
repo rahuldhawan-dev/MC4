@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Models.ViewModels.MeasurementPointEquipmentTypeViewModel
+
+@using (var form = Form.BeginForm("Create", "MeasurementPointEquipmentType", null))
+{
+    form.HtmlAttributes.Add("id", "measurementPointForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Category)
+        @Html.EditorFor(x => x.Description, new { html = new { id = "MeasurementPointDescription" }})
+        @Html.EditorFor(x => x.Position)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.EditorFor(x => x.Min)
+        @Html.EditorFor(x => x.Max)
+        @Html.EditorFor(x => x.IsActive, new { html = new { id = "MeasurementPointIsActive" }})
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Add").WithId("AddMeasurementPoint")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

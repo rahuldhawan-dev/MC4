@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EAA6CB2E-A2A7-46C3-B9D7-E343A3B075CF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Contractors</RootNamespace>
+    <AssemblyName>Contractors</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews Condition="$(BuildViewsTooPlease) == 'true'">true</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions, Version=5.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataAnnotationsExtensions.5.0.1.27\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions.ClientValidation, Version=5.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DataAnnotationsExtensions.MVC3.5.0.1.27\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.AspNet, Version=1.6.7.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotless.AspNetHandler.1.6.7\lib\net461\dotless.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core, Version=1.6.7.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotless.Core.1.6.7\lib\net47\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\YUICompressor.NET.1.6.0.2\lib\net35\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="Fasterflect, Version=3.0.0.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\fasterflect.3.0.0\lib\netstandard20\netstandard20\Fasterflect.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.13\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivator, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
+    <Compile Include="ClassExtensions\TabBuilderExtensions.cs" />
+    <Compile Include="Configuration\AssetImagePdfResult.cs" />
+    <Compile Include="Configuration\DependencyRegistrar.cs" />
+    <Compile Include="Controllers\AsBuiltImageController.cs" />
+    <Compile Include="Controllers\CompletedWorkController.cs" />
+    <Compile Include="Controllers\ContractorController.cs" />
+    <Compile Include="Controllers\ContractorMeterCrewController.cs" />
+    <Compile Include="Controllers\CountyController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\DocumentLinkController.cs" />
+    <Compile Include="Controllers\SAPDeviceDetailController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\ServiceInstallationController.cs" />
+    <Compile Include="Controllers\ServiceMaterialController.cs" />
+    <Compile Include="Controllers\ServiceRestorationContractorController.cs" />
+    <Compile Include="Controllers\SmallMeterLocationController.cs" />
+    <Compile Include="Controllers\TapOrderController.cs" />
+    <Compile Include="Controllers\WorkOrder\SapControllerBaseWithValidation.cs" />
+    <Compile Include="Controllers\MeterChangeOutCompletionsController.cs" />
+    <Compile Include="Controllers\MeterChangeOutController.cs" />
+    <Compile Include="Controllers\MeterChangeOutScheduleController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\TownController.cs" />
+    <Compile Include="Controllers\WorkOrder\SapSyncronizedControllerBaseWithValidation.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderAdditionalFinalizationInfoController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\CrewAssignmentController.cs" />
+    <Compile Include="Controllers\CrewController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainBreakController.cs" />
+    <Compile Include="Controllers\MarkoutController.cs" />
+    <Compile Include="Controllers\MaterialController.cs" />
+    <Compile Include="Controllers\MaterialUsedController.cs" />
+    <Compile Include="Controllers\RestorationController.cs" />
+    <Compile Include="Controllers\RestorationMethodController.cs" />
+    <Compile Include="Controllers\SpoilController.cs" />
+    <Compile Include="Controllers\StreetController.cs" />
+    <Compile Include="Controllers\StreetOpeningPermitController.cs" />
+    <Compile Include="Controllers\TapImageController.cs" />
+    <Compile Include="Controllers\TownSectionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\ValveImageController.cs" />
+    <Compile Include="Controllers\WorkDescriptionController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderControllerBase.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderFinalizationController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderGeneralController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderInitialController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderMapController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderPlanningController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderReadOnlyController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderSchedulingController.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderTrafficController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\LinkHelper.cs" />
+    <Compile Include="Models\SAPProgressWorkOrder.cs" />
+    <Compile Include="Models\SearchSAPDeviceDetail.cs" />
+    <Compile Include="Models\ViewModels\AsBuiltImage.cs" />
+    <Compile Include="Models\ViewModels\AuditLogEntry.cs" />
+    <Compile Include="Models\ViewModels\CompletedWork.cs" />
+    <Compile Include="Models\ViewModels\ContractorMeterCrew.cs" />
+    <Compile Include="Models\ViewModels\ContractorUser.cs" />
+    <Compile Include="Models\ViewModels\Crew.cs" />
+    <Compile Include="Models\ViewModels\CrewAssignment.cs" />
+    <Compile Include="Models\ViewModels\Document.cs" />
+    <Compile Include="Models\ViewModels\EditService.cs" />
+    <Compile Include="Models\ViewModels\DocumentLink.cs" />
+    <Compile Include="Models\ViewModels\Layout.cs" />
+    <Compile Include="Models\ViewModels\MainBreak.cs" />
+    <Compile Include="Models\ViewModels\Markout.cs" />
+    <Compile Include="Models\ViewModels\MaterialUsed.cs" />
+    <Compile Include="Models\ViewModels\MeterChangeOut.cs" />
+    <Compile Include="Models\ViewModels\Note.cs" />
+    <Compile Include="Models\ViewModels\Restoration.cs" />
+    <Compile Include="Models\ViewModels\SchedulingCrewAssignment.cs" />
+    <Compile Include="Models\ViewModels\Service.cs" />
+    <Compile Include="Models\ViewModels\ServiceInstallation.cs" />
+    <Compile Include="Models\ViewModels\Spoil.cs" />
+    <Compile Include="Models\ViewModels\StreetOpeningPermit.cs" />
+    <Compile Include="Models\ViewModels\TapImage.cs" />
+    <Compile Include="Models\ViewModels\ValveImage.cs" />
+    <Compile Include="Models\ViewModels\WorkOrder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\CrewAssignment\ShowCalendar.css" />
+    <Content Include="Content\CrewAssignment\Manage.css" />
+    <Content Include="Content\fileuploader.css" />
+    <Content Include="Content\images\collector.png" />
+    <Content Include="Content\images\date-time-picker-calendar.png" />
+    <Content Include="Content\images\dropShadow.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_100_ffffff_500x100.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_35_346ea1_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_50_bcd6ed_1x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_bcd6ed_1x100.png" />
+    <Content Include="Content\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Content\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\images\warn-button-hover.png" />
+    <Content Include="Content\images\warn-button-normal.png" />
+    <Content Include="Content\jquery-ui-custom.css" />
+    <Content Include="Content\MaterialUsed\Form.css" />
+    <Content Include="Content\Nav.css" />
+    <Content Include="Content\Print.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\restoration.css" />
+    <Content Include="Content\WorkOrderFinalization\Show.css" />
+    <Content Include="Content\WorkOrder\Search.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\AdditionalFinalizationInfo\Edit.js" />
+    <Content Include="Scripts\Authentication\LogOn.js" />
+    <Content Include="Scripts\CrewAssignment\Calendar.js" />
+    <Content Include="Scripts\CrewAssignment\Manage.js" />
+    <Content Include="Scripts\CrewAssignment\CrewAssignment.js" />
+    <Content Include="Scripts\DocumentLink\New.js" />
+    <Content Include="Scripts\Document\Index.js" />
+    <Content Include="Scripts\Document\New.js" />
+    <Content Include="Scripts\jquery.tablednd.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\MainBreak\Index.js" />
+    <Content Include="Scripts\Markout\Form.js" />
+    <Content Include="Scripts\Markout\Index.js" />
+    <Content Include="Scripts\MaterialUsed\Edit.js" />
+    <Content Include="Scripts\MaterialUsed\Form.js" />
+    <Content Include="Scripts\MaterialUsed\Index.js" />
+    <Content Include="Scripts\MeterChangeOut\Form.js" />
+    <Content Include="Scripts\MeterChangeOut\Search.js" />
+    <Content Include="Scripts\Note\Index.js" />
+    <Content Include="Scripts\Restoration\Form.js" />
+    <Content Include="Scripts\ServiceInstallation\Form.js" />
+    <Content Include="Scripts\Service\Form.js" />
+    <Content Include="Scripts\Spoil\Index.js" />
+    <Content Include="Scripts\StreetOpeningPermit\Index.js" />
+    <Content Include="Scripts\WorkOrderFinalization\Edit.js" />
+    <Content Include="Scripts\WorkOrderMap\Show.js" />
+    <Content Include="Scripts\WorkOrderMap\EsriPicker.js" />
+    <Content Include="Scripts\WorkOrder\ServiceTab.js" />
+    <Content Include="Views\TapOrder\Show.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\Document\_DeleteForm.cshtml" />
+    <Content Include="Views\Spoil\_IndexReadOnly.cshtml" />
+    <Content Include="Views\WorkOrderAdditionalFinalizationInfo\_Show.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Web.QA1.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA2.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA3.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA4.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Web.Training.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WorkOrderAdditionalFinalizationInfo\_Edit.cshtml" />
+    <Content Include="Content\Leakage Chart.pdf" />
+    <Content Include="Views\Restoration\_Index.cshtml" />
+    <Content Include="Views\Restoration\Edit.cshtml" />
+    <Content Include="Views\Spoil\_Index.cshtml" />
+    <Content Include="Views\Spoil\_Show.cshtml" />
+    <Content Include="Views\Spoil\_Edit.cshtml" />
+    <Content Include="Views\Spoil\_New.cshtml" />
+    <Content Include="Views\Shared\_DialogButtons.cshtml" />
+    <Content Include="Views\CrewAssignment\Manage.cshtml" />
+    <Content Include="Views\Shared\_NoFrills.cshtml" />
+    <Content Include="Views\WorkOrderGeneral\Search.cshtml" />
+    <Content Include="Views\WorkOrderGeneral\Index.cshtml" />
+    <Content Include="Views\WorkOrderGeneral\Show.cshtml" />
+    <Content Include="Views\WorkOrderGeneral\_Tabs.cshtml" />
+    <Content Include="Views\Requisition\_Index.cshtml" />
+    <Content Include="Content\theme.less" />
+    <Content Include="Views\Home\Layout.cshtml" />
+    <Content Include="Views\Layout\_Custom.cshtml" />
+    <Content Include="Views\Restoration\Index.cshtml" />
+    <Content Include="Views\Restoration\Show.cshtml" />
+    <Content Include="Views\Restoration\_Final.cshtml" />
+    <Content Include="Views\Restoration\_Initial.cshtml" />
+    <Content Include="Views\Restoration\_Partial.cshtml" />
+    <Content Include="Views\Restoration\_Related.cshtml" />
+    <Content Include="Views\Restoration\Search.cshtml" />
+    <Content Include="Views\Restoration\New.cshtml" />
+    <Content Include="Views\MeterChangeOut\Edit.cshtml" />
+    <Content Include="Views\MeterChangeOut\Index.cshtml" />
+    <Content Include="Views\MeterChangeOut\Pdf.cshtml" />
+    <Content Include="Views\MeterChangeOut\PdfIndex.cshtml" />
+    <Content Include="Views\MeterChangeOut\Search.cshtml" />
+    <Content Include="Views\MeterChangeOut\Show.cshtml" />
+    <Content Include="Views\MeterChangeOut\_PdfBody.cshtml" />
+    <Content Include="Views\MeterChangeOut\_ShowMeterChangeOut.cshtml" />
+    <Content Include="Views\ContractorMeterCrew\Edit.cshtml" />
+    <Content Include="Views\ContractorMeterCrew\Index.cshtml" />
+    <Content Include="Views\ContractorMeterCrew\New.cshtml" />
+    <Content Include="Views\ContractorMeterCrew\Search.cshtml" />
+    <Content Include="Views\ContractorMeterCrew\Show.cshtml" />
+    <Content Include="Views\MeterChangeOutSchedule\Index.cshtml" />
+    <Content Include="Views\MeterChangeOutCompletions\Index.cshtml" />
+    <Content Include="Views\MeterChangeOutCompletions\Search.cshtml" />
+    <Content Include="Views\Note\New.cshtml" />
+    <Content Include="Views\Shared\Note\Index.cshtml" />
+    <Content Include="Views\Shared\Note\_DeleteForm.cshtml" />
+    <Content Include="Views\Shared\Note\_EditForm.cshtml" />
+    <Content Include="Views\MeterChangeOutSchedule\Pdf.cshtml" />
+    <Content Include="Views\MeterChangeOut\_PdfStyle.cshtml" />
+    <Content Include="Views\ServiceInstallation\_Index.cshtml" />
+    <Content Include="Views\ServiceInstallation\New.cshtml" />
+    <Content Include="Views\ServiceInstallation\_Form.cshtml" />
+    <Content Include="Views\ServiceInstallation\Show.cshtml" />
+    <Content Include="Views\ServiceInstallation\_ShowServiceInstallation.cshtml" />
+    <Content Include="Views\ServiceInstallation\Edit.cshtml" />
+    <Content Include="Views\CompletedWork\Search.cshtml" />
+    <Content Include="Views\CompletedWork\Index.cshtml" />
+    <Content Include="Views\AsBuiltImage\Index.cshtml" />
+    <Content Include="Views\AsBuiltImage\Search.cshtml" />
+    <Content Include="Views\AsBuiltImage\Show.cshtml" />
+    <Content Include="Views\AsBuiltImage\_ShowAsBuiltImage.cshtml" />
+    <Content Include="Views\TapImage\Index.cshtml" />
+    <Content Include="Views\TapImage\Search.cshtml" />
+    <Content Include="Views\TapImage\Show.cshtml" />
+    <Content Include="Views\TapImage\_ShowTapImage.cshtml" />
+    <Content Include="Views\ValveImage\Index.cshtml" />
+    <Content Include="Views\ValveImage\Search.cshtml" />
+    <Content Include="Views\ValveImage\Show.cshtml" />
+    <Content Include="Views\ValveImage\_ShowValveImage.cshtml" />
+    <Content Include="Views\Service\Search.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\Show.cshtml" />
+    <Content Include="Views\Service\_ShowService.cshtml" />
+    <Content Include="Views\Service\_TapImages.cshtml" />
+    <Content Include="Views\TapImage\New.cshtml" />
+    <Content Include="Views\TapImage\_Form.cshtml" />
+    <Content Include="Views\Shared\Document\Index.cshtml" />
+    <Content Include="Views\Document\New.cshtml" />
+    <Content Include="Views\Service\_ShowServiceTab.cshtml" />
+    <Content Include="Views\DocumentLink\Edit.cshtml" />
+    <Content Include="Views\Service\_WorkOrders.cshtml" />
+    <Content Include="Views\Service\Edit.cshtml" />
+    <Content Include="Views\Service\_Notes.cshtml" />
+    <None Include="packages.config" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Authentication\LogOn.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Mvc\MapCall.Common.Mvc.csproj">
+      <Project>{2BF5A04B-77D0-435B-AE0F-D9E3C5370030}</Project>
+      <Name>MapCall.Common.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.SAP\MapCall.SAP.csproj">
+      <Project>{9EE96C6B-095A-4792-B247-2F7B28430A9B}</Project>
+      <Name>MapCall.SAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contractors.Data\Contractors.Data.csproj">
+      <Project>{9E8C7543-28AF-4405-803D-69E5DAE5FD81}</Project>
+      <Name>Contractors.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\Deleporter\Deleporter.csproj">
+      <Project>{442A205A-2803-4EAE-9CC9-0E20A000FAE1}</Project>
+      <Name>Deleporter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Crew\Show.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Crew\New.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Crew\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_NavMenuPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_LayoutWithNav.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Crew\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Show.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\ChangePassword.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WorkOrderScheduling\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\ChangePasswordQA.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WorkOrderScheduling\Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WorkOrderPlanning\Search.cshtml" />
+    <Content Include="Views\WorkOrderPlanning\Index.cshtml" />
+    <Content Include="Views\CrewAssignment\ShowCalendar.cshtml" />
+    <Content Include="Views\CrewAssignment\_AssignmentsForDay.cshtml" />
+    <Content Include="Views\CrewAssignment\_MonthlyWorkCalendar.cshtml" />
+    <Content Include="Views\WorkOrderFinalization\Edit.cshtml" />
+    <Content Include="Views\CrewAssignment\_EndAssignment.cshtml" />
+    <Content Include="Views\WorkOrderReadOnly\Show.cshtml" />
+    <Content Include="Views\WorkOrderPlanning\Show.cshtml" />
+    <Content Include="Views\WorkOrderInitial\_Show.cshtml" />
+    <Content Include="Views\WorkOrderPlanning\_Tabs.cshtml" />
+    <Content Include="Views\WorkOrderMap\_Show.cshtml" />
+    <Content Include="Views\CrewAssignment\_Index.cshtml" />
+    <Content Include="Views\Markout\_Index.cshtml" />
+    <Content Include="Views\WorkOrderFinalization\Search.cshtml" />
+    <Content Include="Views\WorkOrderTraffic\_Show.cshtml" />
+    <Content Include="Views\WorkOrderTraffic\_Edit.cshtml" />
+    <Content Include="Views\WorkOrderFinalization\Index.cshtml" />
+    <Content Include="Views\StreetOpeningPermit\_Index.cshtml" />
+    <Content Include="Views\StreetOpeningPermit\_Show.cshtml" />
+    <Content Include="Views\Markout\_Show.cshtml" />
+    <Content Include="Views\Markout\_Edit.cshtml" />
+    <Content Include="Views\MainBreak\_Index.cshtml" />
+    <Content Include="Views\MainBreak\_Show.cshtml" />
+    <Content Include="Views\Markout\_New.cshtml" />
+    <Content Include="Views\MainBreak\_New.cshtml" />
+    <Content Include="Views\MainBreak\_Edit.cshtml" />
+    <Content Include="Views\WorkOrderFinalization\_Tabs.cshtml" />
+    <Content Include="Views\MaterialUsed\_Index.cshtml" />
+    <Content Include="Views\MaterialUsed\_Show.cshtml" />
+    <Content Include="Views\MaterialUsed\_New.cshtml" />
+    <Content Include="Views\TapImage\_Index.cshtml" />
+    <Content Include="Views\ValveImage\_Index.cshtml" />
+    <Content Include="Views\MaterialUsed\_Edit.cshtml" />
+    <Content Include="Views\MaterialUsed\_Form.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA1|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>60260</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60260/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+</Project>

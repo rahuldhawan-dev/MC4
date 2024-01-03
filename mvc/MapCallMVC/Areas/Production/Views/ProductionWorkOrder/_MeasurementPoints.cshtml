@@ -1,0 +1,84 @@
+﻿@using FluentNHibernate.Conventions
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@model ProductionWorkOrder
+@{
+    if (Model.Equipments.Any(x => x.Equipment != null))
+    {
+        var canEdit = Html.CurrentUserCanEdit();
+        var totalMeasuringPoints = 0;
+        foreach (var eqNotification in Model.Equipments.Where(x => x.Equipment != null))
+        {
+            var e = eqNotification.Equipment;
+            var notification = Model.Equipments.FirstOrDefault(x => x.Equipment != null && x.Equipment.Id == e.Id);
+            <fieldset>
+                <legend>
+                    SAP Equipment #:
+                    @Html.ActionLink((e.SAPEquipmentId != null) ? e.SAPEquipmentId.ToString() : "No SAPEquipmentId", "Show", "Equipment", new {area = "", e.Id}, null)
+
+                    -
+                    @e.Description
+                    | Notification #: @notification.SAPNotificationNumber
+                    | Completed On: @notification.CompletedOn
+                </legend>
+                @{
+                    if (e.EquipmentType != null && e.EquipmentType.MeasurementPoints != null)
+                    {
+                        // Only grab measurement points that are active, or already have a measurement value.
+                        var equipmentPurposeMeasurementPoints = e.EquipmentType.MeasurementPoints
+                                                                 .Where(x =>
+                                                                     x.IsActive
+                                                                     || Model.ProductionWorkOrderMeasurementPointValues.Any(measurement => measurement.MeasurementPointEquipmentType.Id == x.Id))
+                                                                 .OrderBy(x => x.Position)
+                                                                 .ToList();
+                        
+                        if (equipmentPurposeMeasurementPoints.Any())
+                        {
+                            totalMeasuringPoints += equipmentPurposeMeasurementPoints.Count;
+
+                            var table = Html.TableFor(x => equipmentPurposeMeasurementPoints, new {id = "measurementPointsTable"})
+                                            .TemplateColumnFor("Value", row => @<text>
+                                                                                   @if (Model.ProductionWorkOrderMeasurementPointValues != null)
+                                                                                   {
+                                                                                       var value = Model.ProductionWorkOrderMeasurementPointValues
+                                                                                                        .FirstOrDefault(mp => mp.Equipment.Id == e.Id
+                                                                                                                     && row.EquipmentType == e.EquipmentType
+                                                                                                                     && row.Id == mp.MeasurementPointEquipmentType.Id);
+                                                                                       if (value != null)
+                                                                                       {
+                                                                                           if (Model.DateCompleted.HasValue)
+                                                                                           {
+                                                                                               @Html.DisplayValueFor(_ => value.Value)
+                                                                                           }
+                                                                                           else
+                                                                                           {
+                                                                                               @Html.Partial("_EditMeasurementPoint", ViewModelFactory.BuildWithOverrides<EditProductionWorkOrderMeasurementPointValue>(new {ProductionWorkOrder = Model.Id, Equipment = e.Id, MeasurementPointEquipmentType = row.Id, Value = value.Value, Id = value.Id}))
+                                                                                           }
+                                                                                       }
+                                                                                       else
+                                                                                       {
+                                                                                           @Html.Partial("_AddMeasurementPoint", ViewModelFactory.BuildWithOverrides<CreateProductionWorkOrderMeasurementPointValue>(new {ProductionWorkOrder = Model.Id, Equipment = e.Id, MeasurementPointEquipmentType = row.Id}))
+                                                                                       }
+                                                                                   }
+                                                                                   else
+                                                                                   {
+                                                                                       <div>no measurement points</div>
+                                                                                   }
+                                                                                </text>)
+                                            .ColumnFor(x => x.Category)
+                                            .ColumnFor(x => x.Description)
+                                            .ColumnFor(x => x.Position)
+                                            .ColumnFor(x => x.UnitOfMeasure)
+                                            .ColumnFor(x => x.Min)
+                                            .ColumnFor(x => x.Max);
+                            @table
+                        }
+                        else
+                        {
+                            <div>No measurement points have been defined for the equipment type: @e.EquipmentType</div>
+                        }
+                    }
+                }
+            </fieldset>
+        }
+    }
+}

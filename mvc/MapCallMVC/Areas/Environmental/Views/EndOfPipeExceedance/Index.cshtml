@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchEndOfPipeExceedance
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.State)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.WasteWaterSystem)
+      .SortableColumnFor(x => x.Facility)
+      .SortableColumnFor(x => x.EventDate)
+      .SortableColumnFor(x => x.EndOfPipeExceedanceType)
+      .SortableColumnFor(x => x.EndOfPipeExceedanceTypeOtherReason)
+      .SortableColumnFor(x => x.EndOfPipeExceedanceRootCause)
+      .SortableColumnFor(x => x.EndOfPipeExceedanceRootCauseOtherReason)
+      .SortableColumnFor(x => x.ConsentOrder)
+      .SortableColumnFor(x => x.NewAcquisition)
+      .SortableColumnFor(x => x.BriefDescription)
+      .WithPaginatedFooter())

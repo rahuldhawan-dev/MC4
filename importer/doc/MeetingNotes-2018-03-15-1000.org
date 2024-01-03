@@ -1,0 +1,15 @@
+* Fields to remove
+- createdon
+- inventoryno
+- authorizgroup
+- equipcategory
+- functionclass
+- position
+- sizedimens
+- street
+
+* Fields to add
+- Equipment Model number
+- ABC Indicator = Equipment Criticality in MapCall
+- Manufacturer Serial Number
+- Technical ID

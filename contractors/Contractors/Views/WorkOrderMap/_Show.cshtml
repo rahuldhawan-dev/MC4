@@ -1,0 +1,15 @@
+﻿@model WorkOrder 
+@* Scripts and css for maps are loaded in _Layout now. *@
+
+@using (var f = Form.BeginAjaxForm("Show", "WorkOrderMap", new { id = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+
+	if (Request.IsAjaxRequest())
+	{
+        <div id="googleMap" data-latitude="@Model.Latitude" data-longitude="@Model.Longitude"></div>
+        @Html.ScriptFor("~/Scripts/WorkOrderMap/EsriPicker.js")
+        @Html.ScriptFor("~/Scripts/WorkOrderMap/Show.js")
+	}
+}

@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchEmergencyResponsePlan
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.EmergencyPlanCategory)
+    .SortableColumnFor(x => x.Title)
+    .SortableColumnFor(x => x.ReviewFrequency)
+    .WithPaginatedFooter())

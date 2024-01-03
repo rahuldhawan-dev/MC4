@@ -1,0 +1,17 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services
+@model CreateTapImage
+
+@Html.Partial("_ServiceLookup", new SearchServicePremiseNumberServiceNumber())
+
+@using (Form.BeginForm("Create", "TapImage", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.FileUpload)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchWasteWaterSystemBasin
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "wwsb-results"})
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.WasteWaterSystem)
+    .SortableColumnFor(x => x.BasinName)
+    .SortableColumnFor(x => x.FirmCapacity)
+    .SortableColumnFor(x => x.FirmCapacityUnderStandbyPower)
+    .SortableColumnFor(x => x.FirmCapacityDateUpdated)
+    .WithPaginatedFooter())

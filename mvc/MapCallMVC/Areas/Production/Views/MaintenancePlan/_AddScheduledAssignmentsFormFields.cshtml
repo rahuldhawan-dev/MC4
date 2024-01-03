@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateScheduledAssignments
+
+<div class="field-column fc200 searchFields">
+    @Html.HiddenFor(x => x.Id)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.AssignedTo)
+    @Html.EditorFor(x => x.AssignedFor)
+    @Html.ButtonGroup(@<text>
+                          @Control.SubmitButton("Assign").WithId("Assign")
+                       </text>)
+</div>

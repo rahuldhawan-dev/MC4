@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.AddWaterConstituentStateLimit
+
+@using (Form.BeginForm("Create", "WaterConstituentStateLimit", "WaterQuality"))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.WaterConstituent)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.Agency)
+        @Html.EditorFor(x => x.Min)
+        @Html.EditorFor(x => x.Max)
+        @Html.EditorFor(x => x.Mcl)
+        @Html.EditorFor(x => x.Mclg)
+        @Html.EditorFor(x => x.Smcl)
+        @Html.EditorFor(x => x.ActionLimit)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.EditorFor(x => x.Regulation)
+        @Html.EditorFor(x => x.StateDEPAnalyteCode)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save State Limit")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

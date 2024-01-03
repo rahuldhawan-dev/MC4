@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_NoFrills.cshtml";
+}
+
+@section head {
+    @* Scripts need to load at the top of the page because the forms come pre-rendered with some javascript. *@
+    @* We need to include the permits site's site-js because of its jQuery requirements. We can not use our own
+        copies of this because we've made modifications over the years that might conflict with this. *@
+    <script type="text/javascript" src="@(Permits.Data.Client.Utilities.BaseAddress)Scripts/site-js"></script>
+    <script type="text/javascript" src="@(Permits.Data.Client.Utilities.BaseAddress)Scripts/api-js"></script>
+    <script type="text/javascript" src="@(Permits.Data.Client.Utilities.BaseAddress)Scripts/ExpressionLanguage/SimpleExpressionLanguage.js"></script>
+    @* 271 does this hide thing, I don't know why. *@
+    <script type="text/javascript">
+        $('#validation-summary-errors').hide();
+    </script>
+}
+
+@section styles {
+    @* We need to keep our site styles on this. The api-css styles are meant to be barebones in order to let 
+        it look like it's part of the site that renders it.
+        
+        It's VERY IMPORTANT to note that if we ever make significant changes to our own form input rendering,
+        which would ultimately lead to major css changes, we would need to keep the old css just for this page.
+        *@
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/content/base-css")
+
+    <link rel="stylesheet" href="@(Permits.Data.Client.Utilities.BaseAddress)Content/api-css"/>
+
+    <style type="text/css">
+        body { padding: 6px; }
+
+        fieldset.permitHeading {
+            padding: 6px;
+        }
+
+            fieldset.permitHeading legend {
+                font-size: 20px;
+            }
+    
+    </style>
+}
+
+@Html.DisplayNotifications()
+
+@RenderBody()

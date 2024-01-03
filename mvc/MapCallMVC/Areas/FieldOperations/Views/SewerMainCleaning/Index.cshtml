@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerMainCleanings.SearchSewerMainCleaning
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.Date, "Date")
+    .SortableColumnFor(x => x.InspectedDate, "CompletedDate")
+    .SortableColumnFor(x => x.InspectionType)
+    .SortableColumnFor(x => x.InspectionGrade)
+    .SortableColumnFor(x => x.Street, "Street")
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.Opening1)
+    .SortableColumnFor(x => x.Opening2)
+    .SortableColumnFor(x => x.Opening2IsATerminus)
+    .SortableColumnFor(x => x.FootageOfMainInspected)
+    .SortableColumnFor(x => x.BlockageFound)
+    .SortableColumnFor(x => x.CauseOfBlockage)
+    .SortableColumnFor(x => x.Overflow)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .SortableColumnFor(x => x.SAPNotificationNumber)
+    .WithPaginatedFooter())

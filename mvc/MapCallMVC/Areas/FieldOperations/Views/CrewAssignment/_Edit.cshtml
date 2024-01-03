@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CrewAssignments.EditCrewAssignment
+
+@using (var f  = Form.BeginForm("Update", "CrewAssignment", "FieldOperations", new { Model.Id, Model.WorkOrder }))
+{
+	f.HtmlAttributes["title"] = "Edit Crew Assignment";
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.DateStarted)
+        @Html.EditorFor(x => x.DateEnded)
+        @Html.EditorFor(x => x.EmployeesOnJob)
+        @Html.ButtonGroup(@<text>
+            @Html.Partial("_DialogButtons", "Save Crew Assignment")
+        </text>)
+    </div>
+}

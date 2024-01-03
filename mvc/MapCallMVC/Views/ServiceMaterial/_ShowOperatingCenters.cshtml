@@ -1,0 +1,37 @@
+﻿@model ServiceMaterial
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@if (userCanEdit)
+{
+    @Html.Partial("_AddOperatingCenterServiceMaterial", ViewModelFactory.BuildWithOverrides<CreateOperatingCenterServiceMaterial>(new {ServiceMaterial = Model.Id }))
+}
+
+<table id="operatingCenterTable">
+    <thead>
+        <tr>
+            <th>OperatingCenter</th>
+            <th>New Service Record</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var ocsm in Model.OperatingCentersServiceMaterials)
+    {
+        <tr>
+            <td>@ocsm.OperatingCenter</td>
+            <td>@ocsm.NewServiceRecord</td>
+            <td>
+                @using (Form.BeginForm("Destroy", "OperatingCenterServiceMaterial", new { id = ocsm.Id }))
+                {
+                    if (userCanEdit)
+                    {
+                        @Control.SubmitButton("Remove Operating Center").With("onclick", "return confirm('Are you sure?');")
+                    }
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.ViewModels.ProductionWorkOrderNotification
+
+<h2>Work Order Completed Notification</h2>
+
+<a href="@Model.RecordUrl">@Model.ProductionWorkOrder.Id</a><br />
+
+Operating Center: @Model.ProductionWorkOrder.OperatingCenter <br />
+Planning Plant: @Model.ProductionWorkOrder.PlanningPlant <br />
+Facility: @Model.ProductionWorkOrder.Facility <br />
+Work Order Description: @Model.ProductionWorkOrder.ProductionWorkDescription <br />
+Corrective Problem Code: @Model.ProductionWorkOrder.CorrectiveOrderProblemCode<br />
+
+@if (Model.ProductionWorkOrder.ProductionWorkDescription.OrderType.Id != 2)
+{
+    <text> Equipment Description: @Model.ProductionWorkOrder.Equipment <br /> </text>
+}
+<br/>
+Notes: @Model.ProductionWorkOrder.OrderNotes <br />
+Assignment Details: <br />
+@foreach (EmployeeAssignment x in @Model.ProductionWorkOrder.EmployeeAssignments)
+{
+    <text>
+        Employee: @x.AssignedTo.ToString() <br/>
+        Assigned For: @x.AssignedFor.ToShortDateString() <br/>
+        Date Started: @x.DateStarted <br/>
+        Date Ended: @x.DateEnded <br/>
+    </text>
+}
+
+Completion Details: <br />
+
+    Completed By: @Model.ProductionWorkOrder.CompletedBy <br />
+    Completed on: @Model.ProductionWorkOrder.DateCompleted <br />
+    Failure Code: @Model.ProductionWorkOrder.FailureCode <br />
+    Action Code: @Model.ProductionWorkOrder.ActionCode <br />

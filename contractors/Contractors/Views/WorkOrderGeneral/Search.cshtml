@@ -1,0 +1,50 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderGeneralSearch
+
+@{
+    ViewBag.Title = "Work Order - General - Search";
+}
+
+@using (Form.BeginForm("Index", "WorkOrderGeneral")){
+    <div class="field-column fc-stretch fc200 searchFields">
+        @Html.EditorFor(m => m.Id)
+
+        <div class="field-pair">
+            <div class="label" style="text-align: right">-OR-</div>
+            <div class="field">&nbsp;</div>
+        </div>
+
+        @Html.EditorFor(m => m.OperatingCenter)
+        @Html.EditorFor(m => m.Town)
+        @Html.EditorFor(m => m.TownSection)
+        @Html.EditorFor(m => m.Street)
+        @Html.EditorFor(m => m.StreetNumber)
+        @Html.EditorFor(m => m.ApartmentAddtl)
+        @Html.EditorFor(m => m.NearestCrossStreet)
+        @Html.EditorFor(m => m.AssetType)
+        @Html.EditorFor(m => m.WorkDescription)
+        @Html.EditorFor(m => m.DateReceived)
+        @Html.EditorFor(m => m.DateCompleted)
+        @Html.EditorFor(m => m.DatePitcherFilterDeliveredToCustomer)
+        @Html.EditorFor(m => m.HasPitcherFilterBeenProvidedToCustomer)
+        @Html.EditorFor(m => m.Completed)
+        @Html.EditorFor(m => m.Purpose)
+        @Html.EditorFor(m => m.Priority)
+        @Html.EditorFor(m => m.Requester)
+        @Html.EditorFor(m => m.MarkoutRequirement)
+        @Html.EditorFor(x => x.StreetOpeningPermitRequired)
+        @Html.EditorFor(x => x.StreetOpeningPermitRequested)
+        @Html.EditorFor(x => x.StreetOpeningPermitIssued)
+        @Html.EditorFor(x => x.HasMaterialsUsed)
+        @Html.EditorFor(x => x.AccountCharged)
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @Html.EditorFor(x => x.Notes)
+        @Html.EditorFor(m => m.DigitalAsBuiltCompleted)
+        @Html.EditorFor(m => m.DocumentType)
+
+        @Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}
+
+@section styles {
+    @Html.StylesheetFor("~/Content/WorkOrder/Search.css")
+}

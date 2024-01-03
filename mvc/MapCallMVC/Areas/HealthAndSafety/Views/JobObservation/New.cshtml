@@ -1,0 +1,10 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model CreateJobObservation
+
+@Html.Partial("_WorkOrderLookup", new SearchWorkOrderId())
+
+@using (Form.BeginForm("Create", "JobObservation", "HealthAndSafety"))
+{
+    @Html.Partial("_Form", Model)
+    @Html.HiddenFor(_ => Model.CoordinateCreateUrl)
+}

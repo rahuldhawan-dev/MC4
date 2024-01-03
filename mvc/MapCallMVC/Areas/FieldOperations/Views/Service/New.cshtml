@@ -1,0 +1,285 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.CreateService
+
+<script>
+const SERVICE_CATEGORIES = {
+  WaterMeasurementOnly: @ServiceCategory.Indices.WATER_MEASUREMENT_ONLY
+};
+
+const SERVICE_INSTALLATION_PURPOSES = {
+  MaterialVerification: @ServiceInstallationPurpose.Indices.MATERIAL_VERIFICATION
+};
+</script>
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/Service/Form.js")
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/Service/New.js")
+}
+
+@(Control.Hidden("AnyWithInstallationNumberAndOperatingCenterUrl")
+    .WithValue(Url.Action("AnyWithInstallationNumberAndOperatingCenter", "Service", new {
+        area = "FieldOperations" 
+    })))
+@(Control.Hidden("ByInstallationNumberAndOperatingCenter")
+    .WithValue(Url.Action("ByInstallationNumberAndOperatingCenter", "MostRecentlyInstalledService", new {
+        area = "Customer" 
+    })))
+@(Control.Hidden("OperatingCenterSAPEnabledUrl")
+        .WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty })))
+@(Control.Hidden("TownStateServiceUrl")
+        .WithValue(Url.Action("GetState", "Town", new { area = string.Empty })))
+@Control.Hidden("WBSElementFindUrl").WithValue(Url.Action("Find", "WBSElement", new { area = "SAP" }))
+
+@using (Form.BeginForm("Create", "Service", "FieldOperations"))
+{
+    @Control.Hidden("IsInstalledNonVerification").WithValue(Model.IsInstalledNonVerification.ToString().ToLower())
+    @Control.HiddenFor(x => x.WorkOrder)
+    <fieldset>
+        <legend>Service Details</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.State)
+            @Html.EditorFor(x => x.OperatingCenter)
+            <fieldset>
+                <legend>Premise</legend>
+                @Html.EditorFor(x => x.PremiseNumberUnavailable)
+                @Html.EditorFor(x => x.PremiseUnavailableReason)
+                @Html.RenderDisplayTemplate("Premise #", @<text>
+                    <div id="premiseNumberLink">
+                        @Ajax.ActionLink("Click here to Lookup and Verify Technical Master Data", "Find", "SAPTechnicalMasterAccount", new { area = "Customer", id = Model.PremiseNumber }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#premiseNumberTable", id = "PremiseFindLink" })
+                    </div>
+                    @Html.EditorWithoutWrapperFor(x => x.PremiseNumber)
+                </text>)
+                @Html.EditorFor(x => x.Installation)
+                @Html.EditorFor(x => x.DeviceLocation)
+                @Html.EditorFor(x => x.DeviceLocationUnavailable)
+            </fieldset>
+            @Html.EditorFor(x => x.IsExistingOrRenewal)
+            @Html.EditorFor(x => x.ServiceNumber)
+            @Html.EditorFor(x => x.LegacyId)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>1. Site Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.ContactDate)
+                        @Html.EditorFor(x => x.Name)
+                        @Html.EditorFor(x => x.Town)
+                        @Html.EditorFor(x => x.StreetNumber)
+                        @Html.EditorFor(x => x.Street)
+                        @Html.EditorFor(x => x.TownSection)
+                        @Html.EditorFor(x => x.Block)
+                        @Html.EditorFor(x => x.Lot)
+                        @Html.EditorFor(x => x.Coordinate)
+                        @Html.EditorFor(x => x.PhoneNumber)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.ApartmentNumber)
+                        @Html.EditorFor(x => x.CrossStreet)
+                        @Html.EditorFor(x => x.State)
+                        @Html.EditorFor(x => x.Zip)
+                        @Html.EditorFor(x => x.Development)
+                        @Html.EditorFor(x => x.SubfloorCondition)
+                        @Html.EditorFor(x => x.YearOfHomeConstruction)
+                        @Html.EditorFor(x => x.TerminationPoint)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>2. Cost Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.RoadOpeningFee)
+                        @Html.EditorFor(x => x.AmountReceived)
+                        @*@Html.EditorFor(x => x.TotalFee)*@
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.ServiceInstallationFee)
+                        @Html.EditorFor(x => x.PaymentReferenceNumber)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>3. Company Service Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.ServiceCategory)
+                        @Html.EditorFor(x => x.ServiceInstallationPurpose)
+                        @Html.RenderDisplayTemplate("WBS Charged", @<text>
+                            <div id="wbsElementLookupLink">
+                                @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#wbsElementTable", id = "WBSElementFindLink" })
+                            </div>
+                            @Html.EditorWithoutWrapperFor(x => x.TaskNumber1)
+                        </text>)
+                        @Html.EditorFor(x => x.LeadServiceReplacementWbs)
+                        @Html.EditorFor(x => x.NSINumber)
+                        @Html.EditorFor(x => x.DeveloperServicesDriven)
+
+                        @Html.EditorFor(x => x.Agreement)
+                        @Html.EditorFor(x => x.MainType)
+                        @Html.EditorFor(x => x.MainSize)
+                        @Html.EditorFor(x => x.DepthMainFeet)
+                        @Html.EditorFor(x => x.DepthMainInches)
+                        @Html.EditorFor(x => x.LengthOfService)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.BureauOfSafeDrinkingWaterPermitRequired)
+                        @Html.EditorFor(x => x.MeterSettingRequirement)
+                        @Html.EditorFor(x => x.MeterSettingSize)
+                        @Html.EditorFor(x => x.ServiceMaterial)
+                        @Html.EditorFor(x => x.ServiceSize)
+                        @Html.EditorFor(x => x.CompanyOwned)
+                        @Html.EditorFor(x => x.ServiceSideType)
+                        @Html.EditorFor(x => x.PitInstalled)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>4. Customer Side Service Information</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.CustomerSideMaterial)
+                        @Html.EditorFor(x => x.CustomerSideSize)
+                        @Html.EditorFor(x => x.LeadAndCopperCommunicationProvided)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.TapOrderNotes)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>6. Work Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.DateIssuedToField)
+                        @Html.EditorFor(x => x.WorkIssuedTo)
+                        @Html.EditorFor(x => x.ProjectManager)
+                        @Html.EditorFor(x => x.ServicePriority)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.DateInstalled)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>7. Retirement Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc225">
+                        @Html.EditorFor(x => x.RetiredAccountNumber)
+                        @Html.EditorFor(x => x.RetireMeterSet)
+                        @Html.EditorFor(x => x.PreviousServiceMaterial)
+                        @Html.EditorFor(x => x.StreetMaterial)
+                        @Html.EditorFor(x => x.PreviousServiceCustomerMaterial)
+                        @Html.EditorFor(x => x.LeadServiceRetirementWbs)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.OriginalInstallationDate)
+                        @Html.EditorFor(x => x.RetiredDate)
+                        @Html.EditorFor(x => x.PreviousServiceSize)
+                        @Html.EditorFor(x => x.PreviousServiceCustomerSize)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>8. Contractor Installation Invoice</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.InstallationInvoiceNumber)
+                        @Html.EditorFor(x => x.PurchaseOrderNumber)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.InstallationInvoiceDate)
+                        @Html.EditorFor(x => x.InstallationCost)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset id="customerSideSLSection">
+        <legend>9. Customer Side Lead Service Line Replacement Status</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc250">
+                        @Html.EditorFor(x => x.CustomerSideSLReplacement)
+                        @Html.EditorFor(x => x.FlushingOfCustomerPlumbing)
+                        @Html.EditorFor(x => x.CustomerSideSLReplacedBy)
+                        @Html.EditorFor(x => x.CustomerSideSLReplacementContractor)
+                        @Html.EditorFor(x => x.LengthOfCustomerSideSLReplaced)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc250">
+                        @Html.EditorFor(x => x.CustomerSideSLReplacementCost)
+                        @Html.EditorFor(x => x.CustomerSideReplacementDate)
+                        @Html.EditorFor(x => x.OfferedAgreement, new { @class = "fp-agreement-related" })
+                        @Html.EditorFor(x => x.OfferedAgreementDate, new { @class = "fp-agreement-related" })
+                        @Html.EditorFor(x => x.ServiceRegroundingPremiseType)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>10. Job Notes</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.JobNotes)
+            @Html.EditorFor(x => x.OtherPoint, new { @class = "fp-other-point" })
+        </div>
+    </fieldset>
+
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Index", "Service")
+        </text>)
+    </div>
+}

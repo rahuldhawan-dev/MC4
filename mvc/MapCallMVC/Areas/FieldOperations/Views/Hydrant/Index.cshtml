@@ -1,0 +1,112 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchHydrant
+
+@{
+    ActionBarHelper.AddExportLink();
+    if (Model.Count > SearchHydrantForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchHydrantForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink(new { Model.OperatingCenter, controller = "AssetMap" });
+    }
+}
+
+@helper TryCreateInspectionLink(Hydrant hyd)
+{
+    if (hyd.IsInspectable && hyd.OperatingCenter.IsActive)
+    {
+        @Html.AuthorizedActionLink("Inspect", "New", "HydrantInspection", new { id = hyd.Id }, new { target = "_blank" })
+    }
+}
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+    <tr class="asset-not-inspectable">
+        <td class="color-block">Asset Not Inspectable</td>
+    </tr>
+</table>
+@(Html.TableFor(x => x, new { id = "hydrants" })
+    .WithCaption("Records found: " + Model.Count)
+    .WithRowBuilder((m, help) => {
+        if (!m.IsInspectable)
+        {
+            help.AddCssClass("asset-not-inspectable");
+        }
+    })
+    .TemplateColumnFor("Hydrant", x => Html.ActionLink(x.HydrantNumber, "Show", new { x.Id }))
+    .TemplateColumnFor("", x => TryCreateInspectionLink(x))
+    .TemplateColumnFor("", x =>
+     @<text>
+         @if (x.PaintedToday)
+         {
+             <text>Painted Today</text>
+         }
+         else if (!x.IsPaintable || !x.OperatingCenter.IsActive || !Html.CurrentUserCanEdit())
+         {
+             <text></text>
+         }
+         else
+         {
+             using (Form.BeginForm("Create", "HydrantPainting", new {
+                 Hydrant = x.Id,
+                 PaintedToday = true
+             }))
+             {
+                 @Control.SubmitButton("Painted Today").WithCssClass("button-link").With(
+                     "onclick",
+                     "return confirm('This will add a new painting record for hydrant " +
+                     x.HydrantNumber +
+                     " with the date set to today, are you sure?');")
+                 ;
+             }
+         }
+      </text>)
+    .SortableColumnFor(x => x.HydrantSuffix, "HydrantSuffix")
+    .SortableColumnFor(x => x.LegacyId)
+    .SortableColumnFor(x => x.SAPEquipmentId)
+    .SortableColumnFor(x => x.HydrantManufacturer)
+    .SortableColumnFor(x => x.WorkOrderNumber)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street, "Street.FullStName")
+    .SortableColumnFor(x => x.CrossStreet, "CrossStreet.FullStName")
+    .SortableColumnFor(x => x.HydrantDueInspection.LastInspectionDate, "HydrantDueInspection.LastInspectionDate")
+    .SortableTemplateColumnFor("Has Open WorkOrder", "MostRecentOpenWorkOrderWorkDescription", x => @<text>
+            <span style="color: red;">
+                @Html.DisplayValueFor(_ => x.MostRecentOpenWorkOrderWorkDescription)
+            </span>
+    </text>)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.HydrantMainSize, "HydrantMainSize.Size")
+    .SortableColumnFor(x => x.LateralSize, "LateralSize.Size")
+    .SortableColumnFor(x => x.GISUID)
+    .SortableColumnFor(x => x.FunctionalLocation)
+    .SortableColumnFor(x => x.Route)
+    .SortableColumnFor(x => x.Stop)
+    .SortableColumnFor(x => x.UpdatedAt)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Zone)
+    .SortableColumnFor(x => x.WaterSystem)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x=> x.TownSection)
+    .SortableColumnFor(x => x.FireDistrict)
+    .ColumnFor(x => x.Location)
+    .ColumnFor(x => x.Coordinate.Latitude)
+    .ColumnFor(x => x.Coordinate.Longitude)
+    .SortableColumnFor(x => x.Route)
+    .SortableColumnFor(x => x.YearManufactured)
+    .SortableColumnFor(x => x.OpenDirection)
+    .SortableColumnFor(x => x.HydrantDueInspection.RequiresInspection, "HydrantDuePainting.RequiresInspection")
+    .SortableColumnFor(x => x.HydrantDuePainting.RequiresPainting, "HydrantDuePainting.RequiresPainting")
+    .SortableColumnFor(x => x.HydrantDuePainting.LastPaintedAt, "HydrantDuePainting.LastPaintedAt")
+    .SortableColumnFor(x => x.HydrantBilling)
+    .SortableColumnFor(x => x.HydrantSize)
+    .SortableColumnFor(x => x.HydrantOutletConfiguration)
+    .SortableColumnFor(x => x.HydrantType)
+    .SortableColumnFor(x => x.PremiseNumber)
+    .SortableColumnFor(x => x.Initiator)
+    .SortableColumnFor(x => x.CreatedAt)
+    .ColumnFor(x => x.HasWorkOrder)
+    .ColumnFor(x => x.SAPErrorCode)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,30 @@
+﻿@model OperatingCenter
+@{
+    var isAdmin = Authentication.CurrentUserIsAdmin;
+    var alphabeticalWaterSystems = Model.WaterSystems.OrderBy(x => x.Description);
+
+    var table = Html.TableFor(x => alphabeticalWaterSystems, new { id = "waterSystems-table" })
+        .ColumnFor(x => x.Description)
+		.ColumnFor(x => x.LongDescription);
+
+    if (isAdmin)
+    {
+        table.TemplateColumnFor(x => @<text>
+                                         @using(Form.BeginRouteForm("OperatingCenter", "WaterSystem", new{ Model.Id, WaterSystem= x.Id }, ManyToManyRouteAction.Remove))
+                                         {
+                                             @Control.SubmitButton("Remove Water System").WithId("OperatingCenterWaterSystemId").With("onclick", "return confirm('Are you sure you want to remove " + x.Description + " - " + x.LongDescription + "?');")
+                                         }
+                                      </text>);
+    }
+
+}
+
+@if (isAdmin)
+{
+    <div class="collapse-panel" data-title="Add Water System">
+        @Html.Partial("_AddWaterSystem", ViewModelFactory.BuildWithOverrides<AddOperatingCenterWaterSystem>(new { Id = Model.Id }))
+    </div>
+ 
+}
+
+@table

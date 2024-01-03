@@ -1,0 +1,19 @@
+﻿@model MMSINC.Data.ChoosePaymentMethod
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/TrafficControlTicket/ChoosePaymentMethod.js")
+
+@using (var f = Form.BeginAjaxForm("VerifyPaymentSummary", "TrafficControlTicket", "FieldOperations"))
+{
+    f.RouteData.Add("Id", Model.Id);
+    f.Ajax.HttpMethod = "POST";
+    f.Ajax.UpdateTargetId = "paymentContent";
+    f.HtmlAttributes.Add("id", "choosePaymentMethodForm");
+    
+    <div>
+        Please select the card to apply the charges to. You will be asked to confirm payment on the next screen.
+    </div>
+    
+    Html.RenderPartial("~/Areas/FieldOperations/Views/TrafficControlTicket/_PaymentMethodList.cshtml", Model);
+    @Control.SubmitButton("Next")
+}
+@Html.ActionLink("Cancel", "Show", new { id = Model.Id }, new { @class = "link-button" })

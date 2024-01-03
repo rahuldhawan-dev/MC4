@@ -1,0 +1,14 @@
+﻿@model NewNote
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null; 
+}
+@using (var form = Form.BeginForm("Create", "Note")) {
+    <div class="field-column fc50">
+        @Html.EditorFor(x => x.Text)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Add Note").WithName("Submit")
+                               @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,20 @@
+﻿@model SearchEquipmentManufacturer
+@{
+    ActionBarHelper.AddExportLink();
+
+    var table = Html.TableFor(_ => Model)
+                    .WithCaption("Records Found: " + Model.Count);
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table.TemplateColumnFor("Edit", x => Html.ActionLink("Edit", "Edit", new {x.Id}));
+    }
+
+    table = table
+        .ColumnFor(x => x.EquipmentType)
+        .ColumnFor(x => x.Description)
+        .ColumnFor(x => x.MapCallDescription)
+        .WithPaginatedFooter();
+}
+
+@table

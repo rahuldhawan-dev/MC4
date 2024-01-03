@@ -1,0 +1,32 @@
+﻿@model ConfinedSpaceForm
+           
+<div class="field-column fc200">
+    @if (Model.ProductionWorkOrder != null)
+    {
+        @Html.RenderDisplayTemplate("Production Work Order", Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { id = Model.ProductionWorkOrder.Id, area = "Production" }, null))
+    }
+    @if (Model.ShortCycleWorkOrderNumber != null)
+    {
+        @Html.DisplayFor(x => x.ShortCycleWorkOrderNumber)
+    }
+    @if (Model.WorkOrder != null)
+    {
+        @Html.RenderDisplayTemplate("Work Order", Html.ActionLink(Model.WorkOrder.Id.ToString(), "Show", "WorkOrder", new { id = Model.WorkOrder.Id, area = "FieldOperations" }, null))
+    }
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @if (Model.ProductionWorkOrder != null)
+    {
+        @Html.DisplayFor(x => x.PlanningPlant)
+        @Html.DisplayFor(x => x.Facility)
+    }
+    else if (Model.WorkOrder != null)
+    {
+        @Html.DisplayFor(x => x.Address)
+    }
+    @Html.DisplayFor(x => x.GeneralDateTime)
+    @Html.DisplayFor(x => x.LocationAndDescriptionOfConfinedSpace)
+    @Html.DisplayFor(x => x.PurposeOfEntry)
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

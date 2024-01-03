@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateSystemDeliveryEntryViewModel
+@Html.ScriptFor("~/Scripts/Areas/Production/SystemDeliveryEntry/FieldVisibility.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Create", "SystemDeliveryEntry", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.EnteredBy)
+        @Html.EditorFor(x => x.WeekOf)
+        @Html.EditorFor(x => x.OperatingCenters)
+        @Html.EditorFor(x => x.SystemDeliveryType)
+        @Html.EditorFor(x => x.PublicWaterSupplies)
+        @Html.EditorFor(x => x.WasteWaterSystems)
+        @Html.EditorFor(x => x.Facilities)
+    </div>
+
+    <div class="container">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Select")
+            @Html.LinkButton("Cancel", "Search", "SystemDeliveryEntry")
+        </text>)
+    </div>
+}

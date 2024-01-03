@@ -1,0 +1,28 @@
+﻿@model Incident
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.IncidentInvestigations, new { id = "investigations-table" })
+                    .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "IncidentInvestigation", new { area = "HealthAndSafety", id = x.Id }, null))
+                        .IsVisible(canEdit)
+                    .ColumnFor(x => x.IncidentInvestigationRootCauseFindingType)
+                    .TemplateColumnFor("Finding Performed By", x => @<text>@string.Join(", ", x.RootCauseFindingPerformedByUsers.Select(y => y.FullName))</text>)
+                    .ColumnFor(x => x.IncidentInvestigationRootCauseLevel1Type)
+                    .ColumnFor(x => x.IncidentInvestigationRootCauseLevel2Type)
+                    .ColumnFor(x => x.IncidentInvestigationRootCauseLevel3Type);
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Investigation">
+        @Html.Action("New", "IncidentInvestigation", new { area = "HealthAndSafety", Incident = Model.Id })
+    </div>
+
+    using (var form = Form.BeginRouteForm("Incident", "IncidentInvestigation", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this incident investigation?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("IncidentInvestigationId").WithValue(x.Id))
+    }
+}
+else
+{
+    @table
+}

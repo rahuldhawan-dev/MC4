@@ -1,0 +1,203 @@
+﻿/* MASTER PAGE */
+
+body, html {
+  font-family: arial;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+body {
+  background-color: #e0e0e0;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 2px;
+  text-indent: 0;
+}
+
+.Menu {
+  font-size: smaller;
+  padding-top: 10px;
+  vertical-align: top;
+  width: 160px;
+}
+
+.MenuItem {
+  text-align: left;
+  width: 152px;
+  background-color: #2e4d7b;
+  border: 1px solid black;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 3px;
+  padding: 3px;
+}
+
+.MenuItemChild {
+  text-align: left;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 3px;
+  padding-left: 20px;
+}
+	
+.Content {
+  width: 90%;
+  vertical-align: top;
+}
+
+.ContentTable {
+  background-color: white;
+  border: 1px solid black;
+  font-size: smaller;
+  margin-top: 12px;
+  text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ContentTableHeader {
+  background-color: #2e4d7b;
+  border-bottom: 1px solid black;
+  color: white;
+  font-size: larger;
+  text-align: center;
+}
+
+.ContentTableInstructions {
+  border-bottom: 1px solid black;
+  font-style: italic;
+  text-align: center;
+}
+.LabelCell {
+  width: 155px;
+}
+
+.ac_results {
+  text-align: left;
+  font-family: arial;
+}
+
+select, input[type="text"], textarea {
+  width: 178px;
+}
+
+#createEditDiv tr {
+  vertical-align: top;
+}
+
+#searchResultsDiv table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+#searchResultsDiv th {
+  background-color: #5f87c4;
+  color: white;
+  font-size: larger;
+  text-align: center;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+#searchResultsDiv td {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px dashed black;
+  border-right: 1px dashed black;
+  padding: 2px 4px;
+}
+
+
+#editDiv td,
+#editDiv table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+tr.odd {
+  background-color: #ccebff;
+}
+
+#editDiv div {
+  width: 90%;
+}
+
+/* END MASTER PAGE */
+
+.label {
+  width: 165px;
+}
+
+td.control {
+  height: 22px;
+  width: 155px;
+}
+
+.control select {
+  width: 155px;
+}
+
+.control input {
+  width: 151px;
+}
+
+/* for the text box that is SubSonic's datepicker */
+.control table tr td input {
+  width: 127px;
+}
+
+select.three-cell {
+  width: 481px;
+}
+
+textarea.three-cell {
+  width: 477px;
+}
+
+#tdNotificationArea {
+  color: red;
+  font-weight: bold;
+}
+
+.required {
+  font-weight: bold;
+}
+
+select.asset-select {
+  width: 134px;
+}
+
+.picker-wrapper {
+  height: 16px;
+  width: 16px;
+}
+
+td.control img {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}
+
+table.ReportTable {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.ReportTable td,
+table.ReportTable th {
+  border: 1px solid black;
+}
+
+.error
+{
+  color: #FF0000;
+}
+
+#mainbreak input[type="text"], textarea { width: 50px; }
+#mainbreak select { width: auto; }

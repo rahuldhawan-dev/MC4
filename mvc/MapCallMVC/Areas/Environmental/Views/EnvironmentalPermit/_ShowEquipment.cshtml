@@ -1,0 +1,56 @@
+﻿@using MapCall.Common.Model.Repositories
+@model EnvironmentalPermit
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+<table id="equipmentTable">
+    <thead>
+        <tr>
+            <th>Equipment</th>
+            <th>Equipment Type</th>
+            <th>Description</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.Equipment) {
+            <tr>
+                <td>
+                    @if (Html.CurrentUserCanDo("Show", "Equipment", ""))
+                    {
+                        @Html.ActionLink(e.Identifier, "Show", "Equipment", new {area = "", id = e.Id}, null)
+                    }
+                    else { 
+                        @e.Identifier
+                    }
+                </td>
+                <td>@e.EquipmentType</td>
+                <td>@e.Description</td>
+                <td>
+                    @using (Form.BeginRouteForm("EnvironmentalPermit", "Equipment", new {id = Model.Id, equipmentId = 0}, ManyToManyRouteAction.Remove))
+					{
+						if (userCanEdit)
+                        {
+                            @Control.Hidden("Id").WithValue(Model.Id)
+                            @Control.Hidden("EquipmentId").WithValue(e.Id)
+                            @Control.SubmitButton("Remove Equipment").With("onclick", "return confirm('Are you sure?');")
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (userCanEdit)
+{
+    <div class="childTableFooter">
+        @using (Form.BeginRouteForm("EnvironmentalPermit", "Equipment", new { id = Model.Id, equipmentId = 0 }, ManyToManyRouteAction.Add))
+        {
+			<div class="field-column">
+				@Control.DropDown("EquipmentId").WithItems(((IEnumerable<SelectListItem>)ViewData["Equipment"]))
+				@Control.SubmitButton("Add Equipment").WithId("addEquipmentButton")
+			</div>
+        }
+    </div>
+}    

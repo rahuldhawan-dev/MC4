@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalInventoryTransaction
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Delivery)
+    .SortableColumnFor(x => x.InventoryRecordType)
+    .SortableColumnFor(x => x.Storage)
+    .SortableColumnFor(x => x.Date)
+    .SortableColumnFor(x => x.QuantityGallons)
+    .SortableColumnFor(x => x.QuantityPounds)
+    .SortableColumnFor(x => x.Notes)
+    .WithPaginatedFooter())

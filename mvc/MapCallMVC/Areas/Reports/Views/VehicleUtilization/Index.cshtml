@@ -1,0 +1,24 @@
+﻿@*
+    MUST USE INTERFACE FOR MODEL! There's some trickyness involved with this search model
+    to make it work with our current repo/controller pattern.
+*@
+@model MapCall.Common.Model.ViewModels.ISearchVehicleUtilizationReport
+
+@(Html.TableFor(x => x)
+      .ColumnFor(x => x.Manager)
+      .ColumnFor(x => x.Flag)
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.VehicleStatus)
+      .ColumnFor(x => x.AssignmentStatus)
+      .ColumnFor(x => x.AssignmentCategory)
+      .ColumnFor(x => x.AssignmentJustification)
+      .ColumnFor(x => x.AccountingRequirement)
+      .ColumnFor(x => x.VehicleId)
+      .ColumnFor(x => x.Facility)
+      .ColumnFor(x => x.PoolUse)
+      .ColumnFor(x => x.VehicleType)
+      .ColumnFor(x => x.Model)
+      .ColumnFor(x => x.PrimaryDriver)
+      .ColumnFor(x => x.PrimaryVehicleUse)
+      .ColumnFor(x => x.ReplacementVehicleId)
+)

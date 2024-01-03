@@ -1,0 +1,397 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<SampleSite>
+
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    TopMargin = MarginWidth.EigthInch;
+    BottomMargin = MarginWidth.EigthInch;
+    LeftMargin = MarginWidth.QuarterInch;
+    RightMargin = MarginWidth.QuarterInch;
+
+    var monitoringPeriodPlan = (SamplePlan)ViewData["SamplePlan"];
+	var serviceMaterials = ((IEnumerable<ServiceMaterial>)ViewData["ServiceMaterials"]).OrderBy(x => x.Description);
+}
+
+@helper DisplayXFor(bool? isChecked)
+{
+    <td style="text-decoration: underline; width: 40px; text-align: center;">
+        &nbsp;
+        @if (isChecked.HasValue && isChecked.Value)
+        {<span>X</span>}
+        &nbsp;
+    </td>
+}
+
+@helper TableGridEnforcer()
+{
+    <tr class="table-layout-spacing">
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+        <td></td><td></td><td></td><td></td>
+    </tr>
+}
+
+@helper CheckBoxWithLabel(string label, bool isChecked)
+{
+    <div class="checkbox-label-wrap">
+        <label>@label</label>
+        @if (isChecked)
+        {
+            <input type="checkbox" checked="checked"/>
+        }
+        else
+        {
+            <input type="checkbox"/>
+        }
+    </div>
+}
+
+@helper CheckBox(bool? isChecked)
+{
+    <div class="checkbox-label-wrap">
+        @if (isChecked.GetValueOrDefault())
+        {
+            <input type="checkbox" checked="checked"/>
+        }
+        else
+        {
+            <input type="checkbox"/>
+        }
+    </div>
+}
+@section head {
+    <style>
+        * {
+            font-family: Arial Narrow;
+            line-height: 1.2em;
+        }
+
+        html {
+            padding: 0;
+            padding-left: 0.5in;
+            padding-right: 0.5in;
+            font-family: Arial Narrow;
+        }
+
+        .form-id {
+            top: 8px;
+            left: 1px;
+            font-size: 14px;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-header {
+            width: 100%;
+            font-size: 12pt;
+            text-align: center;
+        }
+
+            .top-header td {
+                padding: 0px;
+            }
+
+        .form {
+            width: 100%;
+            font-size: 15pt !important;
+        }
+
+        .checkbox {
+            height: 18px;
+            width: 18px;
+            margin-right: 5px;
+            border: 1px solid black;
+        }
+
+        .signature {
+            width: 940px;
+            font-size: 14pt;
+        }
+
+        .rowTable {
+            margin-top: 14px;
+        }
+
+        .grid-layout-table {
+            table-layout: fixed;
+        }
+
+        .grid-layout-table td {
+            width: 6.25%;
+        }
+
+        .table-layout-spacing td {
+            visibility: hidden;
+        }
+
+        .underline-row td {
+            border-bottom:solid 1px black;
+        }
+
+        div.checkbox-label-wrap {
+			display: inline-block;
+			margin-right: 12px;
+		}
+
+		.materials {
+			page-break-before: always;
+		}
+
+		.materials table {
+			width:300px;
+		}
+
+		.materials td {
+			border:solid 1px black;
+			padding:6px;
+			letter-spacing:1px;
+		}
+		.materials th {
+			text-align:left;
+		}
+
+    </style>
+}
+
+@section body {
+    @if (Model.Premise == null || 
+         Model.Premise.MostRecentService == null || 
+         Model.Premise.MostRecentService.Service == null || 
+         Model.Premise.MostRecentService.Service.ServiceMaterial == null)
+    {
+        <div>Please link the Sample Site to a Service that has a Service Material identified.</div>
+    }
+    else
+    {
+        <div class="form-id">BWSE-15 (10/16)</div>
+        <br />
+
+        <div class="top-header">
+            <img style="padding-left: 18px; width: 55px; height: 57px;" src="@Server.MapPath("~/Content/images/njdeplogo.gif")" />
+
+            <table>
+                <tr><td>Department of Environmental Protection - Bureau of Water System Engineering</td></tr>
+                <tr><td>401 East State Street - P.O. Box 420</td></tr>
+                <tr><td>Mail Code 401-04Q Trenton, New Jersey 08625-0420</td></tr>
+                <tr><td>Tel # 609-292-2957 - Fax # 609-633-1495</td></tr>
+                <tr><td style="font-size: 19pt; font-family: arial; font-weight: bold; text-decoration: underline;">Lead and Copper Sample Site Certification</td></tr>
+                <tr><td style="font-size: 13pt; font-family: arial;">Requirements Pursuant to 40 CFR 141.86(a)</td></tr>
+                <tr><td style="font-size: 15pt; font-family: arial; font-weight: bold;">TO BE COMPLETED FOR EACH SAMPLE SITE</td></tr>
+            </table>
+        </div>
+        <div class="form" style="font-size: larger;">
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr>
+                    <td colspan="4" style="border-bottom: 1px solid black; font-weight: bold;">1. System Information:</td>
+                    <td colspan="7" style="border-bottom: 1px solid black;"><strong>Water System Name:</strong> <span style="font-size: smaller;">@Html.DisplayValueFor(x => Model.PublicWaterSupply.System)</span></td>
+                    <td colspan="2" style="border-bottom: 1px solid black; font-weight: bold;">PWSID #:</td>
+                    <td colspan="3" style="border-bottom: 1px solid black;">@Html.DisplayValueFor(x => x.PublicWaterSupply.Identifier)</td>
+                </tr>
+            </table>
+            <div style="font-weight:bold;">2. Sample Location Information</div>
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr class="underline-row">
+                    <td colspan="1"></td>
+                    <td colspan="14" style="padding-top:12px;"><strong>Sample Street Address:</strong> @Html.DisplayValueFor(x => x.Premise.MostRecentService.Service.StreetAddress)</td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr class="underline-row">
+                    <td colspan="1"></td>
+                    <td colspan="6" style="padding-top:12px;"><strong>Sample Location:</strong>@Html.DisplayValueFor(x => x.LocationNameDescription)</td>
+                    <td colspan="8"><strong>Tier Classification:</strong>&nbsp;@Html.DisplayValueFor(x => x.LeadCopperTierClassification)</td>
+                    <td colspan="1"></td>
+                </tr>
+                <tr class="underline-row">
+                    <td colspan="1"></td>
+                    <td colspan="6" style="padding-top:12px;"><strong>Sample Category:</strong>&nbsp; @Html.DisplayValueFor(x => x.LeadCopperTierSampleCategory.DisplayValue)</td>
+                    <td colspan="7"><strong>Piping Material (service line and building plumbing)</strong></td>
+                    <td colspan="2">@Model.AllTheCodes</td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15" style="font-weight:bold;">Point of Use Treatment (designed for removal of inorganic contaminants): </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @if (Model.SampleSitePointOfUseTreatmentType != null)
+                        {
+                            @Model.SampleSitePointOfUseTreatmentType
+                            if (Model.SampleSitePointOfUseTreatmentType.Id == SampleSitePointOfUseTreatmentType.Indices.OTHER)
+                            {
+                                <text><br/>@Model.PointOfUseTreatmentTypeOtherReason</text>
+                            }
+                        }
+                        else
+                        {
+                            <text>None</text>
+                        }
+                    </td>
+                </tr>
+            </table>
+          
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr>
+                    <td colspan="8" style="font-weight:bold;">3. Sampling Information:</td>
+                    <td colspan="8"><strong>Monitoring Period:</strong> From: @monitoringPeriodPlan.MonitoringPeriodFrom.ToShortDateString()   To: @monitoringPeriodPlan.MonitoringPeriodTo.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="3">@CheckBoxWithLabel("Regular Site", Model.IsRegularSite)</td>
+                    <td colspan="3">@CheckBoxWithLabel("Alternate Site", Model.IsAlternateSite)</td>
+                </tr>
+            </table>
+
+            <table class="grid-layout-table">
+                @TableGridEnforcer()
+                <tr>
+                    <td colspan="16" style="font-weight: bold; text-decoration: underline; white-space: nowrap">
+                        4. Mark the resource(s) you used in your investigation in the blanks provided for the same site listed above. If you used a<br />
+                        resource which is not listed below, indicate that in the blanks provided next to "Other Sources".
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        <strong>Distribution System Materials:</strong> Sources available to determine lead service lines or lead goosenecks in the distribution system.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceDistributionMaps)
+                        @Html.DisplayLabelFor(x => x.ResourceDistributionMaps)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceCapitalImprovement)
+                        @Html.DisplayLabelFor(x => x.ResourceCapitalImprovement)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceUtilityRecords)
+                        @Html.DisplayLabelFor(x => x.ResourceUtilityRecords)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceSamplingResults)
+                        @Html.DisplayLabelFor(x => x.ResourceSamplingResults)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceInterviewsPersonnel)
+                        @Html.DisplayLabelFor(x => x.ResourceInterviewsPersonnel)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceCommunitySurvey)
+                        @Html.DisplayLabelFor(x => x.ResourceCommunitySurvey)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        <strong>Interior Plumbing Materials: </strong>Sources available to determine if residential or no-residential buildings have interior lead pipe or copper pipe with lead solder joints.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceCountyAppraisal)
+                        @Html.DisplayLabelFor(x => x.ResourceCountyAppraisal)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceContacts)
+                        @Html.DisplayLabelFor(x => x.ResourceContacts)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceSurveyResults)
+                        @Html.DisplayLabelFor(x => x.ResourceSurveyResults)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceInterviewsResidents)
+                        @Html.DisplayLabelFor(x => x.ResourceInterviewsResidents)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceInterviewsContractors)
+                        @Html.DisplayLabelFor(x => x.ResourceInterviewsContractors)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="15">
+                        @CheckBox(Model.ResourceLeadCheckSwabs)
+                        @Html.DisplayLabelFor(x => x.ResourceLeadCheckSwabs)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1"></td>
+                    <td colspan="4" style="font-weight:bold;">Other Sources (Explain)</td>
+                    <td colspan="11" style="border-bottom:solid 1px black;">@Html.DisplayValueFor(x => x.OtherSources)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="signature" style="border: 1px solid black; margin-top:12px;">
+            <div style="border-bottom: 1px solid black; background-color: lightgray; padding: 2px; font-style: italic; font-weight: bold;">
+                I have verified and certify the information listed in this form is true and accurate to the best of my knowledge and belief:
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td style="border-bottom:solid 1px black;"><br /><br /></td>
+                        <td style="border-bottom:solid 1px black;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 640px; padding-left: 5px;">W-Operator Signature</td>
+                        <td style="width: 340px;">Date</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td style="border-bottom:solid 1px black;padding-left: 5px;"><br />@Html.DisplayValueFor(x => Model.PublicWaterSupply.WaterDistributionLicensedOperator)</td>
+                        <td style="border-bottom:solid 1px black;"><br />@Html.DisplayValueFor(x => Model.PublicWaterSupply.WaterDistributionLicensedOperator.PositionGroup.PositionDescription)</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 640px; padding-left: 5px;">Printed Name</td>
+                        <td style="width: 340px;">Title</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="materials">
+			@(Html.TableFor(x => serviceMaterials)
+				  .WithCaption("Material Codes")
+				  .ColumnFor(x => x.Description)
+				  .ColumnFor(x => x.Code))
+        </div>
+    }
+}

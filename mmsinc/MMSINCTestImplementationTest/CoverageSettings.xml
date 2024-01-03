@@ -1,0 +1,7 @@
+<PartCoverSettings>
+  <Target>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\MSTest.exe</Target>
+  <TargetWorkDir>c:\Solutions\MMSINC</TargetWorkDir>
+  <TargetArgs>/noisolation /testcontainer:c:\Solutions\MMSINC\MMSINCTestImplementationTest\bin\Debug\MMSINCTestImplementationTest.dll</TargetArgs>
+  <Rule>+[MMSINCTestImplementation]*</Rule>
+  <Rule>-[MMSINCTestImplementation]MMSINCTestImplementation.Properties*</Rule>
+</PartCoverSettings>

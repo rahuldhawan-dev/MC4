@@ -1,0 +1,16 @@
+﻿@model Contractors.Models.ViewModels.SearchCompletedWork
+@{
+    ViewBag.Title = "Completed Work by Employee";
+}
+
+@using (Form.BeginForm("Index", "CompletedWork"))
+{
+    <div class="field-column fc225 searchFields">
+        @Html.EditorFor(x => x.CalledInByContractorMeterCrew)
+        @Html.EditorFor(x => x.DateStatusChanged)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

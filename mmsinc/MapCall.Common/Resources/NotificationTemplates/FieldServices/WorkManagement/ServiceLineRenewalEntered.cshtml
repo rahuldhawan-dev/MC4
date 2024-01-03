@@ -1,0 +1,16 @@
+﻿@model dynamic
+
+<h2>New Service Line Renewal Work Order</h2>
+
+Work Order #: <a href="@Model.RecordUrl">@Model.Id</a> <br />
+Operating Center: @Model.OperatingCenter <br />
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br />
+Markout Requirement: @Model.MarkoutRequirement <br />
+Priority: @Model.Priority <br />
+Created By: @Model.CreatedBy <br />
+Notes:<br />
+@Model.Notes

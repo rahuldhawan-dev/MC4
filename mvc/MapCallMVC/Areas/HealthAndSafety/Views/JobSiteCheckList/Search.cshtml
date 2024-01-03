@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchJobSiteCheckList
+
+@using (Form.BeginForm("Index", "JobSiteCheckList"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.CompetentEmployee, new { Container = @Model })
+        @Html.EditorFor(x => x.CheckListDate)
+        @Html.EditorFor(x => x.HasExcavation)
+        @Html.EditorFor(x => x.IsSignedOffBySupervisor)
+        @Html.EditorFor(x => x.SAPWorkOrderId)
+        @Html.EditorFor(x => x.MapCallWorkOrder)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

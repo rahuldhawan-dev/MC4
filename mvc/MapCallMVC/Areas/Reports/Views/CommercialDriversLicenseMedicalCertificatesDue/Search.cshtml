@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCommercialDriversLicenseMedicalCertificatesDue
+
+@using (Form.BeginForm("Index", "CommercialDriversLicenseMedicalCertificatesDue"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.CommercialDriversLicenseProgramStatus)
+        @Html.EditorFor(x => x.PositionGroup)
+        @Html.EditorFor(x => x.EmployeeId)
+        @Html.EditorFor(x => x.LastName)
+        @Html.EditorFor(x => x.FirstName)
+        @Html.EditorFor(x => x.MedicalCertificateExpirationDate, new { html = new { @class = "no-form-state" } })
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

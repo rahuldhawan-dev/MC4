@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrder
+
+
+@Html.Partial("~/Views/Shared/ProductionWorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(x => x, new { id="productionWorkOrdersTable"})
+      .WithCaption("Records found:" + Model.Count)
+      .SortableTemplateColumnFor("Order Number", "Id", x => @<text>
+                                                                @Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null)
+                                                             </text>)
+      .WithWorkOrderRowStyles()
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.EquipmentType)
+      .SortableColumnFor(x => x.Equipment)
+      .SortableColumnFor(x => x.SAPNotificationNumber, "SAP Notif No.", "SAPNotificationNumber")
+      .SortableColumnFor(x => x.Priority)
+      .SortableColumnFor(x => x.DateReceived)
+      .SortableColumnFor(x => x.DateCompleted)
+      .SortableColumnFor(x => x.SAPErrorCode)
+      .WithPaginatedFooter()
+    )

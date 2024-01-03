@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:p1="http://amwater.com/PTB/200011/MAPCALL/WOStatusUpdates" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://amwater.com/PTB/200011/MAPCALL/WOStatusUpdates" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:UsingPolicy required="true" />
+  <wsp:Policy wsu:Id="BN__binding">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <wsp:ExactlyOne>
+                      <sp:HttpBasicAuthentication />
+                      <sp:RequireClientCertificate />
+                    </wsp:ExactlyOne>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <wsp:ExactlyOne>
+                  <sp:Basic256 />
+                  <sp:Basic192 />
+                  <sp:Basic128 />
+                  <sp:TripleDes />
+                  <sp:Basic256Rsa15 />
+                  <sp:Basic192Rsa15 />
+                  <sp:Basic128Rsa15 />
+                  <sp:TripleDesRsa15 />
+                  <sp:Basic256Sha256 />
+                  <sp:Basic192Sha256 />
+                  <sp:Basic128Sha256 />
+                  <sp:TripleDesSha256 />
+                  <sp:Basic256Sha256Rsa15 />
+                  <sp:Basic192Sha256Rsa15 />
+                  <sp:Basic128Sha256Rsa15 />
+                  <sp:TripleDesSha256Rsa15 />
+                </wsp:ExactlyOne>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/PTB/200011/MAPCALL/WOStatusUpdates" targetNamespace="http://amwater.com/PTB/200011/MAPCALL/WOStatusUpdates">
+      <xsd:element name="WOStatusUpdate_Request" type="p1:WOStatusUpdateQuery" />
+      <xsd:element name="WOStatusUpdate_Response" type="p1:WOStatusUpdateStatus" />
+      <xsd:complexType name="WOStatusUpdateStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="SAPStatusCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="SAPStatus" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="WOStatusUpdateQuery">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="SourceIdentifier" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="WorkOrderNo" type="xsd:string" />
+                <xsd:element minOccurs="0" name="OperationNo" type="xsd:string" />
+                <xsd:element minOccurs="0" name="AssignmentStart" type="xsd:string" />
+                <xsd:element minOccurs="0" name="AssignmentFinish" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Status_Number" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Status_NonNumber" type="xsd:string" />
+                <xsd:element minOccurs="0" name="AssignedEngineer" type="xsd:string" />
+                <xsd:element minOccurs="0" name="DispatcherId" type="xsd:string" />
+                <xsd:element minOccurs="0" name="EngineerId" type="xsd:string" />
+                <xsd:element minOccurs="0" name="ItemTimeStamp" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="WOStatusUpdate_Request">
+    <wsdl:documentation />
+    <wsdl:part name="WOStatusUpdate_Request" element="p1:WOStatusUpdate_Request" />
+  </wsdl:message>
+  <wsdl:message name="WOStatusUpdate_Response">
+    <wsdl:documentation />
+    <wsdl:part name="WOStatusUpdate_Response" element="p1:WOStatusUpdate_Response" />
+  </wsdl:message>
+  <wsdl:portType name="WO_StatusUpdate_OB_SYC">
+    <wsdl:documentation />
+    <wsdl:operation name="WO_StatusUpdate_OB_SYC">
+      <wsdl:documentation />
+      <wsdl:input message="p1:WOStatusUpdate_Request" />
+      <wsdl:output message="p1:WOStatusUpdate_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WO_StatusUpdate_OB_SYCBinding" type="p1:WO_StatusUpdate_OB_SYC">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__binding" />
+    </wsp:Policy>
+    <wsdl:operation name="WO_StatusUpdate_OB_SYC">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:WO_StatusUpdate_OB_SYCBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/WOStatusUpdate" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,13 @@
+﻿@model MainCrossing
+
+@{
+    var inspections = Model.Inspections.OrderBy(x => x.InspectedOn);
+}
+@* Id is used to set the MainCrossing on the CreateMCI model *@
+@Html.LinkButton("Add Inspection", "New", "MainCrossingInspection", new{ id = Model.Id })
+
+@(Html.TableFor(x => inspections, new{ id = "inspections-table" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "MainCrossingInspection", new { x.Id }, null))
+    .ColumnFor(x => x.InspectedBy)
+    .ColumnFor(x => x.InspectedOn)
+    .ColumnFor(x => x.AssessmentRating))

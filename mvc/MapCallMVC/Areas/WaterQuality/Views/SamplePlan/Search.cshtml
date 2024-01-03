@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchSamplePlan
+
+@using (Form.BeginForm("Index", "SamplePlan")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.PWSID)
+        @Html.EditorFor(x => x.Ntnc)
+        @Html.EditorFor(x => x.Reduced)
+        @Html.EditorFor(x => x.MonitoringPeriodFrom)
+        @Html.EditorFor(x => x.MonitoringPeriodTo)
+        @Html.EditorFor(x => x.HasActiveSampleSites)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

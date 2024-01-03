@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOneCallMarkoutResponse
+
+@using (Form.BeginForm("Index", "OneCallMarkoutResponse")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.CDCCode)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.RequestNumber)
+        @Html.EditorFor(x => x.CompletedAt)
+        @Html.EditorFor(x => x.OneCallMarkoutResponseTechnique)
+        @Html.EditorFor(x => x.OneCallMarkoutResponseStatus)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

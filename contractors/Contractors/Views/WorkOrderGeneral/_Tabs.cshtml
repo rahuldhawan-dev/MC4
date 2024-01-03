@@ -1,0 +1,19 @@
+﻿@using Contractors.ClassExtensions
+@model MapCall.Common.Model.Entities.WorkOrder
+@{
+    ViewData["IsGeneralReadOnly"] = true;
+}
+@(Html.Tabs()
+    .WithTab("Details", "detailsTab", "~/Views/WorkOrderInitial/_Show.cshtml")
+    .WithTab("Materials Used", "materialsTab", "~/Views/MaterialUsed/_Index.cshtml")
+    .WithTab("Spoils", "spoilsTab", "~/Views/Spoil/_IndexReadOnly.cshtml")
+    .WithTab("Markouts", "markoutsTab", "~/Views/Markout/_Index.cshtml", isVisible: Model.MarkoutRequired, tabHtmlAttributes: new { id = "markoutsTabLink" })
+    .WithTab("Restorations", "restorationTab", "~/Views/Restoration/_Index.cshtml")
+    .WithAjaxTab("Street Opening Permit", "streetPermitTab", "~/Views/StreetOpeningPermit/_Index.cshtml", isVisible: Model.StreetOpeningPermitRequired, tabHtmlAttributes: new { id = "streetPermitTabLink" })
+    .WithAjaxTab("Crew Assignments", "crewAssignmentsTab", @<text>@Html.Action("IndexTabs", "CrewAssignment", new { workOrderId = Model.Id })</text>)
+    .WithTab("Additional", "additionalTab", "~/Views/WorkOrderAdditionalFinalizationInfo/_Show.cshtml")
+    .WithTab("Main Break", "mainBreakTab", "~/Views/MainBreak/_Index.cshtml", isVisible: Model.IsMainBreak())
+    .WithTab("Purchase Order (PO)", "requisitionTab", "~/Views/Requisition/_Index.cshtml", Model.Requisitions)
+    .WithTab("Meter Set", "meterSetTab", "~/Views/ServiceInstallation/_Index.cshtml", Model, isVisible: Model.IsNewServiceInstallation)
+    .WithTab("Service", "serviceTab", "~/Views/Service/_ShowServiceTab.cshtml", Model.Service, isVisible: Model.Service != null)
+    .WithDocuments())

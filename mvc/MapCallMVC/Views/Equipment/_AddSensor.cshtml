@@ -1,0 +1,15 @@
+﻿@model AddEquipmentSensor
+           
+@using (var form = Form.BeginRouteForm("Equipment", "Sensor", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "materialForm");
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.Sensor)
+
+        @Html.ButtonGroup(@<text>
+                    @Control.SubmitButton("Save Sensor")
+                    @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

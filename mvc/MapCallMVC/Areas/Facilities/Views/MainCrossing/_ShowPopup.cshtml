@@ -1,0 +1,33 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MainCrossing
+@{
+    var title = (Model.BodyOfWater != null) ? Model.BodyOfWater.Name : Model.Id.ToString();
+}
+<div class="field-column fc100">
+    <h2>
+        @Html.DefaultActionLink(title, "Show", "MainCrossing", "Facilities", new { id = @Model.Id }, null)
+    </h2>
+    
+    @if (Model.OperatingCenter.WorkOrdersEnabled)
+    {
+        //TODO: refactor this
+        var rvd = new RouteValueDictionary(new CreateWorkOrder(_container, Model));
+        rvd["area"] = "FieldOperations";
+        var htmlAttributes = new RouteValueDictionary();
+        htmlAttributes["Class"] = "link-button";
+        htmlAttributes["target"] = "_new";
+
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create Work Order", "New", "WorkOrder", rvd, htmlAttributes)
+        </div>
+    }
+    
+    @Html.DisplayFor(x => x.OperatingCenter.Name, new { DisplayName = "Operating Center" })
+    @Html.DisplayFor(x => x.Town.ShortName, new { DisplayName = "Town"})
+    @Html.DisplayFor(x => x.BodyOfWater.Name, new { DisplayName = "Body of Water" })
+    @Html.DisplayFor(x => x.MainDiameter.Diameter, new { DisplayName = "Main Diameter" })
+    @Html.DisplayFor(x => x.MainMaterial.Description, new { DisplayName = "Main Material" })
+    @Html.DisplayFor(x => x.IsCriticalAsset)
+    @Html.DisplayFor(x => x.RequiresInspection)
+    @Html.DisplayFor(x => x.LastInspectedOn)
+</div>

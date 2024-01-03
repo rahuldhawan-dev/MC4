@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchRoadwayImprovementNotificationStreet
+
+@using (Form.BeginForm("Index", "RoadwayImprovementNotificationStreet")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.RoadwayImprovementNotificationStreetStatus)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

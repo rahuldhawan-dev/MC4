@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddProductionWorkOrderProductionPrerequisite
+
+@using (var form = Form.BeginRouteForm("ProductionWorkOrder", "ProductionWorkOrderProductionPrerequisite", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "productionWorkOrderProductionPrerequisite");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.ProductionPrerequisite)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Prerequisite")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

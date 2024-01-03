@@ -1,0 +1,12 @@
+﻿@model EditDriversLicense
+
+@using (Form.BeginForm("Update", "DriversLicense", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "DriversLicense", new { Model.Id })
+                           </text>)
+    </div>
+}

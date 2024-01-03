@@ -1,0 +1,12 @@
+﻿@model ConditionDescription
+
+@using (Form.BeginForm("Create", "ConditionDescription", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.AuthorizedActionLinkButton("Reset", "Index", "ConditionDescription")</text>)
+
+    </div>
+}

@@ -1,0 +1,35 @@
+﻿@model StandardOperatingProcedure
+
+<div class="collapse-panel" data-title="Add New Question">
+    @Html.Partial("_AddQuestion", ViewModelFactory.BuildWithOverrides<AddStandardOperatingProcedureQuestion>(new {
+    Id = Model.Id,
+    IsActive = true @* Default to true since that's most likely what's gonna be wanted *@}))
+</div>
+@(Html.TableFor(x => x.Questions)
+      .ColumnFor(x => x.Question)
+      .ColumnFor(x => x.Answer)
+      .TemplateColumnFor("Is Active", x => @<text>
+        @if (x.IsActive)
+        {
+            <text>Yes</text>
+            using (Form.BeginForm("Deactivate", "StandardOperatingProcedureQuestion", new { Model.Id }))
+            {
+                @Control.SubmitButton("Deactivate").WithValue(x.Id).WithName("Id").WithCssClass("button-link")
+            }
+        }
+        else
+        {
+            <text>No</text>
+            using (Form.BeginForm("Activate", "StandardOperatingProcedureQuestion", new { Model.Id }))
+            {
+                @Control.SubmitButton("Activate").WithValue(x.Id).WithName("Id").WithCssClass("button-link")
+            }
+        }
+    </text>)
+      .TemplateColumnFor(x => @<text>
+        @using (Form.BeginRouteForm("StandardOperatingProcedure", "StandardOperatingProcedureQuestion", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            @Control.SubmitButton("Remove").WithValue(x.Id).WithName("QuestionId")
+        }
+    </text>)
+)

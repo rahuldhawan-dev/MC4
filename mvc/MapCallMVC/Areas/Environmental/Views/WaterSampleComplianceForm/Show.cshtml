@@ -1,0 +1,6 @@
+﻿@model WaterSampleComplianceForm
+
+@(Html.Tabs()
+    .WithTab("Details", "_Show", Model)
+    .WithNotesAndDocuments()
+	.WithLog())

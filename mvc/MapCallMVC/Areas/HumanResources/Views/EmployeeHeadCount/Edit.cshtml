@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.EditEmployeeHeadCount
+
+@using (Form.BeginForm("Update", "EmployeeHeadCount", "HumanResources", new { Model.Id }))
+{
+    @Html.Partial("_FormFields", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "EmployeeHeadCount", new { Model.Id })
+    </text>)
+}

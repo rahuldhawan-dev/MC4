@@ -1,0 +1,23 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Resources/Masters/MapCallHR.Master" CodeBehind="WorkOrders.master.cs"  %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="cphHeadTagScripts" runat="server">
+     <asp:ContentPlaceHolder runat="server" ID="cphHeadTagScripts" />
+</asp:Content>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="cphHeadTag" runat="server">
+    <link type="text/css" href="<%#ResolveUrl("~/Includes/WorkOrders.css")%>" rel="Stylesheet" />
+    <asp:ContentPlaceHolder runat="server" ID="cphStyle" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphHeader" runat="server">
+Work Orders <asp:ContentPlaceHolder ID="cphHeader" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphInstructions" runat="server">
+    <asp:ContentPlaceHolder ID="cphInstructions" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cphMain" runat="server">
+    <asp:ContentPlaceHolder ID="cphMain" runat="server" />
+</asp:Content>
+

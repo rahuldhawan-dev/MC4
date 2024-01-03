@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.CreateInterconnectionTest
+
+@using (Form.BeginForm("Create", "InterconnectionTest", "Facilities"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search", "InterconnectionTest")
+                           </text>)
+    </div>
+}

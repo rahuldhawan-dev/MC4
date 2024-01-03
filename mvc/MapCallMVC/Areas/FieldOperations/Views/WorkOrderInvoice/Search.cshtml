@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrderInvoice
+
+@using (Form.BeginForm("Index", "WorkOrderInvoice")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.EditorFor(x => x.InvoiceDate)
+        @Html.EditorFor(x => x.WorkOrderID)
+        @Html.EditorFor(x => x.WorkOrderInvoiceStatus)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

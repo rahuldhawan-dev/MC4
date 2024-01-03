@@ -1,0 +1,18 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model SmartCoverAlert
+
+@{
+    ActionBarHelper.AddMapLink();
+}
+
+@if (Model.SewerOpening != null)
+{
+    @Html.LinkButton("Create Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model), new { area = "FieldOperations", Class = "link-button" })
+}
+
+@(Html.Tabs()
+      .WithTab("Details", "_ShowSmartCoverAlert", Model)
+      .WithTab("Work Orders", "_WorkOrders", Model, itemCount: Model.WorkOrders.Count)
+      .WithNotesAndDocuments()
+      .WithLog()
+    )

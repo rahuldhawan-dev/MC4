@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorAgreement
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new { Id = "contractorAgreementsTable" })
+      .WithCaption("Records Found: " + Model.Count)
+      .SortableTemplateColumnFor("Id", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ContractorAgreement", new { x.Id }, null))
+      .SortableColumnFor(x => x.Contractor)
+      .SortableColumnFor(x => x.ContractorCompany)
+      .SortableColumnFor(x => x.ContractorWorkCategoryType)
+      .SortableColumnFor(x => x.ContractorAgreementStatusType)
+      .SortableColumnFor(x => x.Title)
+      .SortableColumnFor(x => x.AgreementOwner)
+      .SortableColumnFor(x => x.AgreementStartDate)
+      .SortableColumnFor(x => x.AgreementEndDate)
+      .WithPaginatedFooter())

@@ -1,0 +1,18 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.Entities.SystemDeliveryFacilityEntryAdjustment
+
+<h2>System Delivery Entry has been adjusted</h2>
+
+<a href="https://mapcall.awapps.com/Modules/mvc/production/systemdeliveryentry/show/@Model.SystemDeliveryEntry.Id">@Model.SystemDeliveryEntry.Id</a><br />
+
+Date: @Model.AdjustedDate <br />
+
+Original Entry Value: @Model.OriginalEntryValue <br />
+
+Adjusted Value: @Model.AdjustedEntryValue <br />
+
+Operating Center: @Model.SystemDeliveryFacilityEntry.Facility.OperatingCenter <br />
+
+Facility: @Model.SystemDeliveryFacilityEntry.Facility <br />
+
+Entered By: @Model.EnteredBy <br />

@@ -1,0 +1,1 @@
+aws s3 cp s3://mapcall-va-np-bucket/MapCallProdBackups/MCProdBackup.bak "s3://mapcall-va-np-bucket/MapCallDataBaseBackupsRetained/MapCallProdBackup%time:~0,2%%time:~3,2%%time:~6,2%_%date:~-10,2%%date:~-7,2%%date:~-4,4%.bak" --sse AES256

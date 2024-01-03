@@ -1,0 +1,23 @@
+﻿@using MapCall.Common.Helpers.ClassExtensions
+@using MapCallMVC.Controllers
+@model MapCallMVC.Areas.Reports.Models.SearchCommercialDriversLicenseAbstract
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+.WithCaption("Records found: " + Model.Count)
+.TemplateColumnFor(x => (Html.CurrentUserCanDo("Show", "Employee", "")) ? Html.ActionLink("View", "Show", "Employee", new { x.Id, area = "" }, null) : new MvcHtmlString(string.Empty))
+.SortableColumnFor(x => x.OperatingCenter)
+.SortableColumnFor(x => x.CommercialDriversLicenseProgramStatus)
+.SortableColumnFor(x => x.Status)
+.SortableColumnFor(x => x.EmployeeId)
+.SortableColumnFor(x => x.LastName)
+.SortableColumnFor(x => x.FirstName)
+.SortableColumnFor(x => x.DriversLicenseIssuedDate)
+.SortableColumnFor(x => x.DriversLicense)
+.SortableColumnFor(x => x.IsCDLCompliant)
+
+.WithPaginatedFooter()
+)

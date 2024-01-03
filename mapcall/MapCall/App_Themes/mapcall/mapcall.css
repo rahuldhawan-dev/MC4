@@ -1,0 +1,345 @@
+﻿@media screen, print 
+{
+	body, html
+	{
+		margin:0px;
+		padding:0px;
+		width:100%;
+		height:100%;
+		/*overflow:hidden;*/
+		font-family:Arial;
+		text-align:center;
+	}
+	td
+	{
+		vertical-align:top;
+	}
+	.TextBoxPIE
+	{
+		font-size:32px;
+	}
+	/* OLD LAYOUT COMPATIBILITY */
+	.MCHeader
+	{
+		color:White;
+		background-color:Navy;
+		font-weight:bold;
+		text-align:center;
+	}
+	.MCInstructions
+	{
+		font-style:italic;
+		font-size:smaller;
+		font-weight:bold;
+		text-align:center;
+	}
+	.MCTable
+	{
+		width:600px;
+		background-color:White;
+		text-align:left;
+		margin-top:14px;
+	}	
+	.MCShortTable
+	{
+		width:400px;
+		background-color:White;
+		text-align:left;
+		margin-top:14px
+	}
+	/* END OLD LAYOUT COMPATIBILITY */
+	
+	.backButton
+	{
+		text-decoration:none;
+		font-family:Webdings;
+	}
+	
+	.dragHandle li
+	{
+		list-style-type:none;
+		margin-left:-35px;
+	}
+	.dropShadow
+	{
+		background-color:#969696;
+	}
+	
+	.dropShadowContainer
+	{
+		border:1px solid #585858;
+		background-color:white;
+		width:100%;
+		position:relative;
+		left:-1px;
+		top:-1px;
+	}
+	
+	.formCentered
+	{
+		margin:0 auto;
+	}
+	
+	.formViewLeft
+	{
+		text-align:right;
+	}
+	
+	.formViewRight
+	{
+		border-bottom:1px solid #284E98;
+		background-color:White;
+	}
+	.Label
+	{
+		text-align:right;
+		font-weight:normal;
+	}
+	.MapCallMasterTable
+	{
+		width:100%;
+	}
+
+	.MapCallHeader
+	{
+		font-weight:bold;
+		font-size:4em;
+		color:Gray;
+		vertical-align:bottom;	
+		position:relative;
+		top:1px;
+		left:1px;
+	}
+	.MapCallHeaderShadow
+	{
+		color:#40352C;
+		position:absolute;
+		top:-1px;
+		left:-1px;
+	}
+
+	.MapCallTM
+	{
+		vertical-align:top;
+		font-size:0.6em;
+	}
+
+	.MapCallSubHeader
+	{
+		font-size:0.35em;
+	}
+
+	.MapCallMenu
+	{
+		background-color:white;
+		position:relative;
+		top:0px;
+		left:0px;
+	}
+	.MapCallMenuHeader
+	{
+		font-size:1.5em;
+		padding:2px;	
+	}
+	.MapCallMenuList
+	{
+		font-size:.75em;	
+	}
+
+	.MapCallWelcome
+	{
+		font-size:.8em;
+		margin:2px;
+		padding:2px;
+	}
+	
+	.MapCallTable
+	{
+		width:100%;
+		background-color:White;
+		/*border-right:1px solid #a2a2a2;*/
+		/*border-bottom:1px solid #a2a2a2;*/
+	}
+	
+	.MapCallTableHeader
+	{
+		background-color:#B5C7DE;
+		font-weight:bold;
+	}
+
+	.MapCallTableInstructions
+	{
+		font-style:italic;
+		border-top:1px solid #B5C7DE;
+		border-bottom:1px dotted #969696;
+		padding:2px;
+	}
+	.modalBackground 
+	{
+		background-color:Gray;
+		filter:alpha(opacity=70);
+		opacity:0.7;
+	}
+	.modalPopup
+	{
+		background-color:#ffffdd;
+		border:3px solid gray;
+		padding:3px;
+		width:250px;
+	}
+	.NoteCell
+	{
+		width:400px;
+		overflow:hidden;
+	}
+	.nowrap
+	{
+		white-space:nowrap;
+	}
+	.pink
+	{ background-color:#CC0000;}
+	.pvHeader
+	{
+		background-color:#D5DFEC;
+		border-bottom:1px solid #284E98;
+		font-weight:bold;
+		text-decoration:underline;
+		padding-left:10px;
+	}
+	
+	.pvSummary
+	{
+		background-color:#F0F3F9;
+		text-align:right;
+		border-top:1px solid #284E98;
+		font-style:italic;
+	}
+	
+	.TDSearchLeft
+	{
+		text-align:right;
+		padding-right:5px;
+		width:150px;
+	}	
+	.TDSearchCenter
+	{
+		
+	}
+	.TDSearchRight
+	{	
+		text-align:left;
+		padding-left:5px;
+		width:100px;
+		white-space:nowrap;
+	}
+	.TreeNodeMenu
+	{
+		white-space:inherit;
+	}
+	.TextBoxCentered
+	{
+		text-align:center;
+	}
+	.subMenuTD
+	{ 
+		width:125px;
+		vertical-align:top;
+		background-color:#C0C0C0;
+		text-align:left;
+	}
+	.UpdatePanelProgressBlue
+	{
+		text-align:center;
+		vertical-align:middle;
+		position:absolute;
+		left:350px;
+		bottom:50px;
+		border:1px solid #284E98;
+		background-color:#F0F3F9;
+		width:200px;
+		height:100px;
+	}
+	.UpdatePanelProgressBlue Table
+	{
+		width:100%;
+		height:100%;
+		text-align:center;
+		vertical-align:middle;
+	}
+	.UpdatePanelProgressBlue Table Tr Td
+	{
+		width:100%;
+		height:100%;
+		text-align:center;
+		vertical-align:middle;
+	}
+	.valveInspectionTable
+	{
+		width:550px;
+		background-color:White;
+		text-align:left;
+		margin-top:14px
+		/*width:400px;background-color:White;text-align:left;margin-top:14px*/
+	}
+	.valveInspectionTableLeft
+	{
+		float:left;padding-right:10px;margin-right:10px;
+	}
+}
+@media screen
+{
+	.MapCallContentTable
+	{
+		width:8.5in;			
+	}
+	.MapCallContentTableHeader
+	{
+		background-color:white;
+	}
+	.MapCallMasterTableFooter
+	{
+		text-align:right;
+		font-size:small;
+		padding-right:5px;
+	}	
+
+	.MapCallMasterTableMenu 
+	{
+		padding-top:3px;
+		
+	}
+	
+	.MapCallMenuCell
+	{
+		 vertical-align:top;
+		 padding:5px;
+		 width:125px;
+	}
+}
+	
+@media print 
+{
+	.MapCallContentTable
+	{
+		width:7.8in;
+	}
+	
+	.MapCallContentTableHeader
+	{
+		display:none;
+	}
+
+	.MapCallMasterTableMenu 
+	{
+		display:none;
+	}
+	
+	.MapCallMasterTableFooter
+	{
+		display:none;
+	}
+	.MapCallMenuCell
+	{
+		 display:none;
+	}
+}

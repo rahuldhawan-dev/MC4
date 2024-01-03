@@ -1,0 +1,12 @@
+﻿@model MarkoutDamage
+
+<h2>
+	@Html.DefaultActionLink(string.Format("Markout Damage: #{0}", Model.Id), "Show", "MarkoutDamage", "FieldOperations", new { id = @Model.Id }, null)
+</h2>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.SAPWorkOrderId)
+	@Html.DisplayFor(x => x.DamageOn)
+	@Html.DisplayFor(x => x.Town)
+	@Html.DisplayFor(x => x.Street)
+</div>

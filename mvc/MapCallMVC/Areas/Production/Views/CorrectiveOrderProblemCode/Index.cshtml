@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchCorrectiveOrderProblemCode
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.Code)
+    .SortableColumnFor(x => x.Description)
+    .WithPaginatedFooter()
+    )

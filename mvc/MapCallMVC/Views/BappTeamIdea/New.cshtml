@@ -1,0 +1,12 @@
+﻿@model CreateBappTeamIdea
+
+@using (Form.BeginForm("Create", "BappTeamIdea"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}    

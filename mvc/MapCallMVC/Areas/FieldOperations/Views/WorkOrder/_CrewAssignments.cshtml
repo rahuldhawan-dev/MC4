@@ -1,0 +1,49 @@
+﻿@model WorkOrder
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCall.Common.Model.Entities.Users
+
+@{
+	var controllerName = this.ViewContext.RouteData.Values["controller"].ToString();
+	var actionName = this.ViewContext.RouteData.Values["action"].ToString();
+	var displayEditLink = controllerName.ToLower() == "generalworkorder" && actionName.ToLower() == "edit";
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/CrewAssignment/CrewAssignment.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor(x => x.CrewAssignments, new { Id = "assignmentsTable" })
+      .WithRowBuilder((model, tag) => {
+	      if (model.WorkOrder.DateCompleted.HasValue)
+	      {
+		      tag.AddCssClass("completed");
+	      }
+      })
+      .TemplateColumnFor(x => Ajax.ActionLink("Edit", "Edit", "CrewAssignment", new { Id = x.Id, WorkOrder = Model.Id, area = "FieldOperations" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#EditCrewAssignments" })).IsVisible(displayEditLink)
+      .ColumnFor(x => Model.WorkDescription.TimeToComplete, "Est TTC (hours)")
+      .ColumnFor(x => x.AssignedOn)
+      .ColumnFor(x => x.AssignedFor)
+      .ColumnFor(x => x.Crew, "Assigned To")
+      .ColumnFor(x => x.StartTime)
+      .TemplateColumnFor("End Time",
+	      x => @<text>
+		           @if (!x.WorkOrder.CancelledAt.HasValue && x.StartTime.HasValue && !x.EndTime.HasValue)
+		           {
+			           var mehn = Html.ActionLink("End", "End", "CrewAssignment", new { area = "FieldOperations", id = x.Id }, new { @class = "end", data_id = x.Id });
+			           @mehn
+		           }
+		           else
+		           {
+			           @Html.DisplayValueFor(_ => x.EndTime)
+		           }
+	            </text>)
+      .TemplateColumnFor("Employees on Crew",
+	      x => @<text>
+		           @if (!x.WorkOrder.CancelledAt.HasValue && x.StartTime.HasValue && !x.EndTime.HasValue)
+		           {
+			           var newModel = ViewModelFactory.BuildWithOverrides<CrewAssignmentEnd>(new { Id = x.Id, EmployeesOnJob = x.EmployeesOnJob });
+			           @Html.Partial("~/Areas/FieldOperations/Views/CrewAssignment/_EndAssignment.cshtml", newModel)
+		           }
+		           else
+		           {
+			           @Html.DisplayValueFor(_ => x.EmployeesOnJob)
+		           }
+	            </text>))

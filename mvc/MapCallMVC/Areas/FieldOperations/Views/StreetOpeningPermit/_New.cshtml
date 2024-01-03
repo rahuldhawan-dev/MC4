@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.StreetOpeningPermits.CreateStreetOpeningPermit
+
+<div style="width:500px">
+    @using (var f = Form.BeginAjaxForm("Create", "StreetOpeningPermit", new { Model.WorkOrder }))
+    {
+        f.HtmlAttributes["title"] = "Add Street Opening Permit";
+
+        <div class="field-column fc100">
+            @Html.EditorFor(x => x.StreetOpeningPermitNumber)
+            @Html.EditorFor(x => x.DateRequested)
+            @Html.EditorFor(x => x.DateIssued)
+            @Html.EditorFor(x => x.ExpirationDate)
+            @Html.EditorFor(x => x.Notes)
+        </div>
+        @Html.Partial("_DialogButtons", "Save Permit")
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model WorkOrder
+@Html.ScriptFor("~/Scripts/StreetOpeningPermit/Index.js", ScriptLoadType.LoadFromPartial)
+
+@using (var f = Form.BeginAjaxForm("Index", "StreetOpeningPermit", new { workOrderId = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+
+    if (Request.IsAjaxRequest())
+    {
+        <table id="streetOpeningPermitsTable">
+            <thead>
+                <tr>
+                    @*This is here as a reminder that we need something better than this.
+                    Something that doesn't reak.*@
+                    @{StreetOpeningPermit temp = null; }
+                    <th>Street Opening Permit Number</th>
+                    <th>@Html.DisplayLabelFor(_ => temp.DateRequested)</th>
+                    <th>@Html.DisplayLabelFor(_ => temp.DateIssued)</th>
+                    <th>@Html.DisplayLabelFor(_ => temp.ExpirationDate)</th>
+                    <th>@Html.DisplayLabelFor(_ => temp.Notes)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var permit in Model.StreetOpeningPermits)
+                {
+                    @Html.Partial("~/Views/StreetOpeningPermit/_Show.cshtml", permit)
+                }
+            </tbody>
+        </table>
+    }
+}

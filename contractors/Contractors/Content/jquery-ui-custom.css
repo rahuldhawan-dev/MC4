@@ -1,0 +1,48 @@
+﻿/* Additional style rules that should be applied to override 
+   those in the auto-generated stylesheet from jquery ui. */
+.ui-dialog { box-shadow: 0px 0px 9px #aaaaaa; }
+.ui-dialog-title { color: white; }
+.ui-dialog-titlebar button { background-color: transparent !important;border: none !important; }
+.ui-dialog .ui-dialog-titlebar-close .ui-icon {
+    left: 0;
+    top: 0;
+}
+.ui-widget-header { background-image:url('images/ui-bg_highlight-soft_35_346ea1_1x100.png'); }
+
+
+	
+/* Date and time picker */
+/*
+.ui-datepicker { box-shadow: 0px 0px 9px #cccccc; }
+
+.ui-datepicker-trigger,
+.ui-datepicker-trigger:hover, 
+.ui-datepicker-trigger:focus 
+{
+    height:24px;
+    width:24px;
+    padding:0px; 
+    margin:0px;
+    position:relative; 
+    border:none; 
+    background:transparent url('images/date-time-picker-calendar.png');
+}
+
+.ui-datepicker select  
+{
+    margin:0px; 
+    padding:0px;
+    min-height:0px;
+    border:solid 1px #cccccc;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+}
+
+.ui-datepicker-calendar td { width:14.2%; }
+.ui-datepicker-calendar td a { text-align:center; border-radius:2px;}
+
+.ui-datepicker .ui-state-default { border:solid 1px #cccccc; background:#f6f6f6; font-weight: normal; color: #1C94C4; }
+.ui-datepicker .ui-state-default a { color: #ffffff; text-decoration: none; }
+.ui-datepicker .ui-state-hover { border: 1px solid #448dae; background: #bcd6ed; font-weight: normal; color: #026890; }
+.ui-datepicker .ui-state-hover a { color: #026890; text-decoration: none; }
+.ui-datepicker .ui-icon, .ui-timepicker-div .ui-slider-handle { cursor:pointer; }*/

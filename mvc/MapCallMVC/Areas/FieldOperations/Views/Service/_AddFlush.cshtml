@@ -1,0 +1,25 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateServiceFlushViewModel
+
+@using (Form.BeginRouteForm("Service", "ServiceFlush", null, ManyToManyRouteAction.Add))
+{
+<div class="field-column fc200">
+    @Control.HiddenFor(x => x.Id)
+    @Html.EditorFor(x => x.ViewModel.FlushType)
+    @Html.EditorFor(x => x.ViewModel.SampleType)
+    @Html.EditorFor(x => x.ViewModel.SampleStatus)
+    @Html.EditorFor(x => x.ViewModel.TakenBy)
+    @Html.EditorFor(x => x.ViewModel.SampleDate)
+    @Html.EditorFor(x => x.ViewModel.SampleResultPassed)
+    @Html.EditorFor(x => x.ViewModel.SampleId)
+    @Html.EditorFor(x => x.ViewModel.ReplacementType)
+    @Html.EditorFor(x => x.ViewModel.FlushContactMethod)
+    @Html.EditorFor(x => x.ViewModel.PremiseContactDate)
+    @Html.EditorFor(x => x.ViewModel.FlushNotifiedCustomerServiceCenter)
+    @Html.EditorFor(x => x.ViewModel.FlushingNotes)
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save").WithId("save-flush")
+        @Control.Button("Cancel").WithCssClass("cancel")
+    </text>)
+</div>
+}

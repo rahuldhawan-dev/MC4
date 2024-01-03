@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalUnitCost
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Chemical)
+    .SortableColumnFor(x => x.WarehouseNumber)
+    .SortableColumnFor(x => x.Vendor)
+    .SortableColumnFor(x => x.StartDate)
+    .SortableColumnFor(x => x.EndDate)
+    .SortableColumnFor(x => x.PricePerPoundWet)
+    .SortableColumnFor(x => x.PoNumber)
+    .SortableColumnFor(x => x.ChemicalLeadTimeDays)
+    .SortableColumnFor(x => x.ChemicalOrderingProcess)
+    .SortableColumnFor(x => x.Chemical.PartNumber)
+    .WithPaginatedFooter())

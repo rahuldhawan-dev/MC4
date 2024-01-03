@@ -1,0 +1,36 @@
+﻿@model Equipment
+
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+<div class="field-column fc300">
+    @Html.DisplayFor(x => x.Facility.StrategyTier)
+    @Html.DisplayFor(x => x.StaticDynamicType)
+    @Html.DisplayFor(x => x.Condition)
+    @Html.DisplayFor(x => x.Performance)
+    @Html.DisplayFor(x => x.Reliability)
+    @Html.DisplayFor(x => x.ConsequenceOfFailure)
+    @Html.DisplayFor(x => x.LikelyhoodOfFailure)
+    @Html.DisplayFor(x => x.LocalizedRiskOfFailureText)
+    @Html.DisplayFor(x => x.RiskOfFailure)
+
+    @{
+        if (userCanEdit)
+        {
+            @Html.RenderEditorTemplate("", @<text>
+               @Html.ActionLink("Edit", "Edit", "Equipment", null, null, "RiskCharacteristicsTab", new {
+                   id = Model.Id
+               }, new { Class = "link-button" })
+            </text>)
+        }
+    }
+    
+    <fieldset>
+        <legend>Risk Characteristics Last Updated</legend>
+        @Html.DisplayFor(x => x.RiskCharacteristicsLastUpdatedBy.FullName, new {
+            DisplayName = Equipment.DisplayNames.RISK_CHARACTERISTICS_LAST_UPDATED_BY
+        })
+        @Html.DisplayFor(x => x.RiskCharacteristicsLastUpdatedOn)
+    </fieldset>
+</div>

@@ -1,0 +1,16 @@
+﻿<ul class="linkList">
+    <li>@Html.AuthorizedActionLink("Assets Retired Summary", "Show", "AssetsRetiredSummary", new { id = Model.Id, area = "ProjectManagement" })</li>
+    @if (Model is EstimatingProject && Model.IsNonFramework)
+    {
+        <li>@Html.AuthorizedActionLink("Bid Form", "New", "Bid", new {id = Model.Id, area = "ProjectManagement"})</li>
+    }        
+    <li>@Html.AuthorizedActionLink("Estimate Form", "New", "Estimate", new { id = Model.Id, area = "ProjectManagement" })</li>
+    <li>@Html.AuthorizedActionLink("Field Review Unit Summary (pdf)", "Show", "FieldReviewUnitSummary", new { id = Model.Id, area = "ProjectManagement", ext = "pdf" })</li>
+    <li>@Html.AuthorizedActionLink("Field Review Unit Summary - line items (excel)", "Show", "FieldReviewUnitSummary", new { id = Model.Id, area = "ProjectManagement", ext = "xls" })</li>
+    <li>@Html.AuthorizedActionLink("Material Requisition Form (pdf)", "Show", "MaterialRequisitionForm", new { id = Model.Id, area = "ProjectManagement", ext = "pdf" })</li>
+    <li>@Html.AuthorizedActionLink("Material Requisition Form - Materials only (excel)", "Show", "MaterialRequisitionForm", new { id = Model.Id, area = "ProjectManagement", ext = "xls" })</li>
+    <li>@Html.AuthorizedActionLink("Pipeline Project Cost Estimate", "New", "PipelineProjectCostEstimate", new { id = Model.Id, area = "ProjectManagement"})</li>
+    <li>@Html.AuthorizedActionLink("Purchase Order Request Form", "Show", "MaterialRequisitionForm", new { id = Model.Id, area = "ProjectManagement", DoNotOrder = true })</li>
+    <li>@Html.AuthorizedActionLink("Schedule of Values", "Show", "ScheduleOfValuesForm", new { id = Model.Id, area = "ProjectManagement", ext = "pdf" })</li>
+    <li>@Html.AuthorizedActionLink("Task Order Generator", "New", "TaskOrderGenerator", new { id = Model.Id, area = "ProjectManagement" })</li>
+</ul>

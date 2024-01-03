@@ -1,0 +1,11 @@
+﻿@model Contractors.Models.ViewModels.SpoilNew
+
+@using (var f = Form.BeginAjaxForm("Create", "Spoil", new { workOrder = Model.WorkOrder }))
+{
+	f.HtmlAttributes["title"] = "Add New Spoil";
+    <div class="field-column fc150">
+        @Html.EditorFor(m => m.Quantity)
+        @Html.EditorFor(m => m.SpoilStorageLocation)
+    </div>   
+    @Html.Partial("_DialogButtons", "Save Spoil")
+}

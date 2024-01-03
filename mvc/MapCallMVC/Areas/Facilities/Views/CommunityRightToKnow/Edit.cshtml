@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.EditCommunityRightToKnow
+
+@using (Form.BeginForm("Update", "CommunityRightToKnow", "Facilities", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "CommunityRightToKnow", new { Model.Id })
+        </text>)
+    </div>
+}

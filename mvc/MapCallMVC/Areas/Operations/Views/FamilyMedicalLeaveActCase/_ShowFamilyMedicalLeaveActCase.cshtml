@@ -1,0 +1,34 @@
+﻿@model FamilyMedicalLeaveActCase
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Case Details</legend>
+        @Html.DisplayFor(x => x.Employee)
+        @Html.DisplayFor(x => x.StartDate)
+        @Html.DisplayFor(x => x.EndDate)
+        @Html.DisplayFor(x => x.FrequencyDays)
+        @Html.DisplayFor(x => x.CertificationExtended)
+        @Html.DisplayFor(x => x.SendPackage)
+        @Html.DisplayFor(x => x.PackageDateSent)
+        @Html.DisplayFor(x => x.PackageDateReceived)
+        @Html.DisplayFor(x => x.PackageDateDue)
+        @Html.DisplayFor(x => x.CompanyAbsenceCertification)
+        @Html.DisplayFor(x => x.ChronicCondition)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Employee Supervisor Information</legend>
+        @if (Model.Employee.ReportsTo != null)
+        {
+            @Html.DisplayFor(x => x.Employee.ReportsTo)
+            @Html.DisplayFor(x => x.Employee.ReportsTo.PhoneWork)
+            @Html.DisplayFor(x => x.Employee.ReportsTo.PhoneCellular)
+            @Html.DisplayFor(x => x.Employee.ReportsTo.EmailAddress)
+        }
+    </fieldset>
+    
+    @using (Form.BeginForm("SendNotification", "FamilyMedicalLeaveActCase", new { id = Model.Id, area = "Operations" }))
+    {
+        @Control.SubmitButton("Notify Supervisor")
+    }
+</div>

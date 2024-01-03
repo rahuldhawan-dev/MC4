@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Crew>
+
+@{
+    ViewBag.Title = "Manage Crews";
+    Layout = "~/Views/Shared/_LayoutWithNav.cshtml";
+	var currentContractorName = ((Contractor)ViewData["Contractor"]).Name;
+}
+@if (Model == null || !Model.Any())
+{
+    <h3>No crews currently exist for contractor @currentContractorName.</h3>
+}
+else
+{
+	@(Html.TableFor(x => x, new{ style = "width:400px;"})
+	      .TemplateColumnFor(x => Html.ActionLink("Select", "Show", new { id = x.Id }))
+	      .ColumnFor(x => x.Description)
+	      .ColumnFor(x => x.Availability))
+}
+
+<div class="container">
+	@Html.LinkButton("New Crew", "New", "Crew")
+</div>    

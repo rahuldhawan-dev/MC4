@@ -1,0 +1,27 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels
+@model AllocationPermitWithdrawalNode
+
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.Equipment, new {id = "equipmentTable"})
+        .TemplateColumnFor(x => Html.ActionLink(x.Identifier, "Show", "Equipment", new {area = "", id = x.Id}, null))
+        .ColumnFor(x => x.EquipmentType)
+        .ColumnFor(x => x.Description);        
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Equipment">
+        @Html.Partial("_AddEquipment", ViewModelFactory.BuildWithOverrides<AddAllocationPermitWithdrawalNodeEquipment>(new {Id = Model.Id}))
+    </div>
+    using (var form = Form.BeginRouteForm("AllocationPermitWithdrawalNode", "Equipment", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "childTableFooter");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this equipment link?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Equipment").WithName("Equipment").WithValue(x.Id))
+    }
+}
+else
+{
+  @table
+} 

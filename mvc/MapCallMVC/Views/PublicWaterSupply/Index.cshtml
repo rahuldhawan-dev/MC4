@@ -1,0 +1,38 @@
+﻿@model SearchPublicWaterSupply
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+	.TemplateColumnFor(x => @<text>
+								@if (x.AWOwned == true)
+								{
+									if (!x.HasWaterSampleComplianceFormForTheCurrentMonth)
+									{
+										@Html.ActionLink("Certify", "New", "WaterSampleComplianceForm", new { area = "Environmental", id = x.Id }, null)
+									}
+									else
+									{
+										@Html.ActionLink("View Compliance", "Show", "WaterSampleComplianceForm", new { area = "Environmental", Id = x.WaterSampleComplianceFormForTheCurrentMonth.Id }, null)
+									}
+								}
+	                         </text>)
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.State)
+    .ColumnFor(x => x.OperatingCenterPublicWaterSupplies)
+    .SortableColumnFor(x => x.System)
+    .SortableColumnFor(x => x.Identifier)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.Ownership)
+    .SortableColumnFor(x => x.Type)
+    .SortableColumnFor(x => x.DateOfOwnership)
+    .SortableColumnFor(x => x.HasConsentOrder)
+    .SortableColumnFor(x => x.ConsentOrderEndDate)
+    .SortableColumnFor(x => x.NewSystemInitialSafetyAssessmentCompleted)
+    .SortableColumnFor(x => x.DateSafetyAssessmentActionItemsCompleted)
+    .SortableColumnFor(x => x.NewSystemInitialWQEnvAssessmentCompleted)
+    .SortableColumnFor(x => x.DateWQEnvAssessmentActionItemsCompleted)
+    .WithPaginatedFooter())

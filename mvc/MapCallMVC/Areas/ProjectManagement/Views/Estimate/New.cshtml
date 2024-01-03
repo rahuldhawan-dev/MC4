@@ -1,0 +1,19 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreateEstimateForm
+           
+@using (Form.BeginForm("Create", "Estimate", new{ Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.AssignedTo)
+        @Html.EditorFor(x => x.FTCApplied)
+        @Html.EditorFor(x => x.FTCTotal)
+        @Html.EditorFor(x => x.JDEPayrollTask)
+        @Html.EditorFor(x => x.OldJDETaskNumber)
+        @Html.EditorFor(x => x.ProjectLocation)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Get PDF")
+            @Html.LinkButton("Cancel", "Show", "EstimatingProject", new { Model.Id })
+        </text>)
+    </div>
+}

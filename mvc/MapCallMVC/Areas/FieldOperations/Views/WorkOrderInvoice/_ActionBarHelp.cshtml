@@ -1,0 +1,35 @@
+﻿@using MMSINC.Utilities
+<style>
+    .heading {
+        padding-top: 6px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+</style>
+<div>
+    <h3>Status</h3>
+    <div>
+        <p class="heading">Submitted</p>
+        <p>
+            Changing the Submitted Date field will send an email to anyone in the notification group for Work Order Invoice Status Change.
+            This email will include a PDF attachment of the invoice.
+        </p>
+
+        <p class="heading">Canceled</p>
+        <p>
+            Changing the Canceled Date field will send an email to anyone in the notification group for Work Order Invoice Status Change.
+        </p>
+    </div>
+    
+    <h3>Markup Costs</h3>
+    <div>
+        <p class="heading">Material Markup Rate</p>
+        <p>
+            @(String.Format(CommonStringFormats.PERCENTAGE,WorkOrderInvoice.MATERIAL_MARKUP_RATE-1))
+        </p>
+        <p class="heading">Other Categories</p>
+        <p>
+            Other categories will include a 10% supervisor markup before the standard markup.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model SearchProductionWorkOrderFromMaintenancePlan
+@using (Form.BeginForm("CreateProductionWorkOrderFromPlan", "ProductionWorkOrder", "Production"))
+{
+    @Html.Partial("_AddWorkOrderFromMaintenancePlan", ViewModelFactory.BuildWithOverrides<CreateProductionWorkOrderFromPlan>(new
+    {
+        MaintenancePlan = Model.MaintenancePlanEntity.Id,
+        OperatingCenter = Model.MaintenancePlanEntity.OperatingCenter == null ? 0 : Model.MaintenancePlanEntity.OperatingCenter.Id,
+        PlanningPlant = Model.MaintenancePlanEntity.PlanningPlant == null ? 0 : Model.MaintenancePlanEntity.PlanningPlant.Id,
+        Facility = Model.MaintenancePlanEntity.Facility == null ? 0 : Model.MaintenancePlanEntity.Facility.Id,
+        EquipmentType = Model.MaintenancePlanEntity.EquipmentTypes.FirstOrDefault() == null ? 0 : Model.MaintenancePlanEntity.EquipmentTypes.FirstOrDefault().Id,
+        ProductionWorkDescription = Model.MaintenancePlanEntity.WorkDescription == null ? 0 : Model.MaintenancePlanEntity.WorkDescription.Id,
+        LocalTaskDescription = Model.MaintenancePlanEntity.LocalTaskDescription ?? string.Empty,
+        BasicStart = Model.MaintenancePlanEntity.Start,
+        Equipment = Model.MaintenancePlanEntity.Equipment.Select(x => x.Id).Distinct().ToArray()
+    }))
+
+    <div class="row">
+        @Html.ButtonGroup(@<text>
+            @if (Model.MaintenancePlanEntity.IsActive)
+            {
+                @Control.SubmitButton("Create Off-Scheduled Production Order").WithId("CreateOffScheduledProductionOrder")
+            }
+            else
+            {
+                @Control.SubmitButton("Create Off-Scheduled Production Order").With("disabled", "disabled").WithId("CreateOffScheduledProductionOrder")
+            }
+        </text>)
+        @Html.EditorFor(x => x.MaintenancePlanEntity.Start)
+    </div>
+}

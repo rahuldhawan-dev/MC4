@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.CreateFamilyMedicalLeaveActCase
+
+@using (Form.BeginForm("Create", "FamilyMedicalLeaveActCase", "Operations")) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "FamilyMedicalLeaveActCase")
+                           </text>)
+    </div>
+}

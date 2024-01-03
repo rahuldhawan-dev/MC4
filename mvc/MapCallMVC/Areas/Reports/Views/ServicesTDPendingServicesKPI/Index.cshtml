@@ -1,0 +1,57 @@
+﻿@using MMSINC.Utilities
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServicesTDPendingServicesKPI
+
+@{
+    ActionBarHelper.AddExportLink();
+    var count = 0;
+}
+
+<table style="width: 400px;">
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            Operating Center:
+            @Model.Results.First().OperatingCenter
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            Pending as of : @DateTime.Now.ToShortDateString()
+        </td>
+    </tr>
+
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td style="font-weight: bold;border: 1px solid #83b9de;">Services</td>
+        <td style="font-weight: bold;border: 1px solid #83b9de;">Qty</td>
+    </tr>
+    @foreach (var item in Model.Results)
+    {
+        if (item.Section == TDPendingServicesKPIReportItem.SECTION_SERVICE)
+        {
+            <tr>
+                <td>@item.ServicesContractor</td>
+                <td>@item.Total</td>
+            </tr>
+        }
+    }
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+        <td colspan="2" style="text-align: center; font-weight: bold;border: 1px solid #83b9de;">
+            Contractor Loading
+        </td>
+    </tr>
+    <tr>
+        <td style="font-weight: bold;">Contractor</td>
+        <td style="font-weight: bold;">Qty</td
+    </tr>
+    @foreach (var item in Model.Results)
+    {
+        if (item.Section == TDPendingServicesKPIReportItem.SECTION_CONTRACTOR)
+        {
+            <tr>
+                <td>@item.ServicesContractor</td>
+                <td>@item.Total</td>
+            </tr>
+        }
+    } 
+</table>

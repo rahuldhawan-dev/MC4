@@ -1,0 +1,12 @@
+﻿@model MaintenancePlan
+
+
+<fieldset>
+    <legend>Equipment Information</legend>
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Equipment Types",
+            @Html.TableFor(x => x.EquipmentTypes)
+                 .ColumnFor(x => x.Description)
+                 .ColumnFor(x => x.Display))
+    </div>
+</fieldset>

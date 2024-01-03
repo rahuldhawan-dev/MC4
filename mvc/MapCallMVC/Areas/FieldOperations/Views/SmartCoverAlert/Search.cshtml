@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSmartCoverAlert
+
+@using (Form.BeginForm("Index", "SmartCoverAlert"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.State, new { html = new { autofocus = "autofocus" } })
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.TownSection)
+    @Html.EditorFor(x => x.SewerOpeningNumber)
+    @Html.EditorFor(x => x.ApplicationDescription)
+    @Html.EditorFor(x => x.DateReceived)
+    @Html.EditorFor(x => x.AlertType)
+    @Html.EditorFor(x => x.HighLevelAlarmType)
+    @Html.EditorFor(x => x.Acknowledged)
+    @Html.EditorFor(x => x.WorkOrders)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

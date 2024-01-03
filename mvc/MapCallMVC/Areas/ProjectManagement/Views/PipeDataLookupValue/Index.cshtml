@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchPipeDataLookupValue
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.PipeDataLookupType)
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.VariableScore)
+    .SortableColumnFor(x => x.PriorityWeightedScore)
+    .SortableColumnFor(x => x.IsEnabled)
+    .SortableColumnFor(x => x.IsDefault)
+    .WithPaginatedFooter())

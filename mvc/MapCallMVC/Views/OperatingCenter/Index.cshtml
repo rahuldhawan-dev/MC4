@@ -1,0 +1,14 @@
+﻿@model IEnumerable<OperatingCenter>
+
+@{ ActionBarHelper.AddExportLink();}
+
+@(Html.TableFor(x => Model)
+      .WithCaption("Records found: " + Model.Count())
+      .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "OperatingCenter", new { id = x.Id }))
+      .ColumnFor(x => x.OperatingCenterCode)
+      .ColumnFor(x => x.OperatingCenterName)
+      .ColumnFor(x => x.State)
+      .ColumnFor(x => x.StateRegion)
+      .ColumnFor(x => x.MapId)
+      .ColumnFor(x => x.MarkoutsEditable)
+      )

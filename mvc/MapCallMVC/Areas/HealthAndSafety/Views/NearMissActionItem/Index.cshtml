@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchNearMissActionItem
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink(x.Entity.Id.ToString(), "Show", "NearMiss",null,null,"ActionItemsTab", new {x.Entity.Id, area = "HealthAndSafety"}, null))
+      .SortableColumnFor(x => x.Entity.OperatingCenter.State, "st.Abbreviation")
+      .SortableColumnFor(x => x.Entity.OperatingCenter, "oc.OperatingCenterCode")
+      .SortableColumnFor(x => x.Entity.Type, "ent.Type")
+      .SortableColumnFor(x => x.ActionItem.Type, "type.Description")
+      .SortableColumnFor(x => x.ActionItem.NotListedType, "ai.NotListedType")
+      .SortableColumnFor(x => x.ActionItem.ResponsibleOwner.FullName, "Responsible Owner", "ro.FullName")
+      .SortableColumnFor(x => x.ActionItem.TargetedCompletionDate, "ai.TargetedCompletionDate")
+      .SortableColumnFor(x => x.ActionItem.DateCompleted, "ai.DateCompleted")
+    .WithPaginatedFooter()
+)

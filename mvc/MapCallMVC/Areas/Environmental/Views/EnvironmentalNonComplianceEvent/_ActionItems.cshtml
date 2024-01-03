@@ -1,0 +1,35 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents
+@model EnvironmentalNonComplianceEvent
+
+@{
+    var table = Html.TableFor(_ => Model.ActionItems, new { id = "actionItemsTable", style = "width:100%;" });
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "EnvironmentalNonComplianceEventActionItem", new { area = "Environmental", x.Id }, new { Class = "link-button" }));
+    }
+
+    table = table
+        .ColumnFor(x => x.Type)
+        .ColumnFor(x => x.NotListedType)
+        .ColumnFor(x => x.ActionItem)
+        .ColumnFor(x => x.ResponsibleOwner.FullName, "Responsible Owner")
+        .ColumnFor(x => x.TargetedCompletionDate)
+        .ColumnFor(x => x.DateCompleted);
+
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Action Item">
+        @Html.Partial("_AddEnvironmentalNonComplianceEventActionItem", ViewModelFactory.Build<CreateEnvironmentalNonComplianceEventActionItem, EnvironmentalNonComplianceEvent>(Model))
+    </div>
+    <div class="container">
+        @table
+    </div>
+}
+else
+{
+    @table
+}

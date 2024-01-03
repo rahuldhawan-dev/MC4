@@ -1,0 +1,24 @@
+﻿@model CreateEquipmentCharacteristicField
+
+<div class="collapse-panel" data-title="Add Field">
+    @using (var form = Form.BeginForm("Create", "EquipmentCharacteristicField"))
+    {
+        form.Method = FormMethod.Post;
+        form.HtmlAttributes.Add("id", "createEquipmentCharacteristicForm");
+
+        <div class="field-column fc200">
+            @Html.EditorFor(m => m.FieldName)
+            @Html.EditorFor(m => m.Description)
+            @Html.EditorFor(m => m.FieldType)
+            @Html.EditorFor(m => m.Required)
+            @Html.EditorFor(m => m.IsSAPCharacteristic)
+            @Html.EditorFor(m => m.DropDownValues)
+            @Html.EditorFor(m => m.IsActive)
+            @Html.EditorFor(m => m.Order)
+
+            @Html.ButtonGroup(@<text>
+                                  @Control.SubmitButton("Add")
+                               </text>)
+        </div>
+    }
+</div>

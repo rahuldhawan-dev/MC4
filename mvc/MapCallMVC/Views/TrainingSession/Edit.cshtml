@@ -1,0 +1,15 @@
+﻿@model EditTrainingSession
+
+@using (Form.BeginForm("Update", "TrainingSession", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.TrainingRecordId)
+        @Html.DisplayFor(x => x.TrainingRecord)
+        @Html.EditorFor(x => x.StartDateTime)
+        @Html.EditorFor(x => x.EndDateTime)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TrainingRecord", new { Id = Model.TrainingRecordId}, null)
+                           </text>)
+    </div>
+}

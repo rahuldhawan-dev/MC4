@@ -1,0 +1,35 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRecurringProjectMain
+@*
+    The unobtrusive validation script does not do well with 100s of rows like this.
+    Setting all these will allow the client side validation to be skipped 
+    This is okay because we're setting these values for the end user. If they decide to 
+    tamper with them, there is still validation on the server-side.
+*@
+<tr>
+    <td>
+        @Control.HiddenFor(x => x.Id).ExcludeClientSideValidation()
+        @Control.HiddenFor(x => x.RecurringProject).ExcludeClientSideValidation()
+        @Control.HiddenFor(x => x.Guid).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.Guid)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Layer).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.Layer)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Length).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.Length)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.DateInstalled).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.DateInstalled)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Diameter).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.Diameter)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Material).ExcludeClientSideValidation()
+        @Html.DisplayValueFor(x => x.Material)
+    </td>
+</tr>

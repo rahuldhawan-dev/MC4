@@ -1,0 +1,14 @@
+﻿@model AddStandardOperatingProcedureQuestion
+           
+@using (var f = Form.BeginRouteForm("StandardOperatingProcedure", "StandardOperatingProcedureQuestion", new { id = Model.Id }, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.Question)
+        @Html.EditorFor(x => x.Answer)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Question")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

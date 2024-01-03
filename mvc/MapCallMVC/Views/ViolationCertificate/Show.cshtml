@@ -1,0 +1,7 @@
+﻿@model ViolationCertificate
+@{
+    ActionBarHelper.AddRenewLink("Renew", new{ Model.Id });
+}
+@(Html.Tabs()
+    .WithTab("Details", "_Show")
+    .WithNotesAndDocuments())

@@ -1,0 +1,34 @@
+﻿@using MMSINC.Common
+@model MapCall.Common.Model.Entities.Users.User
+
+@Control.Button("Update Payment Information").WithId("openPaymentInfo").WithValue(Html.UrlForAction("GetToken", "User", new RouteValueDictionary(new {area = "", id = Model.Id})))
+
+<form method="post" action="" id="formAuthorizeNetPopup" name="formAuthorizeNetPopup" target="iframeAuthorizeNet" style="display:none">
+    <!--token goes here: -->
+    @Control.Hidden("Token")
+    @Control.Hidden("PaymentProfileId")
+    @Control.Hidden("ShippingAddressId")
+    @Control.Hidden("AuthTest").WithValue(!HttpApplicationBase.IsProduction)
+
+</form>
+
+<div id="divAuthorizeNetPopup" style="display:none" class="AuthorizeNetPopupSimpleTheme">
+    <div class="AuthorizeNetPopupOuter">
+        <iframe name="iframeAuthorizeNet" id="iframeAuthorizeNet" src="/Content/AuthorizeNet/empty.html" frameborder="0" scrolling="auto"></iframe>
+    </div>
+
+    <div class="AuthorizeNetShadow AuthorizeNetShadowT"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowR"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowB"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowL"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowTR"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowBR"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowBL"></div>
+    <div class="AuthorizeNetShadow AuthorizeNetShadowTL"></div>
+</div>
+
+<div id="divAuthorizeNetPopupScreen" style="display:none"></div>
+
+@Html.StylesheetFor("~/content/authorize-net-css", true)
+@Html.ScriptFor("~/scripts/auth-js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/User/PaymentInformation.js", ScriptLoadType.LoadFromPartial)

@@ -1,0 +1,15 @@
+{
+  "providerId": "Microsoft.Tools.ServiceModel.Svcutil",
+  "version": "2.0.3",
+  "ExtendedData": {
+    "inputs": [
+      "../../wsdl/InspectionRecord_Create_OB_SYN.wsdl"
+    ],
+    "namespaceMappings": [
+      "*, MapCall.SAP.service"
+    ],
+    "outputFile": "InspectionRecordWS.cs",
+    "targetFramework": "net472",
+    "typeReuseMode": "All"
+  }
+}

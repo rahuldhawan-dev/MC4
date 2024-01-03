@@ -1,0 +1,151 @@
+﻿@using MMSINC.Models.ViewModels
+@using MMSINC.Utilities
+@model MapCallMVC.Areas.Production.Models.ViewModels.EditSystemDeliveryEntryViewModel
+
+@Html.StylesheetFor("~/Content/css/Production/SystemDeliveryEntry.css", true)
+
+@{
+    var entries = Model.FacilityEntries
+        .GroupBy(x => new { OperatingCenter = x.OperatingCenterDescription })
+        .OrderBy(g => g.Key.OperatingCenter)
+        .Select(g => new {
+            g.Key.OperatingCenter,
+            Facilities = g.GroupBy(f => new { f.FacilityName, f.SystemDeliveryEntryTypeIsInjectionSite, f.FacilityId, f.FacilityIdWithFacilityName })
+                .OrderBy(gr => gr.Key.FacilityName)
+                .Select(gg => new {
+                    Facility = gg.Key.FacilityName, gg.Key.SystemDeliveryEntryTypeIsInjectionSite, gg.Key.FacilityId, gg.Key.FacilityName,
+                    EntryTypes = gg.GroupBy(x => x.SystemDeliveryEntryTypeDesc)
+                        .Select(sdet => new {
+                            SystemDeliveryEntryType = sdet.Key,
+                            FacilityEntries = sdet.OrderBy(h => h.EntryDate)
+                        }).ToList()
+                }).ToList()
+        }).ToList();
+    var index = 0;
+}
+
+<div class="field-column fc200">
+    @Html.DisplayAndHiddenFor(x => x.WeekOf)
+    @Html.HiddenFor(x => x.EnteredBy)
+    @Html.EditorFor(x => x.OperatingCenters)
+    @Html.EditorFor(x => x.SystemDeliveryType)
+    @Html.EditorFor(x => x.PublicWaterSupplies)
+    @Html.EditorFor(x => x.WasteWaterSystems)
+    @Html.EditorFor(x => x.Facilities)
+    @Html.DisplayInlineNotification(new NotificationItem { Message = "THE UNIT OF MEASURE FOR ALL ENTRIES IS THOUSAND GALLONS", NotificationType = NotificationItemType.Warning })
+    <div class="single-facility">
+        <table class="for-structure" id="entryTable">
+            @foreach (var oc in entries)
+            {
+                <thead>
+                <tr>
+                    <th colspan="19">@oc.OperatingCenter</th>
+                </tr>
+                </thead>
+
+                foreach (var facility in oc.Facilities)
+                {
+                    <thead>
+                    <tr>
+                        <th>Facility</th>
+                        <th>Category</th>
+                        @if (Model.SystemDeliveryType != SystemDeliveryType.Indices.WASTE_WATER)
+                        {
+                            <th>Supplier<br/>Facility</th>
+                            <th>Purchase<br/>Supplier</th>
+                        }
+
+                        @for (var i = 0; i <= 6; i++)
+                        {
+                            <th>
+                                @{
+                                    var aye = i;
+                                }
+                                @Html.DisplayValueFor(x => x.WeekOf.Value.AddDays(aye).Date, CommonStringFormats.DATE)
+                                <br/>
+                                @Html.DisplayValueFor(x => x.WeekOf.Value.AddDays(aye).DayOfWeek)
+                            </th>
+                            if (facility.SystemDeliveryEntryTypeIsInjectionSite)
+                            {
+                                <th>Injection?</th>
+                            }
+                        }
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+
+                    foreach (var entryType in facility.EntryTypes)
+                    {
+                        var systemDeliveryEntryType = entryType.SystemDeliveryEntryType;
+                        var supplierFacility = entryType.FacilityEntries.First().SupplierFacilityDesc ?? string.Empty;
+                        var purchaseSupplier = entryType.FacilityEntries.First().PurchaseSupplier;
+                        var weeklyTotal = entryType.FacilityEntries.Sum(x => x.EntryValue);
+
+                        <tbody>
+                        <tr id="entries">
+                            <td>@facility.FacilityName</td>
+                            <td>@Html.DisplayValueFor(_ => systemDeliveryEntryType)</td>
+                            @if (Model.SystemDeliveryType != SystemDeliveryType.Indices.WASTE_WATER)
+                            {
+                                <td>@Html.DisplayValueFor(_ => supplierFacility)</td>
+                                <td>@Html.DisplayValueFor(_ => purchaseSupplier)</td>
+                            }
+
+                            @for (var m = 0; m <= 6; m++)
+                            {
+                                var i = index;
+
+                                if (entryType.FacilityEntries.Any(x => ((int)x.EntryDate.DayOfWeek + 6) % 7 == m && x.FacilityId == facility.FacilityId && x.SystemDeliveryEntryTypeDesc == entryType.SystemDeliveryEntryType))
+                                {
+                                    <td>@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[i].EntryValue, new { size = 10 })</td>
+
+                                    if (Model.FacilityEntries[i].SystemDeliveryEntryTypeIsInjectionSite)
+                                    {
+                                        <td>@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[i].IsInjection, new { size = 5 })</td>
+                                    }
+
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].OperatingCenterId)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].OperatingCenterDescription)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SystemDeliveryEntry)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SystemDeliveryType)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SystemDeliveryEntryType)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SystemDeliveryEntryTypeDesc)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SystemDeliveryEntryTypeIsInjectionSite)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].EntryDate)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].EnteredBy)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].FacilityId)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].FacilityName)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].FacilityIdWithFacilityName)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SupplierFacility)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].SupplierFacilityDesc)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].PurchaseSupplier)
+                                    @Html.HiddenFor(_ => Model.FacilityEntries[i].MaxWeeklyTotal)
+                                    index++;
+                                }
+                                else
+                                {
+                                    <td>&nbsp;</td>
+                                    if (facility.SystemDeliveryEntryTypeIsInjectionSite)
+                                    {
+                                        <td>&nbsp;</td>
+                                    }
+                                }
+
+                                if (m == 6)
+                                {
+                                    // This is here so the user can enter a weekly total, click the 'Weekly Distribution'
+                                    // button and have the total distributed equally throughout the week.
+                                    <td class="weeklyTotal">@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[index - 1].WeeklyTotal, new { size = 10 })</td>
+                                }
+                            }
+                        </tr>
+                        </tbody>
+                    }
+                }
+            }
+        </table>
+        <div>
+            @Control.Button("Weekly Distribution").WithId("distribute")
+        </div>
+    </div>
+</div>

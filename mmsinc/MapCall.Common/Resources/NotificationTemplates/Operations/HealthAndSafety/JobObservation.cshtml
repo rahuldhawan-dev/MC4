@@ -1,0 +1,15 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.JobObservation
+
+<h2>Job Observation - Created</h2>
+
+Id: @Model.RecordUrl<br/>
+Created By: @Model.CreatedBy.FullName<br/>
+Operating Center: @Model.OperatingCenter<br/>
+Observation Date: @String.Format(CommonStringFormats.DATE, Model.ObservationDate)<br/>
+Department: @Model.Department<br/>
+Address: @Model.Address<br/>
+Task Observed: @Model.TaskObserved<br/>
+Deficiencies or Additional Comments: @Model.Deficiencies<br />
+Overall Safety Rating: @Model.OverallSafetyRating<br/>
+Overall Quality Rating: @Model.OverallQualityRating<br/>

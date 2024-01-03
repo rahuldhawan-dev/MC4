@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchEchoshoreLeakAlert
+    
+@using (Form.BeginForm("Index", "EchoshoreLeakAlert"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.EchoshoreSite)
+        @Html.EditorFor(x => x.WorkOrders)
+        @Html.EditorFor(x => x.PersistedCorrelatedNoiseId)
+        @Html.EditorFor(x => x.DatePCNCreated)
+        @Html.EditorFor(x => x.FieldInvestigationRecommendedOn)
+        @Html.EditorFor(x => x.Hydrant1Text)
+        @Html.EditorFor(x => x.Hydrant2Text)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

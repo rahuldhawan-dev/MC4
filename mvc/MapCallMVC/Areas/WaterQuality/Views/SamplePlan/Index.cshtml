@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchSamplePlan
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.PWSID)
+    .SortableColumnFor(x => x.Name)
+    .TemplateColumnFor("System Type", x => new MvcHtmlString(x.Cws ? "CWS" : "NTNC"))
+    .SortableColumnFor(x => x.MonitoringPeriodFrom)
+    .SortableColumnFor(x => x.MonitoringPeriodTo)
+    .TemplateColumnFor("Monitoring Level", x => new MvcHtmlString(x.Standard ? "Standard" : "Reduced"))
+    .SortableColumnFor(x => x.MinimumSamplesRequired)
+    .ColumnFor(x => x.NumberOfSamplesTaken)
+    .ColumnFor(x => x.HasActiveSampleSites)
+    .WithPaginatedFooter())

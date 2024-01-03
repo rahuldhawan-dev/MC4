@@ -1,0 +1,8 @@
+﻿@model RiskRegisterAsset
+
+@(
+    Html.Tabs()
+        .WithTab("Details", "_ShowRiskRegisterAsset", Model)
+        .WithNotesDocumentsAndActionItems()
+        .WithLog()
+)

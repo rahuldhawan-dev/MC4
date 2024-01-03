@@ -1,0 +1,31 @@
+﻿@model AbsenceNotification
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Employee)
+    @Html.DisplayFor(x => x.Employee.ReportsTo)
+    @Html.DisplayFor(x => x.LastDayOfWork)
+    @Html.DisplayFor(x => x.StartDate)
+    @Html.DisplayFor(x => x.EndDate)
+    @Html.DisplayFor(x => x.TotalHoursOfAbsence)
+    @Html.DisplayFor(x => x.ReturnToWorkNote)
+    @Html.DisplayFor(x => x.EmployeeAbsenceClaim)
+    @Html.DisplayFor(x => x.SupervisorNotes)
+    @Html.DisplayFor(x => x.EmployeeFMLANotification)
+    @Html.DisplayFor(x => x.FamilyMedicalLeaveActCase)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.SubmittedBy)
+    @Html.DisplayFor(x => x.HumanResourcesReviewed)
+    @Html.DisplayFor(x => x.HumanResourcesNotes)
+    @Html.DisplayFor(x => x.AbsenceStatus)
+    @Html.DisplayFor(x => x.ProgressiveDiscipline)
+    @Html.DisplayFor(x => x.ProgressiveDisciplineAdministered)
+    @Html.DisplayFor(x => x.PackageDateSent)
+    @Html.DisplayFor(x => x.PackageDateDue)
+
+    @Html.ActionLink("New FMLA Case", "New", "FamilyMedicalLeaveActCase", new { Employee = Model.Employee.Id, area = "Operations"}, new { Class="link-button" })
+
+    @using (Form.BeginForm("SendNotification", "AbsenceNotification", new { id = Model.Id, area = "Operations" }))
+    {
+        @Control.SubmitButton("Notify Supervisor")
+    }
+</div>

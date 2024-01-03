@@ -1,0 +1,13 @@
+﻿@model SearchUnion
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.BargainingUnit)
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount)
+    .WithPaginatedFooter())

@@ -1,0 +1,82 @@
+﻿/* TABS */
+
+.ui-tabs {
+    position: relative; /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    zoom: 1;
+
+    .ui-tabs-nav {
+        margin: 0;
+        padding: 0px;
+        height: @tab-header-height;
+        background: @tab-header-background;
+        border-bottom: @tab-header-border;
+
+        li {
+            outline: none !important;
+            list-style: none;
+            float: left;
+            position: relative;
+            padding: 0px; /* Padding should be done on the anchor tag */
+            white-space: nowrap;
+            background: @tab-default-background;
+            border: @tab-default-border;
+            height: @tab-height;
+
+            a {
+                cursor: pointer !important;
+                text-decoration: none;
+                outline: none !important;
+                float: left;
+                color: @tab-default-color;
+                line-height: @tab-height;
+                padding: @tab-header-padding;
+                .tab-header-font;
+            }
+
+            &.ui-state-disabled {
+                background-color: @default-form-control-disabled-background-color;
+
+                a {
+                    color: @default-form-control-disabled-text-color;
+                }
+            }
+        }
+        /* ACTIVE STYLE */
+        li.ui-tabs-active,
+        li.ui-state-active,
+        li.ui-state-hover,
+        li.ui-state-focus {
+            margin-bottom: 0;
+            background: @tab-active-background;
+            border: @tab-active-border;
+
+            a {
+                text-decoration: none;
+                color: @tab-active-color !important;
+            }
+        }
+    }
+    /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+    .ui-tabs-panel {
+        display: block;
+        border-width: 0;
+        background: none;
+        border: @tab-content-border;
+        padding: @tab-content-padding;
+    }
+
+    .ui-tabs-hide {
+        display: none !important;
+    }
+}
+
+.tabs-container {
+    border: none;
+    background: none;
+}
+
+.tab-content {
+    position: relative;
+    padding-top: 6px;
+    clear: both;
+}

@@ -1,0 +1,16 @@
+﻿@model CreatePlanningPlantWasteWaterSystem
+
+<div class="collapse-panel" data-title="Add New Planning Plant">
+    @using (var form = Form.BeginForm("Create", "PlanningPlantWasteWaterSystem", new { area = "Environmental" }))
+    {
+        <fieldset class="field-column fc200">
+            @Html.EditorFor(x => x.PlanningPlant)
+            @Control.HiddenFor(x => x.WasteWaterSystem)
+            @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Add Planning Plant").WithId("addPlanningPlantButton")
+                @Control.Button("Cancel").WithId("cancelAddPlanningPlantButton").WithCssClass("cancel")
+             </text>)
+        </fieldset>
+    }
+</div>

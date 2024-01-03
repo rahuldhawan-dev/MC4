@@ -1,0 +1,6 @@
+﻿@using MMSINC.Data
+@model DateRange
+@{
+    ViewTemplateHelper.ViewData["class"] = "range-pair";
+}
+@RenderEditorForTemplate(@<text>@Control.RangePicker("").With(ViewTemplateHelper.HtmlAttributes) @Html.ValidationMessage("")</text>)

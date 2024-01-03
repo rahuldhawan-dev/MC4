@@ -1,0 +1,50 @@
+﻿@model SearchFacility
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+    <tr>
+        <td class="color-block asset-not-inspectable">Inactive Facility</td>
+    </tr>
+</table>
+@(Html.TableFor(x => Model, new { id = "facility-table" })
+    .WithCaption("Records found: " + Model.Count)
+    .WithRowBuilder((x, help) =>
+    {
+        if ((x.FacilityStatus != null) && (x.FacilityStatus.Id == FacilityStatus.Indices.INACTIVE))
+        {
+            help.AddCssClass("asset-not-inspectable");
+        }
+    })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Operations, "Operations")
+    .SortableColumnFor(x => x.PublicWaterSupply)
+    .SortableColumnFor(x => x.FacilityId, "FacilityId")
+    .SortableColumnFor(x => x.FacilityName, "FacilityName")
+    .SortableColumnFor(x => x.OperatingCenter.OperatingCenterCode, "OperatingCenter.OperatingCenterCode")
+    .SortableColumnFor(x => x.PlanningPlant)
+    .SortableColumnFor(x => x.Town.ShortName, "Town", "T.ShortName")
+    .SortableColumnFor(x => x.CompanySubsidiary)
+    .SortableColumnFor(x => x.FunctionalLocation)
+    .ColumnFor(x => x.Town.County.Name, "County")
+    .SortableColumnFor(x => x.FacilityOwner, "FacilityOwner.Description")
+    .SortableColumnFor(x => x.FacilityStatus, "FacilityStatus.Description")
+    .SortableColumnFor(x => x.Coordinate.Latitude, "Coordinate.Latitude")
+    .SortableColumnFor(x => x.Coordinate.Longitude, "Coordinate.Longitude")
+    .SortableColumnFor(x => x.BusinessUnit.BU, "BusinessUnit.BU")
+    .SortableColumnFor(x => x.Department, "Department")
+    .SortableColumnFor(x => x.CriticalRating, "CriticalRating")
+    .TemplateColumnFor("Arc Flash Studies", x => @<text>
+                                                @if (x.ArcFlashStudies.Any())
+                                                {
+                                                    @x.ArcFlashStudies.Count
+                                                }
+                                             </text>)
+    .SortableColumnFor(x => x.IsInVamp)
+    .SortableColumnFor(x => x.Process, "Process.Description")
+    .SortableColumnFor(x => x.CreatedBy)
+    .WithPaginatedFooter()
+)

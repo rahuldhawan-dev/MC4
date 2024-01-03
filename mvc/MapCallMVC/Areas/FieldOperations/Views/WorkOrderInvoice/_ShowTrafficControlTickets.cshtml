@@ -1,0 +1,9 @@
+﻿@model WorkOrderInvoice
+
+@(Html.TableFor(x => Model.WorkOrder.TrafficControlTickets)
+    .ColumnFor(x => x.BillingParty)
+    .ColumnFor(x => x.InvoiceNumber)
+    .ColumnFor(x => x.InvoiceAmount)
+    .ColumnFor(x => x.TotalCharged)
+    .ColumnFor(x => x.TotalHours)
+)

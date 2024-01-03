@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MapCall.Common.Model.ViewModels.KPIHydrantsInspectedReport>
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+<table id="hydrant-inspections-table">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Work Description</th>
+            <th>Year</th>
+            <th>Jan</th>
+            <th>Feb</th>
+            <th>Mar</th>
+            <th>Apr</th>
+            <th>May</th>
+            <th>Jun</th>
+            <th>Jul</th>
+            <th>Aug</th>
+            <th>Sep</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Dec</th>
+            <th>Total Required Inspections</th>
+            <th>Total Required</th>
+            <th>% Complete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            if (x != null)
+            {
+                <tr>
+                    <td>@x.OperatingCenter</td>
+                    <td>@x.HydrantInspectionType</td>
+                    <td>@Html.DisplayValueFor(_ => x.Year)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Jan)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Feb)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Mar)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Apr)</td>
+                    <td>@Html.DisplayValueFor(_ => x.May)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Jun)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Jul)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Aug)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Sep)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Oct)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Nov)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Dec)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Total)</td>
+                    <td>@Html.DisplayValueFor(_ => x.TotalRequired)</td>
+                    <td>@Html.DisplayValueFor(_ => x.Completed)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

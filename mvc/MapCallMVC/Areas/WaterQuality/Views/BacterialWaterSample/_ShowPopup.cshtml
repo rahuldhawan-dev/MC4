@@ -1,0 +1,19 @@
+﻿@model BacterialWaterSample
+           
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink(Model.Id.ToString(), "Show", "BacterialWaterSample", "WaterQuality", new { id = Model.Id }, new { target = "_blank"})
+    </h2>
+    
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.BacterialSampleType)
+        @Html.DisplayFor(x => x.SampleCollectionDTM)
+        @Html.DisplayFor(x => x.Cl2Free)
+        @Html.DisplayFor(x => x.Cl2Total)
+        @Html.DisplayFor(x => x.Nitrite)
+        @Html.DisplayFor(x => x.Nitrate)
+        @Html.DisplayFor(x => x.FreeAmmonia)
+        @Html.DisplayFor(x => x.ColiformConfirm)
+        @Html.DisplayFor(x => x.EColiConfirm)        
+    </div>
+</div>

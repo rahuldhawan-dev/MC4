@@ -1,0 +1,12 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.AbsenceNotification
+
+<h2>Absence Notification</h2>
+
+AbsenceNotificationID: @Model.Id<br />
+Employee: @Model.Employee<br />
+Last Day of Work: @String.Format(CommonStringFormats.DATE, Model.LastDayOfWork)<br />
+Absence Start Date: @String.Format(CommonStringFormats.DATE, Model.StartDate)<br />
+Employee Absence Claim: @Model.EmployeeAbsenceClaim<br />
+Employee Notified FMLA Process: @Model.EmployeeFMLANotification<br />
+Supervisor Notes: @Model.HumanResourcesNotes<br />

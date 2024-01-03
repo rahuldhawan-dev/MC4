@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.WellTests.CreateWellTestViewModel
+
+@using (Form.BeginForm("Create", "WellTest", "Production")) 
+{
+    <div class="field-column fc150">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

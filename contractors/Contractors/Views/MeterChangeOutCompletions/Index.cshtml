@@ -1,0 +1,45 @@
+﻿@using MMSINC.Data
+@using MMSINC.Results
+@model Contractors.Models.ViewModels.SearchMeterChangeOutCompletions
+@{
+    ViewBag.Title = "Meter Change Out Completions";
+    //   ActionBarHelper.AddExportLink();
+    var groupedBy = Model.Results.GroupBy(x => x.ContractorMeterCrew);
+
+    var exportRouteData = Html.ViewData.ModelState.ToRouteValueDictionary();
+    exportRouteData["ext"] = ResponseFormatter.KnownExtensions.EXCEL_2003;
+}
+
+@Html.LinkButton("Export to Excel", "Index", "MeterChangeOutCompletions", exportRouteData)
+
+@foreach (var grp in groupedBy)
+{
+    var cur = grp;
+    var table = Html.TableFor(x => cur, new {id = "table" + cur.Key.Description})
+        .ColumnFor(x => x.CompletionDate)
+        .TemplateColumnFor("Completion Date", x => 
+            @<text>
+                @Html.ActionLink(x.CompletionDate.ToShortDateString(),"Index","MeterChangeOut",
+                    new RouteValueDictionary {
+                        { "DateStatusChanged.Operator", RangeOperator.Equal},
+                        { "DateStatusChanged.End", x.CompletionDate.ToShortDateString()},
+                        { "PageSize", "200" },
+                        { "area", "FieldOperations"}
+                    },
+                    null)
+             </text>)
+        
+        .ColumnFor(x => x.ContractorMeterCrew)
+        .ColumnFor(x => x.Changed);
+    <div class="container">
+        @table
+
+        <table class="footer-table" style="width: 100%;">
+            <tr>
+                <td style="text-align: right; border-bottom: 1px solid #83b9de; border-top: 1px solid #83b9de;">
+                    Total: @cur.Sum(x => x.Changed)
+                </td>
+            </tr>
+        </table>    
+    </div>
+}

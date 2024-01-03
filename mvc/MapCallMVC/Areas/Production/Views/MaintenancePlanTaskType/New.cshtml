@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.MaintenancePlanTaskTypeViewModel
+
+@using (Form.BeginForm("Create", "MaintenancePlanTaskType", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Abbreviation)
+        @Html.EditorFor(x => x.IsActive)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

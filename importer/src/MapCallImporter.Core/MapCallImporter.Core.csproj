@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B474E607-49EE-4138-BA8E-41711788D3C9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapCallImporter</RootNamespace>
+    <AssemblyName>MapCallImporter.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Training\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA3\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\CommonServiceLocator.2.0.6\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.3, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EPPlus.4.5.3.3\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.IO.RecyclableMemoryStream.2.2.0\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net45\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.IO.Packaging.4.0.0\lib\net45\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ExcelFileValidationAndMappingResult.cs" />
+    <Compile Include="Common\IExcelFileHandler.cs" />
+    <Compile Include="Common\TimedExcelFileMappingResult.cs" />
+    <Compile Include="Library\ClassExtensions\StringExtensions.cs" />
+    <Compile Include="Importing\ExcelFileImporter.cs" />
+    <Compile Include="Importing\ExcelFileImporterFinderService.cs" />
+    <Compile Include="Importing\ExcelFileImportingService.cs" />
+    <Compile Include="Importing\IExcelFileImporter.cs" />
+    <Compile Include="Library\AssemblyInfoService.cs" />
+    <Compile Include="Library\CommonModelMethods.cs" />
+    <Compile Include="Library\DangerousAuthenticationService.cs" />
+    <Compile Include="Library\ClassExtensions\IEnumerableExtensions.cs" />
+    <Compile Include="Library\ClassExtensions\Int32Extensions.cs" />
+    <Compile Include="Library\ClassExtensions\IUnitOfWorkExtensions.cs" />
+    <Compile Include="Common\ExcelRecordItemHelperBase.cs" />
+    <Compile Include="Library\Data\UnitOfWorkFactory.cs" />
+    <Compile Include="Library\Excel\ExcelImportFactory.cs" />
+    <Compile Include="Library\Excel\FasterExcelImport.cs" />
+    <Compile Include="Library\Excel\IExcelImportFactory.cs" />
+    <Compile Include="Library\IAssemblyInfoService.cs" />
+    <Compile Include="Library\TypeRegistration\StructureMapDependencyResolver.cs" />
+    <Compile Include="Library\TypeRegistration\StructureMapRegistryBase.cs" />
+    <Compile Include="Models\Import\ArcFlashStudyExcelRecord.cs" />
+    <Compile Include="Models\Import\ContractorOverrideLaborCostExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\AdjustableSpeedDriveExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\AirCompressorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\AirVacuumTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\AMIDATACOLLExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ArcFlashProtectionExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BatteryChargerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BatteryExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BlowerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BlowOffValveExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BoilerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\BurnerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\CalibrationDeviceExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\CathodicProtectionExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalDryFeederExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalGasFeederExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalGeneratorsExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalLiquidFeederExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalPipingExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ChemicalTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ClarifierExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\CleanOutExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\CollectionSystemGeneralExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ControllerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ControlPanelExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ConveyorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\CoolingTowerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\DamExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\DefibrillatorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\DistributionSystemExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\DistributionToolExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ElevatorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\EmergencyGeneratorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\EmergencyLightExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\EngineExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\EquipmentCharacteristicMapper.cs" />
+    <Compile Include="Models\Import\Equipment\EquipmentExcelRecordBase.cs" />
+    <Compile Include="Models\Import\Equipment\EyewashExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FacilityAndGroundsExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FallProtectionExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FilterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FireAlarmExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FireExtinguisherExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FireSuppressionExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FirewallExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FloatationDeviceExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FlowMeterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FlowWeirExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\FuelTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\GasDetectorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\GearboxExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\GravitySewerMainExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\GrinderExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HeatExchangerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HoistExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HVACChillerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HVACCombinationUnitExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HVACDehumidifierExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HVACHeaterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HVACVentilatorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\HydrantExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\IndicatorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\InstrumentSwitchExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\KitExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\LabEquipmentExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\LeakMonitorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ManholeExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\AeratorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\MixerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ModemExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\MotorContactorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\MotorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\MotorStarterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\NetworkRouterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\NetworkSwitchExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\NonPotableWaterTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\OperatorComputerTerminalExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PCExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PDMToolExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PhaseConverterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PlantValveExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerConditionerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerFeederCableExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerPanelExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerRelayExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PressureDamperExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PrinterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PumpPositiveDisplacementExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PotableWaterTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerBreakerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerDisconnectExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerMonitorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerSurgeProtectionExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PowerTransferSwitchExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PumpCentrifugalExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\PumpGrinderExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\RecorderExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\RespiratorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\RTUPLCExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SafetyShowerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SCADARadioExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SCADASystemGenExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ScaleExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ScreenExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ScrubberExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SecondaryContainmentExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SecuritySystemExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ServerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\SoftenerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\StreetValveExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\TelephoneExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\ToolExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\TransformerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\TransmitterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\UninteruptedPowerSupplyExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\UVSanitizerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\VehicleExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\VOCStripperExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\WasteTankExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\WaterHeaterExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\WaterQualityAnalyzerExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\WaterTreatmentContactorExcelRecord.cs" />
+    <Compile Include="Models\Import\Equipment\WellExcelRecord.cs" />
+    <Compile Include="Models\Import\FacilityExcelRecord.cs" />
+    <Compile Include="Models\Import\HydrantInspectionExcelRecord.cs" />
+    <Compile Include="Models\Import\LockoutDeviceExcelRecord.cs" />
+    <Compile Include="Models\Import\MaintenancePlanExcelRecord.cs" />
+    <Compile Include="Models\Import\ServiceExcelRecord.cs" />
+    <Compile Include="Models\Import\SewerOpeningExcelRecord.cs" />
+    <Compile Include="Models\Import\ValveInspectionExcelRecord.cs" />
+    <Compile Include="Models\Update\EquipmentInstallationInfoExcelRecord.cs" />
+    <Compile Include="Models\Update\EquipmentRiskCharacteristicsExcelRecord.cs" />
+    <Compile Include="Models\Update\FacilityBooleanAttributesExcelRecord.cs" />
+    <Compile Include="Models\Update\FacilityRiskCharacteristicsExcelRecord.cs" />
+    <Compile Include="Models\Update\ServiceBlockZonesExcelRecord.cs" />
+    <Compile Include="Models\Update\ValveInspectionFrequenciesExcelRecord.cs" />
+    <Compile Include="Validation\ExcelRecordItemValidationHelper.cs" />
+    <Compile Include="Library\FactoryBase.cs" />
+    <Compile Include="Library\TypeRegistration\DependencyRegistrar.cs" />
+    <Compile Include="Common\ExcelFileHandlerBase.cs" />
+    <Compile Include="Common\ExcelFileHandlerFinderServiceBase.cs" />
+    <Compile Include="Common\ExcelFileHandlerServiceBase.cs" />
+    <Compile Include="Common\ExcelFileProcessingResult.cs" />
+    <Compile Include="Common\ExcelRecordBase.cs" />
+    <Compile Include="Library\ProgressChangedEventArgs.cs" />
+    <Compile Include="Library\TypeRegistration\StructureMapRegistry.cs" />
+    <Compile Include="Models\Import\HydrantExcelRecord.cs" />
+    <Compile Include="Models\Import\StreetExcelRecord.cs" />
+    <Compile Include="Models\Import\ValveExcelRecord.cs" />
+    <Compile Include="Validation\ExcelFileValidationService.cs" />
+    <Compile Include="Validation\ExcelFileValidator.cs" />
+    <Compile Include="Validation\ExcelFileValidatorFinderService.cs" />
+    <Compile Include="Validation\IExcelFileValidator.cs" />
+    <Compile Include="ViewModels\MyCreateArcFlashStudy.cs" />
+    <Compile Include="ViewModels\MyCreateContractorOverrideLaborCost.cs" />
+    <Compile Include="ViewModels\MyCreateEquipment.cs" />
+    <Compile Include="ViewModels\MyCreateFacility.cs" />
+    <Compile Include="ViewModels\MyCreateHydrant.cs" />
+    <Compile Include="ViewModels\MyCreateHydrantInspection.cs" />
+    <Compile Include="ViewModels\MyCreateLockoutDevice.cs" />
+    <Compile Include="ViewModels\MyCreateMaintenancePlan.cs" />
+    <Compile Include="ViewModels\MyCreateService.cs" />
+    <Compile Include="ViewModels\MyCreateSewerOpening.cs" />
+    <Compile Include="ViewModels\MyCreateStreet.cs" />
+    <Compile Include="ViewModels\MyCreateValve.cs" />
+    <Compile Include="ViewModels\MyCreateValveInspection.cs" />
+    <Compile Include="ViewModels\MyEditEquipment.cs" />
+    <Compile Include="ViewModels\MyEditFacility.cs" />
+    <Compile Include="ViewModels\MyEditService.cs" />
+    <Compile Include="ViewModels\MyEditValve.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ecd277-d26d-4306-a752-1246a35b63bd}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122b2768-130d-4bee-a23a-9b2916eafc67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mvc\MapCallMVC\MapCallMVC.csproj">
+      <Project>{787beadf-bd8f-439b-99a3-b7f0b360df55}</Project>
+      <Name>MapCallMVC</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>

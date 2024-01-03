@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MapCall.Common.Model.ViewModels.ValvesOperatedByMonthReport>
+@if (Model.Any())
+{
+    ActionBarHelper.AddExportLink();
+    var opCntr = Model.First().OperatingCenter;
+    var year = Model.First().Year;
+    var now = @DateTime.Now.ToShortDateString();
+
+    <h3>All Valve Inspections - @opCntr - @year as of @now</h3>
+
+    <table style="white-space: nowrap;" id="valves-operated-table">
+        <thead>
+            <tr>
+                <th>Size Range</th>
+                <th>Inspected</th>
+                <th>Jan</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Apr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Aug</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dec</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                if (x != null)
+                {
+                    <tr>
+                        <td>@x.SizeRange</td>
+                        <td>@x.Operated</td>
+                        <td>@Html.DisplayValueFor(_ => x.Jan)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Feb)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Mar)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Apr)</td>
+                        <td>@Html.DisplayValueFor(_ => x.May)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Jun)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Jul)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Aug)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Sep)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Oct)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Nov)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Dec)</td>
+                        <td>@Html.DisplayValueFor(_ => x.Total)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    
+    @Html.ActionLink("Valve Inspections (required)", "Index", "RequiredValvesOperatedByMonth", new { area = "Reports", OperatingCenter = Request.QueryString["OperatingCenter"], Year = Request.QueryString["Year"] }, null)
+
+    <div>* N/A valves do not have a valve size set on them.</div>
+}
+else
+{
+    <div class="error-section-message">No results matched your query.</div>
+}

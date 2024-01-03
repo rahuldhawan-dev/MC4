@@ -1,0 +1,7 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model Equipment    
+
+@using (Form.BeginAjaxForm("Index", "SAPMaintenancePlan", new {area = "SAP", ext = "frag", Model.FunctionalLocation, ShowAddToMaintenancePlan = true, Equipment = Model.SAPEquipmentId, MapCallEquipmentId = Model.Id }))
+{
+    
+}

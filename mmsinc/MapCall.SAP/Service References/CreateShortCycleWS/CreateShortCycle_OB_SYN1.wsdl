@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:p1="http://amwater.com/PTB/200035/MAPCALL/CreateShortCycle" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://amwater.com/PTB/200035/MAPCALL/CreateShortCycle" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:UsingPolicy required="true" />
+  <wsp:Policy wsu:Id="BN__binding">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <wsp:ExactlyOne>
+                      <sp:HttpBasicAuthentication />
+                      <sp:RequireClientCertificate />
+                    </wsp:ExactlyOne>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <wsp:ExactlyOne>
+                  <sp:Basic256 />
+                  <sp:Basic192 />
+                  <sp:Basic128 />
+                  <sp:TripleDes />
+                  <sp:Basic256Rsa15 />
+                  <sp:Basic192Rsa15 />
+                  <sp:Basic128Rsa15 />
+                  <sp:TripleDesRsa15 />
+                  <sp:Basic256Sha256 />
+                  <sp:Basic192Sha256 />
+                  <sp:Basic128Sha256 />
+                  <sp:TripleDesSha256 />
+                  <sp:Basic256Sha256Rsa15 />
+                  <sp:Basic192Sha256Rsa15 />
+                  <sp:Basic128Sha256Rsa15 />
+                  <sp:TripleDesSha256Rsa15 />
+                </wsp:ExactlyOne>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/PTB/200035/MAPCALL/CreateShortCycle" targetNamespace="http://amwater.com/PTB/200035/MAPCALL/CreateShortCycle">
+      <xsd:element name="ShortCycle_Response" type="p1:ShortCycleStatus" />
+      <xsd:element name="ShortCycle_Request" type="p1:ShortCycleQuery" />
+      <xsd:complexType name="ShortCycleStatus">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">6edd4e6d8a8f11e8938400000066337a</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Status">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">45049cce79d411e8c605005056bc4b10</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="WorkOrder" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">3566bbd979d411e8c693005056bc4b10</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="EquipmentID" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Status" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">3566fda679d411e88d18005056bc4b10</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ShortCycleQuery">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">7a428782dbb911e9b0d400000066337a</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">0d5cabf5745e11e883de005056bcc1ea</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="MaintenanceActivityType" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0d5c7975745e11e8a48e005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Installation" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0d5c7976745e11e8c0b4005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="BusinessPartnerNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0d5c7977745e11e8b3af005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ContractAccount" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0d5c7978745e11e8cba9005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="DeviceLocation" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f04cee7e9111e8896f005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="EquipmentNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f04cef7e9111e8ab47005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="SerialNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f04cf07e9111e89183005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="WorkDescription" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">72f04cf17e9111e885d6005056bcc1ea</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Createdby" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">0c6fda8fb0f411e88f7b005056bce39a</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="FSRid" type="xsd:string" />
+                <xsd:element minOccurs="0" name="LetterId" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc89186dbb911e989940050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Telephone" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc89187dbb911e9ab990050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ContractorName" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc89188dbb911e9c3860050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="HourAM" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc89189dbb911e9b5870050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="HourPM" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918adbb911e9cb830050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="DayFrom" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918bdbb911e9afb40050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="DayTo" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918cdbb911e9b7c80050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="CompanyName" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918ddbb911e9cf4c0050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="CompanyNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918edbb911e99b4c0050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ContractorPhone" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">ccc8918fdbb911e9c67c0050568161e6</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ShortCycle_Request">
+    <wsdl:documentation />
+    <wsdl:part name="ShortCycle_Request" element="p1:ShortCycle_Request" />
+  </wsdl:message>
+  <wsdl:message name="ShortCycle_Response">
+    <wsdl:documentation />
+    <wsdl:part name="ShortCycle_Response" element="p1:ShortCycle_Response" />
+  </wsdl:message>
+  <wsdl:portType name="CreateShortCycle_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="CreateShortCycle_OB_SYN">
+      <wsdl:documentation />
+      <wsdl:input message="p1:ShortCycle_Request" />
+      <wsdl:output message="p1:ShortCycle_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CreateShortCycle_OB_SYNBinding" type="p1:CreateShortCycle_OB_SYN">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__binding" />
+    </wsp:Policy>
+    <wsdl:operation name="CreateShortCycle_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CreateShortCycle_OB_SYN">
+    <wsdl:port name="CreateShortCycle_OB_SYN" binding="p1:CreateShortCycle_OB_SYNBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/CreateShortCycle" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

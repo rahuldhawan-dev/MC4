@@ -1,0 +1,22 @@
+﻿@using MapCall.SAP.Model.Entities
+@using MapCallMVC.Areas.SAP.Models.ViewModels
+@using SAPManualCall = MapCallMVC.Areas.SAP.Models.ViewModels.SAPManualCall
+@model MapCall.SAP.Model.Entities.SAPMaintenancePlanLookup
+
+
+<div class="collapse-panel" data-title="Add Manual Call">
+    @Html.Partial("_AddManualCall", new SAPManualCall { MaintenancePlan = Model.MaintenancePlan })
+</div>
+
+@(Html.TableFor(_ => Model.SapSchedulingList)
+    .ColumnFor(x => x.CallNumber)
+    .TemplateColumnFor("Plan Date", x => @<text>@Html.Partial("_FixCall", ViewModelFactory.BuildWithOverrides<EditSapFixCall>(new { MaintenancePlan = Model.MaintenancePlan, CallNumber = x.CallNumber, PlanDate = x.PlanDate}))</text>)
+    .ColumnFor(x => x.PlanDate)
+    .ColumnFor(x => x.CallDate)
+    .ColumnFor(x => x.CompletionDate)
+    .ColumnFor(x => x.SchedulingTypeDescription)
+    .ColumnFor(x => x.StatusDescription)
+      .TemplateColumnFor("Skip Call", x => @<text>
+                                               @Html.Partial("_SkipCall", new SAPSkipCall { MaintenancePlan = Model.MaintenancePlan, CallNumber = x.CallNumber})
+                                            </text>)
+)

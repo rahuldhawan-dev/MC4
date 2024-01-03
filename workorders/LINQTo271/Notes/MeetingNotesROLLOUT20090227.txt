@@ -1,0 +1,48 @@
+FINISHED:
+WORK ORDER INPUT:
+1.  "Premise Number" is the ServiceID.  That field needs to be displayed, and duplicates should be found based on that field.
+    Need to determine which table(s) on the site to complete it from, and which tables in the input data it should come from.
+
+2.  A "Service Number" field is needed as well, also for services.  "Premise Number" to be required, "Service Number" optional.
+
+4.  When selecting Middletown, the street drop down breaks, here's the inner error:
+    {"Message":"Error during serialization or deserialization using the JSON JavaScriptSerializer. The length
+     of the string exceeds the value set on the maxJsonLength property.","StackTrace":"   at System.Web.Script
+     .Serialization.JavaScriptSerializer.Serialize(Object obj, StringBuilder output, SerializationFormat serializationFormat
+     )\r\n   at System.Web.Script.Serialization.JavaScriptSerializer.Serialize(Object obj, SerializationFormat
+      serializationFormat)\r\n   at System.Web.Script.Services.RestHandler.InvokeMethod(HttpContext context
+      , WebServiceMethodData methodData, IDictionary`2 rawParams)\r\n   at System.Web.Script.Services.RestHandler
+      .ExecuteWebServiceCall(HttpContext context, WebServiceMethodData methodData)","ExceptionType":"System
+      .InvalidOperationException"}
+
+    This was an error due to the sheer number of streets in Middletown.  It was also occuring in other towns
+	with a big list of streets.  I've doubled the size of JSON strings that ASP.Net AJAX will handle, hopefully
+	as a self-adhesive bandage (band-aid®) for now.
+
+PENDING:
+WORK ORDER INPUT:
+3.  Need a way to display all work orders.
+
+5.  "Date Received" - the time is being ignored, so is getting set to midnight.  Need to fix that.
+
+6.  "Requested By" - Employee - the label shows but the drop down doesn't.  As a quick fix for now,
+    just a drop down with employee numbers?
+
+CREW ASSIGNMENTS:
+1.  When clicking "end", a confirm needs to display "Is the work complete?".  Clicking "no" will simply enter
+    the date, clicking "yes" will bring them to the finalization screen for that work order (somehow).
+
+PLANNING:
+1.  Planning needs to be implemented.
+
+
+SCHEDULING:
+1.  Need "Priority" in the search page.
+
+
+FINALIZATION:
+1.  The Part # search is broken on the site.
+
+
+DATA CLEANSING:
+1.  Go through existing work orders, and fix their street based on the asset's street.

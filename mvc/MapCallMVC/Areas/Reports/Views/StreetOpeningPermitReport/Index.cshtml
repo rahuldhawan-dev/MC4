@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchStreetOpeningPermit
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x.Results)
+    .ColumnFor(x => x.PermitId)
+    .ColumnFor(x => x.WorkOrderId)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.StreetAddress)
+    .ColumnFor(x => x.NearestCrossStreet)
+    .ColumnFor(x => x.CountyTown)
+    .ColumnFor(x => x.CreatedAt)
+    .ColumnFor(x => x.PermitReceivedDate)
+    .ColumnFor(x => x.PaymentReceivedAt)
+    .ColumnFor(x => x.SubmittedAt)
+    .ColumnFor(x => x.TotalCharged)
+    .ColumnFor(x => x.PermitFee)
+    .ColumnFor(x => x.InspectionFee)
+    .ColumnFor(x => x.BondFee)
+    .ColumnFor(x => x.Reconciled)
+    .ColumnFor(x => x.WorkDescription)
+    .ColumnFor(x => x.AccountCharged)
+    .ColumnFor(x => x.AccountingType)
+    .ColumnFor(x => x.CanceledAt)
+    .ColumnFor(x => x.Refunded))

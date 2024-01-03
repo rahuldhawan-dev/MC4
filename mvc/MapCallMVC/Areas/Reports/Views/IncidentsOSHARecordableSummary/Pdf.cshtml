@@ -1,0 +1,148 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<SearchIncidentOSHARecordableSummary>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 14;
+    LeftMargin = MarginWidth.HalfInch;
+    RightMargin = MarginWidth.HalfInch;
+    IsLandscape = true;
+}
+
+@section head {
+    <style>
+        #body {
+            width: 11in;
+            height: 8.5in;
+        }
+
+        #header {
+            width: 11in;
+            text-align: left;
+        }
+
+            #header img {
+                padding-bottom: 6px;
+                width: 200px;
+                height: 80px;
+                text-align: left;
+            }
+
+        h2 {
+            padding-bottom: 6px;
+        }
+
+        div {
+            font-family: Calibri;
+            font-size: 12px;
+        }
+
+        .centered {
+            text-align: center;
+        }
+    </style>
+}
+@section body{
+    <div id="header">
+        <img src="@Server.MapPath("~/Content/Images/american-water-logo-400x150.png")" />
+    </div>
+
+    <div>
+        <h2>
+            Summary of Recordable Injuries -
+            @if (Model.IncidentDate.Operator == RangeOperator.Between)
+            {
+                @Model.IncidentDate.Start.Value.ToShortDateString()
+                <text>to</text>
+                @Model.IncidentDate.End.Value.ToShortDateString()
+            }
+            else if (new[] { RangeOperator.GreaterThan, RangeOperator.GreaterThanOrEqualTo }.Contains(Model.IncidentDate.Operator))
+            {
+                <text>after</text>
+                @Model.IncidentDate.End.Value.ToShortDateString()
+            }
+            else if (new[] { RangeOperator.LessThan, RangeOperator.LessThanOrEqualTo }.Contains(Model.IncidentDate.Operator))
+            {
+                <text>before</text>
+                @Model.IncidentDate.End.Value.ToShortDateString()
+            }
+            else
+            {
+                <text>on</text>
+                @Model.IncidentDate.End.Value.ToShortDateString()
+            }
+        </h2>
+    </div>
+    <div>
+        <table border="1">
+            <tr>
+                <th>Date Of Incident</th>
+                <th>Operating Center</th>
+                <th>Incident Id (MapCall)</th>
+                <th>Case #</th>
+                <th>Is OSHA Recordable</th>
+                <th>Incident Classification*</th>
+                <th>Incident Type</th>
+                <th>SIF Status</th>
+                <th>Incident Status</th>
+                <th>Injury Description</th>
+                <th>Travelers Report</th>
+                <th>Restricted Duty Days for Time Period</th>
+                <th>Lost Work Days for Time Period</th>
+                <th>Cumulative RD Days</th>
+                <th>Cumulative LT Days</th>
+                <th>Cumulative RD + LT Days</th>
+            </tr>
+            @foreach (var incident in Model.Results)
+            {
+                var restDays = incident.GetRestrictiveDutyDaysBetweenDates(Model.IncidentDate.Start, Model.IncidentDate.End.Value, Model.IncidentDate.Operator);
+                var lostDays = incident.GetLostWorkDaysBetweenDates(Model.IncidentDate.Start, Model.IncidentDate.End.Value, Model.IncidentDate.Operator);
+                var incidentInsideRange = incident.GetDidIncidentHappenWithinTheRequestRange(Model.IncidentDate.Start, Model.IncidentDate.End.Value, Model.IncidentDate.Operator, incident.IncidentDate);
+                var hasLostOrRestrictiveTimeWithinRange = incident.EmployeeAvailabilities.Count > 0 && (restDays != 0 || lostDays != 0);
+                if ( incidentInsideRange || hasLostOrRestrictiveTimeWithinRange)
+                {
+                  
+                    <tr>        
+                        <td>@incident.IncidentDate.ToShortDateString()</td>
+                        <td>@Html.DisplayValueFor(x => incident.OperatingCenter)</td>
+                        <td class="centered">@Html.DisplayValueFor(x => incident.Id)</td>
+                        <td class="centered">@Html.DisplayValueFor(x => incident.CaseNumber)</td>
+                        <td class="centered">@Html.DisplayValueFor(x => incident.IsOSHARecordable)</td>
+                        <td>@Html.DisplayValueFor(x => incident.IncidentClassification)</td>
+                        <td>@Html.DisplayValueFor(x => incident.IncidentType)</td>
+                        <td class="centered">@Html.DisplayValueFor(x => incident.SeriousInjuryOrFatalityType)</td>
+                        <td class="centered">@Html.DisplayValueFor(x => incident.IncidentStatus)</td>
+                        <td style="width: 400px;">@Html.DisplayValueFor(x => incident.QuestionWhatHappened)</td>
+                        <td>@Html.DisplayValueFor(x => incident.TravelersReport)</td>
+                        <td class="centered">@restDays</td>
+                        <td class="centered">@lostDays</td>
+                        @{
+                            var cumulativeRD = incident.GetCumulativeRestrictiveDutyDaysThroughEndDate(Model.IncidentDate.End.Value, Model.IncidentDate.Operator);
+                            var cumulativeLT = incident.GetCumulativeLostWorkDaysThroughEndDate(Model.IncidentDate.End.Value, Model.IncidentDate.Operator);
+                            var cumulativeTotal = incident.GetCumulativeSumOfLostDaysRestrictiveDays(cumulativeRD, cumulativeLT);
+                        }
+                        <td class="centered">@cumulativeRD</td>
+                        <td class="centered">@cumulativeLT</td>
+                        <td class="centered">
+                            @if (cumulativeTotal > 180)
+                            {
+                                <span style="color: red;">@cumulativeTotal</span>
+                            }
+                            else
+                            {
+                                @cumulativeTotal
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+}
+
+@helper FooterHelper()
+{
+    @*Styles need to be embedded for footers/headers because the pdf renderer renders it outside of the page.*@
+    <div id="footer" style="text-align: left; font-family: 'Calibri'; font-size: 12px; height: 16px;">
+        *Classification reported for Monthly statistics
+    </div>
+}

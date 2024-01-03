@@ -1,0 +1,159 @@
+﻿@using MapCallMVC.Controllers;
+@model EditEquipment
+@{
+    var isUserAdmin = RoleService.CanAccessRole(EquipmentController.ROLE, RoleActions.UserAdministrator);
+    var isUserEamAssetManagement = RoleService.CanAccessRole(EquipmentController.EAM_ROLE, RoleActions.Edit);
+}
+
+
+<div class="field-column fc200">
+    @Html.HiddenFor(x => x.Department)
+    @Html.EditorFor(m => m.OperatingCenter)
+    @Html.EditorFor(x => x.PlanningPlant)
+    @Html.EditorFor(m => m.Facility, new { Container = @Model })
+    @Html.EditorFor(x => x.FacilityFacilityArea)
+    @Html.EditorFor(x => x.CriticalNotes)
+    @Html.EditorFor(x => x.Description)
+    @Html.EditorFor(x => x.WBSNumber)
+    @Html.EditorFor(x => x.ParentEquipment)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.EquipmentGroup)
+    @if (Model is EditEquipment)
+    {
+        @Control.HiddenFor(x => x.EquipmentTypesWithLockoutRequirements)
+        @Control.HiddenFor(x => x.EquipmentTypeIdsWithRedTagPermitEligibility)
+    }
+    @if (Model is EditEquipment && ((EditEquipment)Model).HasCharacteristics)
+    {
+        @Html.DisplayFor(x => x.EquipmentTypeObj)
+        @Control.HiddenFor(x => x.EquipmentType)
+    }
+    else
+    {
+        @Html.EditorFor(x => x.EquipmentType)
+    }
+
+    @Html.EditorFor(x => x.EquipmentPurpose, new { Container = @Model })
+
+    @if (Authentication.CurrentUserIsAdmin)
+    {
+        @Html.EditorFor(x => ((EditEquipment)x).Number)
+    }
+    else
+    {
+        @Control.HiddenFor(x => ((EditEquipment)x).Number)
+    }
+    @Html.EditorFor(x => x.EquipmentManufacturer)
+    @Html.EditorFor(x => x.ManufacturerOther)
+    @Html.EditorFor(x => x.EquipmentModel)
+    @Html.EditorFor(x => x.SerialNumber)
+    @if (Model.SAPEquipmentIdEditable)
+    {
+        @Html.EditorFor(x => x.SAPEquipmentIdOverride)
+        @Html.EditorFor(x => x.SAPEquipmentId)
+    }
+    else
+    {
+        @Html.DisplayFor(x => Model.SAPErrorCode)
+        @Html.HiddenFor(x => x.SAPEquipmentIdOverride)
+        @Html.DisplayAndHiddenFor(x => x.SAPEquipmentId)
+    }
+
+    @Html.EditorFor(x => x.Portable)
+    @Html.EditorFor(x => x.EquipmentStatus)
+
+    <fieldset>
+        <legend>Equipment Life Information</legend>
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.EditorFor(x => x.PlannedReplacementYear)
+        @Html.EditorFor(x => x.EstimatedReplaceCost)
+        @Html.EditorFor(x => x.DateRetired)
+    </fieldset>
+
+    @Html.EditorFor(x => x.ABCIndicator)
+    @Html.EditorFor(x => x.ScadaTagName)
+
+    @Html.EditorFor(x => x.Prerequisites)
+    @Html.RenderDisplayTemplate("Compliance", @<text>
+        <div class="compliance-div-section">
+            <div>
+                @if (isUserAdmin || isUserEamAssetManagement)
+                {
+                    @Html.CheckBoxFor(x => x.HasProcessSafetyManagement)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => x.HasProcessSafetyManagement, new { disabled = true })
+                }
+                @Html.LabelFor(x => x.HasProcessSafetyManagement)
+            </div>
+            <div>
+                @if (isUserAdmin || isUserEamAssetManagement)
+                {
+                    @Html.CheckBoxFor(x => x.HasCompanyRequirement)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => x.HasCompanyRequirement, new { disabled = true })
+                }
+                @Html.LabelFor(x => x.HasCompanyRequirement)
+            </div>
+            <div>
+                @if (isUserAdmin || isUserEamAssetManagement)
+                {
+                    @Html.CheckBoxFor(x => x.HasRegulatoryRequirement)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => x.HasRegulatoryRequirement, new { disabled = true })
+                }
+                @Html.LabelFor(x => x.HasRegulatoryRequirement)
+            </div>
+            <div>
+                @if (isUserAdmin || isUserEamAssetManagement)
+                {
+                    @Html.CheckBoxFor(x => x.HasOshaRequirement)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => x.HasOshaRequirement, new { disabled = true })
+                }
+                @Html.LabelFor(x => x.HasOshaRequirement)
+            </div>
+            <div>
+                @if (isUserAdmin || isUserEamAssetManagement)
+                {
+                    @Html.CheckBoxFor(x => x.OtherCompliance)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => x.OtherCompliance, new { disabled = true })
+                }
+                @Html.LabelFor(x => x.OtherCompliance)
+            </div>
+        </div>
+    </text>)
+    <div id="help" style="text-align: right; width: 550px; cursor: pointer">
+        <a class="ab-help">Help</a>
+    </div>
+    @Html.EditorFor(x => x.OtherComplianceReason)
+    @if (isUserAdmin)
+    {
+        @Html.EditorFor(x => x.Legacy)
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Legacy)
+    }
+
+    @Html.EditorFor(x => x.SafetyNotes)
+    @Html.EditorFor(x => x.MaintenanceNotes)
+    @Html.EditorFor(x => x.OperationNotes)
+    @Html.EditorFor(x => x.ReplacementProductionWorkOrder, new { DisplayName = Equipment.REPLACEMENT_PROD_WORK_ORDER_ID_LABEL })
+
+    @Html.HiddenFor(x => x.ReplacedEquipment)
+
+    @Html.EditorFor(x => x.RequestedBy)
+    @Html.EditorFor(x => x.AssetControlSignOffBy)
+    @Html.EditorFor(x => x.AssetControlSignOffDate)
+</div>

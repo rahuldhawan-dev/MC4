@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMunicipalValveZoneReport
+           @{
+               ActionBarHelper.AddExportLink();
+           }
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;" })
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.SmallValves)
+    .ColumnFor(x => x.LargeValves)
+    .ColumnFor(x => x.SmallValveZone)
+    .ColumnFor(x => x.LargeValveZone)
+)

@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractor
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@Html.Link("~/Content/contractor-insurance-minimum-requirements.pdf", "Insurance Minimum Requirement Info")
+
+@(Html.TableFor(_ => Model, new { Id = "contractorsTable" })
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Contractor", new { id = x.Id, area = "Contractors" }, null))
+      .SortableColumnFor(x => x.Name)
+      .SortableColumnFor(x => x.VendorId)
+      .SortableColumnFor(x => x.State)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.Street, "Street.FullStName")
+      .SortableColumnFor(x => x.HouseNumber)
+      .SortableColumnFor(x => x.ApartmentNumber)
+      .SortableColumnFor(x => x.Zip)
+      .SortableColumnFor(x => x.Phone)
+      .SortableColumnFor(x => x.IsUnionShop)
+      .SortableColumnFor(x => x.IsBcpPartner)
+      .SortableColumnFor(x => x.IsActive)
+      .SortableColumnFor(x => x.AWR)
+      .SortableColumnFor(x => x.ContractorsAccess)
+      .WithPaginatedFooter())

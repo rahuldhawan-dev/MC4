@@ -1,0 +1,16 @@
+﻿@model WorkOrder
+@using (var f = Form.BeginAjaxForm("Show", "WorkOrderTraffic", new { workOrderId = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+
+	if (Request.IsAjaxRequest())
+	{
+        <div id="trafficDetails" class="field-column fc200">
+            @Html.DisplayFor(m => m.TrafficControlRequired)
+            @Html.DisplayFor(m => m.NumberOfOfficersRequired)
+            @Html.DisplayFor(m => m.Notes)
+        </div>
+        @Ajax.ActionLink("Edit Traffic Requirements", "Edit", new { workOrderId = Model.Id }, new AjaxOptions { OnSuccess = "Tabs.onSuccess('trafficTab')", UpdateTargetId = "trafficTab", InsertionMode = InsertionMode.Replace }, new { @class = "link-button", id = "editTraffic" });
+	}
+}  

@@ -1,0 +1,13 @@
+﻿@model MapCall.SAP.Model.Entities.SAPCreatePreventiveWorkOrder
+    
+@(Html.TableFor(_ => Model.SapWorkOrderComponent)
+          .ColumnFor(z => z.Component)
+          .ColumnFor(z => z.Desciption)
+          .ColumnFor(z => z.ItemCategory)
+          .ColumnFor(z => z.OperationNumber)
+          .ColumnFor(z => z.OrderItemNo)
+          .ColumnFor(z => z.OrderPlantDate)
+          .ColumnFor(z => z.QtyRequired)
+          .ColumnFor(z => z.StorageLocation)
+          .ColumnFor(z => z.UnitOfMeasurement)
+          )

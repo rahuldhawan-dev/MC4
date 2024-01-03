@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchStockLocation
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.SAPStockLocation)
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.OperatingCenter)
+    .WithPaginatedFooter()
+)

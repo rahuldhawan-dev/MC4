@@ -1,0 +1,56 @@
+* Contractors
+** work order validation in controllers
+** Can update/delete records related to work orders the contractor does not have access to
+** Minify other scripts that aren't in a Combres resourceSet.
+** Shouldn't be able to see orders in finalization if work hasn't been started?
+
+* Mapcall
+** RTO - add Contractor column to the work order popup
+** Contractor Inventory
+   Allow AmWater employees to manage inventory that is given to contractors
+   through a Contractor Inventory page. Create a new role for this. Requires 
+   documents, notes, and materials used tab.
+   - *ContractorID
+   - *Date
+   - *Warehouse AKA (Stock Location)
+   - Notes
+   - *Issued or returned?
+*** Search Fields
+    - OpCntr, Warehouse(Stock Location), Date
+*** Results
+    - Make sure export works. 
+    - join with materials in the results
+    - Date, Warehouse, DocID, Notes, Iss/Returned, Material, Quantity
+*** Materials Used Tab
+    Add one or more materials using a picker similar to 271
+    - MaterialID
+    - Quantity (+/-)
+
+* 271 
+** Supervisor Approval
+   Display contractor name in Completed By like it is shown in the results
+** Inventory Usage Report
+*** SearchFields
+    - OpCntr, Warehouse(StockLocation), WO DateCompleted
+*** Results
+    - WO Date Completed, DocID, WO#, WO Description, Materials, Quantity
+** Current Inventory Report
+   Add up and display each material and qty using inventorymaterials and materials used
+   - Search: OpCntr, Warehouse
+   - Results: Warehouse, Material, Quantity
+
+
+
+
+* [Mask] is not being used atm
+** Fix [Mask] - not clearing out the ___
+*** if you have ____.__ and try to preload a value like "99.99" it'll then think you meant "9999.00"
+
+
+* Discussion Items for next meeting
+** Crew Assignments: 
+   The contractor assigned to a work order can be changed even if these 
+   are open and/or assigned to contractors. Currently the start/end/print links
+   are disabled. Should we even allow the contractor assignment to be changed after
+   crew assignments exist or have been started?
+

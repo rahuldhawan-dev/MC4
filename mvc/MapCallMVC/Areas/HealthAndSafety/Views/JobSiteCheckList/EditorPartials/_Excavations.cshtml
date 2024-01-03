@@ -1,0 +1,143 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels
+@model BaseJobSiteCheckListViewModel
+@{
+	var editorModel = new CreateJobSiteExcavation(_container);
+}
+@Html.ScriptFor("~/Scripts/JobSiteCheckList/Form.js", ScriptLoadType.LoadFromPartial)
+
+<fieldset>
+	<legend>Excavation Details</legend>
+
+	<table id="excavation-details-table" style="width: 100%;">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Width(ft)</th>
+				<th>Length(ft)</th>
+				<th>Depth(in)</th>
+				<th>Location</th>
+				<th>Soil Type</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@*Firefox gets styled weird when there's a thead, a tfoot, but an empty tbody. *@
+
+			@if (Model.Excavations != null)
+			{
+				// The hidden fields in this loop need to have their ids removed because they'll
+				// otherwise cause javascript errors with the inputs with the same ids in the footer.
+				for (var i = 0; i < Model.Excavations.Count; i++)
+				{
+					<tr>
+						<td>
+							@Control.HiddenFor(x => x.Excavations[i].Id).WithId(null)
+							@Control.HiddenFor(x => x.Excavations[i].ExcavationDate).WithId(null)
+							@Html.DisplayValueFor(x => x.Excavations[i].ExcavationDate)
+						</td>
+						<td>
+							@Html.DisplayValueFor(x => x.Excavations[i].WidthInFeet)
+							@Control.HiddenFor(x => x.Excavations[i].WidthInFeet).WithId(null)
+						</td>
+						<td>
+							@Html.DisplayValueFor(x => x.Excavations[i].LengthInFeet)
+							@Control.HiddenFor(x => x.Excavations[i].LengthInFeet).WithId(null)
+						</td>
+						<td>
+							@Html.DisplayValueFor(x => x.Excavations[i].DepthInInches)
+							@Control.HiddenFor(x => x.Excavations[i].DepthInInches).WithId(null)
+						</td>
+						<td>
+							@Html.DisplayValueFor(x => x.Excavations[i].LocationTypeDescription)
+							@Control.HiddenFor(x => x.Excavations[i].LocationType).WithId(null)
+						</td>
+						<td>
+							@Html.DisplayValueFor(x => x.Excavations[i].SoilTypeDescription)
+							@Control.HiddenFor(x => x.Excavations[i].SoilType).WithId(null)
+						</td>
+						<td>
+							@Control.Button("Edit").WithCssClass("edit-excavation")
+						</td>
+					</tr>
+				}
+			}
+
+			@* This row gets cloned and removed from the table. *@
+			<tr class="new-excavation-row">
+				<td data-for="@Html.NameFor(x => editorModel.ExcavationDate)"></td>
+				<td data-for="@Html.NameFor(x => editorModel.WidthInFeet)"></td>
+				<td data-for="@Html.NameFor(x => editorModel.LengthInFeet)"></td>
+				<td data-for="@Html.NameFor(x => editorModel.DepthInInches)"></td>
+				<td data-for="@Html.NameFor(x => editorModel.LocationType)"></td>
+				<td data-for="@Html.NameFor(x => editorModel.SoilType)"></td>
+				<td>
+					@Control.Button("Edit").WithCssClass("edit-excavation")
+				</td>
+			</tr>
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.ExcavationDate)</td>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.WidthInFeet)</td>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.LengthInFeet)</td>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.DepthInInches)</td>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.LocationType)</td>
+				<td>@Html.EditorWithoutWrapperFor(x => editorModel.SoilType)</td>
+				<td>@Control.Button("Add").WithId("create-excavation")</td> @* Regression relies on this button text. If text is changed, fix test.*@
+			</tr>
+		</tfoot>
+	</table>
+	@Control.Button(Model.Excavations == null || Model.Excavations.Count == 0 ? "Add Proposed Excavation" : "Add Excavation").WithId("add-excavation")
+	@Control.Button("Cancel").WithId("cancel-excavation")
+</fieldset>
+
+<div class="field-column fc-left-label fc400">
+    @Html.EditorFor(x => x.SpotterAssigned)
+    @Html.EditorFor(x => x.IsManufacturerDataOnSiteForShoringOrShieldingEquipment)
+    @Html.EditorFor(x => x.IsTheExcavationGuardedFromAccidentalEntry)
+    @Html.EditorFor(x => x.AllMaterialsSetBackFromEdgeOfTrenches)
+    @Html.EditorFor(x => x.WaterControlSystemsInUse)
+    @Html.EditorFor(x => x.AreExposedUtilitiesProtected)
+</div>
+
+<fieldset style="margin-top:12px;">
+    <legend>Visual & Physical Analysis for Soil Classification</legend>
+    <div class="field-column fc-left-label fc400">
+        @Html.EditorFor(x => x.SoilCompositionExcavationType)
+        @Html.EditorFor(x => x.SoilConditionsWithinExcavationType)
+        @Html.EditorFor(x => x.AreThereAnyVisualSignsOfPotentialSoilCollapse)
+        @Html.EditorFor(x => x.IsTheExcavationSubjectToVibration)
+    </div>
+</fieldset>
+
+<fieldset style="margin-top:12px;">
+	<legend>E. If any excavations are over 4 ft deep</legend>
+	<div class="field-column fc-left-label fc400">
+		@Html.EditorFor(x => x.HasExcavationOverFourFeetDeep)
+		@Html.EditorFor(x => x.IsALadderInPlace)
+		@Html.EditorFor(x => x.LadderExtendsAboveGrade)
+		@Html.EditorFor(x => x.IsLadderOnSlope)
+		@Html.EditorFor(x => x.HasAtmosphereBeenTested)
+		@Html.RenderEditorTemplate("", Html.Partial("EditorPartials/_Atmosphere"))
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>F. If any excavations are 5 ft. deep or greater</legend>
+	<div class="field-column fc-left-label fc400">
+		@Html.EditorFor(x => x.HasExcavationFiveFeetOrDeeper)
+		@* This hidden is needed so the client-side validation works. *@
+		@Html.RenderEditorTemplate(JobSiteCheckList.Display.PROTECTION_TYPE, @<text>
+		                                                                          
+											@Html.EditorWithoutWrapperFor(x => x.ProtectionTypes)
+		                                    @Control.HiddenFor(x => x.ProtectionTypesClientSideValidationHack)
+											@Html.ValidationMessageFor(x => x.ProtectionTypesClientSideValidationHack)
+		                                </text>)
+		
+		@Html.EditorFor(x => x.IsSlopeAngleNotLessThanOneHalfHorizontalToOneVertical)
+		@Html.EditorFor(x => x.IsShoringSystemUsed)
+		@Html.EditorFor(x => x.ShoringSystemSidesExtendAboveBaseOfSlope)
+		@Html.EditorFor(x => x.ShoringSystemInstalledTwoFeetFromBottomOfTrench)
+	</div>
+</fieldset>

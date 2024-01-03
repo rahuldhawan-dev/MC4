@@ -1,0 +1,27 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@model SecureSearchDocumentForSingleEntity
+
+<div id="document-results" class="container">
+    @{
+        var isHelpTopic = Model.TableName == DocumentModel.HELP_TOPIC_TABLE_NAME;
+    }
+    @(Html.TableFor(x => x, new { id = "documentsTable", style = "width:100%;" })
+            .TemplateColumnFor("File Name", "Document.FileName", d => Html.SecureActionLink<User>(d.Document.FileName, "Download", "Document", new { d.Document.Id, area = "" }, new { }))
+            .SortableColumnFor(d => d.Document.CreatedAt, "Document.CreatedAt")
+            .SortableColumnFor(d => d.Document.CreatedBy, "Document.CreatedBy")
+            .SortableColumnFor(d => d.DocumentType.Name, "Document Type", "DocumentType.Name")
+            .SortableColumnFor(d => d.DocumentStatus).IsVisible(isHelpTopic)
+            .SortableColumnFor(d => d.UpdatedAt, "Updated On", "UpdatedAt")
+            .SortableColumnFor(d => d.UpdatedBy)
+            .ColumnFor(d => d.ReviewFrequencyDisplay).IsVisible(isHelpTopic)
+            .SortableColumnFor(d => d.NextReviewDate).IsVisible(isHelpTopic)
+            .TemplateColumnFor("Actions", d => @<text>
+                                                   @{
+                                                       var editButton = Html.SecureActionLink<User>("Edit", "Edit", "DocumentLink", new { d.Id, area = "" }, new { Class = "link-button" });
+                                                       var deleteButton = Html.Partial("~/Views/Shared/Document/_DeleteForm.cshtml", ViewModelFactory.Build<DeleteDocumentLink, IDocumentLink>(d));
+                                                   }
+                                                   @editButton
+                                                   @deleteButton
+                                                </text>).IsVisible(Model.UserCanEdit.GetValueOrDefault())
+            .WithPaginatedFooter(false)) @* Users aren't allowed to change the page size for this, so they shouldn't see the page size options either. *@
+</div>

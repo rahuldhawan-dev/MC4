@@ -1,0 +1,39 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderFinalizationSearch
+@{
+    ViewBag.Title = "Work Order - Finalization - Search";
+}
+
+@using (Form.BeginForm("Index", "WorkOrderFinalization")) {
+    <div class="field-column fc-stretch fc200 searchFields">
+        @Html.EditorFor(m => m.Id)
+
+        <div class="field-pair">
+            <div class="label" style="text-align: right">-OR-</div>
+            <div class="field">&nbsp;</div>
+        </div>
+
+        @* OperatingCenterID *@
+        @Html.EditorFor(m => m.OperatingCenter)
+
+        @* TownID: *@
+        @Html.EditorFor(m => m.Town)
+
+        @Html.EditorFor(m => m.TownSection)
+
+        @Html.EditorFor(m => m.Street)
+        
+        @Html.EditorFor(m => m.StreetNumber)
+        
+        @Html.EditorFor(m => m.NearestCrossStreet)
+        
+        @Html.EditorFor(m => m.AssetType)
+        
+        @Html.EditorFor(m => m.WorkDescription)
+		
+		@Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}
+
+@section styles {
+    @Html.StylesheetFor("~/Content/WorkOrder/Search.css")
+}

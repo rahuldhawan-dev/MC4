@@ -1,0 +1,33 @@
+﻿@using MapCall.Common.Configuration
+@using MapCallMVC.Areas.WaterQuality.Controllers
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.BacterialWaterSampleViewModel
+@{
+	// WO0000000195491: Certain fields are only editable by userAdmin in role
+	var isUserAdmin = RoleService.CanAccessRole(BacterialWaterSampleController.ROLE, RoleActions.UserAdministrator);
+}
+@Html.ScriptFor("~/Scripts/Areas/BacterialWaterSample/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+<div class="field-column fc225">
+	@Html.EditorFor(x => x.OperatingCenter)
+	@Html.EditorFor(x => x.SampleSite)
+	@Html.EditorFor(x => x.SampleCollectionDTM)
+	@if (isUserAdmin)
+	{
+		@Html.EditorFor(x => x.CollectedBy)
+	}
+	else
+	{
+		@Html.DisplayFor(x => x.CollectedBy)
+	}
+	@Html.EditorFor(x => x.BacterialSampleType)
+	@Html.EditorFor(x => x.RepeatLocationType)
+	@Html.EditorFor(x => x.OriginalBacterialWaterSample)
+	@Html.EditorFor(x => x.EstimatingProject)
+	@Html.EditorFor(x => x.SAPWorkOrderId)
+	@Html.EditorFor(x => x.ComplianceSample)
+	@Html.EditorFor(x => x.Address)
+	@Html.EditorFor(x => x.SampleTown)
+	@Html.EditorFor(x => x.Location)
+	@Html.EditorFor(x => x.SampleCoordinate)
+</div>

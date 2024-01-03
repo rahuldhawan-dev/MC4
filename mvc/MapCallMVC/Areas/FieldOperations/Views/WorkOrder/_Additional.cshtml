@@ -1,0 +1,73 @@
+﻿@model WorkOrder
+
+@{
+    var displayServiceLineInfo = Model.WorkDescription != null && Model.PreviousServiceLineMaterial != null &&
+                                 WorkDescription.SERVICE_LINE_RENEWALS.Contains(Model.WorkDescription.Id);
+	var displayComplianceData = Model.WorkDescription != null &&
+	                            WorkDescription.PITCHER_FILTER_REQUIREMENT.Contains(Model.WorkDescription.Id);
+}
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.TotalManHours)
+    @Html.DisplayFor(x => x.LostWater)
+    @Html.RenderDisplayTemplate("", @<text>@Html.Link("~/Content/LeakageChart.pdf", "Leakage Chart", new { target = "_blank" })</text>)
+    @Html.DisplayFor(x => x.DistanceFromCrossStreet)
+    @Html.DisplayFor(x => x.Notes)
+    @Html.RenderDisplayTemplate("Other Links",
+	    @<text>
+		    @Html.ActionLink("General", "Edit", "GeneralWorkOrder", new { id = Model.Id, area = "FieldOperations" }, new { Class = "link-button"})
+		    @if (Model.CanBeFinalized)
+		    {
+			    @Html.ActionLink("Finalization", "Edit", "WorkOrderFinalization", new { id = Model.Id, area = "FieldOperations" }, new { Class = "link-button"})
+		    }
+		    @if (Model.CurrentCrew != null)
+		    {
+			    @Html.ActionLink("Crew Assignments", "ShowCalendar", "CrewAssignment", new { area = "FieldOperations", Crew = Model.CurrentCrew.Id, Date = DateTime.Now }, new { Class = "link-button" })
+		    }
+	     </text>)
+    <br />
+    @if (displayServiceLineInfo || (Model.WorkDescription != null &&
+                                    WorkDescription.SERVICE_LINE_RETIRE.Contains(Model.WorkDescription.Id)))
+    {
+        <fieldset>
+            <legend>Service Line Info</legend>
+            <div class="field-column fc200">
+                @if (displayServiceLineInfo)
+                {
+                    @Html.DisplayFor(x => x.PreviousServiceLineMaterial)
+                    @Html.DisplayFor(x => x.PreviousServiceLineSize)
+                }
+                @Html.DisplayFor(x => x.CompanyServiceLineMaterial)
+                @Html.DisplayFor(x => x.CompanyServiceLineSize)
+                @if (displayServiceLineInfo)
+                {
+                    @Html.DisplayFor(x => x.CustomerServiceLineMaterial)
+                    @Html.DisplayFor(x => x.CustomerServiceLineSize)
+                    @Html.DisplayFor(x => x.DoorNoticeLeftDate)
+                }
+            </div>
+        </fieldset>
+    }
+    @if (displayComplianceData)
+    {
+	    <fieldset>
+		    <legend>Compliance Data</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.InitialServiceLineFlushTime)
+                @Html.RenderDisplayTemplate(Html.DisplayLabelFor(x => x.InitialFlushTimeEnteredBy),
+	                @<text>
+		                @if (Model.InitialFlushTimeEnteredBy != null)
+		                {
+			                @Model.InitialFlushTimeEnteredBy.FullName
+		                }
+	                 </text>)
+                @Html.DisplayFor(x => x.InitialFlushTimeEnteredAt)
+                @Html.DisplayFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+                @Html.DisplayFor(x => x.DatePitcherFilterDeliveredToCustomer)
+                @Html.DisplayFor(x => x.PitcherFilterCustomerDeliveryMethod)
+                @Html.DisplayFor(x => x.PitcherFilterCustomerDeliveryOtherMethod)
+                @Html.DisplayFor(x => x.DateCustomerProvidedAWStateLeadInformation)
+            </div>
+	    </fieldset>
+    }
+</div>

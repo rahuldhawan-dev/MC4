@@ -1,0 +1,7 @@
+﻿@model MapCall.SAP.Model.Entities.SAPCreatePreventiveWorkOrder
+
+@(Html.TableFor(_ => Model.SapWorkOrderPermits)
+      .ColumnFor(z => z.CounterForPermit)
+      .ColumnFor(z => z.Permit)
+      .ColumnFor(z => z.PermitCategory)
+)

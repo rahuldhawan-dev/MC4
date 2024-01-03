@@ -1,0 +1,22 @@
+name: Create weekly release pull request
+on:
+  schedule:
+    # thursday at noon eastern
+    - cron: "0 17 * * 4"
+
+jobs:
+  create-release-pull:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set Release Date
+        run: |
+          echo "RELEASE_DATE=$(date -d "this sunday" +"%Y-%m-%d")" >> ${GITHUB_ENV}
+      - name: Create Pull Request
+        run: |
+          gh pr create -B master -H release \
+            --title 'Release ${{ env.RELEASE_DATE }}' \
+            --body '[Automated] Weekly release pull request'
+        env:
+          GH_TOKEN: ${{ github.token }}

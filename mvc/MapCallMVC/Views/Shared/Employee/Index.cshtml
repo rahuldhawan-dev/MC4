@@ -1,0 +1,46 @@
+﻿@using MapCallMVC.Controllers
+@using MMSINC.ClassExtensions.ObjectExtensions
+@model IThingWithEmployees
+@{
+    Layout = null;
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var dataTypeName = ViewData["DataTypeName"] as string ?? Model.DataTypeName;
+
+    if (Model.DataTypeName != dataTypeName && Model.HasPublicSetter("DataTypeName"))
+    {
+        Model.SetPublicPropertyValueByName("DataTypeName", dataTypeName);
+    }        
+}
+
+@Html.ScriptFor("~/Scripts/EmployeeLink/Index.js", ScriptLoadType.LoadFromPartial)
+
+    @if (userCanEdit && Model.AllowMoreEmployeesFor(dataTypeName))
+    {
+        <div id="pnlLinkEmployee" class="collapse-panel" data-title="Link Employee">
+            @Html.Action("New", "EmployeeLink", new { LinkedId = @Model.Id, @Model.TableName, DataTypeName = dataTypeName, area = "" })
+        </div>
+    }
+
+    @if (Model.AllowNotifications)
+    {
+        using (var form = Form.BeginForm("Create", "Notification", ""))
+        {
+            @Control.SubmitButton("Send Notification").With("onclick", "return confirm('Are you sure you want to email all the linked employees below?');")
+        }
+    }
+
+
+<div class="container">
+    @(Html.TableFor(x => x.LinkedEmployees, new { @class = "single-line-header no-hover", id = "employeesTable" })
+            .TemplateColumnFor(x => Html.AuthorizedActionLink(x.Employee.Id.ToString(), "Show", "Employee", new { x.Employee.Id, Area = "" }))
+            .ColumnFor(e => e.Employee.EmployeeId)
+            .ColumnFor(e => e.Employee.FullName)
+            .ColumnFor(e => e.LinkedOn)
+            .ColumnFor(e => e.LinkedBy)
+            .TemplateColumnFor("Actions", e => @<span>
+                @if (userCanEdit)
+                {
+                    @Html.Partial("~/Views/Shared/Employee/_DeleteForm.cshtml", ViewModelFactory.Build<DeleteEmployeeLink, IEmployeeLink>(e))
+                }
+            </span>))
+</div>

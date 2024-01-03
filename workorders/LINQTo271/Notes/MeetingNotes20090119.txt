@@ -1,0 +1,44 @@
+﻿FINISHED:
+  Legend for assignment calendar.  New color schedule:
+    0%          - White
+    > 0% to 50% - Green
+    50% to 100% - Yellow
+    > 100%      - Red
+
+  SCHEDULING:
+    Add drop down to search "Pending Assignment?" to filter the list by whether or not there has been
+    an assignment for a given order that has not yet come to pass.
+
+    SEARCH:
+      Need field to specify estimated TTC, > 1 hr, > 2 hrs, < 2hrs.
+
+    SEARCH RESULTS:
+      Estimated TTC to go next to Description of Job.
+
+  CREW ASSIGNMENTS:
+    Need to display a monthly calendar first, and then the specific day schedule when a day is chosen from there.
+
+    From read-only assignments, need to be able to print out the assignment list.  The Work Order data
+    should be formatted in the same way that the current Access file does for a certain report.
+    PRINT OUT REPORT ->
+      "rptFieldServiceWorkOrderNew"
+
+PENDING:
+  Need to be able to change the assignment date for work orders, from the SingleDay list.  Need a link
+  from that table to a specialized Work Order screen showing relevant information such as Markout Expiration
+  date.  Will also need to ensure that a Work Order will still be ready.
+
+  Markout expiration works by calendar days?
+
+  PLANNING:
+    Street Opening Permits - just like traffic control or markouts, need:
+      Permit Required? (bool) and Notes (text)
+    Will also need to display the town phone number, and contact info in the tab in planning (at some point).
+
+  SCHEDULING:
+    SEARCH RESULTS:
+      Need a comma-delimited list of any resources that were specified for a given job in the planning phase.
+
+  MARKOUTS:
+    Markout ready dates are based on business days, but the expiration date is based on work days (with no
+    consideration to holidays).

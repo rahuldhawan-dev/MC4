@@ -1,0 +1,9 @@
+﻿@model Process
+
+@(Html.Tabs()
+      .WithTab("Details", @<div class="field-column fc200">
+        @Html.DisplayFor(x => x.Sequence)
+        @Html.DisplayFor(x => x.ProcessStage)
+        @Html.DisplayFor(x => x.Description)
+        @Html.DisplayFor(x => x.ProcessOverview)
+    </div>).WithNotesAndDocuments())

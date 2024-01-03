@@ -1,0 +1,24 @@
+﻿@model WorkOrder
+
+@Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_MaterialsTable.cshtml")
+
+<fieldset>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.MaterialsDocID)
+        @Html.RenderDisplayTemplate(Html.DisplayLabelFor("WorkOrderApprovedBy"),
+                @<text>
+                    @if (Model.ApprovedBy != null)
+                    {
+                        @Model.ApprovedBy.FullName
+                    }
+                </text>)
+        @Html.DisplayFor(x => x.MaterialPostingDate)
+        @Html.RenderDisplayTemplate(Html.DisplayLabelFor("MaterialsApprovedBy"),
+                @<text>
+                    @if (Model.MaterialsApprovedBy != null)
+                    {
+                        @Model.MaterialsApprovedBy.FullName
+                    }
+                </text>)
+    </div>
+</fieldset>

@@ -1,0 +1,9 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchActiveHydrantDetailReport
+
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;" })
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.HydrantBilling)
+    .ColumnFor(x => x.LateralSize)
+    .ColumnFor(x => x.HydrantSize)
+    .ColumnFor(x => x.Count))

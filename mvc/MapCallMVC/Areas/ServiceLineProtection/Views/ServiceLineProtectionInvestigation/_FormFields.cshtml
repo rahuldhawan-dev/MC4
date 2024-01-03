@@ -1,0 +1,31 @@
+﻿@using MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels
+@model MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels.ServiceLineProtectionInvestigationViewModel
+
+<fieldset>
+    <legend>Customer Information</legend>
+    @Html.EditorFor(x => x.CustomerName)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.CustomerCity)
+    @Html.EditorFor(x => x.StreetNumber)
+    @if (Model is CreateServiceLineProtectionInvestigation)
+    {
+        @Html.EditorFor(x => ((CreateServiceLineProtectionInvestigation)x).Street)
+    }
+    else
+    {
+        @Html.EditorFor(x => ((EditServiceLineProtectionInvestigation)x).Street)
+    }
+    @Html.EditorFor(x => x.CustomerAddress2)
+    @Html.EditorFor(x => x.CustomerZip)
+    @Html.EditorFor(x => x.CustomerPhone)
+    @Html.EditorFor(x => x.PremiseNumber)
+    @Html.EditorFor(x => x.AccountNumber)
+    @Html.EditorFor(x => x.OperatingCenter)
+
+    @Html.EditorFor(x => x.CustomerServiceMaterial)
+    @Html.EditorFor(x => x.CustomerServiceSize)
+    @Html.EditorFor(x => x.WorkType)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.EditorFor(x => x.TheNotes)
+    @Html.EditorFor(x => x.Contractor)
+</fieldset>

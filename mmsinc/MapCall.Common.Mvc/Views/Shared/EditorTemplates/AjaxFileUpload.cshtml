@@ -1,0 +1,9 @@
+﻿@model MMSINC.Metadata.AjaxFileUpload
+           @{
+               var fu = Control.FileUpload("");
+               var exts = string.Join(", ", fu.AllowedExtensions);
+               var allowed = "Allowed extensions: " + (string.IsNullOrWhiteSpace(exts) ? "Any" : exts);
+               var maxSize = "Max File Size: " + (fu.MaxSize.HasValue ? fu.MaxSize.Value.ToString() + " KB" : "unset");
+           }
+@* Need to use "Key" for the validation message because the client side validation is on the hidden input. *@
+@RenderEditorForTemplate(@<text>@fu @allowed <br/> @maxSize @Html.ValidationMessage("Key")</text>)

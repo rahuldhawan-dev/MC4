@@ -1,0 +1,333 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder.EditGeneralWorkOrderModel
+
+@{
+    var displayOriginalOrder = (Model.WorkOrder.OriginalOrderNumber == null) ? "none" : "run-in";
+    var displayColumnsForOrderNumber = (Model.WorkOrder.OriginalOrderNumber == null) ? 3 : 1;
+    var displayMainBreak = (Model.WorkOrder.WorkDescription != null && Model.WorkOrder.WorkDescription.IsMainReplaceOrRepair) ? "" : "none";
+    var displayCustomerInfo = (Model.WorkOrder.RequestedBy.Id == WorkOrderRequester.Indices.CUSTOMER) ? "" : "none";
+    var isPmatOverrideEditable = !Model.WorkOrder.IsSAPUpdatableWorkOrder || (Model.WorkOrder.PlantMaintenanceActivityTypeOverride == null && !Model.WorkOrder.ApprovedOn.HasValue);
+	var displayMeterLocation = (Model.WorkOrder.AssetType.Id == (int)AssetType.Indices.SERVICE) ? "" : "none";
+}
+
+<style>
+    table.grid.WorkOrderDisplay > tbody > tr > td:nth-child(odd) > label,
+    table.grid.WorkOrderDisplay > tbody > tr > td:nth-child(odd) {
+        font-weight: bold;
+    }
+
+    table.grid.WorkOrderDisplay {
+        width: 80%;
+        height: 80%;
+    }
+
+    #work-order-initial-details-table td {
+        border: solid 1px silver !important;
+    }
+
+    tr.sapError {
+        color: white;
+        background-color: red;
+    }
+</style>
+
+@using (Form.BeginForm("Update", "GeneralWorkOrder", "FieldOperations", new { Model.Id }))
+{
+    @Control.HiddenFor(x => x.IsRevisit)
+    @Control.HiddenFor(x => x.SendToSAP)
+    @Control.HiddenFor(m => m.OriginalWorkDescription)
+    @Control.HiddenFor(x => x.DeviceLocation).WithValue(Model.WorkOrder.DeviceLocation)
+    @Control.HiddenFor(x => x.Installation).WithValue(Model.WorkOrder.Installation)
+    @Control.Hidden("WorkDescriptionUrl").WithValue(Url.Action("Show", "WorkDescription", new { area = "FieldOperations", ext = ResponseFormatter.KnownExtensions.JSON }))
+    @Control.HiddenFor(x => x.WorkDescriptionEditable)
+    @Control.HiddenFor(x => x.AccountNumberEditable)
+    @Control.HiddenFor(x => x.PlantMaintenanceActivityTypeOverrideEditable)
+    @Control.Hidden("WbsElementUrl").WithValue(Url.Action("Index", "WBSElement", new { area = "SAP", ext = ResponseFormatter.KnownExtensions.JSON }))
+    @Control.Hidden("GetTownCriticalMainBreakNotesUrl").WithValue(Url.Action("GetTownCriticalMainBreakNotes", "Town", new { area = "" }))
+    @Control.Hidden("GetSampleSitesByPremiseNumberUrl").WithValue(Url.Action("GetSampleSitesByPremiseNumber", "SampleSite", new { area = "WaterQuality" }))
+    @Control.Hidden("GetCoordinateIdForAssetUrl").WithValue(Url.Action("GetCoordinateIdForAsset", "Coordinate", new { area = "" }))
+	@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+    <table id="work-order-initial-details-table" class="grid WorkOrderDisplay for-structure">
+        <colgroup>
+            <col style="width: 20%" />
+            <col style="width: 30%" />
+            <col style="width: 20%" />
+            <col style="width: 30%" />
+        </colgroup>
+        <tr>
+            <td>Operating Center</td>
+            <td>@Html.EditorWithoutWrapperFor(x => x.OperatingCenter)</td>
+            <td>
+                @Html.RadioButtonFor(x => x.IsRevisit, false, new { @disabled = true })
+                @Html.DisplayLabelFor("Initial")
+            </td>
+            <td>
+                @Html.RadioButtonFor(x => x.IsRevisit, true, new { @disabled = true })
+                @Html.DisplayLabelFor("Revisit")
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.Id)</td>
+            <td colspan='@displayColumnsForOrderNumber' id="WorkOrderId">@Html.DisplayValueFor(m => m.WorkOrder.Id)</td>
+            <td style='display: @displayOriginalOrder'>@Html.DisplayLabelFor(x => x.WorkOrder.OriginalOrderNumber)</td>
+            <td style='display: @displayOriginalOrder' id="OriginalOrderNumber">
+                @if (Model.WorkOrder.OriginalOrderNumber != null)
+                {
+                    @Html.ActionLink(Model.WorkOrder.OriginalOrderNumber.Id.ToString(), "Show", "GeneralWorkOrder", new { id = Model.WorkOrder.OriginalOrderNumber.Id, area = "FieldOperations" }, new { target = "_blank" })
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.Town)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.Town)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.TownSection)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.TownSection)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.StreetNumber)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.StreetNumber)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.Street)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.Street)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.ApartmentAddtl)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.ApartmentAddtl)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.NearestCrossStreet)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.NearestCrossStreet)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.ZipCode)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.ZipCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.AssetType)</td>
+            <td>
+                @if (Model.PlantMaintenanceActivityTypeOverrideEditable &&
+                     !(Model.WorkOrder.WorkDescription != null &&
+                      WorkDescription.SERVICE_LINE_INSTALLATIONS.Contains(Model.WorkOrder.WorkDescription.Id)))
+                {
+                    @Html.EditorWithoutWrapperFor(m => m.AssetType)<br />
+                    @Html.ActionLink("Change/Update Service Asset", "Edit", "WorkOrder", new { area = "FieldOperations", id = Model.Id }, new { id = "AssetChangeLink" })
+                }
+                else
+                {
+                    @Html.DisplayValueFor(m => m.WorkOrder.AssetType)
+                    @Control.HiddenFor(x => x.AssetType).WithValue(Model.WorkOrder.AssetType.Id)
+                }
+            </td>
+            <td>
+                @Html.Label(Model.WorkOrder.AssetType.Description, new { @id = "assetLabel" })
+                <div>
+                    Data Collection:
+                    <a href="@Model.WorkOrder.ArcCollectorLink" target="_blank">
+                        <img src="~/Content/images/collector.png" alt style="height: 20px; width: 20px" />
+                    </a>
+                </div>
+            </td>
+            <td>
+                @Html.EditorWithoutWrapperFor(x => x.Hydrant)
+                @Html.EditorWithoutWrapperFor(x => x.Valve)
+                @Html.EditorWithoutWrapperFor(x => x.MainCrossing)
+                @Html.EditorWithoutWrapperFor(x => x.SewerOpening)
+                @Html.EditorWithoutWrapperFor(x => x.Equipment)
+                @Html.EditorWithoutWrapperFor(x => x.PremiseNumber)
+                <br />
+                @Html.EditorWithoutWrapperFor(x => x.ServiceNumber)
+                <div id="serviceInfo">
+                    <text>Device Location: @Model.WorkOrder.DeviceLocation</text><br />
+                    <text>Equipment #: @Model.WorkOrder.Equipment</text><br />
+                    <text>Installation: @Model.WorkOrder.Installation</text><br />
+                    @if (Model.WorkOrder.Service != null)
+                    {
+                        @Html.ActionLink("View Service", "Show", "Service", new { area = "FieldOperations", id = Model.WorkOrder.Service.Id }, null) <br />
+                    }
+                    @if (Model.WorkOrder.SampleSites.Any(x => x.Premise.ToString() == Model.WorkOrder.PremiseNumber))
+                    {
+                        <div style='color: red;'>This Premise is Linked to a Sample Site. Contact WQ before making any changes.</div>
+                    }
+                    @Html.ActionLink("Premise Details", "Index", "Premise", new RouteValueDictionary {
+                        { "PremiseNumber.MatchType",  SearchStringMatchType.Exact},
+                        { "PremiseNumber.Value", Model.WorkOrder.PremiseNumber},
+                        { "area" , "Customer" }
+                    }, new RouteValueDictionary {
+                        { "target" , "_blank" }
+                    })<br />
+                    @Html.ActionLink("SAP Technical Master Data", "Index", "SAPTechnicalMasterAccount", new { area = "Customer", PremiseNumber = Model.WorkOrder.PremiseNumber, Equipment = Model.WorkOrder.Equipment }, new { target = "_blank" }) <br />
+                </div>
+                <br />
+                @Html.EditorWithoutWrapperFor(x => x.CoordinateId)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.RequestedBy)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.RequestedBy)</td>
+            <td>
+                <text id="EmployeeName">Employee Name:</text>
+                <text id="AcousticMonitoring">Acoustic Monitoring:</text>
+                <text id="CustomerInfo1">Customer Name:</text>
+            </td>
+            <td>
+                @Html.EditorWithoutWrapperFor(x => x.RequestingEmployee)
+                @Html.EditorWithoutWrapperFor(x => x.AcousticMonitoringType)
+                @Html.EditorWithoutWrapperFor(x => x.CustomerName)
+            </td>
+        </tr>
+        <tr style="display: @displayCustomerInfo" id="CustomerInfo2">
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.PhoneNumber)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.PhoneNumber)</td>
+            <td>2nd Phone Number:</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.SecondaryPhoneNumber)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.Purpose)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.Purpose)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.Priority)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.Priority)</td>
+        </tr>
+        <tr>
+            <td>Description of Work:</td>
+            <td colspan="3">
+                @if ((Model.WorkOrder.WorkDescription != null &&
+                     WorkDescription.SERVICE_LINE_INSTALLATIONS.Contains(Model.WorkOrder.WorkDescription.Id)) ||
+                     Model.WorkOrder.ApprovedOn.HasValue)
+                {
+                    @Html.DisplayValueFor(x => x.WorkOrder.WorkDescription)
+                    @Control.HiddenFor(x => x.WorkDescription).WithValue(Model.WorkOrder.WorkDescription.Id)
+                }
+                else
+                {
+                    @Html.EditorWithoutWrapperFor(x => x.WorkDescription)
+                }
+            </td>
+        </tr>
+        <tr style="display: @displayMainBreak" id="MainBreakInfo1">
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.EstimatedCustomerImpact)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.EstimatedCustomerImpact)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.AnticipatedRepairTime)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.AnticipatedRepairTime)</td>
+        </tr>
+        <tr style="display: @displayMainBreak" id="MainBreakInfo2">
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.AlertIssued)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.AlertIssued)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.SignificantTrafficImpact)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.SignificantTrafficImpact)</td>
+        </tr>
+        <tr>
+            <td>PMAT Override:</td>
+            <td>
+                @if (Model.PlantMaintenanceActivityTypeOverrideEditable)
+                {
+                    @Html.EditorWithoutWrapperFor(m => m.PlantMaintenanceActivityTypeOverride)
+                }
+                else
+                {
+                    @Html.DisplayValueFor(m => m.WorkOrder.PlantMaintenanceActivityTypeOverride)
+                    if (Model.WorkOrder.PlantMaintenanceActivityTypeOverride != null)
+                    {
+                        @Control.HiddenFor(x => x.PlantMaintenanceActivityTypeOverride).WithValue(Model.WorkOrder.PlantMaintenanceActivityTypeOverride.Id)
+                    }
+                    else
+                    {
+                        @Control.HiddenFor(x => x.PlantMaintenanceActivityTypeOverride)
+                    }
+                }
+            </td>
+            <td>Markout Requirement:</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.MarkoutRequirement)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.AccountCharged)</td>
+            <td colspan="3">
+                @if (Model.AccountNumberEditable)
+                {
+                    @Html.EditorWithoutWrapperFor(x => x.AccountCharged)
+                }
+                else
+                {
+                    @Html.DisplayValueFor(m => m.WorkOrder.AccountCharged)
+                    @Control.HiddenFor(x => x.AccountCharged).WithValue(Model.WorkOrder.AccountCharged)
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.TrafficControlRequired)</td>
+            <td>@Html.CheckBoxFor(x => x.TrafficControlRequired)</td>
+            <td>@Html.DisplayLabelFor(x => x.StreetOpeningPermitRequired)</td>
+            <td>@Html.CheckBoxFor(x => x.StreetOpeningPermitRequired)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.DigitalAsBuiltRequired)</td>
+            <td>@Html.EditorWithoutWrapperFor(x => x.DigitalAsBuiltRequired)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.DigitalAsBuiltCompleted)</td>
+            <td>@Html.EditorWithoutWrapperFor(x => x.DigitalAsBuiltCompleted)</td>
+        </tr>
+	    <tr style="display: @displayMeterLocation" id="MeterLocationInfo">
+		    <td>@Html.DisplayLabelFor(x => x.WorkOrder.MeterLocation)</td>
+		    <td colspan="3" id="MeterLocationInit">@Html.EditorWithoutWrapperFor(m => m.MeterLocation)</td>
+	    </tr>
+		<tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.Notes)</td>
+            <td colspan="3" id="Notes">
+                <pre style="white-space: pre-wrap;">@Html.DisplayValueFor(m => m.WorkOrder.Notes)</pre>
+            </td>
+        </tr>
+		<tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.SpecialInstructions)</td>
+            <td colspan="3" id="SpecialInstructionsColumn">
+                <pre style="white-space: pre-wrap;">@Html.EditorWithoutWrapperFor(m => m.SpecialInstructions)</pre>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.DateCompleted)</td>
+            <td id="DateCompleted">@Html.DisplayValueFor(m => m.WorkOrder.DateCompleted)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.DateReceived)</td>
+            <td id="DateReceived">@Html.DisplayValueFor(m => m.WorkOrder.DateReceived)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.PlannedCompletionDate)</td>
+            <td>@Html.EditorWithoutWrapperFor(m => m.PlannedCompletionDate)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.SAPNotificationNumber)</td>
+            <td id="SAPNotificationNumber">@Html.DisplayValueFor(m => m.WorkOrder.SAPNotificationNumber)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.ApprovedOn)</td>
+            <td id="ApprovedOn">@Html.DisplayValueFor(m => m.WorkOrder.ApprovedOn)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.SAPWorkOrderNumber)</td>
+            <td id="SAPWorkOrderNumber">@Html.DisplayValueFor(m => m.WorkOrder.SAPWorkOrderNumber)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.MaterialsApprovedOn)</td>
+            <td id="MaterialsApprovedOn">@Html.DisplayValueFor(m => m.WorkOrder.MaterialsApprovedOn)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.SAPErrorCode)</td>
+            <td id="SAPErrorCode">@Html.DisplayValueFor(m => m.WorkOrder.SAPErrorCode)</td>
+            <td>@Html.DisplayLabelFor(x => x.WorkOrder.MaterialPlanningCompletedOn)</td>
+            <td id="MaterialPlanningCompletedOn">@Html.DisplayValueFor(m => m.WorkOrder.MaterialPlanningCompletedOn)</td>
+        </tr>
+        @if (Model.WorkOrder.AssignedContractor != null)
+        {
+            <tr>
+                <td>Contractor Assigned To</td>
+                <td colspan="3" id="AssignedContractor">
+                    @Html.DisplayValueFor(x => x.WorkOrder.AssignedContractor) On @Html.DisplayValueFor(x => x.WorkOrder.AssignedToContractorOn)
+                    @Control.SubmitButton("(click to remove assigned contractor)").WithCssClass("button-link").With("form", "remove-assigned-contractor-form")
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save").WithId("SaveInitialInfo")
+            @Html.LinkButton("Cancel", "Show", "GeneralWorkOrder", new { Model.Id })
+        </text>)
+    </div>
+}
+
+@using (var form = Form.BeginForm("RemovedAssignedContractor", "GeneralWorkOrder", "FieldOperations", new { Model.Id }))
+{
+	form.HtmlAttributes["id"] = "remove-assigned-contractor-form";
+}

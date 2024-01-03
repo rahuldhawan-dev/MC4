@@ -1,0 +1,72 @@
+﻿@model RedTagPermit
+@{
+    ActionBarHelper.AddPdfLink();
+}
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Work Order</legend>
+
+        @Html.RenderDisplayTemplate("Id", @Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { id = Model.ProductionWorkOrder.Id, area = "Production" }, null))
+        @Html.DisplayFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.OperatingCenter.State)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.OperatingCenter)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.Facility)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.Facility.Address, new { DisplayName = RedTagPermit.DisplayNames.FACILITY_ADDRESS })
+    </fieldset>
+
+    <fieldset>
+        <legend>Equipment</legend>
+        @Html.RenderDisplayTemplate("Id", @Html.ActionLink(Model.Equipment.Id.ToString(), "Show", "Equipment", new { id = Model.Equipment.Id, area = "" }, null))
+        @Html.DisplayFor(x => x.Equipment.Description)
+        @Html.DisplayFor(x => x.Equipment.EquipmentManufacturer)
+        @Html.DisplayFor(x => x.Equipment.EquipmentModel)
+        @Html.DisplayFor(x => x.Equipment.SerialNumber)
+    </fieldset>
+
+    <fieldset>
+        <legend>Permit</legend>
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.PersonResponsible)
+        @Html.DisplayFor(x => x.ProtectionType)
+
+        @if (Model.ProtectionType.Id == RedTagPermitProtectionType.Indices.SPECIAL_PROTECTION ||
+             Model.ProtectionType.Id == RedTagPermitProtectionType.Indices.OTHER)
+        {
+            @Html.DisplayFor(x => x.AdditionalInformationForProtectionType);
+        }
+
+        @Html.DisplayFor(x => x.AreaProtected)
+        @Html.DisplayFor(x => x.ReasonForImpairment)
+        @Html.DisplayFor(x => x.NumberOfTurnsToClose)
+        @Html.DisplayFor(x => x.AuthorizedBy)
+        @Html.DisplayFor(x => x.FireProtectionEquipmentOperator)
+
+        @Html.DisplayFor(x => x.EquipmentImpairedOn)
+        @Html.DisplayFor(x => x.EquipmentRestoredOn)
+        @if (!string.IsNullOrWhiteSpace(Model.EquipmentRestoredOnChangeReason))
+        {
+            @Html.DisplayFor(x => x.EquipmentRestoredOnChangeReason);
+        }
+        @Html.DisplayFor(x => x.CreatedAt)
+    </fieldset>
+
+    <fieldset>
+        <legend>Precautions Taken</legend>
+        @Html.DisplayFor(x => x.EmergencyOrganizationNotified)
+        @Html.DisplayFor(x => x.PublicFireDepartmentNotified)
+        @Html.DisplayFor(x => x.HazardousOperationsStopped)
+        @Html.DisplayFor(x => x.HotWorkProhibited)
+        @Html.DisplayFor(x => x.SmokingProhibited)
+        @Html.DisplayFor(x => x.ContinuousWorkAuthorized)
+        @Html.DisplayFor(x => x.OngoingPatrolOfArea)
+        @Html.DisplayFor(x => x.HydrantConnectedToSprinkler)
+        @Html.DisplayFor(x => x.PipePlugsOnHand)
+        @Html.DisplayFor(x => x.FireHoseLaidOut)
+        @Html.DisplayFor(x => x.HasOtherPrecaution)
+        @if (Model.HasOtherPrecaution.HasValue && Model.HasOtherPrecaution.Value)
+        {
+            @Html.DisplayFor(x => x.OtherPrecautionDescription)
+        }
+    </fieldset>
+</div>

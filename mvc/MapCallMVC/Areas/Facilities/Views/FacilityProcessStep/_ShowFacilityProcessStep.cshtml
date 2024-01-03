@@ -1,0 +1,26 @@
+﻿@model FacilityProcessStep
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.FacilityProcess.Facility.OperatingCenter)
+    @Html.RenderDisplayTemplate("Facility", Html.AuthorizedActionLinkOrText(Model.FacilityProcess.Facility.ToString(), "Show", "Facility", new { id = Model.FacilityProcess.Facility.Id, area = string.Empty }))
+    @Html.RenderDisplayTemplate("Facility Process", Html.AuthorizedActionLinkOrText(Model.FacilityProcess.ToString(), "Show", "FacilityProcess", new { id = Model.FacilityProcess.Id, area = "Facilities" }))
+    @if (Model.Equipment != null)
+    {
+        @Html.RenderDisplayTemplate("Equipment", Html.AuthorizedActionLinkOrText(Model.Equipment.ToString(), "Show", "Equipment", new { id = Model.Equipment.Id, area = string.Empty }))
+        @Html.DisplayFor(x => x.Equipment.ScadaTagName)
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Equipment)
+    }
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.StepNumber)
+    @Html.DisplayFor(x => x.FacilityProcessStepSubProcess)
+    @Html.DisplayFor(x => x.ProcessTarget)
+    @Html.DisplayFor(x => x.NormalRangeMin)
+    @Html.DisplayFor(x => x.NormalRangeMax)
+    @Html.DisplayFor(x => x.UnitOfMeasure)
+    @Html.DisplayFor(x => x.ElevationInFeet)
+    @Html.DisplayFor(x => x.ContingencyOperation)
+    @Html.DisplayFor(x => x.LossOfCommunicationPowerImpact)
+</div>

@@ -1,0 +1,33 @@
+﻿@using MapCallMVC.Areas.Environmental.Controllers
+@using MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyFirmCapacities
+@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyFirmCapacities.PublicWaterSupplyFirmCapacityViewModel
+
+@{
+    var isUserPublicWaterSupplyCapacityUserAdmin = RoleService.CanAccessRole(PublicWaterSupplyFirmCapacityController.ROLE, RoleActions.UserAdministrator);
+}
+
+@Html.EditorFor(x => x.PublicWaterSupply)
+@Html.EditorFor(x => x.CurrentSystemPeakDailyDemandMGD)
+@Html.EditorFor(x => x.CurrentSystemPeakDailyDemandYearMonth)
+
+@if (Model is CreatePublicWaterSupplyFirmCapacityViewModel)
+{
+    @Html.EditorFor(x => x.FirmCapacityMultiplier)
+    @Html.EditorFor(x => x.TotalSystemSourceCapacityMGD)
+}
+else
+{
+    @Html.EditorFor(x => x.TotalSystemSourceCapacityMGD)
+    @Html.DisplayFor(x => x.TotalCapacityFacilitySumMGD)
+
+    if (isUserPublicWaterSupplyCapacityUserAdmin)
+    {
+        @Html.EditorFor(x => x.FirmCapacityMultiplier)
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.FirmCapacityMultiplier)
+    }
+
+    @Html.DisplayFor(x => x.FirmSystemSourceCapacityMGD)
+}

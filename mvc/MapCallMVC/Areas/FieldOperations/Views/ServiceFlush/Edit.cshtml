@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ServiceFlushViewModelBase
+
+@using (Form.BeginForm("Update", "ServiceFlush", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.DisplayFor(x => x.Display.FlushType)
+        @Html.DisplayFor(x => x.Display.SampleType)
+        @Html.EditorFor(x => x.SampleStatus)
+        @Html.DisplayFor(x => x.Display.TakenBy)
+        @Html.DisplayFor(x => x.Display.SampleDate)
+        @Html.EditorFor(x => x.SampleResultPassed)
+        @Html.EditorFor(x => x.SampleId)
+        @Html.DisplayFor(x => x.Display.ReplacementType)
+        @Html.EditorFor(x => x.FlushContactMethod)
+        @Html.EditorFor(x => x.PremiseContactDate)
+        @Html.EditorFor(x => x.FlushNotifiedCustomerServiceCenter)
+        @Html.EditorFor(x => x.FlushingNotes)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "Service", new {id = Model.Display.Service.Id})
+                           </text>)
+    </div>
+}

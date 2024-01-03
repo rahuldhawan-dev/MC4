@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServicesTDPendingServicesKPI
+    
+
+@using (Form.BeginForm("Index", "ServicesTDPendingServicesKPI"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

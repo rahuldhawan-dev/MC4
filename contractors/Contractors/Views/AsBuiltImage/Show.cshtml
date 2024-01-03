@@ -1,0 +1,9 @@
+﻿@model MapCall.Common.Model.Entities.AsBuiltImage
+
+@{
+	ViewBag.Title = "Showing As Built Image: #" + Model.Id;
+}
+
+@(Html.Tabs()
+    .WithTab("AsBuiltImage", "_ShowAsBuiltImage", Model)
+)

@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateProductionWorkOrderFromPlan
+
+<div class="field-column fc200">
+    @Html.HiddenFor(x => x.MaintenancePlan)
+    @Html.HiddenFor(x => x.ProductionWorkDescription)
+    @Html.HiddenFor(x => x.LocalTaskDescription)
+    @Html.HiddenFor(x => x.OperatingCenter)
+    @Html.HiddenFor(x => x.PlanningPlant)
+    @Html.HiddenFor(x => x.Facility)
+    @Html.HiddenFor(x => x.EquipmentType)
+    @Html.HiddenFor(x => x.BasicStart)
+    @Html.HiddenFor(x => x.BreakdownIndicator)
+    @Html.HiddenFor(x => x.Priority)
+    @foreach (var eq in Model.Equipment)
+    {
+        @Control.HiddenFor(x => eq).WithId("Equipment").WithName("Equipment")
+    }
+</div>

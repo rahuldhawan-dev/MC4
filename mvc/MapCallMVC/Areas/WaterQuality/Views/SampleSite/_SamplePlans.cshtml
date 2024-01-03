@@ -1,0 +1,26 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites
+@model SampleSite
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.SamplePlans, new {id = "samplePlansTable"})
+        .TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", "SamplePlan", new { id = x.Id, area="WaterQuality" }, null))
+        .ColumnFor(x => x.PWSID)
+        .ColumnFor(x => x.MonitoringPeriodFrom)
+        .ColumnFor(x => x.MonitoringPeriodTo);
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Sample Plan">
+        @Html.Partial("_AddSamplePlan", ViewModelFactory.BuildWithOverrides<AddSampleSiteSamplePlan>(new {Id = Model.Id}))
+    </div>
+
+    using (var form = Form.BeginRouteForm("SampleSite", "SamplePlan", new {Model.Id}, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeSamplePlanForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this sample plan?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Sample Plan").WithName("SamplePlan").WithValue(x.Id))}
+}
+else
+{
+    @table
+}

@@ -1,0 +1,65 @@
+﻿FINISHED:
+  INPUT:
+    - Need street number for the actual job, not just customer.
+
+    - Need to include 2nd phone number for customer.  Already in the model/db,
+	  just need to add to the form.
+
+    - Need Is Traffic Control Required? checkbox.
+
+  PLANNING:
+    DETAIL:
+      MAP TAB:
+        - The icon should not be draggable.
+
+      TRAFFIC CONTROL TAB:
+        - Is Traffic Control Required? should be on the INPUT form.  This checkbox
+          can stay, but should be disabled on this form.
+
+        - Need # of officers required.
+
+PENDING:
+  INPUT:
+    HISTORY TABLE:
+      - Need some sort of icon to show whether a historical work order has
+        attached documents.
+
+  PLANNING:
+    DETAIL:
+      STREET OPENING PERMIT TAB:
+        - Record that the permit was applied for, the date that happened, received,
+          the date that happened, and an expiration date.
+
+      SOME TAB:
+        - Kevin Keane to provide sheets with the accounting numbers for given job
+          descriptions on assets within different towns, as well as a list of the
+          descriptions to differentiate between O&M/Capital so that the correct
+          Accounting Number can be applied to a work order.  Once the system has
+          determined the proper accounting number, the user should be able to
+          change the number if necessary.  Later on, in EmployeeWorkOrder (time
+          sheet) entry, changing the job description will need to redo the same
+          process.
+
+    SEARCH RESULTS TABLE:
+      - Need map button.  Once the map is open, it should include a button to show
+        all open Work Orders within the current extents.  This needs safety checks
+        to ensure that too much data doesn't get thrown at the map.
+
+    DOCUMENTS:
+      PLANNING:
+        - Street Opening Permit
+
+      SCHEDULING/FINALIZATION:
+        - Invoices from police required for traffic control
+
+  WORK/PROCESSING:
+    - Field images
+
+  GENERAL:
+    - Need to differentiate between materials required (planning) and materials
+      used/scrapped/returned (work time sheets/completion).  In future, we'll
+      need an intermediate step between Planning and Scheduling where a stock
+      clerk would have to go through pending work and certify that the required
+      materials are there and work can proceed.
+
+SOX compliance is a pain in the ass.

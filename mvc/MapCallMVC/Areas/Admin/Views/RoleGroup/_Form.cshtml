@@ -1,0 +1,56 @@
+﻿@using MapCallMVC.Areas.Admin.Controllers
+@model MapCallMVC.Areas.Admin.Models.ViewModels.RoleGroups.RoleGroupViewModel
+@{
+    var action = (string)ViewData["Action"];
+    var existingRoles = Model.ExistingRoles.Select(x => new
+    {
+        id = x.Id,
+        moduleId = x.Module.Id,
+        actionId = x.Action.Id,
+        operatingCenterId = x.OperatingCenter != null ? x.OperatingCenter.Id : (int?)null
+    });
+}
+<script>
+    window.ROLE_GROUP_VIEW_DATA = @Html.Raw(@Json.Encode(ViewData[RoleGroupController.ROLE_GROUP_VIEWDATA_KEY]));
+    window.ROLE_GROUP_VIEW_DATA.existingRoles = @Html.Raw(Json.Encode(existingRoles));
+</script>
+
+<style>
+    table label {
+        line-height:24px;
+    }
+</style>
+
+@Html.ScriptModuleFor("~/Scripts/Areas/Admin/RoleGroup/Form.js", ScriptLoadType.LoadFromPartial)
+
+
+@* The form tag needs to exist for SecureForms things to work, but we'll be posting
+    back via javascript for this page. Also need it for validation on the Name field. *@
+@using (var f = Form.BeginForm(action, "RoleGroup", new { id = Model.Id, area = "Admin" }))
+{
+    f.HtmlAttributes["id"] = "role-group-form";
+    @* See Form.js for implementation *@
+    <mc-role-group-form-fields-block id="role-group-dynamic-form-fields"></mc-role-group-form-fields-block>
+    <div class="field-column fc50">
+        @Html.EditorFor(x => x.Name)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save")
+                @if (action == "Create")
+                {
+                    @Html.LinkButton("Cancel", "Search")
+                }
+                else
+                {
+                    @Html.LinkButton("Cancel", "Show", "RoleGroup", new { id = Model.Id })
+                }
+        </text>)
+    </div>
+}
+
+@*This needs to be outside of the main form otherwise the client-side validation goes screwy.*@
+<div class="container" style="border-top:solid 1px silver; padding-top:6px;">
+    @Html.Action("NewForRoleGroup", "UserRoleAccess")
+</div>
+
+@* See Form.js for implementation *@
+<mc-role-group-table id="roles-panel"></mc-role-group-table>

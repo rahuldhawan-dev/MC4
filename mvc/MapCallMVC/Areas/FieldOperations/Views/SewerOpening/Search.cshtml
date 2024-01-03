@@ -1,0 +1,40 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSewerOpening
+
+@using (Form.BeginForm("Index", "SewerOpening")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.WasteWaterSystem)
+        @Html.EditorFor(x => x.SewerOpeningType)
+        @Html.EditorFor(x => x.OpeningNumber)
+        @Html.EditorFor(x => x.OldNumber)
+        @Html.EditorFor(x => x.SAPEquipmentId)
+        @Html.EditorFor(x => x.HasSAPErrorCode)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.TaskNumber)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.IntersectingStreet)
+        @Html.EditorFor(x => x.OpeningSuffix)
+        @Html.EditorFor(x => x.GeoEFunctionalLocation)
+        @Html.EditorFor(x => x.FunctionalLocation)
+        @Html.EditorFor(x => x.FunctionalLocationDescription)
+        @Html.EditorFor(x => x.Route)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.EditorFor(x => x.CreatedAt)
+        @Html.EditorFor(x => x.Critical)
+        @Html.EditorFor(x => x.IsDoghouseOpening)
+        @Html.EditorFor(x => x.InspectionFrequency)
+        @Html.EditorFor(x => x.InspectionFrequencyUnit)
+        @Html.EditorFor(x => x.DateRetired)
+        @Html.EditorFor(x => x.BodyOfWater)
+        @Html.EditorFor(x => x.OutfallNumber)
+        @Html.EditorFor(x => x.LocationDescription)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

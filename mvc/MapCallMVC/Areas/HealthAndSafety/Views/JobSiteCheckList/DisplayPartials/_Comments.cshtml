@@ -1,0 +1,9 @@
+﻿@model IEnumerable<JobSiteCheckListComment>
+
+@foreach (var c in Model)
+{
+	<div style="margin-bottom:12px;">
+		<pre>@Html.DisplayValueFor(x => c.Comments)</pre>
+		<em>@Html.DisplayValueFor(x => c.CreatedBy.FullName) - @Html.DisplayValueFor(x => c.CreatedAt)</em>
+	</div>
+}

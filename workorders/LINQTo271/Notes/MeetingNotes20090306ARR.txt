@@ -1,0 +1,37 @@
+
+* 03/06/2009 --------------------------------------------------------------------
+Items to fix
+* DONE Move street number above street name, zip after cross street
+* DONE Google API Key - incorrect on .info and .net
+* ADDED Add Description of Work filtering on the Planning Page based on the Asset Type.
+* DONE Selecting Services
+* ADDED Menu Issue - Tie into the real menu, quick fix and include this on the left menu in the master page
+* ADDED Instructions on each page to tell the user where they are.
+* DONE Date Fixes for Imported Data
+* ADDED Planning - Show Street #s in results, Old Order #.
+** ADDRESSED Should show items that haven't passed the Markout Ready Date
+** ADDRESSED If attempt to schedule before markout ready date, error is thrown.
+*** ADDRESSED User is responsible for not doing this. not the application.
+* DONE Link to the new mapcall area (/NJAW/Home.aspx) on the previous mapcall menu.
+* ADDED Town - Filter for Operating Center
+* ADDED Show counts whenever there is a results list/gridview
+
+* SERVICES
+** DONE Need a work order to be able to store Services information.
+** ADDRESSED Lookup from tblNJAWService, or manually entered - this was not wanted, not all services are not recorded in mapcall or wanted in mapcall.
+** ADDRESSED Need to store - Premise Number(required), Service Number, Lat, Lon
+** ADDRESSED Lat, Lon will be reused for Mains
+
+* Report
+** ADDED All OrCom Service Orders Completed Yesterday
+** ADDED Gauge Report - Hyd, Curb/Pit Revenue, Curb/Pit Other, Valves
+
+* Notes
+** ADDRESSED Mains don't have assetIDs
+*** DONE Plot these lat, lon, store with the work order? create assets? how should this be done?
+** ADDED How do we deal with Assets that don't belong to American Water that are investigated. I.e. Valve in Red Bank that they don't own. They record an order, and go out to do the work, even if they don't own it. Unknown Asset type.
+
+Report - Work Orders Completed Yesterday
+They need a report that lists the Work Orders Completed Yesterday. 
+
+Suggestion: This could be part of a general report that will probably address a number of different report requests.

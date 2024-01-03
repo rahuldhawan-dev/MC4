@@ -1,0 +1,57 @@
+﻿div.siteWrap > div.left { position:relative; float:left; width:160px; margin-right:-100%; z-index:2; }
+div.siteWrap > div.left > div.inner { margin:6px; }
+div.siteWrap > div.right { position:relative; float:right; width:100%; z-index:1;}
+div.siteWrap > div.right > div.inner  
+{
+	position:relative; 
+	margin:6px; 
+	margin-top:7px; /* Should be 6, but menu has some margin problem causing mis-alignment. */
+	margin-left:172px; 
+	border: 1px solid #567FB8;
+	border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+#nav 
+{
+    position:relative;
+    margin-top:7px;
+    *margin-top:0px;
+    padding: 0px;
+    width: 160px;
+}
+
+#nav ul
+{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+#nav ul li {
+    margin-top:1px;
+    height:30px;
+    display:block;
+    border-radius: 2px 2px 2px 2px;
+    border: 1px solid #567FB8;
+    background:#346ea1 url('images/ui-bg_highlight-soft_35_346ea1_1x100.png') 50% 50% repeat-x;
+}
+
+#nav ul li:hover {
+    background:#BCD6ED url('images/ui-bg_highlight-soft_50_bcd6ed_1x100.png') 50% 50% repeat-x;
+}
+
+#nav ul li a
+{
+    font-size:12px;
+    height: 100%;
+    line-height: 30px;
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-left: 16px;
+}
+
+#nav ul li:hover a {
+    color: #026890;
+}

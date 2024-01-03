@@ -1,0 +1,15 @@
+﻿@model MMSINC.Controllers.VerifyPaymentSummary<TrafficControlTicket>
+
+@using (var f = Form.BeginAjaxForm("ProcessPayment", "TrafficControlTicket", "FieldOperations"))
+{
+    f.RouteData.Add("Id", Model.Entity.Id);
+    f.Ajax.HttpMethod = "POST";
+    f.Ajax.Confirm = "The system will now apply the charges shown to the selected credit card. Continue?";
+    f.Ajax.UpdateTargetId = "paymentContent";
+       
+    Html.RenderPartial("_PaymentSummary", Model);
+    @Control.SubmitButton("Complete Payment")
+}
+@Html.ActionLink("Cancel", "Show", new {id = Model.Entity.Id}, new {@class = "link-button"})
+
+

@@ -1,0 +1,445 @@
+﻿@model JobSiteCheckList
+@{
+	Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+
+	var excavationsByDate = Model.ExcavationsByDate.ToArray();
+	var locationTypes = ((IEnumerable<JobSiteExcavationLocationType>)ViewData["LocationTypes"]).OrderBy(x => x.Description).ToArray();
+	var soilTypes = ((IEnumerable<JobSiteExcavationSoilType>)ViewData["SoilTypes"]).OrderBy(x => x.Description).ToArray();
+	var protectionTypes = ((IEnumerable<JobSiteExcavationProtectionType>)ViewData["ProtectionTypes"]).OrderBy(x => x.Description).ToArray();
+}
+
+@helper BigSection(string title, string romanNumeral)
+{
+	<tr>
+		<td colspan="1" class="bold">@(romanNumeral).</td>
+		<td colspan="19" class="bold" style="text-decoration:underline;">@title</td>
+	</tr>
+}
+
+@helper CheckBoxWithLabel(string label, bool isChecked)
+{
+	<div class="checkbox-label-wrap">
+		@if (isChecked)
+		{
+			<input type="checkbox" checked="checked" />
+		}
+		else
+		{
+			<input type="checkbox" />
+		}
+		<label>@label</label>
+	</div>
+}
+
+@helper YesNahCheckBox(bool? isChecked)
+{
+	@CheckBoxWithLabel("Yes", isChecked.HasValue && isChecked == true)
+	@CheckBoxWithLabel("N/A", !isChecked.HasValue || isChecked == false)
+}
+
+
+@helper YesNahNoCheckBox(bool? isChecked)
+{
+	@CheckBoxWithLabel("Yes", isChecked.HasValue && isChecked == true)
+	@CheckBoxWithLabel("No", isChecked.HasValue && isChecked == false)
+	@CheckBoxWithLabel("N/A", !isChecked.HasValue)
+}
+
+@helper GenericYesNahRow(string letter, string question, bool? isTrue)
+{
+	<tr>
+		<td colspan="1"></td>
+		<td colspan="1" class="roman-numerical-letter">@letter.</td>
+		<td colspan="14">@question</td>
+		<td colspan="4">@YesNahCheckBox(isTrue)</td>
+	</tr>
+}
+
+@helper GenericYesNahRowThatIsNotABoolean(string letter, string question, JobSiteCheckListPressurizedRiskRestrainedType press)
+{
+    <tr>
+        <td colspan="1"></td>
+        <td colspan="1" class="roman-numerical-letter">@letter.</td>
+        <td colspan="14">@question</td>
+        <td colspan="4">@Html.ValueFor(x => press.Description)</td>
+    </tr>
+}
+
+@section head {
+	<style type="text/css">
+		/* THIS IS FOR THIS SPECIFIC PDF */
+
+		* {
+			font-family: Arial;
+			font-size: 17px;
+			line-height: 1.2em;
+		}
+
+		table {
+			width: 100%;
+			table-layout: fixed;
+			margin-bottom: 12px;
+		}
+
+		td {
+			vertical-align: top;
+			padding: 4px;
+		}
+
+			td.answer-box {
+				border: solid 1px black;
+			}
+
+
+		div.checkbox-label-wrap {
+			display: inline-block;
+			margin-right: 12px;
+		}
+
+		label {
+			font-weight: bold;
+		}
+
+		.bold {
+			font-weight: bold;
+		}
+
+		.roman-numerical-letter {
+			font-weight: bold;
+		}
+
+		#marked-table {
+			width: 100%;
+		}
+
+			#marked-table > tbody > tr > td {
+				border-top: solid 1px black;
+				border-bottom: solid 1px black;
+			}
+
+				#marked-table > tbody > tr > td:first-child {
+					border-left: solid 1px black;
+				}
+
+				#marked-table > tbody > tr > td:last-child {
+					border-right: solid 1px black;
+				}
+
+			#marked-table .divider-cell {
+				border-left: solid 1px black;
+			}
+
+		#excavations-table {
+			table-layout: auto;
+		}
+
+			#excavations-table td {
+				white-space: nowrap;
+				border: solid 1px black;
+				padding: 6px;
+			}
+
+		#top-table td {
+			padding: 6px;
+		}
+
+		.bottom-table {
+			margin-bottom: 6px;
+		}
+
+			.bottom-table td {
+				padding: 6px;
+			}
+	</style>
+}
+
+@section body {
+	<table id="top-table">
+		<tr>
+			<td colspan="15" style="text-align:center; font-weight:bold; vertical-align:bottom;">
+				Northeast Region<br />
+				Work Site Safety Check List
+			</td>
+			<td colspan="5" style="text-align:center;">
+				<img id="aw-logo" style="width:150px;" src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="bold">Address:</td>
+			<td colspan="12" class="answer-box bold">@Html.DisplayValueFor(x => x.Address)</td>
+			<td colspan="2" class="bold" style="white-space:nowrap;">W/O #</td>
+			<td colspan="4" class="bold answer-box">@Html.DisplayValueFor(x => x.SAPWorkOrderId)</td>
+		</tr>
+	</table>
+
+	<table>
+		@BigSection("Work Zone Set Up", "I")
+		@GenericYesNahRow("A",
+			"Are all employees wearing appropriate PPE for job tasks: Safety Vest, Hard Hats, Safety Shoes, Gloves, Hearing Protection, Eye Protection?",
+			 Model.AllEmployeesWearingAppropriatePersonalProtectionEquipment)
+
+		@GenericYesNahRow("B",
+			 "If traffic is present at site, what type(s) of work zone traffic control is being used?",
+			 Model.HasTrafficControl)
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="18">
+				<table style="width:auto;">
+					<tr>
+						@CheckBoxWithLabel("Flag Person", Model.HasFlagPersonForTrafficControl)
+						<td></td>
+						<td></td>
+						@CheckBoxWithLabel("Cones", Model.HasConesForTrafficControl)
+						<td></td>
+						<td></td>
+						@CheckBoxWithLabel("Signs", Model.HasSignsForTrafficControl)
+						<td></td>
+						<td></td>
+						@CheckBoxWithLabel("Barricades", Model.HasBarricadesForTrafficControl)
+						<td></td>
+						<td></td>
+						@CheckBoxWithLabel("Police", Model.HasPoliceForTrafficControl)
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+		@GenericYesNahRow("C",
+			 "Work zone traffic control set up in compliance with applicable standards(MUTCD or DOT)?",
+			 Model.CompliesWithStandards)
+
+		@GenericYesNahRow("D",
+			 "Are all surface structures protected/supported (i.e. Telephone Pole, Wall)?",
+			 Model.AllStructuresSupportedOrProtected)
+        
+        @GenericYesNahRowThatIsNotABoolean("E", "Are pressurized risks restrained?", Model.PressurizedRiskRestrainedType)
+	
+	</table>
+
+	<table>
+		@BigSection("Utility Verification", "II")
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="roman-numerical-letter">A.</td>
+			<td colspan="6">Markout valid for work site?</td>
+			<td colspan="4">@YesNahCheckBox(Model.IsMarkoutValidForSite)</td>
+			<td colspan="4" class="bold">Markout Number</td>
+			<td colspan="4" class="answer-box">@Model.MarkoutNumber</td>
+		</tr>
+
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="roman-numerical-letter">B.</td>
+			<td colspan="6">Was markout request an emergency?</td>
+			<td colspan="4">@YesNahCheckBox(Model.IsEmergencyMarkoutRequest)</td>
+		</tr>
+
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="roman-numerical-letter">C.</td>
+			<td colspan="18">Have the following underground facilities been marked and are their locations known?</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="18">
+				<table id="marked-table">
+					<tr>
+						<td>1. Sanitary Sewer</td>
+						<td>@YesNahNoCheckBox(Model.MarkedSanitarySewer)</td>
+						<td class="divider-cell">4. Electric</td>
+						<td>@YesNahNoCheckBox(Model.MarkedElectric)</td>
+					</tr>
+					<tr>
+						<td>2. Telephone</td>
+						<td>@YesNahNoCheckBox(Model.MarkedTelephone)</td>
+						<td class="divider-cell">5. Water</td>
+						<td>@YesNahNoCheckBox(Model.MarkedWater)</td>
+					</tr>
+					<tr>
+						<td>3. Fuel/Gas</td>
+						<td>@YesNahNoCheckBox(Model.MarkedFuelGas)</td>
+						<td class="divider-cell">6. Other</td>
+						<td>@YesNahNoCheckBox(Model.MarkedOther)</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<table>
+		@BigSection("Excavations", "III")
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="bold">A.</td>
+			<td colspan="18">General excavation conditions (document multiple excavations and/or if trench conditions change.)</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="18">
+				<table id="excavations-table">
+					@for (var i = 0; i < excavationsByDate.Length; i++)
+					{
+						var cur = Model.Excavations[i];
+						<tr>
+							<td>@(i + 1)</td>
+							<td>W: @Html.DisplayValueFor(x => cur.WidthInFeet, "{0:G29}") ft</td>
+							<td>L: @Html.DisplayValueFor(x => cur.LengthInFeet, "{0:G29}") ft</td>
+							<td>D: @Html.DisplayValueFor(x => cur.DepthInInches, "{0:G29}") in</td>
+							@foreach (var lt in locationTypes)
+							{
+								<td>
+									@CheckBoxWithLabel(lt.Description, cur.LocationType == lt)
+								</td>
+							}
+							<td>
+								Type of Soil&nbsp;&nbsp;
+								@foreach (var st in soilTypes)
+								{
+									@CheckBoxWithLabel(st.Description, cur.SoilType == st)
+								}
+							</td>
+
+						</tr>
+					}
+				</table>
+			</td>
+		</tr>
+		@GenericYesNahRow("B",
+			 "Are all materials, tools, and excavated materials set back 2 ft. from edge of trenches?",
+			 Model.HasTrafficControl)
+
+		@GenericYesNahRow("C",
+			 "Are water control systems in use to keep the excavation water free?",
+			 Model.WaterControlSystemsInUse)
+
+		@GenericYesNahRow("D",
+			 "If any utilities are exposed in excavation, are they supported/protected?",
+			 Model.AreExposedUtilitiesProtected)
+
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="bold">E.</td>
+			<td colspan="18">If an excavations are over 4 ft. deep</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">1.</td>
+			<td colspan="7">Is a ladder in place?</td>
+			<td colspan="5">@YesNahCheckBox(Model.IsALadderInPlace)</td>
+		</tr>
+
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">2.</td>
+			<td colspan="7">@JobSiteCheckList.Display.LADDER_EXTENDS_ABOVE_GRADE</td>
+			<td colspan="5">@YesNahCheckBox(Model.LadderExtendsAboveGrade)</td>
+		</tr>
+
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">3.</td>
+			<td colspan="7">@JobSiteCheckList.Display.IS_LADDER_ON_SLOPE</td>
+			<td colspan="5">@YesNahCheckBox(Model.IsLadderOnSlope)</td>
+		</tr>
+
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">4.</td>
+			<td colspan="7">@JobSiteCheckList.Display.HAS_ATMOSPHERE_BEEN_TESTED</td>
+			<td colspan="4">@YesNahCheckBox(Model.HasAtmosphereBeenTested)</td>
+			<td>O2</td>
+			<td class="answer-box">@Html.DisplayValueFor(x => x.AtmosphericOxygenLevel)</td>
+			<td>CO</td>
+			<td class="answer-box">@Html.DisplayValueFor(x => x.AtmosphericCarbonMonoxideLevel)</td>
+			<td>LEL</td>
+			<td class="answer-box">@Html.DisplayValueFor(x => x.AtmosphericLowerExplosiveLimit)</td>
+		</tr>
+
+		<tr>
+			<td colspan="1"></td>
+			<td colspan="1" class="bold">F.</td>
+			<td colspan="18">If an excavations are 5 ft. deep or greater</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">1.</td>
+			<td colspan="7">@JobSiteCheckList.Display.PROTECTION_TYPE</td>
+			<td colspan="10">
+				@foreach (var pt in protectionTypes)
+				{
+					@CheckBoxWithLabel(pt.Description, Model.ProtectionTypes.Contains(pt))
+				}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">2.</td>
+			<td colspan="13">@JobSiteCheckList.Display.IS_SLOPE_ANGLE_NOT_LESS</td>
+			<td colspan="4">@YesNahCheckBox(Model.IsSlopeAngleNotLessThanOneHalfHorizontalToOneVertical)</td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">3.</td>
+			<td colspan="13">@JobSiteCheckList.Display.IS_SHORING_SYSTEM_USED</td>
+			<td colspan="4">@YesNahCheckBox(Model.IsShoringSystemUsed)</td>
+		</tr>
+
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">4.</td>
+			<td colspan="13">@JobSiteCheckList.Display.SHORING_SYSTEM_EXTENDS</td>
+			<td colspan="4">@YesNahCheckBox(Model.ShoringSystemSidesExtendAboveBaseOfSlope)</td>
+		</tr>
+
+		<tr>
+			<td colspan="2"></td>
+			<td colspan="1">5.</td>
+			<td colspan="13">@JobSiteCheckList.Display.SHORING_SYSTEM_INSTALLED_TWO_FEET</td>
+			<td colspan="4">@YesNahCheckBox(Model.ShoringSystemInstalledTwoFeetFromBottomOfTrench)</td>
+		</tr>
+	</table>
+
+	<table class="bottom-table" style="">
+		<tr>
+			<td colspan="2">Comments</td>
+			<td colspan="18" class="answer-box">
+				@foreach (var cur in Model.CommentsByDate)
+				{
+					<div style="margin-bottom:12px;">
+						<strong>@Html.DisplayValueFor(x => cur.Comments)</strong> -
+						<em>@Html.DisplayValueFor(x => cur.CreatedBy.FullName) - @Html.DisplayValueFor(x => cur.CreatedAt)</em>
+					</div>
+				}
+			</td>
+		</tr>
+	</table>
+	<table class="bottom-table" style="">
+		<tr>
+			<td colspan="3">Crew Members</td>
+			<td colspan="17" class="answer-box">
+				@foreach (var cur in Model.CrewMembersByDate)
+				{
+					<div style="margin-bottom:12px;">
+						<strong>@Html.DisplayValueFor(x => cur.CrewMembers)</strong> -
+						<em>@Html.DisplayValueFor(x => cur.CreatedBy.FullName) - @Html.DisplayValueFor(x => cur.CreatedAt)</em>
+					</div>
+				}
+			</td>
+		</tr>
+	</table>
+	<table class="bottom-table">
+		<tr>
+			<td colspan="4">Competent Person</td>
+			<td colspan="10" class="answer-box">@Html.DisplayValueFor(x => x.CompetentEmployee)</td>
+			<td colspan="1"></td>
+			<td colspan="1">Date</td>
+			<td colspan="4" class="answer-box">@Html.DisplayValueFor(x => x.CheckListDate)</td>
+		</tr>
+	</table>
+	
+	<table>
+	    <tr>
+	        <td style="text-align:right; font-weight:bold;">Checklist ID: @Html.DisplayValueFor(x => x.Id)</td>
+	    </tr>
+	</table>
+}

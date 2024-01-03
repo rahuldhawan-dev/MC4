@@ -1,0 +1,19 @@
+﻿@using MMSINC.Results
+@model SearchEquipmentPurpose
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Id")
+    .SortableColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.Abbreviation, "Abbreviation")
+    .SortableColumnFor(x => x.EquipmentCategory, "EquipmentCategory")
+    .SortableColumnFor(x => x.EquipmentSubCategory, "EquipmentSubCategory")
+    .SortableColumnFor(x => x.EquipmentLifespan, "EquipmentLifespan")
+    .ColumnFor(x => x.EquipmentType, "Equipment Type")
+    .WithPaginatedFooter()
+)

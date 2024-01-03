@@ -1,0 +1,251 @@
+﻿@using MMSINC.Utilities
+@inherits MapCall.Common.Views.PdfViewBase<Valve>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    TopMargin = MarginWidth.QuarterInch;
+}
+
+@section head {
+    <style type="text/css">
+        * { font-size:16px; }
+
+        body {
+            font-family: arial;
+            margin-top: 0;
+            padding-top: 0;
+            
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        table.main {
+            width: 100%;
+        }
+
+        table.main td {
+            padding: 6px;
+        }
+
+        table td.installation-inspection {
+            width: 55%;
+            /*border: 1px solid black;*/
+        }
+        table td.details {
+            width: 45%;
+            /*border: 1px solid black;*/
+        }
+
+        td.label {
+            border: 1px solid black;
+            font-weight: bold;
+        }
+        td.field {
+            border: 1px solid black;
+        }
+        .circle {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            text-align: right;
+        }
+        .circle-right {
+            width: 142px;
+            text-align: right;
+        }
+
+        .equispace {
+            border: 1px solid black;
+            margin: 0;
+            padding: 0;
+            text-align: justify;
+        }
+        .equispace div {
+            display: inline-block;
+            text-align: center;
+        }
+        .equispace:after {
+            content: "";
+            width: 100%;
+            display: inline-block;
+        }
+
+        .location-info {
+            border:1px solid black;
+            height: 65px;
+        }
+    </style>
+}
+
+@section body {
+    <div id="wrap">
+        <div class="upper-right">
+            <table class="main">
+                <tr>
+                    <th colspan="2">VALVE INFORMATION</th>
+                </tr>
+                <tr>
+                    <td class="installation-inspection">
+                        <table>
+                            <tr>
+                                <th colspan="2" class="header">INSTALLATION INSPECTION</th>
+                            </tr>
+                            <tr>
+                                <td class="label">Date</td>
+                                <td class="field"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Valve Opens</td>
+                                <td class="equispace">
+                                    <div></div>
+                                    <div>RIGHT</div>
+                                    <div>LEFT</div>
+                                    <div></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">No. Turns</td>
+                                <td class="field">@Model.Turns</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Nut</td>
+                                <td class="equispace">
+                                    <div></div>
+                                    <div>SQUARE</div>
+                                    <div>TEE</div>
+                                    <div>WHEEL</div>
+                                    <div></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">Box or Manhole</td>
+                                <td class="equispace">
+                                    <div></div>
+                                    <div>VALVE BOX</div>
+                                    <div>MANHOLE</div>
+                                    <div></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">Valve Is Now</td>
+                                <td class="field"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Inspected By</td>
+                                <td class="field"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Make</td>
+                                <td class="field">@Model.ValveMake</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Task/WBS No.</td>
+                                <td class="field">@Model.WorkOrderNumber</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Type</td>
+                                <td class="field">@Model.ValveType</td>
+                            </tr>
+                            <tr>
+                                <td class="location-info" colspan="2">
+                                    <div><strong>Location Information:</strong></div>
+                                    @Model.ValveLocation
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div>N: 0</div>
+                                    <div>E: 0</div>
+                                </td>
+                                <td class="circle-right">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                NORTH ARROW          
+                                                <div class="circle"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="details">
+                        <table>
+                            <tr>
+                                <th colspan="2" class="header">&nbsp;</th>
+                            </tr>
+                            <tr>
+                                <td class="label">Town</td>
+                                <td class="field">@Model.Town</td>
+                            </tr> 
+                            <tr>
+                                <td class="label">Valve Number: </td>
+                                <td class="field">@Model.ValveNumber</td>
+                            </tr>
+                            <tr>
+                                <td class="label">SAP Equipment Number: </td>
+                                <td class="field">@Model.SAPEquipmentId</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Street: </td>
+                                <td class="field">@Model.Street</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Cross Street: </td>
+                                <td class="field">@Model.CrossStreet</td>
+                            </tr>
+                            <tr>
+                                <td class="label">County: </td>
+                                <td class="field">@Model.Town.County</td>
+                            </tr>
+                            <tr>
+                                <td class="label">District Id: </td>
+                                <td class="field">@Model.Town.DistrictId</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Valve Opens: </td>
+                                <td class="field">@Model.OpenDirection</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Number of Turns: </td>
+                                <td class="field">@Model.Turns</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Normal Position: </td>
+                                <td class="field">@Model.NormalPosition</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Valve Size: </td>
+                                <td class="field">@Model.ValveSize</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Date Installed: </td>
+                                <td class="field">@String.Format(CommonStringFormats.DATE, Model.DateInstalled)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">N: </td>
+                                <td class="field"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">E: </td>
+                                <td class="field"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+}

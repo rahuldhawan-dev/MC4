@@ -1,0 +1,21 @@
+﻿@model SearchHelpTopic
+
+@using (Form.BeginForm("Index", "HelpTopic"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.EditorFor(x => x.Title)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Category)
+        @Html.EditorFor(x => x.SubjectMatter)
+        @Html.EditorFor(x => x.DocumentUpdated)
+        @Html.EditorFor(x => x.DocumentTitle)
+        @Html.EditorFor(x => x.DocumentType)
+        @Html.EditorFor(x => x.Active)
+        @Html.EditorFor(x => x.DocumentNextReviewDate)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

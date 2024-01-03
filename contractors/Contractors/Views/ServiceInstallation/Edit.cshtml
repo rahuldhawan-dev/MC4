@@ -1,0 +1,12 @@
+﻿@model Contractors.Models.ViewModels.EditServiceInstallation
+
+@using (Form.BeginForm("Update", "ServiceInstallation", new { Model.Id }))
+{
+    <div class="field-column fc300">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ServiceInstallation", new { Model.Id })
+        </text>)
+    </div>
+}

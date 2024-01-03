@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.RiskRegisterAssets.EditRiskRegisterAsset
+
+@using (Form.BeginForm("Update", "RiskRegisterAsset", "Engineering", new { Model.Id }))
+{
+    <div class="field-column fc300">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "RiskRegisterAsset", new { Model.Id })
+        </text>)
+    </div>
+}

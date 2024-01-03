@@ -1,0 +1,22 @@
+﻿@using MapCall.Common.Configuration
+@using StructureMap
+
+@if (Authentication.CurrentUserIsAdmin)
+{
+    var roleServ = RoleService;
+    var requiredRoles = roleServ.GetRequiredRolesForCurrentRoute(throwIfMissing: false);
+    <li class="icon">
+        @Control.Button().WithId("adminPanelButton").With("title", "Open Admin Panel")
+        <div id="adminPanel" class="card">
+            <h3>Roles</h3>
+            @if (requiredRoles.Any())
+            {
+                @Html.Partial("_RequiredRolesTable", requiredRoles)
+            }
+            else
+            {
+                <text>This page does not require any roles for access.</text>
+            }
+        </div>
+    </li>
+}

@@ -1,0 +1,24 @@
+﻿@model Facility
+
+@{
+    var userCanEdit = Html.CurrentUserCanEditWithOperatingCenter(Model);
+
+    var table = Html.TableFor(x => x.AllProcessStepsInOrder, new { id = "facility-process-steps-table" })
+        .TemplateColumnFor(x => Control.ActionLink("View", "Show", "FacilityProcessStep", new { id = x.Id, area = "Facilities" }))
+        .ColumnFor(x => x.FacilityProcess.Process.Sequence)
+        .ColumnFor(x => x.StepNumber)
+        .ColumnFor(x => x.FacilityProcess.Process)
+        .ColumnFor(x => x.Description)
+        .ColumnFor(x => x.Equipment)
+        .ColumnFor(x => x.FacilityProcessStepSubProcess)
+        .ColumnFor(x => x.NormalRangeMin)
+        .ColumnFor(x => x.NormalRangeMax)
+        .ColumnFor(x => x.UnitOfMeasure);
+}
+
+@if (userCanEdit)
+{
+    @Control.ActionLink("Add Process Step", "New", "FacilityProcessStep", new { area = "Facilities" }).WithCssClass("link-button")
+}
+
+@table

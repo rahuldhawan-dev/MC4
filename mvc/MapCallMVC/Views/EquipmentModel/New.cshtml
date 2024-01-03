@@ -1,0 +1,13 @@
+﻿@model CreateEquipmentModel
+
+@using (Form.BeginForm("Create", "EquipmentModel", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EquipmentManufacturer)
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

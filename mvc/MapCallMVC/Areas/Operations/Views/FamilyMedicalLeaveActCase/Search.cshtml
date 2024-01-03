@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchFamilyMedicalLeaveActCase
+
+@using (Form.BeginForm("Index", "FamilyMedicalLeaveActCase")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Employee, new { Container = @Model})
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(x => x.CompanyAbsenceCertification)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

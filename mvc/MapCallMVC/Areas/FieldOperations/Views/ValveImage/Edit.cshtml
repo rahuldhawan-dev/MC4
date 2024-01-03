@@ -1,0 +1,16 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model EditValveImage
+
+@Html.Partial("_ValveLookup", new SearchOperatingCenterValveNumber())
+
+@using (Form.BeginForm("Update", "ValveImage", "FieldOperations", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.OfficeReviewRequired)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ValveImage", new{ id = Model.Id })
+        </text>)
+    </div>
+}

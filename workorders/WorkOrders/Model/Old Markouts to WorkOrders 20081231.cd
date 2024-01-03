@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WorkOrders.Model.Markout">
+    <Position X="0.5" Y="2.5" Width="1.75" />
+    <Members>
+      <Field Name="_dateOfRequest" Hidden="true" />
+      <Field Name="_markoutID" Hidden="true" />
+      <Field Name="_markoutNumber" Hidden="true" />
+      <Field Name="_markoutType" Hidden="true" />
+      <Field Name="_markoutTypeID" Hidden="true" />
+      <Field Name="_workOrder" Hidden="true" />
+      <Field Name="_workOrderID" Hidden="true" />
+      <Field Name="emptyChangingEventArgs" Hidden="true" />
+      <Method Name="Markout" Hidden="true" />
+      <Property Name="MarkoutID" Hidden="true" />
+      <Property Name="MarkoutTypeID" Hidden="true" />
+      <Field Name="MAX_MARKOUTNUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_STREETOPENINGNUMBER_LENGTH" Hidden="true" />
+      <Method Name="OnCreated" Hidden="true" />
+      <Method Name="OnValidate" Hidden="true" />
+      <Event Name="PropertyChanged" Hidden="true" />
+      <Event Name="PropertyChanging" Hidden="true" />
+      <Method Name="SendPropertyChanged" Hidden="true" />
+      <Method Name="SendPropertyChanging" Hidden="true" />
+      <Property Name="WorkOrderID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="WorkOrder" Type="WorkOrders.Model.WorkOrder" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="3.5" />
+        <Point X="3.75" Y="3.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.453" Y="0.102" Height="0.16" Width="0.965" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="MarkoutType" Type="WorkOrders.Model.MarkoutType" FixedToPoint="true">
+      <Path>
+        <Point X="0.562" Y="4.685" />
+        <Point X="0.562" Y="5.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-1.117" Y="0.558" Height="0.16" Width="1.024" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAwAZoJAAAAAAAACAEQIABByCAgEAgBAAAAAAAIoAI=</HashCode>
+      <FileName>Model\Markout.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WorkOrder" />
+      <Property Name="MarkoutType" />
+    </ShowAsAssociation>
+    <Lollipop Orientation="Left" Position="0.437" Collapsed="true" />
+  </Class>
+  <Class Name="WorkOrders.Model.WorkOrder">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <Members>
+      <Field Name="_accountCharged" Hidden="true" />
+      <Field Name="_asset" Hidden="true" />
+      <Field Name="_assetType" Hidden="true" />
+      <Field Name="_assetTypeID" Hidden="true" />
+      <Field Name="_backhoeOperator" Hidden="true" />
+      <Field Name="_createdBy" Hidden="true" />
+      <Field Name="_createdOn" Hidden="true" />
+      <Field Name="_creatorID" Hidden="true" />
+      <Field Name="_customerAccountNumber" Hidden="true" />
+      <Field Name="_customerName" Hidden="true" />
+      <Field Name="_dateCompleted" Hidden="true" />
+      <Field Name="_dateCompletedPC" Hidden="true" />
+      <Field Name="_datePrinted" Hidden="true" />
+      <Field Name="_dateReceived" Hidden="true" />
+      <Field Name="_dateReportSent" Hidden="true" />
+      <Field Name="_dateStarted" Hidden="true" />
+      <Field Name="_detectedLeaks" Hidden="true" />
+      <Field Name="_drivenBy" Hidden="true" />
+      <Field Name="_employeeWorkOrders" Hidden="true" />
+      <Field Name="_excavationDate" Hidden="true" />
+      <Field Name="_hydrant" Hidden="true" />
+      <Field Name="_hydrantID" Hidden="true" />
+      <Field Name="_invoiceNumber" Hidden="true" />
+      <Field Name="_lostWaters" Hidden="true" />
+      <Field Name="_mainBreaks" Hidden="true" />
+      <Field Name="_markoutRequirement" Hidden="true" />
+      <Field Name="_markoutRequirementID" Hidden="true" />
+      <Field Name="_markouts" Hidden="true" />
+      <Field Name="_materialsUseds" Hidden="true" />
+      <Field Name="_nearestCrossStreet" Hidden="true" />
+      <Field Name="_nearestCrossStreetID" Hidden="true" />
+      <Field Name="_notes" Hidden="true" />
+      <Field Name="_phoneNumber" Hidden="true" />
+      <Field Name="_premiseNumber" Hidden="true" />
+      <Field Name="_priority" Hidden="true" />
+      <Field Name="_priorityID" Hidden="true" />
+      <Field Name="_purposeID" Hidden="true" />
+      <Field Name="_requestedBy" Hidden="true" />
+      <Field Name="_requesterID" Hidden="true" />
+      <Field Name="_requestingEmployee" Hidden="true" />
+      <Field Name="_requestingEmployeeID" Hidden="true" />
+      <Field Name="_safetyMarkers" Hidden="true" />
+      <Field Name="_secondaryPhoneNumber" Hidden="true" />
+      <Field Name="_serviceNumber" Hidden="true" />
+      <Field Name="_street" Hidden="true" />
+      <Field Name="_streetID" Hidden="true" />
+      <Field Name="_streetNumber" Hidden="true" />
+      <Field Name="_supervisorApproval" Hidden="true" />
+      <Field Name="_tblNJAWTownName" Hidden="true" />
+      <Field Name="_tblNJAWTwnSection" Hidden="true" />
+      <Field Name="_townID" Hidden="true" />
+      <Field Name="_townSectionID" Hidden="true" />
+      <Field Name="_trafficControlRequired" Hidden="true" />
+      <Field Name="_valve" Hidden="true" />
+      <Field Name="_valveID" Hidden="true" />
+      <Field Name="_workDescription" Hidden="true" />
+      <Field Name="_workDescriptionID" Hidden="true" />
+      <Field Name="_workOrderDescriptionChanges" Hidden="true" />
+      <Field Name="_workOrderID" Hidden="true" />
+      <Field Name="_zipCode" Hidden="true" />
+      <Property Name="AccountCharged" Hidden="true" />
+      <Property Name="Asset" Hidden="true" />
+      <Property Name="AssetID" Hidden="true" />
+      <Property Name="AssetType" Hidden="true" />
+      <Property Name="AssetTypeID" Hidden="true" />
+      <Method Name="attach_DetectedLeaks" Hidden="true" />
+      <Method Name="attach_EmployeeWorkOrders" Hidden="true" />
+      <Method Name="attach_LostWaters" Hidden="true" />
+      <Method Name="attach_MainBreaks" Hidden="true" />
+      <Method Name="attach_Markouts" Hidden="true" />
+      <Method Name="attach_MaterialsUseds" Hidden="true" />
+      <Method Name="attach_SafetyMarkers" Hidden="true" />
+      <Method Name="attach_WorkOrderDescriptionChanges" Hidden="true" />
+      <Property Name="BackhoeOperator" Hidden="true" />
+      <Property Name="CreatedBy" Hidden="true" />
+      <Property Name="CreatedOn" Hidden="true" />
+      <Property Name="CreatorID" Hidden="true" />
+      <Property Name="CustomerAccountNumber" Hidden="true" />
+      <Property Name="CustomerName" Hidden="true" />
+      <Property Name="DateCompleted" Hidden="true" />
+      <Property Name="DateCompletedPC" Hidden="true" />
+      <Property Name="DatePrinted" Hidden="true" />
+      <Property Name="DateReceived" Hidden="true" />
+      <Property Name="DateReportSent" Hidden="true" />
+      <Property Name="DateStarted" Hidden="true" />
+      <Method Name="detach_DetectedLeaks" Hidden="true" />
+      <Method Name="detach_EmployeeWorkOrders" Hidden="true" />
+      <Method Name="detach_LostWaters" Hidden="true" />
+      <Method Name="detach_MainBreaks" Hidden="true" />
+      <Method Name="detach_Markouts" Hidden="true" />
+      <Method Name="detach_MaterialsUseds" Hidden="true" />
+      <Method Name="detach_SafetyMarkers" Hidden="true" />
+      <Method Name="detach_WorkOrderDescriptionChanges" Hidden="true" />
+      <Property Name="DetectedLeaks" Hidden="true" />
+      <Property Name="DrivenBy" Hidden="true" />
+      <Property Name="EmployeeWorkOrders" Hidden="true" />
+      <Field Name="emptyChangingEventArgs" Hidden="true" />
+      <Property Name="ExcavationDate" Hidden="true" />
+      <Method Name="GetAsset" Hidden="true" />
+      <Property Name="Hydrant" Hidden="true" />
+      <Property Name="HydrantID" Hidden="true" />
+      <Property Name="InvoiceNumber" Hidden="true" />
+      <Property Name="Latitude" Hidden="true" />
+      <Property Name="Longitude" Hidden="true" />
+      <Property Name="LostWaters" Hidden="true" />
+      <Property Name="MainBreaks" Hidden="true" />
+      <Property Name="MarkoutRequired" Hidden="true" />
+      <Property Name="MarkoutRequirement" Hidden="true" />
+      <Property Name="MarkoutRequirementID" Hidden="true" />
+      <Property Name="MaterialsUseds" Hidden="true" />
+      <Field Name="MAX_ACCOUNTCHARGED_LENGTH" Hidden="true" />
+      <Field Name="MAX_CUSTOMERACCOUNTNUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_CUSTOMERNAME_LENGTH" Hidden="true" />
+      <Field Name="MAX_INVOICENUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_PHONENUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_PREMISENUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_SECONDARYPHONENUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_SERVICENUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_STREETNUMBER_LENGTH" Hidden="true" />
+      <Field Name="MAX_ZIP_CODE_LENGTH" Hidden="true" />
+      <Field Name="MIN_PREMISENUMBER_LENGTH" Hidden="true" />
+      <Property Name="NearestCrossStreet" Hidden="true" />
+      <Property Name="NearestCrossStreetID" Hidden="true" />
+      <Property Name="Notes" Hidden="true" />
+      <Method Name="OnCreatedByChanging" Hidden="true" />
+      <Method Name="OnCreatedOnChanging" Hidden="true" />
+      <Method Name="OnValidate" Hidden="true" />
+      <Property Name="PhoneNumber" Hidden="true" />
+      <Property Name="PremiseNumber" Hidden="true" />
+      <Property Name="Priority" Hidden="true" />
+      <Property Name="PriorityID" Hidden="true" />
+      <Event Name="PropertyChanged" Hidden="true" />
+      <Event Name="PropertyChanging" Hidden="true" />
+      <Property Name="PurposeID" Hidden="true" />
+      <Property Name="RequestedBy" Hidden="true" />
+      <Property Name="RequesterID" Hidden="true" />
+      <Property Name="RequestingEmployee" Hidden="true" />
+      <Property Name="RequestingEmployeeID" Hidden="true" />
+      <Property Name="SafetyMarkers" Hidden="true" />
+      <Property Name="SecondaryPhoneNumber" Hidden="true" />
+      <Method Name="SendPropertyChanged" Hidden="true" />
+      <Method Name="SendPropertyChanging" Hidden="true" />
+      <Property Name="ServiceNumber" Hidden="true" />
+      <Property Name="Street" Hidden="true" />
+      <Property Name="StreetID" Hidden="true" />
+      <Property Name="StreetNumber" Hidden="true" />
+      <Property Name="SupervisorApproval" Hidden="true" />
+      <Property Name="Town" Hidden="true" />
+      <Property Name="TownID" Hidden="true" />
+      <Property Name="TownSection" Hidden="true" />
+      <Property Name="TownSectionID" Hidden="true" />
+      <Property Name="TrafficControlRequired" Hidden="true" />
+      <Method Name="ValidateCreationInfo" Hidden="true" />
+      <Property Name="Valve" Hidden="true" />
+      <Property Name="ValveID" Hidden="true" />
+      <Method Name="VerifyAddress" Hidden="true" />
+      <Method Name="VerifyAssetInformation" Hidden="true" />
+      <Method Name="VerifyRequesterInformation" Hidden="true" />
+      <Method Name="VerifyWorkDescription" Hidden="true" />
+      <Property Name="WorkDescription" Hidden="true" />
+      <Property Name="WorkDescriptionID" Hidden="true" />
+      <Method Name="WorkOrder" Hidden="true" />
+      <Property Name="WorkOrderDescriptionChanges" Hidden="true" />
+      <Property Name="WorkOrderID" Hidden="true" />
+      <Property Name="ZipCode" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Markouts" Type="WorkOrders.Model.Markout" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.846" />
+        <Point X="2.25" Y="2.846" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.766" Y="0.081" Height="0.16" Width="0.891" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>jcgxnCgDY2iYQJhmAhUb/EeLzrx3dpyzTmpr5bF38bc=</HashCode>
+      <FileName>Model\WorkOrder.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Markouts" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WorkOrders.Model.MarkoutType">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Members>
+      <Field Name="_description" Hidden="true" />
+      <Field Name="_markouts" Hidden="true" />
+      <Field Name="_markoutTypeID" Hidden="true" />
+      <Method Name="attach_Markouts" Hidden="true" />
+      <Method Name="CompareTo" Hidden="true" />
+      <Method Name="detach_Markouts" Hidden="true" />
+      <Field Name="emptyChangingEventArgs" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="MarkoutType" Hidden="true" />
+      <Property Name="MarkoutTypeID" Hidden="true" />
+      <Field Name="MAX_DESCRIPTION_LENGTH" Hidden="true" />
+      <Method Name="OnValidate" Hidden="true" />
+      <Event Name="PropertyChanged" Hidden="true" />
+      <Event Name="PropertyChanging" Hidden="true" />
+      <Method Name="SendPropertyChanged" Hidden="true" />
+      <Method Name="SendPropertyChanging" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Markouts" Type="WorkOrders.Model.Markout" FixedFromPoint="true">
+      <Path>
+        <Point X="1.938" Y="5.25" />
+        <Point X="1.938" Y="4.685" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.817" Y="0.581" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgABABAQAgAAwEgAEAAAABigAgAIAACAAAAAAAAQA=</HashCode>
+      <FileName>Model\MarkoutType.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Markouts" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Orientation="Left" Position="0.1" Collapsed="true" />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

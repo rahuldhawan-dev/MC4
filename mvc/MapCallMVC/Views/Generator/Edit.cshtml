@@ -1,0 +1,14 @@
+﻿@model EditGenerator
+
+@using (Form.BeginForm("Update", "Generator", new { Model.Id, Model.Equipment }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(f => f.Id)
+        @*@Html.DisplayFor(f => f.EquipmentId)*@
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.ActionLink("Cancel", "Show", "Equipment", null, null, "Generator", new { Id = Model.Equipment }, new { Class="link-button"})
+                           </text>)
+    </div>
+}

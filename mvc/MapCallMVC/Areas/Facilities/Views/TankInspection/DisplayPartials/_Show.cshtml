@@ -1,0 +1,30 @@
+﻿@using MMSINC.ClassExtensions
+@model TankInspection
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.OperatingCenter)
+        @Html.RenderDisplayTemplate("Production Work Order", @Html.ActionLink(Model.ProductionWorkOrder.ToString(), "Show", "ProductionWorkOrder", new { Model.ProductionWorkOrder.Id, area = "Production" }, null))
+        @{
+            if (Model.Equipment != null)
+            {
+                @Html.RenderDisplayTemplate("Equipment", @Html.ActionLink(Model.Equipment.ToString(), "Show", "Equipment", new { Model.Equipment.Id, area = "" }, null))
+            }
+            else
+            {
+                @Html.RenderDisplayTemplate("Equipment", @<text></text>)
+            }
+        }
+        @Html.RenderDisplayTemplate("Facility", @Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { Model.Facility.Id, area = "" }, null))
+        @Html.DisplayFor(m => m.TankAddress)
+        @Html.DisplayFor(m => m.Town)
+        @Html.DisplayFor(m => m.Coordinate)
+        @Html.DisplayFor(m => m.TankObservedBy)
+        @Html.DisplayFor(m => m.TankCapacity)
+        @Html.DisplayFor(m => m.ObservationDate)
+        @Html.DisplayFor(m => m.LastObserved)
+        @Html.DisplayFor(m => m.PublicWaterSupply)
+        @Html.DisplayFor(m => m.Facility.PublicWaterSupplyPressureZone)
+        @Html.DisplayFor(m => m.Equipment.EquipmentPurpose, new { DisplayName = "Tank Structure" })
+        @Html.DisplayFor(m => m.TankInspectionType)
+        @Html.DisplayFor(m => m.Equipment.EquipmentType)
+    </div>

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchTaskGroup
+
+@{
+    ActionBarHelper.AddExportLink();
+    //ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model, new { id = "taskgroups-table" })
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id}))
+      .SortableColumnFor(x => x.TaskGroupId)
+      .SortableColumnFor(x => x.TaskGroupName)
+      .SortableColumnFor(x => x.MaintenancePlanTaskType)
+      .SortableColumnFor(x => x.TaskGroupCategory)
+      .SortableColumnFor(x => x.TaskDetailsSummary)
+      .WithPaginatedFooter()
+      )

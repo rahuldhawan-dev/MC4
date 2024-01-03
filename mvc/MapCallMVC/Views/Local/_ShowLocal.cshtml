@@ -1,0 +1,13 @@
+﻿@model Local
+
+<div class="field-column fc100">
+    @Html.DisplayFor(l => l.Union.BargainingUnit)
+    @Html.DisplayFor(l => l.Name)
+	@Html.DisplayFor(l => l.Coordinate)
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(l => l.Description)
+    @Html.DisplayFor(l => l.OperatingCenter.OperatingCenterCode, new {DisplayName = "Operating Center"})
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.SAPUnionDescription)
+    @Html.DisplayFor(x => x.Division)
+</div>

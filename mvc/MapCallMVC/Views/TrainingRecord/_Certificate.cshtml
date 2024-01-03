@@ -1,0 +1,34 @@
+﻿@using MMSINC.Results
+@model TrainingRecord
+    
+@{
+    var employeeList = Model.LinkedEmployeesEligibleForCertificates.Select(x => new SelectListItem {
+                            Text = x.Employee.Display, Value = x.Employee.Id.ToString()
+                        });
+}
+
+@using (var f = Form.BeginForm("Show", "TrainingRecord", new { id = Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }))
+{
+    f.HtmlAttributes["target"] = "_New";
+    <div class="container">
+        <em>
+            To print a training certificate for the employee, select the employee and then click print. 
+            The fields displayed here are ones that will be displayed on the certificate. If any are 
+            missing they will not be displayed on the certificate. Some may need to be set on the 
+            Training Module. If a linked employee is not displayed it is because they do not have the 
+            necessary licenses.
+        </em>
+    </div>
+    <div class="container">
+        <div class="field-column fc400">
+            @Html.DisplayFor(x => x.TrainingModule.TCHCreditValue)
+            @Html.DisplayFor(x => x.TrainingModule.CourseApprovalNumber)
+            @Html.DisplayFor(x => x.Instructor)
+            @Html.DisplayFor(x => x.SecondInstructor)   
+            @Html.DisplayFor(x => x.OutsideInstructor)
+
+            @Html.RenderEditorTemplate("Licensed Employees", Control.DropDown("employeeId").WithItems(employeeList).WithEmptyText("Print All"))
+            @Html.RenderDisplayTemplate(string.Empty, Control.SubmitButton("Print"))
+        </div>
+    </div>
+}

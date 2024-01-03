@@ -1,0 +1,16 @@
+﻿@model dynamic
+
+<h2>Work Order Completion Notification</h2>
+
+Work Order #: @Model.WorkOrderID <br />
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Asset Type: @Model.AssetType <br />
+Asset ID: @Model.AssetID <br />
+Premise #: @Model.PremiseNumber <br />
+Requested By: @Model.RequestedBy <br />
+Purpose: @Model.DrivenBy <br />
+Work Description: @Model.WorkDescription <br />
+Notes:<br />
+@Model.Notes

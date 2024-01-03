@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchRestorationAccrualReport
+
+@using (Form.BeginForm("Index", "RestorationAccrualReport"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.AccountingType)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.WorkOrderDateCompleted)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

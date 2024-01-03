@@ -1,0 +1,120 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51A5F17B-E528-4CD6-8CAB-DE3AD4DFDE9A}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		MapCall.Common.vsmdi = MapCall.Common.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCall.Common", "MapCall.Common\MapCall.Common.csproj", "{63ECD277-D26D-4306-A752-1246A35B63BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCall", "..\MapCall\MapCall\MapCall.csproj", "{2705BAB2-A09C-4496-8731-FAA3F0801980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQTo271", "..\271_WorkOrders\LINQTo271\LINQTo271.csproj", "{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCall.CommonTest", "MapCall.CommonTest\MapCall.CommonTest.csproj", "{3EBC02C2-A1F2-44E7-976D-666A546C3004}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMSINC.Core", "MMSINC.Core\MMSINC.Core.csproj", "{122B2768-130D-4BEE-A23A-9B2916EAFC67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkOrders", "..\271_workorders\WorkOrders\WorkOrders.csproj", "{45A068AF-75DC-4446-BB6D-79E6EE978E26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMSINC.Testing", "MMSINC.Testing\MMSINC.Testing.csproj", "{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Staging|Any CPU = Debug Staging|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Deploy Local|Any CPU = Deploy Local|Any CPU
+		Deploy Staging|Any CPU = Deploy Staging|Any CPU
+		Deploy|Any CPU = Deploy|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Debug Staging|Any CPU.ActiveCfg = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Debug Staging|Any CPU.Build.0 = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy Local|Any CPU.ActiveCfg = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy Local|Any CPU.Build.0 = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy Staging|Any CPU.ActiveCfg = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy Staging|Any CPU.Build.0 = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy|Any CPU.ActiveCfg = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Deploy|Any CPU.Build.0 = QA3|x64
+		{63ECD277-D26D-4306-A752-1246A35B63BD}.Release|Any CPU.ActiveCfg = Release|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Debug Staging|Any CPU.ActiveCfg = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Debug Staging|Any CPU.Build.0 = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy Local|Any CPU.ActiveCfg = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy Local|Any CPU.Build.0 = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy Staging|Any CPU.ActiveCfg = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy Staging|Any CPU.Build.0 = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy|Any CPU.ActiveCfg = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Deploy|Any CPU.Build.0 = QA3|x64
+		{2705BAB2-A09C-4496-8731-FAA3F0801980}.Release|Any CPU.ActiveCfg = Release|x64
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Debug Staging|Any CPU.ActiveCfg = Debug Staging|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Debug Staging|Any CPU.Build.0 = Debug Staging|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy Local|Any CPU.ActiveCfg = Deploy Local|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy Local|Any CPU.Build.0 = Deploy Local|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy Staging|Any CPU.ActiveCfg = Deploy Staging|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy Staging|Any CPU.Build.0 = Deploy Staging|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy|Any CPU.ActiveCfg = Deploy Local|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Deploy|Any CPU.Build.0 = Deploy Local|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Debug Staging|Any CPU.ActiveCfg = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Debug Staging|Any CPU.Build.0 = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy Local|Any CPU.ActiveCfg = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy Local|Any CPU.Build.0 = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy Staging|Any CPU.ActiveCfg = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy Staging|Any CPU.Build.0 = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy|Any CPU.ActiveCfg = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Deploy|Any CPU.Build.0 = Release|x64
+		{3EBC02C2-A1F2-44E7-976D-666A546C3004}.Release|Any CPU.ActiveCfg = Release|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Debug Staging|Any CPU.ActiveCfg = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Debug Staging|Any CPU.Build.0 = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy Local|Any CPU.ActiveCfg = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy Local|Any CPU.Build.0 = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy Staging|Any CPU.ActiveCfg = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy Staging|Any CPU.Build.0 = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy|Any CPU.ActiveCfg = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Deploy|Any CPU.Build.0 = QA3|x64
+		{122B2768-130D-4BEE-A23A-9B2916EAFC67}.Release|Any CPU.ActiveCfg = Release|x64
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Debug Staging|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Debug Staging|Any CPU.Build.0 = Debug|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy Local|Any CPU.ActiveCfg = Deploy Local|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy Local|Any CPU.Build.0 = Deploy Local|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy Staging|Any CPU.ActiveCfg = Deploy Staging|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy Staging|Any CPU.Build.0 = Deploy Staging|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy|Any CPU.ActiveCfg = Deploy Local|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Deploy|Any CPU.Build.0 = Deploy Local|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A068AF-75DC-4446-BB6D-79E6EE978E26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Debug Staging|Any CPU.ActiveCfg = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Debug Staging|Any CPU.Build.0 = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy Local|Any CPU.ActiveCfg = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy Local|Any CPU.Build.0 = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy Staging|Any CPU.ActiveCfg = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy Staging|Any CPU.Build.0 = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy|Any CPU.ActiveCfg = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Deploy|Any CPU.Build.0 = QA3|x64
+		{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}.Release|Any CPU.ActiveCfg = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40F50A6D-1415-4D0D-AA92-3A5A487276F9}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MapCall.Common.vsmdi
+	EndGlobalSection
+EndGlobal

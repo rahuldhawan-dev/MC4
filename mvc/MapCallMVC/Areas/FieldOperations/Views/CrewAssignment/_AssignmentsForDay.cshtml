@@ -1,0 +1,101 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MMSINC.Utilities
+@model CrewAssignmentCalendarSearch
+
+@{
+    var canManage = Html.CurrentUserCanDo("Manage", "CrewAssignment", "FieldOperations") || Authentication.CurrentUserIsAdmin;
+}
+<fieldset id="assignments">
+    <legend>Assignments for @Html.DisplayValueFor(m => m.Date)</legend>
+    @if (Model == null || Model.AssignmentsForDate == null || !Model.AssignmentsForDate.Any())
+    {
+        <text>No assignments to display.</text>
+    }
+    else
+    {
+        var assignments = Model.AssignmentsForDate.Select(x => new CrewAssignmentIndexTableRowView(_container.GetInstance<IDateTimeProvider>(), x)).ToList();
+
+        if (canManage)
+        {
+            <div class="container">
+                @Html.ActionLink("Manage Crew Assignments", "Manage", new {area = "FieldOperations", Model.Crew, Date = Model.Date.Value.ToShortDateString()})
+            </div>
+        }
+        <div class="container">
+            * Orders in green are completed
+        </div>
+        <div class="container">
+            @*Purposely left empty. This is needed for the unobtrusive postback for Start.*@
+            @using (var f = Form.BeginForm(null, null))
+            {
+                f.Method = FormMethod.Post;
+                f.HtmlAttributes["id"] = "startAssignmentForm";
+                f.AddCssClass("no-double-submit");
+            }
+            
+            @(Html.TableFor(x => assignments, new {id = "assignmentsTable"})
+                  .WithRowBuilder((model, tag) => {
+                      if (model.IsCompleted)
+                      {
+                          tag.AddCssClass("completed");
+                      }
+                  })
+                  .TemplateColumnFor(x => Html.ActionLink("Select", "Show", "GeneralWorkOrder", new { area = "FieldOperations", id = x.WorkOrder }, null))
+                  .TemplateColumnFor(x => @Html.Link(string.Format("/modules/WorkOrders/Views/WorkOrders/ReadOnly/WorkOrderReadOnlyRPCPage.aspx?cmd=view&arg={0}", x.WorkOrder), "Print"))
+                  .ColumnFor(x => x.WorkOrder, "Order Number")
+                  .ColumnFor(x => x.WorkOrderObj.SAPWorkOrderNumber, "SAP WorkOrder #")
+                  .ColumnFor(x => x.WorkOrderObj.SAPNotificationNumber, "SAP Notification #")
+                  .ColumnFor(x => x.CrewAssignmentPriority, "Priority")
+                  .ColumnFor(x => x.StreetNumber)
+                  .ColumnFor(x => x.StreetName, "Street")
+                  .ColumnFor(x => x.NearestCrossStreetName, "Cross Street")
+                  .ColumnFor(x => x.Town)
+                  .ColumnFor(x => x.TownSection)
+                  .ColumnFor(x => x.NotesTitle, "Description of Job (Hover for Notes)").WithCellBuilder((x, tag) => {
+	                  tag.Attributes.Add("title", x.Notes);
+                  })
+                  .ColumnFor(x => x.TimeToCompletion, "Est. TTC (hours)")
+                  .ColumnFor(x => x.WorkOrderPriority, "Priority")
+                  .ColumnFor(x => x.MarkoutReadyDate, "Markout Ready")
+                  .ColumnFor(x => x.MarkoutExpirationDate, "Markout Expiration")
+                  .ColumnFor(x => x.AssignedOn)
+                  .TemplateColumnFor("Start Time",
+	                  x => @<text>
+		                       @if (x.CanSetStartTime)
+		                       {
+			                       var meh = Html.SecureActionLink<User>("Start", "Start", "CrewAssignment", new {area = "FieldOperations", id = x.CrewAssignment.Id}, new {@class = "start"});
+			                       @meh
+		                       }
+		                       else
+		                       {
+			                       @Html.DisplayValueFor(_ => x.StartTime)
+		                       }
+	                        </text>)
+                  .TemplateColumnFor("End Time",
+	                  x => @<text>
+		                       @if (x.CanSetEndTime)
+		                       {
+			                       var meh = Html.SecureActionLink<User>("End", "End", "CrewAssignment", new {area = "FieldOperations", id = x.CrewAssignment.Id}, new {@class = "end", data_id = x.Id});
+			                       @meh
+		                       }
+		                       else
+		                       {
+			                       @Html.DisplayValueFor(_ => x.EndTime)
+		                       }
+	                        </text>)
+                  .TemplateColumnFor("Employees on Crew",
+	                  x => @<text>
+		                       @if (x.CanSetEndTime)
+		                       {
+			                       var newModel = ViewModelFactory.BuildWithOverrides<CrewAssignmentEnd>(new {Id = x.Id, EmployeesOnJob = x.EmployeesOnJob});
+			                       @Html.Partial("_EndAssignment", newModel)
+		                       }
+		                       else
+		                       {
+			                       @Html.DisplayValueFor(_ => x.EmployeesOnJob)
+		                       }
+	                        </text>))
+        </div>
+    }
+</fieldset>

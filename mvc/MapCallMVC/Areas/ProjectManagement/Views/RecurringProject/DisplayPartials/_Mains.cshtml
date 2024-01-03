@@ -1,0 +1,50 @@
+﻿@model RecurringProject
+
+@{
+    if (Model.RecurringProjectMains.Count > 0)
+    {
+        var footerMain = new RecurringProjectMain {
+            Layer = "Total",
+            //TotalInfoMasterScore = Model.RecurringProjectMains.Sum(x => x.TotalInfoMasterScore),
+            Length = Model.RecurringProjectMains.Sum(x => x.Length)
+        };
+    
+    <script>
+        // TODO: There's a better way to do this.
+        var recurringProjectID = @ViewContext.RouteData.Values["id"];
+    </script>
+    
+    @Html.Link("#", "Show InfoMaster Main Selector", new { onclick = "$('#mains').click();", Class = "link-button" })
+        <table id="mains-details-table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Guid</th>
+                    <th>Final Grade</th>
+                    @*<th>Total InfoMaster Score</th>*@
+                    <th>Length</th>
+                    <th>Date Installed</th>
+                    <th>Diameter</th>
+                    <th>Material</th>
+                </tr>
+            </thead>
+            <tbody>
+            @Html.DisplayFor(m => Model.RecurringProjectMains)
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>@footerMain.Layer</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                @*<td>@footerMain.TotalInfoMasterScore</td>*@
+                <td>@footerMain.Length</td>
+            </tr>
+            </tfoot>
+        </table>
+
+    }
+    else
+    {
+        <div>No mains have been selected for this record. Edit to add mains.</div>
+    }
+}

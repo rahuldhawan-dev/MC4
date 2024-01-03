@@ -1,0 +1,6 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.JobSiteCheckLists, new { Id = "jobSiteCheckLists" })
+      .TemplateColumnFor(x => Html.ActionLink("View/Edit", "Show", "JobSiteCheckList", new { id = x.Id, area = "HealthAndSafety" }, null))
+      .ColumnFor(x => x.CheckListDate)
+      .ColumnFor(x => x.CreatedBy))

@@ -1,0 +1,33 @@
+﻿/* The .grid classes are old and things use them. They don't use the newer CSS Grid display settings. */
+.grid { position:relative; overflow:hidden; }
+.grid > div { float: left;  position:relative; }
+.grid > div:first-child { }
+
+.grid-1col > div { width: 100%; }
+.grid-2col > div { width:50%; }
+.ie .grid-2col > div { width:49.9999%; } /* 49.9999 stops IE from dropping to the next line on odd-numbered widths. 50% causes it to round up. */
+.grid-3col > div { width: 33.3%; }
+
+.grid > div,
+.grid > div > div { height:inherit; }
+
+
+/* NOTE: css grid is not supported properly in IE11(11.674.15063.0) or Edge(40.15063.674.0, EdgeHTML 15.15063) -Ross 11/21/2017 */
+/* These things are only being used for BacterialWaterSamples at the moment. */
+.grid-layout {
+	display: grid;
+}
+
+.grid-layout.gl-2col {
+	/* These are fraction units. They split up the columns based on the total number of fractions defined. 
+			ex: 1fr 1fr = two 50% width columns
+			ex: 2fr 1fr = one 66.6666% and one 33.33333% column
+		*/
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 12px;
+}
+
+.grid-layout fieldset {
+	height: 100%;
+	margin: 0px; /* Chrome, for some reason, ends up with an extra margin at the bottom of the second fieldset. */
+}

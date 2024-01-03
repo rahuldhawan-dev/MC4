@@ -1,0 +1,6 @@
+﻿@model  Contractors.Models.ViewModels.DeleteNote
+
+@using (var form = Form.BeginForm("Destroy", "Note", "", new { Model.Id }))
+{
+    @Control.SubmitButton("Delete").WithCssClass("deleteNote")
+}

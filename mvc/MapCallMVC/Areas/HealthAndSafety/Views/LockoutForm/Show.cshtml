@@ -1,0 +1,9 @@
+﻿@model LockoutForm 
+@{
+    ActionBarHelper.AddMapLink();
+    ActionBarHelper.AddPdfLink();
+    ActionBarHelper.AddCopyButton();
+}
+@(Html.Tabs()
+    .WithTab("Lockout Form", "_Show")
+    .WithNotesAndDocuments())

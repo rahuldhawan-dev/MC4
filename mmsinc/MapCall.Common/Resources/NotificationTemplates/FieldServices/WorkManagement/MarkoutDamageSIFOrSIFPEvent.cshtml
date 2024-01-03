@@ -1,0 +1,15 @@
+﻿@model MapCall.Common.Model.Entities.MarkoutDamage
+
+<a href="@Model.RecordUrl">Markout Damage - SIF or SIF-P Event</a>
+
+Markout Damage ID: @Model.Id <br />
+Work Order ID: @(Model.WorkOrder != null ? (int?)Model.WorkOrder.Id : null) <br />
+Employees on Job: @Model.EmployeesOnJob <br />
+Request Number: @Model.RequestNumber <br />
+Damage Date and Time: @Model.DamageOn <br />
+Operating Center: @Model.OperatingCenter <br />
+Town: @Model.Town <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Damage Comments: @Model.DamageComments <br />
+Utilities Damaged: @string.Join(", ", Model.UtilityDamages.Select(x => x.Description)) <br />

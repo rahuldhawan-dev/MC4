@@ -1,0 +1,27 @@
+﻿@model Valve
+
+@{
+    var inspections = Model.ValveInspections.OrderByDescending(x => x.DateInspected);
+}
+
+@if (Model.IsInspectable && Model.OperatingCenter.IsActive)
+{
+    @Html.AuthorizedActionLinkButton("New Inspection", "New", "ValveInspection", new { id = Model.Id })
+}
+else
+{
+    <div class="notification notifications-warning">
+		<div class="message">New inspection records can not be created for assets that are cancelled, inactive, retired, or removed.</div>
+    </div>
+}
+@(Html.TableFor(x => inspections, new { id = "inspections-table"})
+    .TemplateColumnFor(x => @Html.ActionLink("View", "Show", "ValveInspection", new { x.Id }, null))
+    .ColumnFor(x => x.DateInspected)
+    .ColumnFor(x => x.Inspected)
+    .ColumnFor(x => x.InspectedBy)
+    .ColumnFor(x => x.MinimumRequiredTurns)
+    .ColumnFor(x => x.Turns)
+    .ColumnFor(x => x.WorkOrderRequestOne)
+    .ColumnFor(x => x.WorkOrderRequestTwo)
+    .ColumnFor(x => x.WorkOrderRequestThree)
+)

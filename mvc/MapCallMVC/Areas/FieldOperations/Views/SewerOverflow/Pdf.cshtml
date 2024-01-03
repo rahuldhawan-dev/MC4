@@ -1,0 +1,98 @@
+﻿@using MMSINC.Utilities
+@using System.Linq.Expressions
+
+@inherits MapCall.Common.Views.PdfViewBase<SewerOverflow>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    TopMargin = MarginWidth.QuarterInch;
+}
+
+@section head {
+    <style>
+        div {
+            font-size: 18pt;
+        }
+        div.header
+        {
+            font-size: 24pt;
+            text-align: center;
+        }
+        div.bold {
+            font-weight: bold;
+        }
+        div.spacer {
+            background-color: #C0C0C0;
+            height: 1em;
+        }
+    </style>
+}
+
+@helper DisplayField(string text, object field) {
+    var fieldOutput = string.Empty;
+    if (field != null)
+    {
+        fieldOutput = field.ToString();
+    }
+    <div>
+        @(string.Format("{0}: {1}", text, fieldOutput))
+    </div>
+    <div class="clear"></div><div>&nbsp;</div><div class="clear"></div>
+}
+
+@helper DisplayField(string text, IHtmlString value) {
+    <div>
+        @(text): @value
+    </div>
+    <div class="clear"></div><div>&nbsp;</div><div class="clear"></div>
+}
+
+@helper DisplayFieldIfNotNullOrEmpty(string text, object field) {
+    if (field == null || string.IsNullOrEmpty(field.ToString()))
+    {
+        return;
+    }
+    @DisplayField(text, field)
+}
+
+@section body {
+    <div class="grid_12 header">Enforcing Agency Sanitary Overflow Report</div>
+    <div class="clear"></div><div>&nbsp;</div><div class="clear"></div>
+
+    @DisplayField("Operating Center", Model.OperatingCenter)
+    @DisplayField("Wastewater System", Model.WasteWaterSystem)
+    @DisplayField("Incident Date", Model.IncidentDate)
+
+    <div class="grid_12 bold">
+        Location Information
+    </div>
+    <div class="clear"></div><div>&nbsp;</div><div class="clear"></div>
+
+    @DisplayField("Municipality", Model.Town)
+    @DisplayField("Street Number", Model.StreetNumber)
+    @DisplayField("Street", Model.Street)
+    @DisplayField("Cross Street", Model.CrossStreet)
+    @DisplayField("Coordinate", Model.Coordinate != null ? string.Format("{0}, {1}", Model.Coordinate.Latitude, Model.Coordinate.Longitude) : string.Empty)
+    @DisplayField("Work Order", Model.WorkOrder)
+    @DisplayField("Overflow Type", Model.OverflowType)
+    @DisplayField("Weather Type", Model.WeatherType)
+    @DisplayField("Gallons Overflowed (Estimated)", Model.GallonsOverflowedEstimated)
+    @DisplayField("Discharge Location", Model.DischargeLocation)
+    @DisplayFieldIfNotNullOrEmpty("Body of Water", Model.BodyOfWater)
+    @DisplayFieldIfNotNullOrEmpty("Discharge Location (Other)", Model.DischargeLocationOther)
+    @DisplayFieldIfNotNullOrEmpty("How Many Gallons Flowed Into Body Of Water", Model.GallonsFlowedIntoBodyOfWater)
+    @DisplayFieldIfNotNullOrEmpty("Gallons In Contained Drains (Estimated)", Model.GallonsInContainedDrains)
+    @DisplayField("Sewer Clearing Method", Model.SewerClearingMethod)
+    @DisplayField("Area Cleaned Up To", Model.AreaCleanedUpTo)
+    @DisplayField("Sewage Recovered (Gallons)", Model.SewageRecoveredGallons)
+    @DisplayField("Overflow on Customer Side", Html.DisplayValueFor(x => x.OverflowCustomers))
+    @DisplayField("Overflow Cause", Model.OverflowCause)
+    @DisplayField("Zone Type", Model.ZoneType)
+    @DisplayField("Location of Stoppage", Model.LocationOfStoppage)
+    @DisplayField("Talked To", Model.TalkedTo)
+    @DisplayField("Enforcing Agency Case #", Model.EnforcingAgencyCaseNumber)
+    @DisplayField("Time Call Received", Model.CallReceived)
+    @DisplayField("Time Crew Arrived On Site", Model.CrewArrivedOnSite)
+    @DisplayField("Time Sewage Contained", Model.SewageContained)
+    @DisplayField("Time Stoppage Cleared", Model.StoppageCleared)
+    @DisplayField("Time Work Completed", Model.WorkCompleted)
+}

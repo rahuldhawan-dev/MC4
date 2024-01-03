@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.EditTankInspection
+
+@using (Form.BeginForm("Update", "TankInspection", new { Model.Id }))
+{
+    @(Html.Tabs()
+          .WithTab("General", "EditorPartials/_Form")
+          .WithTab("Security & Vandalism", "EditorPartials/_EditQuestions1")
+          .WithTab("General Site Info", "EditorPartials/_EditQuestions2")
+          .WithTab("Foundation", "EditorPartials/_EditQuestions3")
+          .WithTab("Exterior Condition", "EditorPartials/_EditQuestions4")
+          .WithTab("Exterior Roof", "EditorPartials/_EditQuestions5")
+          .WithTab("Overflow Piping, Vaults, Accessory Bldgs. & Valves", "EditorPartials/_EditQuestions6")
+        )
+    @Html.ButtonGroup(Control.SubmitButton("Save"))
+}

@@ -1,0 +1,9 @@
+﻿FINISHED:
+
+PENDING:
+  Close-out:
+
+  MISC:
+    Need to upload this to .info, to work off the menu link from Field Operations -> Work Management.
+
+    They want the background map image removed from MapCall proper.

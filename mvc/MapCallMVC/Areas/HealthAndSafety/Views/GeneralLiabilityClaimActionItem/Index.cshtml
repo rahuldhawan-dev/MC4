@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchGeneralLiabilityClaimActionItem
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink(x.Entity.Id.ToString(), "Show", "GeneralLiabilityClaim",null,null,"ActionItemsTab", new {x.Entity.Id, area = "HealthAndSafety"}, null))
+      .SortableColumnFor(x => x.Entity.OperatingCenter.State)
+      .SortableColumnFor(x => x.Entity.OperatingCenter)
+      .SortableColumnFor(x => x.ActionItem.Type)
+      .SortableColumnFor(x => x.ActionItem.NotListedType)
+      .SortableColumnFor(x => x.ActionItem.ResponsibleOwner.FullName, "Responsible Owner", "ResponsibleOwner.FullName")
+      .SortableColumnFor(x => x.ActionItem.TargetedCompletionDate)
+      .SortableColumnFor(x => x.ActionItem.DateCompleted)
+    .WithPaginatedFooter()
+)

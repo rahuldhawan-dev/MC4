@@ -1,0 +1,41 @@
+﻿@using MapCall.Common.Model.ViewModels
+@model  MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCompletedWorkOrdersWithMarkout
+@{
+    ActionBarHelper.AddExportLink();
+    int markoutReqNone = (int)MarkoutRequirement.Indices.NONE;
+    int markoutReqRoutine = (int)MarkoutRequirement.Indices.ROUTINE;
+    int markoutReqEmergency = (int)MarkoutRequirement.Indices.EMERGENCY;
+}
+@functions {
+    IHtmlString GenerateWorkOrderSearchLink(CompletedWorkOrderWithMarkoutReportItem reportItem, int displayCount, int? hasMarkout)
+    {
+        if (displayCount <= 0)
+        {
+            // No point in generating a link to a page with zero results.
+            return new HtmlString(displayCount.ToString());
+        }
+        return Html.ActionLink(displayCount.ToString(), "Index", "GeneralWorkOrder", new RouteValueDictionary {
+            {"area", "FieldOperations"},
+            {"OperatingCenter", reportItem.OperatingCenterId.ToString()},
+            {"WorkDescription", reportItem.WorkDescriptionId.ToString()},
+            {"DateCompleted.Start", Model.DateCompleted.Start.ToString()},
+            {"DateCompleted.Operator", (int)Model.DateCompleted.Operator},
+            {"DateCompleted.End", Model.DateCompleted.End.ToString()},
+            {"IsAssignedContractor", Model.IsAssignedContractor},
+            {"MarkoutRequirement", hasMarkout},
+        }, null);
+    }
+}
+@(Html.TableFor(x => x, new { id = "search-results" })
+      .WithCaption(String.Format("Date Range: {0:d} - {1:d}", Model.DateCompleted.Start, Model.DateCompleted.End))
+      .ColumnFor(x => x.State)
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.WorkDescription)
+      .TemplateColumnFor("Total Orders", x => GenerateWorkOrderSearchLink(x, x.WorkOrderCount, null))
+      .TemplateColumnFor("Markout None", x => GenerateWorkOrderSearchLink(x, x.MarkoutNoneCount,  markoutReqNone))
+      .TemplateColumnFor("Markout Routine", x => GenerateWorkOrderSearchLink(x, x.MarkoutRoutineCount,  markoutReqRoutine))
+      .TemplateColumnFor("Markout Emergency", x => GenerateWorkOrderSearchLink(x, x.MarkoutEmergencyCount, markoutReqEmergency))
+      .ColumnFor(x => x.PercentageNone)
+      .ColumnFor(x => x.PercentageRoutine)
+      .ColumnFor(x => x.PercentageEmergency)
+)

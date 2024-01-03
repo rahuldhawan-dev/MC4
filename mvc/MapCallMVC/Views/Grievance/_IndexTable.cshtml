@@ -1,0 +1,16 @@
+﻿@model SearchGrievance
+
+@(Html.TableFor(x => Model, new { id = "grievancesTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Id")
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+    .SortableColumnFor(x => x.Contract.Id, "Contract ID", "Contract.Id")
+    .SortableColumnFor(x => x.GrievanceCategory, "GrievanceCategory")
+    .SortableColumnFor(x => x.Categorization, "Categorization")
+    .SortableColumnFor(x => x.Status, "Status")
+    .SortableColumnFor(x => x.Number, "Number")
+    .SortableColumnFor(x => x.DateReceived, "DateReceived")
+    .SortableColumnFor(x => x.IncidentDate, "IncidentDate")
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount)
+    .WithPaginatedFooter())

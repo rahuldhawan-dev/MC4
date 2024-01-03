@@ -1,0 +1,57 @@
+﻿@using MapCallMVC.Areas.Engineering.Models.ViewModels.RiskRegisterAssets
+@model MapCallMVC.Areas.Engineering.Models.ViewModels.RiskRegisterAssets.RiskRegisterAssetViewModel
+
+<div class="field-column fc150">
+    <fieldset>
+        <legend>General</legend>
+        @Html.EditorFor(x => x.State)
+        @if (Model is CreateRiskRegisterAsset)
+        {
+            @Html.EditorFor(x => ((CreateRiskRegisterAsset)x).OperatingCenter)
+        }
+        else
+        {
+            @Html.EditorFor(x => ((EditRiskRegisterAsset)x).OperatingCenter)
+        }
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.WasteWaterSystem)
+        @Html.EditorFor(x => x.RiskRegisterAssetGroup)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.Coordinate)
+        @Html.EditorFor(x => x.RiskRegisterAssetCategory)
+        @Html.EditorFor(x => x.LofMax)
+        @Html.EditorFor(x => x.RiskDescription)
+        @Html.EditorFor(x => x.CofMax)
+        @Html.EditorFor(x => x.ImpactDescription)
+        @Html.EditorFor(x => x.RiskQuadrant)
+        @Html.EditorFor(x => x.TotalRiskWeighted)
+        @Html.EditorFor(x => x.RiskRegisterAssetZone)
+        @Html.EditorFor(x => x.IdentifiedAt)
+    </fieldset>
+
+    <fieldset>
+        <legend>Interim Mitigation Measures</legend>
+        @Html.EditorFor(x => x.InterimMitigationMeasuresTaken)
+        @Html.EditorFor(x => x.InterimMitigationMeasuresTakenAt)
+        @Html.EditorFor(x => x.InterimMitigationMeasuresTakenEstimatedCosts)
+    </fieldset>
+
+    <fieldset>
+        <legend>Final Mitigation Measures</legend>
+        @Html.EditorFor(x => x.FinalMitigationMeasuresTaken)
+        @Html.EditorFor(x => x.FinalMitigationMeasuresTakenAt)
+        @Html.EditorFor(x => x.FinalMitigationMeasuresTakenEstimatedCosts)
+    </fieldset>
+
+    <fieldset>
+        <legend>Project Information</legend>
+        @Html.EditorFor(x => x.Employee)
+        @Html.EditorFor(x => x.CompletionTargetDate)
+        @Html.EditorFor(x => x.CompletionActualDate)
+        @Html.EditorFor(x => x.IsProjectInComprehensivePlanningStudy)
+        @Html.EditorFor(x => x.IsProjectInCapitalPlan)
+        @Html.EditorFor(x => x.RelatedWorkBreakdownStructure)
+        @Html.EditorFor(x => x.RiskRegisterId)
+    </fieldset>
+</div>

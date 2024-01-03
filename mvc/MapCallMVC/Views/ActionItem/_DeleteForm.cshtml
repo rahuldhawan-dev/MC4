@@ -1,0 +1,6 @@
+﻿@model  DeleteActionItem
+
+@using (var form = Form.BeginForm("Destroy", "ActionItem", "", new{id = Model.Id}))
+{
+    @Control.SubmitButton("Delete").WithCssClass("deleteActionItem")
+}

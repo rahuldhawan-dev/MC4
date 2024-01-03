@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateEmployeeAssignment
+
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.AssignedTo)
+    @Html.EditorFor(x => x.AssignedFor)
+    @Html.HiddenFor(x => x.ProductionSkillSet)
+    @Html.ButtonGroup(@<text>
+                          @Control.SubmitButton("Assign").WithId("Assign")
+                       </text>)
+</div>

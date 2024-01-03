@@ -1,0 +1,38 @@
+﻿@model dynamic
+
+A Production Work Order has been created for equipment that is linked to an Environmental Permit.<br />
+
+<h4>Linked Permits:</h4>
+@if (Model.Equipment != null)
+{
+    foreach (var p in Model.Equipment.EnvironmentalPermits)
+    {
+<div>Permit Description: <a href="@p.RecordUrl">@p.Description</a></div>
+    }
+}
+@foreach (var productionEquipment in Model.Equipments)
+{
+    var equipment = productionEquipment.Equipment;
+    foreach (var permit in equipment.EnvironmentalPermits)
+    {
+<div>Permit Description: <a href="@permit.RecordUrl">@permit.Description</a></div>
+    }
+}
+
+<h4>Linked Equipment: </h4>
+@if (Model.Equipment != null)
+{
+<a href="@Model.Equipment.RecordUrl">@Model.Equipment.Description</a><br />
+}
+@if (Model.Equipments.Count > 0)
+{
+    foreach (var e in Model.Equipments)
+    {
+<a href="@e.Equipment.RecordUrl">@e.Equipment.Description</a><br />
+    }
+}
+
+<h4>Work Order:</h4>
+Order Number: <a href="@Model.RecordUrl">@Model.Id</a><br />
+Description: @Model.ProductionWorkDescription<br/>
+Created On @Model.DateReceived<br />

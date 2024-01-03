@@ -1,0 +1,19 @@
+﻿@model Contractors.Models.ViewModels.CreateServiceInstallation
+
+@using (Form.BeginForm("Create", "ServiceInstallation"))
+{
+    <style>
+        select {
+            width: 500px !important;
+        }
+    </style>
+
+    <div class="field-column fc300">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save").WithId("NSISave")
+            @Html.LinkButton("Cancel", "Index", "ServiceInstallation")
+        </text>)
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.InterconnectionViewModel
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+        <div class="field-column fc150">
+            @Html.EditorFor(x => x.DeliveryMethod)
+            @Html.EditorFor(x => x.InletConnectionSize)
+            @Html.EditorFor(x => x.OutletConnectionSize)
+            @Html.EditorFor(x => x.InletStaticPressure)
+            @Html.EditorFor(x => x.OutletStaticPressure)
+        </div>
+    }
+
+    using (g.FlexBox())
+    {
+        <div class="field-column fc300">
+            @Html.EditorFor(x => x.MaximumFlowCapacity)
+            @Html.EditorFor(x => x.MaximumFlowCapacityStressedCondition)
+            @Html.EditorFor(x => x.FlowControlMethod)
+        </div>
+    }    
+}

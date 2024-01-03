@@ -1,0 +1,28 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Authentication
+@using MMSINC.Metadata
+@model MapCall.Common.Model.Entities.Markout
+
+<tr>
+    <td>
+        @if (!Model.WorkOrder.ApprovedOn.HasValue)
+        {
+            <div>
+                @Ajax.ActionLink("Edit", "Edit", "Markout", new { area = "FieldOperations", id = Model.Id }, new AjaxOptions { HttpMethod = "GET" })
+            </div>
+            <div>
+                @{
+                    var meh = Ajax.SecureActionLink<User>(SecureFormTokenService, AuthenticationService.CurrentUser,
+                        "Delete", "Destroy", "Markout", new { area = "FieldOperations", id = Model.Id }, new AjaxOptions { HttpMethod = "DELETE", Confirm = "Are you sure you want to delete this markout?" });
+                    @meh
+                }
+            </div>
+        }
+    </td>
+    <td>@Html.ActionLink(Model.MarkoutNumber, "Index", "OneCallMarkoutTicket", new { area = "FieldOperations", RequestNumber = Model.MarkoutNumber }, null)</td>
+    <td>@Html.DisplayValueFor(m => m.MarkoutType)</td>
+    <td>@Html.DisplayValueFor(m => m.Note)</td>
+    <td>@Html.DisplayValueFor(m => m.DateOfRequest)</td>
+    <td>@Html.DisplayValueFor(m => m.ReadyDate)</td>
+    <td>@Html.DisplayValueFor(m => m.ExpirationDate)</td>
+</tr>

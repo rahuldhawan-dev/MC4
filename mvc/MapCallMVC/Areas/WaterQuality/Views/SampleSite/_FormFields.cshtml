@@ -1,0 +1,184 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites
+@model SampleSiteViewModel
+
+@Html.HiddenFor(x => x.Id)
+@Control.Hidden("FacilityShowUrl").WithValue(Url.Action("Show", "Facility", new { area = "" }))
+@Control.Hidden("ServiceShowUrl").WithValue(Url.Action("Show", "Service", new { area = "FieldOperations" }))
+@Control.Hidden("GetSampleSitesByPremiseNumberUrl").WithValue(Url.Action("GetSampleSitesByPremiseNumber", "SampleSite", new { area = "WaterQuality" }))
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>General Information</legend>
+        @Html.HiddenFor(x => x.LimsSequenceNumber)
+        @Html.EditorFor(x => x.State)
+        @if (Model is CreateSampleSite)
+        {
+            @Html.EditorFor(x => ((CreateSampleSite)x).OperatingCenter)
+        }
+        else
+        {
+            @Html.EditorFor(x => x.OperatingCenter)
+        }
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.SampleSiteInactivationReason, new { @class = "reason-row" })
+        @Html.EditorFor(x => x.IsAlternateSite)
+        @Html.EditorFor(x => x.Availability)
+        @Html.EditorFor(x => x.IsComplianceSampleSite)
+        @Html.EditorFor(x => x.IsProcessSampleSite)
+        @Html.EditorFor(x => x.IsResearchSampleSite)
+    </fieldset>
+
+    <fieldset>
+        <legend>Lead and Copper</legend>
+        @Html.EditorFor(x => x.LeadCopperSite)
+        <div id="lead-and-copper-fields">
+            @Html.EditorFor(x => x.LeadCopperTierClassification)
+            @Html.EditorFor(x => x.LeadCopperTierThreeExplanation)
+            @Html.EditorFor(x => x.LeadCopperTierSampleCategory)
+            @Html.EditorFor(x => x.LeadCopperValidationMethod)
+            @Html.EditorFor(x => x.CustomerParticipationConfirmed)
+            @Html.EditorFor(x => x.CustomerName)
+            @Html.EditorFor(x => x.CustomerContactMethod)
+            @Html.EditorFor(x => x.CustomerHomePhone)
+            @Html.EditorFor(x => x.CustomerAltPhone)
+            @Html.EditorFor(x => x.CustomerEmail)
+
+            @if (Model.CanBeCertified)
+            {
+                @Html.RenderDisplayTemplate("Certification Authorization", @<text>
+                    @Html.EditorWithoutWrapperFor(x => x.CertificationAuthorization)
+                    <p>
+                        I certify that the Tier Selection for this site was selected and
+                        documented using the @(Html.Link(@Url.Content("~/Content/tier-validation-guidance-draft-v7.pdf"), "AW Tiering Guidance document")). All
+                        support documents for site validation as well as any notes have been attached to this record.
+                    </p>
+                </text>)
+            }
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Location</legend>
+        @Html.EditorFor(x => x.SampleSiteAddressLocationType)
+        @Html.EditorFor(x => x.Facility, new { Container = @Model })
+        @Html.EditorFor(x => x.Hydrant)
+        @Html.EditorFor(x => x.Valve)
+        @Html.HiddenFor(x => x.Premise)
+        @Html.RenderDisplayTemplate("Premise Number", @<text>
+            @Ajax.ActionLink("Click here to lookup Premise Information", "Find", "Premise", new { area = "Customer" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#premiseNumberTable", id = "PremiseFindLink" })
+            <div id="premise-number-display">@Html.DisplayValueFor(x => x.DisplayPremise.PremiseNumber)</div>
+        </text>)
+        <div id="premise-sample-sites-grid" class="field-pair fp-edit">
+            <div class="label">Premise Sample Sites</div>
+            <div class="field">
+                <table>
+                    <caption style="caption-side: bottom">One or more sample sites are assigned to this premise.</caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Sample Site</th>
+                            <th>Operating Center</th>
+                            <th>Public Water Supply</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <template id="premise-sample-sites-grid-item-template">
+            <tr>
+                <td><a href="@Url.Action("Show", "SampleSite", new { area = "WaterQuality" })" target="_blank">View</a></td>
+                <td>Common Site Name</td>
+                <td>Operating Center</td>
+                <td>Public Water Display</td>
+            </tr>
+        </template>
+
+        @Html.EditorFor(x => x.OutOfServiceArea)
+        @Html.EditorFor(x => x.Town)
+        @if (Model is CreateSampleSite)
+        {
+            @Html.Partial("_CreateTownSection", (CreateSampleSite)Model)
+        }
+        else
+        {
+            @Html.Partial("_EditTownSection", (EditSampleSite)Model)
+        }
+        @Html.EditorFor(x => x.TownText)
+        @Html.EditorFor(x => x.StreetNumber)
+        @* This contains an absolutely terrible hack to force the proper DropDownAttribute to work. It's
+        either that or copy/pasting this form into two different views just because the types
+        differ. *@
+        @if (Model is CreateSampleSite)
+        {
+            @Html.EditorFor(x => ((CreateSampleSite)x).Street)
+            @Html.EditorFor(x => ((CreateSampleSite)x).CrossStreet)
+        }
+        else
+        {
+            @Html.EditorFor(x => ((EditSampleSite)x).Street)
+            @Html.EditorFor(x => ((EditSampleSite)x).CrossStreet)
+        }
+        @Html.EditorFor(x => x.ZipCode)
+        @Html.EditorFor(x => x.Coordinate)
+    </fieldset>
+    <fieldset>
+        <legend>Site Details</legend>
+        @Html.EditorFor(x => x.CollectionType)
+        @Html.EditorFor(x => x.SubCollectionType)
+        @Html.EditorFor(x => x.LocationType)
+        @Html.EditorFor(x => x.ParentSite)
+        @Html.EditorFor(x => x.CommonSiteName)
+        @Html.EditorFor(x => x.LocationNameDescription)
+        @Html.EditorFor(x => x.Gradient)
+        @Html.EditorFor(x => x.AgencyId)
+        @Html.EditorFor(x => x.BactiSite)
+        @Html.EditorFor(x => x.PreviousMonitoringPeriod)
+    </fieldset>
+    <fieldset>
+        <legend>Horizon LIMS</legend>
+        @Html.EditorFor(x => x.IsLimsLocation)
+
+        <div id="horizon-lims-fields">
+            @Html.EditorFor(x => x.LimsFacilityId)
+            @Html.EditorFor(x => x.LimsPrimaryStationCode)
+            @Html.EditorFor(x => x.LimsSiteId)
+            @Html.EditorFor(x => x.SampleSiteProfile)
+            @Html.HiddenFor(x => x.LimsSequenceNumber)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Sample Site Validation</legend>
+        <div class="form-signing-section">
+            @if (Model.ValidatedAt.HasValue)
+            {
+                @Html.EditorFor(x => x.SampleSiteValidationStatus)
+                @Html.DisplayFor(x => x.ValidatedAt)
+                @Html.DisplayFor(x => x.ValidatedBy)
+            }
+            else if (AuthenticationService.CurrentUser.Employee == null)
+            {
+                <div class="container" style="margin-bottom: 12px;">
+                    @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem { Message = "Your MapCall user account does not have an employee record associated with it. You can still create or edit a Sample Site, but you will not be able to validate a sample site until your user account is corrected.", NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning })
+                </div>
+            }
+            else
+            {
+                <div class="signature-section signature-section-unsigned">
+                    <div>
+                        By checking the box to the right, you will be validating this sample site.
+                    </div>
+                    <div>
+                        @Html.EditorWithoutWrapperFor(x => x.IsBeingValidated)
+                    </div>
+                </div>
+
+                <div class="container">
+                    @Html.EditorFor(x => x.SampleSiteValidationStatus)
+                </div>
+            }
+        </div>
+    </fieldset>
+</div>

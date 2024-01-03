@@ -1,0 +1,10 @@
+﻿
+@model SearchDivision
+           
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "Division", new { id = x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.State)
+    .ColumnFor(x => x.Description)
+    .WithPaginatedFooter())

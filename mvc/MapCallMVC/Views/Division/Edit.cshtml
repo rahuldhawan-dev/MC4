@@ -1,0 +1,14 @@
+﻿@model DivisionViewModel
+           
+@using (Form.BeginForm("Update", "Division", new {id = Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.AuthorizedActionLinkButton("Cancel", "Show", "Division", new { id = Model.Id })
+                           </text>)
+    </div>
+}

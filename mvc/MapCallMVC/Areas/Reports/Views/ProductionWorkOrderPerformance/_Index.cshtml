@@ -1,0 +1,307 @@
+﻿@using MapCall.Common.Model.ViewModels
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrderPerformance
+
+@{
+    ViewBag.Title = "Production Work Order Performance";
+    
+    var modelHasFacilities = Model.Facility.Any();
+    var modelHasStates = Model.State.Any();
+    var modelHasOperatingCenters = Model.OperatingCenter.Any();
+    ShouldDisplayPlanningPlants = modelHasOperatingCenters;
+    var modelHasPlanningPlants = Model.PlanningPlant.Any();
+    var modelHasOrderType = Model.OrderType.Any();
+    var dummyResult = new ProductionWorkOrderPerformanceResultViewModel();
+    // I take it they only want the "Not Approved" column when they explicitly search for orders that deal with approval?
+    var correctiveOrCapital = modelHasOrderType && Model.OrderType.All(t => new[] {OrderType.Indices.CORRECTIVE_ACTION_20, OrderType.Indices.RP_CAPITAL_40}.Contains(t));
+    var facilities = Model.Results.Select(wo => new { wo.State, wo.OperatingCenter, wo.PlanningPlant, wo.Facility }).Distinct().ToList();
+    var planningPlants = facilities.Select(wo => new { wo.State, wo.OperatingCenter, wo.PlanningPlant }).Distinct().ToList();
+    var operatingCenters = facilities.Select(wo => new { wo.State, wo.OperatingCenter }).Distinct().ToList();
+    var states = facilities.Select(wo => wo.State).Distinct();
+    
+    var colSpan = 2;
+    if (modelHasStates)
+    {
+        colSpan++;
+    }
+    if (modelHasOperatingCenters)
+    {
+        colSpan++;
+    }
+    if (modelHasFacilities)
+    {
+        colSpan++;
+    }
+
+}
+
+@functions {
+
+    public bool ShouldDisplayPlanningPlants { get; set; }
+
+    IHtmlString GenerateWorkOrderSearchLink(ProductionWorkOrderPerformanceResultViewModel reportItem, int displayCount, PerformanceSearchType countType)
+    {
+        if (displayCount <= 0)
+        {
+            // No point in generating a link to a page with zero results.
+            return new HtmlString(displayCount.ToString());
+        }
+
+        var queryRvd = new RouteValueDictionary {
+            { "area", "Production" },
+            { "DateReceived.Start", Model.DateReceived.Start.ToString() },
+            { "DateReceived.Operator", (int)Model.DateReceived.Operator },
+            { "DateReceived.End", Model.DateReceived.End.ToString() },
+            { "OrderType", reportItem.OrderTypeId },
+            { "State", reportItem.StateId },
+            { "PerformanceSearchType", (int)countType } // All other filtering related to this is done in the SearchProductionWorkOrder model.
+        };
+
+        if (reportItem.OperatingCenterId.HasValue)
+        {
+            queryRvd.Add("OperatingCenter", reportItem.OperatingCenterId.Value);
+        }
+        if (reportItem.PlanningPlantId.HasValue)
+        {
+            queryRvd.Add("PlanningPlant", reportItem.PlanningPlantId.Value);
+        }
+        else if (ShouldDisplayPlanningPlants)
+        {
+            queryRvd.Add("PlanningPlantIsNull", true);
+        }
+        if (reportItem.FacilityId.HasValue)
+        {
+            queryRvd.Add("Facility", reportItem.FacilityId.Value);
+        }
+
+        return Html.ActionLink(displayCount.ToString(), "Index", "ProductionWorkOrder", queryRvd, null);
+    }
+}
+
+<style>
+    table > tbody > tr.state-summary {
+        font-weight: bold;
+        color: darkred;
+    }
+
+    table > tbody > tr.oc-summary {
+        font-weight: bold;
+        color: darkblue;
+    }
+
+    table > tbody > tr.pp-summary {
+        font-weight: bold;
+        color: darkgreen;
+    }
+</style>
+
+@if (modelHasFacilities)
+{
+    <h3>By Facility</h3>
+}
+else if (modelHasOperatingCenters)
+{
+    <h3>By Planning Plant</h3>
+}
+else if (modelHasStates)
+{
+    <h3>By Operating Center</h3>
+}
+else
+{
+    <h3>By State</h3>
+}
+
+<fieldset>
+    <legend>Selected Values:</legend>
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.DateReceived)
+
+        @if (modelHasOrderType)
+        {
+            @Html.DisplayFor(x => x.SelectedOrderTypes)
+        }
+        @if (modelHasStates)
+        {
+            @Html.DisplayFor(x => x.SelectedStates)
+        }
+        @if (modelHasOperatingCenters)
+        {
+            @Html.DisplayFor(x => x.SelectedOperatingCenters)
+        }
+        @if (modelHasPlanningPlants)
+        {
+            @Html.DisplayFor(x => x.SelectedPlanningPlants)
+        }
+        @if (modelHasFacilities)
+        {
+            @Html.DisplayFor(x => x.SelectedFacilities)
+        }
+    </div>
+</fieldset>
+
+<table id="results">
+    <thead>
+        <tr>
+            <th>State</th>
+            @if (modelHasStates)
+            {
+                <th>Operating Center</th>
+            }
+            @if (modelHasOperatingCenters)
+            {
+                <th>Planning Plant</th>
+            }
+            @if (modelHasFacilities)
+            {
+                <th>Facility</th>
+            }
+            <th>Order Type</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberCreated)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberUnscheduled)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberScheduled)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberIncomplete)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberCanceled)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.NumberCompleted)</th>
+            @if (correctiveOrCapital)
+            {
+                <th>@Html.DisplayNameFor(_ => dummyResult.NumberNotApproved)</th>
+            }
+            <th>@Html.DisplayNameFor(_ => dummyResult.PercentUnscheduled)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.PercentCanceled)</th>
+            <th>@Html.DisplayNameFor(_ => dummyResult.PercentCompleted)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var operatingCenter in operatingCenters)
+        {
+            var ocResult = new MapCall.Common.Model.ViewModels.ProductionWorkOrderPerformanceResultViewModel();
+
+            foreach (var planningPlant in planningPlants.Where(pp => pp.State == operatingCenter.State && pp.OperatingCenter == operatingCenter.OperatingCenter))
+            {
+                var ppResult = new MapCall.Common.Model.ViewModels.ProductionWorkOrderPerformanceResultViewModel();
+                var query = Model.Results.Where(wo => wo.State == planningPlant.State && wo.OperatingCenter == planningPlant.OperatingCenter && wo.PlanningPlant == planningPlant.PlanningPlant);
+                var orderTypes = query.Select(wo => wo.OrderType).Distinct();
+
+                foreach (var orderType in orderTypes)
+                {
+                    foreach (var result in query.Where(wo => wo.OrderType == orderType))
+                    {
+                        <tr>
+                            <td>@result.State</td>
+                            @if (modelHasStates)
+                            {
+                                <td>@Html.DisplayValueFor(_ => result.OperatingCenter)</td>
+                            }
+                            @if (modelHasOperatingCenters)
+                            {
+                                <td>@Html.DisplayValueFor(_ => result.PlanningPlant)</td>
+                            }
+                            @if (modelHasFacilities)
+                            {
+                                <td>@Html.DisplayValueFor(_ => result.Facility)</td>
+                            }
+                            <td>@result.OrderType</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberCreated, PerformanceSearchType.Created)</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberUnscheduled, PerformanceSearchType.Unscheduled)</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberScheduled, PerformanceSearchType.Scheduled)</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberIncomplete, PerformanceSearchType.Incomplete)</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberCanceled, PerformanceSearchType.Canceled)</td>
+                            <td>@GenerateWorkOrderSearchLink(result, result.NumberCompleted, PerformanceSearchType.Completed)</td>
+                            @if (correctiveOrCapital)
+                            {
+                                <td>@GenerateWorkOrderSearchLink(result, result.NumberNotApproved, PerformanceSearchType.NotApproved)</td>
+                            }
+                            <td>@Html.DisplayValueFor(_ => result.PercentUnscheduled)</td>
+                            <td>@Html.DisplayValueFor(_ => result.PercentCanceled)</td>
+                            <td>@Html.DisplayValueFor(_ => result.PercentCompleted)</td>
+                        </tr>
+
+                        {
+                            dummyResult.NumberCanceled += result.NumberCanceled;
+                            dummyResult.NumberCompleted += result.NumberCompleted;
+                            dummyResult.NumberCreated += result.NumberCreated;
+                            dummyResult.NumberIncomplete += result.NumberIncomplete;
+                            dummyResult.NumberNotApproved += result.NumberNotApproved;
+                            dummyResult.NumberUnscheduled += result.NumberUnscheduled;
+                            dummyResult.NumberScheduled += result.NumberScheduled;
+
+                            ocResult.NumberCanceled += result.NumberCanceled;
+                            ocResult.NumberCompleted += result.NumberCompleted;
+                            ocResult.NumberCreated += result.NumberCreated;
+                            ocResult.NumberIncomplete += result.NumberIncomplete;
+                            ocResult.NumberNotApproved += result.NumberNotApproved;
+                            ocResult.NumberUnscheduled += result.NumberUnscheduled;
+                            ocResult.NumberScheduled += result.NumberScheduled;
+
+                            ppResult.NumberCanceled += result.NumberCanceled;
+                            ppResult.NumberCompleted += result.NumberCompleted;
+                            ppResult.NumberCreated += result.NumberCreated;
+                            ppResult.NumberIncomplete += result.NumberIncomplete;
+                            ppResult.NumberNotApproved += result.NumberNotApproved;
+                            ppResult.NumberUnscheduled += result.NumberUnscheduled;
+                            ppResult.NumberScheduled += result.NumberScheduled;
+                        }
+                    }
+                }
+
+                if (modelHasPlanningPlants)
+                {
+                    <tr class="pp-summary">
+                        <td colspan="@colSpan">Total for @(planningPlant.PlanningPlant):</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberCreated)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberUnscheduled)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberScheduled)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberIncomplete)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberCanceled)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.NumberCompleted)</td>
+                        @if (correctiveOrCapital)
+                        {
+                            <td>@Html.DisplayValueFor(_ => ppResult.NumberNotApproved)</td>
+                        }
+                        <td>@Html.DisplayValueFor(_ => ppResult.PercentUnscheduled)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.PercentCanceled)</td>
+                        <td>@Html.DisplayValueFor(_ => ppResult.PercentCompleted)</td>
+                    </tr>
+                }
+            }
+
+            if (modelHasOperatingCenters)
+            {
+                <tr class="oc-summary">
+                    <td colspan="@colSpan">Total for @(operatingCenter.OperatingCenter):</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberCreated)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberUnscheduled)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberScheduled)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberIncomplete)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberCanceled)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.NumberCompleted)</td>
+                    @if (correctiveOrCapital)
+                    {
+                        <td>@Html.DisplayValueFor(_ => ocResult.NumberNotApproved)</td>
+                    }
+                    <td>@Html.DisplayValueFor(_ => ocResult.PercentUnscheduled)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.PercentCanceled)</td>
+                    <td>@Html.DisplayValueFor(_ => ocResult.PercentCompleted)</td>
+                </tr>
+            }
+        }
+        <tr>
+            <td colspan="@colSpan">Grand Total:</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberCreated)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberUnscheduled)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberScheduled)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberIncomplete)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberCanceled)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.NumberCompleted)</td>
+            @if (correctiveOrCapital)
+            {
+                <td>@Html.DisplayValueFor(_ => dummyResult.NumberNotApproved)</td>
+            }
+            <td>@Html.DisplayValueFor(_ => dummyResult.PercentUnscheduled)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.PercentCanceled)</td>
+            <td>@Html.DisplayValueFor(_ => dummyResult.PercentCompleted)</td>
+        </tr>
+    </tbody>
+</table>

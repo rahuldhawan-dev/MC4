@@ -1,0 +1,10 @@
+<PartCoverSettings>
+  <Target>C:\Program Files\Microsoft Visual Studio 9.0\Common7\IDE\MSTest.exe</Target>
+  <TargetWorkDir>C:\Solutions\mapcall_workorders\</TargetWorkDir>
+  <TargetArgs>/noisolation /testcontainer:c:\Solutions\mapcall_workorders\271ObjectTests\bin\Debug\271ObjectTests.dll /runconfig:c:\Solutions\mapcall_workorders\LocalTestRun.testrunconfig</TargetArgs>
+  <Rule>+[LINQTo271]*</Rule>
+  <Rule>+[WorkOrders]*</Rule>
+  <Rule>-[LINQTo271]MMSINC.*</Rule>
+  <Rule>-[LINQTo271]LINQTo271.Test*</Rule>
+  <Rule>-[MMSINC]*</Rule>
+</PartCoverSettings>

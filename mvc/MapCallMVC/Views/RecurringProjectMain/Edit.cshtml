@@ -1,0 +1,121 @@
+﻿@model IEnumerable<RecurringProjectMain>
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.MapId = "mainPickerMap";
+}
+
+@section scripts{
+    @Html.ScriptFor("~/Scripts/RecurringProjectMain/Show.js")
+    <script type="text/javascript">
+        $(document).ready(RecurringProjectsMains.initialize);
+    </script>
+}
+
+@section styles{
+<style>
+    table.esriLegendLayer {
+        background: transparent !important;
+    }
+
+    table.esriLegendLayer > tbody > tr > td,
+    table.esriLegendLayer > tbody > tr:hover > td,
+    table.esriLegendLayer > tbody > tr:nth-child(even):hover > td,
+    table.esriLegendLayer > tbody > tr:nth-child(odd):hover > td {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .coordinate-picker-controls {width: 280px;}
+    #hideMains {
+        padding: 2px;
+        float: right; 
+        cursor: pointer;
+        color: gray;
+    }
+    #showMains {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto auto 6px 6px;
+        padding: 2px;
+        width: 14px;
+        min-width: 14px;
+        background-color: white;
+        border: 1px solid black;
+        display: none;
+    }
+</style>
+}
+
+@section aboveMap {
+    <div class="coordinate-picker-controls">
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="Enter an address:" />
+        @Control.Button("Find").WithId("find")
+        @Control.Button("Use Current Location").WithId("useDeviceLocation").With("style", "display:none")
+    </div>
+    
+}
+
+@section belowMap {
+    <div id="iconList" style="height: 240px; width: 650px; resize: both; overflow: auto;">
+        <div id="toolBar">
+
+            <table class="for-structure">
+                <tr>
+                    <td style="white-space: nowrap; vertical-align: top;">
+                        <img src="@Url.Content("~/Content/images/draw_help.png")" src="" id="btnHelp" title="Help" />
+                        @using (var f = Form.BeginAjaxForm("Create", "Coordinate"))
+                        {
+                            f.HtmlAttributes["id"] = "CoordinateAjaxForm";
+                            f.Ajax.OnSuccess = "RecurringProjectsMains.coordinateAjaxFormOnSubmit";
+                            @Control.Hidden("Latitude")
+                            @Control.Hidden("Longitude")
+                            @Control.Hidden("IconId").WithValue("29")
+                            @Control.SubmitButton("Save Coordinates").WithId("saveCoordinates").With("style", "display:none;")
+                        }
+                        <img src="@Url.Content("~/Content/images/draw_save_on.png")" src="" id="btnSaveSelection" title="Save" />
+                        <img src="@Url.Content("~/Content/images/draw_square_on.png")" id="btnExtent" title="Square" />
+                        <img src="@Url.Content("~/Content/images/draw_polygon_on.png")" src="" id="btnFreehandPolygon" title="Freehand Polygon" />
+                        <img src="@Url.Content("~/Content/images/draw_line_on.png")" src="" id="btnPolygon" title="Polygon" />
+                        <img src="@Url.Content("~/Content/images/draw_line.png")" src="" id="btnLine" title="Line" />
+                        <img src="@Url.Content("~/Content/images/pan_on.png")" src="" id="btnCancelSelection" title="Cancel Selecting" />
+                        <img src="@Url.Content("~/Content/images/draw_clear_on.png")" src="" id="btnClearSelection" title="Clear All Selected Mains" />
+                        <br/>
+                        Total Length: <span id="spanTotalLength">0</span>
+                    </td>
+                    <td>
+                        Risk Scores Range from 1 (Low Risk) to 5 (High Risk)
+                    </td>
+                    <td style="white-space: nowrap; vertical-align: top;">
+                        <div id="hideMains">
+                            [hide]
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="theHelpInfo" style="overflow: auto;  width: 100%; padding: 6px; background-color: #E1EEF7;">
+            Use this map to select the water main segments that will be scored and added to your project.
+            Make sure the layer  “IM - Comprehensive Risk Details (Zoom to View)” is checked on the right under “GIS Layers” and zoom in close enough so that the mains appear in the map.
+            Navigate to the area where your project is located in the map.
+            <br /><br />
+            Use one of the map tools
+            <img src="@Url.Content("~/Content/images/draw_square_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_polygon_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_line_on.png")" />
+            <img src="@Url.Content("~/Content/images/draw_line.png")" />
+            to select the mains you wish to include in your project. These tools allow you to draw different shapes, and any main that intersects your shape will be added to your project. It will appear in the table with its scores, and the total length of the mains that are selected. In the map the mains that are selected will be highlighted red. To unselect a main, pick a tool and reselect that main. To clear all mains that are selected, click the broom icon (“Clear All”).
+            <br /><br />
+            You may select more than one main at a time. If after you make your selection, you want to make another selection to add to your project, you must click on a tool again before making the selection. If you have clicked on a tool mistakenly and don’t want to select anything, click the hand icon (“Cancel Selecting”).
+            <br /><br />
+            When you have the correct mains selected, make sure to click the disk icon (“SAVE”). The mains will then be added to your project.
+
+        </div>
+
+        <div id="theLayerInfo" style="overflow: auto;  width: 100%; padding: 6px;">&nbsp;</div>
+    </div>
+    <div style="font-variant: full-width; cursor: pointer;" id="showMains">&#8599;</div>
+}

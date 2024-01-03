@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.EnvironmentalPermitFeeViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/Environmental/EnvironmentalPermitFee/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.Fee)
+@Html.EditorFor(x => x.EnvironmentalPermitFeeType)
+@Html.EditorFor(x => x.PaymentEffectiveDate)
+@Html.RenderEditorTemplate(new HtmlString("Payment Interval"), @<text>
+    @Control.TextBoxFor(x => x.PaymentDueInterval).WithCssClass("numeric")
+    @Control.DropDownFor(x => x.PaymentDueFrequencyUnit)
+    @Html.ValidationMessageFor(x => x.PaymentDueInterval)
+    @Html.ValidationMessageFor(x => x.PaymentDueFrequencyUnit)
+</text>)
+@Html.EditorFor(x => x.PaymentOwner)
+@Html.EditorFor(x => x.PaymentOrganizationName)
+@Html.EditorFor(x => x.PaymentOrganizationContactInfo)
+@Html.EditorFor(x => x.PaymentMethod)
+@Html.EditorFor(x => x.PaymentMethodMailAddress)
+@Html.EditorFor(x => x.PaymentMethodPhone)
+@Html.EditorFor(x => x.PaymentMethodUrl, "Url")

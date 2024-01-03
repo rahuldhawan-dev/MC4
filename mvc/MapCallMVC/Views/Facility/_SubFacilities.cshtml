@@ -1,0 +1,10 @@
+﻿@model IList<Facility>
+
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", "Facility", new { id = x.Id }, null))
+    .ColumnFor(x => x.FacilityId, "Facility ID")
+    .ColumnFor(x => x.FacilityName)
+    .ColumnFor(x => x.YearInService)
+    .ColumnFor(x => x.FacilityStatus)
+    .ColumnFor(x => x.FacilityOwner)
+)

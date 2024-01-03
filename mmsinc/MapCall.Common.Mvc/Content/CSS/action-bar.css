@@ -1,0 +1,118 @@
+﻿/* NOTE: Positioning/sizing for the action bar and flyout panels are done in site.css cause of math. */
+/* ReSharper disable InvalidValue */
+#actionBar 
+{
+    background:@action-bar-background-color;
+    box-shadow: -6px 0 2px -4px #aaaaaa;
+}
+
+#actionBar a,
+#actionBar button {
+    margin: 0px auto 12px;
+    padding: 0px;
+    padding-top:30px;
+    background: transparent;
+    background-repeat:no-repeat !important;
+    background-position: center 6px;
+    border: none;
+    display:block;
+    color:@action-bar-button-color !important;
+    text-decoration: none;
+    text-transform:uppercase;
+    text-align:center;
+    font-size:10px !important;
+    font-weight:normal;
+    cursor: pointer;
+}
+
+#actionBar button {
+    max-height: inherit !important;
+    height: auto !important;
+    width: 100%;
+}
+
+#actionBar a:hover,
+#actionBar a:focus,
+#actionBar button:hover,
+#actionBar button:focus {
+    border: none;
+    background-color: @action-bar-button-hover-background-color;
+    color: @action-bar-button-hover-color !important;
+}
+
+#actionBar .ab-destroy { background-image: url('Resources/Png?file=Icons/action-destroy-20x20.png'); }
+#actionBar .ab-destroy:hover,
+#actionBar .ab-destroy:focus { background-image: url('Resources/Png?file=Icons/action-destroy-hover-20x20.png'); }
+
+#actionBar .ab-edit { background-image: url('Resources/Png?file=Icons/action-edit-20x20.png'); }
+#actionBar .ab-edit:hover,
+#actionBar .ab-edit:focus { background-image: url('Resources/Png?file=Icons/action-edit-hover-20x20.png'); }
+
+#actionBar .ab-export { background-image: url('Resources/Png?file=Icons/action-export-20x20.png'); }
+#actionBar .ab-export:hover,
+#actionBar .ab-export:focus { background-image: url('Resources/Png?file=Icons/action-export-hover-20x20.png'); }
+
+#actionBar .ab-forms { background-image: url('Resources/Png?file=Icons/action-export-20x20.png'); }
+#actionBar .ab-forms:hover,
+#actionBar .ab-forms:focus { background-image: url('Resources/Png?file=Icons/action-export-hover-20x20.png'); }
+
+#actionBar .ab-help { background-image: url('Resources/Png?file=Icons/action-help-20x20.png'); }
+#actionBar .ab-help:hover,
+#actionBar .ab-help:focus { background-image: url('Resources/Png?file=Icons/action-help-hover-20x20.png'); }
+
+#actionBar .ab-import { background-image: url('Resources/Png?file=Icons/action-import-20x20.png'); }
+#actionBar .ab-import:hover,
+#actionBar .ab-import:focus { background-image: url('Resources/Png?file=Icons/action-import-hover-20x20.png'); }
+
+#actionBar .ab-index { background-image: url('Resources/Png?file=Icons/action-index-20x20.png'); }
+#actionBar .ab-index:hover,
+#actionBar .ab-index:focus { background-image: url('Resources/Png?file=Icons/action-index-hover-20x20.png'); }
+
+#actionBar .ab-map { background-image: url('Resources/Png?file=Icons/action-map-20x20.png'); }
+#actionBar .ab-map:hover,
+#actionBar .ab-map:focus { background-image: url('Resources/Png?file=Icons/action-map-hover-20x20.png'); }
+
+#actionBar .ab-new { background-image: url('Resources/Png?file=Icons/action-new-20x20.png'); }
+#actionBar .ab-new:hover,
+#actionBar .ab-new:focus { background-image: url('Resources/Png?file=Icons/action-new-hover-20x20.png'); }
+
+#actionBar .ab-search { background-image: url('Resources/Png?file=Icons/action-search-20x20.png'); }
+#actionBar .ab-search:hover,
+#actionBar .ab-search:focus { background-image: url('Resources/Png?file=Icons/action-search-hover-20x20.png'); }
+
+#actionBar .ab-show { background-image: url('Resources/Png?file=Icons/action-show-20x20.png'); }
+#actionBar .ab-show:hover,
+#actionBar .ab-show:focus { background-image: url('Resources/Png?file=Icons/action-show-hover-20x20.png'); }
+
+/* the background-position needs to be altered because this icon is slightly taller than the others. */
+#actionBar .ab-renew { background-image: url('Resources/Png?file=Icons/action-renew-20x23.png'); background-position: center 3px; }
+#actionBar .ab-renew:hover,
+#actionBar .ab-renew:focus { background-image: url('Resources/Png?file=Icons/action-renew-hover-20x23.png'); }
+
+
+#actionBar .ab-replace { background-image: url('Resources/Png?file=Icons/action-replace-20x20.png'); }
+#actionBar .ab-replace:hover,
+#actionBar .ab-replace:focus { background-image: url('Resources/Png?file=Icons/action-replace-hover-20x20.png'); }
+
+
+.action-bar-flyout-panel {
+    overflow:auto; 
+    overflow-y: scroll;
+    padding: 12px;
+    background-color: @action-bar-flyout-background-color;
+    color: @action-bar-flyout-color !important;
+    box-shadow: -6px 0 2px -4px #aaaaaa;
+}
+
+.action-bar-flyout-panel-content {
+    display:none;
+}
+
+.action-bar-flyout-panel h2 {
+    margin-top: 0px;
+}
+
+.action-bar-flyout-panel h3 {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}

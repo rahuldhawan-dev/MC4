@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Models.ViewModels.OperatorLicenses.SearchOperatorLicense
+
+@using (Form.BeginForm("Index", "OperatorLicense"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Employee, new { Container = @Model })
+        @Html.EditorFor(x => x.OperatorLicenseType)
+        @Html.EditorFor(x => x.LicensedOperatorOfRecord)
+        @Html.EditorFor(x => x.LicenseLevel)
+        @Html.EditorFor(x => x.LicenseSubLevel)
+        @Html.EditorFor(x => x.LicenseNumber)
+        @Html.EditorFor(x => x.ValidationDate)
+        @Html.EditorFor(x => x.ExpirationDate)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,14 @@
+﻿@model JobSiteCheckList
+@{
+    ActionBarHelper.AddMapLink();
+    ActionBarHelper.AddPdfLink();
+}
+@(Html.Tabs()
+    .WithTab("General", "DisplayPartials/_General")
+    .WithTab("Pre Job Safety Brief", "DisplayPartials/_SafetyBrief")
+    .WithTab("Work Zone Set Up", "DisplayPartials/_WorkZoneSetUp")
+    .WithTab("Restraint", "DisplayPartials/_Restraint")
+    .WithTab("Utility Verification", "DisplayPartials/_UtilityVerification")
+    .WithTab("Excavations", "DisplayPartials/_Excavations", isVisible: Model.ShowExcavation)
+	.WithNotesAndDocuments()
+	.WithLog())

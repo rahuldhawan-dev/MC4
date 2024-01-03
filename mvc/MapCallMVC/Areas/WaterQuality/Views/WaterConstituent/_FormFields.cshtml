@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.WaterConstituentViewModel
+
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.Description)
+    @Html.EditorFor(x => x.Min)
+    @Html.EditorFor(x => x.Max)
+    @Html.EditorFor(x => x.Mcl)
+    @Html.EditorFor(x => x.Mclg)
+    @Html.EditorFor(x => x.Smcl)
+    @Html.EditorFor(x => x.ActionLimit)
+    @Html.EditorFor(x => x.UnitOfMeasure)
+    @Html.EditorFor(x => x.Regulation)
+    @Html.EditorFor(x => x.SamplingFrequency)
+    @Html.EditorFor(x => x.SamplingMethod)
+    @Html.EditorFor(x => x.SampleContainerSizeMl)
+    @Html.EditorFor(x => x.HoldingTimeHrs)
+    @Html.EditorFor(x => x.PreservativeQuenchingAgent)
+    @Html.EditorFor(x => x.AnalyticalMethod)
+    @Html.EditorFor(x => x.TatBellvileDays)
+    @if (Authentication.CurrentUserIsAdmin)
+    {
+        @Html.EditorFor(x => x.DrinkingWaterContaminantCategory)
+        @Html.EditorFor(x => x.WasteWaterContaminantCategory)
+    }
+</div>

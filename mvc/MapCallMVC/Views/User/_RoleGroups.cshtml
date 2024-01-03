@@ -1,0 +1,73 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@using MapCallMVC.Areas.Admin.Models.ViewModels.Users
+@model User
+@{
+    var currentUserRoleAccess = AuthenticationService.CurrentUser.GetUserAdministrativeRoleAccess();
+}
+
+@Html.ScriptFor("~/Scripts/User/RoleGroups.js", ScriptLoadType.LoadFromPartial)
+
+<style>
+    #role-groups-panel table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        #role-groups-panel table td {
+            width: 20%;
+        }
+</style>
+
+<div id="role-groups-panel">
+    <div>
+        @Html.Partial("_AddRoleGroups", ViewModelFactory.Build<AddUserRoleGroup, User>(Model))
+        
+        <div class="container">
+            @if (!Model.RoleGroups.Any())
+            {
+                <span id="no-user-role-groups">This user does not have any role groups.</span>
+            }
+            else
+            {
+                using (var f = Form.BeginForm("RemoveRoleGroup", "User", new { id = Model.Id, area = string.Empty }))
+                {
+                    f.HtmlAttributes["id"] = "remove-role-groups-form";
+
+                    <div class="container">
+                        @Control.SubmitButton("Remove Selected Groups").WithId("remove-selected-role-groups-button")
+                    </div>
+
+                    <div class="container">
+                        <table id="role-groups">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>@Control.CheckBox().WithCssClass("select-all-role-groups-checkbox") Select All</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var roleGroup in Model.RoleGroups.OrderBy(x => x.Name))
+                                {
+                                    var canAdministrate = currentUserRoleAccess.CanAdministrate(roleGroup);
+
+                                    <tr>
+                                        <td>@Html.ActionLink(roleGroup.Name, "Show", "RoleGroup", new { Area = "Admin", id = roleGroup.Id }, null)</td>
+                                        <td>
+                                            @if (canAdministrate)
+                                            {
+                                                <label>
+                                                    @Control.CheckBox().WithId("role" + roleGroup.Id).WithName("RoleGroupsToRemove").WithCssClass("role-group-remove-checkbox").WithValue(roleGroup.Id)
+                                                    Remove
+                                                </label>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderScheduleOfValues.WorkOrderScheduleOfValueViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrderScheduleofValue/Form.js")
+
+<div class="field-column fc100">
+    @Html.EditorFor(m => m.ScheduleOfValueCategory)
+    @Html.EditorFor(m => m.ScheduleOfValue)
+    @Html.EditorFor(m => m.OtherDescription)
+    @Html.EditorFor(m => m.Total)
+    @Html.EditorFor(m => m.IsOvertime)
+</div>
+@Html.Partial("_DialogButtons", "Save Schedule of Value")
+

@@ -1,0 +1,9 @@
+﻿@model EnvironmentalNonComplianceEvent
+
+@Html.ScriptFor("~/Scripts/Areas/Environmental/EnvironmentalNonComplianceEvent/Show.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.Tabs()
+      .WithTab("Details", "_Show")
+      .WithTab("Action Items", "_ActionItems")
+      .WithNotesAndDocuments()
+      .WithLog())

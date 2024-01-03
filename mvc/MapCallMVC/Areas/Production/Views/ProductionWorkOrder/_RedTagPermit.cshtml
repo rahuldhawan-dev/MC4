@@ -1,0 +1,47 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model ProductionWorkOrder
+
+<fieldset>
+    <legend>Red Tag Permit Authorization</legend>
+    <div class="field-column fc400">
+        @if (!Model.NeedsRedTagPermitAuthorizedOn.HasValue)
+        {
+            @Html.Partial("_RedTagPermitAuthorizationForm", ViewModelFactory.Build<RedTagPermitAuthorizationViewModel, ProductionWorkOrder>(Model))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.NeedsRedTagPermitAuthorization)
+            @Html.DisplayFor(x => x.NeedsRedTagPermitAuthorizedOn)
+            @Html.DisplayFor(x => x.NeedsRedTagPermitAuthorizedBy)
+
+            if (Model.RedTagPermit == null)
+            {
+                @Html.DefaultActionLink("Create Red Tag Permit",
+                    "New",
+                    "RedTagPermit",
+                    "HealthAndSafety",
+                    new { 
+                        productionWorkOrder = Model.Id, 
+                        operatingCenter = Model.OperatingCenter.Id,
+                        equipment = Model.Equipment.Id
+                    },
+                    new {
+                        Class = "link-button"
+                    })
+            }
+            else
+            {
+                @Html.DefaultActionLink("View Red Tag Permit",
+                    "Show",
+                    "RedTagPermit",
+                    "HealthAndSafety",
+                    new { 
+                        id = Model.RedTagPermit.Id
+                    },
+                    new {
+                        Class = "link-button"
+                    })
+            }
+        }
+    </div>
+</fieldset>

@@ -1,0 +1,10 @@
+﻿@model GasMonitorCalibration
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Gas Monitor", Html.ActionLink(Model.GasMonitor.Equipment.ToString(), "Show", "GasMonitor", new { Model.GasMonitor.Id }, null))
+    @Html.DisplayFor(x => x.CalibrationDate)
+    @Html.DisplayFor(x => x.CalibrationPassed)
+    @Html.DisplayFor(x => x.CalibrationFailedNotes)
+    @Html.DisplayFor(x => x.CreatedBy.FullName, new { DisplayName = "Created By" })
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddEstimatingProjectContractorLaborCost
+
+@using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectContractorLaborCost", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "contractorLaborCostForm");
+    <div class="container">
+        <div class="field-column fc200">
+            @Control.HiddenFor(x => x.Id)
+            @Html.EditorFor(x => x.AssetType)
+            @Html.EditorFor(x => x.ContractorLaborCost)
+            @Html.EditorFor(x => x.Quantity)
+            @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save Contractor Labor Cost")
+                @Control.Button("Cancel").WithId("cancelAddContractorLaborCostButton").WithCssClass("cancel")
+            </text>)
+        </div>
+    </div>
+}

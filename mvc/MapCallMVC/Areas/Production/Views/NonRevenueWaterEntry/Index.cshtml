@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchNonRevenueWaterEntry
+
+@(Html.TableFor(_ => Model, new { id = "nonRevenueWaterEntryTable" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Year)
+    .ColumnFor(x => x.MonthName)
+    .WithPaginatedFooter()
+    )

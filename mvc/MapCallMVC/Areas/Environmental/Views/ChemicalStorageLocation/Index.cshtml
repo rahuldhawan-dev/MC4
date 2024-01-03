@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalStorageLocation
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new { id = "chemical-storage-location"})
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.PlanningPlant)
+    .SortableColumnFor(x => x.ChemicalWarehouseNumber)
+    .SortableColumnFor(x => x.StorageLocationNumber)
+    .SortableColumnFor(x => x.StorageLocationDescription)
+    .ColumnFor(x => x.IsActive)
+    .WithPaginatedFooter())

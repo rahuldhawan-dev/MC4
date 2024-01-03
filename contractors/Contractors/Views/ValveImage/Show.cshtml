@@ -1,0 +1,7 @@
+﻿@model MapCall.Common.Model.Entities.ValveImage
+@{
+	ViewBag.Title = "Showing Valve Image: #" + Model.Id;
+}
+@(Html.Tabs()
+    .WithTab("ValveImage", "_ShowValveImage", Model)
+)

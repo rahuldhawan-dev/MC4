@@ -1,0 +1,17 @@
+﻿@using MMSINC.Helpers
+@model Equipment
+
+@if (Model.EquipmentType != null && Model.EquipmentType.CharacteristicFields.Any())
+{
+    <div class="field-column fc250">
+        @foreach (var characteristicField in Model.EquipmentType.CharacteristicFields.OrderBy(z => z.Order))
+        {
+            if (characteristicField.IsActive)
+            {
+                var characteristic = Model.Characteristics.SingleOrDefault(c => c.Field.Id == characteristicField.Id);
+                @Html.RenderDisplayTemplate(Html.Label(characteristicField.DisplayField),
+                    new HtmlString(characteristic != null ? characteristic.DisplayValue : string.Empty))
+            }
+        }
+    </div>
+}

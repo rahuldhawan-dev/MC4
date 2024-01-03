@@ -1,0 +1,12 @@
+﻿@model LockoutForm
+
+<div class="field-column fc100">
+    <h2>
+        @Html.DefaultActionLink(string.Format("Lockout Form: #{0}", Model.Id), "Show", "LockoutForm", "HealthAndSafety", new { id = @Model.Id }, null)
+    </h2>
+    
+    @Html.DisplayFor(x => x.LockoutDateTime)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.Equipment)
+</div>

@@ -1,0 +1,40 @@
+﻿@model CommunityRightToKnow
+
+<div class="field-column fc300">
+    @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { Model.Facility.Id, area = "" }, null))
+    @Html.DisplayFor(x => x.CommunityRightToKnowFacilityId)
+    @Html.DisplayFor(x => x.CoMu)
+    @Html.DisplayFor(x => x.NorthAmericanIndustryClassificationSystem)
+    @Html.DisplayFor(x => x.NumberOfEmployees)
+    @Html.DisplayFor(x => x.RDExemptionApprovalNumber)
+    @Html.DisplayFor(x => x.SubmissionDate)
+    @Html.DisplayFor(x => x.ExpirationDate)
+    @Html.DisplayFor(x => x.Expired)
+</div>
+<fieldset>
+    <legend>Facility Emergency Contact</legend>
+    <div class="field-column fc300">
+        @Html.DisplayFor(x => x.FacilityEmergencyContactName)
+        @Html.DisplayFor(x => x.FacilityEmergencyContactTitle)
+        @Html.DisplayFor(x => x.FacilityEmergencyContactPhoneNumber)
+        @Html.DisplayFor(x => x.FacilityEmergencyContactEmergencyPhoneNumber)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Does this facility PRODUCE, STORE or USE NJ CRTK Environmental Hazardous Substances:</legend>
+    <div class="field-column fc300">
+        @Html.DisplayFor(x => x.FacilityHasNJCRTKHazardousSubstancesInAnyQuantity)
+        @Html.DisplayFor(x => x.FacilityHasNJCRTKHazardousSubstancesAboveThresholds)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>EPCRA Information</legend>
+    <div class="field-column fc300">
+        @Html.DisplayFor(x => x.ToxinsReleaseInventoryFacilityId)
+        @Html.DisplayFor(x => x.RiskManagementPlanFacilityId)
+        @Html.DisplayFor(x => x.MaximumNumberOfOccupants)
+        @Html.DisplayFor(x => x.LocationIsManned)
+        @Html.DisplayFor(x => x.IsSubjectToChemicalAccidentPrevention)
+        @Html.DisplayFor(x => x.IsSubjectToEmergencyPlanning)
+    </div>
+</fieldset>

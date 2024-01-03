@@ -1,0 +1,16 @@
+﻿@using MMSINC.Helpers;
+@model MapCallMVC.Models.ViewModels.OperatorLicenses.AddOperatorLicenseWasteWaterSystem
+
+@using (var form = Form.BeginRouteForm("OperatorLicense", "WasteWaterSystem", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "wasteWaterSystemForm");
+    <div class="field-column fc100">
+        
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.WasteWaterSystem)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Add Waste Water System")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

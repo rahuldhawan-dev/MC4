@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddEstimatingProjectPermit
+
+@using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectPermit", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "permitForm");
+    
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.PermitType)
+        @Html.EditorFor(x => x.Cost)
+        @Html.EditorFor(x => x.Quantity)
+        @Html.EditorFor(x => x.AssetType)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Permit")
+            @Control.Button("Cancel").WithId("cancelAddPermitButton").WithCssClass("cancel")
+        </text>)
+    </div>    
+}

@@ -1,0 +1,9 @@
+﻿@model BacterialWaterSample
+
+@{
+    ViewBag.AllowEdit = true;
+    var table = Html.RowCollectionFor(Model);
+    Html.RenderPartial("_ShowColumns", table);
+}
+
+@table

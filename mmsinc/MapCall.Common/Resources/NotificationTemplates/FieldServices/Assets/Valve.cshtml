@@ -1,0 +1,25 @@
+﻿@model MapCall.Common.Model.ViewModels.ValveNotification
+
+<h2>Valve Status Change Notification</h2>
+
+<a href="@Model.RecordUrl">View on Site</a><br />
+
+Operating Center: @Model.Valve.OperatingCenter<br/>
+Town: @Model.Valve.Town<br />
+Valve Number: @Model.Valve.ValveNumber<br />
+Valve Status: @Model.Valve.Status<br />
+Street: @Model.Valve.Street<br />
+Cross Street: @Model.Valve.CrossStreet<br />
+WBS #: @Model.Valve.WorkOrderNumber<br />
+@if (@Model.Valve.Initiator != null)
+{
+    <text>
+        Initiator UserName: @Model.Valve.Initiator.UserName<br />
+        Initiator Name: @Model.Valve.Initiator.FullName<br />
+        Initiator Email: @Model.Valve.Initiator.Email<br />
+    </text>
+}
+<br />
+Updated By:<br/>
+UserName: @Model.UserName<br />
+Email: @Model.UserEmail<br />

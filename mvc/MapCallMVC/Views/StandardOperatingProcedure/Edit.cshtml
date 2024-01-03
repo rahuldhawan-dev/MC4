@@ -1,0 +1,13 @@
+﻿@model EditStandardOperatingProcedure
+
+@using (Form.BeginForm("Update", "StandardOperatingProcedure", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "StandardOperatingProcedure", new {Model.Id})
+                           </text>)
+    </div>
+}

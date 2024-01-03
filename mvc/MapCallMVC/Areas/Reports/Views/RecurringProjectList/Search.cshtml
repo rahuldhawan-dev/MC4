@@ -1,0 +1,29 @@
+﻿@model SearchRecurringProjectList
+
+@using (Form.BeginForm("Index", "RecurringProjectList"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town, new { Container = @Model } )
+        @Html.EditorFor(x => x.EstimatedInServiceDate)
+        @Html.EditorFor(x => x.FoundationalFilingPeriod)
+        @Html.EditorFor(x => x.ActualInServiceDate)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.FinalCriteriaScore)
+        @Html.EditorFor(x => x.FinalRawScore)
+        @Html.EditorFor(x => x.RequiresScoring)
+        @Html.EditorFor(x => x.AssetCategory)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}
+@*
+TITLE: New Jersey American Water - Recurring Project List
+
+Op Center
+Town
+Estimated In Service Period
+Foundation Filing Period
+*@

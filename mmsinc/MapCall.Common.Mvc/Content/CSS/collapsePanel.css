@@ -1,0 +1,63 @@
+﻿   /*TODO: focus needs to die, hover needs to work*/
+/* ReSharper disable InvalidValue */
+
+.collapse-panel {
+    border: solid 1px @regent-st-blue;
+    background: @not-as-ice-water !important;
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin-bottom: 6px;
+    -moz-transition: box-shadow 100ms;
+    -o-transition: box-shadow 100ms;
+    -webkit-transition: box-shadow 100ms;
+    transition: box-shadow 100ms;
+}
+
+/* this is kind of a test to do stuff for material design */
+.collapse-panel-open {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.collapse-title-divider { background-color: @regent-st-blue; height: 1px;margin-top: 6px;margin-bottom: 6px;}
+
+table.collapse-title-bar  { display:block; border:none; background-color:transparent !important; }
+table.collapse-title-bar > tbody > tr > td { border:none; background:transparent !important;padding: 0px;margin: 0px; }
+table.collapse-title-bar .collapse-title { width:100% !important; }
+
+.collapse-title-bar button { outline: none !important; }
+
+.collapse-panel .collapse-title-bar button,
+.collapse-panel .collapse-title-bar button:focus,
+.collapse-panel .collapse-title-bar button:hover {
+    border: none !important;
+    background: transparent !important;
+    text-align: left !important;
+    text-transform: uppercase;
+    color: @astral !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-family: 'Roboto' !important;
+    font-weight: 700 !important;
+}
+.collapse-panel .collapse-trigger {
+    display: block !important;
+    width: 100% !important;
+}
+
+table.collapse-title-bar button.open,
+table.collapse-title-bar button.open:hover,
+table.collapse-title-bar button.open:focus
+{
+    background: url('Resources/Png?file=Icons/collapse-panel-open-16x16.png') center center no-repeat !important;
+    width: 16px;
+    height: 16px;
+}
+table.collapse-title-bar button.close,
+table.collapse-title-bar button.close:hover,
+table.collapse-title-bar button.close:focus
+{
+    background: url('Resources/Png?file=Icons/collapse-panel-close-16x16.png') center center no-repeat !important;
+    width: 16px;
+    height: 16px;
+}

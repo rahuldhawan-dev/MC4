@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreateLargeServiceProject
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/ProjectManagement/LargeServiceProject/Form.js")
+}
+
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "LargeServiceProject", "ProjectManagement")) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "LargeServiceProject")
+                           </text>)
+    </div>
+}

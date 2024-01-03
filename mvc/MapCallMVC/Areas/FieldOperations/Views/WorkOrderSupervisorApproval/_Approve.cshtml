@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderSupervisorApproval.SupervisorApproveWorkOrder
+@{
+    var entity = Model.GetWorkOrderEntity();
+}
+@using (var form = Form.BeginForm("Approve", "WorkOrderSupervisorApproval", new { id = Model.Id }))
+{
+    form.HtmlAttributes["id"] = "approval-form";
+	<div class="field-column fc200">
+		@Html.DisplayFor(x => x.AccountCharged)
+		@Html.DisplayFor(_ => entity.BusinessUnit)
+
+		@* 271 didn't display this value if it wasn't editable. *@
+		@if (Model.OperatingCenterHasWorkOrderInvoicing)
+		{
+			@Html.EditorFor(x => x.RequiresInvoice)
+		}
+		@Html.DisplayFor(x => entity.WorkDescription.AccountingType)
+		@Html.DisplayFor(x => entity.ApprovedBy.FullName, new { DisplayName = "Previously Approved By" })
+		@Html.ButtonGroup(@<text>
+			                  @Control.SubmitButton("Approve").With("form", "approval-form").WithId("approve-workorder-button")
+			                  @Control.Button("Reject").WithCssClass("reject-button")
+		                   </text>)
+	</div>
+}
+

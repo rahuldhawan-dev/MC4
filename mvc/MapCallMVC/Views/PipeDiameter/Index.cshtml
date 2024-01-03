@@ -1,0 +1,11 @@
+﻿@model IEnumerable<PipeDiameter>
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor()
+    .WithCaption("Records Found: " + Model.Count())
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .ColumnFor(x => x.Diameter, "Diameter")
+    )

@@ -1,0 +1,46 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SamplePlanViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/WaterQuality/SamplePlan/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.PWSID)
+@Html.EditorFor(x => x.Name)
+@Html.EditorFor(x => x.ContactPerson)
+
+@Html.RenderEditorTemplate("System Type", @<text>
+                                   @Html.LabelFor(x => x.Cws)
+                                   @Html.CheckBoxFor(x => x.Cws)
+                                   @Html.LabelFor(x => x.Ntnc)
+                                   @Html.CheckBoxFor(x => x.Ntnc)
+                                </text>)
+
+@Html.EditorFor(x => x.MonitoringPeriodFrom)
+@Html.EditorFor(x => x.MonitoringPeriodTo)
+
+@Html.RenderEditorTemplate("", @<text>
+                                   @Html.LabelFor(x => x.Standard)
+                                   @Html.CheckBoxFor(x => x.Standard)
+                                   @Html.LabelFor(x => x.Reduced)
+                                   @Html.CheckBoxFor(x => x.Reduced)
+                                </text>)
+
+@Html.EditorFor(x => x.MinimumSamplesRequired)
+
+@Html.EditorFor(x => x.NameOfCertifiedLaboratory)
+
+@Html.EditorFor(x => x.SameAsPreviousPeriod)
+
+@Html.EditorFor(x => x.AllSamplesTier1)
+
+@Html.EditorFor(x => x.Tier2Sites)
+
+@Html.EditorFor(x => x.Tier3Sites)
+
+@Html.EditorFor(x => x.Tier1SitesVerified)
+
+@Html.EditorFor(x => x.LeadServiceLines)
+
+@Html.EditorFor(x => x.LeadLinesVerified)
+
+@Html.EditorFor(x => x.FiftyPercent)
+
+@Html.EditorFor(x => x.Comments)

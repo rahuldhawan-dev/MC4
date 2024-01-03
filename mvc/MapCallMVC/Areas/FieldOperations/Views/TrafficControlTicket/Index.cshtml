@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTrafficControlTicket
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .SortableTemplateColumnFor("Id", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "TrafficControlTicket", new {x.Id}, null))
+    .SortableColumnFor(x => x.WorkOrder)
+    .SortableColumnFor(x => x.SAPWorkOrderNumber, "SAPWorkOrderNumber")
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.DateApproved, "DateApproved")
+    .SortableColumnFor(x => x.HasInvoice, "HasInvoice")
+    .SortableColumnFor(x => x.BillingParty, "BillingParty.Description")
+    .SortableColumnFor(x => x.Status)
+    .WithPaginatedFooter())

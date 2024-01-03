@@ -1,0 +1,24 @@
+﻿@using MMSINC.Utilities
+@model MapCallMVC.Areas.Reports.Models.SearchRestorationAccrualReport
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "results" })
+    .TemplateColumnFor("Work Order", x => Html.ActionLink(x.WorkOrder.Id.ToString(), "Show", "GeneralWorkOrder", new { area = "FieldOperations", id = x.WorkOrder.Id }, null))
+    .SortableColumnFor(x => x.WorkOrder.DateCompleted, "WorkOrder.DateCompleted")
+    .ColumnFor(x => x.WorkOrder.WorkDescription.AccountingType)
+    .SortableColumnFor(x => x.WorkOrder.AccountCharged, "WorkOrder.AccountCharged")
+    .SortableColumnFor(x => x.WorkOrder.AssetType, "WorkOrder.AssetType")
+    .SortableColumnFor(x => x.WorkOrder.WorkDescription, "WorkOrder.WorkDescription")
+    .SortableColumnFor(x => x.WorkOrder.BusinessUnit, "WorkOrder.BusinessUnit")
+    .SortableColumnFor(x => x.RestorationType, "RestorationType.Description")
+    .ColumnFor(x => x.EstimatedRestorationFootage)
+    .ColumnFor(x => x.PartialPavingSquareFootage, "Actual Footage") 
+    .ColumnFor(x => x.MeasurementType)
+    .SortableColumnFor(x => x.TotalAccruedCost)
+    .SortableColumnFor(x => x.PartialRestorationDate, "Date Initial Completed", "PartialRestorationDate")
+    .SortableColumnFor(x => x.PartialRestorationActualCost, "Total Initial Cost", "PartialRestorationActualCost")
+    .ColumnFor(x => x.AccrualValue).WithFooterCell(string.Format(CommonStringFormats.CURRENCY, Model.Results.Sum(x => x.AccrualValue)))
+)

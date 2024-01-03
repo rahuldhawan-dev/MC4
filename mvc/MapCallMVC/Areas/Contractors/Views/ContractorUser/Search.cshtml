@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorUser
+
+@using (Form.BeginForm("Index", "ContractorUser"))
+{
+	<div class="field-column fc200 searchFields">
+		@Html.EditorFor(x => x.Email)
+		@Html.EditorFor(x => x.Contractor)
+		@Html.EditorFor(x => x.IsAdmin)
+		@Html.EditorFor(x => x.IsActive)
+		@Html.ButtonGroup(@<text>
+			                  @Control.SubmitButton("Search").WithId("Search")
+			                  @Control.ResetButton()
+		                   </text>)
+	</div>
+}

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.DevelopmentProjectViewModel
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town, new {Container = @Model})
+@Html.EditorFor(x => x.StreetName)
+@Html.EditorFor(x => x.Category)
+@Html.EditorFor(x => x.BusinessUnit, new {Container = @Model})
+@Html.EditorFor(x => x.ProjectManager, new {Container = @Model})
+@Html.EditorFor(x => x.PublicWaterSupply)
+@Html.EditorFor(x => x.DeveloperServicesId)
+@Html.EditorFor(x => x.WBSNumber)
+@Html.EditorFor(x => x.ProjectDescription)
+@Html.EditorFor(x => x.ForecastedInServiceDate)
+@Html.EditorFor(x => x.InServiceDate)
+@Html.EditorFor(x => x.DomesticWaterServices)
+@Html.EditorFor(x => x.FireServices)
+@Html.EditorFor(x => x.DomesticSanitaryServices)

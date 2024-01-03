@@ -1,0 +1,32 @@
+﻿@model Contractors.Models.ViewModels.SearchService
+
+@{
+    ViewBag.Title = "Services - Search";
+}
+
+@using (Form.BeginForm("Index", "Service"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.ServiceNumber)
+        @Html.EditorFor(x => x.PremiseNumber)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.Development)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.ApartmentNumber)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.CrossStreet)
+        @Html.EditorFor(x => x.Block)
+        @Html.EditorFor(x => x.Lot)
+        @Html.EditorFor(x => x.Name)
+        @Html.EditorFor(x => x.PhoneNumber)
+        @Html.EditorFor(x => x.ServiceCategory)
+        @Html.EditorFor(x => x.ServiceMaterial)
+        @Html.EditorFor(x => x.ServiceSize)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

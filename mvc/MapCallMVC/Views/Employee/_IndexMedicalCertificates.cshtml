@@ -1,0 +1,8 @@
+﻿@model Employee
+
+@(Html.TableFor(x => Model.MedicalCertificates, new { id = "medicalCertificates" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "MedicalCertificate", new { x.Id }, null))
+    .ColumnFor(x => x.CertificationDate)
+    .ColumnFor(x => x.ExpirationDate)
+    .ColumnFor(x => x.Comments)
+)

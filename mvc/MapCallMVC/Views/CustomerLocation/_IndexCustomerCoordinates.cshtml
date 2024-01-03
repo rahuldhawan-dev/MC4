@@ -1,0 +1,16 @@
+﻿@model IList<CustomerCoordinate>
+
+<ul>
+    @foreach (var coordinate in Model)
+    {
+        <li class="@coordinate.CoordinateSource.ToString()"
+            data-id="@coordinate.Id"
+            data-location-id="@coordinate.CustomerLocation.Id"
+            data-latitude="@coordinate.Latitude"
+            data-longitude="@coordinate.Longitude"
+            data-source="@coordinate.Source"
+            data-verified="@coordinate.Verified">
+            @coordinate.Describe()
+        </li>
+    }
+</ul>

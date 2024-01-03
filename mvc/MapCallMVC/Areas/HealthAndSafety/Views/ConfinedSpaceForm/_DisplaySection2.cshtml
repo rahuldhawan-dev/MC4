@@ -1,0 +1,17 @@
+﻿@model ConfinedSpaceForm
+
+<div class="atmosphere-tests">
+    <div class="field-column fc200">
+        <fieldset>
+            <legend>Gas Monitor</legend>
+            @Html.DisplayFor(x => x.GasMonitor.EquipmentDescription)
+            @Html.DisplayFor(x => x.GasMonitor.Manufacturer)
+            @Html.DisplayFor(x => x.GasMonitor.EquipmentModel)
+            @Html.DisplayFor(x => x.GasMonitor.SerialNumber)
+            @Html.DisplayFor(x => x.BumpTestConfirmedBy)
+            @Html.DisplayFor(x => x.BumpTestConfirmedAt)
+        </fieldset>
+
+        @Html.Partial("_DisplayAtmosphericTests", Model.AtmosphericTests)
+    </div>
+</div>

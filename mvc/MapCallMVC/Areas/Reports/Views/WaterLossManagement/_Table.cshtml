@@ -1,0 +1,102 @@
+﻿@using System.Globalization
+@using MMSINC.ClassExtensions.DateTimeExtensions
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWaterLoss
+@{
+    var dti = new DateTimeFormatInfo();
+    var operatingCenters = Model.Results.Select(r => r.OperatingCenterCodeName).Distinct();
+    ActionBarHelper.AddPdfExportLink();
+}
+<table id="results" style="width: auto">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Business Unit</th>
+            <th>Work Description</th>
+            <th>Work Order Count</th>
+            <th>Total Gallons</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var operatingCenter in operatingCenters)
+        {
+            var operatingCenterResults = Model.Results.Where(r => r.OperatingCenterCodeName == operatingCenter);
+            var monthYears = operatingCenterResults.Select(r => new { r.Month, r.Year }).Distinct();
+
+            foreach (var monthYear in monthYears)
+            {
+                var monthYearResults = operatingCenterResults.Where(r => r.Month == monthYear.Month && r.Year == monthYear.Year);
+                var subTotalId = 1;
+                foreach (var result in monthYearResults)
+                {
+                    // We are displaying a row for each month here and providing a link to search orders for this month
+                    // Set search's DateCompleted Start/End from the result's current month 
+                    var monthStart = new DateTime(result.Year, result.Month, 1);
+                    var monthEnd = monthStart.GetEndOfMonth();
+                    // If the originally searched start date was greater than the current row's first of month, then
+                    // adjust the start sent to the work order search
+                    if (Model.Date.Start != null) {
+                        var startDate = Model.Date.Start.Value;
+                        if (result.Month == startDate.Month && result.Year == startDate.Year && startDate.Day > 1)
+                        {
+                            monthStart = startDate;
+                        }
+                    }
+                    // If the originally searched end date wasn't the end the current row's end of month then
+                    // adjust the end sent to the work order search
+                    if (Model.Date.End != null) {
+                        var endDate = Model.Date.End.Value;
+                        if (result.Month == endDate.Month && result.Year == endDate.Year && endDate.GetEndOfMonth() != endDate)
+                        {
+                            monthEnd = endDate;
+                        }
+                    }
+                    subTotalId = result.Month;
+                    // This is meant to translate into a SearchWorkOrder for GeneralWorkOrder
+                    var rvd = new RouteValueDictionary { 
+                        { "area", "FieldOperations" },
+                        { "Controller", "GeneralWorkOrder" },
+                        { "OperatingCenter", @result.OperatingCenter },
+                        { "WorkDescription", @result.WorkDescription },
+                        { "DateCompleted.Start", monthStart },
+                        { "DateCompleted.End", monthEnd },
+                        { "DataCompleted.Operator", 0 },
+                        { "LostWater.Start", 0 },
+                        { "LostWater.End", 0 },
+                        { "LostWater.Operator", 2 }
+                    };
+                    if (string.IsNullOrWhiteSpace(result.BusinessUnit))
+                    {
+                        rvd.Add("HasBusinessUnit",false);
+                    }
+                    else
+                    {
+                        rvd.Add("BusinessUnit", result.BusinessUnit);
+                    }
+                    <tr>
+                        <td>@result.OperatingCenterCodeName</td>
+                        <td>@dti.GetAbbreviatedMonthName(result.Month)</td>
+                        <td>@result.Year</td>
+                        <td>@result.BusinessUnit</td>
+                        <td>@result.WorkDescriptionDescription</td>
+                        <td id="viewWorkOrders" style="text-align: center">@Html.ActionLink(@result.WorkOrderCount.ToString(), "Index", rvd)</td>
+                        <td>@result.TotalGallons</td>
+                    </tr>
+                }
+                var fullSubTotalId = "WaterLossSubTotal" + subTotalId;
+                <tr>
+                    <th colspan="6" style="text-align: right">@operatingCenter @dti.GetAbbreviatedMonthName(monthYear.Month) @monthYear.Year Total:</th>
+                    <th id=@fullSubTotalId style="font-weight: bolder">
+                        @monthYearResults.Sum(x => x.TotalGallons)
+                    </th>
+                </tr>
+            }
+        }
+        <tr>
+            <th colspan="5" style="text-align: right">Grand Total:</th>
+            <th id="WaterLossGrandTotal">@Model.Results.Sum(r => r.TotalGallons)</th>
+        </tr>
+    </tbody>
+</table>

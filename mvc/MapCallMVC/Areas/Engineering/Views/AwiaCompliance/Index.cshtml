@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.AwiaCompliance.SearchAwiaCompliance
+
+@{
+	ActionBarHelper.AddExportLink();
+}
+@(
+    Html.TableFor(_ => Model)
+        .WithCaption("Record found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+        .SortableColumnFor(x => x.State)
+        .SortableColumnFor(x => x.OperatingCenter)
+        .ColumnFor(x => x.PublicWaterSupplies)
+        .ColumnFor(x => x.CertificationType)
+        .ColumnFor(x => x.CreatedBy.FullName, "Entered By")
+        .ColumnFor(x => x.CertifiedBy.FullName, "Certified By")
+        .ColumnFor(x => x.DateSubmitted)
+        .ColumnFor(x => x.DateAccepted)
+        .ColumnFor(x => x.RecertificationDue)
+        .WithPaginatedFooter()
+    )

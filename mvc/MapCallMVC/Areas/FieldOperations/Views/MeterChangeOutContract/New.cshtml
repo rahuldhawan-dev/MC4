@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateMeterChangeOutContract
+
+@using (Form.BeginForm("Create", "MeterChangeOutContract"))
+{
+    <div class="field-column fc150">
+        @Html.EditorFor(x => x.FileUpload)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save")
+                @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

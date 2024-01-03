@@ -1,0 +1,10 @@
+﻿@model LockoutFormViewModel
+
+@Html.RenderDisplayTemplate("Contractor", @<text>
+    @Html.EditorWithoutWrapperFor(x => x.Contractor)
+    @Html.EditorWithoutWrapperFor(x => x.ContractorName)
+    @Control.Button("Other").WithId("ContractorNameToggle")
+</text>)
+@Html.EditorFor(x => x.ContractorFirstName)
+@Html.EditorFor(x => x.ContractorLastName)
+@Html.EditorFor(x => x.ContractorPhone)

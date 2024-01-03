@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchSkillSet
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Name)
+    .SortableColumnFor(x => x.Abbreviation)
+    .SortableColumnFor(x => x.IsActive)
+    .SortableColumnFor(x => x.Description)
+    .WithPaginatedFooter()
+    )

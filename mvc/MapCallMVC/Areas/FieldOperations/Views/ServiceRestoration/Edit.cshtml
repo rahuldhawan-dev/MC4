@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditServiceRestoration
+
+@using (Form.BeginForm("Update", "ServiceRestoration", "FieldOperations", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Service", @<text>
+            @Html.ActionLink(Model.DisplayService.ToString(), "Show", "Service", new { id = Model.DisplayService.Id }, new { area = "FieldOperations" })
+        </text>)
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "ServiceRestoration", new {Model.Id})
+                           </text>)
+    </div>
+}

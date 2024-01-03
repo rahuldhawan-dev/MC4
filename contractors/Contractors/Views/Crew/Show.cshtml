@@ -1,0 +1,35 @@
+﻿@model Crew
+
+@{
+    ViewBag.Title = "Crew Detail";
+	var openAssignments = Model.CrewAssignments.Where(x => !x.DateEnded.HasValue).ToList();
+}
+
+
+<div class="field-column fc100">
+    @Html.DisplayFor(m => m.Description, new { DisplayName = "Crew Name" })
+    @Html.DisplayFor(m => m.Availability)
+	@Html.ButtonGroup(@<text>
+		                  @Html.LinkButton("Edit", "Edit", "Crew", new { id = Model.Id })
+		                  @Html.LinkButton("Back to List", "Index", "Crew")
+	                   </text>)
+</div>
+    
+<h2>Assigned Work</h2>
+@if (openAssignments.Any()) {
+
+	@(Html.TableFor(x => openAssignments)
+	      .ColumnFor(x => x.WorkOrder.Id)
+	      .TemplateColumnFor("Date Received", x => @<text>@string.Format(MMSINC.Utilities.CommonStringFormats.DATE, x.WorkOrder.DateReceived)</text>)
+	      .TemplateColumnFor("Assigned For", x => @<text>@string.Format(MMSINC.Utilities.CommonStringFormats.DATE, x.AssignedFor)</text>)
+	      .ColumnFor(x => x.WorkOrder.StreetNumber)
+	      .ColumnFor(x => x.WorkOrder.Street)
+	      .ColumnFor(x => x.WorkOrder.NearestCrossStreet)
+	      .ColumnFor(x => x.WorkOrder.Town)
+	      .ColumnFor(x => x.WorkOrder.TownSection)
+	      .ColumnFor(x => x.WorkOrder.WorkDescription, "Description of Job")
+	      .ColumnFor(x => x.WorkOrder.MarkoutRequirement)
+		  )
+} else {
+    <h3>No Open Crew Assignments Exist for this Crew.</h3>
+}

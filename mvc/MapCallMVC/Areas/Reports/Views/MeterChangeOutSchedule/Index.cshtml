@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MeterChangeOut>
+@{
+    ActionBarHelper.AddPdfExportLink();
+    // The records that are displayed in this should *never* have a null DateScheduled, so resharper can shut up here.
+    var groupedByDate = Model.GroupBy(x => x.DateScheduled.Value.Date).OrderBy(x => x.Key);
+    var i = 0;
+}
+<style>
+    .largeMeter { background-color: #ff7171 !important;text-align: center;}
+    .vault { background-color: #fff282 !important;text-align: center;}
+</style>
+@foreach (var grp in groupedByDate)
+{
+    var cur = grp;
+    var table = Html.TableFor(x => cur,new { id = "table-" + i})
+        .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "MeterChangeOut", new { x.Id, area = "FieldOperations" }, null))
+        .ColumnFor(x => x.DateScheduled)
+        .TemplateColumnFor("Day", x => @<text>@String.Format("{0:ddd}", x.DateScheduled)</text>)
+        .ColumnFor(x => x.MeterScheduleTime)
+        .ColumnFor(x => x.ServiceCity)
+        .ColumnFor(x => x.ServiceStreetAddressCombined)
+        .TemplateColumnFor("Owner Location",
+            x => @<text>
+                     @if (x.OwnerCustomerMeterLocation != null && x.OwnerCustomerMeterLocation.ToString() == "Vault")
+                     {
+                         <div class="vault">@Html.DisplayValueFor(_ => x.OwnerCustomerMeterLocation)</div>
+                     }
+                     else
+                     {
+                         <div style="text-align: center;">@Html.DisplayValueFor(_ => x.OwnerCustomerMeterLocation)</div>
+                     }
+                  </text>)
+        .TemplateColumnFor("Size", 
+            x => @<text>
+                     @if (x.MeterSize != null && x.MeterSize.Size >= 1.5m)
+                     {
+                         <div class="largeMeter">@Html.DisplayValueFor(_ => x.MeterSize)</div>
+                     }
+                     else
+                     {
+                         <div style="text-align: center;">@Html.DisplayValueFor(_ => x.MeterSize)</div>
+                     }
+                  </text>)
+        .ColumnFor(x => x.AssignedContractorMeterCrew)
+        .ColumnFor(x => x.RemovedSerialNumber)
+        .TemplateColumnFor("Edit", x => Html.ActionLink("Edit", "Edit", "MeterChangeOut", new { x.Id, area = "FieldOperations" }, null))
+        ;
+
+    i++;
+    var groupedByContractor = cur.GroupBy(x => x.AssignedContractorMeterCrew);
+
+    <div class="container">
+        @table
+
+        <table class="footer-table">
+            <tr>
+                <td>Total: @cur.Count()</td>
+                @foreach (var contractorGroup in groupedByContractor)
+                {
+                    var amTotalCG = contractorGroup.Count(x => x.MeterScheduleTime.AM);
+                    var pmTotalCG = contractorGroup.Count(x => !x.MeterScheduleTime.AM);
+                    <td>@contractorGroup.Key: (@amTotalCG/@pmTotalCG)</td>
+                }
+            </tr>
+        </table>
+    </div>
+
+}

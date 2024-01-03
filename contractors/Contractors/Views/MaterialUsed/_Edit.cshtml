@@ -1,0 +1,11 @@
+﻿@model Contractors.Models.ViewModels.EditMaterialUsed
+
+@using (var f = Form.BeginAjaxForm("Update", "MaterialUsed", new { id = Model.Id }))
+{
+	f.HtmlAttributes["title"] = "Edit Material Used";
+    @Control.Hidden().WithName("MaterialUsedID").WithValue(Model.Id);
+    @Html.Partial("_Form", Model)
+}
+
+@* This needs to load after Form.js loads in the partial *@
+@Html.ScriptFor("~/Scripts/MaterialUsed/Edit.js")

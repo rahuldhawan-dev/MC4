@@ -1,0 +1,22 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model SewerOpening
+
+@if (Model.OperatingCenter.IsActive & !Model.IsInactive)
+{
+    <div style="padding: 3px;">
+        @Html.ActionLink("Create New Sewer Main Inspection / Cleaning", "NewFromSewerOpening", "SewerMainCleaning", new {id = Model.Id}, new {area = "FieldOperations", Class = "link-button", target = "_new"})
+    </div>
+}
+
+@(Html.TableFor(x => x.SewerMainCleanings)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "SewerMainCleaning", new { id = x.Id}, new { area = "FieldOperations" }))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.Date)
+    .ColumnFor(x => x.InspectedDate)
+    .ColumnFor(x => x.Street)
+    .ColumnFor(x => x.Opening1)
+    .ColumnFor(x => x.Opening1.FunctionalLocation, "Opening 1 Functional Location")
+    .ColumnFor(x => x.Opening2)
+    .ColumnFor(x => x.Opening2.FunctionalLocation, "Opening 2 Functional Location")
+)

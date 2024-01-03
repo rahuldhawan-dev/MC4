@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.CreateInterconnectionMeter
+
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null;
+}
+
+<div class="field-column fc100">
+@using (Form.BeginForm("Create", "InterconnectionMeter", "Facilities"))
+{
+    if (Model.Interconnection.HasValue) {
+        @Control.HiddenFor(m => m.Interconnection)
+    } else {
+        @Html.EditorFor(m => m.Interconnection)
+    }
+
+    if (Model.Meter.HasValue) {
+        @Control.HiddenFor(m => m.Meter)        
+    } else {
+        @Html.EditorFor(m => m.MeterProfile)
+        @Html.EditorFor(m => m.Meter, new {Container = @Model})
+    }
+
+    @Html.ButtonGroup(@<text>
+                           @Control.SubmitButton("Add")
+                           @Control.Button("Cancel").WithId("btnCancelAddMeter")
+                       </text>)
+}
+</div>

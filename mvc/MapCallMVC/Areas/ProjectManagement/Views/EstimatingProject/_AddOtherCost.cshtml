@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddEstimatingProjectOtherCost
+
+@using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectOtherCost", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "otherCostForm");
+    
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.Quantity)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Cost)
+        @Html.EditorFor(x => x.AssetType)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Other Cost")
+            @Control.Button("Cancel").WithId("cancelAddOtherCostButton").WithCssClass("cancel")
+        </text>)
+    </div>
+} 

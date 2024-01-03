@@ -1,0 +1,21 @@
+﻿@model MapCall.Common.Model.Entities.MarkoutDamage
+
+<a href="@Model.RecordUrl">New Markout Damage Record Added</a>
+
+@Model.CreatedBy : @Model.CreatedAt <br />
+ID: @Model.Id <br/>
+Operating Center: @Model.OperatingCenter <br/>
+Entered by: @Model.CreatedBy <br/>
+Request Number: @Model.RequestNumber <br/>
+Damage Date and Time: @Model.DamageOn <br/>
+Town: @Model.Town <br/>
+Dig Street: @Model.Street <br/>
+Nearest Cross Street: @Model.NearestCrossStreet <br/>
+Damage Comments: @Model.DamageComments <br/>
+Damage To?: @Model.MarkoutDamageToType <br/>
+Was it marked out?: @(Model.IsMarkedOut ? "Yes" : "No") <br/>
+Was it mis-marked?: @(Model.IsMismarked ? "Yes" : "No") <br/>
+Excavator discovered damage?: @(Model.ExcavatorDiscoveredDamage ? "Yes" : "No") <br/>
+Excavator caused damage?: @(Model.ExcavatorCausedDamage ? "Yes" : "No") <br/>
+Was 911 called?: @(Model.Was911Called ? "Yes" : "No") <br/>
+Were pictures taken?: @(Model.WerePicturesTaken ? "Yes" : "No") <br/>

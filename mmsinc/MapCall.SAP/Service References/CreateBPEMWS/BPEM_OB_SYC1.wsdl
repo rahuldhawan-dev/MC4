@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:p1="http://amwater.com/PTB/200040/MAPCALL/CreateBPEM" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://amwater.com/PTB/200040/MAPCALL/CreateBPEM" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:UsingPolicy required="true" />
+  <wsp:Policy wsu:Id="BN__binding">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <wsp:ExactlyOne>
+                      <sp:HttpBasicAuthentication />
+                      <sp:RequireClientCertificate />
+                    </wsp:ExactlyOne>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <wsp:ExactlyOne>
+                  <sp:Basic256 />
+                  <sp:Basic192 />
+                  <sp:Basic128 />
+                  <sp:TripleDes />
+                  <sp:Basic256Rsa15 />
+                  <sp:Basic192Rsa15 />
+                  <sp:Basic128Rsa15 />
+                  <sp:TripleDesRsa15 />
+                  <sp:Basic256Sha256 />
+                  <sp:Basic192Sha256 />
+                  <sp:Basic128Sha256 />
+                  <sp:TripleDesSha256 />
+                  <sp:Basic256Sha256Rsa15 />
+                  <sp:Basic192Sha256Rsa15 />
+                  <sp:Basic128Sha256Rsa15 />
+                  <sp:TripleDesSha256Rsa15 />
+                </wsp:ExactlyOne>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/PTB/200040/MAPCALL/CreateBPEM" targetNamespace="http://amwater.com/PTB/200040/MAPCALL/CreateBPEM">
+      <xsd:element name="BPEM_Response" type="p1:BPEMStatus" />
+      <xsd:element name="BPEM_Request" type="p1:BPEMQuery" />
+      <xsd:complexType name="BPEMStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Status">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="BPEM" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Status" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BPEMQuery">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BPEM">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="CaseCategory" type="xsd:string" />
+                <xsd:element minOccurs="0" name="CasePriority" type="xsd:string" />
+                <xsd:element minOccurs="0" name="AuthorizationGroup" type="xsd:string" />
+                <xsd:element name="ObjectType" type="xsd:string" />
+                <xsd:element name="Objectkey" type="xsd:string" />
+                <xsd:element minOccurs="0" name="OriginalDateofClarificationCase" type="xsd:string" />
+                <xsd:element minOccurs="0" name="CreationTimeofClarificationCase" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Logicalsystem" type="xsd:string" />
+                <xsd:element minOccurs="0" name="CompanyCode" type="xsd:string" />
+                <xsd:element minOccurs="0" name="BusinessPartnerNumber" type="xsd:string" />
+                <xsd:element minOccurs="0" name="ContractAccountNumber" type="xsd:string" />
+                <xsd:element minOccurs="0" name="Premise" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="BPEM_Request">
+    <wsdl:documentation />
+    <wsdl:part name="BPEM_Request" element="p1:BPEM_Request" />
+  </wsdl:message>
+  <wsdl:message name="BPEM_Response">
+    <wsdl:documentation />
+    <wsdl:part name="BPEM_Response" element="p1:BPEM_Response" />
+  </wsdl:message>
+  <wsdl:portType name="BPEM_OB_SYC">
+    <wsdl:documentation />
+    <wsdl:operation name="BPEM_OB_SYC">
+      <wsdl:documentation />
+      <wsdl:input message="p1:BPEM_Request" />
+      <wsdl:output message="p1:BPEM_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BPEM_OB_SYCBinding" type="p1:BPEM_OB_SYC">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__binding" />
+    </wsp:Policy>
+    <wsdl:operation name="BPEM_OB_SYC">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:BPEM_OB_SYCBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/CreateBPEM" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

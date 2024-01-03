@@ -1,0 +1,62 @@
+﻿Finished:
+  Search For Planning:
+    Fields:
+      - Town
+      - Town Section
+      - Street
+      - Nearest Cross Street
+      - Asset Type
+      - Description of Work (multi-select)?
+      - Priority
+      - Date Received (date range)
+      - Requester
+      - Markout Requirement
+
+  Incorporate the Lat/Lon stuff in this somehow, whether it's completely functional or not.
+  
+  Need a new table of Materials & Stock (Part) Numbers.  That field should use the autosuggest control,
+  displaying both part number and small description.  This is pending, I need it from Doug.
+  
+  A part number is tied to a size, so that should not be a field on the form.
+  
+  Need a map tab, to show where the job is located.
+  
+  Need work order "Phases" -- Initial, Planning, Scheduling, Execution, and Finalization.
+  
+Pending:
+  "Field Ops Dashboard":
+    Need a graph of jobs created, in planning, and scheduled.
+  
+  For initial input, need buttons to cut right out to planning or scheduling right after saving.
+  
+  Equipment is maintained at the op center level.  This also includes Vehicles from the currently
+  existing vehicles table, so two drop downs are in order, with two separate tables which will
+  union together somehow.
+  
+  Markout Number can only be 9 digits (the table allows for 15).
+  
+  Need to link to the State's traffic control plans (pdf) from the traffic control tab.
+  
+  Need a Customer tab:
+    - Notify Customer (check box)
+      - # of Customers notified
+    - Alert In System (check box)
+  
+  Planning Tabs:
+    - 
+  
+  Search For Planning:
+    Need to be able to map the table that comes up when you do a search within planning.
+  
+  Need some sort of "Dashboard", to see what work is currently in planning and scheduling.  Kevin Kirwan
+  to provide a list of the Descriptions of Work with the estimated man hours.  This allows them to see
+  what's currently pending, and how long all of it is going to take.
+  
+  Scheduling Search:
+    - Need a date field to search for markouts which are to expire within x number of days.
+
+    - Need to sort the results table for scheduling by any visible field.
+
+  Closing:
+    - If there was an emergency order, it should skip planning & scheduling (optionally).
+      Any required data for closing should be forced as a requirement here.

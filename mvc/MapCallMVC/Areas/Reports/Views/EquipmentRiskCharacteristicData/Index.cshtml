@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchEquipmentRiskCharacteristicData
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;" })
+      .TemplateColumnFor("", x => Html.ActionLink("View", "Show", "Equipment", new { id = x.Id, area = "" }, null))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.Facility.OperatingCenter)
+      .SortableColumnFor(x => x.Facility.PlanningPlant, "fa.PlanningPlant")
+      .SortableColumnFor(x => x.Facility)
+      .SortableColumnFor(x => x.EquipmentType)
+      .SortableColumnFor(x => x.Description)
+      .SortableColumnFor(x => x.Facility.StrategyTier)
+      .SortableColumnFor(x => x.EquipmentPurpose)
+      .SortableColumnFor(x => x.ConsequenceOfFailure)
+      .SortableColumnFor(x => x.LikelyhoodOfFailure)
+      .SortableColumnFor(x => x.RiskCharacteristicsLastUpdatedBy.FullName,
+          "Last Updated By", 
+          "RiskCharacteristicsLastUpdatedBy")
+      .SortableColumnFor(x => x.RiskCharacteristicsLastUpdatedOn)
+      .WithPaginatedFooter()
+    )

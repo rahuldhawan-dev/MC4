@@ -1,0 +1,11 @@
+﻿@model MapCall.SAP.Model.Entities.SAPMaintenancePlanLookup
+
+@{
+    var tabs = Html.Tabs()
+        .WithTab("Maintenance Plan", "_ShowMaintenancePlan", Model)
+        .WithTab("Item Overview", "_ItemOverview", Model)
+        .WithTab("Schedule Calls", "_ScheduleCalls", Model)
+        .WithTab("Cycles", "_Cycles", Model);
+}
+
+@tabs

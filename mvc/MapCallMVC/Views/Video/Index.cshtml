@@ -1,0 +1,37 @@
+﻿@model IThingWithVideos
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.LinkedVideos)
+        .TemplateColumnFor("Title", x => @Control.Button("Play").WithValue(x.Id).WithText(x.Video.Title).WithCssClass("play-button button-link"));
+
+    if (userCanEdit)
+    {
+        table.TemplateColumnFor(x => @<text>
+                                          @using (var f = Form.BeginForm("Destroy", "Video", string.Empty, new{ id = x.Id @*video id, not datalinkid*@}))
+                                          {
+                                              f.HtmlAttributes["data-confirm"] = "Are you sure you want to unlink this video? Unlinking does not delete the video.";
+                                              @Control.SubmitButton("Remove").WithValue(x.Id).WithName("VideoId").WithCssClass("remove-button")
+                                          }
+                                      </text>);
+    }
+}
+
+@Html.ScriptFor("~/Scripts/Video/VideoPlayer.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Video/VideoPicker.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden().WithId("video-service-url").WithValue(Url.Action("Show", "Video", new { area = string.Empty }))
+@Control.Hidden().WithId("video-picker-service-url").WithValue(Url.Action("Index", "Video", new { area = string.Empty }))
+@Control.Hidden().WithId("video-tag-service-url").WithValue(Url.Action("GetAllTags", "Video", new { area = string.Empty }))
+
+@if (userCanEdit)
+{
+    @Control.Button("Add Video").WithId("add-video-button")
+    @Html.Partial("~/Views/Video/New.cshtml", ViewModelFactory.BuildWithOverrides<CreateVideoLink>(new { LinkedId = Model.Id, TableName = Model.TableName }))
+}
+
+@table
+
+<style>
+    .vp-upload-date {
+        color: gray;
+    }
+</style>

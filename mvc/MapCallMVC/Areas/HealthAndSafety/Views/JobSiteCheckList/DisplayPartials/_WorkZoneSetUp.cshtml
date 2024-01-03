@@ -1,0 +1,12 @@
+﻿@model JobSiteCheckList
+<div class="field-column fc-left-label fc600">
+    @Html.DisplayFor(x => x.AllEmployeesWearingAppropriatePersonalProtectionEquipment)
+    @Html.DisplayFor(x => x.HasTrafficControl)
+    @Html.DisplayFor(x => x.HasFlagPersonForTrafficControl, new{ @class = "indent" })
+    @Html.DisplayFor(x => x.HasConesForTrafficControl, new { @class = "indent" })
+    @Html.DisplayFor(x => x.HasSignsForTrafficControl, new { @class = "indent" })
+    @Html.DisplayFor(x => x.HasBarricadesForTrafficControl, new { @class = "indent" })
+    @Html.DisplayFor(x => x.HasPoliceForTrafficControl, new { @class = "indent" })
+    @Html.DisplayFor(x => x.CompliesWithStandards)
+    @Html.DisplayFor(x => x.AllStructuresSupportedOrProtected)
+</div>

@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchRestorationProcessing
+
+@using (Form.BeginForm("Index", "RestorationProcessing", "FieldOperations"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.RenderDisplayTemplate(string.Empty, @<text>-OR-</text>)
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.ApartmentAddtl)
+        @Html.EditorFor(x => x.NearestCrossStreet)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.WorkDescription)
+        @Html.EditorFor(x => x.CurrentCrew)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.InitialDate)
+        @Html.EditorFor(x => x.FinalDate)
+        @Html.EditorFor(x => x.DocumentDate)
+
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+        </text>)
+    </div>
+}

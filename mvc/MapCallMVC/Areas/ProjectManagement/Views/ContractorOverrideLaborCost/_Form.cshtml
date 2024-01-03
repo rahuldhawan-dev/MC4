@@ -1,0 +1,8 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.BaseContractorOverrideLaborCostViewModel
+           
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Contractor)
+@Html.EditorFor(x => x.ContractorLaborCost, new {Container = @Model})
+@Html.EditorFor(x => x.Cost)
+@Html.EditorFor(x => x.Percentage)
+@Html.EditorFor(x => x.EffectiveDate)

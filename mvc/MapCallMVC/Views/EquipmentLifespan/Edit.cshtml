@@ -1,0 +1,17 @@
+﻿@model EquipmentLifespanViewModel
+
+@using (Form.BeginForm("Update", "EquipmentLifespan", new {id = Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.EstimatedLifespan)
+        @Html.EditorFor(x => x.ExtendedLifeMajor)
+        @Html.EditorFor(x => x.ExtendedLifeMinor)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.AuthorizedActionLinkButton("Cancel", "Show", "EquipmentLifespan", new { id = Model.Id })
+        </text>)
+    </div>
+}

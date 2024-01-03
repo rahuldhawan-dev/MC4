@@ -1,0 +1,17 @@
+﻿@model SearchServiceRestorationContractor
+
+@using (Form.BeginForm("Index", "ServiceRestorationContractor"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.FinalRestoration)
+        @Html.EditorFor(x => x.PartialRestoration)
+        
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

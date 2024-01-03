@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.CreateWaterSample
+
+@using (Form.BeginForm("Create", "WaterSample", "WaterQuality")) {
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.SampleSite)
+        @Html.EditorFor(x => x.SampleIdMatrix)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "WaterSample")
+                           </text>)
+    </div>
+}

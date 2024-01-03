@@ -1,0 +1,34 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchNearMiss
+
+@{
+    ActionBarHelper.AddMapCallIntranetLink();
+}
+
+@using (Form.BeginForm("Index", "NearMiss")) {
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.Id)
+    @Html.EditorFor(x => x.IncidentNumber)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.IsContractedOperations)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.ReportedBy)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.Type)
+    @Html.EditorFor(x => x.Category)
+    @Html.EditorFor(x => x.SubCategory)
+    @Html.EditorFor(x => x.OccurredAt)
+    @Html.EditorFor(x => x.CreatedAt)
+    @Html.EditorFor(x => x.DateCompleted)
+    @Html.EditorFor(x => x.Completed)
+    @Html.EditorFor(x => x.ActionTakenType)
+    @Html.EditorFor(x => x.ActionTaken)
+    @Html.EditorFor(x => x.SeriousInjuryOrFatality)
+    @Html.EditorFor(x => x.LifeSavingRuleType)
+    @Html.EditorFor(x => x.StopWorkUsageType)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

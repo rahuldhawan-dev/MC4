@@ -1,0 +1,177 @@
+﻿@using MapCall.Common.Controllers
+@using MMSINC.Results
+@model SearchCustomerLocation
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    ViewBag.Title = "Customer Locations";
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/CustomerLocation/CoordinateVerifier.js")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            CoordinateVerifier.init(@Html.Raw(Json.Encode(ViewData[MapController.MAP_CONFIGURATION])), 'Index');
+        });
+    </script>
+}
+
+@section styles {
+    <style>
+        /* STOLEN!!!!! */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            height: 100%;
+            max-height: 100%;
+        }
+
+        #framecontent {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px; /*Width of frame div*/
+            height: 100%;
+            overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
+            color: white;
+        }
+
+        #maincontent {
+            position: fixed;
+            top: 0;
+            left: 200px; /*Set left value to WidthOfFrameDiv*/
+            right: 0;
+            bottom: 0;
+            overflow: auto;
+            background: #fff;
+        }
+
+        .innertube {
+            margin: 15px; /*Margins for inner DIV inside each DIV (to provide padding)*/
+        }
+
+        * html body { /*IE6 hack*/
+            padding: 0 0 0 200px; /*Set value to (0 0 0 WidthOfFrameDiv)*/
+        }
+
+        * html #maincontent { /*IE6 hack*/
+            height: 100%;
+            width: 100%;
+        }
+
+        /* /STOLEN!!!!!! */
+
+        div.innertube {
+            margin: 0 !important;
+        }
+
+        div.innertube, div#Map {
+            height: 100%;
+            width: 100%
+        }
+
+        div.notification > img {
+            float: right !important;
+            width: 12px !important;
+            height: 12px !important;
+            margin-top: 3px;
+        }
+
+        div.notification > div.message {
+            float: left !important;
+            line-height: normal !important;
+            width: 146px !important;
+            font-weight: normal !important;
+            margin: 0 !important;
+        }
+
+        div#framecontent a, div#framecontent > a:visited {
+            color: #F5F8FC;
+        }
+
+        #framecontent {
+            background: #346ea1;
+        }
+
+        li.outer {
+            border: 1px solid #346ea1;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+
+        li.outer:hover, li.outer.hover {
+            cursor: pointer;
+            border: 1px solid white;
+            margin: 0;
+        }
+
+        div.innertube > ul, div.innertube > div.edit > ul,
+        li.outer:hover > ul, li.outer.hover > ul {
+            padding-left: 0;
+        }
+
+        li.outer:hover > ul > li.MapCall,
+        li.outer:hover > ul > li.MapCall,
+        div.edit > ul > li.MapCall {
+            border-left: 20px solid red;
+        }
+
+        li.outer:hover > ul > li.AmericanWater,
+        li.outer.hover > ul > li.AmericanWater,
+        div.edit > ul > li.AmericanWater {
+            border-left: 20px solid blue;
+        }
+
+        li.outer:hover > ul > li.GeocodeFarm,
+        li.outer.hover > ul > li.GeocodeFarm,
+        div.edit > ul > li.GeocodeFarm {
+            border-left: 20px solid purple;
+        }
+
+        li.outer:hover > ul > li.DataScienceToolkit,
+        li.outer.hover > ul > li.DataScienceToolkit,
+        div.edit > ul > li.DataScienceToolkit {
+            border-left: 20px solid green;
+        }
+
+        div.innertube > ul, div.innertube > ul > li > ul,
+        div.innertube > div.edit > ul {
+            list-style-type: none;
+        }
+
+        div.innertube > ul > li > ul {
+            padding-left: 20px;
+        }
+
+        div.searchFields {
+            width: 100% !important;
+        }
+
+        .fc200 .field-pair > .label,
+        .fc200 .field-pair > .field {
+            text-align: left !important;
+            width: 100% !important;
+            margin: 0 !important;
+            float: none !important;
+        }
+    </style>
+}
+
+@section aboveMap {
+    <div id="framecontent">
+        <div class="innertube">
+            @Html.Partial("_Index")
+        </div>
+    </div>
+
+    <div id="maincontent">
+        <div class="innertube">
+}
+
+@section belowMap {
+        </div>
+    </div>
+}

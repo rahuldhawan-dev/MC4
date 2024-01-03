@@ -1,0 +1,28 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels.PreJobSafetyBriefs
+@model CreateProductionPreJobSafetyBriefBase
+
+@{
+    var hasOrder = Model is CreateProductionPreJobSafetyBriefFromWorkOrder;
+    var formAction = hasOrder ? "CreateFromOrder" : "Create";
+}
+
+@using (Form.BeginForm(formAction, "ProductionPreJobSafetyBrief", "Production"))
+{
+    <div class="field-column fc300">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @if (hasOrder)
+            {
+                @Html.LinkButton("Cancel", "Show", "ProductionWorkOrder", new {
+                    id = Model.ProductionWorkOrder
+                })
+            }
+            else
+            {
+                @Html.LinkButton("Cancel", "Search", "ProductionPreJobSafetyBrief")
+            }
+        </text>)
+    </div>
+}

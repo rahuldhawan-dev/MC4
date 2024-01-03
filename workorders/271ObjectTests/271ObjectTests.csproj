@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B552DD6C-330E-4D00-A57B-2DFF1DEE55D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_271ObjectTests</RootNamespace>
+    <AssemblyName>271ObjectTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA1|x64'">
+    <OutputPath>bin\x64\QA1\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <OutputPath>bin\x64\QA2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <OutputPath>bin\x64\QA3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <OutputPath>bin\x64\Training\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <OutputPath>bin\x64\QA4\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30930.28736, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Web.UI.WebControls, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Practices.Web.UI.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tests\Integration\NotificationConfigurationTest.cs" />
+    <Compile Include="Tests\Integration\NotificationTemplatesTest.cs" />
+    <Compile Include="Tests\Integration\WorkOrdersRepositoryTest.cs" />
+    <Compile Include="Tests\Library\AddressVerificationTest.cs" />
+    <Compile Include="Tests\Library\PermissionsExtensionsTestTest.cs" />
+    <Compile Include="Tests\Library\SecurityServiceTest.cs" />
+    <Compile Include="Tests\Unit\Controls\Common\LatLonPickerTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\BaseWorkOrderSearchTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderAccountFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderAdditionalFinalizationInfoFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderDetailControlBaseTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderDocumentsFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderInputFormViewTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderMainBreakFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderMarkoutDamageFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderMarkoutFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderMaterialsUsedFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderRequisitionFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderRestorationFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderSpoilsFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderStockApprovalFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderStreetOpeningPermitCreateFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderStreetOpeningPermitFormTest.cs" />
+    <Compile Include="Tests\Unit\Controls\WorkOrders\WorkOrderTrafficControlFormTest.cs" />
+    <Compile Include="Tests\Unit\Model\AssetStatusTest.cs" />
+    <Compile Include="Tests\Unit\Model\AssetTest.cs" />
+    <Compile Include="Tests\Unit\Model\AssetTypeTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Unit\Model\CoordinateTest.cs" />
+    <Compile Include="Tests\Unit\Model\CrewAssignmentRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\CrewAssignmentTest.cs" />
+    <Compile Include="Tests\Unit\Model\CrewRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\CrewTest.cs" />
+    <Compile Include="Tests\Unit\Model\CustomerImpactRangeTest.cs" />
+    <Compile Include="Tests\Unit\Model\DetectedLeakTest.cs" />
+    <Compile Include="Tests\Unit\Model\DocumentDataTest.cs" />
+    <Compile Include="Tests\Unit\Model\DocumentTest.cs" />
+    <Compile Include="Tests\Unit\Model\DocumentTypeTest.cs" />
+    <Compile Include="Tests\Unit\Model\DocumentWorkOrderTest.cs" />
+    <Compile Include="Tests\Unit\Model\EmployeeWorkOrderTest.cs" />
+    <Compile Include="Tests\Unit\Model\EquipmentTest.cs" />
+    <Compile Include="Tests\Unit\Model\HydrantTest.cs" />
+    <Compile Include="Tests\Unit\Model\LostWaterTest.cs" />
+    <Compile Include="Tests\Unit\Model\MainBreakMaterialTest.cs" />
+    <Compile Include="Tests\Unit\Model\MainBreakSoilConditionTest.cs" />
+    <Compile Include="Tests\Unit\Model\MainFailureTypeTest.cs" />
+    <Compile Include="Tests\Unit\Model\MarkoutRequirementTest.cs" />
+    <Compile Include="Tests\Unit\Model\MarkoutStatusTest.cs" />
+    <Compile Include="Tests\Unit\Model\MarkoutTest.cs" />
+    <Compile Include="Tests\Unit\Model\MarkoutTypeTest.cs" />
+    <Compile Include="Tests\Unit\Model\MaterialsUsedRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\MaterialsUsedTest.cs" />
+    <Compile Include="Tests\Unit\Model\MaterialTest.cs" />
+    <Compile Include="Tests\Unit\Model\OperatingCenterSpoilRemovalCostTest.cs" />
+    <Compile Include="Tests\Unit\Model\OperatingCenterStockedMaterialTest.cs" />
+    <Compile Include="Tests\Unit\Model\OperatingCenterTest.cs" />
+    <Compile Include="Tests\Unit\Model\RepairTimeRangeTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationAccountingCodeTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationMethodTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationProductCodeTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationResponsePriorityTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationTypeCostTest.cs" />
+    <Compile Include="Tests\Unit\Model\RestorationTypeTest.cs" />
+    <Compile Include="Tests\Unit\Model\SafetyMarkerTest.cs" />
+    <Compile Include="Tests\Unit\Model\SapWorkOrdersBaseRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\ServiceSizeTest.cs" />
+    <Compile Include="Tests\Unit\Model\SewerOpeningTest.cs" />
+    <Compile Include="Tests\Unit\Model\SpoilFinalProcessingLocationTest.cs" />
+    <Compile Include="Tests\Unit\Model\SpoilRemovalTest.cs" />
+    <Compile Include="Tests\Unit\Model\SpoilStorageLocationTest.cs" />
+    <Compile Include="Tests\Unit\Model\SpoilTest.cs" />
+    <Compile Include="Tests\Unit\Model\StockLocationRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\StockLocationTest.cs" />
+    <Compile Include="Tests\Unit\Model\StormWaterAssetTest.cs" />
+    <Compile Include="Tests\Unit\Model\StreetOpeningPermitTest.cs" />
+    <Compile Include="Tests\Unit\Model\StreetTest.cs" />
+    <Compile Include="Tests\Unit\Model\TownSectionTest.cs" />
+    <Compile Include="Tests\Unit\Model\TownTest.cs" />
+    <Compile Include="Tests\Unit\Model\DocumentDataRepositoryTest.cs" />
+    <Compile Include="Tests\Unit\Model\ValveTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkDescriptionTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkOrderDescriptionChangeTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkOrderPriorityTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkOrderPurposeTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkOrderRequesterTest.cs" />
+    <Compile Include="Tests\Unit\Model\WorkOrderTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Abstract\WorkOrdersAdminResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Abstract\WorkOrdersResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Assets\AssetLatLonPickerPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\ContractorCrewAssignments\ContractorCrewAssignmentListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\ContractorCrewAssignments\ContractorCrewAssignmentResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\ContractorCrewAssignments\ContractorCrewAssignmentSearchPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\CrewAssignments\CrewAssignmentsListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\CrewAssignments\CrewAssignmentResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\CrewAssignments\CrewAssignmentResourceRPCPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\CrewAssignments\CrewAssignmentSearchPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\CrewAssignments\CrewAssignmentsReadOnlyPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Crews\CrewDetailPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Crews\CrewResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Crews\CrewsListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Documents\DocumentResourceRPCPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Materials\MaterialResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\RestorationAccountingCodes\RestorationAccountingCodeListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\RestorationProductCodes\RestorationProductCodeListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Restorations\RestorationDetailPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\Restorations\RestorationResourceRPCPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\RestorationTypeCosts\RestorationTypeCostResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\SpoilRemovals\SpoilRemovalsResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\SpoilStorageLocations\SpoilStorageLocationResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\StockLocations\StockLocationsResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\WorkOrders\WorkOrderDetailPresenterTest.cs">
+    </Compile>
+    <Compile Include="Tests\Unit\Presenters\WorkOrders\WorkOrderListPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\WorkOrders\WorkOrderResourceRPCPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\WorkOrders\WorkOrderSearchPresenterTest.cs" />
+    <Compile Include="Tests\Unit\Presenters\WorkOrders\WorkOrderResourcePresenterTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrderApprovalDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrderApprovalResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrderApprovalSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrderListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrdersDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrderSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrdersReportTest.cs" />
+    <Compile Include="Tests\Unit\Views\Assets\AssetEntityEventArgsTest.cs" />
+    <Compile Include="Tests\Unit\Views\Assets\AssetLatLonPickerViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Assets\AssetLatLonReadOnlyViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\ContractorCrewAssignments\ContractorCrewAssignmentsListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\ContractorCrewAssignments\ContractorCrewAssignmentsSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\CrewAssignments\CrewAssignmentsByMonthTest.cs" />
+    <Compile Include="Tests\Unit\Views\CrewAssignments\CrewAssignmentsMonthLegendTest.cs" />
+    <Compile Include="Tests\Unit\Views\CrewAssignments\DateTimeEventArgsTest.cs" />
+    <Compile Include="Tests\Unit\Views\Crews\CrewDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Crews\CrewListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Crews\CrewResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\Crews\CrewResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Employees\EmployeesServiceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Materials\MaterialSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceViewPageTest.cs">
+    </Compile>
+    <Compile Include="Tests\Unit\Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Restorations\RestorationDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Restorations\RestorationResourceRPCViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\RestorationTypeCosts\RestorationTypeCostListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\RestorationTypeCosts\RestorationTypeCostResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\RestorationTypeCosts\RestorationTypeCostResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilRemovals\SpoilRemovalListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilRemovals\SpoilRemovalResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\SpoilRemovals\SpoilRemovalSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Finalization\WorkOrderFinalizationSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralResourceRPCViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\General\WorkOrderGeneralSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Input\WorkOrderInputDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Input\WorkOrderInputListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\Abstract\WorkOrdersResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Input\WorkOrderInputResourceRPCViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Input\WorkOrderInputResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Input\WorkOrderInputResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Planning\WorkOrderPlanningDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Planning\WorkOrderPlanningListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\Planning\WorkOrderPlanningSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\ReadOnly\WorkOrderReadOnlyDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\ReadOnly\WorkOrderReadOnlyResourceRPCViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SOPProcessing\SOPProcessingDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SOPProcessing\SOPProcessingListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SOPProcessing\SOPProcessingResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SOPProcessing\SOPProcessingResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SOPProcessing\SOPProcessingSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\StockToIssue\WorkOrderStockToIssueDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\StockToIssue\WorkOrderStockToIssueListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\StockToIssue\WorkOrderStockToIssueSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalDetailViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalListViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceViewPageTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalSearchViewTest.cs" />
+    <Compile Include="Tests\Unit\Views\WorkOrders\WorkOrderAssignmentEventArgsTest.cs" />
+    <Compile Include="WorkOrdersTestClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuthoringTests.txt" />
+    <Content Include="CoverageSettings.xml" />
+    <Content Include="Scripts\sometest.js" />
+    <Content Include="Scripts\test.htm" />
+    <Content Include="Scripts\testHelpers.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4bba-87d8-d8f49fb41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.WebForms\MapCall.Common.WebForms.csproj">
+      <Project>{336D9861-ACDD-4C64-AC42-6F80AC1693EE}</Project>
+      <Name>MapCall.Common.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.SAP\MapCall.SAP.csproj">
+      <Project>{9EE96C6B-095A-4792-B247-2F7B28430A9B}</Project>
+      <Name>MapCall.SAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.WebForms\MMSINC.Core.WebForms.csproj">
+      <Project>{718E1B61-19B4-45DE-985F-3B583C0F7705}</Project>
+      <Name>MMSINC.Core.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing.WebForms\MMSINC.Testing.WebForms.csproj">
+      <Project>{F613FDBA-47D4-4516-A1E6-1D73F962170E}</Project>
+      <Name>MMSINC.Testing.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\Permits.Data.Client\Permits.Data.Client.csproj">
+      <Project>{17B00AD4-E78B-4CA2-88D2-9101A372FEA5}</Project>
+      <Name>Permits.Data.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LINQTo271\LINQTo271.csproj">
+      <Project>{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}</Project>
+      <Name>LINQTo271</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkOrders\WorkOrders.csproj">
+      <Project>{45A068AF-75DC-4446-BB6D-79E6EE978E26}</Project>
+      <Name>WorkOrders</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tests\Unit\Views\Valves\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

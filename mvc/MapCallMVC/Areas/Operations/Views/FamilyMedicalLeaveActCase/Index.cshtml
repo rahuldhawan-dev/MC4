@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchFamilyMedicalLeaveActCase
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .SortableTemplateColumnFor("FMLA Case", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Employee.OperatingCenter, "e.OperatingCenter")
+    .SortableColumnFor(x => x.Employee.FullName, "e.LastName")
+    .ColumnFor(x => x.Employee.ReportsTo)
+    .ColumnFor(x => x.Employee.ReportsTo.PhoneWork)
+    .ColumnFor(x => x.Employee.ReportsTo.PhoneCellular)
+    .SortableColumnFor(x => x.StartDate, "StartDate")
+    .SortableColumnFor(x => x.EndDate, "EndDate")
+    .SortableColumnFor(x => x.FrequencyDays, "FrequencyDays")
+    .SortableColumnFor(x => x.CertificationExtended, "CertificationExtended")
+    .SortableColumnFor(x => x.SendPackage, "SendPackage")
+    .SortableColumnFor(x => x.PackageDateSent, "PackageDateSent")
+    .SortableColumnFor(x => x.PackageDateReceived, "PackageDateReceived")
+    .SortableColumnFor(x => x.CompanyAbsenceCertification, "CompanyAbsenceCertification")
+    
+    .WithPaginatedFooter())

@@ -1,0 +1,64 @@
+﻿#map_menu_wrapper
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  margin: 6px 6px 6px auto;
+}
+
+#map_menu
+{
+  margin: 0;
+  padding: 6px;
+  min-width: 100px;
+  max-width: 250px;
+  max-height: 100%;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.map_menu_header
+{
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  padding: 6px;
+  margin: 0;
+}
+
+.map_menu_header.open
+{
+  border-bottom: 1px solid #C0C0C0;
+  margin-bottom: 6px;
+}
+
+.map_menu_section
+{
+  display:none;
+  overflow-y: auto;
+  min-width: 200px;
+}
+
+.map-legend-section p
+{
+  text-align: left;
+}
+
+#mapNotes
+{
+    width: 220px;
+}
+
+/* fix the basemap gallery images */
+.esriBasemapGalleryNode
+{
+    float: none !important;
+    margin: auto;
+}
+
+#gis-legend {
+    resize: horizontal;
+    min-width: 200px;
+}

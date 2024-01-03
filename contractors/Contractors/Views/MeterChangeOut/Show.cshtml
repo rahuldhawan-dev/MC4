@@ -1,0 +1,19 @@
+﻿@using Contractors.ClassExtensions
+@model MeterChangeOut
+@{
+    ViewBag.Title = "Meter Change Outs";
+}
+@section styles {
+    
+<style>
+    @* Bug 3405 requested that the legend text be larger. I'm not doing that for the whole site. -Ross *@
+    legend {
+        font-size: 20px;
+    }
+</style>
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowMeterChangeOut")
+    .WithTab("Notes", "notesTab", "~/Views/Shared/Note/Index.cshtml", Model)
+    .WithDocuments())

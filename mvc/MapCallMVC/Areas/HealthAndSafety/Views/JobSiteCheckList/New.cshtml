@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.CreateJobSiteCheckList
+
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/JobSiteCheckList/SafetyBrief.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/JobSiteCheckList/Form.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Create", "JobSiteCheckList", "HealthAndSafety"))
+{
+    @(Html.Tabs()
+          .WithTab("Pre Job Safety Brief", "EditorPartials/_SafetyBrief"))
+   
+    @Html.ButtonGroup(Control.SubmitButton("Save"))
+}

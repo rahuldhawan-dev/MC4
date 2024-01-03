@@ -1,0 +1,47 @@
+﻿@model EditStandardOperatingProcedureReview
+
+<fieldset>
+    <legend>Details</legend>
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.OriginalEntity.StandardOperatingProcedure, new { DisplayName = "SOP" })
+        @Html.DisplayFor(x => x.OriginalEntity.AnsweredBy)
+        @Html.DisplayFor(x => x.OriginalEntity.AnsweredAt)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Questions</legend>
+
+    @using (var f =Form.BeginForm("Update", "StandardOperatingProcedureReview", new { Id = Model.Id }))
+    {
+        f.Confirmation = "Are you sure you want to submit this review? You can not mark questions as correct/incorrect again later!";
+        for (var i = 0; i < Model.Questions.Count; i++)
+        {
+            <div class="q-item">
+                @Control.HiddenFor(x => x.Questions[i].Id)
+                <h3>@(i + 1). @Html.DisplayValueFor(x => x.Questions[i].ActualQuestion.Question)</h3>
+                <table class="for-structure">
+                    <tr>
+                        <th>User's answer</th>
+                        <th>Correct answer</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <pre>@Html.DisplayValueFor(x => x.Questions[i].ActualQuestion.Answer)</pre>
+                        </td>
+                        <td>
+                            <pre>@Html.DisplayValueFor(x => x.Questions[i].UserAnswer)</pre>
+
+                        </td>
+                    </tr>
+                </table>
+                <div class="field-column fc100">
+                    @Html.EditorFor(x => x.Questions[i].IsCorrect)
+                </div>
+            </div>
+        }
+
+        @Control.SubmitButton("Save")
+
+    }
+</fieldset>

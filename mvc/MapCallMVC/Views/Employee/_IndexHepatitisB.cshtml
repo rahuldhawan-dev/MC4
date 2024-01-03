@@ -1,0 +1,7 @@
+﻿@model Employee
+
+@(Html.TableFor(x => Model.HepatitisBVaccinations, new { id = "hepatitisBVaccinations"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "HepatitisBVaccination", new { x.Id }, null))
+    .ColumnFor(x => x.HepatitisBVaccineStatus)
+    .ColumnFor(x => x.ResponseDate)
+)

@@ -1,0 +1,66 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model Valve
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink(Model.ValveNumber, "Show", "Valve", "FieldOperations", new { id = Model.Id }, new { target = "_blank" })
+    </h2>
+    <h3>Legacy ID: @Html.DisplayValueFor(x => x.LegacyId)</h3>
+    @Control.Button("Hide").WithCssClass("esri-toggle")
+
+    @if (Model.OperatingCenter.WorkOrdersEnabled)
+    {
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model), new { area = "FieldOperations", Class = "link-button", target = "_new" })
+        </div>
+    }
+
+    @if (Model.IsInspectable && Model.OperatingCenter.IsActive)
+    {
+        @Html.AuthorizedActionLinkButton("New Inspection", "New", "ValveInspection", new { id = Model.Id }, new { id = "btnNewInspection", @class = "inspect-button" })
+
+        if (Model.CanHaveBlowOffInspections)
+        {
+            @Html.AuthorizedActionLinkButton("New Blow Off Inspection", "New", "BlowOffInspection", new { id = Model.Id }, new { @class = "inspect-button" })
+        }
+    }
+    else
+    {
+        <div class="notification notifications-warning">
+            <div class="message">New inspection records can not be created for assets that are cancelled, inactive, retired, or removed.</div>
+        </div>
+    }
+
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.Status)
+        @if (Model.Critical)
+        {
+            @Html.DisplayFor(x => x.CriticalNotes, new { @class = "critical-notes-display" })
+        }
+        <fieldset>
+            <legend>Valve Inspection</legend>
+            @Html.DisplayFor(x => x.LastInspectionDate, new { DisplayName = "Last Inspection" })
+            @Html.DisplayFor(x => x.LastNonInspectionDate, new { DisplayName = "Last Non-Inspection" })
+            @Html.DisplayFor(x => x.HasOpenWorkOrder)
+            @Html.DisplayFor(x => x.RequiresInspection)
+        </fieldset>
+
+        @if (Model.CanHaveBlowOffInspections)
+        {
+            <fieldset>
+                <legend>Blowoff Inspection</legend>
+                @Html.DisplayFor(x => x.LastBlowOffInspectionDate, new { DisplayName = "Last Inspection" })
+                @Html.DisplayFor(x => x.LastBlowOffNonInspectionDate, new { DisplayName = "Last Non-Inspection" })
+                @Html.DisplayFor(x => x.HasOpenWorkOrder)
+                @Html.DisplayFor(x => x.RequiresBlowOffInspection)
+            </fieldset>
+        }
+        @Html.DisplayFor(x => x.FunctionalLocation)
+        @Html.DisplayFor(x => x.ValveControls)
+        @Html.DisplayFor(x => x.ValveType)
+        @Html.DisplayFor(x => x.ValveSize)
+        @Html.DisplayFor(x => x.Turns)
+        @Html.DisplayFor(x => x.ValveZone)
+        @Html.DisplayFor(x => x.Route)
+        @Html.DisplayFor(x => x.Stop)
+    </div>
+</div>

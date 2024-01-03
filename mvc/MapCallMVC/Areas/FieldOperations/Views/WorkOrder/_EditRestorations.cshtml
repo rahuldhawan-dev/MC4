@@ -1,0 +1,5 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Restoration", "New", "Restoration", new { area = "FieldOperations", id = Model.Id }, new { Class = "link-button", target = "_blank" })
+
+@Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Restorations.cshtml", Model)

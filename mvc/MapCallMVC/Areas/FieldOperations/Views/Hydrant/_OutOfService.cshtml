@@ -1,0 +1,35 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model Hydrant
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Change service status">
+        @if (Model.OutOfService)
+        {
+            @Html.Partial("_BackInServiceForm", ViewModelFactory.BuildWithOverrides<MarkBackInServiceHydrant>(new { Id = Model.Id, BackInServiceDate = DateTime.Now }))
+        }
+        else
+        {
+            @Html.Partial("_OutOfServiceForm", ViewModelFactory.BuildWithOverrides<MarkOutOfServiceHydrant>(new { Id = Model.Id, OutOfServiceDate = DateTime.Now }))
+        }
+
+    </div>
+}
+
+@if (!Model.OutOfServiceRecords.Any())
+{
+    <span>There are no out of service records for this hydrant.</span>
+}
+else
+{
+    var records = Model.OutOfServiceRecords.OrderByDescending(x => x.OutOfServiceDate);
+    @(Html.TableFor(x => records, new{ id = "out-of-service"})
+          .ColumnFor(x => x.OutOfServiceDate)
+          .ColumnFor(x => x.OutOfServiceByUser)
+          .ColumnFor(x => x.BackInServiceDate)
+          .ColumnFor(x => x.BackInServiceByUser)
+          .ColumnFor(x => x.FireDepartmentContact)
+          .ColumnFor(x => x.FireDepartmentFax)
+          .ColumnFor(x => x.FireDepartmentPhone)
+          .ColumnFor(x => x.CreatedAt))
+}

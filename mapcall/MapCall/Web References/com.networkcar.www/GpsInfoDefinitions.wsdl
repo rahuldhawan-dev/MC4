@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s0:definitions xmlns:s1="http://www.w3.org/2001/XMLSchema" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s2="http://www.networkcar.com" xmlns="" name="GpsInfoDefinitions" targetNamespace="http://www.networkcar.com" xmlns:s0="http://schemas.xmlsoap.org/wsdl/">
+  <s0:types />
+  <s0:message name="getGpsTrack">
+    <s0:part name="username" type="s1:string" />
+    <s0:part name="password" type="s1:string" />
+    <s0:part name="vin" type="s1:string" />
+    <s0:part name="fromDate" type="s1:string" />
+    <s0:part name="toDate" type="s1:string" />
+    <s0:part name="keyOffFlag" type="s1:string" />
+  </s0:message>
+  <s0:message name="getGpsTrackResponse">
+    <s0:part name="return" type="s1:string" />
+  </s0:message>
+  <s0:message name="getFleetGpsInfo">
+    <s0:part name="username" type="s1:string" />
+    <s0:part name="password" type="s1:string" />
+  </s0:message>
+  <s0:message name="getFleetGpsInfoResponse">
+    <s0:part name="return" type="s1:string" />
+  </s0:message>
+  <s0:message name="getGpsTrackAdvanced">
+    <s0:part name="username" type="s1:string" />
+    <s0:part name="password" type="s1:string" />
+    <s0:part name="vin" type="s1:string" />
+    <s0:part name="fromDate" type="s1:string" />
+    <s0:part name="toDate" type="s1:string" />
+    <s0:part name="keyOffFlag" type="s1:string" />
+    <s0:part name="fixCount" type="s1:int" />
+    <s0:part name="sortDirection" type="s1:string" />
+  </s0:message>
+  <s0:message name="getGpsTrackAdvancedResponse">
+    <s0:part name="return" type="s1:string" />
+  </s0:message>
+  <s0:message name="getGpsInfo">
+    <s0:part name="username" type="s1:string" />
+    <s0:part name="password" type="s1:string" />
+    <s0:part name="vin" type="s1:string" />
+  </s0:message>
+  <s0:message name="getGpsInfoResponse">
+    <s0:part name="return" type="s1:string" />
+  </s0:message>
+  <s0:portType name="GpsInfo">
+    <s0:operation name="getGpsTrack" parameterOrder="username password vin fromDate toDate keyOffFlag">
+      <s0:input message="s2:getGpsTrack" />
+      <s0:output message="s2:getGpsTrackResponse" />
+    </s0:operation>
+    <s0:operation name="getFleetGpsInfo" parameterOrder="username password">
+      <s0:input message="s2:getFleetGpsInfo" />
+      <s0:output message="s2:getFleetGpsInfoResponse" />
+    </s0:operation>
+    <s0:operation name="getGpsTrackAdvanced" parameterOrder="username password vin fromDate toDate keyOffFlag fixCount sortDirection">
+      <s0:input message="s2:getGpsTrackAdvanced" />
+      <s0:output message="s2:getGpsTrackAdvancedResponse" />
+    </s0:operation>
+    <s0:operation name="getGpsInfo" parameterOrder="username password vin">
+      <s0:input message="s2:getGpsInfo" />
+      <s0:output message="s2:getGpsInfoResponse" />
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="GpsInfoSoapBinding" type="s2:GpsInfo">
+    <s3:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <s0:operation name="getGpsTrack">
+      <s3:operation soapAction="" style="rpc" />
+      <s0:input>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="username password vin fromDate toDate keyOffFlag" />
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="return" />
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getFleetGpsInfo">
+      <s3:operation soapAction="" style="rpc" />
+      <s0:input>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="username password" />
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="return" />
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getGpsTrackAdvanced">
+      <s3:operation soapAction="" style="rpc" />
+      <s0:input>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="username password vin fromDate toDate keyOffFlag fixCount sortDirection" />
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="return" />
+      </s0:output>
+    </s0:operation>
+    <s0:operation name="getGpsInfo">
+      <s3:operation soapAction="" style="rpc" />
+      <s0:input>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="username password vin" />
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal" namespace="http://www.networkcar.com" parts="return" />
+      </s0:output>
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="GpsInfo">
+    <s0:port name="GpsInfoServicePort" binding="s2:GpsInfoSoapBinding">
+      <s3:address location="http://www.networkcar.com:80/networkcar/pub/webservices/gpsuri" />
+    </s0:port>
+  </s0:service>
+</s0:definitions>

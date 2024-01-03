@@ -1,0 +1,13 @@
+﻿@model EditPremiseType
+
+@using (Form.BeginForm("Update", "PremiseType", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "PremiseType", new { Model.Id })
+                           </text>)
+    </div>
+}

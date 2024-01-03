@@ -1,0 +1,8 @@
+﻿@model SearchPlanningPlant
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Code)
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.OperatingCenter).WithPaginatedFooter())

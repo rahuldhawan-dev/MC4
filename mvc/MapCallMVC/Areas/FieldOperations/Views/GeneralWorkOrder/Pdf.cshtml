@@ -1,0 +1,1277 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<WorkOrder>
+@{
+	Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+	ShowPageNumbersInFooter = ShowHeader = false;
+	var topBottom = MarginWidth.HalfInch;
+	var leftRight = MarginWidth.QuarterInch;
+	TopMargin = topBottom;
+	BottomMargin = topBottom;
+	LeftMargin = leftRight;
+	RightMargin = leftRight;
+}
+
+@section head{
+	<style>
+        /* reset */
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+            font-size: 100%;
+            vertical-align: baseline;
+            background: transparent
+        }
+
+        body {
+            line-height: 1
+        }
+
+        ol, ul {
+            list-style: none
+        }
+
+        blockquote, q {
+            quotes: none
+        }
+
+            blockquote:before, blockquote:after, q:before, q:after {
+                content: '';
+                content: none
+            }
+
+        :focus {
+            outline: 0
+        }
+
+        ins {
+            text-decoration: none
+        }
+
+        del {
+            text-decoration: line-through
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        /* 960.css */
+        .container_12, .container_16 {
+            margin-left: auto;
+            margin-right: auto;
+            width: 960px;
+        }
+
+        .grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12, .grid_13, .grid_14, .grid_15, .grid_16 {
+            display: inline;
+            float: left;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .container_12 .grid_3, .container_16 .grid_4 {
+            width: 220px;
+        }
+
+        .container_12 .grid_6, .container_16 .grid_8 {
+            width: 460px;
+        }
+
+        .container_12 .grid_9, .container_16 .grid_12 {
+            width: 700px;
+        }
+
+        .container_12 .grid_12, .container_16 .grid_16 {
+            width: 940px;
+        }
+
+        .alpha {
+            margin-left: 0;
+        }
+
+        .omega {
+            margin-right: 0;
+        }
+
+        .container_12 .grid_1 {
+            width: 60px;
+        }
+
+        .container_12 .grid_2 {
+            width: 140px;
+        }
+
+        .container_12 .grid_4 {
+            width: 300px;
+        }
+
+        .container_12 .grid_5 {
+            width: 380px;
+        }
+
+        .container_12 .grid_7 {
+            width: 540px;
+        }
+
+        .container_12 .grid_8 {
+            width: 620px;
+        }
+
+        .container_12 .grid_10 {
+            width: 780px;
+        }
+
+        .container_12 .grid_11 {
+            width: 860px;
+        }
+
+        .container_16 .grid_1 {
+            width: 40px;
+        }
+
+        .container_16 .grid_2 {
+            width: 100px;
+        }
+
+        .container_16 .grid_3 {
+            width: 160px;
+        }
+
+        .container_16 .grid_5 {
+            width: 280px;
+        }
+
+        .container_16 .grid_6 {
+            width: 340px;
+        }
+
+        .container_16 .grid_7 {
+            width: 400px;
+        }
+
+        .container_16 .grid_9 {
+            width: 520px;
+        }
+
+        .container_16 .grid_10 {
+            width: 580px;
+        }
+
+        .container_16 .grid_11 {
+            width: 640px;
+        }
+
+        .container_16 .grid_13 {
+            width: 760px;
+        }
+
+        .container_16 .grid_14 {
+            width: 820px;
+        }
+
+        .container_16 .grid_15 {
+            width: 880px;
+        }
+
+        .container_12 .prefix_3, .container_16 .prefix_4 {
+            padding-left: 240px;
+        }
+
+        .container_12 .prefix_6, .container_16 .prefix_8 {
+            padding-left: 480px;
+        }
+
+        .container_12 .prefix_9, .container_16 .prefix_12 {
+            padding-left: 720px;
+        }
+
+        .container_12 .prefix_1 {
+            padding-left: 80px;
+        }
+
+        .container_12 .prefix_2 {
+            padding-left: 160px;
+        }
+
+        .container_12 .prefix_4 {
+            padding-left: 320px;
+        }
+
+        .container_12 .prefix_5 {
+            padding-left: 400px;
+        }
+
+        .container_12 .prefix_7 {
+            padding-left: 560px;
+        }
+
+        .container_12 .prefix_8 {
+            padding-left: 640px;
+        }
+
+        .container_12 .prefix_10 {
+            padding-left: 800px;
+        }
+
+        .container_12 .prefix_11 {
+            padding-left: 880px;
+        }
+
+        .container_16 .prefix_1 {
+            padding-left: 60px;
+        }
+
+        .container_16 .prefix_2 {
+            padding-left: 120px;
+        }
+
+        .container_16 .prefix_3 {
+            padding-left: 180px;
+        }
+
+        .container_16 .prefix_5 {
+            padding-left: 300px;
+        }
+
+        .container_16 .prefix_6 {
+            padding-left: 360px;
+        }
+
+        .container_16 .prefix_7 {
+            padding-left: 420px;
+        }
+
+        .container_16 .prefix_9 {
+            padding-left: 540px;
+        }
+
+        .container_16 .prefix_10 {
+            padding-left: 600px;
+        }
+
+        .container_16 .prefix_11 {
+            padding-left: 660px;
+        }
+
+        .container_16 .prefix_13 {
+            padding-left: 780px;
+        }
+
+        .container_16 .prefix_14 {
+            padding-left: 840px;
+        }
+
+        .container_16 .prefix_15 {
+            padding-left: 900px;
+        }
+
+        .container_12 .suffix_3, .container_16 .suffix_4 {
+            padding-right: 240px;
+        }
+
+        .container_12 .suffix_6, .container_16 .suffix_8 {
+            padding-right: 480px;
+        }
+
+        .container_12 .suffix_9, .container_16 .suffix_12 {
+            padding-right: 720px;
+        }
+
+        .container_12 .suffix_1 {
+            padding-right: 80px;
+        }
+
+        .container_12 .suffix_2 {
+            padding-right: 160px;
+        }
+
+        .container_12 .suffix_4 {
+            padding-right: 320px;
+        }
+
+        .container_12 .suffix_5 {
+            padding-right: 400px;
+        }
+
+        .container_12 .suffix_7 {
+            padding-right: 560px;
+        }
+
+        .container_12 .suffix_8 {
+            padding-right: 640px;
+        }
+
+        .container_12 .suffix_10 {
+            padding-right: 800px;
+        }
+
+        .container_12 .suffix_11 {
+            padding-right: 880px;
+        }
+
+        .container_16 .suffix_1 {
+            padding-right: 60px;
+        }
+
+        .container_16 .suffix_2 {
+            padding-right: 120px;
+        }
+
+        .container_16 .suffix_3 {
+            padding-right: 180px;
+        }
+
+        .container_16 .suffix_5 {
+            padding-right: 300px;
+        }
+
+        .container_16 .suffix_6 {
+            padding-right: 360px;
+        }
+
+        .container_16 .suffix_7 {
+            padding-right: 420px;
+        }
+
+        .container_16 .suffix_9 {
+            padding-right: 540px;
+        }
+
+        .container_16 .suffix_10 {
+            padding-right: 600px;
+        }
+
+        .container_16 .suffix_11 {
+            padding-right: 660px;
+        }
+
+        .container_16 .suffix_13 {
+            padding-right: 780px;
+        }
+
+        .container_16 .suffix_14 {
+            padding-right: 840px;
+        }
+
+        .container_16 .suffix_15 {
+            padding-right: 900px;
+        }
+
+        .clear {
+            clear: both;
+            display: block;
+            overflow: hidden;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+            content: '.';
+            display: block;
+            visibility: hidden;
+            height: 0;
+        }
+
+        .clearfix {
+            display: inline-block;
+        }
+
+        * html .clearfix {
+            height: 1%
+        }
+
+        .clearfix {
+            display: block;
+        }
+
+        /* 960 Hacks */
+        .grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12 {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .container_12 .grid_1 {
+            width: 66px;
+        }
+
+        .container_12 .grid_2 {
+            width: 146px;
+        }
+
+        .container_12 .grid_3 {
+            width: 226px;
+        }
+
+        .container_12 .grid_4 {
+            width: 306px;
+        }
+
+        .container_12 .grid_5 {
+            width: 386px;
+        }
+
+        .container_12 .grid_6 {
+            width: 466px;
+        }
+
+        .container_12 .grid_7 {
+            width: 546px;
+        }
+
+        .container_12 .grid_8 {
+            width: 626px;
+        }
+
+        .container_12 .grid_9 {
+            width: 706px;
+        }
+
+        .container_12 .grid_10 {
+            width: 786px;
+        }
+
+        .container_12 .grid_11 {
+            width: 866px;
+        }
+
+        .container_12 .grid_12 {
+            width: 940px;
+        }
+        /* Regular Styles */
+        table#materialsUsedTable {
+            table-layout: fixed;
+        }
+
+            table#materialsUsedTable td, .light-border {
+                border: 1px solid black;
+            }
+
+            table#materialsUsedTable tbody tr {
+                height: 30px;
+            }
+
+        table#materialsUsedAccountNumbersTable {
+            width: 130px;
+            height: 120px;
+        }
+
+            table#materialsUsedAccountNumbersTable tr {
+                height: 16px;
+            }
+
+            table#materialsUsedAccountNumbersTable td {
+                border-style: none;
+                border: none;
+                font-size: small;
+            }
+
+        div#notesDiv {
+            min-height: 225px;
+        }
+
+        div#materialsUsedDiv, div#notesDiv {
+            width: 932px;
+        }
+
+        div#mainMaterialDiv, div#serviceMaterialDiv, div#typeOfLeakDiv, td.underline {
+            border-bottom: 1px solid black;
+        }
+
+        div#mainMaterialDiv, div#serviceMaterialDiv, div#typeOfLeakDiv {
+            height: 102px;
+        }
+
+        div#mainMaterialDiv, div#serviceMaterialDiv {
+            border-right: 1px solid black;
+        }
+
+        div#typeOfLeakDiv {
+            width: 326px;
+        }
+
+        table#jobDescriptionTable tbody tr th, table#jobDescriptionTable tbody tr td {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        table#jobInfoTable thead tr th {
+            font-size: smaller;
+        }
+
+        table#jobInfoTable tbody tr th {
+            text-align: left;
+            width: 35%;
+        }
+
+        div#dateDiv, div#locationInfoDiv {
+            height: 116px;
+        }
+
+            div#dateDiv table tr td, div#dateDiv table tr td {
+                padding: 6px;
+            }
+
+        div#markoutDiv div, table.padded tr td, div#assetInfoDiv div,
+        div#materialsUsedDiv, table#materialsUsedTable td, div#notesDiv {
+            padding: 2px 2px 2px 6px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        .fine-print {
+            font-size: xx-small;
+            white-space: nowrap;
+        }
+
+        .full-border {
+            border: 2px solid black;
+            margin: 2px 2px 2px 2px;
+        }
+
+        .bold {
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        td.truck-cell {
+            text-align: center;
+            vertical-align: top;
+            font-size: xx-small;
+            width: 35px;
+        }
+
+	</style>
+}
+
+@section body{
+    <div class="container_12" id="mainWrapper">
+        <div class="grid_3 bold">
+            Order Number: <span id="WorkOrderID">@Html.DisplayValueFor(m => m.Id)</span>
+        </div>
+        <div class="grid_4 bold" style="text-align: center">
+            271-Field Services Work Order
+        </div>
+        <div class="grid_2 fine-print" style="text-align: center">
+            * Show time in 1/4 hrs (.25, .50, etc.)
+        </div>
+        <div class="grid_2 fine-print" style="text-align: center">
+            Printed On<br />
+            @DateTime.Today.ToString("MM/dd/yyyy")
+        </div>
+        <div class="grid_1 fine-print" style="text-align: center">
+            Updated On<br />
+            @* This is here in 271 but it does nothing. *@
+        </div>
+        <div class="grid_4 full-border" id="dateDiv">
+            <table>
+                <tr>
+                    <td class="bold">
+                        Date Received:
+                    </td>
+                    <td id="DateReceived">
+                        @Html.DisplayValueFor(m => m.DateReceived, MMSINC.Utilities.CommonStringFormats.DATE)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Date Started:
+                    </td>
+                    <td id="DateStarted">
+                        @Html.DisplayValueFor(m => m.DateStarted)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Date Completed:
+                    </td>
+                    <td id="DateCompleted">
+                        @Html.DisplayValueFor(m => m.DateCompleted)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bold">
+                        Requested By:
+                    </td>
+                    <td>
+                        @* Contractors don't get to see this *@
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="grid_8 full-border" id="locationInfoDiv">
+            <div class="grid_4">
+                <table class="padded">
+                    <tr>
+                        <th>Address</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="CustomerName">
+                            @* Contractors don't get to see this *@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="StreetAddress">
+                            @Html.DisplayValueFor(m => m.StreetAddress)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="TownAddress">
+                            @Html.DisplayValueFor(m => m.TownAddress)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: small;">
+                            Nearest Cross St:
+                            @Html.DisplayValueFor(m => m.NearestCrossStreet.FullStName)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="grid_4" style="border-left: 2px solid black;">
+                <table class="padded">
+                    <tr>
+                        <td class="bold">
+                            Service Number<br />
+                            Hyd/Valve/BO:
+                        </td>
+                        <td id="AssetID">
+                            @Html.DisplayValueFor(m => m.Asset.Identifier)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Service Order #:
+                        </td>
+                        <td id="ORCOMServiceOrderNumber">
+                            @Html.DisplayValueFor(m => m.ORCOMServiceOrderNumber)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Premise Number:
+                        </td>
+                        <td id="PremiseNumber">
+                            @Html.DisplayValueFor(m => m.PremiseNumber)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Phone Number:
+                        </td>
+                        <td id="PhoneNumber">
+                            @Html.DisplayValueFor(m => m.PhoneNumber)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Markout Required:
+                        </td>
+                        <td>
+                            @Html.DisplayValueFor(m => m.MarkoutRequired)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="grid_12 full-border">
+            <div class="grid_5">
+                <table class="padded" id="jobDescriptionTable">
+                    <tr style="height: 40px;">
+                        <td class="bold">
+                            Description of Job:
+                        </td>
+                        <td id="WorkDescription">
+                            @Html.DisplayValueFor(m => m.WorkDescription)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Created By:
+                        </td>
+                        <td>
+                            @* Contractors don't get to see this *@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Priority:
+                        </td>
+                        <td>
+                            @Html.DisplayValueFor(m => m.Priority)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Backhoe Operator:
+                        </td>
+                        <td>
+                            @* Nothing happens here in 271 *@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold">
+                            Date of Excavation:
+                        </td>
+                        <td id="ExcavationDate">
+                            @Html.DisplayValueFor(m => m.ExcavationDate, MMSINC.Utilities.CommonStringFormats.DATE)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="grid_7">
+                <table id="jobInfoTable" class="padded">
+                    <thead>
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <th>
+                                1st
+                            </th>
+                            <th>
+                                2nd
+                            </th>
+                            <th>
+                                3rd
+                            </th>
+                            <th>
+                                4th
+                            </th>
+                            <th>
+                                5th
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                Employee Assigned:
+                            </th>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                # Employees Assigned:
+                            </th>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Time Arrived on Job:
+                            </th>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                *Total Time to Complete:
+                            </th>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Truck #:
+                            </th>
+                            <td>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="grid_12 full-border" id="markoutDiv">
+            @* row 1 *@
+            <div class="grid_4 bold">
+                Type of Markout:&nbsp;<span id="MarkoutRequirement">@Html.DisplayValueFor(m => m.MarkoutRequirement)</span>
+            </div>
+            <div class="grid_4 bold">
+                Markout Number:&nbsp;<span id="CurrentMarkoutNumber">
+                    @if (Model.CurrentMarkout != null && Model.CurrentMarkout.Markout != null)
+                    {
+                        @Html.DisplayValueFor(m => m.CurrentMarkout.Markout.MarkoutNumber)
+                    }
+                </span>
+            </div>
+            <div class="grid_3 bold">
+                2nd Req. Number&nbsp;<span id="LastMarkoutNumber">@Html.DisplayValueFor(m => m.LastMarkout.MarkoutNumber)</span>
+            </div>
+            @* row 2 *@
+            <div class="grid_3">
+                <span class="bold">Date Requested:</span>&nbsp;<span id="CurrentMarkoutDateOfRequest">
+                    @if (Model.CurrentMarkout != null && Model.CurrentMarkout.Markout != null)
+                    {
+                        @Html.DisplayValueFor(m => m.CurrentMarkout.Markout.DateOfRequest)
+                    }
+                </span>
+            </div>
+            <div class="grid_3">
+                <span class="bold">Time of Request:</span>&nbsp;<span id="CurrentMarkoutTimeOfDay">
+                    @if (Model.CurrentMarkout != null &&
+                         Model.CurrentMarkout.Markout != null &&
+                         Model.CurrentMarkout.Markout.DateOfRequest.HasValue)
+                    {
+                        @Html.DisplayValueFor(m => m.CurrentMarkout.Markout.DateOfRequest.Value.TimeOfDay)
+                    }
+                </span>
+            </div>
+            <div class="grid_3">
+                <span class="bold">Due Date:</span>&nbsp;<span id="CurrentMarkoutReadyDate">@Html.DisplayValueFor(m => m.CurrentMarkout.ReadyDate)</span>
+            </div>
+            <div class="grid_2">
+                <span class="bold">*M O Down Time:</span>&nbsp;
+                @* MARKOUT DOWN TIME *@
+            </div>
+            @* row 3 *@
+            <div class="grid_2">
+                <span class="bold">Gas:</span>&nbsp;
+                @* GAS MARKOUT *@
+            </div>
+            <div class="grid_2">
+                <span class="bold">ATT:</span>&nbsp;
+                @* ATT MARKOUT *@
+            </div>
+            <div class="grid_2">
+                <span class="bold">Electric:</span>&nbsp;
+                @* ELECTRIC MARKOUT *@
+            </div>
+            <div class="grid_2">
+                <span class="bold">Telephone:</span>&nbsp;
+                @* TELEPHONE MARKOUT *@
+            </div>
+            <div class="grid_2">
+                <span class="bold">Sewer:</span>&nbsp;
+                @* SEWER MARKOUT *@
+            </div>
+            <div class="grid_1">
+                <span class="bold">Cable:</span>&nbsp;
+                @* CABLE MARKOUT *@
+            </div>
+        </div>
+        <div class="grid_12 full-border">
+            <div class="grid_4" id="mainMaterialDiv">
+                <table class="padded">
+                    <thead>
+                        <tr>
+                            <th colspan="6">
+                                Main Material
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Cast
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                PVC
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Transite
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Cement
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Galv
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Ductile
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Lock Joint
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid_4" id="serviceMaterialDiv">
+                <table class="padded">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                Service Material
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Copper
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Galv
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Lead
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Tubaloyd
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Plastic
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid_4" id="typeOfLeakDiv">
+                <table class="padded">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                Type of Leak
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Circle
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Physically Damaged
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Deteriorated
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Service Saddle
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Joint Leak
+                            </td>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Split
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="underline">
+                                &nbsp;
+                            </td>
+                            <td class="bold">
+                                Pin Hole
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="grid_12" id="assetInfoDiv">
+                @* row 1 *@
+                <div class="grid_3">
+                    <span class="bold">Size of Main/Service:</span>&nbsp;
+                    @* SIZE OF MAIN/SERVICE *@
+                </div>
+                <div class="grid_3">
+                    <span class="bold">Depth of Main/Serivce (ft):</span>&nbsp;
+                    @* DEPTH OF MAIN/SERVICE *@
+                </div>
+                <div class="grid_4">
+                    <span class="bold">Condition of Main/Service:</span>&nbsp;
+                    @* CONDITION OF MAIN/SERVICE *@
+                </div>
+                <div class="grid_2">
+                    <span class="bold">Map Page:</span>&nbsp;
+                    @* MAP PAGE *@
+                </div>
+                @* row 2 *@
+                <div class="grid_4" style="width: 364px">
+                    <span class="bold">Leak Between Or Near Valve Number:</span>&nbsp;
+                    @* START VALVE NUMBER *@
+                </div>
+                <div class="grid_4">
+                    <span class="bold">And Valve Number:</span>&nbsp;
+                    @* END VALVE NUMBER *@
+                </div>
+                <div class="grid_3" style="width: 246px">
+                    <span class="bold">Lost Water (Gallons):</span>&nbsp;<span id="LostWater">@Html.DisplayValueFor(m => m.LostWater)</span>
+                </div>
+                @* row 3 *@
+                <div class="grid_4">
+                    <span class="bold">Safety Markers Left On Site:</span>&nbsp;
+                    @* MARKERS ON SITE *@
+                </div>
+                <div class="grid_4">
+                    <span class="bold">Number of Markers:</span>&nbsp;
+                    @* NUMBER OF MARKERS *@
+                </div>
+                <div class="grid_4" style="width: 304px">
+                    <span class="bold">Safety Markers Retrieved:</span>&nbsp;
+                    @* DATE MARKERS RETRIEVED *@
+                </div>
+            </div>
+        </div>
+        <div class="grid_12 full-border" id="materialsUsedDiv">
+            <div style="width: 928px;height: 20px;font-weight: bold;text-align: center">
+                Material Used (Include description, quantity, and part number. Put any additional
+                parts on back of form.)
+            </div>
+            <table style="width: 928px; height: 205px" id="materialsUsedTable">
+                <tbody>
+                    <tr>
+                        <td style="width: 340px">
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell" style="width: 35px">
+                            Truck
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell">
+                            Truck
+                        </td>
+                        <td rowspan="3" style="border-style: none; width: 130px; height: 120px;">
+                            <table id="materialsUsedAccountNumbersTable">
+                                <tr>
+                                    <td>
+                                        MAINS
+                                    </td>
+                                    <td style="text-align: right">
+                                        \18730174.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        SERV
+                                    </td>
+                                    <td style="text-align: right">
+                                        \18730184.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        MTR SE
+                                    </td>
+                                    <td style="text-align: right">
+                                        \18730186.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        HYD
+                                    </td>
+                                    <td style="text-align: right">
+                                        \18730189.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        CAPITAL\RETIRE\MJ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="border: 1px solid black" id="AccountCharged">
+                                        @Html.DisplayValueFor(m => m.AccountCharged)
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell">
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td class="truck-cell">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid_12 full-border" id="notesDiv">
+            <span class="bold">Notes:</span><br />
+            <span id="Notes">@Html.DisplayValueFor(m => m.Notes)</span>
+        </div>
+        <div class="grid_4 prefix_4 suffix_4">
+            Check if additional notes or paving on back: [&nbsp;&nbsp;]
+        </div>
+    </div>
+}

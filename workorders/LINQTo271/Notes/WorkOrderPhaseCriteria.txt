@@ -1,0 +1,27 @@
+﻿INPUT:
+  DESCRIPTION:
+  In this phase, the initial information is being entered, so a Work Order is
+  considered to be in this phase until all required fields are populated.
+
+  REQUIRED FIELDS:
+  TownID				(Town)
+  StreetID				(Street)
+  NearestCrossStreetID	(NearestCrossStreet)
+  AssetTypeID			(AssetType)
+  ValveID				(Valve)					(if AssetType == Valve)
+  HydrantID				(Hydrant)				(if AssetType == Hydrant)
+  MainID				(Main)					(if AssetType == Main)
+  ServiceID				(Service)				(if AssetType == Service)
+  RequesterID			(RequestedBy)
+  CustomerName									(if RequestedBy == Customer)
+  PhoneNumber									(if RequestedBy == Customer)
+  StreetNumber									(if RequestedBy == Customer)
+  RequestingEmployeeID	(RequestingEmployee)	(if RequestedBy == Employee)
+  OfficialInformation							(if RequestedBy == "Local Government")
+  WorkDescriptionID		(WorkDescription)
+  MarkoutRequirementID	(MarkoutRequirement)
+  DateReceived
+
+PLANNING:
+
+SCHEDULING:

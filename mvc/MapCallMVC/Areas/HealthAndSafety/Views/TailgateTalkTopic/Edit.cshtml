@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditTailgateTalkTopic
+
+@using (Form.BeginForm("Update", "TailgateTalkTopic", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TailgateTalkTopic", new {Model.Id})
+                           </text>)
+    </div>
+}

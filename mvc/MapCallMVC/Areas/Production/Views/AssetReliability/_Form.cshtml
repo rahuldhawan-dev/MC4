@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AssetReliabilityViewModel
+
+
+@Html.HiddenFor(x => x.ProductionWorkOrder)
+@Html.DisplayFor(x => x.WorkOrder)
+@Html.DisplayFor(x => x.WorkDescription)
+@Html.DisplayFor(x => x.WorkOrderNotes)
+@Html.DisplayAndHiddenFor(x => x.Equipment)
+@Html.DisplayFor(x => x.EquipmentDescription)
+@Html.EditorFor(x => x.AssetReliabilityTechnologyUsedType)
+@Html.EditorFor(x => x.TechnologyUsedNote)
+@Html.EditorFor(x => x.RepairCostNotAllowedToFail)
+@Html.EditorFor(x => x.RepairCostAllowedToFail)
+@Html.EditorFor(x => x.CostAvoidanceNote)
+
+

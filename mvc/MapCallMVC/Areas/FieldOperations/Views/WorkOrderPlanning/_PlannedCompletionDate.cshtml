@@ -1,0 +1,20 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPlanning.UpdateWorkOrderPlanning
+
+@using (var f = Form.BeginForm("Update", "WorkOrderPlanning", "FieldOperations"))
+{
+    f.HtmlAttributes["id"] = "UpdateWorkOrderPlanning";
+    <fieldset>
+        <legend>Update Orders</legend>
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @*The only way I could get the errors to appear at the correct time and to make the functional tests happy was to add the errors like they are below.*@
+        <div class="field-validation-valid" id="dateIsNotAtLeastTwoDaysFromNowError">
+            <span>@CreateWorkOrder.PLANNED_COMPLETION_DATE_ERROR_MESSAGE</span>
+        </div>
+        <div class="field-validation-valid" id="dateIsInPastError">
+            <span>Planned Completion Date must be either current or future date.</span>
+        </div>
+        <button id="updateWorkOrderPlanningSubmitButton" type="button">Update</button>
+        <div style="display:none;" id="hiddenWorkOrderIds"></div>
+    </fieldset>
+}

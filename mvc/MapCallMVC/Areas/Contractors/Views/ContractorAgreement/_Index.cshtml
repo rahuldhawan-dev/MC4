@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorAgreement
+
+@(Html.TableFor(_ => Model, new { Id = "contractorAgreementsTable" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ContractorAgreement", new { x.Id }, null))
+      .ColumnFor(x => x.ContractorCompany)
+      .ColumnFor(x => x.ContractorWorkCategoryType)
+      .ColumnFor(x => x.ContractorAgreementStatusType)
+      .ColumnFor(x => x.Title)
+      .ColumnFor(x => x.AgreementOwner)
+      .ColumnFor(x => x.AgreementStartDate)
+      .ColumnFor(x => x.AgreementEndDate))

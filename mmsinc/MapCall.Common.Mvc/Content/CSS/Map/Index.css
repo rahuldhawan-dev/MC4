@@ -1,0 +1,53 @@
+﻿html.mapsPage.ie7, html.mapsPage.ie7 body {
+    display:block;
+    width: 100%;
+    height: 100%;
+}
+
+html.mapsPage #Map
+{
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+
+.google-maps-wrapper,
+.google-maps-wrapper .google-map {
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+
+
+.google-maps-wrapper .google-map * 
+{
+    /* box-sizing: border-box breaks the alignment of the popup window for google maps. */
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box; 
+    box-sizing: content-box;
+}
+
+.google-maps-wrapper .google-map .map-popup-content * 
+{
+    /* Then we need to set the border-box value back for the partials rendered inside the popup. */
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+.google-maps-wrapper .google-map .google-maps-loading {
+    position:absolute; 
+    width:200px; 
+    height:200px; 
+    background:white; 
+    top:50%; 
+    left:50%; 
+    margin-top:-100px; 
+    margin-left:-100px;
+    padding: 6px;
+    border-radius: 2px;
+}

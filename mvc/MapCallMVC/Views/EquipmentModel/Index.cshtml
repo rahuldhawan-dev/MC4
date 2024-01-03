@@ -1,0 +1,13 @@
+﻿@model SearchEquipmentModel
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.EquipmentManufacturer, "EquipmentManufacturer.Description")
+    .SortableColumnFor(x => x.EquipmentManufacturer.EquipmentType.Description, "EquipmentManufacturer.EquipmentType")
+    .WithPaginatedFooter())

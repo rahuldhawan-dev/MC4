@@ -1,0 +1,8 @@
+﻿@model DeleteEmployeeLink
+
+@using (var form = Form.BeginForm("Destroy", "EmployeeLink", ""))
+{
+    <span class="delete">
+        @Control.SubmitButton("Remove").WithCssClass("deleteEmployee")
+    </span>
+}

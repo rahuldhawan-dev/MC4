@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateAssetReliability
+
+
+@using (Form.BeginForm("Create", "AssetReliability", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

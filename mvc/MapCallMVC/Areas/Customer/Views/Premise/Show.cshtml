@@ -1,0 +1,25 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model Premise
+
+@{
+    var woRoute = new RouteValueDictionary(new CreateWorkOrder(_container, Model));
+    woRoute["area"] = "FieldOperations";
+}
+
+<div class="container" style="margin-bottom:6px;">
+    @Html.LinkButton("Create T&D Work Order", "New", "WorkOrder", woRoute)
+</div>
+
+
+@(Html.Tabs()
+    .WithTab("Details", "_Show", Model)
+    .WithAjaxTab("Account Data", "_TechnicalMasterAccount", Model)
+    .WithTab("Current Material/Size", "_CurrentMaterialSize")
+    .WithTab("Meter Reading Dates", "_MeterReadingDates", Model.RouteNumber)
+    .WithTab("Service History", "_ServiceHistory")
+    .WithAjaxTab("W1V Customer History", "_W1vCustomerHistory", Model)
+    .WithAjaxTab("Work Orders", "_WorkOrders", Model)
+    .WithAjaxTab("Tap Images", "_TapImages", Model)
+    .WithAjaxTab("Related Tap Images", "_RelatedTapImages", Model)
+    .WithDocuments()
+)

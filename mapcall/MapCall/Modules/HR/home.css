@@ -1,0 +1,18 @@
+﻿
+/* forices IE7 to render things properly */
+body { position:relative; }
+
+
+
+#notifications h2 { color:#21539B; font-size:18px; }
+
+.next{ outline: 0 none; }
+.prev { outline: 0 none; padding-right: 6px; }
+#notifications h2 { margin: 0px; }
+#notifications p {  font-weight:normal; } 
+
+.subContainer { border:1px solid #99B4CB;  }
+
+.subContainer .body { background-color: #FFFFEE;}
+
+#pager a { margin-right:10px; }

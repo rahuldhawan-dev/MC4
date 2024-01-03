@@ -1,0 +1,273 @@
+﻿/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+.ui-tabs .ui-tabs-nav {
+    margin-bottom: -1px;
+}
+.ui-tabs .ui-tabs-nav li {
+    margin-left: 2px;
+    border-bottom: none !important;
+    border-bottom-style: none !important;
+}
+
+div.siteWrap { position:relative; }
+div.siteWrap > div.left {  }
+div.siteWrap > div.right { position:relative; z-index:1;}
+div.siteWrap > div.right > div.inner  
+{
+	position:relative; 
+	margin:6px; 
+	margin-top:7px; /* Should be 6, but menu has some margin problem causing mis-alignment. */
+	border: 1px solid #567FB8;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+	div.siteWrap > div.right > div.inner > div.header
+	{
+		background:#346ea1 url('images/ui-bg_highlight-soft_35_346ea1_1x100.png') 50% 50% repeat-x;
+		text-align:left;
+		padding:6px;
+	}
+	
+		div.siteWrap > div.right > div.inner > div.header > a,
+		div.siteWrap > div.right > div.inner > div.header
+	    {
+		    color:white;
+		    text-decoration:none;
+		    font-weight:bold;
+		    font-size:16px;
+		    text-align:left;
+	    }
+	    
+	div.siteWrap > div.right > div.inner > div.body   
+	{
+	    padding:6px;
+	    background:#ffffff url('images/dropShadow.png') repeat-x;
+	}
+
+footer {
+	position: fixed;
+	bottom: 0px;
+	height: 50px;
+	line-height:50px;
+	padding:0px 12px;
+	background-color: #00517f;
+	color: #ffffff;
+	left: 0px;
+	right: 0px;
+}
+
+footer a {
+	color: #ffffff !important;
+	text-decoration:none;
+}
+
+.footer-body {
+	display:flex;
+}
+
+.footer-body > div {
+	width:50%;
+}
+
+.footer-body .links {
+	text-align:right;
+}
+
+pre.scrollable {
+    width: 500px;
+    overflow: auto;
+}
+
+fieldset {
+    margin-bottom: 12px;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.1em; }
+h5, h6 { font-size: 1em; }
+
+.fp-display * { line-height: 24px; }
+
+.clear
+{
+    clear: both;
+}
+
+.error
+{
+    color:Red;
+}
+
+div#title
+{
+    display:block;
+    float:left;
+    text-align:left;
+}
+
+#logindisplay
+{
+    font-weight:normal;
+    font-size:12px;
+    line-height:22px;
+    height:22px;
+    display:block;
+    position:absolute;
+    right:6px;
+    top:6px;
+    text-align:right;
+    color:White;
+}
+
+#logindisplay a { color:White;}
+#loginName { font-weight:bold; }
+
+.container { margin-top:6px; }
+.container:first-child { margin-top:0px; }
+
+ul.linkList { list-style: none outside;padding:0px; margin: 12px 6px 6px 0px; }
+ul.linkList li { margin: 0px; }
+ul.linkList li a { display:block; }
+
+.ajax-tab-loading {
+    background:white url('images/loading.gif') no-repeat center center;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+
+#googleMap { width:100%; height:400px; }
+
+#errWrapper .error-section {
+    margin-bottom: 2em;
+}
+
+#errWrapper .error-section-title {
+    font-size: 20px;
+}
+
+#errWrapper .error-section-message {
+    padding-left: 20px;
+}
+#errWrapper .error-section-message span {
+    display: block;
+    line-height: 2em;
+}
+
+tr.completed td { background: #D1F2A5 !important; color:Black;}
+
+/* Any classes that are related to styling a specific field-column container */
+.field-column-default {
+    width:400px;
+}
+
+.searchFields {
+    width:600px;
+}
+
+.bc-1col > div { width: 100%; }
+.bc-2col > div { width:49.9999%; } /* 49.9999 stops IE from dropping to the next line on odd-numbered widths. 50% causes it to round up. */
+.bc-3col > div { width: 33.3%; }
+
+.bc-box { position:relative; border:solid 1px #eaeaea; padding:6px; border-radius:3px; }
+.bc-box:hover { border-color: #A6C9E2; }
+.bc-box h2 { color:#21539B; font-size:18px; padding:0px; margin:0px; font-weight:normal; }
+
+/* A two column table/grid/whatever that keeps the left-side static sized while the right-side fills in the rest. */
+.fillBox { position:relative; overflow:hidden; }
+.fillBox > .left { position:relative; float:left; margin-right:-100%; z-index:2; }
+.fillBox > .left > div { margin:6px; }
+.fillBox > .right { position:relative; float:right; width:100%; z-index:1; }
+.fillBox > .right > div  
+{
+	position:relative; 
+	margin:6px; 
+	margin-top:7px; /* Should be 6, but menu has some margin problem causing mis-alignment. */
+	border-radius:2px;
+	-webkit-border-radius:2px;
+}
+
+/* An example implementation */
+.fillBox-200 {}
+.fillBox-200 > .left { width:200px; }
+.fillBox-200 > .right > div  
+{
+	margin-left:200px; 
+}
+
+.fillBox-250 {}
+.fillBox-250 > .left { width:250px; }
+.fillBox-250 > .right > div  
+{
+	margin-left:250px; 
+}
+
+.editor-buttons 
+{
+    margin-top:12px;
+    clear:both;
+}
+
+table.no-wrap-header th {
+    white-space:nowrap !important;
+}
+
+
+/* Notes/Index.cshtml */
+#notesTable {
+    width: 100%;
+}
+
+#notesTable td { white-space:nowrap; }
+#notesTable td:first-child { white-space:normal;width: 100%; }
+
+#notesTable .noteEdit {
+    display:none;
+}
+
+#notesTable textarea {
+    width: 100%;
+    min-height: 100px;
+}
+
+.multistring button {
+     width:35px !important; 
+     max-width: 35px !important;
+     border-left: none !important; /* The button sits directly next to the textbox which makes the border look thicker when both tb and buttons have borders.*/
+     font-size:18px;
+     line-height:10px;
+}
+.multistring-item-wrapper > div { margin-bottom:6px; }
+.multistring-item-wrapper > div:last-child { margin-bottom:0px; }
+
+.d-flex {
+    display: flex;
+}
+
+.m-left-auto {
+    margin-left: auto;
+}
+
+.success-text {
+    text-align: center;
+    padding: 20px;
+}
+
+p.message-box {
+    border: 2px solid #346ea1;
+    border-radius: 5px;
+}

@@ -1,0 +1,18 @@
+﻿@model SearchTrainingTotalHours
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.OSHARequirement)
+    .ColumnFor(x => x.ClassId)
+    .ColumnFor(x => x.TrainingModule)
+    .ColumnFor(x => x.CommonName)
+    .ColumnFor(x => x.Position)
+    .ColumnFor(x => x.PositionGroup)
+    .ColumnFor(x => x.Year)
+    .ColumnFor(x => x.TotalHoursDelivered)
+    .ColumnFor(x => x.TotalHoursScheduled))

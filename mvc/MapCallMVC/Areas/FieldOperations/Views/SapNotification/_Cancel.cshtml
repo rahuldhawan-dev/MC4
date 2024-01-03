@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSapNotification
+
+@{
+    //Cancel Notification This action will set the Notification user status to CNCL and system status to NOCO in SAP
+
+    object indexSearch = null;
+    if (!String.IsNullOrWhiteSpace(Request["IndexSearch"]))
+    {
+        indexSearch = Request["IndexSearch"];
+    }
+    else
+    {
+        indexSearch = Request.QueryString;
+    }
+}
+
+@using (Form.BeginForm("Update", "SAPNotification", "FieldOperations", null))
+{
+    @Control.HiddenFor(x => x.Remarks)
+    @Control.HiddenFor(x => x.SAPNotificationNumber).WithValue(Model.SAPNotificationNumber)
+    @Html.Hidden("IndexSearch", indexSearch)
+    @Html.Hidden("Cancel", "Yes")
+	@Control.HiddenFor(x => x.ReadOnlyNotes).WithId(null)
+	@Control.HiddenFor(x => x.RedirectUrl).WithId(null)
+    @Control.SubmitButton("Cancel SAP Notification").WithCssClass("cancel-notification").With("style", "width:170px;")
+}

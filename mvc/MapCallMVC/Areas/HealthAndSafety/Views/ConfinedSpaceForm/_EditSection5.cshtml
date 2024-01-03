@@ -1,0 +1,156 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.ConfinedSpaceFormViewModel
+
+<fieldset>
+    <legend>Permit</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.PermitBeginsAt)
+        @Html.EditorFor(x => x.PermitEndsAt)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Hazard Checklist</legend>
+    @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem {
+        NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning,
+        Message = "For each item checked, you must explain how the hazard is controlled."
+    })
+    @{
+        // Always want the hazards to display in the same order.
+        // Also, this variable must be named "Hazards" so that the
+        // form elements have the correct bindable names.
+        var Hazards = Model.Hazards.OrderBy(x => x.Id).ToList();
+    }
+  
+    @for (var i = 0; i < Hazards.Count; i++)
+    {
+        <div class="hazard-item">
+            <div class="field-column fc250">
+                @Html.EditorFor(x => Hazards[i].IsChecked, new { DisplayName = Hazards[i].HazardTypeDescription })
+                @Control.HiddenFor(x => Hazards[i].HazardType)
+            </div>
+            <div class="hazard-notes">
+                @Html.EditorWithoutWrapperFor(x => Hazards[i].Notes)
+            </div>
+        </div>
+    }
+</fieldset>
+
+<fieldset>
+    <legend>Required Safety Equipment</legend>
+
+    <div style="display:flex;">
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.HasWarningSafetyEquipment)
+            @Html.EditorFor(x => x.HasAccessSafetyEquipment)
+            @Html.EditorFor(x => x.HasLightingSafetyEquipment)
+            @Html.EditorFor(x => x.HasVentilationSafetyEquipment)
+            @Html.EditorFor(x => x.HasGFCISafetyEquipment)
+            @Html.EditorFor(x => x.HasOtherSafetyEquipment)
+            @Html.EditorFor(x => x.HasOtherSafetyEquipmentNotes, new { DisplayName = "Other Notes" })
+        </div>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.HasHeadSafetyEquipment)
+            @Html.EditorFor(x => x.HasEyeSafetyEquipment)
+            @Html.EditorFor(x => x.HasRespiratorySafetyEquipment)
+            @Html.EditorFor(x => x.HasHandSafetyEquipment)
+            @Html.EditorFor(x => x.HasFallSafetyEquipment)
+            @Html.EditorFor(x => x.HasFootSafetyEquipment)
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Method of Comunication</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.MethodOfCommunication)
+        @Html.EditorFor(x => x.MethodOfCommunicationOtherNotes, new { DisplayName = "Notes" })
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Hot Work Permit</legend>
+    <div>
+        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+        {
+           NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning,
+           Message = "Required when using any open flame or spark producing device."
+        })
+    </div>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.IsHotWorkPermitRequired)
+        @Html.EditorFor(x => x.IsFireWatchRequired)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Method of Rescue of Entrants</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.HasRetrievalSystem)
+        @Html.EditorFor(x => x.HasContractRescueService)
+        @Html.EditorFor(x => x.EmergencyResponseAgency)
+        @Html.EditorFor(x => x.EmergencyResponseContact)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Authorization to Begin Entry Operation</legend>
+    <div class="form-signing-section">
+        @if (!Model.IsBeginEntrySectionPreviouslySigned)
+        {
+            <div class="signature-section signature-section-unsigned">
+                <div>
+                    By checking the box to the right, you certify that all necessary precautions have been taken and that the authorized entrants have been briefed on the purpose of
+                    entry, the tasks to be performed and the safeguards or procedures necessary to follow for this entry.
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.IsBeginEntrySectionSigned)
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="signature-section signature-section-signed">
+                <div>
+                    The employee below certifies that all necessary precautions have been taken and that the authorized entrants have been briefed on the purpose of
+                    entry, the tasks to be performed and the safeguards or procedures necessary to follow for this entry.
+                </div>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.Original.BeginEntryAuthorizedBy, new { DisplayName = "Signed By" })
+                    @Html.DisplayFor(x => x.Original.BeginEntryAuthorizedAt, new { DisplayName = "Signed At" })
+                </div>
+            </div>
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Cancellation of Permit</legend>
+    <div class="form-signing-section">
+        @if (!Model.IsPermitCancelledSectionPreviouslySigned)
+        {
+            <div class="signature-section signature-section-unsigned">
+                <div>
+                    By checking the box to the right, you will be cancelling this permit.
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.IsPermitCancelledSectionSigned)
+                </div>
+            </div>
+            <div class="field-column fc200">
+             @Html.EditorFor(x => x.PermitCancellationNote)
+             </div>
+        }
+        else
+        {
+            <div class="signature-section signature-section-signed">
+                <div>
+                   
+                </div>
+                <div class="field-column fc200">
+                    @Html.DisplayFor(x => x.Original.PermitCancelledBy)
+                    @Html.DisplayFor(x => x.Original.PermitCancelledAt)
+                </div>
+            </div>
+        }
+    </div>
+</fieldset>

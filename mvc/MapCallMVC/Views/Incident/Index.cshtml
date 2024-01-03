@@ -1,0 +1,54 @@
+﻿@model SearchIncident
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+    var chartRvd = ((Controller)ViewContext.Controller).ModelState.ToRouteValueDictionary();
+}
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+    <script>
+        $(document).ready(function () {
+            $('#resultTabs').on('tabsactivate', function (event, ui) {
+                ui.newPanel.find('img').each(function () {
+                    var el = $(this);
+                    el.attr('src', el.attr('data-src'));
+                });
+            });
+        })
+    </script>
+}
+
+@(Html.Tabs(new { id = "resultTabs" })
+      .WithTab("Results", @<text>
+        @(Html.TableFor(x => Model)
+                                .WithCaption("Records found: " + Model.Count)
+                                .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+                                .SortableColumnFor(x => x.Id, "Id")
+                                .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+                                .SortableColumnFor(x => x.Facility, "Facility")
+                                .SortableColumnFor(x => x.EmployeeType, "EmployeeType")
+                                .SortableColumnFor(x => x.Employee, "Employee")
+                                .SortableColumnFor(x => x.ContractorName)
+                                .SortableColumnFor(x => x.ContractorCompany)
+                                .SortableColumnFor(x => x.PersonnelArea, "PersonnelArea")
+                                .SortableColumnFor(x => x.IncidentStatus, "IncidentStatus")
+                                .SortableColumnFor(x => x.EventExposureType, "EventExposureType")
+                                .SortableColumnFor(x => x.IncidentDate, "IncidentDate")
+                                .SortableColumnFor(x => x.DateInvestigationWillBeCompleted)
+                                .SortableColumnFor(x => x.IncidentClassification, "IncidentClassification")
+                                .SortableColumnFor(x => x.IncidentType, "IncidentType")
+                                .SortableColumnFor(x => x.GeneralLiabilityCode, "GeneralLiabilityCode")
+                                .SortableColumnFor(x => x.CaseManager, "CaseManager")
+                                .SortableColumnFor(x => x.FiveWhysCompleted)
+                                .SortableColumnFor(x => x.SeriousInjuryOrFatalityType)
+                                .SortableColumnFor(x => x.IsOSHARecordable)
+                                .ColumnFor(x => x.AnyImmediateCorrectiveActionsApplied)
+                                .SortableColumnFor(x => x.WorkersCompensationClaimStatus)
+                                .WithPaginatedFooter())
+    </text>) 
+       // These are ajax tabs to prevent heavy querying when the charts are rarely ever gonna be viewed.
+      .WithAjaxTab("Classifications", @<text>@using (Form.BeginAjaxForm("ChartIncidentClassifications", "Incident", chartRvd)) { }</text>)
+      .WithAjaxTab("Types", @<text>@using (Form.BeginAjaxForm("ChartIncidentTypes", "Incident", chartRvd)) { }</text>)
+.WithAjaxTab("At Risk Behaviors", @<text>@using (Form.BeginAjaxForm("ChartAtRiskBehaviors", "Incident", chartRvd)) { }</text>))

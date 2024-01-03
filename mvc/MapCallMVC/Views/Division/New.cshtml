@@ -1,0 +1,13 @@
+﻿@model DivisionViewModel
+
+@using (Form.BeginForm("Create", "Division"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.AuthorizedActionLinkButton("Cancel", "Index", "Division")
+        </text>)
+    </div>
+}

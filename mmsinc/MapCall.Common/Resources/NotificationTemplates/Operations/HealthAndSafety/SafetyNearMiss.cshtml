@@ -1,0 +1,19 @@
+﻿@using System.Web.Configuration
+@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.NearMiss
+
+<h2>Near Miss Created</h2>
+
+Near Miss Record Id: <a href="@Model.RecordUrl">
+    @Model.Id
+</a>
+<br />Near Miss Type: @Model.Type
+<br />State: @Model.OperatingCenter.State
+<br />Operating Center: @Model.OperatingCenter
+<br />Facility: @Model.Facility
+<br />Near Miss Category: @Model.Category
+<br />Near Miss Subcategory: @Model.SubCategory
+<br />Occurred Date/Time: @Model.OccurredAt
+<br />Reported By: @Model.ReportedBy
+<br />Description: @Model.Description
+<br />Action Taken: @Model.ActionTakenType

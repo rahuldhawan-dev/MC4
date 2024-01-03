@@ -1,0 +1,18 @@
+﻿
+@using Contractors.ClassExtensions
+@using Contractors.Models.ViewModels
+@model Contractors.Models.ViewModels.WorkOrderFinalizationDetails
+
+@(Html.Tabs()
+    .WithTab("Initial Information", "initialTab", "~/Views/WorkOrderInitial/_Show.cshtml", Model.WorkOrder)
+    .WithTab("Materials Used", "materialsTab", "~/Views/MaterialUsed/_Index.cshtml", Model.WorkOrder)
+    .WithAjaxTab("Spoils", "spoilsTab", "~/Views/Spoil/_Index.cshtml", Model.WorkOrder)
+    .WithTab("Markouts", "markoutsTab", "~/Views/Markout/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.MarkoutRequired, tabHtmlAttributes: new { id = "markoutsTabLink" }) 
+    .WithTab("Restorations", "restorationTab", "~/Views/Restoration/_Index.cshtml", Model.WorkOrder)
+    .WithAjaxTab("Street Opening Permit", "streetPermitTab", "~/Views/StreetOpeningPermit/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.StreetOpeningPermitRequired, tabHtmlAttributes: new { id = "streetPermitTabLink" })
+    .WithAjaxTab("Crew Assignments", "crewAssignmentsTab", @<text>@Html.Action("IndexTabs", "CrewAssignment", new { workOrderId = Model.Id })</text>)
+    .WithTab("Additional", "additionalTab", "~/Views/WorkOrderAdditionalFinalizationInfo/_Edit.cshtml", ViewModelFactory.Build<WorkOrderAdditionalFinalizationInfo, WorkOrder>(Model.WorkOrder))
+    .WithTab("Main Break", "mainBreakTab", "~/Views/MainBreak/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.IsMainBreak())
+    .WithTab("Meter Set", "meterSetTab", "~/Views/ServiceInstallation/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.IsNewServiceInstallation)
+    .WithTab("Service", "serviceTab", "~/Views/Service/_ShowServiceTab.cshtml", Model.WorkOrder.Service, isVisible: Model.WorkOrder.Service != null)
+    .WithDocuments(Model.WorkOrder))

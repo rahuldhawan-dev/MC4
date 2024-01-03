@@ -1,0 +1,30 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderSupervisorApproval
+@model SupervisorRejectWorkOrder
+
+<style>
+    #reject-dialog {
+        padding:6px;
+        height:300px;
+        width:600px;
+    }
+    #reject-dialog .label {
+        text-align:left;
+    }
+    #reject-dialog textarea {
+        height:200px;
+    }
+</style>
+
+@* This dialog is opened via the reject-button, which exists here and in the _ApproveAccount view. *@
+<dialog id="reject-dialog">
+    @using (Form.BeginForm("Reject", "WorkOrderSupervisorApproval", new { id = Model.Id }))
+    {
+        <div class="field-column" style="margin:6px;">
+            @Html.EditorFor(x => x.RejectionReason)
+            @Html.ButtonGroup(@<text>
+                    @Control.SubmitButton("Reject").WithId("reject-workorder-button")
+                    @Control.Button("Cancel").WithId("cancel-reject-button")
+            </text>)
+        </div>
+    }
+</dialog>

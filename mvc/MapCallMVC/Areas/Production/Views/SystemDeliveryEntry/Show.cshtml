@@ -1,0 +1,21 @@
+﻿@model SystemDeliveryEntry
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/Production/SystemDeliveryEntry/Show.js")
+}
+
+@Html.StylesheetFor("~/Content/css/Production/SystemDeliveryEntry.css", true)
+@{
+    ActionBarHelper.AddLink("Index", "ab-index", "Index", "SystemDeliveryFacilityEntry", null, null);
+    
+    var isUserSystemDeliveryAdmin = RoleService.CurrentUserRoles.Any(x => x.Module.Value == RoleModules.ProductionSystemDeliveryAdmin);
+    var isAdjustmentsTabVisible = Model.IsValidatedNotNull && Html.CurrentUserCanEdit() && !Model.IsHyperionFileCreated || 
+                                  Model.IsHyperionFileCreated && isUserSystemDeliveryAdmin;
+    
+    ActionBarHelper.AddCopyButton();
+    var tabs = Html.Tabs()
+                   .WithTab("System Delivery Entry", "_ShowSystemDeliveryEntry", Model)
+                   .WithTab("Adjustments", "_Reversals", Model, isVisible: isAdjustmentsTabVisible);
+}
+
+@tabs

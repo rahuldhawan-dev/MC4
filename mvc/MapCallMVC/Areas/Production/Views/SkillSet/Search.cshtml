@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchSkillSet
+
+@using (Form.BeginForm("Index", "SkillSet", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Name)
+        @Html.EditorFor(x => x.Abbreviation)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

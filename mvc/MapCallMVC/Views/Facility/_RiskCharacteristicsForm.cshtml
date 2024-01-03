@@ -1,0 +1,49 @@
+﻿@using MapCallMVC.Areas.Production.Controllers
+@using MapCallMVC.Controllers
+@model FacilityViewModel
+@{
+    var facilityAreaManagementEdit = RoleService.CanAccessRole(FacilityController.FACILITY_AREA_MANAGEMENT_ROLE, RoleActions.Edit);
+    var facilityAreaManagementEditDelete = RoleService.CanAccessRole(FacilityController.FACILITY_AREA_MANAGEMENT_ROLE, RoleActions.Delete);
+    var assetEdit = RoleService.CanAccessRole(FacilityController.ASSET_RELIABILITY_ROLE, RoleActions.Edit);
+    var assetDelete = RoleService.CanAccessRole(FacilityController.ASSET_RELIABILITY_ROLE, RoleActions.Delete);
+    var j100Edit = RoleService.CanAccessRole(FacilityController.J100_ROLE, RoleActions.Edit);
+    var j100Delete = RoleService.CanAccessRole(FacilityController.J100_ROLE, RoleActions.Delete);
+    var j100UserAdmin = RoleService.CanAccessRole(FacilityController.J100_ROLE, RoleActions.UserAdministrator);
+    var j100Add = RoleService.CanAccessRole(FacilityController.J100_ROLE, RoleActions.Add);
+}
+    <fieldset>
+        <legend>Risk Based Maintenance Assessment Data</legend>
+        <div class="field-column fc300">
+            @if (facilityAreaManagementEdit || facilityAreaManagementEditDelete)
+            {
+                @Html.EditorFor(x => x.Condition)
+                @Html.EditorFor(x => x.Performance)
+            }
+            else
+            {
+                @Control.HiddenFor(x => x.Condition)
+                @Control.HiddenFor(x => x.Performance)
+            }
+
+            @if (assetEdit || assetDelete)
+            {
+                @Html.DisplayFor(x => x.LikelihoodOfFailure)
+                @Html.EditorFor(x => x.ConsequenceOfFailure)
+                @Html.DisplayFor(x => x.MaintenanceRiskOfFailure)
+                @Html.DisplayFor(x => x.StrategyTier)
+                @Html.DisplayFor(x => x.ConsequenceOfFailureFactor)
+                @Html.DisplayFor(x => x.WeightedRiskOfFailureScore)
+                @Html.EditorFor(x => x.RiskBasedCompletedDate)
+            }
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>J100 - Assessment Data</legend>
+        <div class="field-column fc300">
+            @if (j100Edit || j100Delete || j100UserAdmin || j100Add)
+            {
+                @Html.EditorFor(x => x.CriticalFacilityIdentified)
+                @Html.EditorFor(x => x.AssessmentCompletedOn)
+            }
+        </div>
+    </fieldset>

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddEstimatingProjectMaterial
+           
+@using (var form = Form.BeginRouteForm("EstimatingProject", "EstimatingProjectMaterial", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "materialForm");
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.Material)
+        @Html.EditorFor(x => x.Quantity)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Material")
+            @Control.Button("Cancel").WithId("cancelAddMaterialButton").WithCssClass("cancel")
+        </text>)
+    </div>
+}

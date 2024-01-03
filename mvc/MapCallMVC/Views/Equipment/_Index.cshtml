@@ -1,0 +1,18 @@
+﻿@model IList<Equipment>
+
+@(Html.TableFor(x => Model, new{id = "equipmentTable"})
+        .WithRowBuilder((x, help) => {
+            if (x.EquipmentStatus != null && x.EquipmentStatus.Id == EquipmentStatus.Indices.RETIRED)
+            {
+                help.AddCssClass("asset-not-inspectable");
+            }
+        })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Equipment", new {id = x.Id}, null))
+        .ColumnFor(x => x.Identifier)
+        .ColumnFor(x => x.SAPEquipmentId, "SAPEquipmentId")
+        .ColumnFor(x => x.Description, "Description")
+        .ColumnFor(x => x.EquipmentPurpose, "EquipmentPurpose")
+        .ColumnFor(x => x.EquipmentStatus, "EquipmentStatus")
+        .ColumnFor(x => x.EquipmentManufacturer, "EquipmentManufacturer")
+        .ColumnFor(x => x.EquipmentModel, "EquipmentModel")
+)

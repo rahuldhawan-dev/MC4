@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://amwater.com/EAM/0010/MAPCALL/CreateInspectionRecord" xmlns:p1="http://amwater.com/EAM/0010/MAPCALL/CreateInspectionRecord" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://amwater.com/EAM/0010/MAPCALL/CreateInspectionRecord" xmlns="http://amwater.com/EAM/0010/MAPCALL/CreateInspectionRecord" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="InspectionRecordCreate_Req" type="InspectionRecord"/>
+            <xsd:element name="SAPNotificationNumber_Res" type="SAPNotificationNumber"/>
+            <xsd:complexType name="InspectionRecord">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="InspectionRecord">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="ServiceObjectURL" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="AssetType" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationType" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ShortText" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationNo" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="FunctionalLocation" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EquipmentNo" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Coding" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="PlanningPlant" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="PlannerGroup" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="DateOfNotification" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationTime" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReportedBy" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationLongText" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Priority" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="TechInspectionBy" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="TechInspectionOn" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="InspectionType" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Operated" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="PositionFound" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="PositionLeft" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="OpenDirection" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="CodeType" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="RootCutter" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ActivityText" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="StartDate" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="StartTimeOfActivity" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EndDate" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EndTimeOfActivity" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="StaticPressure" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Flow1GPM" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Flow1Minutes" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ResidualChlorine" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="TotalChlorine" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="noTurnsOperated" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="FlushWaterVolume" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="FootageOfMainCleaned" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SAPNotificationNumber">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="NotificationNumber">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="SAPNotificationNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Status" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="CostCenter" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InspectionRecordCreate_Req">
+<wsdl:documentation/>
+    <wsdl:part name="InspectionRecordCreate_Req" element="p1:InspectionRecordCreate_Req">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SAPNotificationNumber_Res">
+<wsdl:documentation/>
+    <wsdl:part name="SAPNotificationNumber_Res" element="p1:SAPNotificationNumber_Res">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="InspectionRecord_Create_OB_SYN">
+<wsdl:documentation/>
+    <wsdl:operation name="InspectionRecord_Create_OB_SYN">
+<wsdl:documentation/>
+      <wsdl:input message="p1:InspectionRecordCreate_Req">
+    </wsdl:input>
+      <wsdl:output message="p1:SAPNotificationNumber_Res">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InspectionRecord_Create_OB_SYNBinding" type="p1:InspectionRecord_Create_OB_SYN">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:Policy>
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+    <wsdl:operation name="InspectionRecord_Create_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:InspectionRecord_Create_OB_SYNBinding">
+      <soap:address location="https://e10028-iflmap.hcisbt.us3.hana.ondemand.com:443/cxf/InspectionRecord_Create"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy required="true"/>
+    <wsp:Policy wsu:Id="BN__binding">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <wsp:ExactlyOne>
+                                            <sp:HttpBasicAuthentication/>
+                                            <sp:RequireClientCertificate/>
+                                        </wsp:ExactlyOne>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256/>
+                                    <sp:Basic192/>
+                                    <sp:Basic128/>
+                                    <sp:TripleDes/>
+                                    <sp:Basic256Rsa15/>
+                                    <sp:Basic192Rsa15/>
+                                    <sp:Basic128Rsa15/>
+                                    <sp:TripleDesRsa15/>
+                                    <sp:Basic256Sha256/>
+                                    <sp:Basic192Sha256/>
+                                    <sp:Basic128Sha256/>
+                                    <sp:TripleDesSha256/>
+                                    <sp:Basic256Sha256Rsa15/>
+                                    <sp:Basic192Sha256Rsa15/>
+                                    <sp:Basic128Sha256Rsa15/>
+                                    <sp:TripleDesSha256Rsa15/>
+                                </wsp:ExactlyOne>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

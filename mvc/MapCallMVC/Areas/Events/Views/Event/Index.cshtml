@@ -1,0 +1,32 @@
+@using MMSINC.Models.ViewModels
+@model MapCallMVC.Areas.Events.Models.ViewModels.SearchEvent
+
+<div class="container" style="margin-bottom: 12px;">
+    @Html.DisplayInlineNotification(new NotificationItem {
+        Message = "Important: This is for Planned Events only, for Unplanned Events, please contact the ECRT team.",
+        NotificationType = NotificationItemType.Warning
+    })
+</div>
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .ColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.EventCategory)
+      .SortableColumnFor(x => x.EventSubcategory)
+      .SortableColumnFor(x => x.EventSummary)
+      .SortableColumnFor(x => x.IsActive)
+      .SortableColumnFor(x => x.RootCause)
+      .SortableColumnFor(x => x.ResponseActions)
+      .SortableColumnFor(x => x.EstimatedDurationHours)
+      .SortableColumnFor(x => x.NumberCustomersImpacted)
+      .SortableColumnFor(x => x.StartDate)
+      .SortableColumnFor(x => x.EndDate)
+      .SortableColumnFor(x => x.Owners)
+      .SortableColumnFor(x => x.Coordinate.Latitude, "Coordinate.Latitude")
+      .SortableColumnFor(x => x.Coordinate.Longitude, "Coordinate.Longitude")
+      .WithPaginatedFooter())

@@ -1,0 +1,18 @@
+﻿@using MapCallMVC.Areas.FleetManagement.Models
+@model Vehicle 
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add New Requirement">
+        @Html.Partial("_NewAudit", ViewModelFactory.BuildWithOverrides<CreateVehicleAudit>(new { Id = Model.Id }))
+    </div>
+}
+
+@(Html.TableFor(x => x.Audits)
+    .ColumnFor(x => x.AuditedOn)
+    .ColumnFor(x => x.Mileage)
+    .ColumnFor(x => x.DecalNumber)
+    .ColumnFor(x => x.PlateNumber))

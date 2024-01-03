@@ -1,0 +1,30 @@
+﻿@model SearchJobSiteSafetyAnalysis
+
+@using (Form.BeginForm("Index", "JobSiteSafetyAnalysis"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Title)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility, new { Container = @Model })
+        @Html.EditorFor(x => x.CourseApprovalNumber)
+        @Html.EditorFor(x => x.TCHCertified)
+        @Html.EditorFor(x => x.Production)
+        
+        @Html.EditorFor(x => x.Description)
+        <div class="field-pair fc200 searchFields">
+            <div class="label">Results per page</div>
+            <div class="field">
+                <select name="PageSize">
+                    <option>1</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option selected>1000</option>
+                </select>
+            </div>
+        </div>
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

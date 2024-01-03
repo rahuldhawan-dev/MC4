@@ -1,0 +1,12 @@
+﻿@using StructureMap.Query
+@model BelowGroundHazard
+
+@{
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter.Id, Town = Model.Town.Id, controller = "AssetMap" }); 
+}
+
+@(Html.Tabs()
+      .WithTab("BelowGroundHazard", "_ShowBelowGroundHazard", Model)
+      .WithNotesAndDocuments()
+      .WithLog()
+    )

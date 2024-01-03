@@ -1,0 +1,27 @@
+﻿@model Contractors.Models.ViewModels.SearchRestoration
+@{
+    ViewBag.Title = "Restorations - Search";
+}
+
+@using (Form.BeginForm("Index", "Restoration"))
+{
+    <div class="field-column fc-stretch fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.WorkOrder)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.AssignedContractorAt)
+        @Html.EditorFor(x => x.WBSNumber)
+        @Html.EditorFor(x => x.PartialRestorationPurchaseOrderNumber)
+        @Html.EditorFor(x => x.FinalRestorationPurchaseOrderNumber)
+        @Html.EditorFor(x => x.RestorationType)
+        @Html.EditorFor(x => x.PartialRestorationDueDate)
+        @Html.EditorFor(x => x.FinalRestorationDueDate)
+        @Html.EditorFor(x => x.TrafficControlRequired)
+        @Html.EditorFor(x => x.FinalRestorationCompleted)
+        @Html.EditorFor(x => x.AcknowledgedByContractor)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

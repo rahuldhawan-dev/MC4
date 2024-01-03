@@ -1,0 +1,18 @@
+﻿<h2>Hydrant Inspection By Months</h2>
+
+<h3>Total Required</h3>
+This can include multiple inspections on the same hydrant.
+Total Distinct Inspections counts multiple inspections on the same hydrant 
+only once and is used for the % complete calculation.
+<p>Please note this report includes Public and Private records in the total required counts.</p>
+
+<h3>Date Installed</h3>
+Not all hydrants in the system have a year installed identified.
+The report assigns 1945 as the year installed for hydrants that are
+active that do not have a date installed. For hydrants that do have
+a 'Date Installed' the report will not included them in the Total 
+Required if they were installed after the year the report is looking at.
+
+<h3>Incorrect Totals</h3>
+Errors with the totals have previously be tracked down to Installation Dates in the future and 
+not having the proper Inspection Frequency and Frequency Unit defined for the hydrant.

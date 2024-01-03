@@ -1,0 +1,21 @@
+﻿@model MapCall.Common.Model.Entities.TrafficControlTicket
+
+<h2>Traffic Control Ticket - Invoice</h2>
+
+Invoice Date: @Model.InvoiceDate<br/>
+Invoice Number: @Model.InvoiceNumber<br />
+Invoice Total Hours: @Model.InvoiceTotalHours<br />
+Invoice Amount: @Model.InvoiceAmount<br />
+Estimated Invoice Amount: @Model.EstimatedInvoiceAmount<br/>
+Invoice Percentage Error: @Model.InvoicePercentageError<br/>
+
+Operating Center: @Model.OperatingCenter<br/>
+Town: @Model.Town<br/>
+SAP WorkOrder: @Model.SAPWorkOrderNumber<br/>
+MapCall WorkOrder: @Model.WorkOrder<br/>
+Work Start: @Model.WorkStartDate<br/>
+Work End: @Model.WorkEndDate<br/>
+Total Hours: @Model.TotalHours<br/>
+Number of Officers: @Model.NumberOfOfficers<br/>
+
+@Model.RecordUrl<br/>

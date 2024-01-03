@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditMaintenancePlan
+
+@Html.ScriptFor("~/Scripts/Areas/Production/MaintenancePlan/Edit.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "MaintenancePlan", "Production", new { Model.Id }))
+{
+    @(Html.Tabs()
+          .WithTab("Plan Information", "_PlanForm", Model)
+          .WithTab("Equipment Information", "_EquipmentFormEdit", Model)
+          .WithTab("Task Information", "_TaskForm", Model)
+        )
+
+    @Html.ButtonGroup(@<text>
+                          @Control.SubmitButton("Save").WithId("Save")
+                          @Html.LinkButton("Cancel", "Show", "MaintenancePlan", new { id = Model.Id })
+                       </text>)
+}

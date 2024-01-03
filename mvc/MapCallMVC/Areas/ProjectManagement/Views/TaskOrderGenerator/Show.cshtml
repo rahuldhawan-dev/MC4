@@ -1,0 +1,294 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.TaskOrderGeneratorForm
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    var nonFramework = Model.ProjectType.Description == "Non-Framework";
+}
+
+@section head {
+    <style>
+        body {
+            margin-left: 10%;
+            margin-right: 10%;
+            font-family: tahoma;
+        }
+
+        div.header {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        div.article {
+            text-indent: -50px;
+            margin-left: 50px;
+            margin-bottom: 10px;
+        }
+
+        div.total {
+            border: 1px solid black;
+            margin-bottom: 10px;
+        }
+
+        div.instructions {
+            margin-bottom: 10px;
+        }
+
+        div.invoice-address {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        div.table-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        td.signature {
+            padding-top: 10px;
+        }
+        
+        table.data td {
+            border: 2px solid black;
+        }
+
+        table.data th {
+            border: 2px solid black;
+        }
+
+        table.data > tbody > tr:nth-child(odd) > td {
+            background: #c0c0c0;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+}
+
+@section body {
+    <div class="header">
+        <div>MASTER PIPELINE INSTALLATION AGREEMENT Between</div>
+        <div>NEW JERSEY AMERICAN WATER COMPANY, INC. and</div>
+        <div>@Model.Contractor For @Model.ProjectName</div>
+        <div>Task Order No. @Model.WBSNumber</div>
+    </div>
+    
+    <div></div>
+
+    <div class="article">
+        Article 1 – Work shall be @Model.Description as detailed in @Model.AsDetailedIn.
+
+        All work performed shall be in accordance with the terms of the MASTER PIPELINE INSTALLATION AGREEMENT between
+        Owner and Contractor effective @Html.DisplayValueFor(x => x.EffectiveAgreementDate).
+    </div>
+
+    <div class="article">
+        Article 3 – The Work performed within this Task Order shall commence on or about @Html.DisplayValueFor(x => x.BeginDate), and will be substantially
+        completed on or before @Html.DisplayValueFor(x => x.SubstantialCompletionDate), and completed and ready for final payment in accordance with Paragraph 14.07
+        of the General Conditions of the MASTER PIPELINE INSTALLATION AGREEMENT on or before @Html.DisplayValueFor(x => x.EndDate).
+    </div>
+
+    <div class="article">
+        Article 4 – Payment shall be an amount equal to the sum of the established unit price for each separately identified item of Unit
+        Price Work times Paragraph 11.03 of the General Conditions of the MASTER PIPELINE AGREEMENT the estimated quantity
+        of that item as indicated on the attached spreadsheet. As provided in Paragraph 11.03 of the General Conditions of the
+        MASTER PIPELINE AGREEMENT, estimated quantities are not guaranteed, and determinations of actual quantities and
+        classifications are to be made by Owner as provided in Paragraph 9.07 of the General Conditions. Unit prices have
+        been computed as provided in
+    </div>
+
+    <div class="total">
+        <table>
+            <tr>
+                @if (nonFramework)
+                {
+                    <td>Contractor Labor Lump Sum</td>
+                    <td>@Html.DisplayValueFor(x => x.LumpSum)</td>
+                }
+                else
+                {
+                    <td>TOTAL OF ALL ESTIMATED PRICES</td>
+                    <td>@Html.DisplayValueFor(x => x.TotalOfAllEstimatedCosts)</td>
+                }                    
+            </tr>
+        </table>
+    </div>
+
+    <div class="article">
+        Article 5 – Payment procedures shall be made in accordance with the MASTER PIPELINE INSTALLATION AGREEMENT and as follows:
+    </div>
+
+    <div class="instructions">
+        INVOICING INSTRUCTIONS:  All invoices shall be submitted in duplicate and addressed to:
+    </div>
+
+    <div class="invoice-address">
+        <div>American Water</div>
+        <div>1 Water Street</div>
+        <div>Camden, NJ 08102</div>
+        <div>and</div>
+        <div>
+            @Model.OperatingCenter.MailingAddressName<br />
+            @Model.OperatingCenter.MailingAddressStreet<br />
+            @Model.OperatingCenter.MailingAddressCityStateZip<br />
+            @Model.AdditionalInvoiceInstructions
+        </div>
+    </div>
+
+    <div class="article">
+        Article 7 – Prior to the issuance of this Task Order, and execution of the WORK,
+        Contractor makes all representation in accordance
+        with Article 7 of the MASTER PIPELINE INSTALLATION AGREEMENT.
+    </div>
+
+    <div class="instructions">
+        All other articles of the @Html.DisplayValueFor(_ => @Model.ContractorAgreementDate) MASTER PIPELINE INSTALLATION AGREEMENT remain the same.
+    </div>
+
+    <div class="instructions">
+        Owner and Contractor have caused this Task Order to be executed by representatives duly
+        authorized to act, all as of the effective date of @Html.DisplayValueFor(_ => @Model.EffectiveAgreementDate).
+    </div>
+
+    <div class="table-container">
+        Unit Summary
+        <table class="data">
+            <tr>
+                <th>Description</th>
+                <th>Unit Type:</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            @foreach (var cost in @Model.GroupedContractorLaborCosts.OrderBy(c => c.ContractorLaborCost.Description))
+            {
+                <tr>
+                    <td>@cost.ContractorLaborCost.Description</td>
+                    <td>@cost.ContractorLaborCost.Unit</td>
+                    <td class="center">@(nonFramework ? new HtmlString("") : Html.DisplayValueFor(_ => cost.ActualCost))</td>
+                    <td class="center">@cost.Quantity</td>
+                    <td class="center">@(nonFramework ? new HtmlString("") : Html.DisplayValueFor(_ => cost.TotalCost))</td>
+                </tr>
+            }
+            @if (!nonFramework)
+            {
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total</td>
+                        <td>@Html.DisplayValueFor(_ => @Model.TotalContractorLaborCost)</td>
+                    </tr>
+                </tfoot>
+            }                
+        </table>
+    </div>
+    <div>&nbsp;</div>
+    
+    <div class="table-container">
+        Other Negotiated Line Items (Non-Unitized)
+        <table class="data">
+            <tr>
+                <th>N/A</th>
+                <th>Description</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            @foreach (var cost in @Model.OtherCosts)
+            {
+                <tr>
+                    <td></td>
+                    <td>@cost.Description</td>
+                    <td class="center">@Html.DisplayValueFor(_ => cost.Cost)</td>
+                    <td class="center">@cost.Quantity</td>
+                    <td class="center">@Html.DisplayValueFor(_ => cost.TotalCost)</td>
+                </tr>
+            }
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td class="center">@Html.DisplayValueFor(_ => @Model.TotalOtherCost)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="signatures" style="page-break-inside: avoid; page-break-before:avoid;">
+        <table>
+            <tr>
+                <td style="width:50%;" class="signature">
+                    ____________________________________________<br />
+                    Prepared By:  (Owner's Representative)
+                </td>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Date:  
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    Contractor: <br/>
+                    @if (Model.Contractor != null)
+                    {
+                        @Model.Contractor.Name<br />
+                        @Model.Contractor.AddressLineOne<br />
+                        @Model.Contractor.CityStateZip
+                    }
+                </td>
+                <td>
+                    Owner:<br />
+                    NEW JERSEY AMERICAN WATER<br/>
+                    1 WATER STREET<br />
+                    CAMDEN, NJ 08102<br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Contractor Signature:
+                </td>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Owner's Representative Signature:
+                </td>
+            </tr>
+            <tr>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Name (Print):
+                </td>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Name (Print):
+                </td>
+            </tr>
+            <tr>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Title:
+                </td>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Title:
+                </td>
+            </tr>
+            <tr>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Date:
+                </td>
+                <td class="signature">
+                    ____________________________________________<br />
+                    Date:
+                </td>
+            </tr>
+        </table>
+    </div>
+}

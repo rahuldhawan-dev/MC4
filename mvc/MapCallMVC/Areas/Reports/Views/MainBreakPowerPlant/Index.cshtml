@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchMainBreakPowerPlant
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results", style="width:auto;"})
+    .WithCaption("Records found: " + Model.Count)
+    .SortableColumnFor(x => x.WorkOrder.OperatingCenter, "workOrder.OperatingCenter")
+      .SortableTemplateColumnFor("WorkOrder", x => @<text>
+                                                       @Html.ActionLink(x.WorkOrder.Id.ToString(), "Show", "WorkOrder", new { id = x.WorkOrder.Id, area = "FieldOperations" }, null)
+                                                   </text>)
+    .SortableColumnFor(x => x.WorkOrder.DateCompleted, "workOrder.DateCompleted")
+    .SortableColumnFor(x => x.WorkOrder.Town, "workOrder.Town")
+    .SortableColumnFor(x => x.ServiceSize)
+    .SortableColumnFor(x => x.FootageReplaced)
+    .SortableColumnFor(x => x.ReplacedWith)
+    .SortableColumnFor(x => x.MainBreakMaterial)
+    .WithPaginatedFooter()
+)

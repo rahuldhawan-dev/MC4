@@ -1,0 +1,85 @@
+﻿@using MMSINC.Helpers
+@{
+
+    var hourlyChart = new ChartBuilder<DateTime, int>();
+    hourlyChart.Title = "Hourly Chart with lots of X values so the X axis values only display every 3 hours";
+    // charty.XValueFormat = "{0:d}";
+    hourlyChart.YAxisLabel = "Yay a label";
+    hourlyChart.Interval = ChartIntervalType.Hourly;
+
+    var series = new ChartSeries<DateTime, int>();
+    series.Name = "First Series";
+    series.Add(DateTime.Today, 10);
+    series.Add(DateTime.Today.AddHours(1), 42);
+    series.Add(DateTime.Today.AddHours(2), 12);
+    series.Add(DateTime.Today.AddHours(3), 14);
+    series.Add(DateTime.Today.AddHours(4), 68);
+    series.Add(DateTime.Today.AddHours(5), 34);
+    series.Add(DateTime.Today.AddHours(15), 14);
+    series.Add(DateTime.Today.AddDays(1), 9);
+    hourlyChart.Series.Add(series);
+}
+@hourlyChart
+
+@{
+    var hourlyChart2 = new ChartBuilder<DateTime, int>();
+    hourlyChart2.Title = "Hourly chart with a few close values";
+    // charty.XValueFormat = "{0:d}";
+    hourlyChart2.Interval = ChartIntervalType.Hourly;
+
+    var series2 = new ChartSeries<DateTime, int>();
+    series2.Name = "First Series";
+    series2.Add(DateTime.Today, 10);
+    series2.Add(DateTime.Today.AddHours(1), 42);
+    series2.Add(DateTime.Today.AddHours(2), 12);
+    series2.Add(DateTime.Today.AddHours(3), 14);
+    hourlyChart2.Series.Add(series2);
+}
+@hourlyChart2
+
+@{
+    var barChart = new ChartBuilder<string, int>();
+    barChart.Title = "Bar Chart";
+    barChart.Type = ChartType.Bar;
+    var barSeries = new ChartSeries<string, int>();
+    barSeries.Name = "Some series";
+    barSeries.Add("Bloop", 1);
+    barSeries.Add("Blurp", 2);
+    barChart.Series.Add(barSeries);
+}
+@barChart
+
+@{
+    var singleSeriesBarChart = new ChartBuilder<string, int>();
+    singleSeriesBarChart.Type = ChartType.SingleSeriesBar;
+    singleSeriesBarChart.Title = "Single Series Bar Chart Without Legend";
+    singleSeriesBarChart.YMinValue = 0;
+    singleSeriesBarChart.LegendPosition = ChartLegendPosition.None;
+    singleSeriesBarChart.AddSeriesValue("One", "One", 1);
+    singleSeriesBarChart.AddSeriesValue("One", "Two", 2);
+    singleSeriesBarChart.AddSeriesValue("One", "Three", 3);
+    singleSeriesBarChart.AddSeriesValue("One", "Four", 4);
+    singleSeriesBarChart.AddSeriesValue("One", "Five", 5);
+    singleSeriesBarChart.AddSeriesValue("One", "Six", 6);
+    singleSeriesBarChart.AddSeriesValue("One", "Seven", 7);
+    singleSeriesBarChart.AddSeriesValue("One", "Eight", 8);
+}
+@singleSeriesBarChart
+
+@{
+    var alphabeticalSortedChart = new ChartBuilder<string, int>();
+    alphabeticalSortedChart.Type = ChartType.SingleSeriesBar;
+    alphabeticalSortedChart.Title = "Single Series Bar Chart Without Legend";
+    alphabeticalSortedChart.YMinValue = 0;
+    alphabeticalSortedChart.LegendPosition = ChartLegendPosition.None;
+    alphabeticalSortedChart.SortType = ChartSortType.Alphabetical;
+    alphabeticalSortedChart.AddSeriesValue("One", "One", 1);
+    alphabeticalSortedChart.AddSeriesValue("One", "Two", 2);
+    alphabeticalSortedChart.AddSeriesValue("One", "Three", 3);
+    alphabeticalSortedChart.AddSeriesValue("One", "Four", 4);
+    alphabeticalSortedChart.AddSeriesValue("One", "Five", 5);
+    alphabeticalSortedChart.AddSeriesValue("One", "Six", 6);
+    alphabeticalSortedChart.AddSeriesValue("One", "Seven", 7);
+    alphabeticalSortedChart.AddSeriesValue("One", "Eight", 8);
+}
+@alphabeticalSortedChart

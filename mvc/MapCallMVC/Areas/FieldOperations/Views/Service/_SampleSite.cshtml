@@ -1,0 +1,15 @@
+﻿@model Service
+
+<div class="field-column fc200">
+    @if (Model.Premise != null && Model.Premise.SampleSite != null)
+    {
+        @Html.RenderDisplayTemplate("SampleSiteID", @<text>
+                                                        @Html.ActionLink(Model.Premise.SampleSite.Id.ToString(), "Show", "SampleSite", new { area = "WaterQuality", id = Model.Premise.SampleSite.Id }, null)
+                                                     </text>)
+    }
+</div>
+
+@if (Model.Premise != null && Model.Premise.SampleSite != null)
+{
+    @Html.Partial("~/Areas/WaterQuality/Views/SampleSite/_ShowSampleSite.cshtml", Model.Premise.SampleSite)
+}

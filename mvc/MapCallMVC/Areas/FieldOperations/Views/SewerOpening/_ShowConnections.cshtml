@@ -1,0 +1,67 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model SewerOpening
+           
+@{
+    var connections = Model.SewerOpeningConnections.OrderBy(x => x.UpstreamOpening.OpeningNumber);
+
+    var table = Html.TableFor(x => connections, new {id = "connections-table"});
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "SewerOpeningConnection", new { id = x.Id, OriginalOpeningId = Model.Id, area = "FieldOperations" }, new { Class = "link-button" }))
+            .TemplateColumnFor(x => Control.SubmitButton("Delete").WithName("SewerOpeningSewerOpeningConnectionId").WithValue(x.Id));
+    }
+    table = table
+        .ColumnFor(x => x.IsInlet)
+        .TemplateColumnFor("Upstream Opening", x => @<text>
+                                                        @if (x.UpstreamOpening != null)
+                                                        {
+                                                            if (x.UpstreamOpening.Id == Model.Id)
+                                                            {
+                                                                <strong>@x.UpstreamOpening</strong>
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.ActionLink(x.UpstreamOpening.OpeningNumber, "Show", "SewerOpening", new {id = x.UpstreamOpening.Id, area = "FieldOperations"}, null)
+                                                            }
+                                                        }
+                                                     </text>)
+        .TemplateColumnFor("Downstream Opening", x => @<text>
+                                                          @if (x.DownstreamOpening != null)
+                                                          {
+                                                              if (x.DownstreamOpening.Id == Model.Id)
+                                                               {
+                                                                   <strong>@x.DownstreamOpening</strong>
+                                                               }
+                                                               else
+                                                               {
+                                                                   @Html.ActionLink(x.DownstreamOpening.OpeningNumber, "Show", "SewerOpening", new {id = x.DownstreamOpening.Id, area = "FieldOperations"}, null)
+                                                               }
+                                                          }
+                                                       </text>)
+        .ColumnFor(x => x.SewerPipeMaterial)
+        .ColumnFor(x => x.SewerTerminationType)
+        .ColumnFor(x => x.Invert)
+        .ColumnFor(x => x.Size)
+        .ColumnFor(x => x.Route)
+        .ColumnFor(x => x.InspectionFrequency)
+        .ColumnFor(x => x.InspectionFrequencyUnit);
+}
+
+@if (Html.CurrentUserCanEdit())
+{
+    <div class="collapse-panel" data-title="Add New Connection">
+        @Html.Partial("_AddSewerOpeningConnection", ViewModelFactory.Build<AddSewerOpeningConnection, SewerOpening>(Model))
+    </div>
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("SewerOpening", "SewerOpeningSewerOpeningConnection", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteSewerOpeningConnectionForm");
+            @table
+        }
+    </div>
+}
+else
+{
+    @table
+}

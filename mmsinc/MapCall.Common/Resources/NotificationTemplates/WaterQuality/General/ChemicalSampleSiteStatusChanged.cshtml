@@ -1,0 +1,9 @@
+﻿@model MapCall.Common.Model.Entities.SampleSite
+
+<h2>Sample Site Change to @Model.CommonSiteName</h2>
+
+<strong>Forward this email to Central Lab if this site is a compliance site that would affect a schedule.</strong>
+
+Sample Site: <a href="@Model.RecordUrl">@Model.CommonSiteName</a><br />
+Public Water Supply: @Model.PublicWaterSupply<br />
+Status: @Model.Status.Description

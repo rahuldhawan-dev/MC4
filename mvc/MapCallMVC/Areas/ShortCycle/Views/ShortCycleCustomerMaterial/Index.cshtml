@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.ShortCycle.Models.ViewModels.ShortCycleCustomerMaterials.SearchShortCycleCustomerMaterial
+
+@if (Model.Results.Any())
+{
+    var ordered = Model.Results.OrderByDescending(x => x.AssignmentStart); 
+    <text>
+    @(Html
+        .TableFor(_ => ordered, new { id = "shortCycleCustomerMaterialsTable" })
+        .WithCaption("Records found: " + Model.Count)
+        .ColumnFor(x => x.ShortCycleWorkOrderNumber)
+        .ColumnFor(x => x.CustomerSideMaterial)
+        .ColumnFor(x => x.ReadingDevicePositionalLocation)
+        .ColumnFor(x => x.AssignmentStart))
+    </text>
+}
+else
+{
+    <em>None found.</em>
+}

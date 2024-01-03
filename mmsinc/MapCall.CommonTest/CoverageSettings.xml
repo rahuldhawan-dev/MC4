@@ -1,0 +1,7 @@
+<PartCoverSettings>
+  <Target>C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\MSTest.exe</Target>
+  <TargetWorkDir>C:\Solutions\MMSINC</TargetWorkDir>
+  <TargetArgs>/noisolation /testcontainer:c:\Solutions\MMSINC\MapCall.CommonTest\bin\Debug\MapCall.CommonTest.dll</TargetArgs>
+  <Rule>+[MapCall.Common*]*</Rule>
+  <Rule>-[MapCall.CommonTest*]*</Rule>
+</PartCoverSettings>

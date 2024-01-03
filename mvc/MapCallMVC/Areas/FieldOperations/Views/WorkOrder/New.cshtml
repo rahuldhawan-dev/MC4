@@ -1,0 +1,168 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Controllers
+@using MMSINC.ClassExtensions
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateWorkOrder
+
+@{
+    var workDescriptions = (List<object>)ViewData[WorkOrderController.WORK_DESCRIPTIONS_VIEWDATA_KEY];
+}
+
+@section scripts {
+    <script>
+        window.workDescriptions = @Html.Raw(Json.Encode(workDescriptions))
+    </script>
+
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Form.js")
+    @Html.ScriptFor("~/Scripts/Areas/Customer/Premise/Find.js")
+}
+
+@section styles {
+    <style>
+        .top-fields {
+            width: 50%;
+            float: left;
+        }
+
+        .upper-right {
+            width: 50%;
+            float: right;
+            padding: 8px;
+            overflow: auto;
+        }
+
+        .bottom-fields {
+            clear: both;
+        }
+    </style>
+}
+@Control.Hidden("GetAssetHistoryUrl").WithValue(Url.Action("History", "WorkOrder", new { area = "FieldOperations" }))
+@Control.Hidden("GetCoordinateIdForAssetUrl").WithValue(Url.Action("GetCoordinateIdForAsset", "Coordinate", new { area = string.Empty }))
+@Control.Hidden("GetOperatingCenterIsSAPWorkOrdersEnabled").WithValue(Url.Action("IsSAPWorkOrdersEnabled", "OperatingCenter", new { area = string.Empty }))
+@Control.Hidden("GetSampleSitesByPremiseNumberUrl").WithValue(Url.Action("GetSampleSitesByPremiseNumber", "SampleSite", new { area = "WaterQuality" }))
+@Control.Hidden("GetStateUrl").WithValue(Url.Action("GetStateByOperatingCenterId", "OperatingCenter", new { area = string.Empty }))
+@Control.Hidden("GetTownCriticalMainBreakNotesUrl").WithValue(Url.Action("GetTownCriticalMainBreakNotes", "Town", new { area = string.Empty }))
+@Control.Hidden("IsContractedOperationsServiceUrl").WithValue(Url.Action("IsContractedOperations", "OperatingCenter", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "WorkOrder", "FieldOperations"))
+{
+    <div class="field-column fc150 top-fields">
+        @Html.EditorFor(x => x.IsRevisit)
+
+        @Html.EditorFor(x => x.OriginalOrderNumber)
+
+        @Control.Hidden().WithId("State")
+
+        @Html.EditorFor(x => x.OperatingCenter)
+        <!-- Initial/Revisit -->
+
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+
+        @Html.EditorFor(x => x.StreetNumber, new { html = new { autocomplete = "off" }})
+        @Html.EditorFor(x => x.ApartmentAddtl)
+        @Html.EditorFor(x => x.Street)
+
+        @Html.EditorFor(x => x.NearestCrossStreet)
+        @Html.EditorFor(x => x.ZipCode, new { html = new { autocomplete = "off" }})
+
+        @Html.EditorFor(x => x.AssetType)
+
+        @Html.RenderEditorTemplate("Asset",
+                        @<text>
+                            @Html.DropDownList("DummyAsset",
+                                new[] { new SelectListItem { Text = "Select an asset type" } },
+                                new { disabled = true })
+                            @Html.EditorWithoutWrapperFor(x => x.Hydrant, new { style = "display: none" })
+                            @Html.EditorWithoutWrapperFor(x => x.Valve, new { style = "display: none" })
+                            @Html.EditorWithoutWrapperFor(x => x.SewerOpening, new { style = "display: none" })
+                            @Html.EditorWithoutWrapperFor(x => x.Equipment, new { style = "display: none" })
+
+
+                            <div id="premiseLookup" style="display: none;">
+                                @Html.EditorFor(x => x.ServiceNumber, new { style = "display: none" })
+                                <div id="premiseLookupLink" style="display: none; margin-left: 168px;">
+                                    @Ajax.ActionLink("Click here to lookup Premise Information if you do not have it available", "Find", "Premise", new { area = "Customer", id = Model.PremiseNumber }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#premiseNumberTable", id = "PremiseFindLink" })
+                                </div>
+                                @Html.EditorFor(x => x.PremiseNumber, new { style = "display: none" })
+                                @Html.EditorFor(x => x.PremiseAddress, new { style = "display: none" })
+                                @Html.EditorFor(x => x.ServiceUtilityType, new { style = "display:none;" })
+                                @Html.EditorFor(x => x.MeterSerialNumber, new { style = "display: none" })
+                                <div id="installationLookupLink" style="display: none; margin-top: 7px; margin-left: 168px;">
+                                    @Ajax.ActionLink("Click here to Lookup and Verify Technical Master Data", "Find", "SAPTechnicalMasterAccount", new { area = "Customer", id = Model.PremiseNumber }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#installationTable" })
+                                </div>
+                                @Html.EditorFor(x => x.DeviceLocation, new { style = "display: none" })
+                                @Html.EditorFor(x => x.SAPEquipmentNumber, new { style = "display: none" })
+                                @Html.EditorFor(x => x.Installation, new { style = "display: none" })
+                            </div>
+
+                            @Html.EditorWithoutWrapperFor(x => x.MainCrossing, new { style = "display: none" })
+                            @Html.HiddenFor(x => x.Service)
+                            @Html.HiddenFor(x => x.EchoshoreLeakAlert)
+                            @Html.HiddenFor(x => x.SendToSAP)
+                            @Html.HiddenFor(x => x.HasSampleSite)
+                            @Html.HiddenFor(x => x.SmartCoverAlert)
+
+                        </text>, "asset-id")
+
+        @Html.EditorFor(x => x.CoordinateId)
+
+        @Html.EditorFor(x => x.RequestedBy)
+        @Html.EditorFor(x => x.AcousticMonitoringType)
+        @Html.EditorFor(x => x.CustomerName)
+        @Html.EditorFor(x => x.PhoneNumber)
+        @Html.EditorFor(x => x.SecondaryPhoneNumber)
+        @Html.EditorFor(x => x.RequestingEmployee)
+    </div>
+
+    <div class="upper-right" id="History">
+    </div>
+
+    <div class="field-column fc150 bottom-fields">
+
+        @Html.EditorFor(x => x.Purpose)
+        @Html.EditorFor(x => x.Priority)
+
+        @Html.EditorFor(x => x.WorkDescription)
+
+        @* These are only editable if OperatingCenter.SAPWorkOrdersEnabled *@
+        @Html.EditorFor(x => x.PlantMaintenanceActivityTypeOverride)
+        @Html.RenderDisplayTemplate("WBS Charged", @<text>
+            <div id="wbsElementLookupLink">
+                @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#wbsElementTable", id = "WBSElementFindLink" })
+            </div>
+            @Html.EditorWithoutWrapperFor(x => x.AccountCharged)
+        </text>)
+
+        @Html.EditorFor(x => x.EstimatedCustomerImpact)
+        @Html.EditorFor(x => x.AnticipatedRepairTime)
+        @Html.EditorFor(x => x.AlertIssued)
+        @Html.EditorFor(x => x.SignificantTrafficImpact)
+
+        @Html.EditorFor(x => x.MarkoutRequirement)
+
+        @Html.EditorFor(x => x.TrafficControlRequired)
+        @Html.EditorFor(x => x.StreetOpeningPermitRequired)
+        @Html.EditorFor(x => x.DigitalAsBuiltRequired)
+
+        @Html.EditorFor(x => x.Notes)
+        @Html.EditorFor(x => x.SpecialInstructions)
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @Html.EditorFor(x => x.DateReceived)
+
+        @Html.EditorFor(x => x.SAPNotificationNumber, new { html = new { autocomplete = "off" }})
+        @* This are only editable if !OperatingCenter.SAPWorkOrdersEnabled *@
+        @Html.EditorFor(x => x.SAPWorkOrderNumber, new { html = new { autocomplete = "off" }})
+
+        @if (Model.SAPNotificationNumber.HasValue)
+        {
+            @Html.RenderDisplayTemplate("SAPNotification Details", @<text>
+                @Html.ActionLink("View", "Show", "SapNotification", new { SapNotificationNumber = Model.SAPNotificationNumber, ext = "frag", area = "FieldOperations" }, new { target = "_blank" })
+            </text>)
+        }
+
+    </div>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "GeneralWorkOrder", new { Model.Id })
+    </text>)
+}

@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMarkoutDamageReport
+
+@using (Form.BeginForm("Index", "MarkoutDamageBPU"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.DamageOn)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter, new {Container = @Model})
+        @Html.EditorFor(x => x.MarkoutDamageToType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

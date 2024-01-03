@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchTankInspection
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(m => m.State)
+      .ColumnFor(m => m.Equipment)
+      .SortableColumnFor(m => m.OperatingCenter)
+      .SortableColumnFor(m => m.TankObservedBy)
+      .SortableColumnFor(m => m.PublicWaterSupply)
+      .ColumnFor(m => m.TankCapacity)
+      .ColumnFor(m => m.TankAddress)
+      .SortableColumnFor(m => m.ObservationDate)
+      .SortableColumnFor(m => m.LastObserved)
+      .SortableColumnFor(m => m.TankInspectionType)
+      .WithPaginatedFooter()
+    )

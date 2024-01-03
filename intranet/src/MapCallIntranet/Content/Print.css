@@ -1,0 +1,11 @@
+﻿div#logindisplay, div.left, div#nav {
+  display: none;    
+}
+
+div.right {
+  float: none;    
+}
+
+div.siteWrap > div.right > div.inner {
+  margin: 0px;
+}

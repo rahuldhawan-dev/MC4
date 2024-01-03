@@ -1,0 +1,58 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchRecurringProject
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+
+}
+<style>
+
+    .completed td { background-color: lightblue !important; }
+    .ap_approved td { background-color: lightgreen !important; }
+    .other td { background-color: white !important; }
+    table > tbody > tr:nth-child(odd) > td, table.no-hover > tbody > tr:nth-child(odd):hover > td { background-color: white; }
+    table > tbody > tr:nth-child(even) > td, table.no-hover > tbody > tr:nth-child(even):hover > td { background-color: white; }
+</style>
+
+@(Html.TableFor(_ => Model, new { id = "recurring-projects"})
+    .WithCaption("Records Found: " + Model.Count)
+    .WithRowBuilder((m, help) => {
+        if (m.Status != null && m.Status.Description == "Complete")
+        {
+            help.AddCssClass("completed");
+        }
+        else if (m.Status != null && m.Status.Description == "AP Approved")
+        {
+            help.AddCssClass("ap_approved");
+        }
+        else
+        {
+            help.AddCssClass("other");
+        }
+    })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.WBSNumber)
+    .SortableColumnFor(x => x.HistoricProjectID)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.ProjectTitle)
+    .SortableColumnFor(x => x.OriginationYear)
+    .SortableColumnFor(x => x.RegulatoryStatus)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.RecurringProjectType)
+    .SortableColumnFor(x => x.AssetCategory)
+    .SortableColumnFor(x => x.AssetType)
+    .SortableColumnFor(x => x.HasMainsSelected)
+      .WithPaginatedFooter())
+
+<table>
+    <tbody>
+    <tr class="completed">
+        <td>Completed</td>
+    </tr>
+    <tr class="ap_approved">
+        <td>AP Approved</td>
+    </tr>
+    </tbody>
+</table>

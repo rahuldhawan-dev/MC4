@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.Easements.SearchEasement
+
+@using (Form.BeginForm("Index", "Easement"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.TownSection)
+    @Html.EditorFor(x => x.Category)
+    @Html.EditorFor(x => x.BlockLot)
+    @Html.EditorFor(x => x.Wbs)
+    @Html.EditorFor(x => x.GrantorType)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

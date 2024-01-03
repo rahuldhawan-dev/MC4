@@ -1,0 +1,56 @@
+﻿@model Contractors.Models.ViewModels.CrewAssignmentCalendarSearch
+
+@{
+    ViewBag.Title = "Crew Assignments";
+    Layout = "~/Views/Shared/_LayoutWithNav.cshtml";
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/CrewAssignment/Calendar.js")
+    @Html.ScriptFor("~/Scripts/CrewAssignment/CrewAssignment.js")
+}   
+
+@section styles {
+    @Html.StylesheetFor("~/Content/CrewAssignment/ShowCalendar.css")
+}
+
+<div class="fillBox fillBox-250">
+    <div class="left">
+        <div>
+            <fieldset>
+                <legend>Search</legend>
+                @using (var f = Form.BeginForm("ShowCalendar", "CrewAssignment"))
+                {
+	                f.HtmlAttributes.Add("id", "SearchForm");
+
+                    <div class="field-column fc50">
+                        @Html.EditorFor(m => m.Crew)
+                        @Html.EditorFor(m => m.Date)
+                    </div>
+                    <div class="editor-buttons">
+                        @* Can these have a formaction or something to set which controller action they go to? *@
+                        @Control.SubmitButton("Search").WithName("Search").WithId("Search")
+                    </div>
+                }
+            </fieldset>
+            
+            <fieldset class="legend">
+                <legend>Legend</legend>
+                <label class="legend-today">Today</label>
+                <label class="legend-selected-day">Selected Day</label>
+                <label class="legend-0-50">0-50%</label>
+                <label class="legend-50-100">50-100%</label>
+                <label class="legend-100">100%</label>
+            </fieldset>
+        </div>
+    </div>
+    <div class="right">
+        <div>
+        @Html.Partial("_MonthlyWorkCalendar")
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.Partial("_AssignmentsForDay")
+</div>

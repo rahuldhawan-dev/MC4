@@ -1,0 +1,29 @@
+﻿@model MapCall.Common.Model.Entities.ServiceNotification
+
+@{
+    var service = Model.Service;
+}
+<h2>Deactivated Service with Sample Site</h2>
+
+Premise Number: <a href="@service.RecordUrl">@service.PremiseNumber</a><br />
+Operating Cneter: @service.OperatingCenter<br />
+Category of Service: @service.ServiceCategory<br />
+Date Created: @service.DateInstalled<br />
+Street: @service.StreetAddress<br />
+Town: @service.Town<br /><br/>
+
+Customer Name: @service.Name<br />
+Lead and Copper Communication Provided: @service.LeadAndCopperCommunicationProvided<br/>
+@if (service.Premise != null && service.Premise.SampleSite != null)
+{
+    <text>Sample Site: <a href="@service.Premise.SampleSite.RecordUrl">@service.Premise.SampleSite</a><br /></text>
+}
+Installation: @service.Installation<br/><br/>
+
+Size of Service: @service.ServiceSize<br />
+Service Material: @service.ServiceMaterial<br/>
+Previous NJAW Material: @service.ServiceMaterial<br/>
+Previous NJAW Size: @service.ServiceSize<br/>
+Customer Side Material: @service.CustomerSideMaterial<br/>
+Customer Side Size: @service.CustomerSideSize<br/>
+Created By: @service.Initiator

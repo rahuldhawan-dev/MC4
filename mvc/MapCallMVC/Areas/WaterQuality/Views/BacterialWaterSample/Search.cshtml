@@ -1,0 +1,41 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchBacterialWaterSample
+@{
+
+	ActionBarHelper.AddLink("Mass Edit Import", "ab-import", "New", "BacterialWaterSampleMassEdit", null, null, "Import excel file for mass updating");
+}
+@using (Form.BeginForm("Index", "BacterialWaterSample")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.CollectedBy)
+        @Html.EditorFor(x => x.BacterialSampleType)
+        @Html.EditorFor(x => x.ComplianceSample)
+        @Html.EditorFor(x => x.SampleCollectionDTM)
+        @Html.EditorFor(x => x.SampleSiteStatus)
+        @Html.EditorFor(x => x.SampleSiteId)
+        @Html.EditorFor(x => x.SampleSite)
+        @Html.EditorFor(x => x.SampleNumber)
+        @Html.EditorFor(x => x.Cl2Free)
+        @Html.EditorFor(x => x.ColiformConfirm)
+        @Html.EditorFor(x => x.EColiConfirm)
+        @Html.EditorFor(x => x.Cl2Total)
+        @Html.EditorFor(x => x.Monochloramine)
+        @Html.EditorFor(x => x.FreeAmmonia)
+        @Html.EditorFor(x => x.Nitrite)
+        @Html.EditorFor(x => x.Nitrate)
+        @Html.EditorFor(x => x.FinalHPC)
+        @Html.EditorFor(x => x.Ph)
+        @Html.EditorFor(x => x.Conductivity)
+        @Html.EditorFor(x => x.LIMSStatus)
+        @Html.EditorFor(x => x.IsInvalid)
+        @Html.EditorFor(x => x.ReasonForInvalidation)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,82 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ServiceInstallationViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/ServiceInstallation/Form.js", ScriptLoadType.LoadFromPartial)
+
+<div>Please enter a valid work order and Manufacturer Meter Serial Number. </div>
+@Html.EditorFor(x => x.WorkOrder)
+@Html.EditorFor(x => x.MeterSerialNumber)
+@Html.RenderEditorTemplate("", @<text>
+                                   @Control.Button("Verify").WithId("btnVerify").WithCssClass("button")
+                                   <div class="error" id="ajaxError"></div>
+                                </text>)
+@*<div id="sapStatus" class="field-pair">
+    <div class="label"></div>
+    <div class="field">
+        <input type="button" class="button" id="btnVerify" Value="Verify"/>
+        <div class="error" id="ajaxError"></div>
+    </div>
+</div>*@
+<div id="fullForm">
+    <fieldset>
+        <legend>Meter Properties</legend>
+        @Html.HiddenFor(x => x.MaterialNumber)
+        @Html.EditorFor(x => x.Manufacturer, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.MeterSize, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.ServiceType, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.MeterManufacturerSerialNumber, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.MeterLocation)
+        @Html.EditorFor(x => x.MeterPositionalLocation)
+        @Html.EditorFor(x => x.MeterDirectionalLocation)
+        @Html.EditorFor(x => x.ReadingDeviceSupplemental)
+        @Html.EditorFor(x => x.ReadingDevicePosition)
+        @Html.EditorFor(x => x.ReadingDeviceDirectionalInformation)
+        @Html.EditorFor(x => x.MiuInstallReason)
+        @Html.HiddenFor(x => x.MeterDeviceCategory)
+    </fieldset>
+
+    <fieldset>
+        <legend>Register 1 Information</legend>
+        @Html.EditorFor(x => x.Register1RFMIU)
+        @Html.RenderEditorTemplate("", @<text>
+            @Control.Button("Verify").WithId("btnVerifyMiu1").WithCssClass("button")
+            <div class="error" id="ajaxMiu1Error"></div>
+        </text>)
+        @Html.EditorFor(x => x.Register1Dials, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register1UnitOfMeasure, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register1ReadType)
+        @Html.EditorFor(x => x.Register1Size, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register1TPEncoderID)
+        @Html.EditorFor(x => x.Register1CurrentRead)
+        @Html.HiddenFor(x => x.Register1DeviceCategory)
+    </fieldset>
+
+    <fieldset>
+        <legend>Register 2 Information</legend>
+        @Html.EditorFor(x => x.Register2RFMIU)
+        @Html.RenderEditorTemplate("", @<text>
+            @Control.Button("Verify").WithId("btnVerifyMiu2").WithCssClass("button")
+            <div class="error" id="ajaxMiu2Error"></div>
+        </text>)
+        @Html.EditorFor(x => x.RegisterTwoDials, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register2UnitOfMeasure, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register2ReadType)
+        @Html.EditorFor(x => x.Register2Size, new { html = new { ReadOnly = "true" } })
+        @Html.EditorFor(x => x.Register2TPEncoderID)
+        @Html.EditorFor(x => x.Register2CurrentRead)
+        @Html.HiddenFor(x => x.Register2DeviceCategory)
+    </fieldset>
+
+    <fieldset>
+        <legend>Field Activity</legend>
+        @Html.EditorFor(x => x.Activity1)
+        @Html.EditorFor(x => x.Activity2)
+        @Html.EditorFor(x => x.Activity3)
+        @Html.EditorFor(x => x.AdditionalWorkNeeded)
+        @Html.EditorFor(x => x.Purpose)
+        @Html.EditorFor(x => x.ServiceFound)
+        @Html.EditorFor(x => x.ServiceLeft)
+        @Html.EditorFor(x => x.OperatedPointOfControl)
+        @Html.EditorFor(x => x.ServiceInstallationReason)
+        @Html.EditorFor(x => x.MeterLocationInformation)
+    </fieldset>
+</div>

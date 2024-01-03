@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MapCall.SAP.Model.Entities.SAPCustomerOrder>
+
+
+@(Html.TableFor()
+.WithCaption("Records Found: " + Model.Count())
+      .TemplateColumnFor("View", x => @<text>
+                                          @if (x.frs != null)
+                                          {
+                                              @Html.ActionLink("View", "Show", new {Id = x.frs.WorkOrderNumber })
+                                          }
+                                       </text>)
+    .ColumnFor(x => x.frs.WorkOrderNumber)
+    .ColumnFor(x => x.frs.AssignedEngineer)
+    .ColumnFor(x => x.frs.AssignmentStart)
+    .ColumnFor(x => x.frs.AssignmentFinish)
+    .ColumnFor(x => x.frs.Priority)
+    .ColumnFor(x => x.frs.Status)
+//.ColumnFor(x => x.customerOrderWorkOrder.AssignedEngineer)
+
+//    Work Order
+//Operation No
+//Assignment Start
+//Assignment Finish
+//Priority
+//Status
+//Assigned Engineer
+)

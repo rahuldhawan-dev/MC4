@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.CommunityRightToKnowViewModel
+
+<div class="field-column fc300">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.CommunityRightToKnowFacilityId)
+    @Html.EditorFor(x => x.NumberOfEmployees)
+    @Html.EditorFor(x => x.RDExemptionApprovalNumber)
+    @Html.EditorFor(x => x.SubmissionDate)
+    @Html.EditorFor(x => x.ExpirationDate)
+</div>
+<fieldset>
+    <legend>Does this facility PRODUCE, STORE or USE NJ CRTK Environmental Hazardous Substances:</legend>
+    <div class="field-column fc300">
+        @Html.EditorFor(x => x.FacilityHasNJCRTKHazardousSubstancesInAnyQuantity)
+        @Html.EditorFor(x => x.FacilityHasNJCRTKHazardousSubstancesAboveThresholds)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>EPCRA Information</legend>
+    <div class="field-column fc300">
+        @Html.EditorFor(x => x.CoMu)
+        @Html.EditorFor(x => x.NorthAmericanIndustryClassificationSystem)
+        @Html.EditorFor(x => x.ToxinsReleaseInventoryFacilityId)
+        @Html.EditorFor(x => x.LocationIsManned)
+        @Html.EditorFor(x => x.IsSubjectToChemicalAccidentPrevention)
+        @Html.EditorFor(x => x.IsSubjectToEmergencyPlanning)
+    </div>
+</fieldset>

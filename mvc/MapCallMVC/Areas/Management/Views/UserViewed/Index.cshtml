@@ -1,0 +1,43 @@
+﻿@model MapCallMVC.Areas.Management.Models.SearchUserViewed
+@{
+    // HUGE NOTE: 
+	// There is a repository method/test for UserViewedRepository.SearchWithImages for ensuring
+	// this page only performs a single query. Make sure to update that query
+	// and test if you include additional FK referenced properties on this page.
+	var username = Model.Results.FirstOrDefault().User.UserName;
+	ViewBag.Title = "Images viewed by " + username;
+	var resultsByDate = Model.Results.OrderByDescending(x => x.ViewedAt).ToList();
+	var tapImagesViewed = resultsByDate.Where(x => x.TapImage != null).ToList();
+	var valveImagesViewed = resultsByDate.Where(x => x.ValveImage != null).ToList();
+	var asBuiltImagesViewed = resultsByDate.Where(x => x.AsBuiltImage != null).ToList();
+}
+
+@(Html.Tabs()
+      .WithTab("Taps",  @<text>@(Html.TableFor(x => tapImagesViewed, new{ id = "search-results-tap" })
+                                     .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TapImage", new{ area = "FieldOperations", Id = x.TapImage.Id }, null))
+                                     .ColumnFor(x => x.ViewedAt)
+                                     .ColumnFor(x => x.TapImage.ServiceNumber)
+                                     .ColumnFor(x => x.TapImage.Town)
+                                     .ColumnFor(x => x.TapImage.StreetNumber)
+                                     .ColumnFor(x => x.TapImage.Street)
+                                     .ColumnFor(x => x.TapImage.PremiseNumber)
+	                                 )</text>, itemCount: tapImagesViewed.Count)
+      .WithTab("Valves",  @<text>@(Html.TableFor(x => valveImagesViewed, new{ id = "search-results-valve" })
+                                       .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ValveImage", new{ area = "FieldOperations", Id = x.ValveImage.Id }, null))
+                                       .ColumnFor(x => x.ViewedAt)
+                                       .ColumnFor(x => x.ValveImage.ValveNumber)
+                                       .ColumnFor(x => x.ValveImage.Town)
+                                       .ColumnFor(x => x.ValveImage.Location)
+                                       .ColumnFor(x => x.ValveImage.Street)
+                                       .ColumnFor(x => x.ValveImage.CrossStreet)
+	                                   )</text>, itemCount: valveImagesViewed.Count)
+      .WithTab("As Builts",  @<text>@(Html.TableFor(x => asBuiltImagesViewed, new{ id = "search-results-asbuilt" })
+                                     .TemplateColumnFor(x => Html.ActionLink("View", "Show", "AsBuiltImage", new{ area = "FieldOperations", Id = x.AsBuiltImage.Id }, null))
+                                     .ColumnFor(x => x.ViewedAt)
+                                     .ColumnFor(x => x.AsBuiltImage.TaskNumber)
+                                     .ColumnFor(x => x.AsBuiltImage.Town)
+                                     .ColumnFor(x => x.AsBuiltImage.ProjectName)
+                                     .ColumnFor(x => x.AsBuiltImage.Street)
+                                     .ColumnFor(x => x.AsBuiltImage.DateInstalled)
+	                                 )</text>, itemCount: asBuiltImagesViewed.Count)
+	  )

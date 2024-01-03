@@ -1,0 +1,9 @@
+﻿@model WorkOrderInvoice
+    
+@(Html.TableFor(x => Model.WorkOrder.MaterialsUsed)
+    .ColumnFor(x => x.Material)
+    .ColumnFor(x => x.Quantity)
+    .ColumnFor(x => x.NonStockDescription)
+    .ColumnFor(x => x.StockLocation)
+    .ColumnFor(x => x.Price)
+)

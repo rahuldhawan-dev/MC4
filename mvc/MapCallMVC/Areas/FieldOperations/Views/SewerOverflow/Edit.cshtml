@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerOverflows.SewerOverflowViewModel
+
+@section scripts{
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/SewerOverflow/Form.js")
+}
+
+@using (Form.BeginForm("Update", "SewerOverflow", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "SewerOverflow", new {Model.Id})
+                           </text>)
+    </div>
+}

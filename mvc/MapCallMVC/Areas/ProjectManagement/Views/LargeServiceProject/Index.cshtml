@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchLargeServiceProject
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.ProjectTitle, "ProjectTitle")
+    .SortableColumnFor(x => x.ProjectAddress)
+    .SortableColumnFor(x => x.AssetCategory)
+    .SortableColumnFor(x => x.AssetType)
+    .SortableColumnFor(x => x.ProposedPipeDiameter)
+    .SortableColumnFor(x => x.InServiceDate)
+    .SortableColumnFor(x => x.CreatedBy)
+    .WithPaginatedFooter())

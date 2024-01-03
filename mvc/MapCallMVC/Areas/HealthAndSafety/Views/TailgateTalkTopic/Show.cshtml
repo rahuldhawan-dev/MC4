@@ -1,0 +1,15 @@
+﻿@model TailgateTalkTopic
+
+@(Html.Tabs()
+      .WithTab("Details", @<div class="field-column fc200">
+                               @Html.DisplayFor(x => x.IsActive)
+                               @Html.DisplayFor(x => x.CreatedBy)
+                               @Html.DisplayFor(x => x.Topic)
+                               @Html.DisplayFor(x => x.Category)
+                               @Html.DisplayFor(x => x.Month)
+                               @Html.DisplayFor(x => x.TargetDeliveryDate)
+                               @Html.DisplayFor(x => x.TopicLevel)
+                               @Html.DisplayFor(x => x.OrmReferenceNumber)
+                           </div>)
+    .WithVideos()
+    .WithNotesAndDocuments())

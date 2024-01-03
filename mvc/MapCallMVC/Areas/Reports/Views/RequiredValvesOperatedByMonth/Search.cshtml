@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchRequiredValvesOperatedByMonth
+
+@using (Form.BeginForm("Index", "RequiredValvesOperatedByMonth"))
+{
+<div class="">This report is NJ specific. To search for completed valve inspections please use @Html.ActionLink("this link", "Search", "ValveInspection", new { area = "FieldOperations" }, null). If you're looking for a report for valves due inspection, please use @Html.ActionLink("this link", "Search", "ValvesDueInspection", new { area = "Reports" }, null).</div>
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Year)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

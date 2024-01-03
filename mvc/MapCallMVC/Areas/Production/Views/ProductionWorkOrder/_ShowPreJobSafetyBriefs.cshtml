@@ -1,0 +1,12 @@
+﻿@model ProductionWorkOrder
+@Html.LinkButton(
+    "Create Pre-Job Safety Brief",
+    "NewForOrder",
+    "ProductionPreJobSafetyBrief",
+    new { productionWorkOrderId = Model.Id })
+
+@(Html.TableFor(x => x.ProductionPreJobSafetyBriefs)
+      .TemplateColumnFor(x =>
+          Html.ActionLink("View",  "Show", "ProductionPreJobSafetyBrief",new { id = x.Id } ,null))
+      .ColumnFor(x => x.CreatedBy.Employee)
+      .ColumnFor(x => x.SafetyBriefDateTime))

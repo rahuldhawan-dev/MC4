@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditProductionWorkOrderProductionPrerequisite
+
+@using (Form.BeginForm("Update", "ProductionWorkOrderProductionPrerequisite", "Production", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Production Work Order", Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { Model.ProductionWorkOrder.Id}, null))
+        @Html.EditorFor(x => x.SatisfiedOn)
+        @Html.EditorFor(x => x.SkipRequirement)
+        @Html.EditorFor(x => x.SkipRequirementComments)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "ProductionWorkOrder", new {Model.ProductionWorkOrder.Id})
+                           </text>)
+    </div>
+}

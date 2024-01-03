@@ -1,0 +1,35 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchBlowOffInspection
+
+@using (Form.BeginForm("Index", "BlowOffInspection"))
+{
+  <div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+
+    @Html.EditorFor(x => x.ValveSuffix)
+    @Html.EditorFor(x => x.InspectedBy)
+
+    @Html.EditorFor(x => x.DateInspected)
+    @Html.EditorFor(x => x.CreatedAt)
+
+    @Html.EditorFor(x => x.WorkOrderRequired)
+    @Html.EditorFor(x => x.IsLargeValve)
+    @Html.EditorFor(x => x.SAPErrorCode)
+    @Html.EditorFor(x => x.HasSAPErrorCode)
+
+    @Html.EditorFor(x => x.PreResidualChlorine)
+    @Html.EditorFor(x => x.ResidualChlorine)
+    @Html.EditorFor(x => x.FreeNoReadReason)
+    @Html.EditorFor(x => x.PreTotalChlorine)
+    @Html.EditorFor(x => x.TotalChlorine)
+    @Html.EditorFor(x => x.TotalNoReadReason)
+    @Html.EditorFor(x => x.HydrantInspectionType)
+    @Html.EditorFor(x => x.FullFlow)
+    @Html.EditorFor(x => x.GPM)
+
+    @Html.ButtonGroup(@<text>
+                        @Control.SubmitButton("Search").WithId("Search")
+                        @Control.ResetButton()
+                       </text>)
+  </div>
+}

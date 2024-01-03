@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchNpdesRegulatorInspection
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => Model, new { id = "results", style = "width:auto;" })
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { id = x.Id }))
+      .TemplateColumnFor(x => Html.AuthorizedActionLink("Inspect", "New", "NpdesRegulatorInspection", new { id = x.SewerOpening.Id }, new { target = "_blank" }))
+      .TemplateColumnFor("Sewer Opening", x =>
+          Html.AuthorizedActionLink(x.SewerOpening.RegulatorNumber, "Show", "SewerOpening", new {
+              id = x.SewerOpening.Id
+          }))
+      .ColumnFor(x => x.SewerOpening.OperatingCenter)
+      .SortableColumnFor(x => x.SewerOpening.Town, "sm.Town")
+      .SortableColumnFor(x => x.InspectedBy)
+      .SortableColumnFor(x => x.DepartureDateTime)
+      .SortableColumnFor(x => x.SewerOpening.SewerOpeningType, "sm.SewerOpeningType")
+      .SortableColumnFor(x => x.NpdesRegulatorInspectionType)
+      .SortableColumnFor(x => x.IsDischargePresent)
+      .SortableColumnFor(x => x.SewerOpening.OutfallNumber, "sm.OutfallNumber")
+      .SortableColumnFor(x => x.SewerOpening.BodyOfWater, "sm.BodyOfWater")
+      .WithPaginatedFooter()
+    )

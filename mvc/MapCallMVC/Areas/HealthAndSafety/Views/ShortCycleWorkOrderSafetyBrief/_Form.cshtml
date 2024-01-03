@@ -1,0 +1,14 @@
+﻿@using MapCallMVC.Areas.HumanResources.Models.ViewModels
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.ShortCycleWorkOrderSafetyBriefViewModel
+    <div class="field-column fc200">
+            @Html.HiddenFor(x => x.FSR)
+            @Html.DisplayFor(x => x.FSRName)
+            @Html.DisplayAndHiddenFor(x => x.DateCompleted)
+            @Html.EditorFor(x => x.LocationTypes)
+            @Html.EditorFor(x => x.IsPPEInGoodCondition)
+            @Html.EditorFor(x => x.HasCompletedDailyStretchingRoutine)
+            @Html.EditorFor(x => x.HazardTypes)
+            @Html.EditorFor(x => x.HasPerformedInspectionOnVehicle)
+            @Html.EditorFor(x => x.PPETypes)
+            @Html.EditorFor(x => x.ToolTypes)
+    </div>

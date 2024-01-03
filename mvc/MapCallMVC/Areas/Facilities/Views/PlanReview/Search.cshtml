@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.PlanReviews.SearchPlanReview
+           
+@using (Form.BeginForm("Index", "PlanReview"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Plan)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.CreatedBy)
+        @Html.EditorFor(x => x.ReviewDate)
+        @Html.EditorFor(x => x.NextReviewDate)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

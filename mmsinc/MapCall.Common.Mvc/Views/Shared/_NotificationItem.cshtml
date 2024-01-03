@@ -1,0 +1,28 @@
+﻿@using MMSINC.Models.ViewModels
+@model NotificationItem
+@{
+	var notificationItemCssClass = "";
+	var iconImageFile = "";
+
+	switch (Model.NotificationType)
+	{
+		case NotificationItemType.Error:
+			notificationItemCssClass = "notification-item-error";
+			iconImageFile = "error-icon";
+			break;
+		case NotificationItemType.Success:
+			notificationItemCssClass = "notification-item-success";
+			iconImageFile = "success-icon";
+			break;
+		case NotificationItemType.Warning:
+			notificationItemCssClass = "notification-item-warning";
+			iconImageFile = "notification-icon";
+			break;
+	}
+}
+<div class="notification @notificationItemCssClass">
+	<img src="@Url.Content("~/Resources/Png/?file=Icons/" + iconImageFile + ".png")" />
+	<div class="message">
+		@Html.Raw(Model.Message)
+	</div>
+</div>

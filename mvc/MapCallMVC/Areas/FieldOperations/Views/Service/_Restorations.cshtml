@@ -1,0 +1,13 @@
+﻿@model Service
+           
+@Html.ActionLink("New Restoration", "New", "ServiceRestoration", new { id = Model.Id }, new { area = "FieldOperations", Class = "link-button" })
+
+@(Html.TableFor(x => Model.Restorations, new{ id = "restorationsTable" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ServiceRestoration", new { id = x.Id }, new { area = "FieldOperations"}))
+    .ColumnFor(x => x.RestorationType)
+    .ColumnFor(x => x.InitiatedBy)
+    .ColumnFor(x => x.PartialRestorationDate)
+    .ColumnFor(x => x.PartialRestorationCompletionBy)
+    .ColumnFor(x => x.FinalRestorationDate)
+    .ColumnFor(x => x.FinalRestorationCompletionBy)
+)

@@ -1,0 +1,36 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchBlowOffInspection
+
+@{
+  ActionBarHelper.AddExportLink();
+  ActionBarHelper.AddMapLink(new {Model.OperatingCenter, controller = "AssetMap"});
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {id = x.Id}))
+      .TemplateColumnFor("Valve Number", x => Html.AuthorizedActionLink(x.ValveNumber, "Show", "Valve", new {id = x.ValveId}))
+      .ColumnFor(x => x.OperatingCenter) // OperatingCenter column is required so there's no need to sort.
+      .ColumnFor(x => x.Town)
+      .ColumnFor(x => x.FunctionalLocation)
+      .ColumnFor(x => x.Latitude)
+      .ColumnFor(x => x.Longitude)
+      .SortableColumnFor(x => x.DateInspected)
+      .SortableColumnFor(x => x.HydrantInspectionType)
+      .ColumnFor(x => x.GallonsFlowed)
+      .SortableColumnFor(x => x.FullFlow)
+      .ColumnFor(x => x.GPM)
+      .ColumnFor(x => x.MinutesFlowed)
+      .ColumnFor(x => x.PreResidualChlorine)
+      .ColumnFor(x => x.ResidualChlorine)
+      .ColumnFor(x => x.FreeNoReadReason)
+      .ColumnFor(x => x.PreTotalChlorine)
+      .ColumnFor(x => x.TotalChlorine)
+      .ColumnFor(x => x.TotalNoReadReason)
+      .ColumnFor(x => x.StaticPressure)
+      .SortableColumnFor(x => x.WorkOrderRequestOne)
+      .ColumnFor(x => x.Remarks)
+      .SortableColumnFor(x => x.InspectedBy, "inspectedBy.UserName")
+      .SortableColumnFor(x => x.DateAdded)
+      .SortableColumnFor(x => x.SAPErrorCode)
+      .WithPaginatedFooter()
+  )

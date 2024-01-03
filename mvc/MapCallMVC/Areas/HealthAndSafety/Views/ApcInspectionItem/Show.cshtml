@@ -1,0 +1,6 @@
+﻿@model ApcInspectionItem
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowApcInspectionItem", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

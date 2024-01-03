@@ -1,0 +1,122 @@
+FINISHED:
+  INPUT SCREEN:
+   - Need Nearest Cross Street always.
+
+   - Add "Call Center" requested by. (the rest is still pending)
+
+   - Pressure Complaints?  Need to get Description of Work broken out into asset type
+     and then the type of work to be done on said asset.  This will change.
+   
+   - Lat/Lon picker needs to get worked into create somewhere.
+
+   - Once an asset has been chosen, need to display table of all work orders recorded
+     for that given asset. (works for valves/hydrants, rest are pending)
+
+   - Add "Description of Work" - filtered by asset type.
+
+   - Add "Call Center" requested by.  Then need service order # (required), and
+     premise #.
+
+   - Need phone # for customer again, as well as additional phone #, and service
+     order number (optional, still not there?  or is that service number?).
+
+   - "Service ID" (Asset Type == Service) to become "Premise Number", and show
+     associated local identifier.
+     - This may necessarily be "set" when description of work is set.  (does not,
+       actually works the other way round.  choosing "service" as AssetType allows
+       the user to choose a Description of Work).
+
+   - "Markout Required" becomes "Markout Requirement".  "None", "Routine", "Emergency".
+
+  PLANNING:
+   - Add fields Markout Request #, Planned Start Date.  These will display as a table in
+     the "Markouts" tab in the edit screen, which will also provide the ability to "re-request".
+
+   FIELDS:
+    - Markout Dates
+    - Street Opening Permits (requirement/?) (became checkbox in input)
+    - Traffic Control (drop down) (became checkbox in input)
+      - "None", "Pending Confirmation", "Confirmed"
+      - Span availiable if Multi Dat
+ 
+   - Single/Multi Day (this is somewhat inherent in the current design of crew assignments)
+
+   SCHEDULING:
+    Allow to assign work to an Employee (foreman), or a free-form text field for
+    crew (truck, etc.).  (this works using Crews and Crew Assignments)
+    Work by town, so a supervisor would be given a town to schedule work within for
+    his crews.
+    Need to record date work is scheduled.
+
+    Need a "Sequence", to specify what order work should be done in.  Supervisor would
+    then open up an employee's assigned work, and specify (click & drag) what order
+    the employee sould complete the work in.
+
+   CREW ASSIGNMENTS:
+    "Work assigned to me"; essentially when an employee finishes a job they can see
+    the next nearest job. (this is builtin to the Crew Assignments page)
+
+PENDING:
+  GENERAL:
+   - Need some way of "nesting" work orders together, as they may be related work
+     or steps in a process.  This is because restorations need to be logically separate
+     from work orders themselves.  Work orders can be "completed" before the restoration
+     is finished, but that work order (parent) will contain the restoration section in
+     a tab.
+
+  INPUT SCREEN:
+   - Spoils?
+
+	/* I DON'T THINK THE NEXT ONE WILL HAPPEN */
+   - Need "Add Street" button to add a street if it's not been found.  Then need some
+     way of pulling a report of all the streets that have been added by a given user
+     to verify that the data entered is consistent.
+
+	/* THE NEXT ONE WILL NOT HAPPEN */
+   - Asset Type will need to include "Main-Sewer", "Main-Water", "Manhole",
+     "Meter Pit".  Perhaps these need to get filtered by OpCode, as to which each
+     OpCode will have.
+
+   - Once an asset has been chosen, need to display table of all work orders recorded
+     for that given asset. (this is finished, except for services.  following is not)
+     This table should also provide a system to expand the scope of what's been brought
+     back, to entire street, or a specified radius of the Lat/Lon that's been picked.
+
+  FINALIZATION:
+   - Need to pull in the table of contractors per op center.
+
+   - Need extra Main information upon completion?
+
+   - Need to attach documents and notes to work orders.
+
+	/* I DON'T THINK THE NEXT ONE WILL HAPPEN AS WRITTEN */
+   - Need to display the possible duplicates table once street address AND/OR asset id
+     has been filled.  It should be constantly filtered as information is entered.
+     (we should be able to eventually expand/narrow the "duplicates" table based on
+      address information)
+
+	/* THE NEXT ONE WILL NOT HAPPEN */
+   - Priority needs to perhaps be setup as an OpCode-configured system, like Asset Type
+     above, and Stocked Materials.
+
+   - Will perhaps need to connect to One Call Express.
+
+   PLANNING:
+    Materials Planned (optional)
+    Equipment (per OpCode, optional, just like materials but they don't go away)
+    Need a "Sequence", to specify what order work should be done in.
+
+    Calendar of all materials needed for a given set of days.
+
+   SCHEDULING:
+    Will need to generate and email work order assignments to administrators.
+
+    "Assigned but not Scheduled"?
+
+    /* THE NEXT ONE WILL NOT HAPPEN */
+    Employees on trucks (foreman) should be able to log in and see "trivial" jobs
+    open, things which require no markout.
+
+    Need ability to do a batch print of work orders.  This probably means that they'll
+    see a table of search results, but we'll then need to print the details of the
+    order as it pertains to the work an employee will be doing.

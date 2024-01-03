@@ -1,0 +1,36 @@
+﻿@model SmartCoverAlert
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.AlertId)
+    @Html.DisplayFor(x => x.SewerOpening.State)
+    @Html.DisplayFor(x => x.SewerOpening.OperatingCenter)
+    @Html.DisplayFor(x => x.SewerOpening.Town)
+    @Html.DisplayFor(x => x.SewerOpening.TownSection)
+    @Html.RenderDisplayTemplate("Sewer Opening Number", @<text>
+                                                      @if (Model.SewerOpening != null)
+                                                      {
+                                                          @Html.ActionLink(Model.SewerOpeningNumber, "Show", "SewerOpening", new { Id = Model.SewerOpening.Id, area = "FieldOperations" }, null)
+                                                      }
+                                                   </text>)
+    @Html.DisplayFor(x => x.ApplicationDescription)
+    @Html.DisplayFor(x => x.Latitude)
+    @Html.DisplayFor(x => x.Longitude)
+    @Html.DisplayFor(x => x.Elevation)
+    @Html.DisplayFor(x => x.SensorToBottom)
+    @Html.DisplayFor(x => x.ManholeDepth)
+    @Html.DisplayFor(x => x.DateReceived)
+    @Html.RenderDisplayTemplate("High Alarm Threshold", new MvcHtmlString(string.Format("{0} inches {1} bottom", Model.HighAlarmThreshold, (Model.HighAlarmThreshold > 0 ? "above" : "below"))))
+    @Html.DisplayFor(x => x.Acknowledged)
+    @Html.DisplayFor(x => x.PowerPackVoltage)
+    @Html.DisplayFor(x => x.WaterLevelAboveBottom)
+    @Html.DisplayFor(x => x.Temperature)
+    @Html.DisplayFor(x => x.SignalStrength)
+    @Html.DisplayFor(x => x.SignalQuality)
+    @Html.RenderDisplayTemplate("Alert Type Information", @Html.TableFor(x => x.SmartCoverAlertSmartCoverAlertTypes, new { id = "smartCoverAlertAlerts" })
+                                                               .ColumnFor(x => x.SmartCoverAlertType.Id, "Type")
+                                                               .ColumnFor(x => x.SmartCoverAlertType))
+    @Html.RenderDisplayTemplate("Alarm Type Information", @Html.TableFor(x => x.SmartCoverAlertAlarms, new { id = "smartCoverAlertAlarms" })
+                                                               .ColumnFor(x => x.AlarmType)
+                                                               .ColumnFor(x => x.Level)
+                                                               .ColumnFor(x => x.AlarmDate))
+</div>

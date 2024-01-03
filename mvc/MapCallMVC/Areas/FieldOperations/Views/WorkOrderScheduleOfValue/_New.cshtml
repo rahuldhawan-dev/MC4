@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderScheduleOfValues.CreateWorkOrderScheduleOfValue
+
+@using (var f = Form.BeginAjaxForm("Create", "WorkOrderScheduleOfValue", new { Model.Id, Model.WorkOrder }))
+{
+    f.HtmlAttributes["title"] = "Add Schedule of Value";
+    @Html.Partial("_Form", Model)
+}

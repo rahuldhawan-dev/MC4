@@ -1,0 +1,15 @@
+FINISHED:
+  SHEDULING:
+    Need to record estimated times for given descriptions of work, and "estimated contract value".
+    (should be getting this from Kevin Kirwan) (this is somewhat implemented.  a list of estimated
+     times was provided, and they are used when scheduling to fill up a crew's work shift by their
+     hours of availability)
+
+PENDING:
+  PLANNING AND FINALIZATION:
+    Materials to be filtered by asset type for a given work order.
+
+  GENERAL:
+    Some descriptions of work will require that asset records be updated.  No idea how, that's big.
+    And it requires a tighter integration with the rest of the site, which is gonna be tough to do.
+

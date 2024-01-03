@@ -1,0 +1,36 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchEmployeeAssignment
+@{
+    var employee = @Html.CurrentUserEmployee();
+}
+@using (Form.BeginForm("Index", "EmployeeAssignment", "Production"))
+{
+    if (Html.CurrentUserCanDo("Search", "Scheduling", "Production"))
+    {
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.AssignedTo)
+        @Html.EditorFor(x => x.OrderIsOpen)
+    }
+    @Html.EditorFor(x => x.AssignedFor)
+
+    if (employee != null)
+    {
+        @Html.RenderDisplayTemplate("Quick Links", @<text>
+            <div>@Html.ActionLink("My Open Assignments", "Index", new { assignedTo = employee.Id, OrderIsOpen = "True", area = "Production" })</div>
+            <div>@Html.ActionLink("Today's Assignments", "Index", "EmployeeAssignment", new RouteValueDictionary {
+                     { "AssignedTo",  employee.Id.ToString()},
+                     { "OrderIsOpen", "True"},
+                     { "AssignedFor.Start", DateTime.Now.Date.ToShortDateString()},
+                     { "AssignedFor.End", DateTime.Now.Date.ToShortDateString()},
+                     { "AssignedFor.Operator", RangeOperator.Between},
+                     { "area" , "Production" }
+                 }, null)
+            </div>
+        </text>)
+    }
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+}

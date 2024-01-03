@@ -1,0 +1,19 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMapImage
+
+@(Html.TableFor(x => x, new { @class = "results-table" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .TemplateColumnFor(x => Html.ActionLink("PDF", "Show", new { x.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.MapPage)
+    .ColumnFor(x => x.Town.County.State)
+    .ColumnFor(x => x.Town.County)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.TownSection)
+    .SortableColumnFor(x => x.North)
+    .SortableColumnFor(x => x.South)
+    .SortableColumnFor(x => x.East)
+    .SortableColumnFor(x => x.West)
+    .SortableColumnFor(x => x.DateRevised)
+    .WithPaginatedFooter())

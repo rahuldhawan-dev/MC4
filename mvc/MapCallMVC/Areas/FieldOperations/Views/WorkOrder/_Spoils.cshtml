@@ -1,0 +1,6 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.Spoils, new { Id = "spoils" })
+      .ColumnFor(x => x.Quantity)
+      .ColumnFor(x => x.SpoilStorageLocation)
+	)

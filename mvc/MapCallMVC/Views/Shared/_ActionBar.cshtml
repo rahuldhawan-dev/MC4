@@ -1,0 +1,27 @@
+﻿@using MapCall.Common.Model.ViewModels
+
+@* Only render these out when user access is allowed and an exception has not been thrown. 
+   Magical views for the flyout panels may require a model 
+   and we don't want to pass the wrong type and cause an exception. *@
+@if (!(Model is ForbiddenRoleAccessModel) && !(Model is HandleErrorInfo))
+{
+    <div id="actionBar">
+        @ActionBarHelper
+    </div>
+
+    if (ActionBarHelper.CanDisplayHelp)
+    {
+        <div id="actionBarHelpPanel" class="action-bar-flyout-panel-content">
+            @Html.Partial(MapCall.Common.Helpers.ActionBarHelper.HELP_VIEW_NAME)
+        </div>
+    }
+
+    @* This returns true if the action == "Show" and the partial view exists. *@
+    if (ActionBarHelper.CanDisplayShowActionForms)
+    {
+        <div id="actionBarFormsPanel" class="action-bar-flyout-panel-content">
+            <h2>Forms</h2>
+            @Html.Partial(MapCall.Common.Helpers.ActionBarHelper.SHOW_FORMS_VIEW_NAME)
+        </div>
+    }
+}

@@ -1,0 +1,393 @@
+﻿@using FluentNHibernate.Conventions
+@model ProductionWorkOrder
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+
+@section head {
+    <style type="text/css">
+        h1 {text-align: center; width: 100%; font-size: 18px;}
+        /* Just for this pdf*/
+        * {
+            font-family: Arial;
+            font-size: 14px;
+            line-height: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 12px;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 4px;
+            border: 1px solid lightgray;
+        }
+
+        .red-bold-text {
+            color:red; 
+            font-weight:bold;
+        }
+
+        .spacer {
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            height: 25px;
+        }
+        .spacer-thick {
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            height: 50px;
+        }
+
+    </style>
+}
+
+@section body {
+    <table>
+        <tr>
+            <td colspan="8">
+                <h1>Facility Information</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>@Html.DisplayLabelFor(x => x.OperatingCenter):</strong>
+                @Html.DisplayValueFor(x => x.OperatingCenter)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>@Html.DisplayLabelFor(x => x.Facility.FacilityName):</strong>
+                @if (Model.Facility != null)
+                {
+                    @Html.DisplayValueFor(x => x.Facility.FacilityName)
+                }
+            </td>
+        </tr>
+        @foreach (var equipment in Model.Equipments)
+        {
+            <tr>
+                <td colspan="8">
+                    <strong>Area:</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.FacilityFacilityArea.FacilityArea.Description)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <strong>Sub Area:</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.FacilityFacilityArea.FacilitySubArea.Description)
+                </td>
+            </tr>
+        }
+        @foreach (var equipment in Model.Equipments)
+        {
+            <tr>
+                <td colspan="8" class="spacer"></td>
+            </tr>
+            @*equipment information*@
+            <tr>
+                <td colspan="8">
+                    <h1>Equipment Information</h1>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>Equipment Id:</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.Id)
+                </td>
+                <td colspan="4">
+                    <strong>Manufacturer:</strong>
+                    @if (equipment.Equipment != null && String.IsNullOrEmpty(equipment.Equipment.ManufacturerOther))
+                    {
+                        @Html.DisplayValueFor(_ => equipment.Equipment.EquipmentManufacturer.Display)
+                    }
+                    else
+                    {
+                        @Html.DisplayValueFor(_ => equipment.Equipment.ManufacturerOther)
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>Equipment Description:</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.Description)
+                </td>
+                <td colspan="4">
+                    <strong>Model Number:</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.EquipmentModel.Description)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>@Html.DisplayLabelFor(x => x.EquipmentType):</strong>
+                    @Html.DisplayValueFor(x => x.EquipmentType)
+                </td>
+                <td colspan="4">
+                    <strong>@Html.DisplayLabelFor(_ => equipment.Equipment.SerialNumber):</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.SerialNumber)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <strong>@Html.DisplayLabelFor(_ => equipment.Equipment.EquipmentPurpose.EquipmentLifespan):</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.EquipmentPurpose.EquipmentLifespan)
+                </td>
+                <td colspan="4">
+                    <strong>@Html.DisplayLabelFor(_ => equipment.Equipment.RemainingUsefulLife):</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.RemainingUsefulLife)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <strong>@Html.DisplayLabelFor(_ => equipment.Equipment.EquipmentStatus):</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.EquipmentStatus)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" class="red-bold-text">
+                    <strong>@Html.DisplayLabelFor(_ => equipment.Equipment.CriticalNotes):</strong>
+                    @Html.DisplayValueFor(_ => equipment.Equipment.CriticalNotes)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        @*Work Order Information*@
+        <tr>
+            <td colspan="8">
+                <h1>Work Order Information</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Work Order ID:</strong>
+                <span class="red-bold-text">@Html.DisplayValueFor(x => x.Id)</span>
+            </td>
+            <td colspan="4">
+                <strong>Problem Code:</strong>
+                @Html.DisplayValueFor(x => x.CorrectiveOrderProblemCode)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Work Order Type:</strong>
+                <span class="red-bold-text">@Html.DisplayValueFor(x => x.OrderType.Description)</span>
+            </td>
+            <td colspan="4">
+                <strong>Other Problem Reason:</strong>
+                @Html.DisplayValueFor(x => x.OtherProblemNotes)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Work Order Priority:</strong>
+                @Html.DisplayValueFor(x => x.Priority)
+            </td>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.FailureCode):</strong>
+                @Html.DisplayValueFor(x => x.FailureCode)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.ProductionWorkDescription):</strong>
+                @Html.DisplayValueFor(x => x.ProductionWorkDescription)
+            </td>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.ActionCode):</strong>
+                @Html.DisplayValueFor(x => x.ActionCode)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>PM Plan #:</strong>
+                @Html.DisplayValueFor(x => x.MaintenancePlan)
+            </td>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.CauseCode):</strong>
+                @Html.DisplayValueFor(x => x.CauseCode)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>PM Plan Description:</strong>
+                @Html.DisplayValueFor(x => x.MaintenancePlan.Description)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        @*WORK ORDER DATE & ASSIGNMENT INFORMATION   *@
+        <tr>
+            <td colspan="8">
+                <h1>Work Order Date & Assignment Information</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.RequestedBy):</strong>
+                @Html.DisplayValueFor(x => x.RequestedBy)
+            </td>
+            <td colspan="4">
+                <strong>Supervisor Approval Required:</strong>
+                @Html.DisplayValueFor(x => x.HasSupervisorApprovableOrderType)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Date Created:</strong>
+                @Html.DisplayValueFor(x => x.DateReceived)
+            </td>
+            <td colspan="4">
+                <strong>Supervisor Approval Date:</strong>
+                @Html.DisplayValueFor(x => x.ApprovedOn)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>@Html.DisplayLabelFor(x => x.CompletedBy):</strong>
+                @Html.DisplayValueFor(x => x.CompletedBy)
+            </td>
+            <td colspan="4">
+                <strong>Supervisor Approved By:</strong>
+                @Html.DisplayValueFor(x => x.ApprovedBy)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>@Html.DisplayLabelFor(x => x.DateCompleted):</strong>
+                @Html.DisplayValueFor(x => x.DateCompleted)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>@Html.DisplayLabelFor(x => x.DateCancelled):</strong>
+                @Html.DisplayValueFor(x => x.DateCancelled)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Cancelled By: </strong>
+                @Html.DisplayValueFor(x => x.CancelledBy.FullName)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Cancellation Reason:</strong>
+                @Html.DisplayValueFor(x => x.CancellationReason.Description)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        @if (Model.EmployeeAssignments.Count > 0)
+        {
+            <tr>
+                <td colspan="2">
+                    <strong>Employees Assigned</strong>
+                </td>
+                <td colspan="2">
+                    <strong>Assigned Date</strong>
+                </td>
+                <td colspan="2">
+                    <strong>Start Date / Time:</strong>
+                </td>
+                <td colspan="2">
+                    <strong>End Date / Time:</strong>
+                </td>
+            </tr>
+        }
+        @foreach (var assignment in Model.EmployeeAssignments)
+        {
+            <tr>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => assignment.AssignedTo)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => assignment.AssignedOn)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => assignment.DateStarted)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => assignment.DateEnded)
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="8" class="spacer-thick"></td>
+        </tr>
+        @*Work Order Notes:  *@
+        <tr>
+            <td colspan="8">
+                <h1>Work Order Notes</h1>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Work Order Notes:</strong>
+                @Html.DisplayValueFor(x => x.OrderNotes)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Work Order Completion Notes:</strong>
+                @if (!Model.Notes.IsEmpty())
+                {
+                    @Html.DisplayValueFor(x => x.Notes.Last().Text)
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+
+        @if (Model.ProductionWorkOrderProductionPrerequisites.Count > 0)
+        {
+            <tr>
+                <td colspan="8">
+                    <h1>Work Order Prerequisite Information</h1>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <strong>Prerequisites Assigned</strong>
+                </td>
+                <td colspan="2">
+                    <strong>Satisfied On</strong>
+                </td>
+                <td colspan="2">
+                    <strong>Prerequisite Removed</strong>
+                </td>
+                <td colspan="2">
+                    <strong>Removal Comments</strong>
+                </td>
+            </tr>
+        }
+        @foreach (var prereq in Model.ProductionWorkOrderProductionPrerequisites)
+        {
+            <tr>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => prereq.ProductionPrerequisite)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => prereq.SatisfiedOn)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => prereq.SkipRequirement)
+                </td>
+                <td colspan="2">
+                    @Html.DisplayValueFor(_ => prereq.SkipRequirementComments)
+                </td>
+            </tr>
+        }
+    </table>
+}

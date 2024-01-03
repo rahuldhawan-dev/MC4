@@ -1,0 +1,23 @@
+﻿@using System.Linq
+@model RecurringProject
+@{
+    //Estimated Final Scores
+    var pdlv = new PipeDataLookupValue {Description = "Estimated Final Scores", PriorityWeightedScore = Model.EstimatedPriorityWeightedScore, VariableScore = Model.EstimatedVariableScore};
+    var footerRow = new List<RecurringProjectPipeDataLookupValue>(1);
+    footerRow.Add(new RecurringProjectPipeDataLookupValue { RecurringProject = Model, PipeDataLookupValue = pdlv });
+    var results = Model.RecurringProjectsPipeDataLookupValues.Concat(footerRow);
+}
+@{ var table = Html.TableFor(x => results, new { id = "pipe-data"})
+        .ColumnFor(x => x.PipeDataLookupValue.PipeDataLookupType.Description, "Type")
+        .ColumnFor(x => x.PipeDataLookupValue.Description, "Value")
+        .ColumnFor(x => x.PipeDataLookupValue.VariableScore)
+        .ColumnFor(x => x.PipeDataLookupValue.PriorityWeightedScore);
+
+    if (Html.CurrentUserCanEdit())
+    {
+        table = table
+            .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "RecurringProjectPipeDataLookupValue", new {x.Id}, new {Class = "link-button"}));
+    }
+}
+
+@table

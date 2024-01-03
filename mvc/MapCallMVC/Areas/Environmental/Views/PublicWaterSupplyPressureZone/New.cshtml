@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyPressureZones.PublicWaterSupplyPressureZoneViewModel
+
+@using (Form.BeginForm("Create", "PublicWaterSupplyPressureZone", "Environmental")) 
+{
+    <div class="field-column fc300">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

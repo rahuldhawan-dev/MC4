@@ -1,0 +1,26 @@
+﻿@model Equipment
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.Sensors, new{ id = "sensorsTable" })
+                    .ColumnFor(x => x.Sensor.Board.Site.Project)
+                    .ColumnFor(x => x.Sensor.Board.Site)
+                    .ColumnFor(x => x.Sensor.Board)
+                    .TemplateColumnFor("Sensor", m => @<text>@m.Sensor.ShortDisplayDescription</text>);
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Sensor">
+        @Html.Partial("_AddSensor", ViewModelFactory.BuildWithOverrides<AddEquipmentSensor>(new {Id = Model.Id}))
+    </div>
+
+    using (var form = Form.BeginRouteForm("Equipment", "Sensor", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeSensorForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this sensor?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Sensor").WithName("Sensor").WithValue(x.Sensor.Id))
+    }
+}
+else
+{
+    @table
+}

@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchMainBreakRepairsForGIS
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new {id = "results", style="width:auto"})
+        .WithCaption("Records found: " + Model.Count)
+        .SortableTemplateColumnFor("Work Order Number", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new{ area = "FieldOperations", id = x.Id }, null))
+        .SortableColumnFor(x => x.OperatingCenter)
+        .SortableColumnFor(x => x.Town)
+        .ColumnFor(x => x.StreetAddress)
+        .ColumnFor(x => x.UpdatedMobileGIS)
+        .SortableTemplateColumnFor("Description of Job (Hover for Notes)", "WorkDescription.Id", x =>
+            @<span title="@x.Notes">@x.WorkDescription.Description</span>)
+        .ColumnFor(x => x.CurrentCrew, "Last Assigned To")
+        .SortableColumnFor(x => x.DateCompleted)
+        .SortableColumnFor(x => x.CompletedBy)
+        .SortableColumnFor(x => x.SAPWorkOrderNumber)
+        .SortableColumnFor(x => x.SAPNotificationNumber)
+        .SortableColumnFor(x => x.EstimatedCustomerImpact)
+        .SortableColumnFor(x => x.AnticipatedRepairTime)
+        .SortableColumnFor(x => x.AlertIssued)
+        .SortableColumnFor(x => x.SignificantTrafficImpact)
+        .WithPaginatedFooter()
+)

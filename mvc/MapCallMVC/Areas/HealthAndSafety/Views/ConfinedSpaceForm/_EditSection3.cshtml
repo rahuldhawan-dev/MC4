@@ -1,0 +1,50 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.ConfinedSpaceFormViewModel
+
+<div class="form-signing-section">
+    <h3>Temporary Reclassification of a Permit-Required Confined Space</h3>
+    
+    <p>
+        Based upon the results of the atmospheric testing and other specific conditions present at the time of entry, it may be possible to "reclassify" a permit-required confined
+        space into a non-permit space.  The following conditions must exist in order to consider this reclassification:
+    </p>
+
+    <ol>
+        <li>Initial atmospheric test results are within acceptable ranges (without ventilation) and there is no potential
+            for a hazardous atmosphere to develop during the entry operation.</li>
+        <li>All hazards within the space can be eliminated without entry.</li>
+        <li>No hazards will be introduced into the space during the entry operation.</li>
+    </ol>
+
+    <p>
+        This reclassification is valid only for the specific entry being made at the date and time annotated on this form.  If employees leave the
+        worksite and then return, a new permit must be completed and the space re-evaluated to ensure conditions have not changed.
+    </p>
+    
+
+    @if (!Model.IsReclassificationSectionPreviouslySigned)
+    {
+        <div class="signature-section signature-section-unsigned">
+            <div>
+                To document that the evaluation of the space and the work to be performed met the criteria for reclassification to a non-permit status,
+                the employee making entry must check the box to the right. If you do not check this box, continue on to section 4 / 5.
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.IsReclassificationSectionSigned)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="signature-section signature-section-signed">
+            <div>
+                To document that the evaluation of the space and the work to be performed met the criteria for reclassification to a non-permit status,
+                the employee making entry must check the box to the right.
+            </div>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.Original.ReclassificationSignedBy, new { DisplayName = "Signed By" })
+                @Html.DisplayFor(x => x.Original.ReclassificationSignedAt, new { DisplayName = "Signed At" })
+            </div>
+        </div>
+    }
+    
+</div>

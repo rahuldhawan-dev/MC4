@@ -1,0 +1,84 @@
+﻿@using Contractors.Models.ViewModels
+@using MMSINC.Authentication
+@using MMSINC.Metadata
+@using MMSINC.Utilities
+@model Contractors.Models.ViewModels.CrewAssignmentManage
+@{
+	ViewBag.Title = "Manage Crew Assignments";
+	Layout = "~/Views/Shared/_LayoutWithNav.cshtml";
+	var remainingClass = (Model.IsOverCapacity ? "overCapacity" : string.Empty);
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/jquery.tablednd.js")
+    @Html.ScriptFor("~/Scripts/CrewAssignment/Manage.js")
+}   
+@section styles {
+    @Html.StylesheetFor("~/Content/CrewAssignment/Manage.css")
+}
+
+<fieldset>
+    <legend>Details</legend>
+    <div class="field-column fc125">
+        @Html.DisplayFor(m => m.CrewDescription)
+        @Html.DisplayFor(m => m.Date)
+        @Html.DisplayFor(m => m.Availability)
+        @Html.DisplayFor(m => m.Remaining, new { html = new { @class = remainingClass } })
+    </div>
+</fieldset>
+
+<fieldset id="assignments">
+    <legend>Assignments for @Html.DisplayValueFor(m => m.Date)</legend>
+@if (Model == null || Model.AssignmentsForDate == null || !Model.AssignmentsForDate.Any())
+{
+    <text>No assignments to display.</text>
+}
+else
+{
+	var assignments = Model.AssignmentsForDate.Select(x => new CrewAssignmentIndexTableRowView(_container.GetInstance<IDateTimeProvider>(), x)).ToList();
+
+    <text>* Orders in green are completed</text>
+	using (var form = Form.BeginForm("UpdatePriority", "CrewAssignment", new { Model.Crew, Model.Date }))
+	{
+		form.HtmlAttributes["id"] = "startAssignmentForm";
+
+		@(Html.TableFor(x => assignments, new { id = "assignmentsTable" })
+			.WithRowBuilder((model, tag) => {
+				if (model.IsCompleted)
+				{
+				tag.AddCssClass("completed");
+				}
+				})
+			.TemplateColumnFor(x => @<text>
+                                        @{
+                                            var meh = Ajax.SecureActionLink<ContractorUser>(_container.GetInstance<ISecureFormTokenService>(), _container.GetInstance<IAuthenticationService<ContractorUser>>().CurrentUser,
+                                                "Remove", "Destroy", "CrewAssignment", new {id = x.Id}, new AjaxOptions {
+                                                    HttpMethod = "DELETE", OnSuccess = "Manage.onRemoveSuccess", OnFailure = "Manage.onRemoveError", Confirm = "Are you sure you want to remove this crew assignment?"
+                                                });
+                                        }
+			                            @meh
+			                            @Control.Hidden().WithName("CrewAssignments").WithValue(x.Id)
+			                         </text>)
+			.ColumnFor(x => x.WorkOrder, "Order Number")
+			.ColumnFor(x => x.CrewAssignmentPriority, "Priority")
+			.ColumnFor(x => x.StreetNumber)
+			.ColumnFor(x => x.StreetName, "Street")
+			.ColumnFor(x => x.NearestCrossStreetName, "Nearest Cross Street")
+			.ColumnFor(x => x.Town)
+			.ColumnFor(x => x.TownSection)
+			.ColumnFor(x => x.NotesTitle, "Description of Job (Hover for Notes)")
+				.WithCellBuilder((model, tag) => {
+				tag.Attributes.Add("title", model.Notes);
+				})
+			.ColumnFor(x => x.TimeToCompletion, "Est. TTC (hours)")
+			.ColumnFor(x => x.WorkOrderPriority)
+			.ColumnFor(x => x.MarkoutExpirationDate, "Markout Expiration")
+			.ColumnFor(x => x.AssignedOn))
+
+        <div class="container">
+            @* Make this confirmation better. *@
+            @Control.SubmitButton("Save Crew Assignment Priorities").WithName("Save").With("onclick", "return confirm('Are you sure you want to save this priority order?')")
+        </div>
+     }
+ }
+</fieldset>

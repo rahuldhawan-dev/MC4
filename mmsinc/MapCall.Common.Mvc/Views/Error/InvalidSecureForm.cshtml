@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Looks like there was a problem...";
+}
+<div id="errWrapper">
+    <div id="errMessage">
+        <div class="error-section">
+            <div class="error-section-title">Reason</div>
+            <div class="error-section-message">@ViewData["Message"]</div>
+        </div>
+        <div class="error-section">
+            <div class="error-section-title">Possible causes</div>
+            <div class="error-section-message">
+                <span>1. You may have tried to create, edit, delete or otherwise alter a record by going back to the form using your browser's back button.</span>
+                <span>2. You may have tried downloading the same document twice without reloading the page.</span>
+            </div>
+        </div>
+    </div>
+</div>

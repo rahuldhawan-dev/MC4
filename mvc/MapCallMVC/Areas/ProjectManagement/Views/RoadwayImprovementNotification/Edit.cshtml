@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRoadwayImprovementNotification
+
+@using (Form.BeginForm("Update", "RoadwayImprovementNotification", "ProjectManagement", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "RoadwayImprovementNotification", new {Model.Id})
+                           </text>)
+    </div>
+}

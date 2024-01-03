@@ -1,0 +1,106 @@
+﻿input[type="image"], 
+input[type="image"]:hover 
+{
+	border:0px none transparent;
+}
+	
+/* IE7 renders a black border around submit buttons for some reason */
+
+button,
+a.link-button,
+.button
+{
+    vertical-align:top;
+    cursor:pointer;
+	text-align:center;
+    font-family: @button-default-font-family;
+    font-size: @button-default-font-size;
+    font-weight: @button-default-font-weight;
+    background-color:@button-default-background-color;
+    color:@button-default-text-color !important;
+    height:@button-default-height;
+    padding-top: @button-default-padding-top;
+    padding-left: @button-default-padding-left;
+    padding-bottom: @button-default-padding-bottom;
+    padding-right: @button-default-padding-right;
+    .button-default-state();
+}
+
+button * {
+    font-weight:inherit;
+}
+
+/* Needs to display as a normal link! */
+button.button-link,
+button.button-link:hover,
+button.button-link:focus {
+    display:inline !important;
+    border:none;
+    background: none;
+    color:@default-link-color !important;
+    font-family:@default-font-family;
+    font-size: @default-font-size;
+    font-weight:@default-font-weight;
+    text-decoration:underline;
+    text-transform:none;
+    padding:0px !important;
+    /* this isn't perfect in FF, but it's still better than without this */
+    height: auto !important;
+    vertical-align: baseline;
+}
+
+a.link-button {
+    display:inline-block;
+    line-height: @button-default-height - @button-border-line-height-offset;
+    text-decoration:none !important;
+    white-space:pre; /* keep text on single line by default */
+}
+        
+/* span is needed to properly vertically align the text with normal buttons */
+a.link-button > span {
+    position:relative;
+    vertical-align:top; /*  */
+
+    font-family: @button-default-font-family;
+    font-size: @button-default-font-size;
+    font-weight: @button-default-font-weight;
+}
+
+/* Some how IE7 manages to render this correctly, IE8 and IE9 do not */
+.ie8 a.link-button > span {
+    vertical-align:top; /* ie8 renders the text too low */
+}  
+
+ /* .button class is gonna be used on spans/divs probably that don't 
+    work with line-height:normal the same way a normal button does. */
+.button {
+    line-height:@button-default-height !important;
+}
+
+.qq-upload-button.button > div {
+     /* This doesn't line up correctly due to border-box and line-height not working as expected. line-height includes padding + border in its size. */
+    line-height: @button-default-height - (@button-default-padding-top + @button-default-padding-bottom + @button-border-line-height-offset) !important;
+    font-weight: inherit; /* So it uses the font-weight that's applied to all .buttons */
+    font-size: @button-default-font-size;
+}
+       	
+/* :focus doesn't work in IE7. Their buttons do get black borders, though. */
+button:hover, button:focus, button.hover,
+a.link-button:hover, a.link-button:focus,
+.button:hover, .button:focus  
+{
+	border: @button-hover-border; 
+	background: @button-hover-background-color;  
+	color: @button-hover-text-color !important;
+    .button-hover-state;
+}
+        	
+button[disabled],
+button[disabled]:hover  
+{
+	color:@button-disabled-text-color !important;
+    background:@button-disabled-background-color;
+    cursor:default;
+    border:@button-disabled-border;
+    .button-disabled-state;
+}

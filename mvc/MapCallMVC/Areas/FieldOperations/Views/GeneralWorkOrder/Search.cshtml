@@ -1,0 +1,57 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrder
+
+@Html.ScriptFor(
+    "~/Scripts/Areas/FieldOperations/WorkOrder/Search.js",
+    ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "GeneralWorkOrder"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.RenderDisplayTemplate(string.Empty, @<text>-OR-</text>)
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.ApartmentAddtl)
+        @Html.EditorFor(x => x.NearestCrossStreet)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.WorkDescription)
+        @Html.EditorFor(x => x.PreviousServiceLineMaterial)
+        @Html.EditorFor(x => x.SAPNotificationNumber)
+        @Html.EditorFor(x => x.SAPWorkOrderNumber)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.CancelledAt)
+        @Html.EditorFor(x => x.DatePitcherFilterDeliveredToCustomer)
+        @Html.EditorFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+        @Html.EditorFor(x => x.Completed)
+        @Html.EditorFor(x => x.IsCancelled)
+        @Html.EditorFor(x => x.Purpose)
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.CreatedBy)
+        @Html.EditorFor(x => x.RequestedBy)
+        @Html.EditorFor(x => x.AcousticMonitoringType)
+        @Html.EditorFor(x => x.MarkoutRequirement)
+        @Html.EditorFor(x => x.StreetOpeningPermitRequired)
+        @Html.EditorFor(x => x.StreetOpeningPermitRequested)
+        @Html.EditorFor(x => x.StreetOpeningPermitIssued)
+        @*@Html.EditorFor(x => x.AssignedToContractor)*@
+        @Html.EditorFor(x => x.RequiresInvoice)
+        @Html.EditorFor(x => x.HasInvoice)
+        @Html.EditorFor(x => x.HasMaterialsUsed)
+        @Html.EditorFor(x => x.SAPErrorCode)
+        @Html.EditorFor(x => x.HasSAPErrorCode)
+        @Html.EditorFor(x => x.AccountCharged)
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @Html.EditorFor(x => x.Notes)
+        @Html.EditorFor(x => x.IsAssignedContractor)
+        @Html.EditorFor(x => x.DigitalAsBuiltCompleted)
+
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+        </text>)
+    </div>
+}

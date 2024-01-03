@@ -1,0 +1,56 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.ServiceNotification
+
+@{
+    var service = Model.Service;
+}
+<h2>Service with Sample Site</h2>
+
+Premise Number: <a href="@service.RecordUrl">@service.PremiseNumber</a>
+<br />
+Operating Center: @service.OperatingCenter
+<br />
+Category of Service: @service.ServiceCategory.Description
+<br />
+Date Created: @if(service.DateInstalled != null){@String.Format(CommonStringFormats.DATE, service.DateInstalled)}
+<br />
+Street: <a href="https://mapcall.awapps.com/Map?ControllerName=Service&ActionName=Show&AreaName=FieldOperations&Search%5Bid%5D=@service.Id">
+    @service.StreetAddress 
+</a>
+<br />
+Town: @service.Town
+<br />
+<br />
+Customer Name: @service.Name
+<br />
+Lead and Copper Communication Provided: @service.LeadAndCopperCommunicationProvided
+<br />
+@if (service.Premise != null && service.Premise.SampleSite != null)
+    {
+        <text>Sample Site: <a href="@service.Premise.SampleSite.RecordUrl">@service.Premise.SampleSite.Id</a>
+        <br />
+        </text>
+    }
+Installation: @service.Installation
+<br />
+Size of Service:  @if (service.ServiceSize != null)
+{@service.ServiceSize.Size}
+<br />
+Service Material: @(service.ServiceMaterial != null ? service.ServiceMaterial.Description : null)
+<br />
+Previous NJAW Material: @(service.PreviousServiceMaterial != null ? service.PreviousServiceMaterial.Description : null)
+<br />
+Previous NJAW Size: @if (service.PreviousServiceSize != null)
+{@service.PreviousServiceSize.Size}
+<br />
+Customer Side Material: @(service.CustomerSideMaterial != null ? service.CustomerSideMaterial.Description : null)
+<br />
+Customer Side Size: @if (service.CustomerSideSize != null)
+{@service.CustomerSideSize.Size}
+<br />
+Previous Customer Material: @(service.PreviousServiceCustomerMaterial != null ? service.PreviousServiceCustomerMaterial.Description : null)
+<br />
+Previous Customer Size: @if (service.PreviousServiceCustomerSize != null)
+    {@service.PreviousServiceCustomerSize.Size}
+<br />
+Created By: @service.Initiator

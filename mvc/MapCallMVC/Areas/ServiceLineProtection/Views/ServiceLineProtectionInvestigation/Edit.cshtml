@@ -1,0 +1,28 @@
+﻿@model MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels.EditServiceLineProtectionInvestigation
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/ServiceLineProtectionInvestigation/Form.js", ScriptLoadType.LoadFromPartial)
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/ServiceLineProtectionInvestigation/Edit.js")
+}
+
+@using (Form.BeginForm("Update", "ServiceLineProtectionInvestigation", "ServiceLineProtection", new {Model.Id})) {
+    <div class="field-column fc200">
+
+        @Html.Partial("_FormFields", Model)
+
+        <fieldset>
+            <legend>Company Information</legend>
+            @Html.EditorFor(x => x.Service)
+            @Html.EditorFor(x => x.DateInstalled)
+            @Html.EditorFor(x => x.CompanyServiceMaterial)
+            @Html.EditorFor(x => x.CompanyServiceSize)
+        </fieldset>
+        
+        @Html.EditorFor(x => x.RenewalCompleted)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "ServiceLineProtectionInvestigation", new {Model.Id})
+                           </text>)
+    </div>
+}

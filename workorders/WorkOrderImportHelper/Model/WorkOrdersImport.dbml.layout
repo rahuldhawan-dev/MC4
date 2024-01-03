@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.25" name="WorkOrdersImport">
+  <DataContextMoniker Name="/WorkOrdersImportDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bf66c854-c6a6-4c0d-af01-e2d33507eb0e" absoluteBounds="3.5, 4.625, 2, 2.9247054036458326">
+      <DataClassMoniker Name="/WorkOrdersImportDataContext/tblEmployeeWorkOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="21801331-8d1b-474d-9e03-41c2563ba606" absoluteBounds="3.515, 5.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="339df532-4c8c-4943-9fb4-659ad3e75efb" absoluteBounds="0.75, 1.25, 2, 10.809064127604165">
+      <DataClassMoniker Name="/WorkOrdersImportDataContext/tblWorkInputTable" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9a5eeeec-7699-4392-8325-0a09312d1f6a" absoluteBounds="0.765, 1.71, 1.9700000000000002, 10.249064127604166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 5.91263956705729); (3.5 : 5.91263956705729)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/WorkOrdersImportDataContext/tblWorkInputTable/tblWorkInputTable_tblEmployeeWorkOrder" />
+      <nodes>
+        <classShapeMoniker Id="339df532-4c8c-4943-9fb4-659ad3e75efb" />
+        <classShapeMoniker Id="bf66c854-c6a6-4c0d-af01-e2d33507eb0e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e92ddf61-f33f-4e63-acb5-7f289717bac8" absoluteBounds="6.125, 3.25, 2, 4.4631168619791666">
+      <DataClassMoniker Name="/WorkOrdersImportDataContext/BarrierWorkOrder" />
+      <nestedChildShapes>
+        <elementListCompartment Id="04d95afe-cbdc-4a3c-98a9-19adbbe10b3b" absoluteBounds="6.14, 3.71, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

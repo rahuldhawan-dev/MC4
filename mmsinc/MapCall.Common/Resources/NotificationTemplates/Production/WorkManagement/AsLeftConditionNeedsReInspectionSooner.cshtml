@@ -1,0 +1,15 @@
+﻿@model MapCall.Common.Model.ViewModels.ProductionWorkOrderEquipmentNotification
+
+<h2>As Left Condition - Needs Re-Inspection Sooner Notification</h2>
+
+Production Work Order Number: <a href="@Model.ProductionWorkOrderUrl">@Model.ProductionWorkOrderId</a><br />
+
+Work Order Description: @Model.ProductionWorkDescription<br />
+
+Needs Re-inspection Sooner Than Normal Comments: @Model.AsLeftConditionComment<br />
+
+Operating Center: @Model.RoutineWorkOrder.OperatingCenter<br />
+
+Facility Name: <a href="@Model.FacilityUrl">@Model.FacilityName</a><br />
+
+Equipment Description: <a href="@Model.EquipmentUrl">@Model.Equipment.Description</a><br />

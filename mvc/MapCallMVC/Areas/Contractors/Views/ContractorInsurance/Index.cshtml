@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorInsurance
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new { Id = "contractorInsurancesTable" })
+      .WithCaption("Records Found: " + Model.Count)
+      .SortableTemplateColumnFor("Id", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ContractorInsurance", new { x.Id }, null))
+      .SortableColumnFor(x => x.Contractor)
+      .SortableColumnFor(x => x.InsuranceProvider)
+      .SortableColumnFor(x => x.PolicyNumber)
+      .SortableColumnFor(x => x.ContractorInsuranceMinimumRequirement, "Coverage", "ContractorInsuranceMinimumRequirement")
+      .SortableColumnFor(x => x.MeetsCurrentContractualLimits)
+      .SortableColumnFor(x => x.EffectiveDate)
+      .SortableColumnFor(x => x.TerminationDate)
+      .WithPaginatedFooter())

@@ -1,0 +1,27 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MainCrossing
+
+@{
+    var table = Html.TableFor(x => x.WorkOrders, new {id = "workOrderTable"})
+        .TemplateColumnFor("WorkOrderID", x => Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { id = x.Id, area = "FieldOperations" }, null))
+        .ColumnFor(x => x.WorkDescription)
+        .ColumnFor(x => x.CreatedAt)
+        .ColumnFor(x => x.DateCompleted)
+        .ColumnFor(x => x.Purpose)
+        .ColumnFor(x => x.RequestedBy)
+        ;
+}
+@if (Model.OperatingCenter.WorkOrdersEnabled)
+{
+    //TODO: refactor this
+    var rvd = new RouteValueDictionary(new CreateWorkOrder(_container, Model));
+    rvd["area"] = "FieldOperations";
+    var htmlAttributes = new RouteValueDictionary();
+    htmlAttributes["Class"] = "link-button";
+
+    <div style="padding: 3px;">
+        @Html.ActionLink("Create Work Order", "New", "WorkOrder", rvd, htmlAttributes)
+    </div>
+}
+
+@table

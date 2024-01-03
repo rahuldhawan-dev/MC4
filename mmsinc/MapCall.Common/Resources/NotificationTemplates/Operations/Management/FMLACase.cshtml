@@ -1,0 +1,14 @@
+﻿@model MapCall.Common.Model.Entities.FamilyMedicalLeaveActCase
+
+<h2>FMLA Case</h2>
+
+FMLA CaseID: @Model.Id<br/>
+Employee: @Model.Employee<br/>
+StartDate: @Model.StartDate<br/>
+EndDate: @Model.EndDate<br/>
+Frequency Days: @Model.FrequencyDays<br/>
+CertificationExtended: @((Model.CertificationExtended) ? "Yes": "No")<br/>
+CompanyAbsenceCertification: @Model.CompanyAbsenceCertification<br/>
+ChronicCondition: @((Model.ChronicCondition) ? "Yes": "No")<br/>
+FMLAPackageDateSent: @Model.PackageDateSent<br/>
+FMLAPackageDateDue: @Model.PackageDateDue<br/>

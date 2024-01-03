@@ -1,0 +1,12 @@
+﻿@model TrainingContactHoursProgramCoordinatorViewModel
+
+@using (Form.BeginForm("Create", "TrainingContactHoursProgramCoordinator", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ProgramCoordinator)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

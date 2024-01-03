@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchValveDSIC
+
+@using (Form.BeginForm("Index", "ValveDSIC"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

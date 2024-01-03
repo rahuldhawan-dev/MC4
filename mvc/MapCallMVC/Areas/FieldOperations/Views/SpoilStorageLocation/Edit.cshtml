@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSpoilStorageLocation
+
+@using (Form.BeginForm("Update", "SpoilStorageLocation", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "SpoilStorageLocation", new{area = "FieldOperations", Model.Id })
+                           </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model SearchTrainingContactHoursProgramCoordinator
+           
+@using (Form.BeginForm("Index", "TrainingContactHoursProgramCoordinator"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

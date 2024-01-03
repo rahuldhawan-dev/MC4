@@ -1,0 +1,200 @@
+<%--
+
+Default skin template. The following skins are provided as examples only.
+
+1. Named control skin. The SkinId should be uniquely defined because
+   duplicate SkinId's per control type are not allowed in the same theme.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Default skin. The SkinId is not defined. Only one default 
+   control skin per control type is allowed in the same theme.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+
+--%>
+
+    <%-- DEFAULT CONTROLS --%>
+    <asp:Button runat="server" Font-Names="Tahoma" />
+    
+    <asp:DetailsView runat="server" 
+        BackColor="White" 
+        CellPadding="3" 
+        GridLines="Vertical"
+        Height="50px" 
+        Width="100%">
+        <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
+        <EditRowStyle  Font-Bold="False" ForeColor="Black" />
+        <RowStyle BackColor="#EEEEEE" ForeColor="Black" />
+        <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Left" />
+        <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
+        <AlternatingRowStyle BackColor="#DCDCDC" />
+        <FieldHeaderStyle Width="50%" />
+    </asp:DetailsView>
+
+    <asp:DropDownList runat="server" skinID="Normal" Font-Names="Tahoma" />    
+    <asp:DropDownList runat="server" Font-Names="Tahoma" />
+    
+    <asp:GridView runat="server" ForeColor="#333333" HeaderStyle-VerticalAlign="top"
+        Width="100%" PageSize="100"
+        >
+        <FooterStyle BackColor="#000080" Font-Bold="True" ForeColor="White" />
+        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+        <EditRowStyle BackColor="#999999" VerticalAlign="top" />
+        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+        <PagerStyle BackColor="#000080" ForeColor="White" HorizontalAlign="Left" />
+        <HeaderStyle BackColor="#000080" Font-Bold="True" ForeColor="White" />
+        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+    </asp:GridView>
+    
+    <asp:GridView runat="server" skinID="Note" PageSize="100"
+        CellPadding="4" ForeColor="#333333" GridLines="Both"  Font-Size=".9em"
+        Width="100%"
+        >
+        <RowStyle BackColor="#F0F3F9" ForeColor="#333333" />
+        <PagerStyle BackColor="#D5DFEC" ForeColor="#333333" HorizontalAlign="Center" />
+        <HeaderStyle BackColor="#D5DFEC" Font-Bold="True" ForeColor="Black"/>
+        <AlternatingRowStyle BackColor="white" />
+    </asp:GridView>
+
+    <asp:GridView runat="server" skinID="Contact" PageSize="100"
+        CellPadding="4" ForeColor="#333333" GridLines="Both"  Font-Size=".9em"
+        Width="100%"
+        >
+        <RowStyle BackColor="#F0F3F9" ForeColor="#333333" />
+        <PagerStyle BackColor="#D5DFEC" ForeColor="#333333" HorizontalAlign="Center" />
+        <HeaderStyle BackColor="#D5DFEC" Font-Bold="True" ForeColor="Black"/>
+        <SelectedRowStyle Font-Bold="true" />
+        <AlternatingRowStyle BackColor="white" />
+    </asp:GridView> 
+    
+    <asp:GridView runat="Server" skinID="Blank" PageSize="100" />
+    <asp:GridView runat="Server" skinID="Normal" />
+    <asp:GridView runat="Server" skinID="PivotTable" width="100%" />
+        
+    <asp:ImageButton runat="server" style="margin-left:3px;" skinID="CalendarButton"/>
+    
+    <asp:LinkButton runat="server" ForeColor="black" />
+    
+    <asp:Label skinID="lblResults" Width="98%" runat="server" BackColor="#FFFFCC" BorderStyle="solid" BorderWidth="1" BorderColor="black"></asp:Label>
+    <asp:Label skinID="lblError" Width="98%" runat="server" BackColor="#FFCCCC" BorderStyle="solid" BorderWidth="1" BorderColor="#FF0000" ForeColor="#000000"/>
+    <asp:Label skinID="lblSuccess" Width="98%" runat="server" 
+        BackColor="#BCF4A2" ForeColor="#1F4D09"
+        BorderStyle="solid" BorderWidth="1" BorderColor="Green"
+        >
+    </asp:Label>
+
+    <asp:TextBox skinID="Max" runat="server" Width="98%" Font-Names="Tahoma"/>    
+    <asp:TextBox skinID="Normal" runat="server" Font-Names="Tahoma"/>
+    <asp:TextBox skinID="Small" runat="server" Width="75%" Font-Names="Tahoma"/>
+    <asp:TextBox skinID="200px" runat="server" Width="200px" />
+    <%-- END DEFAULT CONTROLS --%>
+    
+    <%-- VALIDATORS --%>
+    <asp:RegularExpressionValidator runat="server" ForeColor="Maroon" />
+    <asp:RangeValidator runat="server" ForeColor="Maroon" />
+    <%-- END VALIDATORS --%>
+    
+    <%-- MENUS --%>
+    <asp:Menu runat="server" 
+        BackColor="#CEDBEA" 
+        DynamicHorizontalOffset="2" 
+        Font-Size="1em" 
+        ForeColor="#284E98" 
+        StaticSubMenuIndent="10px"
+        >
+        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+        <StaticSelectedStyle BackColor="#000080" ForeColor="White" />
+        <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicMenuStyle BackColor="#CEDBEA" />
+        <DynamicSelectedStyle BackColor="#000080" ForeColor="White" />
+        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+    </asp:Menu>
+
+    <asp:Menu runat="server" skinID="Small"
+        BackColor="#CEDBEA" 
+        DynamicHorizontalOffset="2" 
+        Font-Size=".9em" 
+        ForeColor="#284E98" 
+        StaticSubMenuIndent="10px"
+        Width="100%"
+        Height="100%"
+        >
+        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+        <StaticSelectedStyle BackColor="#000080" ForeColor="White" />
+        <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicMenuStyle BackColor="#CEDBEA" />
+        <DynamicSelectedStyle BackColor="#000080" ForeColor="White" />
+        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+    </asp:Menu>
+    
+    <asp:TreeView runat="server" skinID="TreeMenu" 
+            NodeIndent="10" 
+            BackColor="#CEDBEA" 
+            Font-Size=".9em" 
+            ForeColor="#284E98" 
+        >
+        <ParentNodeStyle Font-Bold="False" />
+        <HoverNodeStyle Width="100%" BackColor="#284E98" ForeColor="White" />
+        <SelectedNodeStyle Width="100%" BackColor="#000080" ForeColor="White" Font-Underline="true"/>
+        <NodeStyle HorizontalPadding="4px" NodeSpacing="0px" VerticalPadding="0px" />
+    </asp:TreeView>
+       
+    <%--
+    <cc1:SubMenu runat="server" 
+        BackColor="#CEDBEA" 
+        DynamicHorizontalOffset="2" 
+        Font-Size="1em" 
+        ForeColor="#284E98" 
+        StaticSubMenuIndent="10px"
+        >
+        <StaticMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+        <StaticSelectedStyle BackColor="#000080" ForeColor="White" />
+        <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicHoverStyle BackColor="#284E98" ForeColor="White" />
+        <DynamicMenuStyle BackColor="#CEDBEA" />
+        <DynamicSelectedStyle BackColor="#000080" ForeColor="White" />
+        <DynamicMenuItemStyle HorizontalPadding="5px" VerticalPadding="2px" />
+    </cc1:SubMenu>
+    --%>
+    
+    <%-- END MENUS --%>
+    
+    <%-- USER/LOGIN TYPE CONTROLS --%>
+    <asp:ChangePassword runat="server" 
+        Width="100%"
+        BackColor="#F7F6F3" 
+        BorderColor="#E6E2D8" 
+        BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" 
+         Font-Size="1em">
+        <CancelButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+            BorderWidth="1px" Font-Size="1em" ForeColor="#284775" />
+        <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+        <PasswordHintStyle Font-Italic="True" ForeColor="#888888" />
+        <ChangePasswordButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+            BorderWidth="1px" Font-Size="1em" ForeColor="#284775" />
+        <ContinueButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid"
+            BorderWidth="1px" Font-Size="1em" ForeColor="#284775" />
+        <TitleTextStyle BackColor="#000080" Font-Bold="True" Font-Size="1em" ForeColor="White" />
+        <TextBoxStyle Font-Size="1em" />
+    </asp:ChangePassword>
+    
+    <asp:Login runat="server" 
+        BorderColor="#40352C" BorderPadding="4"
+        BorderStyle="Solid" BorderWidth="0px" 
+        Font-Size="0.8em"
+        ForeColor="#333333"
+        >
+        <TitleTextStyle BackColor="#000080" ForeColor="White" />
+        <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+        <TextBoxStyle Font-Size="0.9em" />
+        <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px"
+            Font-Size="0.8em" ForeColor="#284775" />
+    </asp:Login>
+    
+
+    <%-- END USER/LOGIN TYPE CONTROLS --%>

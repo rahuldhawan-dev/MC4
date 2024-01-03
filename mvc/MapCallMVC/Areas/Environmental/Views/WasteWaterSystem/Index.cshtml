@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.WasteWaterSystems.SearchWasteWaterSystem
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "ww-results"})
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.WasteWaterSystemId)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.BusinessUnit)
+    .SortableColumnFor(x => x.WasteWaterSystemName)
+    .SortableColumnFor(x => x.PermitNumber)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.Ownership)
+    .SortableColumnFor(x => x.Type)
+    .SortableColumnFor(x => x.SubType)
+    .SortableColumnFor(x => x.DateOfOwnership)
+    .SortableColumnFor(x => x.DateOfResponsibility)
+    .SortableColumnFor(x => x.IsCombinedSewerSystem)
+    .SortableColumnFor(x => x.HasConsentOrder)
+    .SortableColumnFor(x => x.ConsentOrderEndDate)
+    .SortableColumnFor(x => x.NewSystemInitialSafetyAssessmentCompleted)
+    .SortableColumnFor(x => x.DateSafetyAssessmentActionItemsCompleted)
+    .SortableColumnFor(x => x.NewSystemInitialWQEnvAssessmentCompleted)
+    .SortableColumnFor(x => x.DateWQEnvAssessmentActionItemsCompleted)
+    .WithPaginatedFooter()
+)

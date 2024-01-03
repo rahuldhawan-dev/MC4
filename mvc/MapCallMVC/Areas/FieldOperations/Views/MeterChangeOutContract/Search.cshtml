@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMeterChangeOutContract
+
+@using (Form.BeginForm("Index", "MeterChangeOutContract"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.CreatedAt)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

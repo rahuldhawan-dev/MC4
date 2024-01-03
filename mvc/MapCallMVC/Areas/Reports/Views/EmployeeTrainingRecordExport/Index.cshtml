@@ -1,0 +1,22 @@
+﻿@model SearchEmployeeTrainingRecordExport
+@{
+    ActionBarHelper.AddExportLink();
+    ViewBag.Title = "Employee Training Record Export";
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .ColumnFor(x => x.EmployeeId)
+    .ColumnFor(x => x.ItemType)
+    .ColumnFor(x => x.ItemID)
+    .ColumnFor(x => x.CompletionStatus)
+    .ColumnFor(x => x.CompletionDate)
+    .ColumnFor(x => x.CompletionTime)
+    .ColumnFor(x => x.ContactHours)
+    .ColumnFor(x => x.TotalHours)
+    .ColumnFor(x => x.InstructorName)
+    .ColumnFor(x => x.HeldOn)
+    .ColumnFor(x => x.ScheduledDate)
+    .ColumnFor(x => x.AttendeesExportedDate)
+    .ColumnFor(x => x.Exported)
+)

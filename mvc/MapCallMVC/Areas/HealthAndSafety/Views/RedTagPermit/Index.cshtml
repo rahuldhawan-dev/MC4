@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.RedTagPermits.SearchRedTagPermitViewModel
+
+@{ ActionBarHelper.AddExportLink(); }
+
+@(
+    Html.TableFor(_ => Model, new { id = "red-tag-permits-table" })
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.Id)
+        .SortableColumnFor(x => x.Equipment)
+        .SortableColumnFor(x => x.PersonResponsible)
+        .SortableColumnFor(x => x.AuthorizedBy)
+        .SortableColumnFor(x => x.EquipmentImpairedOn)
+        .SortableColumnFor(x => x.EquipmentRestoredOn)
+        .SortableColumnFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+        .SortableColumnFor(x => x.ProductionWorkOrder.OperatingCenter)
+        .SortableColumnFor(x => x.ProductionWorkOrder.Facility)
+        .WithPaginatedFooter()
+    )

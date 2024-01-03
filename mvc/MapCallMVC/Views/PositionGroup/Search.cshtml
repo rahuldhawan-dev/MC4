@@ -1,0 +1,20 @@
+﻿@model SearchPositionGroup
+
+@using (Form.BeginForm("Index", "PositionGroup"))
+{
+    <div class="field-column fc200 searchFields">
+        
+        @Html.EditorFor(x => x.Group)
+        @Html.EditorFor(x => x.PositionDescription)
+        @Html.EditorFor(x => x.BusinessUnit)
+        @Html.EditorFor(x => x.BusinessUnitDescription)
+        @Html.EditorFor(x => x.SAPCompanyCode)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.CommonName)
+        @Html.EditorFor(x => x.SAPPositionGroupKey)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

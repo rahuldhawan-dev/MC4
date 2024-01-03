@@ -1,0 +1,9 @@
+﻿@model MapCallIntranet.Models.ViewModels.CreateNearMiss
+@{
+    Layout = "~/Views/Shared/_LayoutWithNav.cshtml";
+    var id = @Model.Id;
+}
+<h1 class="success-text">
+    Thank you for your Near Miss submission. <br />Record Id: @Model.Id
+</h1>
+<p>Click <a href="/">here</a> to create new Near Miss.</p>

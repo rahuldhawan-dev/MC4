@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "../../wsdl/GetNotification_OB_SYN.wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, MapCall.SAP.service"
+    ],
+    "targetFramework": "net472",
+    "typeReuseMode": "None"
+  }
+}

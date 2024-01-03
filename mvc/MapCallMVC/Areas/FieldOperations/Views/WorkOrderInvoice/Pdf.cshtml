@@ -1,0 +1,228 @@
+﻿@using MMSINC.Utilities
+@inherits MapCall.Common.Views.PdfViewBase<MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderInvoicePdf>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 35;
+}
+@section head {
+    <style type="text/css">
+        /* THIS IS FOR THIS SPECIFIC PDF */
+
+        * { font-size: 16px; }
+
+        body {
+            font-family: Arial;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        td {
+            vertical-align: bottom;
+        }
+
+        .table-layout-spacing td {
+            visibility: hidden;
+        }
+
+        table#header td {
+            vertical-align: middle;
+        }
+
+        #aw-logo {
+            width: 100%;
+        }
+
+        .header-left {
+            vertical-align: top;
+            text-align: center;
+            font-size: large;
+            font-weight: bold;
+            width: 27%;
+            color: #005494;
+        }
+        .header-middle {
+            width: 45%;
+        }
+        .sub-header {
+            border-top: 1px solid black;
+            font-size: large;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1px solid black;
+            padding: 10px;
+        }
+        .summary {
+            
+        }
+        .summary tr td {
+            vertical-align: top;
+            padding: 10px;
+            width: 50%;
+        }
+        .invoice-items {
+            width: 100%;
+        }
+        .invoice-items tr td {
+            padding: 3px;
+        }
+        .remit {
+            left: 345px;
+            top: 20px;
+            width: 300px;
+        }
+    </style>
+}
+@section body {
+    <img id="aw-logo" src="@Server.MapPath("~/Content/images/american-water-letterhead.png")" />
+    <table>
+        <tr>
+            <td class="header-left">Contract Services</td>
+            <td class="header-middle">&nbsp;</td>
+            <td class="header-right">
+                American Water Enterprises, Inc.<br/>
+                1025 Laurel Oak Road<br/>
+                Voorhees, NJ 08043<br/>
+                www.amwater.com<br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3" class="sub-header">
+                Invoice
+            </td>
+        </tr>
+    </table>
+
+    <table class="summary">
+        <tr>
+            <td>
+                The Township of South Orange Village <br/>
+                76 South Orange Avenue<br/>
+                3rd Floor - Suite 302<br/>
+                South Orange, NJ 07079<br/>
+                Attn: Village Administrator<br/>
+            </td>
+            
+            <td>
+                Invoice No: @Model.Id <br/>
+                Invoice Date: @DateTime.Now.ToShortDateString() <br/>
+                @if (Model.DisplayWorkOrderInvoice != null && Model.DisplayWorkOrderInvoice.WorkOrder != null)
+                {
+                    <span>
+                        Work Order #: @Html.DisplayValueFor(x => x.DisplayWorkOrderInvoice.WorkOrder.Id)<br />
+                        Work Description: @Html.DisplayValueFor(x => x.DisplayWorkOrderInvoice.WorkOrder.WorkDescription)<br />
+                        Address: 
+                            @Html.DisplayValueFor(x => x.DisplayWorkOrderInvoice.WorkOrder.StreetAddress) 
+                            @Html.DisplayValueFor(x => x.DisplayWorkOrderInvoice.WorkOrder.TownAddress)
+                        <br/>
+                    </span>
+                }
+            </td>
+        </tr>
+    </table>
+
+    <table class="invoice-items">
+        <tr style="border-bottom: 1px solid black; font-weight: bold;">
+            <td style="width: 400px;">Description</td>
+            <td>Units</td>
+            <td>Unit Price</td>
+            <td>Quantity</td>
+            <td style="width: 100px; text-align: right;">Amount</td>
+        </tr>
+
+        @if (Model.DisplayWorkOrderInvoice != null && Model.DisplayWorkOrderInvoice.WorkOrderInvoicesScheduleOfValues != null && Model.DisplayWorkOrderInvoice.WorkOrderInvoicesScheduleOfValues.Any(x => x.IncludeWithInvoice))
+        {
+            foreach (var scheduleOfValue in Model.DisplayWorkOrderInvoice.WorkOrderInvoicesScheduleOfValues.Where(x => x.IncludeWithInvoice).OrderBy(x => x.ScheduleOfValue.ScheduleOfValueCategory.Description).ThenBy(x => x.Description))
+            {
+                <tr>
+                    <td>@scheduleOfValue.Description</td>
+                    <td>@if (scheduleOfValue.ScheduleOfValue != null && scheduleOfValue.ScheduleOfValue.UnitOfMeasure != null)
+                        {
+                            @(scheduleOfValue.IsOvertime != null && (scheduleOfValue.IsOvertime == true) ? "OT" : scheduleOfValue.ScheduleOfValue.UnitOfMeasure.ToString())
+                        }</td>
+                    <td>@string.Format(CommonStringFormats.CURRENCY, scheduleOfValue.UnitPrice)</td>
+                    <td>@scheduleOfValue.Total</td>
+                    <td style="text-align: right;">@string.Format(CommonStringFormats.CURRENCY, scheduleOfValue.TotalPrice)</td>
+                </tr>
+            }
+        }
+        @if (Model.DisplayWorkOrderInvoice.IncludeMaterials && Model.DisplayWorkOrderInvoice.WorkOrder != null && Model.DisplayWorkOrderInvoice.WorkOrder.MaterialsUsed.Any())
+        {
+            <tr>
+                <td colspan="4">Material Cost</td>
+                <td style="text-align: right;">@String.Format(CommonStringFormats.CURRENCY, Model.DisplayWorkOrderInvoice.TotalMaterialPrice)</td>
+            </tr>
+        }
+
+        @if (Model.DisplayWorkOrderInvoice.WorkOrder != null && Model.DisplayWorkOrderInvoice.WorkOrder.TrafficControlTickets.Count > 0)
+        {
+            foreach (var ticket in Model.DisplayWorkOrderInvoice.WorkOrder.TrafficControlTickets)
+            {
+                <tr>
+                    <td colspan="4">@string.Format(CommonStringFormats.DATE, ticket.InvoiceDate) - Traffic Control - @ticket.BillingParty</td>
+                    <td style="text-align: right;">@string.Format(CommonStringFormats.CURRENCY, ticket.TotalCharged)</td>
+                </tr>
+            }
+        }
+
+        @if (Model.DisplayWorkOrderInvoice.WorkOrder != null && Model.Permits != null && Model.Permits.Any())
+        {
+            foreach (var permit in Model.Permits)
+            {
+                <tr>
+                    <td colspan="4">Permit # @permit.Id - @permit.PermitFor - @permit.ArbitraryIdentifier</td>
+                    <td style="text-align: right;">@string.Format(CommonStringFormats.CURRENCY, permit.TotalCharged)</td>
+                </tr>
+            }
+        }
+
+        <tr>
+            <td style="border-top: 1px solid black; border-bottom: 1px solid black;" colspan=""></td>
+            <td style="border-top: 1px solid black; border-bottom: 1px solid black;" colspan="3">&nbsp;</td>
+            <td style="border-top: 1px solid black; border-bottom: 1px solid black; text-align: right;">
+                @string.Format(CommonStringFormats.CURRENCY, Model.DisplayWorkOrderInvoice.TotalInvoicePrice + (Model.Permits!=null ? Model.Permits.Sum(x => x.TotalCharged) : 0))
+            </td>
+        </tr>
+    </table>
+    @if (Model.DisplayWorkOrderInvoice != null && Model.DisplayWorkOrderInvoice.InvoiceNotes != null && Model.DisplayWorkOrderInvoice.InvoiceNotes.Length > 0)
+    {
+        <div>
+            <strong>Invoice Notes:</strong><br/>
+            @Model.DisplayWorkOrderInvoice.InvoiceNotes
+        </div>
+    }
+    
+    <table class="remit">
+        <tr>
+            <td>Due Date: Net 30</td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+            <td>Remit via US Mail to:</td>
+        </tr>
+        <tr>    
+            <td>
+                <div style="border: 2px solid black;">
+                    American Water Services<br />
+                    AOMC - NJ308<br />
+                    P.O. Box 822039<br />
+                    Philadelphia, PA 19182-2039<br />
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+@helper FooterHelper()
+{
+    <div style="width: 100%; text-align: center; font-family: Arial; color: #005494">
+        Proprietary and Confidential
+    </div>
+}

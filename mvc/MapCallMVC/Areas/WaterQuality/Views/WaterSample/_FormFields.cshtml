@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.WaterSampleViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/WaterQuality/WaterSample/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.SampleDate)
+@Html.EditorFor(x => x.AnalysisPerformedBy)
+@Html.EditorFor(x => x.NonDetect)
+@Html.EditorFor(x => x.IsInvalid)
+@Html.EditorFor(x => x.ReasonForInvalidation, new { @class = "reason-row" })
+@Html.EditorFor(x => x.SampleValue)
+@Html.EditorFor(x => x.CollectedBy)
+@Html.EditorFor(x => x.Notes)

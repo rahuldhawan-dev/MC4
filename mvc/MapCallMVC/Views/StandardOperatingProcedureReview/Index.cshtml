@@ -1,0 +1,10 @@
+﻿@model SearchStandardOperatingProcedureReview
+
+@(Html.TableFor(x => x)
+      .TemplateColumnFor(x => Control.ActionLink("View", "Show", "StandardOperatingProcedureReview", new { x.Id }))
+      .ColumnFor(x => x.StandardOperatingProcedure)
+      .ColumnFor(x => x.AnsweredBy)
+      .ColumnFor(x => x.AnsweredAt)
+      .ColumnFor(x => x.ReviewedBy)
+      .ColumnFor(x => x.ReviewedAt)
+      )

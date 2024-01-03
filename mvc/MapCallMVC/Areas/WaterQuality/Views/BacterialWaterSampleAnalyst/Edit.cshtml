@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.EditBacterialWaterSampleAnalyst
+
+@using (Form.BeginForm("Update", "BacterialWaterSampleAnalyst", "WaterQuality", new {Model.Id})) {
+    <div class="field-column fc200">
+	    <div class="field-column fc200">
+		    @Html.DisplayFor(x => x.Display.Employee)
+		    @Html.EditorFor(x => x.IsActive)
+	    </div>
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "BacterialWaterSampleAnalyst", new {Model.Id})
+                           </text>)
+    </div>
+}

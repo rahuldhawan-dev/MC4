@@ -1,0 +1,19 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.WorkOrder
+
+<h2>Work Order Main Break Completed Alert</h2>
+
+Work Order #: @Model.WorkOrderID <br />
+Operating Center: @Model.OperatingCenter <br />
+Entered By: @Model.CreatedBy <br />
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br />
+Estimated Customer Impact: @Model.EstimatedCustomerImpact <br />
+Anticipated Repair Time: @Model.AnticipatedRepairTime <br />
+Significant Traffic Impact: @(Model.SignificantTrafficImpact.GetValueOrDefault() ? "yes" : "no") <br />
+Alert Issued: @(Model.AlertIssued.GetValueOrDefault() ? "yes" : "no") <br />
+Markout Requirement: @Model.MarkoutRequirement<br/>
+Date Completed: @String.Format(CommonStringFormats.DATE, Model.DateCompleted)<br />

@@ -1,0 +1,30 @@
+﻿@using MMSINC.Results
+@model ValveImage
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("View PDF", Html.ActionLink(Model.FileName, "Show", new { ext = ResponseFormatter.KnownExtensions.PDF, Model.Id }, new { target = "_blank" }))
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town.County.State)
+    @Html.DisplayFor(x => x.Town.County)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.ApartmentNumber)
+    @Html.DisplayFor(x => x.FullStreetName)
+    @Html.DisplayFor(x => x.ValveNumber)
+    @Html.RenderDisplayTemplate("Valve Asset", @<text>
+        @if (Model.Valve != null)
+        {
+            @Html.ActionLink(Model.Valve.ValveNumber, "Show", "Valve", new { Id = Model.Valve.Id, area = "FieldOperations" }, null)
+        }
+    </text>)
+    @Html.DisplayFor(x => x.FullCrossStreetName)
+    @Html.DisplayFor(x => x.Location)
+    @Html.DisplayFor(x => x.NormalPosition)
+    @Html.DisplayFor(x => x.NumberOfTurns)
+    @Html.DisplayFor(x => x.DateCompleted)
+    @Html.DisplayFor(x => x.ValveSize)
+    @Html.DisplayFor(x => x.OpenDirection)
+    @Html.DisplayFor(x => x.IsDefaultImageForValve)
+    @Html.DisplayFor(x => x.OfficeReviewRequired)
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

@@ -1,0 +1,12 @@
+﻿@model CreateFacility
+
+@using (Form.BeginForm("Create", "Facility", new {Model.Id})) {
+            
+    @(Html.Tabs()
+              .WithTab("General", "_Form"));
+    @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    
+}

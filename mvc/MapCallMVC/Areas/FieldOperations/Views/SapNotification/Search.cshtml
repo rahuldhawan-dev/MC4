@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSapNotification
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/Search.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "SapNotification"))
+{
+	<div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.DateCreatedFrom)
+        @Html.EditorFor(x => x.DateCreatedTo)
+        @Html.EditorFor(x => x.NotificationType)
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.Code)
+        @Html.EditorFor(x => x.SAPNotificationNumber)
+    </div>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+}

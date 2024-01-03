@@ -1,0 +1,65 @@
+﻿@model Contractors.Models.ViewModels.CreateRestoration
+@{
+    ViewBag.Title = "Creating Restoration";
+}
+@Html.ScriptFor("~/Scripts/Restoration/Form.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Create", "Restoration"))
+{
+    @Control.HiddenFor(x => x.Display.EstimatedRestorationFootage).WithName("").WithId("EstimatedRestorationFootage")
+    <div>
+        <fieldset>
+            <legend>Initial Data</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.WorkOrder)
+                @Html.HiddenFor(x => x.WorkOrder)
+                @Html.DisplayFor(x => x.DisplayWorkOrder.OperatingCenter)
+                @Html.DisplayFor(x => x.DisplayWorkOrder.Town)
+                @Html.DisplayFor(x => x.DisplayWorkOrder.AccountCharged, new { DisplayName = "WBS #"})
+                @Html.EditorFor(x => x.RestorationType)
+                @Html.EditorFor(x => x.EstimatedRestorationFootage)
+                @Html.EditorFor(x => x.RestorationNotes)
+                @Html.EditorFor(x => x.ResponsePriority)
+                @Html.EditorFor(x => x.TrafficControlRequired)
+                @Html.EditorFor(x => x.AcknowledgedByContractor)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Base/Temporary Restoration</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.PartialRestorationNotes)
+                @Html.EditorFor(x => x.PartialPavingSquareFootage)
+                @Html.EditorFor(x => x.PartialRestorationMethods)
+                @Html.EditorFor(x => x.PartialRestorationInvoiceNumber)
+                @Html.EditorFor(x => x.PartialRestorationActualCost)
+                @Html.EditorFor(x => x.PartialRestorationDate)
+                @Html.EditorFor(x => x.PartialRestorationTrafficControlCost)
+                @Html.EditorFor(x => x.PartialRestorationTrafficControlInvoiceNumber)
+                @Html.EditorFor(x => x.PartialRestorationPriorityUpchargeType)
+                @Html.EditorFor(x => x.PartialRestorationPriorityUpcharge)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Final Restoration</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.FinalRestorationNotes)
+                @Html.EditorFor(x => x.FinalPavingSquareFootage)
+                @Html.EditorFor(x => x.FinalRestorationMethods)
+                @Html.EditorFor(x => x.FinalRestorationInvoiceNumber)
+                @Html.EditorFor(x => x.FinalRestorationActualCost)
+                @Html.EditorFor(x => x.FinalRestorationDate)
+                @Html.EditorFor(x => x.FinalRestorationTrafficControlCost)
+                @Html.EditorFor(x => x.FinalRestorationTrafficControlInvoiceNumber)
+                @Html.EditorFor(x => x.FinalRestorationPriorityUpchargeType)
+                @Html.EditorFor(x => x.FinalRestorationPriorityUpcharge)
+            </div>
+        </fieldset>
+    </div>
+    <div class="editor-buttons">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Restoration")
+            @Html.LinkButton("Cancel", "Edit", "WorkOrderFinalization", new { id = Model.WorkOrder })
+        </text>)
+    </div>
+}

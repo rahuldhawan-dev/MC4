@@ -1,0 +1,7 @@
+﻿@model EmergencyResponsePlan
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowEmergencyResponsePlan", Model)
+    .WithTab("Review", "_ShowPlanReviews", Model, itemCount: Model.Reviews.Count)
+    .WithNotesAndDocuments()
+    .WithLog())

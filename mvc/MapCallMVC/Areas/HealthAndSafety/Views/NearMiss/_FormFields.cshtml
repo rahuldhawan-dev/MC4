@@ -1,0 +1,51 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Controllers
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditNearMiss
+@{
+    // Ticket-3572: Certain fields are only editable by userAdmin
+    var isUserAdmin = RoleService.CanAccessRole(NearMissController.ROLE, RoleActions.UserAdministrator);
+    bool areActionItemsCompleted = Model.DisplayNearMiss.ActionItems.All(x => x.ActionItem.DateCompleted.HasValue);
+}
+@Html.EditorFor(x => x.Type)
+@Html.EditorFor(x => x.State)
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town)
+@Html.EditorFor(x => x.Facility)
+@Html.EditorFor(x => x.LocationDetails)
+@Html.EditorFor(x => x.Coordinate)
+@Html.EditorFor(x => x.Category)
+@Html.EditorFor(x => x.DescribeOther)
+@Html.EditorFor(x => x.ActionTakenType)
+@Html.EditorFor(x => x.SubCategory)
+@Html.EditorFor(x => x.SystemType)
+@Html.EditorFor(x => x.WasteWaterSystem)
+@Html.EditorFor(x => x.PublicWaterSupply)
+@Html.EditorFor(x => x.ActionTaken)
+@Html.EditorFor(x => x.CompletedCorrectiveActions)
+@Html.EditorFor(x => x.WorkOrderType)
+@Html.EditorFor(x => x.WorkOrder)
+@Html.EditorFor(x => x.ProductionWorkOrder)
+@Html.EditorFor(x => x.ShortCycleWorkOrderNumber)
+@Html.EditorFor(x => x.WorkOrderNumber)
+@Html.EditorFor(x => x.ReportedToRegulator)
+@Html.EditorFor(x => x.Severity)
+@Html.EditorFor(x => x.SeriousInjuryOrFatality)
+@Html.EditorFor(x => x.Description)
+@if (isUserAdmin)
+{
+    @Html.EditorFor(x => x.LifeSavingRuleType)
+}
+@Html.EditorFor(x => x.StopWorkAuthorityPerformed)
+@Html.EditorFor(x => x.StopWorkUsageType)
+@Html.EditorFor(x => x.HaveReviewedNearMiss)
+
+@if (areActionItemsCompleted)
+{
+    @Html.EditorFor(x => x.DateCompleted)
+}
+else
+{
+    <div class="field-pair fp-edit">
+        @Html.Label("Date Completed", htmlAttributes: new { @class = "label" })
+        @Html.Label("Please update pending action items", htmlAttributes: new { @class = "field" })
+    </div>
+}

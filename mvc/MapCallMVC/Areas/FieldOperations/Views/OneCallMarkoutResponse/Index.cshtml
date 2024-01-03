@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOneCallMarkoutResponse
+
+@{
+    if (Model.Count < 20000)
+    {
+        ActionBarHelper.AddExportLink();
+    }
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OneCallMarkoutTicket.CDCCode, "OneCallMarkoutTicket.CDCCode")
+    .SortableColumnFor(x => x.OneCallMarkoutTicket.OperatingCenter, "oc.OperatingCenterCode")
+    .SortableColumnFor(x => x.OneCallMarkoutTicket)
+    .SortableColumnFor(x => x.CompletedAt)
+    .SortableColumnFor(x => x.OneCallMarkoutResponseStatus)
+    .SortableColumnFor(x => x.OneCallMarkoutResponseTechnique)
+    .WithPaginatedFooter())

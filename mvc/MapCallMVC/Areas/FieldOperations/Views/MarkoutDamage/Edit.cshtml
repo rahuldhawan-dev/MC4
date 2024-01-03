@@ -1,0 +1,6 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditMarkoutDamage
+
+@using (Form.BeginForm("Update", "MarkoutDamage", "FieldOperations", new { Model.Id }))
+{
+	@Html.Partial("_Form", Model)
+}

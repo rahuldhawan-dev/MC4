@@ -1,0 +1,13 @@
+﻿@model JobObservation
+           
+<h2>
+    @Html.DefaultActionLink(string.Format("Job Observation: #{0}", Model.Id), "Show", "JobObservation", "HealthAndSafety", new { id = Model.Id }, null)
+</h2>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.ObservationDate)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.TaskObserved)
+    @Html.DisplayFor(x => x.OverallQualityRating)
+    @Html.DisplayFor(x => x.OverallSafetyRating)
+</div>

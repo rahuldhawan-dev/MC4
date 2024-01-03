@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyPressureZones.SearchPublicWaterSupplyPressureZoneViewModel
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(
+    Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.PublicWaterSupply)
+        .SortableColumnFor(x => x.HydraulicModelName)
+        .SortableColumnFor(x => x.CommonName)
+        .SortableColumnFor(x => x.HydraulicGradientMin)
+        .SortableColumnFor(x => x.HydraulicGradientMax)
+        .SortableColumnFor(x => x.PressureMin)
+        .SortableColumnFor(x => x.PressureMax)
+        .SortableColumnFor(x => x.PublicWaterSupplyFirmCapacity.FirmSystemSourceCapacityMGD, "Firm System Source Capacity MGD", "PublicWaterSupplyFirmCapacity.FirmSystemSourceCapacityMGD")
+        .SortableColumnFor(x => x.PublicWaterSupplyFirmCapacity.UpdatedAt, "Firm Capacity Updated Date", "PublicWaterSupplyFirmCapacity.DateUpdated")
+        .WithPaginatedFooter()
+)

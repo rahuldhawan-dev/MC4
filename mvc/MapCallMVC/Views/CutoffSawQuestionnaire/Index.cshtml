@@ -1,0 +1,11 @@
+﻿@model SearchCutoffSawQuestionnaire
+
+@{ ActionBarHelper.AddExportLink();}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found:" + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.LeadPerson.FullName, "Lead Person", "LeadPerson")
+    .SortableColumnFor(x => x.SawOperator.FullName, "Saw Operator", "SawOperator")
+    .SortableColumnFor(x => x.OperatedOn, "OperatedOn")
+    .WithPaginatedFooter())

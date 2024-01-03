@@ -1,0 +1,26 @@
+﻿@model Grievance
+
+<div class="field-column fc200">
+    @if (Model.Contract != null)
+    {
+        @Html.RenderDisplayTemplate(Grievance.DisplayNames.CONTRACT_ID, Html.DefaultActionLink(Model.Contract.Description, "Show", "UnionContract", "", new { id = Model.Contract.Id }, new { target = "_blank" }))
+    }
+    else
+    {
+        @Html.DisplayFor(g => g.Contract, new { DisplayName = Grievance.DisplayNames.CONTRACT_ID })
+    }
+    @Html.DisplayFor(g => g.Id)
+    @Html.DisplayFor(g => g.OperatingCenter.OperatingCenterCode,new { DisplayName =Grievance.DisplayNames.OPERATING_CENTER })
+    @Html.DisplayFor(g => g.LaborRelationsBusinessPartner)
+    @Html.DisplayFor(g => g.GrievanceCategory)
+    @Html.DisplayFor(g => g.Categorization)
+    @Html.DisplayFor(g => g.Status)
+    @Html.DisplayFor(g => g.Number)
+    @Html.DisplayFor(g => g.DateReceived)
+    @Html.DisplayFor(g => g.EstimatedImpactValue)
+    @Html.DisplayFor(g => g.IncidentDate)
+    @Html.DisplayFor(g => g.Description)
+    @Html.DisplayFor(g => g.DescriptionOfOutcome)
+    @Html.DisplayFor(x => x.UnionDueDate)
+    @Html.DisplayFor(x => x.ManagementDueDate)
+</div>

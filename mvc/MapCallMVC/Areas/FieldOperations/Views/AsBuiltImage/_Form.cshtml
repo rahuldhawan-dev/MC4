@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.BaseAsBuiltImageViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/AsBuiltImage/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town, new { Container = Model })
+@Html.EditorFor(x => x.TownSection)
+@Html.EditorFor(x => x.ProjectName)
+@Html.EditorFor(x => x.StreetPrefix)
+@Html.EditorFor(x => x.ApartmentNumber)
+@Html.EditorFor(x => x.Street)
+@Html.EditorFor(x => x.StreetSuffix)
+@Html.EditorFor(x => x.CrossStreetPrefix)
+@Html.EditorFor(x => x.CrossStreet)
+@Html.EditorFor(x => x.CrossStreetSuffix)
+@Html.EditorFor(x => x.MapPage)
+@Html.EditorFor(x => x.TaskNumber)
+@Html.EditorFor(x => x.DateInstalled)
+@Html.EditorFor(x => x.PhysicalInService)
+@Html.EditorFor(x => x.Comments)
+@Html.EditorFor(x => x.Coordinate)

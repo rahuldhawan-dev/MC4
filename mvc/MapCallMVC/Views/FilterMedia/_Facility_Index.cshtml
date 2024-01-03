@@ -1,0 +1,34 @@
+﻿@model Facility
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+        if (Model.Equipment.Count > 0 && Model.FilterMediae.Any())
+        {
+            @Html.Partial("~/Views/FilterMedia/_Index.cshtml", Model.FilterMediae)
+        }
+        else
+        {
+            <text>No Filter Media has been linked to any equipment within this facility.</text>
+        }
+    }
+
+    if (Html.CurrentUserCanEdit())
+    {
+        using (g.FlexBox())
+        {
+            if (Model.Equipment.Count == 0)
+            {
+                <text>
+                    This facility has no equipment listed. A piece of equipment is required to attach a filter media record to. Please add at least one equipment record first.
+                </text>
+                @Html.ActionLink("Add Equipment", "New", "Equipment", new {Facility = Model.Id}, new {id = "addNewEquipmentButton"})
+            }
+            else
+            {
+                @Html.LinkButton("Add New", "New", "FilterMedia", new {Facility = Model.Id}, new {id = "addNewFilterMediaButton"})
+            }
+        }
+    }
+}

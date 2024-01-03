@@ -1,0 +1,69 @@
+﻿@model MainCrossing
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OperatingCenter.OperatingCenterCode, new { DisplayName = "Operating Center" })
+    @Html.DisplayFor(x => x.Town.ShortName, new { DisplayName = "Town" })
+    @Html.DisplayFor(x => x.Town.County.Name, new { DisplayName = "County" })
+    @Html.DisplayFor(x => x.Street.FullStName, new { DisplayName = "Street" })
+    @Html.DisplayFor(x => x.ClosestCrossStreet.FullStName, new { DisplayName = "Closest Cross Street" })
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.PWSID.Identifier, new { DisplayName = "PWSID" })
+    @Html.DisplayFor(x => x.PressureZone)
+</div>
+
+<fieldset>
+    <legend>Crossing Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.MainCrossingStatus)
+        @Html.DisplayFor(x => x.AssetCategory)
+        @Html.DisplayFor(x => x.CrossingCategory)
+        @Html.DisplayFor(x => x.ConsequenceOfFailure)
+        @Html.RenderDisplayTemplate("Impact To", @<text>
+                                                     @foreach (var i in Model.ImpactTo)
+                                                     {
+                                                        <div>@Html.DisplayValueFor(x => i)</div>
+                                                     }
+                                                  </text>)
+        @Html.DisplayFor(x => x.IsolationValves)
+        @Html.DisplayFor(x => x.RailwayOwnerType)
+        @Html.DisplayFor(x => x.RailwayCrossingId)
+        @Html.DisplayFor(x => x.EmergencyPhoneNumber)
+        @Html.DisplayFor(x => x.MainInCasing)
+        @Html.DisplayFor(x => x.BodyOfWater.Name, new {DisplayName = "Body of Water"})
+        @Html.DisplayFor(x => x.CrossingType)
+        @Html.DisplayFor(x => x.SupportStructure)
+        @Html.DisplayFor(x => x.ConstructionType)
+        @Html.DisplayFor(x => x.TypicalOperatingPressureRange)
+        @Html.DisplayFor(x => x.PressureSurgePotentialType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Inspection Requirements</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.InspectionFrequencyDisplay)
+        @Html.DisplayFor(x => x.InspectionType)
+        @Html.DisplayFor(x => x.RequiresInspection)
+        @Html.DisplayFor(x => x.LastInspectedOn)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Pipeline</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.MainDiameter.Diameter, new { DisplayName = "Main Diameter" })
+        @Html.DisplayFor(x => x.MainMaterial.Description, new { DisplayName = "Main Material" })
+        @Html.DisplayFor(x => x.IsCompanyOwned)
+        @Html.DisplayFor(x => x.LengthOfSegment)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Criticality</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.IsCriticalAsset)
+        @Html.DisplayFor(x => x.MaximumDailyFlow)
+        @Html.DisplayFor(x => x.CustomerRange)
+        @Html.DisplayFor(x => x.Comments)
+    </div>
+</fieldset>

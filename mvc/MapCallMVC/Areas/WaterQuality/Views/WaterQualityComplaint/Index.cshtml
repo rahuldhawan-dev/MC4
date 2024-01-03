@@ -1,0 +1,61 @@
+﻿@using System.Activities.Statements
+@using Microsoft.Ajax.Utilities
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterQualityComplaint
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+
+@(Html.TableFor(_ => Model, new {id = "waterQualityComplaints"})
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id, "Complaint Number", "Id")
+    .SortableColumnFor(x => x.OrcomOrderNumber)
+    .SortableColumnFor(x => x.DateComplaintReceived)
+    .TemplateColumnFor("Complaint Notes", x =>
+        @<text>
+
+            @foreach (var e in x.ComplaintNotes)
+            {
+                <span>@e.Note.Text</span><br/>
+            }
+         </text>)
+    .SortableColumnFor(x => x.InitialLocalResponseDate)
+    .SortableColumnFor(x => x.InitialLocalContact)
+    .SortableColumnFor(x => x.InitialLocalResponseType)
+    .SortableColumnFor(x => x.NotificationCreatedBy)
+    .SortableColumnFor(x => x.NotificationCompletionDate)
+    .SortableColumnFor(x => x.NotificationCompletedBy)
+    .SortableColumnFor(x => x.CustomerName)
+    .SortableColumnFor(x => x.HomePhoneNumber)
+    .SortableColumnFor(x => x.Ext)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.StreetName)
+    .SortableColumnFor(x => x.ApartmentNumber)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.TownSection)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.ZipCode)
+    .SortableColumnFor(x => x.PremiseNumber)
+    .SortableColumnFor(x => x.AccountNumber)
+    .SortableColumnFor(x => x.Type)
+    .SortableColumnFor(x => x.ComplaintDescription)
+    .SortableColumnFor(x => x.ComplaintStartDate)
+    .SortableColumnFor(x => x.ProblemArea)
+    .SortableColumnFor(x => x.Source)
+    .SortableColumnFor(x => x.SiteVisitRequired)
+    .SortableColumnFor(x => x.SiteVisitBy)
+    .SortableColumnFor(x => x.WaterFilterOnComplaintSource)
+    .SortableColumnFor(x => x.CrossConnectionDetected)
+    .SortableColumnFor(x => x.ProbableCause)
+    .SortableColumnFor(x => x.ActionTaken)
+    .SortableColumnFor(x => x.CustomerExpectation)
+    .SortableColumnFor(x => x.CustomerSatisfaction)
+    .SortableColumnFor(x => x.RootCauseIdentified)
+    .SortableColumnFor(x => x.RootCause)
+    .SortableColumnFor(x => x.PublicWaterSupply)
+    .SortableColumnFor(x => x.Imported)
+    .WithPaginatedFooter())

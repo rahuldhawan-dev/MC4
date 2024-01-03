@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.CreateEnvironmentalNonComplianceEventActionItem
+
+
+@using (var form = Form.BeginRouteForm("EnvironmentalNonComplianceEvent", "EnvironmentalNonComplianceEventActionItem", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "EnvironmentalNonComplianceEventActionItemForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.NotListedType)
+        @Html.EditorFor(x => x.ActionItem)
+        @Html.EditorFor(x => x.ResponsibleOwner)
+        @Html.EditorFor(x => x.TargetedCompletionDate)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Action Item")
+                              @Control.Button("Cancel").WithId("cancelAddNoticeOfViolationActionItemButton").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,19 @@
+﻿@using MMSINC.Utilities
+@model dynamic
+<h2>Work Order FRCC Emergency Order Created</h2>
+
+Work Order #: <a href="@Model.RecordUrl">@Model.Id</a><br />
+Priority: @Model.Priority <br/>
+Purpose: @Model.Purpose <br/>
+Operating Center: @Model.OperatingCenter <br/>
+Entered By: @Model.CreatedBy.FullName <br/>
+Town: @Model.Town <br/>
+Street #: @Model.StreetNumber <br/>
+Street: @Model.Street <br/>
+Nearest Cross Street: @Model.NearestCrossStreet <br/>
+Work Description: @Model.WorkDescription <br/>
+SAP Notification #: @Model.SAPNotificationNumber <br/>
+SAP Work Order #: @Model.SAPWorkOrderNumber <br/>
+Date Received: @Model.DateReceived <br/>
+Notes:<br/>
+@Model.Notes

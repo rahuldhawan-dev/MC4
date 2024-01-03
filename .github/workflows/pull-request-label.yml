@@ -1,0 +1,71 @@
+name: Merge feature branches into staging branches on PR label
+on:
+  pull_request:
+    types: [labeled]
+jobs:
+  merge-to-qa1:
+    if: ${{ github.event.label.name == 'merged to qa1' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Merge feature to qa1
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          source_ref: ${{ github.head_ref }}
+          target_branch: "qa1"
+          commit_message_template: '[Automated] Merged feature from {source_ref} into target {target_branch}'
+        env:
+          GH_TOKEN: ${{ github.token }}
+  merge-to-qa2:
+    if: ${{ github.event.label.name == 'merged to qa2' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Merge feature to qa2
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          source_ref: ${{ github.head_ref }}
+          target_branch: "qa2"
+          commit_message_template: '[Automated] Merged feature from {source_ref} into target {target_branch}'
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  merge-to-qa3:
+    if: ${{ github.event.label.name == 'merged to qa3' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Merge feature to qa3
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          source_ref: ${{ github.head_ref }}
+          target_branch: "qa3"
+          commit_message_template: '[Automated] Merged feature from {source_ref} into target {target_branch}'
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  merge-to-qa4:
+    if: ${{ github.event.label.name == 'merged to qa4' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Merge feature to qa4
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          source_ref: ${{ github.head_ref }}
+          target_branch: "qa4"
+          commit_message_template: '[Automated] Merged feature from {source_ref} into target {target_branch}'
+        env:
+          GH_TOKEN: ${{ github.token }}

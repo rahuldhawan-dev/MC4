@@ -1,0 +1,47 @@
+﻿@using MapCallMVC.Controllers
+@model SearchIncident
+
+@{
+    // MC 2576: Certain fields are only viewable by userAdmin
+    var hasDrugSectionAccess = RoleService.CanAccessRole(RoleModules.OperationsIncidentsDrugTesting);
+}
+
+@using (Form.BeginForm("Index", "Incident"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.EntityId)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.Employee)
+    @Html.EditorFor(x => x.EmployeeType)
+    @Html.EditorFor(x => x.ContractorCompany)
+    @Html.EditorFor(x => x.Department)
+    @Html.EditorFor(x => x.IncidentClassification)
+    @Html.EditorFor(x => x.IncidentType)
+    @Html.EditorFor(x => x.EventExposureType)
+    @Html.EditorFor(x => x.IncidentStatus)
+    @Html.EditorFor(x => x.IncidentDate)
+    @Html.EditorFor(x => x.DateInvestigationWillBeCompleted)
+    @Html.EditorFor(x => x.IsCompleted)
+    @Html.EditorFor(x => x.IncidentShift)
+    @Html.EditorFor(x => x.IsOvertime)
+    @Html.EditorFor(x => x.IncidentCommitteeReportCompletionDate)
+    @if (hasDrugSectionAccess)
+    {
+        @Html.EditorFor(x => x.DrugAndAlcoholTestingDecision)
+        @Html.EditorFor(x => x.DrugAndAlcoholTestingResult)
+    }
+    @Html.EditorFor(x => x.AtRiskBehaviorSection)
+    @Html.EditorFor(x => x.FiveWhysCompleted)
+    @Html.EditorFor(x => x.SeriousInjuryOrFatalityType)
+    @Html.EditorFor(x => x.IsOSHARecordable)
+    @Html.EditorFor(x => x.WorkersCompensationClaimStatus)
+    @Html.EditorFor(x => x.ClaimsCarrierId)
+    @Html.EditorFor(x => x.MapCallWorkOrder)
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

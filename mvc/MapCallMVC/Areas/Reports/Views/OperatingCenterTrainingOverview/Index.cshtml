@@ -1,0 +1,51 @@
+﻿@model SearchOperatingCenterTrainingOverview
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+@if (Model.IsOSHARequirement.HasValue)
+{
+    <div>IsOSHA Requirement: @Model.IsOSHARequirement</div>
+}
+<table id="trainingRequirementsTable">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Employees</th>
+            <th>% Complete</th>
+            <th>Training Records Required</th>
+            <th>Training Records Due</th>
+            <th>Training Records Complete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.OperatingCenter.ToString(), "Index", "OperatingCenterTrainingSummary",
+                        new RouteValueDictionary{
+                            {"area", "reports"},
+                            { "OperatingCenter", item.OperatingCenter.Id},
+                            { "PageSize", "500"},
+                        }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Employees.ToString(), "Index", "Employee",
+                        new RouteValueDictionary{
+                            {"area", ""},
+                            { "OperatingCenter", item.OperatingCenter.Id},
+                            { "Status", 1},
+                            { "PageSize", "500"}
+                        }, null)
+                </td>
+                <td>@Html.DisplayValueFor(_ => item.Percentage)</td>
+                <td>@item.EmployeeTrainingRecordsRequired</td>
+                <td>@item.EmployeeTrainingRecordsDue</td>
+                <td>@item.EmployeeTrainingRecordsCompleted</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

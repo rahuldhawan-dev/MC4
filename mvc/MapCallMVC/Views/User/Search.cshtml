@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Models.ViewModels.Users.SearchUser
+
+@using (Form.BeginForm("Index", "User"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.FullName)
+        @Html.EditorFor(x => x.LastName, new { html = new { autofocus = "autofocus" }})
+        @Html.EditorFor(x => x.UserName)
+        @Html.EditorFor(x => x.EmployeeId)
+        @Html.EditorFor(x => x.DefaultOperatingCenter)
+        @Html.EditorFor(x => x.Address)
+        @Html.EditorFor(x => x.IsAdmin)
+        @Html.EditorFor(x => x.IsUserAdmin)
+        @Html.EditorFor(x => x.HasAccess)
+        @Html.EditorFor(x => x.UserType)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+        </text>)
+    </div>
+}

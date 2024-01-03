@@ -1,0 +1,7 @@
+﻿@model SmartCoverAlert
+
+@(Html.TableFor(x => x.WorkOrders, new { id = "workOrdersTable" })
+      .TemplateColumnFor("Work Order Number", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrder", new { x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.WorkDescription)
+      .ColumnFor(x => x.WorkOrderDateStarted, "Date Started")
+      .ColumnFor(x => x.DateCompleted))

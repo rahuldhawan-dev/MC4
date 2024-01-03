@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Events.Models.ViewModels.SearchEventDocument
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .ColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.Facility)
+      .SortableColumnFor(x => x.EventType.Description, "Event Type", "Id")
+      .SortableColumnFor(x => x.Description)
+      .WithPaginatedFooter())

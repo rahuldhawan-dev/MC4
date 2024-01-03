@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.RiskRegisterAssets.SearchRiskRegisterAssetViewModel
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(
+    Html.TableFor(_ => Model, new { Id = "riskRegisterAssetsTable" })
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.Id)
+        .SortableColumnFor(x => x.State)
+        .SortableColumnFor(x => x.OperatingCenter)
+        .SortableColumnFor(x => x.PublicWaterSupply)
+        .SortableColumnFor(x => x.WasteWaterSystem)
+        .SortableColumnFor(x => x.Facility)
+        .SortableColumnFor(x => x.RiskRegisterAssetGroup)
+        .SortableColumnFor(x => x.RiskRegisterAssetCategory)
+        .SortableColumnFor(x => x.RiskDescription)
+        .SortableColumnFor(x => x.LofMax)
+        .SortableColumnFor(x => x.CofMax)
+        .SortableColumnFor(x => x.RiskQuadrant)
+        .SortableColumnFor(x => x.IdentifiedAt)
+        .SortableColumnFor(x => x.Employee)
+        .SortableColumnFor(x => x.CompletionTargetDate)
+        .SortableColumnFor(x => x.CompletionActualDate)
+        .SortableColumnFor(x => x.IsProjectInComprehensivePlanningStudy)
+        .SortableColumnFor(x => x.IsProjectInCapitalPlan)
+        .SortableColumnFor(x => x.RelatedWorkBreakdownStructure)
+        .WithPaginatedFooter()
+)

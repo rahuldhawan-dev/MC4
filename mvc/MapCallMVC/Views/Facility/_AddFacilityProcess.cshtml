@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.AddFacilityProcessForFacilityController
+
+@using (Form.BeginRouteForm("Facility", "FacilityProcess", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ProcessStage)
+        @Html.EditorFor(x => x.Process)
+
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save Process")
+                @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

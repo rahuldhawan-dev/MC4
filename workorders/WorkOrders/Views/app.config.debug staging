@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+    </configSections>
+    <!-- WARNING WARNING: this value must be changed in 3 places: web.config.debug.staging, web.Debug Staging.config, and app.config.debug staging -->
+    <connectionStrings>
+        <add name="MCProd"
+            connectionString="Data Source=sql2000backup;Initial Catalog=mcprod;User Id=mcuser;Password=3v3ry0n3;"
+            providerName="System.Data.SqlClient" />
+    </connectionStrings>
+</configuration>

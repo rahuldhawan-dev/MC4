@@ -1,0 +1,31 @@
+﻿@model ProductionWorkOrder
+
+@{
+    var IsRoutinePriority = ((Model.Priority.Id == ((int)ProductionWorkOrderPriority.Indices.ROUTINE) || (Model.Priority.Id == (int)ProductionWorkOrderPriority.Indices.ROUTINE_OFF_SCHEDULED)));
+    var IsAssignmentOpen = false;
+    foreach (var assignment in Model.CurrentAssignments)
+    {
+        if (!assignment.DateEnded.HasValue && assignment.DateStarted.HasValue)
+        {
+            IsAssignmentOpen = true;
+            break;
+        }
+    }
+
+    var table = Html.TableFor(x => x.TankInspections, new { id = "tankInspectionTable" })
+                    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TankInspection", new { id = x.Id, area = "Facilities" }, null))
+                    .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "TankInspection", new { id = x.Id, area = "Facilities" }, null))
+                    .ColumnFor(x => x.Id)
+                    .ColumnFor(x => x.OperatingCenter)
+                    .ColumnFor(x => x.Facility)
+                    .ColumnFor(x => x.Equipment)
+                    .ColumnFor(x => x.Equipment.Description, "Equipment Description")
+                    .ColumnFor(x => x.ObservationDate);
+}
+
+@if(IsAssignmentOpen && IsRoutinePriority)
+{
+    @Html.AuthorizedActionLinkButton("New Tank Inspection", "New", "TankInspection", new { productionWorkOrderId = Model.Id, area = "Facilities" }, new { Class = "link-button" })
+}
+
+@table

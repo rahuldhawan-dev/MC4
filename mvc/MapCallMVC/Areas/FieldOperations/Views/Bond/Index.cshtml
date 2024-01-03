@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchBond
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.BondNumber)
+    .SortableColumnFor(x => x.Obligee)
+    .SortableColumnFor(x => x.EndDate)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.County)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.BondType)
+    .SortableColumnFor(x => x.BondPurpose)
+    .SortableColumnFor(x => x.BondValue)
+    .SortableColumnFor(x => x.AnnualPremium)
+    .WithPaginatedFooter())

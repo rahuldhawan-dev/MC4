@@ -1,0 +1,11 @@
+﻿@model InterconnectionTest
+
+<div class="esri-info">
+    <div class="field-column fc100">
+        @Html.RenderDisplayTemplate(@Html.LabelFor(x => x.Id), @Html.DefaultActionLink(Model.Id.ToString(), "Show", "InterconnectionTest", "Facilities", new { id = Model.Id }, new { target = "_blank" }))
+        @Html.DisplayFor(x => x.Facility.OperatingCenter)
+        @Html.DisplayFor(x => x.Facility)
+        @Html.DisplayFor(x => x.InspectionDate)
+        @Html.DisplayFor(x => x.InterconnectionInspectionRating)
+    </div>
+</div>

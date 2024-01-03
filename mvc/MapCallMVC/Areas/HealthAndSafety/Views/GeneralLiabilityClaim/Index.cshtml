@@ -1,0 +1,25 @@
+﻿@model SearchGeneralLiabilityClaim
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.CompanyContact)
+    .SortableColumnFor(x => x.ClaimsRepresentative)
+    .SortableColumnFor(x => x.ClaimNumber)
+    .SortableColumnFor(x => x.Name)
+    .SortableColumnFor(x => x.LiabilityType)
+    .SortableColumnFor(x => x.GeneralLiabilityClaimType)
+    .SortableColumnFor(x => x.CrashType)
+    .ColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.PhhContacted)
+    .SortableColumnFor(x => x.IncidentDateTime)
+    .SortableColumnFor(x => x.PoliceCalled)
+    .SortableColumnFor(x => x.IncidentNotificationDate)
+    .WithCaption("Record found: " + Model.Count)
+    .WithPaginatedFooter())

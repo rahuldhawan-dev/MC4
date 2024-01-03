@@ -1,0 +1,29 @@
+﻿@model SearchTrainingModule
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.TrainingModuleCategory, "TrainingModuleCategory")
+    .SortableColumnFor(x => x.Title, "Title")
+    .SortableColumnFor(x => x.TrainingModuleRecurrantType)
+    .SortableColumnFor(x => x.AmericanWaterCourseNumber, "AmericanWaterCourseNumber")
+    .SortableColumnFor(x => x.LEARNItemType)
+    .SortableColumnFor(x => x.CourseApprovalNumber, "NJDEP_TCH_COURSE_APPROVAL_NUMBER", "CourseApprovalNumber")
+    .SortableColumnFor(x => x.TCHCertified, "TCHCertified")
+    .SortableColumnFor(x => x.TCHCreditValue, "TCHCreditValue")
+    .SortableColumnFor(x => x.TotalHours, "TotalHours")
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Production, "Production")
+    .SortableColumnFor(x => x.SafetyRelated, "SafetyRelated")
+    .SortableColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.TrainingObjectives, "TrainingObjectives")
+    .SortableColumnFor(x => x.PracticalTestStandards, "PracticalTestStandards")
+    .SortableColumnFor(x => x.Id, "TrainingModuleID", "Id")
+    .ColumnFor(x => x.Facility.FacilityId)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,18 @@
+﻿@model SearchEmployeeNJDEPLicense
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new {id="employeeNJDEPLicenseTable"})
+    .WithCaption("Records Found: " + Model.Count)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableTemplateColumnFor("Name", "LastName", x=> Html.ActionLink(x.FullName, "Show", "Employee", new { x.Id, area = "" }, null))
+    .SortableColumnFor(x => x.Department)
+    .SortableColumnFor(x => x.CurrentPosition.Category, "p.Category")
+    .SortableColumnFor(x => x.LicenseWaterTreatment)
+    .SortableColumnFor(x => x.LicenseWaterDistribution)
+    .SortableColumnFor(x => x.LicenseSewerCollection)
+    .SortableColumnFor(x => x.LicenseSewerTreatment)
+    .SortableColumnFor(x => x.LicenseIndustrialDischarge)
+    .WithPaginatedFooter()
+)

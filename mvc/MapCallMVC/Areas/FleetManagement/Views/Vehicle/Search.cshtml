@@ -1,0 +1,34 @@
+﻿@model MapCallMVC.Areas.FleetManagement.Models.SearchVehicle
+
+@using (Form.BeginForm("Index", "Vehicle"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.VehicleId)
+        @Html.EditorFor(x => x.VehicleLabel)
+        @Html.EditorFor(x => x.ARIVehicleNumber)
+        @Html.EditorFor(x => x.DecalNumber)
+        @Html.EditorFor(x => x.AssignmentCategory)
+        @Html.EditorFor(x => x.AssignmentJustification)
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.EmergencyUse)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.PlateNumber)
+        @Html.EditorFor(x => x.VehicleIdentificationNumber)
+        @Html.EditorFor(x => x.Flag)
+        @Html.EditorFor(x => x.PlannedReplacementYear)
+        @Html.EditorFor(x => x.DateRequisitioned)
+        @Html.EditorFor(x => x.DateOrdered)
+        @Html.EditorFor(x => x.DateInService)
+        @Html.EditorFor(x => x.DateRetired)
+        @Html.EditorFor(x => x.PoolUse)
+        @Html.EditorFor(x => x.AssignmentStatus)
+        @Html.EditorFor(x => x.AccountingRequirement)
+        @Html.EditorFor(x => x.FuelCardNumber)
+        @Html.EditorFor(x => x.WBSNumber)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

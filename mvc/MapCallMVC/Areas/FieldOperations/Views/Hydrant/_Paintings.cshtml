@@ -1,0 +1,10 @@
+﻿@using MMSINC.Results
+@model Hydrant
+
+@using (Form.BeginAjaxForm("Index", "HydrantPainting", new {
+    Hydrant = Model.Id,
+    ext = ResponseFormatter.KnownExtensions.FRAGMENT
+}))
+{
+    
+}

@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchContractorOverrideLaborCost
+
+@(Html.TableFor(_ => Model, new{ id = "results" })
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ContractorOverrideLaborCost", new {id = x.Id}, null))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Contractor)
+    .ColumnFor(x => x.ContractorLaborCost)
+    .ColumnFor(x => x.Cost)
+    .ColumnFor(x => x.EffectiveDate)
+    .WithPaginatedFooter())

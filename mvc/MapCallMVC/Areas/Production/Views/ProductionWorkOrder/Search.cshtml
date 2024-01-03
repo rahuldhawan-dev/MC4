@@ -1,0 +1,73 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrder
+
+@Html.ScriptFor("~/Scripts/Areas/Production/ProductionWorkOrder/Search.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "ProductionWorkOrder", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.SAPWorkOrder)
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityFacilityArea)
+        @Html.EditorFor(x => x.Employee)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.RequiresSupervisorApproval)
+        @Html.EditorFor(x => x.FunctionalLocation)
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.SAPEquipmentId)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.OrderType)
+        @Html.EditorFor(x => x.ProductionWorkDescription)
+        @Html.EditorFor(x => x.Prerequisites)
+        @Html.EditorFor(x => x.LockoutForms)
+        @Html.EditorFor(x => x.IsRedTagPermitStillOpen)
+        @Html.EditorFor(x => x.IsLockoutFormStillOpen)
+        @Html.EditorFor(x => x.ConfinedSpaceForms)
+        @Html.EditorFor(x => x.WellTests)
+        @Html.EditorFor(x => x.TankInspections)
+        @Html.EditorFor(x => x.IsOpen)
+        @Html.EditorFor(x => x.HasAssignmentsOnNonCancelledWorkOrder)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.WBSElement)
+        @Html.EditorFor(x => x.SAPMaintenancePlanId)
+        @Html.EditorFor(x => x.ApprovedOn)
+        @Html.EditorFor(x => x.ProductionPreJobSafetyBriefs)
+        @Html.RenderEditorTemplate("Compliance", @<text>
+            <div class="compliance-div-section" style="width:425px">
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasProcessSafetyManagement) Process Safety Management
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasCompanyRequirement) Company Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasRegulatoryRequirement) Environmental / Water Quality Regulatory Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasOshaRequirement) OSHA Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.OtherCompliance) Other
+                </div>
+            </div>
+        </text>)
+        <fieldset>
+            <legend>Planned Work</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.PlanNumber)
+                @Html.EditorFor(x => x.TaskType)
+                @Html.EditorFor(x => x.TaskGroup)
+                @Html.EditorFor(x => x.LocalTaskDescription)
+                @Html.EditorFor(x => x.AutoCreatedCorrectiveWorkOrder)
+            </div>
+        </fieldset>
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

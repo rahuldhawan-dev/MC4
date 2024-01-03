@@ -1,0 +1,36 @@
+﻿@model SearchOperatingCenterStockedMaterial
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/OperatingCenterStockedMaterial/Index.js")
+}
+
+@{
+    var table = Html.TableFor(_ => Model, new {id = "OperatingCenterStockedMaterialsTable"});
+
+    if (Html.CurrentUserCanDo("Destroy", "OperatingCenterStockedMaterial"))
+    {
+        table = table.TemplateColumnFor("", m => @<div>@Control.SubmitButton("Delete").WithName("Id").WithValue(m.Id)</div>);
+    }
+
+    table = table.SortableColumnFor(x => x.Material.FullDescription, "Material", "Material.PartNumber")
+        .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+        .SortableColumnFor(x => x.Cost)
+        .WithPaginatedFooter();
+}
+
+@if (Html.CurrentUserCanDo("Destroy", "OperatingCenterStockedMaterial"))
+{
+    using (var f = Form.BeginForm("Destroy", "OperatingCenterStockedMaterial"))
+    {
+        f.HtmlAttributes["id"] = "DeleteOperatingCenterStockedMaterialForm";
+        @table
+    }
+}
+else
+{
+    @table  
+}

@@ -1,0 +1,21 @@
+﻿@model SearchEmployeeTrainingByDate
+
+@using (Form.BeginForm("Index", "EmployeeTrainingByDate", "Reports")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.OSHARequirement)
+        @Html.EditorFor(x => x.TrainingRequirement)
+        @Html.EditorFor(x => x.PositionGroupCommonName)
+        @Html.EditorFor(x => x.PositionGroup, new {Container = @Model})
+        @Html.EditorFor(x => x.LastName)
+	    @Html.EditorFor(x => x.DateAttended)
+        @Html.EditorFor(x => x.RecentTrainingDate)
+        @Html.EditorFor(x => x.NextScheduledDate)
+        @Html.EditorFor(x => x.NextDueByDate)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

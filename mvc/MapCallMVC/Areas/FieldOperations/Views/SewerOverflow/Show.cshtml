@@ -1,0 +1,7 @@
+﻿@model SewerOverflow
+@{
+    ActionBarHelper.AddPdfLink();
+}
+@(Html.Tabs()
+    .WithTab("Details", "_ShowSewerOverflow", Model)
+    .WithNotesAndDocuments())

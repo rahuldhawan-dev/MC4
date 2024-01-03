@@ -1,0 +1,13 @@
+﻿@model MapCall.Common.Model.Entities.Restoration
+
+@(Html.TableFor(x => x.RelatedRestorations)
+    .WithEmptyResultCaption("There are not any related restorations.")
+    .IncludeHeadersWhenTableIsEmpty(false)
+    .TemplateColumnFor("Id", x => Html.AuthorizedActionLink(x.Id.ToString(), "Show", "Restoration", new { id = x.Id }))
+    .ColumnFor(x => x.RestorationType)
+    .ColumnFor(x => x.PavingSquareFootage)
+    .ColumnFor(x => x.LinearFeetOfCurb)
+    .ColumnFor(x => x.PartialRestorationDate, "Partial Restoration Date")
+    .ColumnFor(x => x.FinalRestorationDate, "Final Restoration Date")
+    .ColumnFor(x => x.ResponsePriority)
+)

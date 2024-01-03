@@ -1,0 +1,19 @@
+﻿@using MMSINC.ClassExtensions
+@using MMSINC.Models.ViewModels
+@helper DisplayNotification(string tempKey, string id, NotificationItemType notificationType)
+	{
+		if (TempData[tempKey] != null)
+		{
+			var messages = (List<string>)TempData[tempKey];
+			<div id="@id">
+				@foreach (var message in messages)
+				{
+					@Html.DisplayInlineNotification(new NotificationItem { Message = message, NotificationType = notificationType })
+				}
+			</div>
+		}
+}
+
+@DisplayNotification(MMSINC.Controllers.ControllerBase.SUCCESS_MESSAGE_KEY, "success-messages", NotificationItemType.Success)
+@DisplayNotification(MMSINC.Controllers.ControllerBase.NOTIFICATION_MESSAGE_KEY, "notifications", NotificationItemType.Warning)
+@DisplayNotification(MMSINC.Controllers.ControllerBase.ERROR_MESSAGE_KEY, "error-messages", NotificationItemType.Error)

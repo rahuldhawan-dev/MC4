@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.EditInterconnectionTest
+
+@using (Form.BeginForm("Update", "InterconnectionTest", "Facilities", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form", Model)
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "InterconnectionTest", new { area = "Facilities", Model.Id })
+                           </text>)
+    </div>
+}

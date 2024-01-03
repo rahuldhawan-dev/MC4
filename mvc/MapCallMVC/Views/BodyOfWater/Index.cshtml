@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Models.ViewModels.SearchBodyOfWater
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.Name)
+      .WithPaginatedFooter()
+      )

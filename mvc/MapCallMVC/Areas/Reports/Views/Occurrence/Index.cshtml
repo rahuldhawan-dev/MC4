@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.SearchOccurrence
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;"})
+    .WithCaption("Records found: " + Model.Count)
+    .SortableTemplateColumnFor("Id","Id", x => Html.ActionLink(x.AbsenceNotificationId.ToString(), "Show", "AbsenceNotification", new { id = x.AbsenceNotificationId, area = "Operations"}, null))
+    .SortableColumnFor(x => x.OperatingCenter, "employee.OperatingCenter")
+    .SortableTemplateColumnFor("Last Name", "employee.LastName", x => Html.ActionLink(x.Employee.LastName, "Show", "Employee", new { id = x.Employee.Id, area = "" }, null))
+    .SortableTemplateColumnFor("First Name", "employee.FirstName", x => Html.ActionLink(x.Employee.FirstName, "Show", "Employee", new { id = x.Employee.Id, area = "" }, null))
+    .SortableColumnFor(x => x.StartDate)
+    .SortableColumnFor(x => x.EndDate)
+    .SortableColumnFor(x => x.TotalHoursOfAbsence)
+    .ColumnFor(x => x.SupervisorNotes)
+    .SortableColumnFor(x => x.ProgressiveDiscipline)
+    .ColumnFor(x => x.Notes)
+    .WithPaginatedFooter()
+)

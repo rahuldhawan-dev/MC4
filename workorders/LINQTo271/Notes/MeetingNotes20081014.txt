@@ -1,0 +1,61 @@
+﻿FINISHED:
+  INPUT:
+    1.  Move Town and Town Section above Street and Nearest Cross Street.
+
+    2.  Need ORCOM Service Number, optional usually, required when requester is Call Center.
+        (field is there, but validation rule is not)
+
+    3.  Need secondary phone number field for customer.
+        a.  In database/model
+		b.  On Form
+
+    4.  Service ID is really Premise Number and Service Number (two fields).
+
+    5.  The only way to override the premise number requirement is to enter all zeroes.
+
+    6.  Description of Work has two "SERVICE LINE LEAK, CUST. SIDE" (one with the '.', one without).
+
+    7.  I got a method error in the street box when Town was set to MIDDLETOWN.
+
+    9.  Latitiude Longitude picker.  (still not required by form)
+
+	10. Need a ZipCode field.
+		a.  In database/model
+		b.  On Form
+
+    12. Need to bold the labels for any required fields.
+
+    13. Apparently Towns in the demo weren't filtered by OpCode?
+
+  AFTER INPUT:
+    1.  The FormView in view mode should have the labels in bold.
+
+  OTHER:
+    1.  Need another table to store every time the Description of Work for a given order is changed.
+        Need to capture the new Description of Work, the employee who changed it, and when it was
+        changed.
+
+PENDING:
+  INPUT:
+    2.  Need ORCOM Service Number, optional usually, required when requester is Call Center.
+
+    8.  Need Gov'tOfficialInfo field, and Phone Number for them as well.
+
+    9.  Latitiude Longitude picker.  This to become a requirement for any asset that doesn't have a
+        lat long.  (this is implemented, but the requirement is not)
+
+    10. Need a ZipCode field.  This could be populated by the town if the town only has one, or
+        filtered by town if the town has many.  This will then be used by the lat/lon picker to
+        try and locate the current location. (everything about this works except for it being
+        populated automatically)
+
+    11. Need a 'last chance' validation step.  "Are you sure you don't want to enter a ZipCode?".
+
+  TIME SHEETS:
+    1.  When entering a new employee time sheet, the original Description of Work will be there, and
+        will allow them to specify a new Description of Work to describe specifically what they did
+        over the course of that job visit.
+
+  OTHER:
+	2.  The WorkOrderDescriptionChange table should record each time an order's description
+        Still to be decided is where this will happen in the user interface.

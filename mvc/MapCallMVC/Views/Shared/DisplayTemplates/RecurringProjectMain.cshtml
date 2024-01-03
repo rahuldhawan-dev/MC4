@@ -1,0 +1,34 @@
+﻿@model MapCall.Common.Model.Entities.RecurringProjectMain
+
+<tr>
+    <td>
+        @Control.HiddenFor(x => x.Guid)
+        @Html.DisplayValueFor(x => x.Guid)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.RecurringProject)
+        @Control.HiddenFor(x => x.Layer)
+        @Html.DisplayValueFor(x => x.Layer)
+    </td>
+    @*<td>
+        @Control.HiddenFor(x => x.TotalInfoMasterScore)
+        @Html.DisplayValueFor(x => x.TotalInfoMasterScore)
+    </td>*@
+    <td>
+        @Control.HiddenFor(x => x.Length)
+        @Html.DisplayValueFor(x => x.Length)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.DateInstalled)
+        @Html.DisplayValueFor(x => x.DateInstalled)
+    </td>
+        <td>
+        @Control.HiddenFor(x => x.Diameter)
+        @Html.DisplayValueFor(x => x.Diameter)
+    </td>
+    <td>
+        @Control.HiddenFor(x => x.Material)
+        @Html.DisplayValueFor(x => x.Material)
+    </td>
+</tr>

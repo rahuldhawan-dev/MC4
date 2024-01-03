@@ -1,0 +1,6 @@
+﻿@model MapCall.SAP.Model.Entities.SAPSkipCall
+
+@using (var form = Form.BeginForm("SapSkipCall", "SAPMaintenancePlan", new { Model.MaintenancePlan, Model.CallNumber }))
+{
+ @Control.SubmitButton("Skip Call").WithName("SkipCall")
+}

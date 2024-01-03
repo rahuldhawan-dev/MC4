@@ -1,0 +1,26 @@
+﻿@model Contractor
+@using MapCallMVC.Areas.Contractors.Models.ViewModels
+
+@Html.ScriptFor("~/Scripts/Areas/Contractors/ContractorContact.js", ScriptLoadType.LoadFromPartial)
+@Html.ActionLink("Create New Contact", "New", "Contact", new { area = "" }, new { Class = "link-button" })
+
+<div class="collapse-panel" data-title="Link Contact">
+    @if (Html.CurrentUserCanEdit() && Html.CurrentUserCanDo("CreateContractorContact", "Contractor"))
+    {
+        @Html.Partial("_CreateContractorContact", ViewModelFactory.BuildWithOverrides<CreateContractorContact>(new { Id = Model.Id }))
+    }
+</div>
+
+@(Html.TableFor(x => Model.Contacts, new { id = "contactsTable" })
+      .TemplateColumnFor(x => @<text>
+                                  @using(Form.BeginForm("DestroyContractorContact", "Contractor", new { id = Model.Id, ContractorContactId = x.Id }))
+                                  {
+                                      @Control.SubmitButton("Remove").With("onclick", "return confirm('Are you sure you want to remove this contact?')")
+                                  }
+                               </text>)
+      .TemplateColumnFor("Full Name", x => @Html.ActionLink(x.Contact.FullName, "Show", "Contact", new { id = x.Contact.Id, area = "" }, null))
+      .ColumnFor(x => x.ContactType)
+      .ColumnFor(x => x.Contact.Address)
+      .ColumnFor(x => x.Contact.BusinessPhoneNumber)
+      .ColumnFor(x => x.Contact.MobilePhoneNumber)
+      .ColumnFor(x => x.Contact.FaxNumber))

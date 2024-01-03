@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTrafficControlTicket
+
+@using (Form.BeginForm("Index", "TrafficControlTicket")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town, new {Container = @Model})
+        @Html.EditorFor(x => x.WorkOrder)
+        @Html.EditorFor(x => x.SAPWorkOrderNumber)
+        @Html.EditorFor(x => x.DateApproved)
+        @Html.EditorFor(x => x.HasInvoice)
+        @Html.EditorFor(x => x.BillingParty)
+        @Html.EditorFor(x => x.Status)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

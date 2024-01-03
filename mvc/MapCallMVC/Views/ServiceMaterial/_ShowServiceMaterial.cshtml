@@ -1,0 +1,15 @@
+﻿@model ServiceMaterial
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.CompanyEPACode)
+    @Html.DisplayFor(x => x.CustomerEPACode)
+    @Html.DisplayFor(x => x.IsEditEnabled)
+
+    <legend>EPA Overrides:</legend>
+    @(Html.TableFor(x => x.ServiceMaterialEPACodeOverrides, new { id = "epaOverrideTable" })
+          .ColumnFor(s => s.State)
+          .ColumnFor(s => s.CompanyEPACode)
+          .ColumnFor(s => s.CustomerEPACode)
+        )
+</div>

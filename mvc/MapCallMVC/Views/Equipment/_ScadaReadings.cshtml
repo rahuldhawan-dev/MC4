@@ -1,0 +1,65 @@
+﻿@using MapCall.Common.Model.Repositories
+@using MMSINC.Helpers
+@using MMSINC.Results
+@model SearchEquipmentScadaReadings
+@{
+    var hasReadings = Model.Readings != null && Model.Readings.Any();
+}
+
+@using (var f = Form.BeginAjaxRouteForm("DefaultShowChild", new {id = Model.Id}))
+{
+    f.Action = "ScadaReadings";
+    f.Controller = "Equipment";
+
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.UseRaw)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Refresh")
+                              @if (hasReadings)
+                              {
+                                  @Html.LinkButton("Export", "ScadaReadings", "Equipment", Model.ToRouteValuesForExcel())
+                              }
+                           </text>)
+    </div>
+
+    if (!hasReadings)
+    {
+        <div class="container">
+            No readings were found.
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            @{
+                var cb = new ChartBuilder<DateTime, decimal> {
+                    Interval = ChartIntervalType.Minute,
+                    YMinValue = Model.Readings.Min(r => r.Value),
+                    YMaxValue = Model.Readings.Max(r => r.Value),
+                    YAxisLabel = Model.TagName.Units,
+                    Title = string.Format("{0}, Between {1} and {2}", Model.TagName, Model.Readings.Min(r => r.TimeStamp), Model.Readings.Max(r => r.TimeStamp))
+                };
+
+                foreach (var reading in Model.Readings)
+                {
+                    cb.AddSeriesValue(reading.TagName, reading.TimeStamp, reading.Value);
+                }
+            }
+
+            @cb
+        </div>
+
+        <div class="field-column fc50">
+        </div>
+
+        <div class="collapse-panel" data-title="Raw Readings Data">
+            @(Html.TableFor(x => x.Readings, new { id = "scada-readings-table" })
+                .ColumnFor(x => x.TagName)
+                .ColumnFor(x => x.TimeStamp)
+                .ColumnFor(x => x.Value))
+        </div>
+    }
+}

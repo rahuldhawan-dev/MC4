@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:p1="http://amwater.com/EAM/0011/MAPCALL/GetNotification" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="GetNotification_OB_SYN" targetNamespace="http://amwater.com/EAM/0011/MAPCALL/GetNotification">
+	<wsdl:documentation />
+	<wsp:UsingPolicy wsdl:required="true" />
+	<wsp:Policy wsu:Id="OP_GetNotification_OB_SYN" />
+	<wsdl:types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://amwater.com/EAM/0011/MAPCALL/GetNotification" targetNamespace="http://amwater.com/EAM/0011/MAPCALL/GetNotification">
+			<xsd:element name="GetNotification_Request" type="GetNotification" />
+			<xsd:element name="GetNotification_Response" type="ReceiveNotification" />
+			<xsd:complexType name="ReceiveNotification">
+				<xsd:sequence>
+					<xsd:element name="Notifications" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AssetType" type="xsd:string" minOccurs="0" />
+								<xsd:element name="NotificationType" type="xsd:string" minOccurs="0" />
+								<xsd:element name="NotificationDescription" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPNotificationNo" type="xsd:string" minOccurs="0" />
+								<xsd:element name="ShortText" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SystemStatus" type="xsd:string" minOccurs="0" />
+								<xsd:element name="UserStatus" type="xsd:string" minOccurs="0" />
+								<xsd:element name="LongText" type="xsd:string" minOccurs="0" />
+								<xsd:element name="PlanningPlant" type="xsd:string" minOccurs="0" />
+								<xsd:element name="ReportedBy" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CustomerName" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Telephone" type="xsd:string" minOccurs="0" />
+								<xsd:element name="FunctionalLOC" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Installation" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Equipment" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Premise" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Locality" type="xsd:string" minOccurs="0" />
+								<xsd:element name="LocalityDescription" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription1" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup1" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode1" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription2" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup2" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode2" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription3" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup3" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode3" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription4" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup4" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode4" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription5" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup5" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode5" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodingGroupCodeDescription6" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCodingGroup6" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPCode6" type="xsd:string" minOccurs="0" />
+								<xsd:element name="DateCreated" type="xsd:string" minOccurs="0" />
+								<xsd:element name="TimeCreated" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Priority" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Address" type="xsd:string" minOccurs="0" />
+								<xsd:element name="House" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Street1" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Street2" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Street5" type="xsd:string" minOccurs="0" />
+								<xsd:element name="City" type="xsd:string" minOccurs="0" />
+								<xsd:element name="OtherCity" type="xsd:string" minOccurs="0" />
+								<xsd:element name="State" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Country" type="xsd:string" minOccurs="0" />
+								<xsd:element name="PostalCode" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Latitude" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Longitude" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SAPStatusMessage" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CustomerEmailAddress" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CriticalNotes" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="GetNotification">
+				<xsd:sequence>
+					<xsd:element name="Notifications" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="PlanningPlant" type="xsd:string" minOccurs="0" />
+								<xsd:element name="DateCreatedFrom" type="xsd:string" minOccurs="0" />
+								<xsd:element name="DateCreatedTo" type="xsd:string" minOccurs="0" />
+								<xsd:element name="WorkCenter" type="xsd:string" minOccurs="0" />
+								<xsd:element name="NotificationType" type="xsd:string" minOccurs="0" />
+								<xsd:element name="SystemStatus" type="xsd:string" minOccurs="0" />
+								<xsd:element name="UserStatus" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Priority" type="xsd:string" minOccurs="0" />
+								<xsd:element name="CodeGroup" type="xsd:string" minOccurs="0" />
+								<xsd:element name="Code" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="CreateWorkOrder" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="SAPNotificationNumber" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="GetNotification_Request">
+		<wsdl:documentation />
+		<wsdl:part name="GetNotification_Request" element="p1:GetNotification_Request" />
+	</wsdl:message>
+	<wsdl:message name="GetNotification_Response">
+		<wsdl:documentation />
+		<wsdl:part name="GetNotification_Response" element="p1:GetNotification_Response" />
+	</wsdl:message>
+	<wsdl:portType name="GetNotification_OB_SYN">
+		<wsdl:documentation />
+		<wsdl:operation name="GetNotification_OB_SYN">
+			<wsdl:documentation />
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP_GetNotification_OB_SYN" />
+			</wsp:Policy>
+			<wsdl:input message="p1:GetNotification_Request" />
+			<wsdl:output message="p1:GetNotification_Response" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GetNotification_OB_SYNBinding" type="p1:GetNotification_OB_SYN">
+		<soap:binding xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetNotification_OB_SYN">
+			<soap:operation xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" soapAction="http://sap.com/xi/WebService/soap1.1" />
+			<wsdl:input>
+				<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+</wsdl:definitions>

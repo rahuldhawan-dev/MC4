@@ -1,0 +1,83 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.MaterialRequisitionForm
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@section head {
+    <style>
+        div.header {
+            width: 100%;
+            text-align: center
+        }
+
+        div.left-details {
+            float: left;
+        }
+
+        div.right-details {
+            float: right;
+        }
+
+        div.details {
+            width: 48%;
+            border: 1px solid black;
+            margin: 3px;
+            padding: 3px;
+            height: 65px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        td {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+    </style>
+}
+
+@section body {
+    <div class="header">
+        <h3>@Html.DisplayValueFor(m => m.OperatingCenter)</h3>
+    </div>
+
+    <div>
+        <h2>Material Requisition Form</h2>
+
+        <div class="details left-details">
+            @DateTime.Now.ToShortDateString() <br />
+            Project Location: @Html.DisplayValueFor(m => m.ProjectName)
+        </div>
+
+        <div class="details right-details">
+            PWO File # @Html.DisplayValueFor(m => m.ProjectNumber) <br />
+            WBS # @Html.DisplayValueFor(m => m.WBSNumber) <br />
+            Town @Html.DisplayValueFor(m => m.Town) <br />
+        </div>
+    </div> <br style="clear:both"/>
+
+    <h4>Questions regarding this order should be directed to: @Html.DisplayValueFor(m => m.Estimator)</h4>
+
+    <h4>Order Material from Internal Good and Service Shopping Cart</h4> <br />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Stock Part Number</th>
+                <th>Units</th>
+                <th>SAP Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var material in Model.GroupedMaterials)
+            {
+                <tr>
+                    <td>@Html.DisplayValueFor(_ => material.Material.PartNumber)</td>
+                    <td>@Html.DisplayValueFor(_ => material.Quantity)</td>
+                    <td>@Html.DisplayValueFor(_ => material.Material.Description)</td>
+                </tr>
+            }                
+        </tbody>
+    </table> <br /><br />
+}

@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorInsurance
+
+@(Html.TableFor(_ => Model, new { Id = "contractorInsurancesTable" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ContractorInsurance", new { x.Id }, null))
+      .ColumnFor(x => x.InsuranceProvider)
+      .ColumnFor(x => x.PolicyNumber)
+      .ColumnFor(x => x.ContractorInsuranceMinimumRequirement, "Coverage")
+      .ColumnFor(x => x.MeetsCurrentContractualLimits)
+      .ColumnFor(x => x.EffectiveDate)
+      .ColumnFor(x => x.TerminationDate))

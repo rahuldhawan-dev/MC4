@@ -1,0 +1,9 @@
+﻿@model GeneralLiabilityClaim
+@{
+    ActionBarHelper.AddMapLink();
+    ActionBarHelper.AddPdfLink();
+}
+@(Html.Tabs()
+    .WithTab("General Liability Claim", "_Show")
+    .WithTab("Five Whys", "_ShowFiveWhys", isVisible: Model.FiveWhysCompleted)
+    .WithNotesDocumentsAndActionItems())

@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels.CreateServiceLineProtectionInvestigation
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/ServiceLineProtectionInvestigation/Form.js", ScriptLoadType.LoadFromPartial)
+}
+
+@using (Form.BeginForm("Create", "ServiceLineProtectionInvestigation", "ServiceLineProtection")) {
+    <div class="field-column fc200">
+        
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "ServiceLineProtectionInvestigation")
+                           </text>)
+    </div>
+}

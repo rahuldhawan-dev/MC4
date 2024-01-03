@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization.SearchWorkOrderFinalization
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@(Html.TableFor(x => x, new { id="finalizationWorkOrdersTable"})
+      .WithCaption("Records found:" + Model.Count)
+      .SortableTemplateColumnFor("", "Id", x => 
+	      @<text>
+		      @Html.ActionLink(x.Id.ToString(), "Edit", "WorkOrderFinalization", new { x.Id, area = "FieldOperations" }, null)
+	      </text>)
+      .WithWorkOrderRowStyles()
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street)
+      .SortableColumnFor(x => x.NearestCrossStreet)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.TownSection)
+      .SortableColumnFor(x => x.WorkDescription)
+      .WithCellBuilder((model, tag) => {
+	      tag.Attributes.Add("title", model.Notes);
+      })
+      .SortableColumnFor(x => x.CurrentCrew)
+      .SortableColumnFor(x => x.Purpose)
+      .WithPaginatedFooter()
+	)

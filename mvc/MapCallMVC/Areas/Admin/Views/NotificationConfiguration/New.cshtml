@@ -1,0 +1,34 @@
+﻿@using MapCallMVC.Areas.Admin.Controllers
+@model MapCallMVC.Areas.Admin.Models.ViewModels.NotificationConfigurations.CreateNotificationConfigurations
+
+@{
+    var operatingCentersByState = (List<OperatingCenterState>)ViewData[NotificationConfigurationController.OPERATING_CENTER_STATES_VIEWDATA_KEY];
+    // Key needs to be a string, the JSON serializer fails otherwise.
+    var opcByStateDictionary = operatingCentersByState.GroupBy(x => x.StateId).ToDictionary(x => x.Key.ToString(), x => x.Select(y => y.OperatingCenterId).ToList());
+}
+
+@section scripts {
+    <script>
+        window.operatingCentersByState = @Html.Raw(@Json.Encode(opcByStateDictionary));
+    </script>
+    @Html.ScriptFor("~/Scripts/Areas/Admin/NotificationConfiguration/New.js")
+}
+
+
+@using (Form.BeginForm("Create", "NotificationConfiguration", "Admin"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Contacts)
+        @Html.EditorFor(x => x.States)
+        @Html.EditorFor(x => x.AppliesToAllOperatingCenters)
+        @Html.EditorFor(x => x.OperatingCenters)
+        @Html.EditorFor(x => x.Application)
+        @Html.EditorFor(x => x.Module)
+        @Html.EditorFor(x => x.NotificationPurposes)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

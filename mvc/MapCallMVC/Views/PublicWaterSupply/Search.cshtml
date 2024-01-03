@@ -1,0 +1,37 @@
+﻿@model SearchPublicWaterSupply
+
+@if (Html.CurrentUserCanEdit() == false)
+{
+    <div class="container" style="margin-bottom: 12px;">
+        <div class="notification notification-item-warning">
+            <img src="@Url.Content("~/Resources/Png/?file=Icons/notification-icon.png")"/>
+            <div class="message">
+                To request a change to a Public Water Supply Record or a new Public Water Supply, please email @Html.Link("mailto:pwsid@amwater.com", "pwsid@amwater.com").
+            </div>
+        </div>
+    </div>
+}
+
+@using (Form.BeginForm("Index", "PublicWaterSupply")) {
+<div class="field-column fc225 searchFields">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.OperatingArea)
+    @Html.EditorFor(x => x.System)
+    @Html.EditorFor(x => x.Identifier)
+    @Html.EditorFor(x => x.Status)
+    @Html.EditorFor(x => x.Ownership)
+    @Html.EditorFor(x => x.Type)
+    @Html.EditorFor(x => x.HasConsentOrder)
+    @Html.EditorFor(x => x.DateOfOwnership)
+    @Html.EditorFor(x => x.ConsentOrderStartDate)
+    @Html.EditorFor(x => x.ConsentOrderEndDate)
+    @Html.EditorFor(x => x.NewSystemInitialSafetyAssessmentCompleted)
+    @Html.EditorFor(x => x.NewSystemInitialWQEnvAssessmentCompleted)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

@@ -1,0 +1,9 @@
+﻿select.asset-select {
+  width: 131px;
+}
+
+td.control img {
+  position: relative;
+  top: -20px;
+  left: 135px;
+}

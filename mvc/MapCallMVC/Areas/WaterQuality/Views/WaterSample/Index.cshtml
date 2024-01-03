@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterSample
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.OperatingCenter, "ss.OperatingCenter")
+    .ColumnFor(x => x.SampleIdMatrix.SampleSite.PublicWaterSupply.Identifier, "PWSID")
+    .SortableColumnFor(x => x.SampleDate)
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.LocationNameDescription, "Description", "ss.LocationNameDescription")
+    .SortableColumnFor(x => x.SampleIdMatrix.WaterConstituent, "sim.WaterConstituent")
+    .SortableColumnFor(x => x.UnitOfMeasure)
+    .SortableColumnFor(x => x.SampleIdMatrix.Parameter, "sim.Parameter")
+    .SortableColumnFor(x => x.NonDetect)
+    .SortableColumnFor(x => x.IsInvalid)
+    .SortableColumnFor(x => x.SampleValue)
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.BactiSite, "ss.BactiSite")
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.LeadCopperSite, "ss.LeadCopperSite")
+    .SortableColumnFor(x => x.AnalysisPerformedBy)
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.Town, "ss.Town")
+    .SortableColumnFor(x => x.SampleIdMatrix.SampleSite.ZipCode, "ss.ZipCode")
+    .SortableColumnFor(x => x.CollectedBy)
+    .WithPaginatedFooter())

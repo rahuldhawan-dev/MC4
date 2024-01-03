@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.SearchEnvironmentalNonComplianceEventActionItem
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink(x.EnvironmentalNonComplianceEvent.Id.ToString(), "Show", "EnvironmentalNonComplianceEvent",null,null,"ActionItemsTab", new {x.EnvironmentalNonComplianceEvent.Id, area = "Environmental"}, null))
+      .SortableColumnFor(x => x.EnvironmentalNonComplianceEvent.State)
+      .SortableColumnFor(x => x.EnvironmentalNonComplianceEvent.OperatingCenter)
+      .SortableColumnFor(x => x.Type)
+      .SortableColumnFor(x => x.NotListedType)
+      .SortableColumnFor(x => x.ActionItem)
+      .SortableColumnFor(x => x.ResponsibleOwner.FullName, "Responsible Owner", "ResponsibleOwner.FullName")
+      .SortableColumnFor(x => x.TargetedCompletionDate)
+      .SortableColumnFor(x => x.DateCompleted)
+    .WithPaginatedFooter()
+)

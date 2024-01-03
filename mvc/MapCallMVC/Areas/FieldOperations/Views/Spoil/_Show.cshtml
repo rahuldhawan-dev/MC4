@@ -1,0 +1,21 @@
+﻿@model Spoil
+@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Authentication
+@using MMSINC.Metadata
+
+<tr>
+    <td>@Html.DisplayTextFor(x => x.Quantity)</td>
+    <td>@Html.DisplayTextFor(x => x.SpoilStorageLocation)</td>
+    <td>
+        <div>
+            @Ajax.ActionLink("Edit", "Edit", "Spoil", new { Model.Id }, new AjaxOptions { HttpMethod = "GET" })
+        </div>
+        <div>
+            @{
+                var meh = Ajax.SecureActionLink<User>(_container.GetInstance<ISecureFormTokenService>(), _container.GetInstance<IAuthenticationService<User>>().CurrentUser,
+                    "Delete", "Destroy", "Spoil", new { area = "FieldOperations", id = Model.Id }, new AjaxOptions { HttpMethod = "DELETE", Confirm = "Are you sure you want to delete this record?" });
+                @meh
+            }
+        </div>
+    </td>
+</tr>

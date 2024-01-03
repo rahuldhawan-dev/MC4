@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPrePlanning.AssignWorkOrderPrePlanning
+
+<fieldset>
+    <legend>Assign Work</legend>
+    @Control.HiddenFor(x => x.OperatingCenter)
+    @Html.Label("AssignToLabel", "Assign To:")
+    @Html.RadioButton("AssignTo", "user", true)
+    @Html.Label("AssignToUser", "Assign to User")
+    @Html.RadioButton("AssignTo", "contractor")
+    @Html.Label("AssignToContractor", "Assign to Contractor")
+    @Html.EditorWithoutWrapperFor(x => x.AssignedTo)
+    @Html.EditorWithoutWrapperFor(x => x.ContractorAssignedTo, new {@class = "hidden"})
+    @Control.SubmitButton("Assign")
+</fieldset>

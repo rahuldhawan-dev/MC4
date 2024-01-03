@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace" xmlns:p1="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace" xmlns:p2="http://amwater.com/PTB/200014/SAPPM/Device_Remove_Replace" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://amwater.com/PTB/200014/SAPPM/Device_Remove_Replace" xmlns="http://amwater.com/PTB/200014/SAPPM/Device_Remove_Replace" xmlns:p10="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace"/>
+            <xsd:element name="DeviceRemoveReplace_Response" type="p10:Device_Remove_Replace_Status"/>
+        </xsd:schema>
+    <xsd:schema targetNamespace="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace" xmlns="http://amwater.com/PTB/200014/MAPCALL/Device_Remove_Replace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="DeviceRemoveReplace_Request" type="Device_Remove_Replace"/>
+            <xsd:complexType name="Device_Remove_Replace_Status">
+                <xsd:sequence>
+                    <xsd:element name="WorkOrderNo" type="xsd:string"/>
+                    <xsd:element name="SAPStatus" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Device_Remove_Replace">
+                <xsd:sequence>
+                    <xsd:element name="WorkOrderNo" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="EngineerID" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MiscInvoice" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="BackOfficeReview" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="CompletionStatus" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Register1ReasonCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Register2ReasonCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="InvestigationExpiryDate" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="FSRComments" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity1" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity2" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity3" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity4" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity5" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity6" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity7" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity8" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity9" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Activity10" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="WorkInformationQualityIssue" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="AdditionalWorkNeeded" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Purpose" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="NotificationItemText" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="NeedTwoManCrew" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="TechnicalInspectedOn" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="TechnicalInspectedBy" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ServiceFound" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ServiceLeft" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="OperatedPointofControl" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="AdditionalInformation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="CurbBoxMeasurementDescription" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MeterPositionalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MeterDirectionalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MeterSupplementalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ReadingDevicePositionalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ReadingDeviceSupplementalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ReadingDeviceDirectionalLocation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="SafetyConcern" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="HeatType" type="xsd:string"/>
+                    <xsd:element name="ActionFlag" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Installation" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="MeterSerialNo" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ManufacturerSerialNumber" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="OldMeterSerialNumber" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="DeviceCategory" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="ReasonForInstall_Replace_Remove" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="RegisterNode">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="Dials" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="UOM" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Size" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MIUnumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="EncoderID" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="OldRead" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NewRead" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="ReadType" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="Latitude" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="Longitude" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="LeakDetectedNonCompany" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="LeakDetectedDate" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="FSRInteraction" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="InspectionDate" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="InspectionPassed" type="xsd:string"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="ViolationCode" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="InternalLeadPipingIndicator" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="CustomerSideMaterial" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="LeadInspectionDate" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="LeadInspectedBy" type="xsd:string"/>
+                    <xsd:element minOccurs="0" name="SecureAccess" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DeviceRemoveReplace_Response">
+<wsdl:documentation/>
+    <wsdl:part name="DeviceRemoveReplace_Response" element="p2:DeviceRemoveReplace_Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeviceRemoveReplace_Request">
+<wsdl:documentation/>
+    <wsdl:part name="DeviceRemoveReplace_Request" element="p1:DeviceRemoveReplace_Request">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeviceRemoveReplace_OB_SYC">
+<wsdl:documentation/>
+    <wsdl:operation name="DeviceRemoveReplace_OB_SYC">
+<wsdl:documentation/>
+      <wsdl:input message="p1:DeviceRemoveReplace_Request">
+    </wsdl:input>
+      <wsdl:output message="p1:DeviceRemoveReplace_Response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeviceRemoveReplace_OB_SYCBinding" type="p1:DeviceRemoveReplace_OB_SYC">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:Policy>
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+    <wsdl:operation name="DeviceRemoveReplace_OB_SYC">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:DeviceRemoveReplace_OB_SYCBinding">
+      <soap:address location="https://e10028-iflmap.hcisbt.us3.hana.ondemand.com:443/cxf/DeviceRemoveReplace"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy required="true"/>
+    <wsp:Policy wsu:Id="BN__binding">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <wsp:ExactlyOne>
+                                            <sp:HttpBasicAuthentication/>
+                                            <sp:RequireClientCertificate/>
+                                        </wsp:ExactlyOne>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256/>
+                                    <sp:Basic192/>
+                                    <sp:Basic128/>
+                                    <sp:TripleDes/>
+                                    <sp:Basic256Rsa15/>
+                                    <sp:Basic192Rsa15/>
+                                    <sp:Basic128Rsa15/>
+                                    <sp:TripleDesRsa15/>
+                                    <sp:Basic256Sha256/>
+                                    <sp:Basic192Sha256/>
+                                    <sp:Basic128Sha256/>
+                                    <sp:TripleDesSha256/>
+                                    <sp:Basic256Sha256Rsa15/>
+                                    <sp:Basic192Sha256Rsa15/>
+                                    <sp:Basic128Sha256Rsa15/>
+                                    <sp:TripleDesSha256Rsa15/>
+                                </wsp:ExactlyOne>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

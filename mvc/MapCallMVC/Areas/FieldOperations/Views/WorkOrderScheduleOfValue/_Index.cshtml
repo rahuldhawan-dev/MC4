@@ -1,0 +1,32 @@
+﻿@model WorkOrder
+
+@* NOTE: This view is loaded directly from the work order finalization tab. There is no specific Index action. *@
+@* This is used by supervisor approval as well. *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrderScheduleofValue/Index.js", ScriptLoadType.LoadFromPartial)
+@{ WorkOrderScheduleOfValue temp = null; }
+
+@Ajax.ActionLink("Add Schedule Of Value", "New", "WorkOrderScheduleOfValue",
+	new { area = "FieldOperations", workOrderId = @Model.Id },
+	new AjaxOptions { HttpMethod = "GET" },
+	new { data_ajax_table = "#scheduleOfValuesTable", Class = "link-button" })
+
+<table id="scheduleOfValuesTable">
+	<thead>
+	<tr>
+		<th>@Html.DisplayLabelFor(_ => temp.ScheduleOfValue.ScheduleOfValueCategory)</th>
+		<th>@Html.DisplayLabelFor(_ => temp.ScheduleOfValue)</th>
+		<th>@Html.DisplayLabelFor(_ => temp.OtherDescription)</th>
+		<th>@Html.DisplayLabelFor(_ => temp.Total)</th>
+		<th>@Html.DisplayLabelFor(_ => temp.ScheduleOfValue.UnitOfMeasure)</th>
+		<th>@Html.DisplayLabelFor(_ => temp.IsOvertime)</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var scheduleOfValue in Model.WorkOrdersScheduleOfValues)
+	{
+		@Html.Partial("~/Areas/FieldOperations/Views/WorkOrderScheduleOfValue/_Show.cshtml", scheduleOfValue)
+	}
+	</tbody>
+</table>
+

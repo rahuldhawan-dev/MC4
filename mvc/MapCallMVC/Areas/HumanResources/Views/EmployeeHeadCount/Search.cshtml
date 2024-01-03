@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.SearchEmployeeHeadCount
+
+@using (Form.BeginForm("Index", "EmployeeHeadCount", "HumanResources"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.BusinessUnit)
+        @Html.EditorFor(x => x.AreaName)
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.Category)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

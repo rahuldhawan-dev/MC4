@@ -1,0 +1,27 @@
+﻿@model Contractors.Models.ViewModels.EditMainBreak
+
+<div style="width:500px;">
+    @using (var f = Form.BeginAjaxForm("Update", "MainBreak", new { id = Model.Id }))
+    {
+        f.HtmlAttributes["title"] = "Edit Main break";
+        @Control.HiddenFor(x => x.DisplayFootageReplaced)
+        @Control.HiddenFor(x => x.WorkOrder)
+        <div class="field-column fc150">
+            @Html.EditorFor(m => m.MainBreakMaterial)
+            @Html.EditorFor(m => m.FootageReplaced)
+            @Html.EditorFor(m => m.ReplacedWith)
+            @Html.EditorFor(m => m.MainCondition)
+            @Html.EditorFor(m => m.MainFailureType)
+            @Html.EditorFor(m => m.Depth)
+            @Html.EditorFor(m => m.MainBreakSoilCondition)
+            @Html.EditorFor(m => m.CustomersAffected)
+            @Html.EditorFor(m => m.ShutdownTime)
+            @Html.EditorFor(m => m.MainBreakDisinfectionMethod)
+            @Html.EditorFor(m => m.MainBreakFlushMethod)
+            @Html.EditorFor(m => m.ChlorineResidual)
+            @Html.EditorFor(m => m.BoilAlertIssued)
+            @Html.EditorFor(m => m.ServiceSize)
+        </div>
+        @Html.Partial("_DialogButtons", "Update Main Break")
+    }
+</div>

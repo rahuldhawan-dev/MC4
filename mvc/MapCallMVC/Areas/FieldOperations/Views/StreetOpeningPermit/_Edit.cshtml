@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.StreetOpeningPermits.EditStreetOpeningPermit
+
+<div style="width:500px">
+    @using (var f = Form.BeginAjaxForm("Update", "StreetOpeningPermit", new { id = Model.Id }))
+    {
+        f.HtmlAttributes["title"] = "Edit Street Opening Permit";
+        @Html.HiddenFor(x => x.WorkOrder)
+
+        <div class="field-column fc100">
+            @Html.EditorFor(x => x.StreetOpeningPermitNumber)
+            @Html.EditorFor(x => x.DateRequested)
+            @Html.EditorFor(x => x.DateIssued)
+            @Html.EditorFor(x => x.ExpirationDate)
+            @Html.EditorFor(x => x.Notes)
+        </div>
+        @Html.Partial("_DialogButtons", "Save Permit")
+    }
+</div>

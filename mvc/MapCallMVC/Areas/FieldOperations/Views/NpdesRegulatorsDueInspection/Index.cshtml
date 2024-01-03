@@ -1,0 +1,27 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchNpdesRegulatorsDueInspection
+@{
+    ActionBarHelper.AddExportLink();
+    if (Model.Count > SearchNpdesRegulatorsDueInspectionForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchNpdesRegulatorsDueInspectionForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink(new { Model.OperatingCenter, controller = "AssetMap" });
+    }
+}
+
+@(Html.TableFor(x => Model, new { id = "results", style = "width:auto;" })
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "SewerOpening", new { area = "FieldOperations", id = x.Id }))
+      .TemplateColumnFor(x => Html.AuthorizedActionLink("Inspect", "New", "NPDESRegulatorInspection", new { area = "FieldOperations", id = x.Id }))
+      .SortableColumnFor(x => x.OpeningNumber)
+      .ColumnFor(x => x.OperatingCenter.OperatingCenterCode)
+      .ColumnFor(x => x.Town)
+      .ColumnFor(x => x.NpdesPermitNumber)
+      .SortableColumnFor(x => x.OutfallNumber)
+      .SortableColumnFor(x => x.BodyOfWater)
+      .SortableColumnFor(x => x.LocationDescription)
+      .SortableColumnFor(x => x.Status)
+      .WithPaginatedFooter())

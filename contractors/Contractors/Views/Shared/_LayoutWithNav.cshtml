@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section nav {
+    @Html.Partial("_NavMenuPartial")
+}
+
+@section styles {
+    @RenderSection("styles", required: false)
+    <link href="@Url.Content("~/Content/Print.css")" rel="stylesheet" type="text/css" media="print" />
+}
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}
+@RenderBody()

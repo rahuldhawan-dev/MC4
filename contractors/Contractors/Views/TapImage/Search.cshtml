@@ -1,0 +1,38 @@
+﻿@model Contractors.Models.ViewModels.SearchTapImage
+@{
+	ViewBag.Title = "Tap Images";
+}
+@using (Form.BeginForm("Index", "TapImage"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.ServiceNumber)
+        @Html.EditorFor(x => x.PremiseNumber)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.County)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.StreetPrefix)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.CrossStreet)
+        @Html.EditorFor(x => x.StreetSuffix)
+        @Html.EditorFor(x => x.ApartmentNumber)
+        @Html.EditorFor(x => x.ServiceType)
+        @Html.EditorFor(x => x.Lot)
+        @Html.EditorFor(x => x.Block)
+        @Html.EditorFor(x => x.ServiceSize)
+        @Html.EditorFor(x => x.ServiceMaterial)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.HasAsset)
+        @Html.EditorFor(x => x.OfficeReviewRequired)
+        @Html.EditorFor(x => x.HasValidPremiseNumber)
+        @Html.EditorFor(x => x.ServiceMaterialIsNull)
+        @Html.EditorFor(x => x.CreatedAt)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

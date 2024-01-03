@@ -1,0 +1,20 @@
+﻿@model AddTrainingSession
+
+@using (var form = Form.BeginRouteForm("TrainingRecord", "TrainingSession", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "trainingSessionForm");
+
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.Instructor)
+        @Control.HiddenFor(x => x.SecondInstructor)
+
+        @Html.EditorFor(x => x.StartDateTime)
+        @Html.EditorFor(x => x.EndDateTime)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Training Session")
+            @Control.Button("Cancel").WithId("cancelAddTrainingSessionButton").WithCssClass("cancel")
+        </text>)
+    </div>
+}

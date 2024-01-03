@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchFunctionalLocation
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.AssetType, "AssetType")
+    .SortableColumnFor(x => x.IsActive)
+    .WithPaginatedFooter()
+)

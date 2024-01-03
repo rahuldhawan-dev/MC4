@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder.EditTrafficControl
+
+@using (var form = Form.BeginForm("UpdateTrafficControl", "GeneralWorkOrder", "FieldOperations", new { Model.Id }))
+{
+	<div class="field-column fc200">
+		@Html.DisplayFor(x => x.WorkOrder.TrafficControlRequired)
+		@Html.EditorFor(x => x.NumberOfOfficersRequired)
+		@Html.DisplayFor(x => x.WorkOrder.Notes, new { DisplayName = "Current Notes" })
+		@Html.EditorFor(x => x.AppendNotes)
+        
+		@Html.ButtonGroup(@<text>@Control.SubmitButton("Save").WithId("SaveTrafficControl")</text>)
+	</div>
+}
+    
+
+@Html.ActionLink("Create Traffic Control Ticket", "New", "TrafficControlTicket", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+
+@(Html.TableFor(x => x.WorkOrder.TrafficControlTickets, new { Id = "trafficeControlTickets" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrafficControlTicket", new { id = x.Id, area = "FieldOperations" }, new { target = "_blank" }))
+      .ColumnFor(x => x.WorkStartDate)
+      .ColumnFor(x => x.TotalHours)
+      .ColumnFor(x => x.NumberOfOfficers)
+      .ColumnFor(x => x.BillingParty))

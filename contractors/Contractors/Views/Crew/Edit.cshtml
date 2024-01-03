@@ -1,0 +1,19 @@
+﻿@model Contractors.Models.ViewModels.EditCrew
+
+@{
+    ViewBag.Title = "Edit Crew";
+}
+
+@using (Form.BeginForm("Update", "Crew", new {id = Model.Id})) {
+	<div class="field-column fc100">
+		@Html.EditorFor(m => m.Description)
+		@Html.EditorFor(m => m.Availability)
+		<div class="field-pair">
+			<div class="label"></div>
+			<div class="field">
+				@Control.SubmitButton("Save").WithName("Submit")
+				@Html.LinkButton("Cancel", "Show", "Crew", new { id = Model.Id })
+			</div>
+		</div>
+	</div>  
+}    

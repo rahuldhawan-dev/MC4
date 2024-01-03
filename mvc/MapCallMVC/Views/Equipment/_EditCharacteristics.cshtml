@@ -1,0 +1,15 @@
+﻿@model EditEquipment
+
+@if (Model.EquipmentTypeObj != null && Model.EquipmentTypeObj.CharacteristicFields.Count > 0)
+{
+    <div class="field-column fc250">
+        @foreach (var field in Model.EquipmentTypeObj.CharacteristicFields.Where(x => x.IsActive).OrderBy(x => x.Order))
+        {
+            @Html.RenderEditorTemplate(field.DisplayField,
+                @<text>
+                    @Html.EditorForEquipmentCharacteristicField(field, Model.Characteristics)
+                    @Html.ValidationMessage(field.FieldName)
+                </text>)
+        }
+    </div>
+}

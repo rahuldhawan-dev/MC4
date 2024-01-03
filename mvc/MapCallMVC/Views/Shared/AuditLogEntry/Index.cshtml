@@ -1,0 +1,8 @@
+﻿@using MMSINC.Results
+@model SecureSearchAuditLogEntryForSingleRecord
+
+@* If  you're looking for search parameters in here, you won't. They are all secured via the WithTab TabBuilder extension method. *@
+@using (Form.BeginAjaxForm("SecureIndexForSingleRecord", "AuditLogEntry", string.Empty, new RouteValueDictionary {{ResponseFormatter.ROUTE_EXTENSION_PARAMETER_NAME, ResponseFormatter.KnownExtensions.FRAGMENT}}))
+{
+
+}

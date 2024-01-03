@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchJobSiteCheckList
+@{
+    ActionBarHelper.AddMapLink();
+}
+@(Html.TableFor(x => Model, new{ id = "search-results" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.CheckListDate)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Address)
+	.SortableColumnFor(x => x.CompetentEmployee)
+	.SortableColumnFor(x => x.HasExcavation)
+	.SortableColumnFor(x => x.SAPWorkOrderId)
+    .SortableColumnFor(x => x.MapCallWorkOrder)
+    .WithPaginatedFooter())

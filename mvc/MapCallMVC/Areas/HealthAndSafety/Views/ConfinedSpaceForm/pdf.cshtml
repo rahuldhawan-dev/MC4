@@ -1,0 +1,537 @@
+﻿@using MapCall.Common.Model.Entities
+@model ConfinedSpaceForm
+
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+
+    var UNSIGNED = "This section has not been signed.";
+    var hazardSignature = UNSIGNED;
+    var reclassificationSignature = UNSIGNED;
+    var entrySignature = UNSIGNED;
+    var cancelSignature = UNSIGNED;
+    var _loopTestCounter = 1;
+    var entrantTypes = (IEnumerable<ConfinedSpaceFormEntrantType>)ViewData["EntrantTypes"];
+    var cancellationNote = "";
+
+    if (Model.HazardSignedBy != null)
+    {
+        hazardSignature = Model.HazardSignedBy.FullName;
+    }
+
+    if (Model.ReclassificationSignedBy != null)
+    {
+        reclassificationSignature = Model.ReclassificationSignedBy.FullName;
+    }
+
+    if (Model.BeginEntryAuthorizedBy != null)
+    {
+        entrySignature = Model.BeginEntryAuthorizedBy.FullName;
+    }
+
+    if (Model.PermitCancelledBy != null)
+    {
+        cancelSignature = Model.PermitCancelledBy.FullName;
+    }
+
+    if (Model.PermitCancellationNote != null)
+    {
+        cancellationNote = Model.PermitCancellationNote;
+    }
+}
+
+@functions {
+    public static string GetEntrantName(ConfinedSpaceFormEntrant entrant)
+    {
+        if (entrant.Employee != null)
+        {
+            return string.Format("{0} (Employee)", entrant.Employee.FullName);
+        }
+
+        return string.Format("{0} (Contractor - {1})", entrant.ContractorName, entrant.ContractingCompany);
+    }
+}
+
+@helper CheckBoxWithLabel(string label, bool isChecked)
+{
+    <div class="checkbox-label-wrap">
+        @if (isChecked)
+        {
+            <input type="checkbox" checked="checked"/>
+        }
+        else
+        {
+            <input type="checkbox"/>
+        }
+        <label>@label</label>
+    </div>
+}
+
+@helper YesNahNoCheckBox(bool? isChecked)
+{
+    @CheckBoxWithLabel("Yes", isChecked.HasValue && isChecked == true)
+    @CheckBoxWithLabel("No", isChecked.HasValue && isChecked == false)
+    @CheckBoxWithLabel("N/A", !isChecked.HasValue)
+}
+
+@section head {
+    <style type="text/css">
+        /* THIS IS FOR THIS SPECIFIC PDF */
+
+        * {
+            font-family: Arial;
+            font-size: 17px;
+            line-height: 1.2em;
+        }
+
+        h2 { font-size: 28px; }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 36px;
+            border: 2px solid black;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 4px;
+        }
+
+        td.answer-box { border: solid 1px grey; }
+
+        td.section-title {
+            border: solid 1px grey;
+            font-size: 20px;
+            padding: 6px;
+            margin: 6px;
+            font-weight: bold;
+        }
+
+        div.checkbox-label-wrap {
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        label { font-weight: bold; }
+
+        .bold { font-weight: bold; }
+
+        #top-table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 24px;
+            border: 2px solid whitesmoke;
+        }
+
+        #top-table td { padding: 6px; }
+
+        table.section-5 {
+            page-break-before:always;
+        }
+
+    </style>
+}
+
+@section body{
+
+    <Top-table>
+        <tr>
+            <td colspan="12" style="text-align: right">
+                <img id="aw-logo" style="float: right;" style="width: 150px;" src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12">
+                <h2 style="text-align: left">CONFINED SPACE ENTRY PERMIT FORM</h2>
+            </td>
+        </tr>
+    </Top-table>
+    <table>
+        <tr>
+            <td class="section-title" colspan="24">SECTION I. General Information (Required for all entries)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box bold">Date and Time:</td>
+            <td colspan="12" class="answer-box bold">@Html.DisplayValueFor(x => x.GeneralDateTime)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box bold">Location And Description Of Confined Space</td>
+            <td colspan="12" class="answer-box bold">@Html.DisplayValueFor(x => x.LocationAndDescriptionOfConfinedSpace)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box bold" style="white-space: nowrap;">Purpose Of Entry</td>
+            <td colspan="12" class="answer-box bold">@Html.DisplayValueFor(x => x.PurposeOfEntry)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box bold">Work Order</td>
+            <td colspan="12" class="answer-box bold">
+                @if (Model.ProductionWorkOrder != null)
+                {
+                    @Html.DisplayValueFor(x => x.ProductionWorkOrder.Id)
+                }
+                else if (Model.ShortCycleWorkOrderNumber != null)
+                {
+                    @Html.DisplayValueFor(x => x.ShortCycleWorkOrderNumber)
+                }
+                else
+                {
+                    @Html.DisplayValueFor(x => x.WorkOrder.Id)
+                }
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td class="section-title" colspan="24">Section II. Atmospheric Testing (Required for all entries)</td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Gas Monitor:</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.GasMonitor.EquipmentDescription)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Make</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.GasMonitor.Manufacturer)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Model</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.GasMonitor.EquipmentModel)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Serial Number</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.GasMonitor.SerialNumber)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Bump Tester's Name</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.BumpTestConfirmedBy)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Bump Test Date and Time</td>
+            <td class="answer-box" colspan="12">
+                @Html.DisplayValueFor(x => x.BumpTestConfirmedAt)
+            </td>
+        </tr>
+        @if (Model.AtmosphericTests.Count == 0)
+        {
+            <tr>
+                <td colspan="24"> </td>
+            </tr>
+            <tr>
+                <td colspan="24">No atmospheric tests performed </td>
+            </tr>
+            <tr>
+                <td colspan="24"> </td>
+            </tr>
+        }
+        @for (var h = 0; h < Model.AtmosphericTests.Count; h++, _loopTestCounter++)
+        {
+            <tr>
+                <td colspan="24"> </td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">Test #@_loopTestCounter</td>
+                <td class="answer-box" colspan="8">Reading Taken: @Html.DisplayValueFor(x => x.AtmosphericTests[h].ConfinedSpaceFormReadingCaptureTime)</td>
+                <td class="answer-box" colspan="4">Top</td>
+                <td class="answer-box" colspan="4">Middle</td>
+                <td class="answer-box" colspan="4">Bottom</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">Oxygen %</td>
+                <td class="answer-box" colspan="8">Acceptable range: > 19.5% & < 23.5%</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].OxygenPercentageTop)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].OxygenPercentageMiddle)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].OxygenPercentageBottom)</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">LEL %</td>
+                <td class="answer-box" colspan="8">Acceptable range: < 10%</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].LowerExplosiveLimitPercentageTop)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].LowerExplosiveLimitPercentageMiddle)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].LowerExplosiveLimitPercentageBottom)</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">CO ppm</td>
+                <td class="answer-box" colspan="8">Acceptable range: < 35ppm</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionTop)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionMiddle)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionBottom)</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">CO ppm</td>
+                <td class="answer-box" colspan="8">Acceptable range: < 35ppm</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionTop)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionMiddle)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].CarbonMonoxidePartsPerMillionBottom)</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">H2S ppm</td>
+                <td class="answer-box" colspan="8">Acceptable range: < 10ppm</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].HydrogenSulfidePartsPerMillionTop)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].HydrogenSulfidePartsPerMillionMiddle)</td>
+                <td class="answer-box" colspan="4">@Html.DisplayValueFor(x => x.AtmosphericTests[h].HydrogenSulfidePartsPerMillionBottom)</td>
+            </tr>
+            <tr>
+                <td class="answer-box" colspan="4">Tester's Name</td>
+                <td class="answer-box" colspan="8">@Html.DisplayValueFor(x => x.AtmosphericTests[h].TestedBy)</td>
+                <td class="answer-box" colspan="4">Test At</td>
+                <td class="answer-box" colspan="8">@Html.DisplayValueFor(x => x.AtmosphericTests[h].TestedAt)</td>
+            </tr>
+        }
+        @if (Model.AtmosphericTests.Count >= 1)
+        {
+            <tr>
+                <td colspan="24"></td>
+            </tr>
+        }
+    </table>
+
+
+    <table>
+        <tr>
+            <td class="section-title" colspan="24">Section III. Temporary Reclassification of a Permit-Required Confined Space</td>
+        </tr>
+        <tr>
+            <td colspan="24">
+                Based upon the results of the atmospheric testing and other specific conditions present at the time of entry, it may be possible to "reclassify" a permit-required confined
+                space into a non-permit space. The following conditions must exist in order to consider this reclassification:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">1.</td>
+            <td colspan="22">
+                Initial atmospheric test results are within acceptable ranges (without ventilation) and there is no potential
+                for a hazardous atmosphere to develop during the entry operation.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">2.</td>
+            <td colspan="22">
+                All hazards within the space can be eliminated without entry.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">3.</td>
+            <td colspan="22">
+                No hazards will be introduced into the space during the entry operation.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="24">
+                This reclassification is valid only for the specific entry being made at the date and time annotated on this form.
+                If employees leave the work site and then return, a new permit must be completed and the space re-evaluated to
+                ensure conditions have not changed.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="24">
+            To document that the evaluation of the space and the work to be performed met the criteria for reclassification to a non-permit status,
+            the employee making entry must sign and date immediately below.
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="2">Date</td>
+            <td class="answer-box" colspan="22">@Html.DisplayValueFor(x => x.ReclassificationSignedAt)</td>
+
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="2">Signature</td>
+            <td class="answer-box" colspan="22">@reclassificationSignature</td>
+        </tr>
+    </table>
+
+
+    <table>
+        <tr>
+            <td class="section-title" colspan="24">Section IV. Permit-Required Spaces that pose only an Atmospheric Hazard (actual or potential)</td>
+        </tr>
+        <tr>
+            <td colspan="24">
+                If the permit-required confined space poses only an actual or potential atmospheric hazard
+                that can be controlled with continuous forced air ventilation alone, the space can be entered
+                without requiring an attendant and the use of a retrieval system or rescue service.
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td colspan="24">
+                To document that the atmospheric hazard can be controlled by ventilation alone and that
+                continuous forced air ventilation will be used during the entire entry operation, sign and
+                date this form immediately below. Forward completed form to the Health & SafetyDepartment
+                upon completion of the entry operation.
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="12">Can this be controlled by ventilation alone?</td>
+            <td class="answer-box" colspan="12">@YesNahNoCheckBox(Model.CanBeControlledByVentilationAlone)</td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="2">Date</td>
+            <td class="answer-box" colspan="22">
+                @Html.DisplayValueFor(x => x.HazardSignedAt)
+            </td>
+        </tr>
+        <tr>
+            <td class="answer-box" colspan="2">Signature</td>
+            <td class="answer-box" colspan="22">@hazardSignature</td>
+        </tr>
+    </table>
+
+
+    <table class="section-5">
+        <tr>
+            <td class="section-title" colspan="48">Section V. Full Permit Procedures</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Permit Begins</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.PermitBeginsAt)</td>
+            <td colspan="12" class="answer-box">Permit Ends</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.PermitEndsAt)</td>
+        </tr>
+        @foreach (var entrantType in entrantTypes)
+        {
+            <tr>
+                <td colspan="12" class="answer-box">@string.Format("{0}(s)", entrantType.Description)</td>
+                <td colspan="36" class="answer-box">@string.Join(", ", Model.Entrants.Where(x => x.EntrantType == entrantType).Select(GetEntrantName))</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="48" class="bold" style="text-align: center">Hazard Checklist</td>
+        </tr>
+        @if (Model.Hazards.Count >= 1)
+        {
+            <tr>
+                <td colspan="24" class="answer-box">Hazard</td>
+                <td colspan="24" class="answer-box">How is hazard controlled</td>
+            </tr>
+        }
+        @for (var i = 0; i < Model.Hazards.Count; i++)
+        {
+            <tr>
+                <td colspan="24" class="answer-box">@Html.DisplayValueFor(x => x.Hazards[i].HazardType.Description)</td>
+                <td colspan="24" class="answer-box">@Html.DisplayValueFor(x => x.Hazards[i].Notes)</td>
+            </tr>
+        }
+        @if (Model.Hazards.Count >= 1)
+        {
+            <tr>
+                <td colspan="48"> </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="48" class="answer-box bold" style="text-align: center">Required Safety Equipment</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Warning signs, barriers, or barricades for openings</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasWarningSafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Head protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasHeadSafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Access (ladders or other)</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasAccessSafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Eye protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasEyeSafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Lighting</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasLightingSafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Respiratory protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasRespiratorySafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Ventilation</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasVentilationSafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Hand protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasHandSafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">GFCI or other electrical shielding</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasGFCISafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Fall protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasFallSafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Other</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasOtherSafetyEquipment)</td>
+            <td colspan="12" class="answer-box">Foot protection</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasFootSafetyEquipment)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Method of communication</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.MethodOfCommunication)</td>
+            <td colspan="12" class="answer-box">Method of communication notes</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.MethodOfCommunicationOtherNotes)</td>
+        </tr>
+        <tr>
+            <td colspan="48" class="bold" style="text-align: center">Hot TransactionHelper.Work Permit</td>
+        </tr>
+        <tr>
+            <td colspan="48" style="text-align: center">(Required when using any open flame or spark producing device)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Hot TransactionHelper.Work Permit required?</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.IsHotWorkPermitRequired)</td>
+            <td colspan="12" class="answer-box">Fire Watch required?</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.IsFireWatchRequired)</td>
+        </tr>
+        <tr>
+            <td colspan="48" class="answer-box bold" style="text-align: center">Method of Rescue of Entrants</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Retrieval System (tripod, winch, full body harness)</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasRetrievalSystem)</td>
+            <td colspan="12" class="answer-box">Contract Rescue Service</td>
+            <td colspan="12" class="answer-box">@YesNahNoCheckBox(Model.HasContractRescueService)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Emergency response agency</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.EmergencyResponseAgency)</td>
+            <td colspan="12" class="answer-box">Emergency response contact</td>
+            <td colspan="12" class="answer-box">@Html.DisplayValueFor(x => x.EmergencyResponseContact)</td>
+        </tr>
+        <tr>
+            <td colspan="48" style="text-align: center">AUTHORIZATION TO BEGIN ENTRY OPERATION</td>
+        </tr>
+        <tr>
+            <td colspan="48">
+                I certify that all necessary precautions have been taken and that the authorized entrants have been
+                briefed on the purpose of entry, the tasks to be performed and the safeguards or procedures necessary
+                to follow for this entry.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Date</td>
+            <td colspan="36" class="answer-box">@Html.DisplayValueFor(x => x.BeginEntryAuthorizedAt)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Signature</td>
+            <td colspan="36" class="answer-box">@entrySignature</td>
+        </tr>
+        <tr>
+            <td colspan="48" class="answer-box bold" style="text-align: center">
+                <b>Cancellation of Permit</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Date</td>
+            <td colspan="36" class="answer-box">@Html.DisplayValueFor(x => x.PermitCancelledAt)</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Signature</td>
+            <td colspan="36" class="answer-box">@cancelSignature</td>
+        </tr>
+        <tr>
+            <td colspan="12" class="answer-box">Cancellation Note</td>
+            <td colspan="36" class="answer-box">@cancellationNote</td>
+        </tr>
+    </table>
+}

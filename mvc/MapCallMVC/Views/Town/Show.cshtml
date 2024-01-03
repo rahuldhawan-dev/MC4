@@ -1,0 +1,10 @@
+﻿@model Town
+@(Html.Tabs()
+      .WithTab("Municipality", "_ShowMunicipality", Model)
+      .WithTab("Operating Centers", "_ShowOperatingCenters", Model)
+      .WithTab("Fire Districts", "_ShowFireDistricts", Model)
+      .WithTab("PWSID", "_ShowPublicWaterSupplies", Model)
+      .WithTab("Contacts", "_ShowContacts", Model)
+      .WithTab("Waste Water Systems", "_ShowWasteWaterSystems", Model)
+      .WithTab("Gradients", "_ShowGradients", Model)
+      .WithNotesAndDocuments())

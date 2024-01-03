@@ -1,0 +1,284 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MapCall.Common</RootNamespace>
+    <AssemblyName>MapCall.Common.Mvc</AssemblyName>
+    <TargetFramework>net472</TargetFramework>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <Platform>x64</Platform>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;Release;QA1;QA4</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MapCall.Common\MapCall.Common.csproj" />
+    <ProjectReference Include="..\MapCall.SAP\MapCall.SAP.csproj" />
+    <ProjectReference Include="..\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Antlr" Version="3.5.0.2" />
+    <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
+    <PackageReference Include="dotless" Version="1.6.7" />
+    <PackageReference Include="dotless.AspNetHandler" Version="1.6.7" />
+    <PackageReference Include="dotless.Core" Version="1.6.7" />
+    <PackageReference Include="Iesi.Collections" Version="4.0.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="RazorGenerator.Mvc" Version="2.4.9" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
+    <PackageReference Include="StructureMap" Version="4.7.1" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.Web.Optimization.Less" Version="1.3.5" />
+    <PackageReference Include="WebActivatorEx" Version="2.2.0" />
+    <PackageReference Include="WebGrease" Version="1.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\JS\**\*.js" />
+    <EmbeddedResource Include="Content\CSS\**\*.less" />
+    <EmbeddedResource Include="Content\CSS\**\*.css" />
+    <EmbeddedResource Include="Content\GIF\**\*.gif" />
+    <EmbeddedResource Include="Content\PNG\**\*.png" />
+    <None Remove="Content\JS\LitComponents\observable-array.js" />
+    <None Include="Views\Authorize\_RejectedPayment.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_RejectedPayment.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Error\InvalidSecureForm.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>InvalidSecureForm.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Layout\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Map\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\EmailAddress.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>EmailAddress.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\Int64.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Int64.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\Int32.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Int32.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\Object.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Object.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PhoneNumber.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\StringArray.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>StringArray.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\AjaxFileUpload.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AjaxFileUpload.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\AutoComplete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AutoComplete.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Boolean.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Boolean.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\DateTime.cshtml">
+      <SubType>Code</SubType>
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DateTime.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Decimal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Decimal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\FunctionalLocation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>FunctionalLocation.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Int64.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Int64.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\IntRange.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>IntRange.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\LongRange.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>LongRange.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\MultilineText.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultilineText.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\MultiString.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultiString.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\NumericRange.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NumericRange.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Url.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Url.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Password.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Password.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\RequiredDateRange.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>RequiredDateRange.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\SearchString.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SearchString.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Select.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Select.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\String.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>String.generated.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <None Include="Views\Shared\EditorTemplates\StringArray.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>StringArray.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_MapLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_MapLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_NoFrills.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_NoFrills.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_Menu.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Menu.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_NotificationItem.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_NotificationItem.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_Notifications.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Notifications.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_ApplicationJSBridge.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ApplicationJSBridge.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\Boolean.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Boolean.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\Decimal.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Decimal.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\MultilineText.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MultilineText.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\DisplayTemplates\String.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>String.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\PdfBaseLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>PdfBaseLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\_BaseLayout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_BaseLayout.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Error\Forbidden.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Forbidden.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Error\NotFound.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NotFound.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\Error.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Error.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\DateRange.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DateRange.generated.cs</LastGenOutput>
+    </None>
+    <None Include="Views\Shared\EditorTemplates\Int32.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Int32.generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

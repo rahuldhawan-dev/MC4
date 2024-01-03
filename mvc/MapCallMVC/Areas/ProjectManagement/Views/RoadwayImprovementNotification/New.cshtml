@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreateRoadwayImprovementNotification
+
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RoadwayImprovementNotification/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@using (Form.BeginForm("Create", "RoadwayImprovementNotification", "ProjectManagement"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "RoadwayImprovementNotification")
+                           </text>)
+    </div>
+}

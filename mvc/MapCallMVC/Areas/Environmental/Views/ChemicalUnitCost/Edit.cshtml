@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EditChemicalUnitCost
+
+@using (Form.BeginForm("Update", "ChemicalUnitCost", "Environmental", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "ChemicalUnitCost", new {Model.Id})
+                           </text>)
+    </div>
+}

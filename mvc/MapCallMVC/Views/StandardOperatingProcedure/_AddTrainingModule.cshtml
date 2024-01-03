@@ -1,0 +1,12 @@
+﻿@model AddSOPTrainingModule
+
+@using (var f = Form.BeginRouteForm("StandardOperatingProcedure", "TrainingModule", new { id = Model.Id }, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Html.EditorFor(x => x.TrainingModule)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Training Module")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

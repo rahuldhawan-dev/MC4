@@ -1,0 +1,29 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.MaterialsUsed, new { Id = "materials" })
+      .TemplateColumnFor("Part Number", x => 
+	      @<text>
+		      @if (x.Material != null && x.Material.PartNumber != null)
+		      {
+			      @x.Material.PartNumber
+		      }
+		      else
+		      {
+			      <text>N/A</text>
+		      }
+	       </text>)
+      .ColumnFor(x => x.StockLocation)
+      .ColumnFor(x => x.StockLocation.SAPStockLocation)
+      .TemplateColumnFor("Description", x => 
+	      @<text>
+		      @if (x.Material != null && x.Material.Description != null)
+		      {
+			      @x.Material.Description
+		      }
+		      else
+		      {
+			      @x.NonStockDescription
+		      }
+	       </text>)
+      .ColumnFor(x => x.Quantity)
+	)

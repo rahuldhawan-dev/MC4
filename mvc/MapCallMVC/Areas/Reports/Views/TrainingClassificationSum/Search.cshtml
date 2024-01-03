@@ -1,0 +1,22 @@
+﻿@model SearchTrainingClassificationSum
+
+@{
+    ViewBag.Title = "Employee Training";
+}
+
+@using (Form.BeginForm("Index", "TrainingClassificationSum", "Reports")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.OSHARequirement)
+        @Html.EditorFor(x => x.ClassId)
+        @Html.EditorFor(x => x.TrainingModule)
+        @Html.EditorFor(x => x.PositionGroupCommonName)
+        @Html.EditorFor(x => x.Id, new {Container = @Model})
+        @Html.EditorFor(x => x.Year)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿@model SearchContact
+
+@functions {
+    IHtmlString CreateEmailLink(Contact contact)
+    {
+        var email = contact.Email;
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            return Html.Link("mailto:" + email, email);
+        }
+        return null;
+    }
+}
+
+@(Html.TableFor(x => x, new { id = "contactsTable" })
+    .WithCaption("Records found: " + Model.Count)
+    .SortableTemplateColumnFor("Name", "LastName", x => @Html.ActionLink(x.ContactName, "Show", "Contact", new { id = x.Id, area = ""}, null))
+    .ColumnFor(x => x.ContactName)
+    .TemplateColumnFor("Address", x => @<pre>@x.Address</pre>)
+    .TemplateColumnFor("Email", x => CreateEmailLink(x))
+    .WithPaginatedFooter())

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<AbsenceNotification>
+
+@(Html.TableFor(x => Model, new { id = "nonFmlaAbsenceNotifications" })
+    .TemplateColumnFor("Absence", x => Html.ActionLink(x.Id.ToString(), "Show", "AbsenceNotification", new { x.Id, area = "Operations" }, null))
+    .ColumnFor(x => x.StartDate)
+    .ColumnFor(x => x.EndDate)
+    .ColumnFor(x => x.EmployeeAbsenceClaim)
+    .ColumnFor(x => x.ProgressiveDiscipline)
+    .ColumnFor(x => x.ProgressiveDisciplineAdministered)
+    .ColumnFor(x => x.HumanResourcesNotes)
+    .TemplateColumnFor("Documents", x => @<text>@x.Documents.Count</text>)
+)

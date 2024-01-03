@@ -1,0 +1,59 @@
+﻿body, *
+{
+   font-family: Arial, "Arial Black";
+}
+.title
+{
+   text-align: center;
+}
+.title, .heading
+{
+   text-decoration: underline;
+}
+.title, .label, .heading
+{
+   font-weight: bold;
+}
+.heading
+{
+   font-style: italic;
+}
+.box
+{
+   border: 1px solid black;
+}
+.underline
+{
+   border-bottom: 1px solid black;
+}
+.font_small
+{
+   font-size: 14pt;
+}
+.font_medium
+{
+   font-size: 15pt;
+}
+.font_large
+{
+   font-size: 16pt;
+}
+.font_extra_large
+{
+   font-size: 18pt;
+}
+.grid_12 .alpha
+{
+   margin-right: 9px;
+}
+.grid_12 .omega
+{
+   margin-left: 9px;
+}
+.mu-nu
+{
+   margin-right: 0px;
+   margin-left: 0px;
+}
+
+/* Fixes endless print-preview bug in IE7 .grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12, .grid_13, .grid_14, .grid_15, .grid_16{    *display: block !important;    *float: none !important;    *font-size:small;}*/

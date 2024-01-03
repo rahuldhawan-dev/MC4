@@ -1,0 +1,38 @@
+﻿@model ConfinedSpaceForm
+
+<div class="form-signing-section">
+    <h3>Permit-Required Spaces that pose only an Atmospheric Hazard (actual or potential)</h3>
+
+    <p>
+        If the permit-required confined space poses only an actual or potential atmopheric hazard
+        that can be controlled with continous forced air ventilation alone, the space can be entered
+        without requiring an attendant and the use of a retreival system or rescue service.
+    </p>
+
+    <div class="field-column fc250">
+        @Html.DisplayFor(x => x.CanBeControlledByVentilationAlone)
+    </div>
+
+    @if (!Model.IsHazardSectionSigned)
+    {
+        <div class="signature-section signature-section-unsigned">
+            <div>
+                This section has not been signed.
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="signature-section signature-section-signed">
+            <div>
+                The employee below has signed and dated this entry, acknowledging that the atmospheric hazard can be controlled by ventilation alone and that
+                continuous forced air ventilation will be used during the entire entry operation.
+            </div>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.HazardSignedBy, new { DisplayName = "Signed By" })
+                @Html.DisplayFor(x => x.HazardSignedAt, new { DisplayName = "Signed At" })
+            </div>
+        </div>
+    }
+
+</div>

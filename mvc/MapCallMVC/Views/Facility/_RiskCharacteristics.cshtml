@@ -1,0 +1,23 @@
+﻿@model Facility
+
+    <fieldset>
+        <legend>Risk Based Maintenance Assessment Data</legend>
+        <div class="field-column fc300">
+            @Html.DisplayFor(x => x.Condition)
+            @Html.DisplayFor(x => x.Performance)
+            @Html.DisplayFor(x => x.LikelihoodOfFailure)
+            @Html.DisplayFor(x => x.ConsequenceOfFailure)
+            @Html.DisplayFor(x => x.MaintenanceRiskOfFailure)
+            @Html.DisplayFor(x => x.StrategyTier)
+            @Html.DisplayFor(x => x.ConsequenceOfFailureFactor)
+            @Html.DisplayFor(x => x.WeightedRiskOfFailureScore)
+            @Html.DisplayFor(x => x.RiskBasedCompletedDate)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>J100 - Assessment Data</legend>
+        <div class="field-column fc300">
+            @Html.DisplayFor(x => x.CriticalFacilityIdentified)
+            @Html.DisplayFor(x => x.AssessmentCompletedOn)
+        </div>
+    </fieldset>

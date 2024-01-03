@@ -1,0 +1,43 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.WellTests.WellTestViewModel
+
+@Html.HiddenFor(x => x.ProductionWorkOrder)
+@Html.HiddenFor(x => x.Equipment)
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Work Order</legend>
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.ProductionWorkDescription)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.OperatingCenter.State)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.OperatingCenter)
+        @* if a validation fails, we need the op center so Employee drop-down repopulates *@
+        @Html.HiddenFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.ProductionWorkOrderDisplay.Facility)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Well Information</legend>
+        @Html.DisplayFor(x => x.EquipmentDisplay.Description)
+        @Html.DisplayFor(x => x.CompanySubsidiary)
+        @Html.DisplayFor(x => x.WaterSystem)
+        @Html.DisplayFor(x => x.WellName)
+        @Html.DisplayFor(x => x.WellDiameterTop)
+        @Html.DisplayFor(x => x.WellDiameterBottom)
+        @Html.DisplayFor(x => x.PumpDepth)
+        @Html.DisplayFor(x => x.WellDepth)
+        @Html.DisplayFor(x => x.WellCapacityRating)
+        @Html.DisplayFor(x => x.WellType)
+        @Html.DisplayFor(x => x.MethodOfMeasurement)
+        @Html.DisplayFor(x => x.IsWellVaulted)
+    </fieldset>
+
+    <fieldset>
+        <legend>Test Results</legend>
+        @Html.EditorFor(x => x.Employee)
+        @Html.EditorFor(x => x.DateOfTest)
+        @Html.EditorFor(x => x.PumpingRate)
+        @Html.EditorFor(x => x.MeasurementPoint)
+        @Html.EditorFor(x => x.GradeType)
+        @Html.EditorFor(x => x.StaticWaterLevel)
+        @Html.EditorFor(x => x.PumpingWaterLevel)
+    </fieldset>
+</div>

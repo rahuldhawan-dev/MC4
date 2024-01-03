@@ -1,0 +1,159 @@
+/* 960 Hacks */
+.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12
+{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.container_12 .grid_1
+{
+    width: 66px;
+}
+.container_12 .grid_2
+{
+    width: 146px;
+}
+.container_12 .grid_3
+{
+    width: 226px;
+}
+.container_12 .grid_4
+{
+    width: 306px;
+}
+.container_12 .grid_5
+{
+    width: 386px;
+}
+.container_12 .grid_6
+{
+    width: 466px;
+}
+.container_12 .grid_7
+{
+    width: 546px;
+}
+.container_12 .grid_8
+{
+    width: 626px;
+}
+.container_12 .grid_9
+{
+    width: 706px;
+}
+.container_12 .grid_10
+{
+    width: 786px;
+}
+.container_12 .grid_11
+{
+    width: 866px;
+}
+.container_12 .grid_12
+{
+    width: 940px;
+}
+/* Regular Styles */
+table#materialsUsedTable
+{
+    table-layout: fixed;
+}
+table#materialsUsedTable td, .light-border
+{
+    border: 1px solid black;
+}
+table#materialsUsedTable tbody tr
+{
+    height: 30px;
+}
+table#materialsUsedAccountNumbersTable
+{
+    width: 130px;
+    height: 120px;
+}
+table#materialsUsedAccountNumbersTable tr
+{
+    height: 16px;
+}
+table#materialsUsedAccountNumbersTable td
+{
+    border-style: none;
+    border: none;
+    font-size: small;
+}
+div#notesDiv
+{
+    min-height: 225px;
+}
+div#materialsUsedDiv, div#notesDiv
+{
+    width: 932px;
+}
+div#mainMaterialDiv, div#serviceMaterialDiv, div#typeOfLeakDiv, td.underline
+{
+    border-bottom: 1px solid black;
+}
+div#mainMaterialDiv, div#serviceMaterialDiv, div#typeOfLeakDiv
+{
+    height: 102px;
+}
+div#mainMaterialDiv, div#serviceMaterialDiv
+{
+    border-right: 1px solid black;
+}
+div#typeOfLeakDiv
+{
+    width: 326px;
+}
+table#jobDescriptionTable tbody tr th, table#jobDescriptionTable tbody tr td
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+table#jobInfoTable thead tr th
+{
+    font-size: smaller;
+}
+table#jobInfoTable tbody tr th
+{
+    text-align: left;
+    width: 35%;
+}
+div#dateDiv, div#locationInfoDiv
+{
+    height: 116px;
+}
+div#dateDiv table tr td, div#dateDiv table tr td
+{
+    padding: 6px;
+}
+div#markoutDiv div, table.padded tr td, div#assetInfoDiv div,
+div#materialsUsedDiv, table#materialsUsedTable td, div#notesDiv
+{
+    padding: 2px 2px 2px 6px;
+}
+table
+{
+    width: 100%;
+}
+.fine-print
+{
+    font-size: xx-small;
+    white-space: nowrap;
+}
+.full-border
+{
+    border: 2px solid black;
+    margin: 2px 2px 2px 2px;
+}
+.bold
+{
+	white-space: nowrap;
+    font-weight: bold;
+}
+td.truck-cell
+{
+    text-align: center;
+    vertical-align: top;
+    font-size: xx-small;
+    width: 35px;
+}

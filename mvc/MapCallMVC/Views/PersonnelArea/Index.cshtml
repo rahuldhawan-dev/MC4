@@ -1,0 +1,9 @@
+﻿@model SearchPersonnelArea
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.PersonnelAreaId)
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .WithPaginatedFooter())

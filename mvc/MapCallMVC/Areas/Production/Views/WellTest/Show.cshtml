@@ -1,0 +1,62 @@
+﻿@using MMSINC.Utilities
+@model WellTest
+
+<div class="field-column fc300">
+    <fieldset>
+        <legend>Work Order</legend>
+        @Html.RenderDisplayTemplate("Production Work Order",@<text>
+            @if (Model.ProductionWorkOrder != null)
+            {
+                @Html.ActionLink(Model.ProductionWorkOrder.ProductionWorkDescription.ToString(), "Show", new
+                {
+                    Controller = "ProductionWorkOrder",
+                    Model.ProductionWorkOrder.Id,
+                    area = "Production"
+                })
+            }
+        </text>)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.OperatingCenter.State)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.OperatingCenter)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.Facility)
+    </fieldset>
+
+    <fieldset>
+        <legend>Well Information</legend>
+        @Html.DisplayFor(x => x.Equipment.Description)
+        @Html.RenderDisplayTemplate("",@<text>
+            @if (Model.ProductionWorkOrder != null)
+            {
+                @Html.ActionLink("View Equipment Well Test History", "Show", "Equipment", null,
+                    null,
+                    "WellTestResultsTab", 
+                    new { Model.Equipment.Id, area = "" }, 
+                    null)
+            }
+        </text>)
+        @Html.DisplayFor(x => x.CompanySubsidiary)
+        @Html.DisplayFor(x => x.WaterSystem)
+        @Html.DisplayFor(x => x.WellName)
+        @Html.DisplayFor(x => x.WellDiameterTop)
+        @Html.DisplayFor(x => x.WellDiameterBottom)
+        @Html.DisplayFor(x => x.PumpDepth)
+        @Html.DisplayFor(x => x.WellDepth)
+        @Html.DisplayFor(x => x.WellCapacityRating)
+        @Html.DisplayFor(x => x.WellType)
+        @Html.DisplayFor(x => x.MethodOfMeasurement)
+        @Html.DisplayFor(x => x.IsWellVaulted)
+    </fieldset>
+
+    <fieldset>
+        <legend>Test Results</legend>
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.Employee)
+        @Html.DisplayFor(x => x.DateOfTest)
+        @Html.DisplayFor(x => x.PumpingRate)
+        @Html.DisplayFor(x => x.MeasurementPoint)
+        @Html.DisplayFor(x => x.GradeType)
+        @Html.DisplayFor(x => x.StaticWaterLevel)
+        @Html.DisplayFor(x => x.PumpingWaterLevel)
+        @Html.DisplayFor(x => x.DrawDown)
+        @Html.DisplayFor(x => x.SpecificCapacity)
+    </fieldset>
+</div>

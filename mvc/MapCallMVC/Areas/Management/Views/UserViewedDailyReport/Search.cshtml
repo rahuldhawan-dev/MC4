@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Management.Models.SearchUserViewedDailyRecordItem
+
+@using (var f = Form.BeginForm("Index", "UserViewedDailyReport"))
+{
+	// The original page always defaulted the search to the current date because generally
+	// they only cared about today. In order to do that here, we have to disable form-state
+	// otherwise it will always populate it with yesterday after the first day.
+	f.AddCssClass("no-form-state");
+	<div class="field-column fc200 search-fields">
+		@Html.EditorFor(x => x.UserAddress)
+        @Html.EditorFor(x => x.ViewedAt)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+	</div>
+}

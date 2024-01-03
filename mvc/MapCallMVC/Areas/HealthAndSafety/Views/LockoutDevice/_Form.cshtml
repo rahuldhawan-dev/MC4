@@ -1,0 +1,16 @@
+﻿@model LockoutDeviceViewModel
+@if (Model is CreateLockoutDevice)
+{
+    @Html.EditorFor(x => ((CreateLockoutDevice)x).State)
+    @Html.EditorFor(x => ((CreateLockoutDevice)x).OperatingCenter)
+    @Html.EditorFor(x => ((CreateLockoutDevice)x).Person)
+}
+else
+{
+    @Html.EditorFor(x => ((EditLockoutDevice)x).State)
+    @Html.EditorFor(x => ((EditLockoutDevice)x).OperatingCenter)
+    @Html.DisplayFor(x => ((EditLockoutDevice)x).Person.FullName)
+}
+@Html.EditorFor(x => x.LockoutDeviceColor)
+@Html.EditorFor(x => x.SerialNumber)
+@Html.EditorFor(x => x.Description)

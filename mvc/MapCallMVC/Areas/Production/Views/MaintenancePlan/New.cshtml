@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CreateMaintenancePlan
+
+@using (Form.BeginForm("Create", "MaintenancePlan", "Production"))
+{
+    @(Html.Tabs()
+          .WithTab("Plan Information", "_PlanForm", Model)
+          .WithTab("Equipment Information", "_EquipmentFormNew", Model)
+          .WithTab("Task Information", "_TaskForm", Model)
+        )
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search")
+    </text>)
+}

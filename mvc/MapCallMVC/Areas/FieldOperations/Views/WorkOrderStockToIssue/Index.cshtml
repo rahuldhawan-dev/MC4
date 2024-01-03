@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderStockToIssue.SearchWorkOrderStockToIssue
+
+@(Html.TableFor(x => x, new { id="workOrdersTable"})
+    .WithCaption("Records found:" + Model.Count)
+    .SortableTemplateColumnFor("Order Number", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrderStockToIssue", new { x.Id, area = "FieldOperations" }, null))
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street, "Street.FullStName")
+    .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+    .SortableColumnFor(x => x.Town, "Town.ShortName")
+    .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+    .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+    .SortableColumnFor(x => x.SAPWorkOrderNumber)
+    .SortableColumnFor(x => x.SAPNotificationNumber)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .SortableColumnFor(x => x.CurrentCrew, "CurrentAssignment.Crew")
+    .SortableColumnFor(x => x.DateCompleted)
+    .WithPaginatedFooter()
+)

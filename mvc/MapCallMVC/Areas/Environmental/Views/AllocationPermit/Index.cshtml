@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchAllocationPermit
+
+@{ ActionBarHelper.AddExportLink();}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Id")
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.EnvironmentalPermit.PermitNumber, "EnvironmentalPermit.PermitNumber")
+    .SortableColumnFor(x => x.PublicWaterSupply.Description, "PublicWaterSupply.Description")
+    .SortableColumnFor(x => x.PermitType, "PermitType")
+    .SortableColumnFor(x => x.PermitFee, "PermitFee")
+    .SortableColumnFor(x => x.EffectiveDateOfPermit, "EffectiveDateOfPermit")
+    .SortableColumnFor(x => x.ExpirationDate, "ExpirationDate")
+    .SortableColumnFor(x => x.RenewalApplicationDate, "RenewalApplicationDate")
+    .WithPaginatedFooter()
+)

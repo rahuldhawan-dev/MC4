@@ -1,0 +1,44 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.WaterSampleComplianceFormViewModel
+<fieldset>
+    <legend>Compliance Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.PublicWaterSupplyDisplay)
+        @Html.DisplayFor(x => x.CertifiedMonthYearDisplay)
+        @Html.DisplayFor(x => x.PublicWaterSupplyDisplay.State)
+        @if (Model.DateCertified.HasValue)
+        {
+            @Html.DisplayFor(x => x.DateCertified)
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Please check all that apply (Notes must be provided when answering No to any of these questions)</legend>
+    <div class="field-column fc500">
+        @Html.EditorFor(x => x.CentralLabSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.CentralLabSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.CentralLabSamplesReason)
+        @Html.EditorFor(x => x.ContractedLabsSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.ContractedLabsSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.ContractedLabsSamplesReason)
+        @Html.EditorFor(x => x.InternalLabsSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.InternalLabsSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.InternalLabSamplesReason)
+        @Html.EditorFor(x => x.BactiSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.BactiSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.BactiSamplesReason)
+        @Html.EditorFor(x => x.LeadAndCopperSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.LeadAndCopperSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.LeadAndCopperSamplesReason)
+        @Html.EditorFor(x => x.WQPSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.WQPSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.WQPSamplesReason)
+        @Html.EditorFor(x => x.SurfaceWaterPlantSamplesHaveBeenCollected)
+        @Html.EditorFor(x => x.SurfaceWaterPlantSamplesHaveBeenReported)
+        @Html.EditorFor(x => x.SurfaceWaterPlantSamplesReason)
+        @Html.EditorFor(x => x.ChlorineResidualsHaveBeenCollected)
+        @Html.EditorFor(x => x.ChlorineResidualsHaveBeenReported)
+        @Html.EditorFor(x => x.ChlorineResidualsReason)
+        @Html.EditorFor(x => x.NoteText)
+    </div>
+</fieldset>

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSpoilRemoval
+@{ ActionBarHelper.AddExportLink(); }
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.RemovedFrom.OperatingCenter.State, "oc.State")
+    .SortableColumnFor(x => x.RemovedFrom.OperatingCenter,"rf.OperatingCenter")
+    .SortableColumnFor(x => x.RemovedFrom)
+    .SortableColumnFor(x => x.FinalDestination.Name, "Final Destination", "FinalDestination")
+    .SortableColumnFor(x => x.DateRemoved)
+    .SortableColumnFor(x => x.Quantity)
+
+    .WithPaginatedFooter())

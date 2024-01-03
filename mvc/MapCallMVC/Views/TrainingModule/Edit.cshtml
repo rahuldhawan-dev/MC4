@@ -1,0 +1,13 @@
+﻿@model EditTrainingModule
+
+@using (Form.BeginForm("Update", "TrainingModule", new {Model.Id}))
+{
+    <div class="field-column fc300">
+        @Html.DisplayFor(f => f.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TrainingModule", new { Model.Id })
+                           </text>)
+    </div>
+}

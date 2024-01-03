@@ -1,0 +1,11 @@
+﻿@model SpoilRemoval
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.RemovedFrom.OperatingCenter.State)
+    @Html.DisplayFor(x => x.RemovedFrom.OperatingCenter)
+    @Html.DisplayFor(x => x.RemovedFrom)
+    @Html.DisplayFor(x => x.DateRemoved)
+    @Html.DisplayFor(x => x.FinalDestination.Name, new { DisplayName = "Final Destination" })
+    @Html.DisplayFor(x => x.Quantity, new { DisplayName = "Quantity (cubic yards)" })
+
+</div>

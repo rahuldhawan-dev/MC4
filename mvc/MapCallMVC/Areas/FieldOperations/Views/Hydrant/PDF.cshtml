@@ -1,0 +1,743 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<Hydrant>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ShowPageNumbersInFooter = ShowHeader = false;
+    var topBottom = MarginWidth.HalfInch;
+    var leftRight = MarginWidth.QuarterInch;
+    TopMargin = topBottom;
+    BottomMargin = topBottom;
+    LeftMargin = leftRight;
+    RightMargin = leftRight;
+    IsLandscape = true;
+}
+
+@section head {
+    <style>
+        /* general stuff */
+        html {
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        .centered {
+            text-align: center !important;
+        }
+
+        .top {
+            vertical-align: top;
+        }
+
+        .small {
+            font-size: smaller;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .entry {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        td.right-border {
+            border-right: 1px solid black !important;
+        }
+
+        table.first-page,
+        table.second-page {
+            width: 100%;
+        }
+
+        span.underline {
+            border-bottom: 1px solid black;
+        }
+
+        span.width3 {
+            width: 30px;
+        }
+
+        span.width5 {
+            width: 50px;
+        }
+
+        span.width30 {
+            width: 300px;
+        }
+
+        span.width52 {
+            width: 420px;
+        }
+
+        table.first-page > tbody > tr > td > span,
+        table.second-page > tbody > tr > td > table > tbody > tr > td > span {
+            display: table-cell;
+        }
+    </style>
+    <style>
+        /* first page */
+        table.first-page {
+            height: 198mm;
+            border: 1px solid black;
+        }
+
+            table.first-page > tbody > tr {
+                height: 3.33%;
+            }
+
+                table.first-page > tbody > tr > td,
+                table.first-page > tbody > tr > th {
+                    border: 1px solid black;
+                    width: 12.5%;
+                    padding: 2px;
+                    white-space: nowrap;
+                }
+
+                table.first-page > tbody > tr > th {
+                    text-align: left;
+                }
+
+                table.first-page > tbody > tr.bottom-heading {
+                    height: 1.66%;
+                }
+
+                    table.first-page > tbody > tr.bottom-heading > td {
+                        text-align: center;
+                        font-size: smaller;
+                        border: none;
+                    }
+
+                table.first-page > tbody > tr.fixer,
+                table.first-page > tbody > tr.fixer > td {
+                    visibility: hidden;
+                }
+
+                table.first-page > tbody > tr.bottom > td {
+                    font-size: smaller;
+                    border: none;
+                }
+    </style>
+    <style>
+        table.second-page {
+            border: none;
+            table-layout: fixed;
+        }
+
+            table.second-page > tbody > tr.header > td {
+                text-align: center;
+                border: none;
+            }
+
+            table.second-page > tbody > tr > td.black {
+                color: white;
+                background-color: black;
+            }
+
+            table.second-page > tbody > tr.no-pad-top > td {
+                padding-top: 0;
+            }
+
+            table.second-page > tbody > tr > td {
+                vertical-align: top;
+                padding: 2px;
+            }
+
+                table.second-page > tbody > tr > td > div,
+                table.second-page > tbody > tr > td > table {
+                    border: 1px solid black;
+                }
+
+                table.second-page > tbody > tr > td > table {
+                    font-size: smaller;
+                }
+
+                    table.second-page > tbody > tr > td > div,
+                    table.second-page > tbody > tr > td > table > tbody > tr > td {
+                        padding: 2px;
+                    }
+
+                    table.second-page > tbody > tr > td > table > thead > tr > td {
+                        text-align: center;
+                        border-bottom: 1px solid gray;
+                    }
+
+                    table.second-page > tbody > tr > td > table td + td {
+                        border-left: 1px solid gray;
+                    }
+
+                    table.second-page > tbody > tr > td > table tr + tr {
+                        border-top: 1px solid gray;
+                    }
+
+                    table.second-page > tbody > tr > td > table > tbody > tr.gray-background {
+                        background-color: lightgray;
+                    }
+
+                        table.second-page > tbody > tr > td > table > tbody > tr.gray-background > th {
+                            text-align: left;
+                            border-right: 1px solid gray;
+                            padding: 2px;
+                        }
+
+        table.restoration {
+            table-layout: fixed;
+        }
+
+            table.restoration > thead > tr > td {
+                border-bottom: 1px solid black !important;
+            }
+
+            table.restoration > tbody > tr > th {
+                text-align: left;
+                font-weight: normal;
+                border-right: 1px solid gray;
+            }
+
+            table.restoration > tbody > tr + tr {
+                border: none !important;
+            }
+
+            table.restoration > tbody > tr > td,
+            table.restoration > tbody > tr > th {
+                padding: 2px;
+                border-top: 1px solid gray;
+            }
+
+                table.restoration > tbody > tr > td:nth-child(4n) {
+                    text-align: center;
+                    border-top: none;
+                }
+
+            table.restoration > tbody > tr:nth-child(6n) > td {
+                border-top: 1px solid black !important;
+                border-bottom: none !important;
+                text-decoration: underline;
+            }
+
+            table.restoration > tbody > tr:nth-child(7n) > td {
+                border-top: none !important;
+            }
+    </style>
+}
+
+@helper DisplayFor(object value)
+{
+    <span class="entry">@value</span>
+}
+
+@section body {
+        <table class="first-page">
+            <tbody>
+            <tr>
+                <td colspan="2" rowspan="4"><img style="height: 50%; left: 25px;" src="@Server.MapPath("~/Content/Images/american-water-logo-400x150.png")" /></td>
+                <th class="centered" colspan="2">HYDRANT ASSEMBLY</th>
+                <th colspan="4">WBS # @DisplayFor(Model.WorkOrderNumber)</th>
+            </tr>
+            <tr>
+                <td colspan="3">HYDRANT: INSTALL / REPLACEMENT / MOVE (CIRCLE)</td>
+                <td colspan="3">DATE INSTALLED: @DisplayFor(Model.DateInstalled)</td>
+            </tr>
+            <tr>
+                <td colspan="3">DISTRICT & PLANNING PLANT:</td>
+                <td colspan="3">CONTRACTOR:</td>
+            </tr>
+            <tr>
+                <td colspan="2">STREET NO:</td>
+                <td colspan="4">STREET:</td>
+            </tr>
+            <tr>
+                <td colspan="2">CITY:</td>
+                <td colspan="2">ZIP CODE:</td>
+                <td colspan="4">CROSS STREET:</td>
+            </tr>
+            <tr>
+                <td colspan="2">COUNTY:</td>
+                <td colspan="3">TOWNSHIP:</td>
+                <td colspan="3">MUNICIPALITY:</td>
+            </tr>
+            <tr>
+                <td class="small top" colspan="3" rowspan="6">DETAILED DESCRIPTION OF WORK</td>
+                <td class="small top" colspan="5" rowspan="19">ADDITIONAL NOTES / SKETCH</td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr>
+                <td class="centered small" colspan="3">MATERIALS USED</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered" colspan="8">
+                    CL = Center of Road&nbsp;&nbsp;
+                    BL = Building Line&nbsp;&nbsp;
+                    PL = Property Line
+                </td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered right-border" colspan="4">HYDRANT</td>
+                <td class="centered" colspan="4">AUXILLARY VALVE</td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered bottom right-border" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+                <td class="centered bottom" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered bottom right-border" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+                <td class="centered bottom" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered bottom right-border" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+                <td class="centered bottom" colspan="4">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>IN</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL /</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+            </tr>
+            <!-- hidden; ensures the columns all render evenly -->
+            <tr class="fixer">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
+    
+    <table class="second-page">
+        <tbody>
+            <tr class="hidden">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr class="header">
+                <td colspan="4">
+                    ALL FIELDS REQUIRED: FILL IN OR CIRCLE (IF OTHER FILL IN CORRECT INFORMATION)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div>IN-SERVICE DATE:</div>
+                </td>
+                <td colspan="2">
+                    <div>WBS #: @DisplayFor(Model.WorkOrderNumber)</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="2">ASSEMBLY LATERAL</td>
+                            </tr>
+                            <tr>
+                                <td>SIZE</td>
+                                <td>6"</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAL</td>
+                                <td>DI</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+                <td colspan="2" rowspan="3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="2">WATERMAIN TAPPED</td>
+                            </tr>
+                            <tr>
+                                <td>SIZE</td>
+                                <td>4" / 6" / 8" / 10" / 12" / 16" / 20" / 24"</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAL</td>
+                                <td>PLASTIC / DUCTILE IRON / HDPE</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+
+            <tr>
+                <td colspan="2" rowspan="19">
+                    <table>
+                        <tbody>
+                            <tr class="gray-background">
+                                <th>VALVE #:</th>
+                                <td>@DisplayFor(Model.HydrantNumber)</td>
+                            </tr>
+                            <tr class="gray-background">
+                                <th>SAP ID:</th>
+                                <td>@DisplayFor(Model.SAPEquipmentId)</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">MANUFACTURER & MODEL NO.</td>
+                                <td rowspan="3">
+                                    MUELLER SUPER CENTURION 250 A-423<br />
+                                    AMERICAN DARLING B-84-B-5<br />
+                                    KENNEDY GUARDIAN K81D
+                                </td>
+                            </tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr>
+                                <td>YEAR MANUFACTURED</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>HYDRANT TYPE</td>
+                                <td>DRY / DRYN</td>
+                            </tr>
+                            <tr>
+                                <td>OPEN DIRECTION</td>
+                                <td>LEFT / RIGHT</td>
+                            </tr>
+                            <tr>
+                                <td>BARREL SIZE</td>
+                                <td>@DisplayFor(Model.HydrantSize)</td>
+                            </tr>
+                            <tr>
+                                <td>BURY DEPTH (Include Extensions)</td>
+                                <td>FT IN</td>
+                            </tr>
+                            <tr>
+                                <td>BRANCH LENGTH (Main to Hyd)</td>
+                                <td>FT IN</td>
+                            </tr>
+                            <tr>
+                                <td>DEAD END MAIN</td>
+                                <td>YES / NO</td>
+                            </tr>
+                            <tr>
+                                <td>OUTLET CONFIG</td>
+                                <td>2 SIDE & 1 STEAMER</td>
+                            </tr>
+                            <tr>
+                                <td>SIDE PORT THREAD TYPE</td>
+                                <td>NST</td>
+                            </tr>
+                            <tr>
+                                <td>SIDE PORT THREAD SIZE (inches)</td>
+                                <td>2.25 / 2.5 / 2.625</td>
+                            </tr>
+                            <tr>
+                                <td>STEAMER THREAD TYPE</td>
+                                <td>NST / STORZ</td>
+                            </tr>
+                            <tr>
+                                <td>STEAMER THREAD SIZE</td>
+                                <td>3.5 / 4 / 4.5 / 5 / 5.25 / 6</td>
+                            </tr>
+                            <tr>
+                                <td>FIRE DISTRICT</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>BILLING TYPE</td>
+                                <td>PUBLIC / MUNICIPAL</td>
+                            </tr>
+                    </table>
+                </td>
+                <td colspan="2" rowspan="11">
+                    <table>
+                        <tbody>
+                            <tr class="gray-background">
+                                <th>AUX VALVE #:</th>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr class="gray-background">
+                                <th>SAP ID:</th>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>MANUFACTURER</td>
+                                <td>MUELLER</td>
+                            </tr>
+                            <tr>
+                                <td>VALVE TYPE</td>
+                                <td>GATE / TAPPING</td>
+                            </tr>
+                            <tr>
+                                <td>VALVE CONTROLS</td>
+                                <td>HYDRANT</td>
+                            </tr>
+                            <tr>
+                                <td>OPEN DIRECTION</td>
+                                <td>LEFT / RIGHT</td>
+                            </tr>
+                            <tr>
+                                <td>DIAMETER</td>
+                                <td>6"</td>
+                            </tr>
+                            <tr>
+                                <td>NUMBER OF TURNS</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>NORMAL POSITION</td>
+                                <td>OPEN</td>
+                            </tr>
+                            <tr>
+                                <td>DEPTH TO TOP OF MAIN</td>
+                                <td>FT IN</td>
+                            </tr>
+                            <tr>
+                                <td>JOINT TYPE</td>
+                                <td>MJ / FLANGED / MJ X FLANGED</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+
+            <tr>
+                <td>&nbsp;</td>
+                <td class="black centered" colspan="2">RESTORATION (FILL IN OR CIRCLE)</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr class="no-pad-top">
+                <td colspan="2">
+                    <table class="restoration">
+                        <thead>
+                            <tr>
+                                <td>LOCATION</td>
+                                <td>SQ FT</td>
+                                <td>DEPTH</td>
+                                <td>MATERIAL</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>STREET</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>CONCRETE</td>
+                            </tr>
+                            <tr>
+                                <th>SIDEWALK</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>SOD</td>
+                            </tr>
+                            <tr>
+                                <th>DRIVEWAY</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>ASPHALT</td>
+                            </tr>
+                            <tr>
+                                <th>CURB</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>STONE</td>
+                            </tr>
+                            <tr>
+                                <th>YARD</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>DIRT</td>
+                            </tr>
+                            <tr>
+                                <td class="centered" colspan="4">TEMP. MATERIALS USED</td>
+                            </tr>
+                            <tr>
+                                <td class="centered" colspan="4">
+                                    <span>STONE / SAND / COLD MIX/ OTHER</span>
+                                    <span class="underline width30">&nbsp;</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td colspan="2">
+                    <table class="restoration">
+                        <thead>
+                            <tr>
+                                <td>LOCATION</td>
+                                <td>SQ FT</td>
+                                <td>DEPTH</td>
+                                <td>MATERIAL</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>STREET</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>CONCRETE</td>
+                            </tr>
+                            <tr>
+                                <th>SIDEWALK</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>SOD</td>
+                            </tr>
+                            <tr>
+                                <th>DRIVEWAY</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>ASPHALT</td>
+                            </tr>
+                            <tr>
+                                <th>CURB</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>STONE</td>
+                            </tr>
+                            <tr>
+                                <th>YARD</th>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>DIRT</td>
+                            </tr>
+                            <tr>
+                                <td class="centered underline" colspan="4">TEMP. MATERIALS USED</td>
+                            </tr>
+                            <tr>
+                                <td class="centered" colspan="4">
+                                    <span>STONE / SAND / COLD MIX/ OTHER</span>
+                                    <span class="underline width30">&nbsp;</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

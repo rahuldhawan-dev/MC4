@@ -1,0 +1,59 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.Helpers
+@model MaintenancePlan
+
+@{
+    var equipment = Model.Equipment.OrderBy(x => x.Description);
+    var canEdit = Html.CurrentUserCanEdit();
+}
+<fieldset>
+    <legend>Equipment Information</legend>
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Equipment Types",
+            @Html.TableFor(x => x.EquipmentTypes)
+                 .ColumnFor(x => x.Description)
+                 .ColumnFor(x => x.Display)
+                 .ColumnFor(x => x.EquipmentGroup))
+        @Html.RenderDisplayTemplate("Equipment Purposes",
+            @Html.TableFor(x => x.EquipmentPurposes, new { id = "EquipmentPurposes" })
+                 .ColumnFor(x => x.Description)
+                 .ColumnFor(x => x.Abbreviation))
+    </div>
+</fieldset>
+
+@if (canEdit)
+{
+    @Html.ScriptFor("~/Scripts/Areas/Production/MaintenancePlan/AddRemoveEquipment.js", ScriptLoadType.LoadFromPartial)
+
+    <div class="collapse-panel" data-title="Add Equipment">
+        @Html.Partial("_AddEquipment", ViewModelFactory.BuildWithOverrides<AddEquipmentMaintenancePlan>(new { Id = Model.Id, Facility = Model.Facility.Id, EquipmentTypes = Model.EquipmentTypes.Select(x => x.Id).ToArray() }))
+    </div>
+
+    using (var form = Form.BeginRouteForm("MaintenancePlan", "EquipmentMaintenancePlan", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "RemoveEquipmentMaintenancePlanForm");
+        
+        var table = Html.TableFor(x => equipment, new { id = "EquipmentTable" })
+            .TemplateColumnFor(x => Control.CheckBox().WithName("Equipment").WithValue(x.Id).WithCssClass("removeEquipmentCheckbox"))
+            .TemplateColumnFor("Equipment Id", x => Html.ActionLink(x.Identifier, "Show", "Equipment", new { area = "", id = x.Id }, null))
+            .ColumnFor(x => x.Description, "Equipment")
+            .ColumnFor(x => x.Facility.StrategyTier)
+            .ColumnFor(x => x.ConsequenceOfFailure);
+        
+        @table
+        
+        @Html.ButtonGroup(@<text>
+            @Control.Button("Remove Selected").WithId("RemoveButton")
+            @Control.Button("Remove All").WithId("RemoveAllButton")
+        </text>)
+    }
+}
+else
+{
+    var table = Html.TableFor(x => equipment, new { id = "equipmentTable" })
+        .TemplateColumnFor(x => Html.ActionLink(x.Identifier, "Show", "Equipment", new { area = "", id = x.Id }, null))
+        .ColumnFor(x => x.Description, "Equipment")
+        .ColumnFor(x => x.Facility.StrategyTier)
+        .ColumnFor(x => x.ConsequenceOfFailure);
+    @table
+}

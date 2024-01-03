@@ -1,0 +1,8 @@
+﻿@model CorrectiveOrderProblemCode
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Code)
+    @Html.DisplayFor(x => x.Description)
+    @Html.RenderDisplayTemplate(Html.DisplayLabelFor("EquipmentTypes"), @<text>@foreach (var x in Model.EquipmentTypes)
+                                                                              {<div>@x.Description</div>}</text>)
+</div>

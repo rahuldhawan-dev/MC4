@@ -1,0 +1,80 @@
+﻿@model MapCall.Common.Model.Entities.RiskRegisterAsset
+
+<div class="field-column fc150">
+    <fieldset>
+        <legend>General</legend>
+        @Html.DisplayFor(x => x.State)
+        @Html.DisplayFor(x => x.OperatingCenter)
+
+        @if (Model.PublicWaterSupply != null)
+        {
+            @Html.RenderDisplayTemplate("Public Water Supply", @Html.ActionLink(Model.PublicWaterSupply.ToString(), "Show", "PublicWaterSupply", new { id = Model.PublicWaterSupply.Id, area = string.Empty }, null))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.PublicWaterSupply)
+        }
+
+        @if (Model.WasteWaterSystem != null)
+        {
+            @Html.RenderDisplayTemplate("Wastewater System", @Html.ActionLink(Model.WasteWaterSystem.ToString(), "Show", "WasteWaterSystem", new { id = Model.WasteWaterSystem.Id, area = "Environmental" }, null))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.WasteWaterSystem)
+        }
+
+        @if (Model.Facility != null)
+        {
+            @Html.RenderDisplayTemplate("Facility", @Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { id = Model.Facility.Id, area = string.Empty }, null))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.Facility)
+        }
+
+        @Html.DisplayFor(x => x.RiskRegisterAssetGroup)
+
+        @if (Model.Equipment != null)
+        {
+            @Html.RenderDisplayTemplate("Equipment", @Html.ActionLink(Model.Equipment.ToString(), "Show", "Equipment", new { id = Model.Equipment.Id, area = string.Empty }, null))
+        }
+
+        @Html.DisplayFor(x => x.Coordinate)
+
+        @Html.DisplayFor(x => x.RiskRegisterAssetCategory)
+        @Html.DisplayFor(x => x.LofMax)
+        @Html.DisplayFor(x => x.RiskDescription)
+        @Html.DisplayFor(x => x.CofMax)
+        @Html.DisplayFor(x => x.ImpactDescription)
+        @Html.DisplayFor(x => x.RiskQuadrant)
+        @Html.DisplayFor(x => x.TotalRiskWeighted)
+        @Html.DisplayFor(x => x.RiskRegisterAssetZone)
+        @Html.DisplayFor(x => x.IdentifiedAt)
+    </fieldset>
+
+    <fieldset>
+        <legend>Interim Mitigation Measures</legend>
+        @Html.DisplayFor(x => x.InterimMitigationMeasuresTaken)
+        @Html.DisplayFor(x => x.InterimMitigationMeasuresTakenAt)
+        @Html.DisplayFor(x => x.InterimMitigationMeasuresTakenEstimatedCosts)
+    </fieldset>
+
+    <fieldset>
+        <legend>Final Mitigation Measures</legend>
+        @Html.DisplayFor(x => x.FinalMitigationMeasuresTaken)
+        @Html.DisplayFor(x => x.FinalMitigationMeasuresTakenAt)
+        @Html.DisplayFor(x => x.FinalMitigationMeasuresTakenEstimatedCosts)
+    </fieldset>
+
+    <fieldset>
+        <legend>Project Information</legend>
+        @Html.DisplayFor(x => x.Employee)
+        @Html.DisplayFor(x => x.CompletionTargetDate)
+        @Html.DisplayFor(x => x.CompletionActualDate)
+        @Html.DisplayFor(x => x.IsProjectInComprehensivePlanningStudy)
+        @Html.DisplayFor(x => x.IsProjectInCapitalPlan)
+        @Html.DisplayFor(x => x.RelatedWorkBreakdownStructure)
+        @Html.DisplayFor(x => x.RiskRegisterId)
+    </fieldset>
+</div>

@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPrePlanning.UpdateWorkOrderPrePlanning
+
+@using (var f = Form.BeginForm("Update", "WorkOrderPrePlanning", "FieldOperations"))
+{
+    f.HtmlAttributes["id"] = "UpdateWorkOrderPrePlanning";
+    <fieldset>
+        <legend>Update Orders</legend>
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @Control.SubmitButton("Update")
+        <div style="display:none" id="hiddenWorkOrderIds"></div>
+    </fieldset>
+}

@@ -1,0 +1,21 @@
+﻿@model DataTableLayoutHtmlHelperViewModel
+@{
+	var exportableProperties = Model.ExportableProperties ?? new List<string>();
+	var epData = String.Join(",", exportableProperties);
+}
+
+<mc-datatable exportable-properties="@epData"
+			  create-layout-url="@Url.Action("Create", "DataTableLayout", new{ Area = string.Empty })"
+			  update-layout-url="@Url.Action("Update", "DataTableLayout", new{ Area = string.Empty })"
+			  delete-layout-url="@Url.Action("Destroy", "DataTableLayout", new{ Area = string.Empty })"
+			  layout-type="@Model.ModelTypeKey"
+			  layout-area="@Model.Area"
+			  layout-controller="@Model.Controller"
+			  id="@Model.DataTableId">
+	@foreach (var layout in Model.DataTableLayouts)
+	{
+		@Html.Partial("~/Views/Shared/DataTable/_DataTableLayoutItem.cshtml", layout)
+	}
+
+	@Model.RazorTable
+</mc-datatable>

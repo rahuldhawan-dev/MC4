@@ -1,0 +1,15 @@
+{
+  "providerId": "Microsoft.Tools.ServiceModel.Svcutil",
+  "version": "2.0.3",
+  "ExtendedData": {
+    "inputs": [
+      "../../wsdl/ProgressWorkOrder_OB_SYN.wsdl"
+    ],
+    "namespaceMappings": [
+      "*, MapCall.SAP.service"
+    ],
+    "outputFile": "ProgressWorkOrder.cs",
+    "targetFramework": "net472",
+    "typeReuseMode": "All"
+  }
+}

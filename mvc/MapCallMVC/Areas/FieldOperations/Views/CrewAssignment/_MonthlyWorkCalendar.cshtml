@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CrewAssignmentCalendarSearch
+
+<div id="crewCalendar">
+    @if (Model != null)
+    {
+        foreach (var kv in Model.AvailabilityPercentagesForMonth)
+        {
+    @* Using Day since we're only ever displaying one month. *@
+            <input type="hidden" data-date="@kv.Key.ToShortDateString()" value="@kv.Value" />
+        }
+    }
+</div>

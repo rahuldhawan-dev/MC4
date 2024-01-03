@@ -1,0 +1,15 @@
+﻿@using MapCall.Common.Configuration
+@using MapCallMVC.Controllers
+@model TrainingRecord
+
+@Html.ScriptFor("~/Scripts/TrainingRecord/Show.js", ScriptLoadType.LoadFromPartial)
+           
+@(Html.Tabs()
+    .WithTab("Training Record", "_ShowTrainingRecord", Model)
+    .WithTab("Training Sessions", "_IndexTrainingSessions", Model)
+    .WithTab("Certificate", "_Certificate", Model)
+    .WithNotesAndDocuments()
+    .WithEmployees(String.Format("Employees Scheduled ({0})", Model.EmployeesScheduled.Count), "Employees Scheduled", !Model.IsOpen || (Model.Canceled.HasValue && Model.Canceled.Value))
+    .WithEmployees(RoleService, String.Format("Employees Attended ({0})", Model.EmployeesAttended.Count), "Employees Attended", TrainingRecordController.ROLE_MODULE, RoleActions.UserAdministrator, readOnly: Model.Canceled.HasValue && Model.Canceled.Value)
+    .WithLog()
+)

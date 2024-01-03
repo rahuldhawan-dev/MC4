@@ -1,0 +1,886 @@
+@media screen, print 
+{
+    /* Global */
+    
+    html, body, div, span, 
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, tt, 
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td
+    { 
+        font-family:'Trebuchet MS', Helvetica, sans-serif; 
+    } 
+    
+	body, html
+	{
+		margin:0px;
+		padding:0px;
+		width:100%;
+		height:100%;
+		font-size:12px;
+		background:#ffffff;
+	}
+
+	a, a:visited, a:link { color:#21539b; }
+	
+	/* Needed or else buttons with position:relative disappear in IE7 */
+	table { position:relative; }
+	img { border:none 0px; }
+	
+	.error, span.required { color:Red; }
+    
+    /* Hack for Firefox bug: http://ajaxcontroltoolkit.codeplex.com/workitem/27429 */
+	.asyncFileUpload input { width: 100%; }
+	
+	/* Form reset/styling */
+	
+	form { display:inline; margin:0px; padding:0px; }
+	
+	input::-moz-focus-inner /*Remove button padding in FF*/
+    {
+        border: 0px;
+        padding: 0px;
+    }
+
+	
+	/* Styles related to ALL form elements */
+	
+	        input, 
+	        textarea, 
+	        select, 
+	        button,
+	        a.linkButton,
+	        .button /* for any other unforeseen object that needs to act like a button. like the file uploader fake button div. */ 
+	        {
+	            position:relative; 
+	            margin:0px; 
+	            padding:2px;
+	            min-height:20px;
+                border:solid 1px #cccccc;
+               -moz-border-radius:3px; 
+               -webkit-border-radius:3px;
+               border-radius:3px;
+	        }
+	        
+	        label { padding:2px; line-height:normal; } /* To make sure labels line-up with checkboxes */
+	          
+	        input[type='checkbox'], 
+	        input[type='radio']  
+	        {
+	            line-height:0px; 
+	            vertical-align:middle; 
+	            border:none\9; /* Removes the border in all versions of IE */
+	        }
+	        
+	        input[type='checkbox']
+	        {
+	            margin-right:6px;
+	        }
+	        
+	      
+	
+	/* Styles related to just buttons */
+	
+	    /* Normal buttons */
+	        input[type='image'], 
+	        input[type='image']:hover 
+	        {
+	            border:0px none transparent;
+	        }
+	
+	        /* IE7 renders a black border around submit buttons for some reason */
+	        input[type='button'],
+	        input[type='submit'],
+	        button,
+	        a.linkButton,
+	        .button /* for any other unforeseen object that needs to act like a button. like the file uploader fake button div. */ 
+	        {
+               background:#f6f6f6;
+               color:#1C94C4;
+               font-weight:bold;
+               font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif !important;
+               font-size:11px !important;
+               line-height:normal !important;
+               cursor:pointer;
+               padding:2px 12px 2px 12px;
+               *padding:0px 6px;
+               *margin-top:1px;
+               height:26px;
+	        }
+	        
+	           /* .button class is gonna be used on spans/divs probably that don't 
+               work with line-height:normal the same way a normal button does. */
+	        .button {
+	            line-height:26px !important;
+	        }
+        	
+        	/* :focus doesn't work in IE7. Their buttons do get black borders, though. */
+	        input[type='button']:hover, input[type='submit']:hover, button:hover,
+	        input[type='button']:focus, input[type='submit']:focus, button:focus,
+	        a.linkButton:hover, a.linkButton:focus,
+	        .button:hover, .button:focus 
+	        {
+	            border: 1px solid #448dae; 
+	            background: #bcd6ed url(images/ui-bg_highlight-soft_75_bcd6ed_1x100.png) 50% 50% repeat-x;  
+	            color: #026890;
+	        }
+        	
+	        input[type='button'][disabled], input[type='submit'][disabled], button[disabled],
+	        input[type='button'][disabled]:hover, input[type='submit'][disabled]:hover, button[disabled]:hover  
+	        {
+	            color:#aaaaaa;
+                background:#f6f6f6;
+                cursor:default;
+                border:solid 1px #cccccc;
+	        }
+	
+	        a.linkButton {
+                display:inline-block;
+                padding:4px 12px 0px 12px;   
+                text-decoration:none;
+                height:auto;
+                min-height:20px;
+            }
+
+
+	    /* Warn buttons */
+	        input.warn, button.warn, .button.warn 
+	        {
+	            color:#ff4b4f;
+	        }
+	        
+	        input.warn:hover, input.warn:focus,
+	        button.warn:hover, button.warn:focus,
+            button.warn:hover, button.warn:focus
+	        {
+	            background:#ff8080 url('images/warn-button-hover.png') 50% 50% repeat-x scroll;
+	            border-color: #e28688;
+	            color:#e42e31;
+	        }
+	        
+	        	        
+	    input.viewInfo 
+	    {
+	        background:url('images/view-info-button.png');
+	        width:31px;
+	        height:26px; 
+	        padding:0px;
+	        border:none;
+	    }
+	    
+	    input.viewInfo:hover, input.viewInfo:focus 
+	    {
+	        background:url('images/view-info-button.png');
+	        border:none;   
+	    }
+	    
+	    
+	
+	/* The rest */
+	
+	div.searchPanel { text-align:center; }
+    div.searchPanel table { margin:0px auto; }
+    div.searchPanel table td.label { text-align:right; }
+    div.searchPanel table td.field { text-align:left; }
+    
+	.leftcol
+	{
+		text-align:right;
+	}
+    .rightcol
+    {
+    	text-align:left;
+	}
+	.BoundFieldTextArea
+	{
+		font-family:arial;
+	}
+	.CheckBoxList
+	{
+		height:120px;
+		background-color:White;
+		overflow:scroll;
+		border-top:1px solid black;
+		border-left:1px solid black;
+	}
+	.DetailViewColumn
+	{
+		text-align:left;
+	}
+	.DisplayNone
+	{
+		display:none;
+	}
+	.HelpPopup
+	{
+		width:300px;
+		padding:4px;
+		font-size:smaller;
+	}
+	
+	
+	
+	.imageLink
+	{
+		cursor:pointer;
+	}
+	.LeafNodeStyle 
+	{
+		left:-9px;
+		position:relative;
+	}
+	.LeafNodeSmall
+	{
+		left:-9px;
+		position:relative;
+		font-size:smaller;		
+	}
+	.MapCallTable
+	{
+		margin-top:12px;
+		/*background-color:#ECE9D8;*/
+		background-color:white;
+		font-family:arial;
+		text-align:left;
+		border:1px solid black;
+		width:650px;
+	}
+	.MapCallTableFS
+	{
+		margin-top: 10px;
+		background-color: White;
+		font-family: Arial;
+		text-align: left;
+		border: 1px solid black;
+		width: 100%;
+	}
+	
+	.MapCallTableInstructions
+	{
+		text-align:center;
+		font-style:italic;
+		border-bottom:1px solid black;
+	}
+
+	.MapCallTableHeader
+	{
+		background-color:#000080;
+		color:white;
+		font-size:larger;
+		text-align:center;
+		border-bottom:1px solid black;
+	}
+
+	.MapCallTableOldSchool
+	{
+		color:#2B00FF;
+		font-size:smaller;
+		width:400px;
+		text-align:left;
+	}
+	.modalBackground
+	{
+		background-color:#C0C0C0;
+		filter:alpha(opacity=70);
+		opacity:0.7;
+	}
+	
+	.ModalImageContainer 
+		{Height:200px;Width:200px;border:1px solid black;z-index:11;}
+    .ModalImageClose 
+		{position:absolute;top:0px;right:0px;width:66px;height:66px;z-index:11;}
+	.Required
+	{
+		font-weight:bold;
+	}
+	.RightPadded 
+    {
+		padding-right:5px;
+    }
+	.RptTable
+	{
+		margin-top:12px;background-color:#ECE9D8;font-family:arial;
+		width:11.5in;height:8.9in;
+		text-align:left;border:1px solid black;	
+	}
+	.RptTDData
+	{
+		vertical-align:top;height:90%;border-top:1px solid black;
+	}
+	.RptHeader
+	{
+		background-color:#000080;color:white;font-size:larger;text-align:center;border-bottom:1px solid black;
+	}
+	
+	.TextBoxCentered
+	{
+		text-align:center;
+	}
+	.TextBoxPIE
+	{
+		font-size:32px;
+	}
+	.valveInspectionTable
+	{
+		width:550px;
+		background-color:White;
+		text-align:left;
+		margin-top:14px
+	}
+	.valveInspectionTableLeft
+	{
+		float:left;padding-right:10px;margin-right:10px;
+	}
+	
+
+	.ErrorMessage
+	{
+		color: Red;
+	}
+	td.TopBorder
+	{
+		border-top:1px solid black;
+	}
+	.NormalWidthSelect
+	{
+		width: 156px;
+	}
+	
+	/* misc stuff used everywhere */
+	.centered { margin: 0px auto; }
+	.centeredChildren { text-align:center; }
+	
+	.container { margin-bottom:6px; position:relative; }
+	
+	/* replace this with .centered .centeredChildren combo */
+	div.buttonContainer { margin-bottom:6px; text-align:center; }
+	
+    div.instructionPanel  
+    {
+        background:#e1efdf; 
+        border:solid 1px #add3a9;
+        padding:6px;
+        margin-bottom:6px;
+    }
+    
+    div.errorPanel 
+    {
+        background:#ecb4b5;
+        border:solid 1px #e18587;
+        margin-bottom:6px; 
+        padding:6px;
+    }
+    
+	table.noBorders { border:none !important; }
+
+    
+	/* MapCallHR masterpage layout */
+	
+	/* New master div layout */
+	
+	div.siteWrap { position:relative; }
+	div.siteWrap > div.left { position:relative; float:left; width:160px; margin-right:-100%; z-index:2; }
+	div.siteWrap > div.left > div.inner { margin:6px; }
+	div.siteWrap > div.right { position:relative; float:right; width:100%; z-index:1;}
+	div.siteWrap > div.right > div.inner  
+	{
+	    position:relative; 
+	    margin:6px; 
+	    margin-top:7px; /* Should be 6, but menu has some margin problem causing mis-alignment. */
+	    margin-left:172px; 
+	    border: 1px solid #567FB8;
+	    border-radius:2px;
+	    -moz-border-radius:2px;
+	    -webkit-border-radius:2px;
+	}
+	
+	div.siteWrap > div.right > div.inner > div.header
+	{
+		background:#346ea1 url(images/ui-bg_highlight-soft_35_346ea1_1x100.png) 50% 50% repeat-x;
+		text-align:left;
+		padding:6px;
+	}
+	
+		div.siteWrap > div.right > div.inner > div.header > a
+	    {
+		    color:white;
+		    text-decoration:none;
+		    font-weight:bold;
+		    font-size:16px;
+		    text-align:left;
+	    }
+	    
+	div.siteWrap > div.right > div.inner > div.body   
+	{
+	    padding:6px;
+	    background:#ffffff url('dropShadow.png') repeat-x;
+	}
+	
+	div.siteWrap > div.right > div.inner > div.body > div.instructions	{ text-align:center;	font-style:italic;	}
+	
+	div.siteWrap > div.right > div.inner > div.body > div.content	
+	{
+	    
+	}
+
+	
+	/* HR Menu */
+    div.siteWrap.hideMenu { position:relative; }
+	div.siteWrap.hideMenu > div.left { float:none; display:none; }
+	div.siteWrap.hideMenu > div.right { float:none; width:100%; z-index:1;}
+	div.siteWrap.hideMenu > div.right > div.inner  
+	{
+	    margin-left:6px; 
+	}
+	.mainMenuWrap { height:100%; min-width:160px;text-align:left;overflow:hidden;}
+    .mainMenuWrap #mainMenu { display:none; }
+	
+	
+	/* Charts */
+    .flowButtonsDiv 
+    {
+        text-align: center;
+    }
+    
+    
+    /* Grid tables */
+    
+    .grid { background:white; min-width:100%; }
+	.grid td,
+	.grid th
+	{
+	    padding:2px 6px;
+	    border:solid 1px silver;
+	}
+	
+	.grid th
+	{
+	    text-align:center;
+	    white-space:nowrap;
+	}
+	
+	/* Forces the controls cell to only be as large as its content. It won't
+        stretch with the table width. */
+	.grid th.controls { width:20px; }
+	.grid .row
+	{
+		background-color:#ffffff;
+	}
+	
+	.grid .alt
+	{
+		background-color:#F5F8FC;
+	}
+	
+	.grid .row:hover, 
+	.grid .alt:hover, 
+	.grid tr.pendingRow:hover,
+	.grid tr.pendingAltRow:hover
+	{
+	    background-color:#e1eef7;
+	}
+	
+	.grid tr.pendingRow 
+	{
+	    background:#e7f3e7;
+	}
+    
+    .grid tr.pendingAltRow 
+	{
+	    background:#dceddb;
+	}
+	
+	/* Lists */
+	
+	ul.list { list-style:none outside; margin:0px; padding:0px; }
+	ul.list li { display:block; }
+	
+	/* PremiseNumberSearch Control */
+	
+	.premNumSearch { width:200px; }
+	.premNumSearch .pNum { font-weight:bold; }
+    .premNumSearch .lBox { width:100%; border:solid 1px silver; margin-top:2px; }	
+    
+    /* ScrollView(inline) */
+    
+    .inlineScroll  
+    {
+        position:relative;
+        overflow:scroll; 
+        overflow-x:visible; 
+        display:inline-block;
+        border:solid 1px silver; 
+        height:200px; 
+        background:white; 
+    }
+
+    /* Search forms */
+    div.searchPanel { text-align:center; }
+    div.searchPanel table { margin:0px auto; }
+    div.searchPanel table td.label { text-align:right; }
+    div.searchPanel table td.field { text-align:left; }
+    
+    /* The results panel is up above as HRRow and other things */
+    
+    /* This is for DetailsView at the moment, though it could very
+        well be extended to GridView as well */
+    table.prettyTable  
+    {
+         border:solid 1px silver;
+         border-collapse:collapse;
+    }    
+    
+	table.prettyTable th
+	{
+	    text-align:center;
+	    white-space:nowrap;
+	}
+	
+	
+	table.prettyTable .row
+	{
+		background-color:#ffffff;
+	}
+	
+	table.prettyTable .alt
+	{
+		background-color:#F5F8FC;
+	}
+	
+	table.prettyTable .row:hover, 
+	table.prettyTable .alt:hover, 
+	table.prettyTable tr.pendingRow:hover,
+	table.prettyTable tr.pendingAltRow:hover
+	{
+	    background-color:#e1eef7;
+	}
+	
+	/* Direct descendants only because some controls that use tables might look bad. */
+    table.prettyTable > tbody > tr > td { padding:6px; }
+    
+    table.prettyTable td.label  
+    {
+        text-align:right; 
+        font-weight:bold;
+        padding-right:10px;
+        width:50%; 
+        white-space:nowrap;
+    }
+        
+    table.prettyTable td>textarea 
+    {
+        min-width:100%;
+    }
+    
+    td.label .help 
+    {
+        display:block;
+        color:#555555;
+        font-size:10px;
+    }
+    
+    table.prettyTable td>textarea 
+    {
+        min-height:100px;
+        width:95%;
+    }
+    
+    .Approved {
+        background-color: lightgreen;
+    }
+    
+    .Complete {
+        background-color: lightblue;
+    }
+    
+    /* Modules/Reports/Reports.aspx */
+	table.report
+	{
+		vertical-align: top;
+		width:100%;
+	}
+	table.report td
+	{
+		vertical-align: top;
+	}
+	table.report .header
+	{
+		font-weight:bold;
+	}
+	table.report .links
+	{
+		font-style:normal;
+		position:relative;
+		left:-20px;
+		top:-10px;
+	}
+	table.report .subsection
+	{
+		font-style:italic;
+		position:relative;
+		left:10px;
+	}
+	
+	/* Tabs */
+	
+	.noPad 
+	{
+	    padding:0px !important; 
+	}
+	
+	
+	/* Notes/Documents control */
+	
+	/* dual col container */
+    div.dualCol { overflow:hidden; }
+    
+    /* dual col column containers, needed for margin/padding */
+    div.dualCol>div.left { float:left; width:50%; }
+    div.dualCol>div.right { float:right; width:49.999%; } /* Needs to be 49.999 for IE. */
+ 
+    /* dual col column content container */
+    div.dualCol>div.left>div,
+    div.dualCol>div.right>div 
+    {
+        
+    }
+	
+	.noteDocs  
+	{
+	    font-size:0.9em;
+	}
+	
+	.noteDocs .header 
+	{
+	    font-weight:bold;
+	   /* background:url("tabExtraHeaderBack.png") #B5C7DE; */
+	    background:#B5C7DE;
+	    border-bottom:1px solid #284E98;
+	    font-size:12px;
+	    padding:3px;
+	}
+	
+	/* uses dualCol */
+	.noteDocs .header .right>div { text-align:right; }
+	.noteDocs .header .left>div { line-height:24px; }
+	
+	.noteDocs .controls {}
+	.noteDocs .controls input[type="submit"],
+	.noteDocs .controls input[type="button"]  
+	{
+	    
+	}
+
+	
+	.noteDocs .body 
+	{
+	    padding:6px;
+	}
+		
+	.noteDocs .addNote 
+	{
+	     display:none;background-color:#B5C7DE;width:100%;margin-top:1px;font-size:0.9em;border-top:1px solid #284E98;
+	}
+	
+	
+	/* AutoComplete controls */
+	.autoComplete .selected 
+	{
+	    color:#21539b;
+	    text-decoration:underline;
+	    font-weight:bold;
+	    cursor:pointer;
+	    line-height:26px;
+	}
+	
+	
+	.subContainer { border:1px solid #448DAE; -moz-border-radius:2px 2px 2px 2px; }
+	
+    .subContainer > .header  
+    {
+	    background:url("images/ui-bg_highlight-soft_50_bcd6ed_1x100.png") repeat-x scroll 50% 50% #BCD6ED;
+        text-align:left;
+        padding:4px 6px; 
+        font-weight:bold;
+        color:#026890;
+        overflow:hidden;
+        height:26px;
+        line-height:26px;
+    }
+    
+    .subContainer > .body 
+    {
+        padding:6px;   
+    }
+	
+	/* Graphicy things */
+	
+		
+	.deleteButton 
+	{
+	    background:transparent url('images/close-box-red-23x23.png') 0px 0px no-repeat;
+	    width:25px;
+	    height:25px;
+	    display:block;
+	}
+	.deleteButton:hover 
+	{
+	    background-position:0px -25px;
+	}
+
+	.contactProgressPanel {
+		display: block;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+		/* Force IE to use rgba */
+		/* ReSharper disable HexColorValueWithAlpha */
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99FFFFFF,endColorstr=#99FFFFFF);
+		/* ReSharper enable HexColorValueWithAlpha */
+         background: url('images/ajax-loader.gif') center center no-repeat;
+		background-color: rgba(255,255,255,0.5);
+		*background-color: transparent;
+	}
+    
+    
+    /* NoticeBox */
+    .nb  
+    {
+        padding:6px;
+        background-color:#BCD6ED;
+        border-radius:2px;
+    }
+    .nb-large { min-height:48px; }
+    .nb > .nb-icon { background-repeat:no-repeat; float:left; }
+    .nb > .nb-icon-large { width:48px; height:48px; }
+    .nb > .nb-message 
+    {
+        position:relative;
+        margin-left:54px;
+        padding-left:6px;
+    }
+    .nb > .nb-message > h3 
+    {
+        font-size:14px !important;
+        line-height:14px !important;
+        margin:6px 0px 0px 0px;
+    }
+    .nb > .nb-message > .nb-body > p { margin:0px; }
+    .nb-question { background-color:#BCD6ED; border:1px solid #448DAE; }
+    .nb-question > .nb-icon-large { background-image: url('images/NoticeBox/nb-question-mark-48.png'); }    
+    
+    /* HelpBox */
+    .helpBoxButton,
+    .helpBoxButton:hover {
+        background: transparent url('images/help-24x24.png') no-repeat;
+        padding: 0px;
+        margin: 0px;
+        height:24px;
+        width:24px;
+        border: none;
+    }
+    .helpBoxButton .content { display:none; }
+
+    
+    .junk-bar {
+        padding: 6px;
+        height:32px;
+    }
+
+    .ie7 .junk-bar {
+        height:20px;
+    }
+
+    .junk-bar > div,
+    .junk-bar > a 
+    {
+        position:absolute;
+        font-weight:inherit;
+        display:block;
+        top:6px;
+    }
+ 
+    .junk-bar > div,
+    .junk-bar > div > ul,
+    .junk-bar > div > ul > li,
+    .junk-bar > div > ul > li > a {
+         color:inherit;
+     }
+    
+    .junk-bar > div.left > ul > li { margin-right:6px; line-height:20px;  /* #topMenu height - padding */}
+    .junk-bar > div.right > ul > li { margin-left:6px; line-height:20px;  /* #topMenu height - padding */} 
+    .ie7 .junk-bar > div.left > ul > li { margin-right:12px; }
+    .ie7 .junk-bar > div.right > ul > li { margin-left:12px; } 
+
+    .junk-bar > div.right {
+        right:12px; /* #topMenu margin + padding */
+    }
+
+    .junk-bar > div > ul {
+         list-style-type:none;
+         padding: 0px;
+         margin: 0px;
+    }
+    .junk-bar > div > ul > li {
+         display:inline-block;
+    }
+
+    .ie7 .junk-bar > div > ul > li { display:inline; }
+
+    .junk-bar li.icon > a,
+    .junk-bar li.icon > button {
+        height:20px;
+        display:inline-block;
+        background-repeat: no-repeat !important;
+        border: none;
+    }
+
+    .junk-bar a.home {
+         background-image: url('images/home-24x20.png'); 
+         width:24px;
+    }
+
+    /* TODO: Think this is obsolete now */
+    .junk-bar li > a.link-button
+    {
+        /* This vertically centers link buttons. Don't feel like fighting with them in the junk-bar
+           when they shouldn't be there. */
+        top:-3px;
+    }
+
+    .ie7 .junk-bar button#toggleMenuButton {
+         top:2px;
+         left:0px;
+    }
+
+    #topMenu 
+    {
+        position: relative;
+        height: 20px;
+        z-index:3;
+        margin: 6px;
+        margin-bottom: 0px;
+        background: #346ea1 url('images/ui-bg_highlight-soft_35_346ea1_1x100.png') 50% 50% repeat-x;
+        box-shadow: 0px 3px 2px #aaaaaa;
+        color: white;
+    }
+}
+
+@media print 
+{
+	.HRContentTable
+	{
+		width:7.8in;
+	}
+
+	.HRMasterTableMenu 
+	{
+		display:none;
+	}
+}

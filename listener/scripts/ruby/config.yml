@@ -1,0 +1,12 @@
+qa:
+  host: 'hsynlamqs002.amwaternp.net'
+#  host: 'mq.amwaternp.com'
+  port: 51616
+  login: 'mapcall'
+  password: 'M@call#1'
+
+dev:
+  host: 'hsynlamqs001.amwaternp.net'
+  port: 61616
+  login: ''
+  password: ''

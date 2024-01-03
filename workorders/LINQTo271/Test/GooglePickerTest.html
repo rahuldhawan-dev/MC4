@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Google Picker Test</title>
+    <link rel="stylesheet" href="test.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <div id="results"></div>
+
+    <script type="text/javascript" src="runner.js"></script>
+    <script type="text/javascript" src="reporter.js"></script>
+    <script type="text/javascript" src="assertions.js"></script>
+    <script type="text/javascript" src="mocking.js"></script>
+    <script type="text/javascript" src="jquery-mock.js"></script>
+    <script type="text/javascript" src="../Views/Assets/GooglePicker.js"></script>
+    <script type="text/javascript" src="GooglePickerTest.js"></script>
+    <script type="text/javascript">
+      var runner = new TestRunner('GooglePickerTests');
+      var result = runner.runAllTestsInNameSpace();
+      var reporter = new TestReporter(result);
+      reporter.buildResultTable(document.getElementById('results'));
+    </script>
+  </body>
+</html>

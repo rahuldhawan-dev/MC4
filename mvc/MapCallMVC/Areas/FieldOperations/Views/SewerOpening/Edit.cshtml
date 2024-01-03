@@ -1,0 +1,76 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Controllers
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSewerOpening
+@{
+    var isUserAdmin = RoleService.CanAccessRole(SewerOpeningController.ROLE, RoleActions.UserAdministrator);
+}
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/SewerOpening/Form.js")
+}
+
+@*These hidden fields are for js stuff and don't need to
+    be in the form or posted back to the server *@
+@Control.Hidden("State").WithValue(Model.DisplaySewerOpening.Town.State.Abbreviation)
+@Control.Hidden("TownName").WithValue(Model.DisplaySewerOpening.Town.ToString())
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+@Control.Hidden("OperatingCenter").WithValue(Model.DisplaySewerOpening.OperatingCenter.Id)
+
+@using (Form.BeginForm("Update", "SewerOpening", "FieldOperations", new {Model.Id})) {
+<div class="field-column fc200">
+    @Html.HiddenFor(x => x.SAPEquipmentId)
+    @Html.DisplayFor(x => x.DisplaySewerOpening.OperatingCenter)
+    @Html.DisplayFor(x => x.DisplaySewerOpening.Town)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @if (Model.SewerOpeningType == SewerOpeningType.Indices.NPDES_REGULATOR)
+    {
+        @Html.DisplayFor(x => x.NpdesPermitNumber)
+    }
+    @Html.EditorFor(x => x.SewerOpeningType)
+    @Html.EditorFor(x => x.TownSection)
+    @Html.EditorFor(x => x.OpeningNumber)
+    @Html.EditorFor(x => x.OpeningSuffix)
+    @Html.EditorFor(x => x.OutfallNumber)
+    @Html.EditorFor(x => x.BodyOfWater)
+    @Html.EditorFor(x => x.LocationDescription)
+    @Html.EditorFor(x => x.OldNumber)
+    @Html.EditorFor(x => x.StreetNumber)
+    @Html.EditorFor(x => x.Street)
+    @Html.EditorFor(x => x.IntersectingStreet)
+    @Html.EditorFor(x => x.Status)
+    @Html.EditorFor(x => x.DepthToInvert)
+    @Html.EditorFor(x => x.RimElevation)
+    @Html.EditorFor(x => x.SewerOpeningMaterial)
+    @Html.EditorFor(x => x.DateInstalled)
+    @Html.EditorFor(x => x.DateRetired)
+    @Html.EditorFor(x => x.MapPage)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.EditorFor(x => x.DistanceFromCrossStreet)
+    @Html.EditorFor(x => x.IsEpoxyCoated)
+    @Html.EditorFor(x => x.GeoEFunctionalLocation)
+    @Html.DisplayFor(x => x.SAPEquipmentId)
+    @if (isUserAdmin)
+    {
+        @Html.EditorFor(x => x.FunctionalLocation)
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.DisplaySewerOpening.FunctionalLocation)
+    }
+    @Html.EditorFor(x => x.IsDoghouseOpening)
+    @Html.EditorFor(x => x.Route)
+    @Html.EditorFor(x => x.Stop)
+    @Html.EditorFor(x => x.TaskNumber)
+    @Html.EditorFor(x => x.Critical)
+    @Html.EditorFor(x => x.CriticalNotes)
+    @Html.RenderEditorTemplate(new MvcHtmlString("Inspection Frequency"), new MvcHtmlString("This will override Operating Center inspection frequency."), @<text>
+        @Control.TextBoxFor(x => x.InspectionFrequency).WithCssClass("numeric")
+        @Control.DropDownFor(x => x.InspectionFrequencyUnit)
+        @Html.ValidationMessageFor(x => x.InspectionFrequency)
+        @Html.ValidationMessageFor(x => x.InspectionFrequencyUnit)
+    </text>)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "SewerOpening", new { Model.Id })
+    </text>)
+</div>
+}

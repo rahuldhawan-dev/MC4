@@ -1,0 +1,68 @@
+﻿@model MapCall.Common.Model.Entities.ServiceInstallation
+
+<div class="field-column fc300">
+
+    <fieldset>
+        <legend>Meter Properties</legend>
+        @Html.RenderDisplayTemplate("Operating Center", @<text>
+            @if (Model.WorkOrder != null)
+            {
+                @Html.DisplayValueFor(x => x.WorkOrder.OperatingCenter)
+            }
+        </text>)
+        @Html.RenderDisplayTemplate("Work Order", @<text>
+            @if (Model.WorkOrder != null)
+            {
+                @Control.ActionLink(Model.WorkOrder.ToString(), "Edit", "WorkOrderFinalization", new { id = Model.WorkOrder.Id }, null)
+            }
+        </text>)
+        @Html.DisplayFor(x => x.MaterialNumber)
+        @Html.DisplayFor(x => x.MeterSerialNumber)
+        @Html.DisplayFor(x => x.Manufacturer)
+        @Html.DisplayFor(x => x.ServiceType)
+        @Html.DisplayFor(x => x.MeterManufacturerSerialNumber)
+        @Html.DisplayFor(x => x.MeterLocation)
+        @Html.DisplayFor(x => x.MeterPositionalLocation)
+        @Html.DisplayFor(x => x.ReadingDeviceSupplemental)
+        @Html.DisplayFor(x => x.ReadingDevicePosition)
+        @Html.DisplayFor(x => x.ReadingDeviceDirectionalInformation)
+        @Html.DisplayFor(x => x.MiuInstallReason)
+    </fieldset>
+
+    <fieldset>
+        <legend>Register 1 Information</legend>
+        @Html.DisplayFor(x => x.Register1RFMIU)
+        @Html.DisplayFor(x => x.Register1Dials)
+        @Html.DisplayFor(x => x.Register1UnitOfMeasure)
+        @Html.DisplayFor(x => x.Register1ReadType)
+        @Html.DisplayFor(x => x.Register1Size)
+        @Html.DisplayFor(x => x.Register1TPEncoderID)
+        @Html.DisplayFor(x => x.Register1CurrentRead)
+    </fieldset>
+
+    <fieldset>
+        <legend>Register 2 Information</legend>
+        @Html.DisplayFor(x => x.Register2RFMIU)
+        @Html.DisplayFor(x => x.RegisterTwoDials)
+        @Html.DisplayFor(x => x.Register2UnitOfMeasure)
+        @Html.DisplayFor(x => x.Register2ReadType)
+        @Html.DisplayFor(x => x.Register2Size)
+        @Html.DisplayFor(x => x.Register2TPEncoderID)
+        @Html.DisplayFor(x => x.Register2CurrentRead)
+    </fieldset>
+
+    <fieldset>
+        <legend>Field Activity</legend>
+        @Html.DisplayFor(x => x.Activity1)
+        @Html.DisplayFor(x => x.Activity2)
+        @Html.DisplayFor(x => x.Activity3)
+        @Html.DisplayFor(x => x.AdditionalWorkNeeded)
+        @Html.DisplayFor(x => x.Purpose)
+        @Html.DisplayFor(x => x.ServiceFound)
+        @Html.DisplayFor(x => x.ServiceLeft)
+        @Html.DisplayFor(x => x.OperatedPointOfControl)
+        @Html.DisplayFor(x => x.ServiceInstallationReason)
+        @Html.DisplayFor(x => x.MeterLocationInformation)
+    </fieldset>
+
+</div>

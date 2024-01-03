@@ -1,0 +1,27 @@
+﻿@model JobSiteCheckList
+
+<style>
+    .has-excavation-incomplete .field{
+        color: red !important;
+    }
+</style>
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.MapCallWorkOrder)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.CompetentEmployee)
+    @Html.DisplayFor(x => x.HasExcavation,
+        @Model.HasExcavation == null ? new { @class = "has-excavation-incomplete" } : null )
+    @Html.DisplayFor(x => x.CheckListDate)
+    @Html.DisplayFor(x => x.Address)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.RenderDisplayTemplate("Crew Members", @<text>
+        @Html.Partial("DisplayPartials/_CrewMembers", Model.CrewMembersByDate)
+    </text>)
+    @Html.RenderDisplayTemplate("Comments", @<text>
+        @Html.Partial("DisplayPartials/_Comments", Model.CommentsByDate)
+    </text>)
+    @Html.DisplayFor(x => x.SAPWorkOrderId)
+    @Html.DisplayFor(x => x.SupervisorSignOffEmployee)
+    @Html.DisplayFor(x => x.SupervisorSignOffDate)
+</div>

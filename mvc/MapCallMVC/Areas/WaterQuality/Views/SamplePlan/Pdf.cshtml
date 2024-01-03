@@ -1,0 +1,310 @@
+﻿@using MMSINC.ClassExtensions.IEnumerableExtensions
+@model SamplePlan
+
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@helper CheckBox(bool isChecked)
+{
+    <input type="checkbox"
+           @if (isChecked)
+           {
+               <text>checked="checked"</text>
+           } />
+}
+
+@section head {
+    <style type="text/css">
+        html{font-family: Arial Narrow;}
+         h1, h2, h3, h4, h5, h6 {text-align: center; width: 100%;}
+
+        th {text-align: left; padding-top: 8px;}
+
+        .underline {text-decoration: underline}
+        .italic {font-style: italic}
+
+        table#main-table {width: 100%}
+        table#main-table > tbody > tr > th {width: 29%}
+        table#main-table > tbody > tr > th.number {width: 2% !important; text-align: right;}
+        table#main-table > tbody > tr > td {width: 20%}
+
+        table#thirteen {width: 100%}
+        table#thirteen td, table#thirteen th {border: 1px solid black; border-collapse: collapse; padding: 4px}
+        table#thirteen td.instructions {text-align: center;vertical-align: middle; font-weight: bold}
+        table#thirteen td:nth-child(1), table#thirteen td:nth-child(2) {width: 2%;text-align: center}
+
+        table#sample-pool {width: 100%}
+        table#sample-pool-inner td, table#sample-pool-inner th {border: 1px solid black; border-collapse: collapse;padding: 4px}
+        table#sample-pool-inner > thead > tr > th {text-align: center}
+        table#sample-pool td.instructions {font-size: small}
+
+        table#verified-and-certify > tbody > tr > td:first-child {text-align: center}
+        table#verified-and-certify td, table#verified-and-certify th {padding: 4px}
+
+        table#signatures th, table#signatures td {padding-top: 30px;padding-left: 2px;padding-right: 2px}
+        table#signatures th:first-child {width: 25%}
+        table#signatures th:nth-child(3) {width: 13%}
+        table#signatures td:nth-child(4) {width: 13%}
+        table#signatures td.underline-cell {border-bottom: 1px solid black}
+    </style>
+}
+
+@section body {
+    <div class="form-id">BWSE-14 (06/16)</div>
+    <h4><img src="@Server.MapPath("~/Content/Images/njdeplogo.gif")" /></h4>
+    <h4>Department of Environmental Protection - Bureau of Water System Engineering</h4>
+    <h4>401 East State Street - P.O. Box 420</h4>
+    <h4>Mail Code 401-04Q</h4>
+    <h4>Trenton, New Jersey 08625-0420</h4>
+    <h4>Tel # 609-292-2957 - Fax # 609-633-1495</h4><br/>
+
+    <h1 style="text-decoration: underline;">Lead and Copper Sampling Pool Certification</h1>
+    <h2>Requirements Pursuant to 40 CFR 141.86(a)</h2><br/>
+
+    <table id="main-table">
+        <tbody>
+        <tr>
+            <th class="number">1.</th>
+            <th>PWSID #:</th><td>@Model.PWSID.Identifier</td>
+            <th class="number">2.</th>
+            <th>System Type:</th>
+            <td>@Html.CheckBoxFor(x => x.Cws) CWS @Html.CheckBoxFor(x => x.Ntnc) NTNC</td>
+        </tr>
+        <tr>
+            <th class="number">3.</th>
+            <th>Water System Name:</th><td colspan="4">@Model.PWSID.System</td>
+        </tr>
+        <tr>
+            <th class="number">4.</th>
+            <th>Population Served:</th><td colspan="4">@if (Model.PWSID.CustomerData != null)
+                                                       {
+                                                           @Model.PWSID.CustomerData.PopulationServed
+                                                       }</td>
+        </tr>
+        <tr>
+            <th class="number">5.</th>
+            <th>Contact Person:</th><td>@Model.ContactPerson</td>
+            <th class="number">6.</th>
+            <th>Phone Number:</th><td>@Model.ContactPerson.PhoneWork</td>
+        </tr>
+        <tr>
+            <th class="number">7.</th>
+            <th>Email Address:</th><td colspan="4">@Model.ContactPerson.EmailAddress</td>
+        </tr>
+        <tr>
+            <th class="number">8.</th>
+            <th>Monitoring Period:</th><td>From: @Model.MonitoringPeriodFrom.ToString("d") To: @Model.MonitoringPeriodTo.ToString("d")</td>
+            <th class="number">9.</th>
+            <th>Monitoring Level:</th><td>@Html.CheckBoxFor(x => x.Standard) Standard @Html.CheckBoxFor(x => x.Reduced) Reduced</td>
+        </tr>
+        <tr>
+            <th class="number">10.</th>
+            <th>Minimum Number of Samples Required:</th><td>@Model.MinimumSamplesRequired</td>
+            <th class="number">11.</th>
+            <th>Number of Samples Taken:</th><td>@Model.NumberOfSamplesTaken</td>
+        </tr>
+        <tr>
+            <th class="number">12.</th>
+            <th>Name of Certified Laboratory:</th><td colspan="4">@Model.NameOfCertifiedLaboratory</td>
+        </tr>
+
+        <tr>
+            <th colspan="6">13. Sample Criteria:</th>
+        </tr>
+        <tr>
+            <td colspan="6">
+                Systems must sample as many Tier 1 sites as possible. Any community water system with insufficent Tier 1 sampling sites shall
+                complete its sampling pool with Tier 2 sampling sites. If the system has insufficient Tier 2 sampling sites, the sampling pool
+                shall be completed with Tier 3 sampling sites. <span class="underline">If it is not known whether lead is present in the
+                plumbing, the site should be designated as a non-tier site.</span>
+            </td>
+        </tr>
+        </tbody>
+    </table><br/>
+
+    <table id="thirteen">
+        <thead>
+        <tr>
+            <th>Yes</th><th>No</th><td colspan="2">&nbsp;</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>@CheckBox(Model.SameAsPreviousPeriod)</td>
+            <td>@CheckBox(!Model.SameAsPreviousPeriod)</td>
+            <td colspan="2">
+                a. @Html.DisplayNameFor(x => x.SameAsPreviousPeriod)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.AllSamplesTier1)</td>
+            <td>@CheckBox(!Model.AllSamplesTier1)</td>
+            <td>
+                b. @Html.DisplayNameFor(x => x.AllSamplesTier1)
+            </td>
+            <td rowspan="7" class="instructions">
+                See attached <span class="italic">Instructions-#13</span> for more information.
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.Tier2Sites)</td>
+            <td>@CheckBox(!Model.Tier2Sites)</td>
+            <td>
+                c. @Html.DisplayNameFor(x => x.Tier2Sites)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.Tier3Sites)</td>
+            <td>@CheckBox(!Model.Tier3Sites)</td>
+            <td>
+                d. @Html.DisplayNameFor(x => x.Tier3Sites)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.Tier1SitesVerified)</td>
+            <td>@CheckBox(!Model.Tier1SitesVerified)</td>
+            <td>
+                e. @Html.DisplayNameFor(x => x.Tier1SitesVerified)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.LeadServiceLines)</td>
+            <td>@CheckBox(!Model.LeadServiceLines)</td>
+            <td>
+                f. @Html.DisplayNameFor(x => x.LeadServiceLines)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.LeadLinesVerified)</td>
+            <td>@CheckBox(!Model.LeadLinesVerified)</td>
+            <td>
+                g. @Html.DisplayNameFor(x => x.LeadLinesVerified)
+            </td>
+        </tr>
+        <tr>
+            <td>@CheckBox(Model.FiftyPercent)</td>
+            <td>@CheckBox(!Model.FiftyPercent)</td>
+            <td>
+                h. @Html.DisplayNameFor(x => x.FiftyPercent)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table id="comments">
+        <tbody>
+        <tr>
+            <th>Comments</th>
+        </tr>
+        <tr>
+            <td>@Model.Comments</td>
+        </tr>
+        </tbody>
+    </table><br/>
+
+    <table id="sample-pool">
+        <thead>
+        <tr>
+            <th>14. Sampling Site Pool Selection</th><td>(Include all sample sites used in this sampling event. Use additional pages as needed)</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="2">
+                <table id="sample-pool-inner">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Sample Location/Street Address</th>
+                        <th>Tier 1, 2, 3, or Other</th>
+                        <th>Sample Category<sup>1</sup> (Tier 1 only)</th>
+                        <th>Piping Material<sup>2</sup></th>
+                        <th>Regular or Alternate site<sup>3</sup></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @{ var i = 1; }
+                    @foreach (var site in Model.ActiveSampleSites)
+                    {
+                        <tr>
+                            <th>@(i++)</th>
+                            <td>@site.FullAddress</td>
+                            <td>@site.LeadCopperTierClassification</td>
+                            <td>@site.LeadCopperTierSampleCategory</td>
+                            <td>@site.AllTheCodes</td>
+                            <td>@(((bool)site.IsAlternateSite) ? "A" : "R")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="instructions">
+                <sup>1</sup>See <span class="italic">Instructions-#14c</span><br/>
+                <sup>2</sup>Denote materials used for service line and building plumbing using: C = copper; G = galvanized; L = lead; P = plastic/PVC; or U = unknown<br/>
+                <sup>3</sup>Denote selection using; R = regular site or A = alternate site
+            </td>
+        </tr>
+        </tbody>
+    </table><br/>
+
+    <table id="verified-and-certify">
+        <tbody>
+        <tr>
+            <th colspan="2">15. <span class="italic">I have verified and certify:</span></th>
+        </tr>
+        <tr>
+            <td>a)</td>
+            <td>All the sites from which lead and copper tap samples were collected from a pool of targeted Tier 1, 2, 3, or other sample sites, consistent with 40 CFR 141.86(a).</td>
+        </tr>
+        <tr>
+            <td>b)</td>
+            <td>Sample sites were selected in acoordance with 40 CFR 141.86(a) are representative of the distribution system and specifically of areas of the system that are most vulnerable to corrosion of lead and copper and water.</td>
+        </tr>
+        <tr>
+            <td>c)</td>
+            <td>First draw samples for lead and copper were one liter in volume and stood motionless in the plumbing system of each sampling site for a minimum of six hours, consistent with 40 CFR 141.86(b).</td>
+        </tr>
+        <tr>
+            <td>d)</td>
+            <td>First draw samples collected from a single family residence were collected from cold water kitchen taps or bathroom sink taps.</td>
+        </tr>
+        <tr>
+            <td>e)</td>
+            <td>First draw samples from non-residential buildings were collected from interior building taps from which water is typically drawn for consumption.</td>
+        </tr>
+        <tr>
+            <td>f)</td>
+            <td>Each resident who volunteered to collect tap water samples from his/her home was properly instructed in the proper
+                methods for collecting lead and copper samples. </td>
+        </tr>
+        <tr>
+            <td>g)</td>
+            <td>The information listed in this form is true and accurate to the best of my knowledge and belief.</td>
+        </tr>
+        </tbody>
+    </table><br/>
+
+    <table id="signatures">
+        <tbody>
+        <tr>
+            <th>Owner/Executive Director Signature:</th><td class="underline-cell">&nbsp</td>
+            <th>Date:</th><td class="underline-cell">&nbsp</td>
+        </tr>
+        <tr>
+            <th>Printed Name:</th><td class="underline-cell">&nbsp</td>
+            <th>Title:</th><td class="underline-cell">&nbsp</td>
+        </tr>
+        <tr>
+            <th>W-Operator Signature:</th><td class="underline-cell">&nbsp;</td>
+            <th>Date:</th><td class="underline-cell">&nbsp</td>
+        </tr>
+        <tr>
+            <th>Printed Name:</th><td class="underline-cell">@Html.DisplayValueFor(x => Model.PWSID.WaterDistributionLicensedOperator)</td>
+            <th>License Number:</th><td class="underline-cell">&nbsp</td>
+        </tr>
+        </tbody>
+    </table>
+}

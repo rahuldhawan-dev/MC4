@@ -1,0 +1,9 @@
+﻿@model MapCall.Common.Model.Entities.GasMonitor
+Equipment ID: @Model.Equipment.Identifier<br/>
+Equipment Description: @Model.EquipmentDescription<br/>
+Manufacturer: @Model.Manufacturer<br/>
+Model #: @Model.EquipmentModel<br/>
+Owned By: @Model.OwnedBy<br/>
+Gas Monitor: @Model.RecordUrl<br/>
+Next Calibration Date: @Model.MostRecentPassingGasMonitorCalibration.NextDueDate<br/>
+@if (@Model.AssignedEmployee != null){<text>Assigned Employee: @Model.AssignedEmployee.ToString()<br/></text>}

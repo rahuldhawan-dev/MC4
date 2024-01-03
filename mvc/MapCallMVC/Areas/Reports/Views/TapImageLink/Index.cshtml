@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTapImageLink
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TapImage", new { x.Id, area = "FieldOperations" }, null))
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.PremiseNumber)
+    .ColumnFor(x => x.Address)
+    .WithPaginatedFooter()
+)

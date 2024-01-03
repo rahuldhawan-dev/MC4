@@ -1,0 +1,13 @@
+﻿@model MapCall.Common.Model.Entities.Users.User
+@{
+    var canViewRoleRelatedStuff = Html.CurrentUserCanDo("New", "UserRoleAccess", "Admin");
+}
+@(Html.Tabs()
+    .WithTab("User", "_ShowUser", Model)
+    // NOTE: If this UserCanDo is removed, the Roles view is not secured to hide the Add/Remove role stuff. 
+    // That needs to be corrected in that case.
+    .WithTab("Roles", "_Roles", Model, isVisible: canViewRoleRelatedStuff)
+    .WithTab("Role Groups", "_RoleGroups", Model, isVisible: canViewRoleRelatedStuff)
+    .WithNotesAndDocuments()
+    .WithLog()
+)

@@ -1,0 +1,59 @@
+﻿@using System.Collections
+@using Fasterflect
+@model ApcInspectionItem
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/ApcInspectionItem/Form.js", ScriptLoadType.LoadFromPartial)
+
+@functions
+{
+    public class FacilityInspectionCategories
+    {
+        public IOrderedEnumerable<FacilityInspectionFormAnswer> Answers;
+        public string CategoryName;
+    }
+}
+
+@{
+    var categoryList = new ArrayList {
+        new FacilityInspectionCategories {Answers = Model.GeneralWorkAreaConditions, CategoryName = "General Work Area/Conditions"},
+        new FacilityInspectionCategories {Answers = Model.EmergencyResponseFirstAid, CategoryName = "Emergency Response/First Aid"},
+        new FacilityInspectionCategories {Answers = Model.Security, CategoryName = "Security"},
+        new FacilityInspectionCategories {Answers = Model.FireSafety, CategoryName = "Fire Safety"},
+        new FacilityInspectionCategories {Answers = Model.PersonalProtectiveEquipment, CategoryName = "Personal Protective Equipment"},
+        new FacilityInspectionCategories {Answers = Model.ChemicalStorageHazCom, CategoryName = "Chemical Storage/HazCom"},
+        new FacilityInspectionCategories {Answers = Model.EquipmentTools, CategoryName = "Equipment/Tools"},
+        new FacilityInspectionCategories {Answers = Model.ConfinedSpace, CategoryName = "Confined Space"},
+        new FacilityInspectionCategories {Answers = Model.VehicleMotorizedEquipment, CategoryName = "Vehicle/Motorized Equipment"},
+        new FacilityInspectionCategories {Answers = Model.OshaTraining, CategoryName = "OSHA Training"}
+      };
+}
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.DisplayFacilityInspectionAreaType)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.Type)
+    @Html.DisplayFor(x => x.DateReported)
+    @Html.DisplayFor(x => x.AssignedTo)
+    @Html.DisplayFor(x => x.DateInspected)
+    @Html.DisplayFor(x => x.FacilityInspectionRatingType)
+    @Html.DisplayFor(x => x.Score)
+    @Html.DisplayFor(x => x.Percentage)
+
+@foreach (FacilityInspectionCategories facilityInspectionCategories in categoryList)
+{
+    <div class="table-wrapper">
+        <fieldset>
+            <legend>@facilityInspectionCategories.CategoryName</legend>
+            <table>
+                @Html.Partial("_AnswerTableHeader")
+                @foreach (var answer in facilityInspectionCategories.Answers)
+                {
+                    @Html.DisplayFor(_ => answer)
+                }
+            </table>
+        </fieldset>
+    </div>
+}
+
+</div>

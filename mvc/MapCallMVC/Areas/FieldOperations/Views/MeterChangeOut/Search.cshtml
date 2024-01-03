@@ -1,0 +1,54 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMeterChangeOut
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MeterChangeOut/Search.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Index", "MeterChangeOut"))
+{
+    <table style="width:100%;" class="for-structure">
+        <tr>
+            <td style="width: 50%; vertical-align:top;">
+                <div class="field-column fc200">
+                    @Html.EditorFor(x => x.EntityId)
+                    @Html.EditorFor(x => x.Contract)
+                    @Html.EditorFor(x => x.OperatingCenter)
+                    @Html.EditorFor(x => x.ServiceCity)
+                    @Html.EditorFor(x => x.ServicePhone)
+                    @Html.EditorFor(x => x.ServicePhone2)
+                    @Html.EditorFor(x => x.ServiceStreetAddressCombined)
+                    @Html.EditorFor(x => x.AccountNumber)
+                    @Html.EditorFor(x => x.CustomerName)
+                    @Html.EditorFor(x => x.AssignedContractorMeterCrew)
+                    @Html.EditorFor(x => x.CalledInByContractorMeterCrew)
+                    @Html.EditorFor(x => x.DateScheduled)
+                    @Html.EditorFor(x => x.DateStatusChanged)
+                </div>
+            </td>
+            <td>
+                <div class="field-column fc200">
+                    @Html.EditorFor(x => x.MeterSize)
+                    @Html.EditorFor(x => x.RemovedSerialNumber)
+                    @Html.EditorFor(x => x.NewSerialNumber)
+                    @Html.EditorFor(x => x.RouteNumber)
+                    @Html.EditorFor(x => x.MeterReadComment4)
+                    @Html.EditorFor(x => x.MeterChangeOutStatus)
+                    @Html.EditorFor(x => x.ClickAdvantexUpdated)
+                    @Html.EditorFor(x => x.HasStatus)
+                    @Html.EditorFor(x => x.MeterTurnedOnAfterHours)
+                    @Html.EditorFor(x => x.OwnerCustomerMeterLocation)
+                    @Html.EditorFor(x => x.ProjectYear)
+                    @Html.EditorFor(x => x.SAPOrderNumber)
+                    @Html.EditorFor(x => x.TypeOfPlumbing)
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="field-column fc200 searchFields">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+        <fieldset>
+            <legend>Export Options</legend>
+            @Html.EditorFor(x => x.MarkAdvantexExport)
+            @Html.EditorFor(x => x.IsUnscheduledSearch)
+        </fieldset>
+    </div>
+}

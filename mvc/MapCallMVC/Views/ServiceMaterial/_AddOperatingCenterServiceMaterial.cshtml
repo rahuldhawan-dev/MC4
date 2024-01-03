@@ -1,0 +1,18 @@
+﻿@model CreateOperatingCenterServiceMaterial
+
+<div class="collapse-panel" data-title="Add New Operating Center">
+    @using (var form = Form.BeginForm("Create", "OperatingCenterServiceMaterial", new {area = ""}))
+    {
+        <fieldset class="field-column fc200">
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.NewServiceRecord)
+            @Control.HiddenFor(x => x.ServiceMaterial)
+            @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Add Operating Center").WithId("addOperatingCenterButton")
+                @Control.Button("Cancel").WithId("cancelAddOperatingCenterButton").WithCssClass("cancel")
+            </text>
+           )
+        </fieldset>
+    }
+</div>

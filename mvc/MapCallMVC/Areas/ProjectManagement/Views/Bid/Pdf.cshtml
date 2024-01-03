@@ -1,0 +1,895 @@
+﻿@using MMSINC.ClassExtensions.IEnumerableExtensions
+@inherits MapCall.Common.Views.PdfViewBase<MapCallMVC.Areas.ProjectManagement.Models.ViewModels.BidForm>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    TopMargin = MarginWidth.Inch;
+    BottomMargin = MarginWidth.Inch;
+    LeftMargin = MarginWidth.HalfInch;
+    RightMargin = MarginWidth.HalfInch;
+
+    var substantiallyComplete = (Model.Throwaways.SubstantiallyCompleteDate.HasValue) ? Model.Throwaways.SubstantiallyCompleteDate.Value.ToShortDateString() : "__________";
+    var completeAndReadyForBilling = (Model.Throwaways.CompleteAndReadyForBillingDate.HasValue) ? @Model.Throwaways.CompleteAndReadyForBillingDate.Value.ToShortDateString() : "__________";
+}
+
+@section head {
+    <style>
+        * {
+            font-size: 16pt;
+            line-height: 1.2em;
+        }
+
+        html {
+            padding: 0;
+            padding-left: 0.5in;
+            padding-right: 0.5in;
+        }
+        
+         div#wrap {
+             float: left;
+             width: 100%;
+         }
+
+        div.upper-right {
+            float: right;
+            width: 50%;
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        div.body {
+            clear: both;
+            width: 100%;
+        }
+
+        td.blank-line {
+            border-bottom: 1px solid black;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .disclaimer {
+            font-style: italic;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        table {
+            page-break-inside: avoid !important;
+        }
+
+        tbody {
+            page-break-inside: auto !important;
+        }
+
+        table.article > thead > tr > th {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        h1, h2, h3, h4, h5, h6, p,
+        table.article > thead > tr > th,
+        table.article > tbody > tr > td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        table.article > tbody > tr > td:first-child,
+        table.bidder > tbody > tr > td:first-child {
+            width: 5%;
+            vertical-align: top;
+        }
+
+        table.article > tbody > tr > td:last-child, 
+        table.bidder > tbody > tr > td:last-child {
+            width: 95%;
+        }
+
+        table.addendums {
+            width: 50%;
+            left: 20%;
+        }
+
+        table.addendums > thead > tr > th,
+        table.bidder > thead > tr > th {
+            font-weight: normal;
+            text-decoration: underline;
+        }
+
+        table.addendums thead tr th:first-child,
+        table.addendums thead tr th:last-child {
+            width: 45%;
+        }
+
+        .missing {
+            font-weight: bold;
+            color: red;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        table.article,
+        table.bidder {
+            width: 100%;
+        }
+
+        table#unit-summary td, table#unit-summary th {
+            text-align: left;
+            border: 1px solid black;
+            font-size: smaller;
+        }
+
+        table#unit-summary > tfoot > tr > td,
+        table#unit-summary > tfoot > tr > th {
+            border: none;
+        }
+
+        td.subtotal {
+            border: 3px solid black !important;
+        }
+
+        table#contractor-signature {
+            table-layout: fixed;
+            page-break-after: always;
+        }
+
+        table#contractor-signature th {
+            font-weight: normal;
+            text-align: left;
+        }
+
+        table.bidder > thead > tr > th {
+            text-align: left;
+        }
+
+        div.upper-right table,
+        table.bidder > tbody > tr > td > table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table.bidder > tbody > tr > td > table > tbody > tr > td {
+            padding-top: 10px;
+            vertical-align: bottom;
+        }
+    </style>
+}
+
+@section body {
+    <div id="wrap">
+        <div class="upper-right">
+            <table>
+                <caption>BID FORM</caption>
+                <tbody>
+                    <tr>
+                        <td colspan="2">Date:</td>
+                        <td class="blank-line" colspan="10">&nbsp;</td>
+                        <td colspan="3" style="text-align:right">Time:</td>
+                        <td class="blank-line" colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr><td colspan="20">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="4">Signature:</td>
+                        <td class="blank-line" colspan="16">&nbsp;</td>
+                    </tr>
+                    <tr><td colspan="20">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="3">Witness:</td>
+                        <td class="blank-line" colspan="17">&nbsp;</td>
+                    </tr>
+                    <tr><td colspan="20">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="20">
+                            <span class="disclaimer">For Water Company Use Only</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="body">
+            <br />
+
+            <h1 class="center">BID FORM</h1>
+            <h1 class="center">@Model.Throwaways.ProjectBidTitle</h1>
+            <h1 class="center">WBS# @Model.Project.WBSNumber</h1>
+            <br />
+
+            <h1 class="center">Project Description</h1>
+            <h1 class="center">@Model.Project.Description</h1>
+            <br />
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            ARTICLE 1 - BID RECIPIENT
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.01</td>
+                        <td>This BID is submitted to: </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="center">New Jersey American Water Company</h2>
+            <h2 class="center">@Model.Employee.OperatingCenter.MailingAddressStreet</h2>
+            <h2 class="center">@Model.Employee.OperatingCenter.MailingAddressCityStateZip</h2>
+            <h2 class="center">Due Date: @Model.Throwaways.DueDateTime.Value.Date.ToShortDateString()</h2>
+            <h2 class="center">Time: @Model.Throwaways.DueDateTime.Value.ToShortTimeString()</h2><br />
+            <table class="article">
+                <tbody>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            The New Jersey American Water project engineer assigned to the project is @Model.Employee.FullName and he can be reached at @Model.Employee.PhoneWork or via email @Model.Employee.EmailAddress.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1.02</td>
+                        <td>
+                            The undersigned Bidder proposes and agrees, if this Bid is accepted and the Contract awarded to Bidder, to enter into an Agreement with Owner in the form included in the Bidding Documents to perform all Work as specified or indicated in the Bidding Documents for the prices and within the times indicated in this Bid and in accordance with the other terms and conditions of the Bidding Documents.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 2 - BIDDER'S ACKNOWLEDGEMENTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2.01</td>
+                        <td>
+                            Bidder accepts all of the terms and conditions of the Instructions to Bidders, including without limitation those dealing with the disposition of Bid security. This Bid will remain subject to acceptance for <span class="bold">90</span> days after the Bid opening, or for such longer period of time that Bidder may agree to in writing upon request of Owner. Bidder will sign and submit the Agreement with the American Water Standard Pipeline Documents March 2008 B- 2 Bonds (if any) and other documents required by the Bidding Requirements within fifteen (15) days after the date of Owner’s Notice of Award.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 3 - BIDDER'S REPRESENTATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3.01</td>
+                        <td>
+                            In submitting this Bid, Bidder represents that:
+
+                            <table class="article">
+                                <tbody>
+                                    <tr>
+                                        <td>A.</td>
+                                        <td>
+                                            Bidder has examined and carefully studied the Bidding Documents, including but not limited to the Drawings, Specifications, Geotechnical Baseline Report, other related data identified in the Bidding Documents, and the following Addenda, receipt of which is hereby acknowledged.<br/><br/>
+
+                                            <table class="addendums">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Addendum No.</th>
+                                                        <th></th>
+                                                        <th>Addendum Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                        <td class="blank-line">&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table><br/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B.</td>
+                                        <td>
+                                            Bidder has visited the Site and become familiar with and is satisfied as to the general, local, and Site conditions that may affect cost, progress, and performance of the Work.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>C.</td>
+                                        <td>
+                                            Bidder is familiar with and is satisfied as to all federal, state, and local Laws and Regulations that may affect cost, progress and performance of the Work.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>D.</td>
+                                        <td>
+                                            Bidder has carefully studied all: (1) reports of explorations and tests of subsurface conditions at or contiguous to the Site and all drawings of physical conditions in or relating to existing surface or subsurface structures at or contiguous to the Site (except Underground Facilities) which have been identified in SC-4.02, and (2) reports and drawings of Hazardous Environmental Conditions that have been identified in SC-4.06.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>E.</td>
+                                        <td>
+                                            Bidder has considered the information known to Bidder, information and observations obtained from visits to the Site, information commonly known to contractors doing business in the locality of the Site, the Bidding Documents, and the reports and drawings identified in the Bidding Documents and referred to in Paragraph 3.01.D above with respect to the effect of such information and observations on (1) the cost, progress, and performance of the Work; (2) the means, methods, techniques, sequences, and procedures of construction to be employed by Bidder, including applying the specific means, methods, techniques, sequences, and procedures of construction expressly required by the Bidding Documents; and (3) Bidder’s safety precautions and programs.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>F.</td>
+                                        <td>
+                                            Based on the information and observations referred to in Paragraph 3.01.E above, Bidder does not consider that further examinations, investigations, explorations, tests, studies, or data are necessary for the determination of this Bid for performance of the Work at the price(s) bid and within the times and in accordance with the other terms and conditions of the Bidding Documents.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>G.</td>
+                                        <td>
+                                            Bidder is aware of the general nature of work to be performed by Owner and others at the Site that relates to the Work as indicated in the Bidding Documents.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>H.</td>
+                                        <td>
+                                            Bidder is prepared to comply with the applicable requirements of Owner’s safety program, if any.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>I.</td>
+                                        <td>
+                                            Bidder has given Engineer written notice of all conflicts, errors, ambiguities, or discrepancies that Bidder has discovered in the Bidding Documents, and the written resolution thereof by Engineer is acceptable to Bidder.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>J.</td>
+                                        <td>
+                                            The Bidding Documents are generally sufficient to indicate and convey understanding of all terms and conditions for the performance of the Work for which this Bid is submitted.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 4 - BIDDER'S CERTIFICATION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>4.01</td>
+                        <td>
+                            Bidder certifies that:
+
+                            <table class="article">
+                                <tbody>
+                                    <tr>
+                                        <td>A.</td>
+                                        <td>
+                                            This Bid is genuine and not made in the interest of or on behalf of any undisclosed individual or entity and is not submitted in conformity with any agreement or rules of any group, association, organization or corporation;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B.</td>
+                                        <td>
+                                            Bidder has not directly or indirectly induced or solicited any other Bidder to submit a false or sham Bid;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>C.</td>
+                                        <td>
+                                            Bidder has not solicited or induced any individual or entity to refrain from bidding;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>D.</td>
+                                        <td>
+                                            Bidder has not engaged in corrupt, fraudulent, collusive or coercive practices in competing for the Contract. For the purposes of this Paragraph 4.01.D:
+
+                                            <table class="article">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1.</td>
+                                                        <td>
+                                                            “Corrupt practice” means the offering, giving, receiving or soliciting of anything of value likely to influence the action of a public official [or American Water Systems official] in the bidding process.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2.</td>
+                                                        <td>
+                                                            “Fraudulent practice” means a misrepresentation of facts made: (a) to influence the bidding or negotiating process to the detriment of Owner; (b) to establish bid prices at artificial non-competitive levels; or (c) to deprive Owner of the benefits of free and open competition.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3.</td>
+                                                        <td>
+                                                            “Collusive practice” means a scheme or arrangement between two or more Bidders, with or without the knowledge of Owner, a purpose of which is to establish bid prices at artificial, non-competitive levels.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4.</td>
+                                                        <td>
+                                                            “Coercive practice” means harming or threatening to harm, directly or indirectly, persons or their property to influence their participation in the bidding process or affect the execution of the Contract.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 5 - BASIS OF BID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>5.01</td>
+                        <td>
+                            Bidder will complete the Work in Accordance with the Contract Documents for the following price(s):
+                            <br/>
+                            If specific materials are to be furnished by the Owner, the prices provided herein include installation of such materials only. Otherwise the prices include furnishing and installation of materials.
+                        </td>
+                    </tr>
+                </tbody>
+            </table><br/>
+
+            <h3 class="center">PRICE SCHEDULE</h3>
+
+            <p>
+                The following prices shall be used to determine the amount of payment to the Contractor for actual work completed. The items of Work and the method of measurement to determine quantities shall be as described in Basis of Payment. Quantities are not guaranteed. Final payment will be based on actual quantities.
+            </p><br/>
+
+            <table>
+                <thead>
+                    <tr><th colspan="2">New Jersey American Water</th></tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr><th colspan="2">Bid Form - Price Schedule</th></tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project Number: @Model.Project.ProjectNumber</td>
+                        <td>Operating Center: @Model.Project.OperatingCenter.OperatingCenterName</td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td>Project Name: @Model.Project.ProjectName</td>
+                        <td>Municipality: @Model.Project.Town.ShortName</td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr>
+                        <td>Street Name: @Model.Project.Street</td>
+                    </tr>
+                </tbody>
+            </table><br/><br/>
+
+            <table id="unit-summary">
+                <thead>
+                    <tr>
+                        <th colspan="6" id="caption">Unit Summary</th>
+                    </tr>
+                    <tr>
+                        <th>ID:</th>
+                        <th>Description:</th>
+                        <th>Quantity:</th>
+                        <th>Unit:</th>
+                        <th>Unit Price:</th>
+                        <th>Total:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in @Model.Project.ContractorLaborCosts)
+                    {
+                        <tr>
+                            <td>@item.ContractorLaborCost.StockNumber</td>
+                            <td>@item.ContractorLaborCost.JobDescription</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.ContractorLaborCost.Unit</td>
+                            <td style="width: 15%">$</td>
+                            <td style="width: 15%">$</td>
+                        </tr>
+                    }                        
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="5">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                        <th>Subtotal:</th>
+                        <td>&nbsp;</td>
+                        <td class="subtotal">$</td>
+                    </tr>
+                </tfoot>
+            </table><br/><br/>
+
+            <table id="contractor-signature">
+                <tbody>
+                    <tr>
+                        <th colspan="3">Contractor Signature:</th>
+                        <td class="blank-line" colspan="11">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Name (Print):</th>
+                        <td class="blank-line" colspan="12">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Title:</th>
+                        <td class="blank-line" colspan="13">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th>Date:</th>
+                        <td class="blank-line" colspan="13">&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 6 - TIME OF COMPLETION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6.01</td>
+                        <td>
+                            Bidder agrees that the Work will be substantially complete on or before @substantiallyComplete, and will be completed and ready for final payment in accordance with Paragraph 14.07.B of the General Conditions on or before @completeAndReadyForBilling.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6.02</td>
+                        <td>
+                            Bidder accepts the provisions of the Agreement as to liquidated damages in the event of failure to complete the Work within Contract Times.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 7 - ATTACHMENTS TO THIS BID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7.01</td>
+                        <td>
+                            The following documents are submitted with and made a condition of this Bid:
+
+                            <table class="article">
+                                <tbody>
+                                    <tr>
+                                        <td>A.</td>
+                                        <td>
+                                            Required Bid security in the form of a Bid Bond;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B.</td>
+                                        <td>
+                                            Evidence of authority to do business in the state of the Project, or a written covenant to obtain such license within the time for acceptance of Bids;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>C.</td>
+                                        <td>
+                                            [If applicable], Contractor’s License No. _____, or evidence of Bidder’s ability to obtain a State Contractor’s License and a covenant by Bidder to obtain said license within the time for acceptance of Bids.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>D.</td>
+                                        <td>
+                                            Information describing the proposed alternative equipment and/or materials.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 8 - DEFINED TERMS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>8.01</td>
+                        <td>
+                            The terms used in this Bid with initial capital letters have the meanings stated in the Instructions to Bidders, the General Conditions, and the Supplementary Conditions.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="article">
+                <thead>
+                    <tr>
+                        <th colspan="2">ARTICLE 9 - BID SUBMITTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>9.01</td>
+                        <td>
+                            This Bid is submitted on _________________________________, 20______ by:
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>If Bidder is:</p>
+
+            <table class="bidder">
+                <thead>
+                    <tr>
+                        <th colspan="2">An Individual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="10">Name (typed or printed):</td>
+                                        <td class="blank-line" colspan="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">By:</td>
+                                        <td class="blank-line" colspan="38">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="38">(Individual's Signature)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">Doing business as:</td>
+                                        <td class="blank-line" colspan="32">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">Business Address:</td>
+                                        <td class="blank-line" colspan="32">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Phone No.:</td>
+                                        <td colspan="13" class="blank-line">&nbsp;</td>
+                                        <td colspan="3" style="border:none !important;">E-mail:</td>
+                                        <td colspan="19" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="18">State Contractor License No. (If applicable):</td>
+                                        <td colspan="22" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="bidder">
+                <thead>
+                    <tr>
+                        <th colspan="2">A Partnership</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8">Partnership Name:</td>
+                                        <td class="blank-line" colspan="32">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">By:</td>
+                                        <td class="blank-line" colspan="38">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="38">(Signature of general partner -- attach evidence of authority to sign)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">Name (typed or printed):</td>
+                                        <td class="blank-line" colspan="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">Business Address:</td>
+                                        <td class="blank-line" colspan="32">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Phone No.:</td>
+                                        <td colspan="13" class="blank-line">&nbsp;</td>
+                                        <td colspan="3" style="border:none !important;">E-mail:</td>
+                                        <td colspan="19" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="18">State Contractor License No. (If applicable):</td>
+                                        <td colspan="22" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="bidder">
+                <thead>
+                    <tr>
+                        <th colspan="2">A Corporation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8">Corporation Name:</td>
+                                        <td class="blank-line" colspan="32" style="text-align:right">(SEAL)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="9">State of Incorporation:</td>
+                                        <td class="blank-line" colspan="31">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="26">Type (General Business, Professional, Service, Limited Liability):</td>
+                                        <td class="blank-line" colspan="14">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">By:</td>
+                                        <td class="blank-line" colspan="38">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="38">(Signature -- attach evidence of authority to sign)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">Name (typed or printed):</td>
+                                        <td class="blank-line" colspan="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Title:</td>
+                                        <td class="blank-line" colspan="37">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="37">(Corporate Seal)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Attest:</td>
+                                        <td class="blank-line" colspan="37">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Phone No.:</td>
+                                        <td colspan="13" class="blank-line">&nbsp;</td>
+                                        <td colspan="3" style="border:none !important;">E-mail:</td>
+                                        <td colspan="19" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="18">State Contractor License No. (If applicable):</td>
+                                        <td colspan="22" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="16">Date of Qualification to do business in</td>
+                                        <td colspan="16" class="blank-line">&nbsp;</td>
+                                        <td colspan="8">is ____/____/____.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="bidder">
+                <thead>
+                    <tr>
+                        <th colspan="2">A Joint Venture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="9">Name of Joint Venture:</td>
+                                        <td class="blank-line" colspan="31">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="11">First Joint Venturer Name:</td>
+                                        <td class="blank-line" colspan="29" style="text-align:right">(SEAL)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">By:</td>
+                                        <td class="blank-line" colspan="38">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="38">(Signature of first joint venture partner -- attach evidence of authority to sign)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">Name (typed or printed):</td>
+                                        <td class="blank-line" colspan="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Title:</td>
+                                        <td class="blank-line" colspan="37">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12">Second Joint Venturer Name:</td>
+                                        <td class="blank-line" colspan="28" style="text-align:right">(SEAL)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">By:</td>
+                                        <td class="blank-line" colspan="38">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">&nbsp;</td>
+                                        <td class="disclaimer center" colspan="38">(Signature of second joint venture partner -- attach evidence of authority to sign)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="10">Name (typed or printed):</td>
+                                        <td class="blank-line" colspan="30">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">Title:</td>
+                                        <td class="blank-line" colspan="37">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8">Business Address:</td>
+                                        <td class="blank-line" colspan="32">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">Phone No.:</td>
+                                        <td colspan="13" class="blank-line">&nbsp;</td>
+                                        <td colspan="3" style="border:none !important;">E-mail:</td>
+                                        <td colspan="19" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="18">State Contractor License No. (If applicable):</td>
+                                        <td colspan="22" class="blank-line">&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table><br/>
+
+                            <p>
+                                (Each joint venturer must sign.  The manner of signing for each individual, partnership, and corporation that is a party to the joint venture should bein the manner indicated above.)
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

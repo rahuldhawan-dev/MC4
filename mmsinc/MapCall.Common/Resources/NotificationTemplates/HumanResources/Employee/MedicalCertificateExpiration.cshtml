@@ -1,0 +1,6 @@
+﻿@model dynamic
+
+Employee: @Model.LastName, @Model.FirstName<br/>
+Employee Id: @Model.EmployeeId<br/>
+
+Expiration Date: @Model.MedicalCertificateExpirationDate.ToShortDateString()

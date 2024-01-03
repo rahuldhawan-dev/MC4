@@ -1,0 +1,43 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.PostCompletionConfinedSpaceForm
+@{
+    ActionBarHelper.AddWorkOrderLinkForConfinedSpaceForm(Model);
+}
+
+@using (Form.BeginForm("PostCompletionUpdate", "ConfinedSpaceForm", "HealthAndSafety", new { id = Model.Id }))
+{
+    @Html.Partial("_FormPostCompletion")
+    <div class="container">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @if (Model.Original.ProductionWorkOrder != null)
+            {
+                @Html.LinkButton("Cancel", "Show", "ProductionWorkOrder", new { area = "Production", id = Model.Original.ProductionWorkOrder.Id })
+            }
+            else if (Model.Original.WorkOrder != null)
+            {
+                @Html.LinkButton("Cancel", "Show", "WorkOrder", new { area = "FieldOperations", id = Model.Original.WorkOrder.Id })
+            }
+        </text>)
+    </div>
+}
+
+@* this really belongs in the _EditEntrants partial, but you can't
+    participate in sections from partials *@
+@section scripts {
+    <script type="text/javascript">
+        $(() => {
+            ConfinedSpaceForm.entrants.initData([
+                @foreach (var entrant in Model.Original.Entrants)
+                {
+                    <text>{
+                    type: @entrant.EntrantType.Id,
+                    employee: @(entrant.Employee == null ? "null" : entrant.Employee.Id.ToString()),
+                    employeeName: '@(entrant.Employee == null ? "" : entrant.Employee.Description)',
+                    contractingCompany: '@(entrant.ContractingCompany ?? "")',
+                    contractorName: '@(entrant.ContractorName ?? "")'
+                },</text>
+                }
+            ]);
+        });
+    </script>
+}

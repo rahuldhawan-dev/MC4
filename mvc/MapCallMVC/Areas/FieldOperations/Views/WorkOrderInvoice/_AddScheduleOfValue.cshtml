@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.AddWorkOrderInvoiceScheduleOfValue
+    
+@using (var form = Form.BeginRouteForm("WorkOrderInvoice", "ScheduleOfValue", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "scheduleOfValuesForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.ScheduleOfValueCategory)
+        @Html.EditorFor(x => x.ScheduleOfValue)
+        @Html.EditorFor(x => x.Total)
+        @Html.EditorFor(x => x.IsOvertime)
+        @Html.EditorFor(x => x.LaborUnitCost)
+        @Html.EditorFor(x => x.OtherDescription)
+        @Html.EditorFor(x => x.IncludeWithInvoice)
+        @Html.EditorFor(x => x.IncludeMarkup)
+        @*@Html.EditorFor(x => x.MaterialCost)
+        @Html.EditorFor(x => x.MiscCost)*@
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Schedule Of Value")
+            @Control.Button("Cancel").WithId("cancelAddScheduleOfValue").WithCssClass("cancel")
+        </text>)
+    </div>
+}

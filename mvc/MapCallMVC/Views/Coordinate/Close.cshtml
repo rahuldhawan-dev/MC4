@@ -1,0 +1,17 @@
+﻿@model CreateCoordinate
+
+@{
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
+}    
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Coordinate/New.js")
+    <script>
+        CoordinateEdit.close();
+    </script>
+}
+
+@section aboveMap {
+    <input type="hidden" id="CoordinateId" value="@Model.Id"/>
+    @Control.HiddenFor(x => x.ValueFor)
+}

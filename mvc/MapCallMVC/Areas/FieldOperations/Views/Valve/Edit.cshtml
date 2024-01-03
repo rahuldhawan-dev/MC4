@@ -1,0 +1,143 @@
+﻿@using MapCall.Common.Configuration
+@using MapCallMVC.Areas.FieldOperations.Controllers
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditValve
+@{
+    // Bug 2432: Certain fields are only editable by userAdmin
+    var isUserAdmin = RoleService.CanAccessRole(ValveController.ROLE, RoleActions.UserAdministrator);
+}
+@Html.ScriptFor("~/Scripts/Valve/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("IsSAPEnabledServiceUrl").WithValue(Url.Action("IsSAPEnabled", "OperatingCenter", new { area = string.Empty }))
+@using (var f = Form.BeginForm("Update", "Valve", "FieldOperations", new { Model.Id }))
+{
+    @Control.Hidden("OperatingCenter").WithValue(Model.DisplayValve.OperatingCenter.Id)
+	@Control.Hidden("TownName").WithValue(Model.DisplayValve.Town.ShortName) @* Used by getAddress js function *@
+	@Control.Hidden("StateAbbreviation").WithValue(Model.DisplayValve.Town.State.Abbreviation) @* Used by getAddress js function *@
+
+    <div class="field-column fc200">
+        <fieldset>
+            <legend>Details</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.DisplayValve.OperatingCenter)
+                @Html.EditorFor(x => x.WaterSystem)
+                @Html.DisplayFor(x => x.DisplayValve.Town)
+                @Control.Hidden("Town").WithValue(Model.DisplayValve.Town.Id)
+                @Html.EditorFor(x => x.TownSection)
+                @Html.EditorFor(x => x.Facility)
+                @if (isUserAdmin)
+                {
+                    @Html.EditorFor(x => x.ValveNumber)
+                    @Html.EditorFor(x => x.ValveSuffix)
+                    @Html.EditorFor(x => x.LegacyId)
+                    @Html.DisplayFor(x => x.SAPEquipmentId)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.DisplayValve.ValveNumber)
+                    @Html.DisplayFor(x => x.DisplayValve.ValveSuffix)
+                    @Html.DisplayFor(x => x.DisplayValve.LegacyId)
+                    @Html.DisplayFor(x => x.SAPEquipmentId)
+                }
+                @Html.HiddenFor(x => x.SAPEquipmentId)
+                @Html.DisplayFor(x => x.DisplayValve.SAPErrorCode)
+                @Html.EditorFor(x => x.Critical)
+                @Html.EditorFor(x => x.CriticalNotes)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Location Information</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.StreetNumber)
+                @Html.EditorFor(x => x.Street)
+                @Html.EditorFor(x => x.CrossStreet)
+                @Html.EditorFor(x => x.Traffic)
+
+                @if (isUserAdmin)
+                {
+                    @Html.EditorFor(x => x.Coordinate)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.DisplayValve.Coordinate)
+                }
+
+                @Html.EditorFor(x => x.MapPage)
+                @Html.EditorFor(x => x.Route)
+                @Html.EditorFor(x => x.Stop)
+                @Html.EditorFor(x => x.SketchNumber)
+                @Html.EditorFor(x => x.ValveLocation)
+                @Html.EditorFor(x => x.Gradient)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Specifications</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.Status)
+                @if (isUserAdmin)
+        {
+            @Html.EditorFor(x => x.ValveBilling)
+            @Html.EditorFor(x => x.BPUKPI)
+}
+else
+{
+        @Html.DisplayFor(x => x.DisplayValve.ValveBilling)
+        @Html.DisplayFor(x => x.DisplayValve.BPUKPI)
+}
+                @Html.EditorFor(x => x.ValveSize)
+                @Html.EditorFor(x => x.ValveMake)
+
+                @Html.EditorFor(x => x.ValveType)
+                @Html.EditorFor(x => x.ValveControls)
+                @Html.EditorFor(x => x.OpenDirection)
+
+                @Html.EditorFor(x => x.NormalPosition)
+                @Html.EditorFor(x => x.Turns)
+
+                @Html.EditorFor(x => x.MainType)
+                @Html.EditorFor(x => x.WorkOrderNumber)
+                @Html.EditorFor(x => x.DepthFeet)
+                @Html.EditorFor(x => x.DepthInches)
+
+                @Html.EditorFor(x => x.DateInstalled)
+                @Html.EditorFor(x => x.DateRetired)
+                @Html.EditorFor(x => x.ValveZone)
+
+                @if (Model.CanEditInspectionFrequency)
+        {
+            @Html.RenderEditorTemplate("Inspection Frequency", @<text>
+            @Control.TextBoxFor(x => x.InspectionFrequency).WithCssClass("numeric")
+            @Control.DropDownFor(x => x.InspectionFrequencyUnit)
+            @Html.ValidationMessageFor(x => x.InspectionFrequency)
+            @Html.ValidationMessageFor(x => x.InspectionFrequencyUnit)
+            </text>)
+}
+else
+{
+        @Control.HiddenFor(x => x.InspectionFrequency)
+        @Control.HiddenFor(x => x.InspectionFrequencyUnit)
+}
+
+                @Html.EditorFor(x => x.ControlsCrossing)
+                @Html.EditorFor(x => x.MainCrossingOperatingCenter)
+                @Html.EditorFor(x => x.MainCrossings)
+                @if (isUserAdmin)
+        {
+            @Html.EditorFor(x => x.GISUID)
+            @Html.EditorFor(x => x.FunctionalLocation)
+}
+else
+{
+        @Html.DisplayFor(x => x.GISUID)
+        @Html.DisplayFor(x => x.DisplayValve.FunctionalLocation)
+}
+
+            </div>
+        </fieldset>
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "Valve", new { Model.Id })
+        </text>)
+    </div>
+}

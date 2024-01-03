@@ -1,0 +1,25 @@
+﻿@model SearchUnionContractProposal
+
+@using (Form.BeginForm("Index", "UnionContractProposal"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Contract)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Local)
+        @Html.EditorFor(x => x.Union)
+        @Html.EditorFor(x => x.ManagementOrUnion)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.NegotiationTiming)
+        @Html.EditorFor(x => x.CrossReferenceNumber)
+        @Html.EditorFor(x => x.TargetValueOfChange)
+        @Html.EditorFor(x => x.Grouping)
+        @Html.EditorFor(x => x.PrimaryDriverForProposal)
+        @Html.EditorFor(x => x.CostModelNeeded)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

@@ -1,0 +1,75 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderScheduling
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SchedulingCrewAssignment
+@{
+    ActionBarHelper.AddMapLink(new { DefaultLayers = new[] { "Water Network", "Sewer Network" } });
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Scheduling/Index.js", ScriptLoadType.LoadFromPartial)
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@Control.Hidden("WorkOrderUrl").WithValue(Url.Action("CanBeScheduled", "WorkOrderScheduling", new { area = "FieldOperations" }))
+
+@using (Form.BeginForm("Create", "CrewAssignment", "FieldOperations"))
+{
+    @Html.ValidationMessageFor(m => m.WorkOrderIDs)
+
+    @(Html.TableFor(x => x.Search, new { id = "workOrdersTable" })
+                                  .WithWorkOrderRowStyles()
+                                  .WithCaption("Records found:" + Model.Search.Count)
+                                  .TemplateColumnFor("Assign", x => @<text><input type="checkbox" name="WorkOrderIDs" value="@x.Id" data-val-at-least="You must pick at least one order to assign." data-val-at-least-min="1" data-val="true" /></text>)
+                                  .SortableTemplateColumnFor("Order #", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrder", new { x.Id, area = "FieldOperations" }, new { target = "_blank" }))
+                                  .SortableColumnFor(x => x.StreetNumber)
+                                  .SortableColumnFor(x => x.Street, "Street.FullStName")
+                                  .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+                                  .SortableColumnFor(x => x.Town)
+                                  .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+                                  .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+                                  .SortableColumnFor(x => x.CompanyServiceLineMaterial)
+                                  .SortableColumnFor(x => x.CustomerServiceLineMaterial)
+                                  .ColumnFor(x => x.AssetId)
+                                  .SortableColumnFor(x => x.WorkDescription)
+                                  .WithCellBuilder((model, tag) => {
+                                      tag.Attributes.Add("title", model.Notes);
+                                  })
+                                  .SortableColumnFor(x => x.MarkoutRequirement, "MarkoutRequirement.Description")
+                                  .SortableTemplateColumnFor("Markout Ready Date", "CurrentMarkout.ReadyDate",
+                                      x => @<text>
+		                                       @if (x.CurrentMarkout != null)
+		                                       {
+			                                       @String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.CurrentMarkout.ReadyDate)
+		                                       }
+	                                        </text>)
+                                  .SortableTemplateColumnFor("Markout Expiration Date", "CurrentMarkout.ExpirationDate",
+                                      x => @<text>
+		                                       @if (x.CurrentMarkout != null)
+		                                       {
+			                                       @String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.CurrentMarkout.ExpirationDate)
+		                                       }
+	                                        </text>)
+                                  .SortableColumnFor(x => x.Priority)
+                                  .SortableColumnFor(x => x.Purpose)
+                                  .SortableTemplateColumnFor(x => x.DateReceived, "DateReceived",
+	                                  x => @<text>
+		                                       @if (x.DateReceived.HasValue)
+		                                       {
+			                                       @x.DateReceived.Value.ToString("d")
+		                                       }
+	                                        </text>)
+                                  .SortableColumnFor(x => x.PlannedCompletionDate)
+                                  .SortableTemplateColumnFor("Assigned Date", "CurrentAssignment.AssignedFor",
+	                                  x => @<text>
+		                                       @if (x.CurrentAssignment != null)
+		                                       {
+			                                       @x.CurrentAssignment.AssignedFor.Value.ToString("d")
+		                                       }
+	                                        </text>)
+                                  .SortableColumnFor(x => x.CurrentAssignment.Crew, "Assigned To", "CurrentAssignment.CrewName")
+                                  .SortableColumnFor(x => x.WorkDescription.TimeToComplete, "Estimated TTC (hours)", "WorkDescription.TimeToComplete")
+                                  .SortableColumnFor(x => x.SAPNotificationNumber)
+                                  .SortableColumnFor(x => x.SAPWorkOrderNumber)
+	    )
+
+    <br />
+
+    @Html.Partial("_AssignmentControls", Model)
+}

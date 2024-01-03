@@ -1,0 +1,27 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the work order finalization tab. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MaterialUsed/Index.js", ScriptLoadType.LoadFromPartial)
+@{ MaterialUsed temp = null; }
+
+@Ajax.ActionLink("Add New Material", "New", "MaterialUsed",
+    new { area = "FieldOperations", workOrderId = @Model.Id },
+    new AjaxOptions { HttpMethod = "GET" },
+    new { data_ajax_table = "#materialsUsedTable", Class = "link-button" })
+<table id="materialsUsedTable">
+    <thead>
+        <tr>
+            <th>@Html.DisplayLabelFor(_ => temp.Material.PartNumber)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.StockLocation)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.StockLocation.SAPStockLocation)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Material.Description)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Quantity)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var materialUsed in Model.MaterialsUsed)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/MaterialUsed/_Show.cshtml", materialUsed)
+        }
+    </tbody>
+</table>

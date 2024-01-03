@@ -1,0 +1,23 @@
+﻿@model Contractors.Models.ViewModels.CreateMarkout
+
+@Html.ScriptFor("~/Scripts/Markout/Form.js")   
+<div style="width:500px;">
+    @using (var f = Form.BeginAjaxForm("Create", "Markout", new { Model.WorkOrder }))
+    {
+	    f.HtmlAttributes["title"] = "Add New Markout";
+		@Control.HiddenFor(x => x.WorkOrderOperatingCenterMarkoutEditable)
+
+	    <div class="field-column fc100">
+			@Html.EditorFor(m => m.MarkoutNumber)
+            @Html.EditorFor(m => m.MarkoutType)
+            @Html.EditorFor(m => m.Note)
+            @Html.EditorFor(m => m.DateOfRequest)
+			@if (Model.WorkOrderOperatingCenterMarkoutEditable)
+			{
+				@Html.EditorFor(x => x.ReadyDate)
+				@Html.EditorFor(x => x.ExpirationDate)
+			}
+        </div>
+        @Html.Partial("_DialogButtons", "Save Markout")
+    }
+</div>

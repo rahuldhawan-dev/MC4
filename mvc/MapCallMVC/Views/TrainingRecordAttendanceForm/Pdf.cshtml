@@ -1,0 +1,242 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<TrainingRecord>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    IsLandscape = true;
+}
+
+@section head {
+    <style>
+        * {
+            font-family: Arial;
+        }
+
+        td, th, div {
+            font-size: 12px;
+        }
+
+            div.heading-wrapper, table {
+                width: 100%;
+            }
+
+                table > tbody > tr > td {
+                    height: 30px;
+                }
+
+                div.heading-wrapper > div:first-child {
+                    float: left;
+                    width: 74%;
+                }
+
+                div.heading-wrapper > div:last-child {
+                    float: right;
+                    width: 24%;
+                    padding-left: 2px;
+                }
+
+                div.heading-wrapper > div > table {
+                    table-layout: fixed;
+                    border-collapse: collapse;
+                }
+
+                    div.heading-wrapper > div > table > tbody > tr > td {
+                        height: 30px;
+                        vertical-align: bottom;
+                    }
+
+                div.heading-wrapper > div:first-child > table {
+                    height: 150px;
+                }
+
+                    div.heading-wrapper > div:first-child > table > tbody > tr > td {
+                        border-bottom: 1px solid black;
+                    }
+
+                div.heading-wrapper > div:last-child > table {
+                    height: 150px;
+                    border: 2px solid black;
+                }
+
+                    div.heading-wrapper > div:last-child > table > tbody > tr > td {
+                        border: 1px solid black;
+                        padding-left: 2px;
+                        padding-right: 2px;
+                    }
+
+                        div.heading-wrapper > div:last-child > table > tbody > tr > td:nth-child(2) {
+                            color: gray;
+                            font-size: xx-small;
+                            vertical-align: top;
+                        }
+
+            div.body-wrapper {
+                clear: both;
+                padding-top: 10px;
+            }
+
+                div.body-wrapper > table > tbody > tr > td {
+                    padding-left: 2px;
+                    padding-right: 2px;
+                }
+
+                div.body-wrapper > table > thead > tr:first-child > th {
+                    font-size: 18px;
+                    text-align: left;
+                }
+
+                div.body-wrapper > table > thead > tr:last-child > td {
+                    text-align: center;
+                    font-weight: bold;
+                }
+
+                div.body-wrapper > table td:nth-child(1) {
+                    text-align: right;
+                }
+
+                div.body-wrapper > table td:nth-child(1),
+                div.body-wrapper > table td:nth-child(2),
+                div.body-wrapper > table td:nth-child(3),
+                div.body-wrapper > table td:nth-child(4),
+                div.body-wrapper > table td:nth-child(6),
+                div.body-wrapper > table td:nth-child(7),
+                div.body-wrapper > table td:nth-child(8),
+                div.body-wrapper > table td:nth-child(10) {
+                    border: 1px solid black;
+                }
+
+                div.body-wrapper > table tr:nth-child(even) {
+                    background-color: lightgray;
+                }
+
+                div.body-wrapper > table td:nth-child(5),
+                div.body-wrapper > table td:nth-child(9) {
+                    background-color: white;
+                }
+    </style>
+}
+
+@section body {
+    <div class="heading-wrapper">
+        <div>
+            <h1>Training Course Attendance Roster</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="5">Name of Course: @Model.TrainingModule.Title</td>
+                        <td colspan="3">Course ID: @Model.TrainingModule.Id</td>
+                        <td colspan="4" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Date of Course: @Html.DisplayValueFor(x => x.HeldOn)</td>
+                        <td colspan="4"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Course Location: @Model.CourseLocation</td>
+                        <td colspan="1"></td>
+                        <td colspan="4">Timeframe - From:</td>
+                        <td colspan="3">To:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Facilitator's Name: @(Model.Instructor != null ? Model.Instructor.ProperName : "")</td>
+                        <td colspan="4">Signature:</td>
+                        <td colspan="3">Title: @((Model.Instructor != null && Model.Instructor.CurrentPosition != null) ? Model.Instructor.CurrentPosition.PositionDescription : "")</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">Second Facilitator's Name: @(Model.SecondInstructor != null ? Model.SecondInstructor.ProperName : "n/a")</td>
+                        <td colspan="4">Signature: -----------------------------------------------</td>
+                        <td colspan="3">Title: @((Model.SecondInstructor != null && Model.SecondInstructor.CurrentPosition != null) ? Model.SecondInstructor.CurrentPosition.PositionDescription : "n/a")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="4">
+                            NJDEP Course No.: @Model.TrainingModule.CourseApprovalNumber
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            TCHs Issued:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">MapCall Entry Date:</td>
+                        <td>Initial</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Certificate Printed:</td>
+                        <td>Initial</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Certificate Issued:</td>
+                        <td>Initial</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="body-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="3">Name of Attendee</th>
+                    <th></th>
+                    <th colspan="3">Position Title/Location</th>
+                    <th></th>
+                    <th>License</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>First</td>
+                    <td>Last</td>
+                    <td>MI</td>
+                    <td></td>
+                    <td>Position Title</td>
+                    <td>Work Location</td>
+                    <td>Signature of Attendee</td>
+                    <td></td>
+                    <td>Operator's License Type</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var i = 0; }
+                @foreach (var employee in Model.EmployeesScheduled.Select(x => x.Employee))
+                {
+                    <tr>
+                        <td>@(++i)</td>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.MiddleName</td>
+                        <td></td>
+                        <td>@(employee.PositionGroup == null ? "" : employee.PositionGroup.PositionDescription)</td>
+                        <td>@employee.OperatingCenter</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @if (Model.HeldOn.HasValue)
+                            {
+                                foreach (var license in employee.OperatorLicenses.Where(x => x.IsValidAndNotExpiredForDate(Model.HeldOn.Value)))
+                                {
+                                    <div>
+                                        @license.OperatorLicenseType.Description
+                                        -
+                                        @license.LicenseLevel
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <span style="color:red;">Training record must have Held On date set in order to display license information.</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

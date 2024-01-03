@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AllocationPermitWithdrawalNode>
+           
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "AllocationPermitWithdrawalNode", new { id = x.Id }, null))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Facility)
+    .ColumnFor(x => x.WellPermitNumber)
+    .ColumnFor(x => x.AllowableGpm)
+    .ColumnFor(x => x.AllowableGpd)
+    .ColumnFor(x => x.AllowableMgm)
+    .ColumnFor(x => x.CapableGpm)
+    .ColumnFor(x => x.HasStandByPower)
+)

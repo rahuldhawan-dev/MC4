@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "";
+    var message = ViewBag.Message as string;
+}
+
+<h2>Access to the webpage was denied</h2>
+
+@if (message != null)
+{
+    <div id="errWrapper">
+        <div id="errMessage">
+            <div class="error-section">
+                <div class="error-section-message">
+                    @message
+                </div>
+            </div>
+        </div>
+    </div>
+}

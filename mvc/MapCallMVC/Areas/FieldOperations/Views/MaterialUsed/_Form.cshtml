@@ -1,0 +1,47 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MaterialsUsed.MaterialUsedViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MaterialUsed/Form.js")
+@Html.StylesheetFor("~/Content/css/FieldOperations/MaterialUsed/Form.css")
+@Control.Hidden("OperatingCenterStockedMaterialUrl").WithValue(Url.Action("StockMaterialSearchByOperatingCenter", "OperatingCenterStockedMaterial", new { area = string.Empty }))
+<div style="min-width:300px;">
+    <fieldset title="Part Search">
+        <legend>Part Search:</legend>
+        <div class="field-column fc50">
+            <div class="field-pair">
+                <div class="label">Search</div>
+                <div class="field">
+                    <table class="search">
+                        <tr>
+                            <td>
+                                <input type="text" id="PartSearch" />
+                            </td>
+                            <td>
+                                @* This button has no text? *@
+                                <button type="submit" id="DoSearch"></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="field-pair">
+                <div class="label">Results</div>
+                <div class="field">
+                    <div>
+                        <select size="5" id="PartSearchResults" disabled="disabled" style="height:75px;">
+                            <option>No results found.</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.OperatingCenter)
+        @Html.EditorFor(m => m.Material)
+        @Html.EditorFor(m => m.StockLocation)
+        @Html.EditorFor(m => m.NonStockDescription)
+        @Html.EditorFor(m => m.Quantity)
+    </div>
+    @Html.Partial("_DialogButtons", "Save Material")
+</div>

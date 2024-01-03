@@ -1,0 +1,33 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ExternalStreetOpeningPermits.ExternalStreetOpeningPermitUploadDrawingViewModel
+@{
+    Layout = "_BaseLayout.cshtml";
+    var uploadUrl = Url.Action("UploadDrawing", "ExternalStreetOpeningPermit", new { permitId = Model.StreetOpeningPermit });
+}
+
+<script>
+    window.PermitDrawingUpload = {
+        onComplete: function(e) {
+            if (e.hasMetDrawingRequirement) {
+                $("#btn-continue-to-payment").show();
+            }
+        }
+    }
+</script>
+
+@* HUGE NOTE:
+    
+    This view is using the javascript that comes from the permits API website. It's *not* using the
+    javascript that MapCall would normally use. While Control.FileUploadFor currently works with this,
+    there are caveats. The MapCall version does not have support for multiple uploads enabled, but the
+    script coming from the permits site *does* support it. There's always the potential that this
+    somehow breaks if the the FileUploadFor control is changed in the background. If that happens, we'll
+    need to manually create the FineUploader component just for this view. 
+    
+    *@
+
+<h3>One or more drawings are required for this permit. Once the minimum amount of drawings required have been uploaded the "Continue to Payment" button will appear.</h3>
+
+@Control.FileUploadFor(x => x.FileUpload).WithUrl(uploadUrl).WithAllowedExtensions("jpeg", "png", "tiff", "pdf")
+
+@* If drawing requirement is met, show "Continue to Payment" link button *@
+@Html.LinkButton("Continue to Payment", "BeginPayment", "ExternalStreetOpeningPermit", new { area = "FieldOperations", id = Model.StreetOpeningPermit }, new { id = "btn-continue-to-payment", style = "display:none;" })

@@ -1,0 +1,6 @@
+﻿@model AllocationPermit
+           
+@(Html.Tabs()
+    .WithTab("Allocation Grouping", "_ShowAllocationPermit", Model)
+    .WithTab("Withdrawal Nodes", "~/Areas/Environmental/Views/AllocationPermitWithdrawalNode/_Index.cshtml", Model.AllocationPermitWithdrawalNodes)
+    .WithNotesAndDocuments())

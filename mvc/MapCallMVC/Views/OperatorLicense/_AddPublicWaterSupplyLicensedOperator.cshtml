@@ -1,0 +1,16 @@
+﻿@model CreatePublicWaterSupplyLicensedOperator
+
+<div class="collapse-panel" data-title="Add New Public Water Supply">
+    @using (var form = Form.BeginForm("Create", "PublicWaterSupplyLicensedOperator", new {area = ""}))
+    {
+        <fieldset class="field-column fc200">
+            @Html.EditorFor(x => x.PublicWaterSupply)
+            @Control.HiddenFor(x => x.LicensedOperator)
+            @Html.ButtonGroup(
+                @<text>
+                    @Control.SubmitButton("Add Public Water Supply").WithId("addPublicWaterSupplyButton")
+                    @Control.Button("Cancel").WithId("cancelPublicWaterSupplyButton").WithCssClass("cancel")
+                 </text>)
+        </fieldset>
+    }
+</div>

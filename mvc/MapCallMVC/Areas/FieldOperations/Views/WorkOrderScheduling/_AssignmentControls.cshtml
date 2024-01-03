@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SchedulingCrewAssignment
+
+@Html.LabelFor(x => x.Crew, "Crew:")
+@Html.EditorWithoutWrapperFor(x => x.Crew)
+@Html.LabelFor(x => x.AssignFor, "For Date:")
+@Html.EditorWithoutWrapperFor(x => x.AssignFor)
+@Control.SubmitButton("Assign").WithId("Assign")

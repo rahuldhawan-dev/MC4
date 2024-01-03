@@ -1,0 +1,7 @@
+﻿@model Event
+
+@(Html.Tabs()
+      .WithTab("Event Management", "_ShowEvent", Model)
+      .WithNotesAndDocuments()
+      .WithLog()
+    ) 

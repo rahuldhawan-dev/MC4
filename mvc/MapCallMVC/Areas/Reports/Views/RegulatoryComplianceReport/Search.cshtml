@@ -1,0 +1,39 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchRegulatoryCompliance
+    
+@using (Form.BeginForm("Index", "RegulatoryComplianceReport", "Reports"))
+{
+    <div class="field-column fc175 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.EquipmentPurpose)
+        @Html.RenderEditorTemplate("Compliance", @<text>
+            <div class="compliance-div-section" style="width:425px">
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasProcessSafetyManagement) Process Safety Management
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasCompanyRequirement) Company Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasRegulatoryRequirement) Environmental / Water Quality Regulatory Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.HasOshaRequirement) OSHA Requirement
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.OtherCompliance) Other
+                </div>
+            </div>
+         </text>)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.DateReceived)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

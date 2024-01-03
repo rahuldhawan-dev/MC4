@@ -1,0 +1,15 @@
+﻿@model SearchBusinessUnit
+
+@using (Form.BeginForm("Index", "BusinessUnit"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Department)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.EmployeeResponsible)
+        @Html.EditorFor(x => x.Area)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

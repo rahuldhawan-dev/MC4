@@ -1,0 +1,37 @@
+﻿@using MapCall.Common.Model.Entities
+@using MMSINC.Utilities
+@model dynamic
+
+<h2>Work Order with Sample Site</h2>
+
+Work Order Number #:
+<a href="@Model.RecordUrl">@Model.Id</a>
+<br />
+Premise #: @Model.PremiseNumber
+<br />
+Operating Center: @Model.OperatingCenter
+<br />
+Description of Job: @Model.WorkDescription
+<br />
+Date Received: @if(Model.DateReceived != null){@String.Format(CommonStringFormats.DATE, Model.DateReceived)}
+<br />
+Date Completed: @if(Model.DateCompleted != null) { @String.Format(CommonStringFormats.DATE, Model.DateCompleted)}
+<br />
+Street:<a href="https://www.google.com/maps/place/@Model.StreetAddress @Model.Town @(Model.Town != null ? Model.Town.State.Name : null)"> @Model.StreetAddress @Model.Town @(Model.Town != null ? Model.Town.State.Name : null)</a>
+<br />
+Town: @Model.Town
+<br /><br />
+Customer Name: @Model.CustomerName
+<br /> 
+Sample Site: @(@Model.SampleSite != null ? Model.SampleSite.Id.ToString() : null) @(Model.SampleSite != null ? Model.SampleSite.Town : null) @(Model.SampleSite != null ? Model.SampleSite.FullAddress : null) @(Model.SampleSite != null ? Model.SampleSite.State : null)
+<br />
+Installation: @Model.Installation
+<br /><br />
+Service Material: @Model.CustomerServiceLineMaterial
+<br />
+Previous NJAW Material: @Model.PreviousServiceLineMaterial
+<br />
+Customer Side Size: @Model.CustomerServiceLineSize
+<br />
+Created By:  @(Model.CreatedBy != null ? Model.CreatedBy.FullName : null)
+<br />

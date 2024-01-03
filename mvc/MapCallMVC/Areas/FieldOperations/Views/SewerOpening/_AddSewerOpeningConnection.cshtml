@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.AddSewerOpeningConnection
+           
+@using (var form = Form.BeginRouteForm("SewerOpening", "SewerOpeningSewerOpeningConnection", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "sewerOpeningConnectionForm");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.ConnectedOpeningDownstream)
+        @Html.EditorFor(x => x.IsInlet)
+        @Html.EditorFor(x => x.ConnectedOpening)
+        @Html.EditorFor(x => x.SewerPipeMaterial)
+        @Html.EditorFor(x => x.SewerTerminationType)
+        @Html.EditorFor(x => x.Invert)
+        @Html.EditorFor(x => x.Size)
+        @Html.EditorFor(x => x.Route)
+        @Html.EditorFor(x => x.Stop)
+        @Html.EditorFor(x => x.InspectionFrequency)
+        @Html.EditorFor(x => x.InspectionFrequencyUnit)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Add Connection")
+            @Control.Button("Cancel").WithId("cancelConnectionButton").WithCssClass("cancel")
+        </text>)
+    </div>
+}

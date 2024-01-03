@@ -1,0 +1,24 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.ViewModels.ProductionWorkOrderNotification
+
+<h2>Supervisor Approval Required</h2>
+
+<a href="@Model.RecordUrl">@Model.ProductionWorkOrder.Id</a><br />
+Operating Center: @Model.ProductionWorkOrder.OperatingCenter<br />
+Planning Plant: @Model.ProductionWorkOrder.PlanningPlant<br />
+Facility: @Model.ProductionWorkOrder.Facility<br />
+Work Order Number: @Model.ProductionWorkOrder.Id<br />
+Work Order Description: @Model.ProductionWorkOrder.ProductionWorkDescription<br />
+@if (!Model.ProductionWorkOrder.HasComplianceOrderType && Model.ProductionWorkOrder.Equipment != null)
+{
+    <text>Equipment Description: @Model.ProductionWorkOrder.Equipment.Description<br /></text>
+}
+Notes: @Model.ProductionWorkOrder.OrderNotes
+@foreach (EmployeeAssignment x in @Model.ProductionWorkOrder.EmployeeAssignments)
+{
+    <text><br />
+        Employee: @x.AssignedTo.ToString()<br />
+        Date Started: @x.DateStarted<br />
+        Date Ended: @x.DateEnded
+    </text>
+}

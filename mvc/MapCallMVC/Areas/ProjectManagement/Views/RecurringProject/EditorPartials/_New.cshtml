@@ -1,0 +1,69 @@
+﻿@using MapCall.Common.ClassExtensions.WorkOrderAssetViewModelExtensions
+@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.CreateRecurringProject
+    @Control.Hidden("WBSElementFindUrl").WithValue(Url.Action("Find", "WBSElement", new { area = "SAP" }))
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("WBS Charged", @<text>
+        <div id="wbsElementLookupLink">
+            @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new { area = "SAP" }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#wbsElementTable", id = "WBSElementFindLink" })
+        </div>
+        @Html.EditorWithoutWrapperFor(x => x.WBSNumber)
+    </text>)
+
+    @Html.EditorFor(x => x.OperatingCenter)
+    <input type="hidden" id="OperatingCenter_InfoMasterMapId" />
+    <input type="hidden" id="OperatingCenter_InfoMasterMapLayerName" />
+    @Control.Hidden("OperatingCenterInfoMasterMapUrl").WithValue(Url.Action("GetInfoMasterInfo", "OperatingCenter", new { area = string.Empty }))
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.ProjectTitle)
+    @Html.EditorFor(x => x.ProjectDescription)
+    @Html.EditorFor(x => x.AssetCategory)
+    @Html.EditorFor(x => x.CPSReferenceId)
+    @Html.EditorFor(x => x.AssetType)
+    @Html.EditorFor(x => x.District)
+    @Html.EditorFor(x => x.OriginationYear)
+    @Html.EditorFor(x => x.HistoricProjectID)
+    @Html.EditorFor(x => x.NJAWEstimate)
+
+    @Html.EditorFor(x => x.HighCostFactors, new { html = new { @class = "checkbox-list-wider" } })
+    @Html.EditorFor(x => x.RecurringProjectType)
+    @*INFO MASTER SELECTOR*@
+    @Html.RenderDisplayTemplate("InfoMaster Main Selector <span class=\"required-label\">*</span>", @<text>
+        <img id="mains" src="~/Content/images/map-icon-blue.png" />
+    </text>)
+    @Html.EditorFor(x => x.OverrideInfoMasterDecision)
+    @Html.EditorFor(x => x.OverrideInfoMasterReason)
+        <fieldset id="GISDataCorrectionInfo" style="display: none;">
+            <legend>GIS Inaccuracy Details</legend>
+            <div class="grid-layout gl-2col" style="width: 900px;">
+                <div class="field-column fc200">
+                    @Html.EditorFor(x => x.GISDataInaccuracies)
+                    @Html.EditorFor(x => x.FileUpload)
+                </div>
+                <div class="field-column fc200">
+                    @Html.EditorFor(x => x.CorrectDiameter)
+                    @Html.EditorFor(x => x.CorrectMaterial)
+                    @Html.EditorFor(x => x.CorrectInstallationDate)
+                    @Html.EditorFor(x => x.MainBreakOrders)
+                </div>
+
+            </div>
+        </fieldset>
+    @Html.EditorFor(x => x.OverrideInfoMasterJustification)
+    @Html.EditorFor(x => x.ProposedLength)
+    @Html.EditorFor(x => x.TotalInfoMasterScore)
+    @Html.EditorFor(x => x.ProposedDiameter)
+    @Html.EditorFor(x => x.ProposedPipeMaterial)
+    @Html.EditorFor(x => x.Justification)
+    @Html.EditorFor(x => x.AcceleratedAssetInvestmentCategory)
+    @Html.EditorFor(x => x.SecondaryAssetInvestmentCategory)
+    @Html.EditorFor(x => x.EstimatedProjectDuration)
+    @Html.EditorFor(x => x.EstimatedInServiceDate)
+    @Html.EditorFor(x => x.ActualInServiceDate)
+    @Html.EditorFor(x => x.FoundationalFilingPeriod)
+    @Html.EditorFor(x => x.RegulatoryStatus)
+    @Html.DisplayFor(x => x.FinalCriteriaScore)
+    @Html.DisplayFor(x => x.FinalRawScore)
+    @Html.EditorFor(x => x.Coordinate)
+
+</div>

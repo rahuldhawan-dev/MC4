@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MainBreaks.MainBreakViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MainBreak/Form.js")
+
+<div class="field-column fc100">
+    @Html.EditorFor(m => m.ServiceSize)
+    @Html.EditorFor(m => m.MainBreakMaterial)
+    @Html.RenderEditorTemplate("Footage Replaced", Html.EditorWithoutWrapperFor(m => m.FootageReplaced))
+    @Html.EditorFor(m => m.ReplacedWith)
+    @Html.EditorFor(m => m.MainCondition)
+    @Html.EditorFor(m => m.MainFailureType)
+    @Html.EditorFor(m => m.Depth)
+    @Html.EditorFor(m => m.MainBreakSoilCondition)
+    @Html.EditorFor(m => m.CustomersAffected)
+    @Html.EditorFor(m => m.ShutdownTime)
+    @Html.EditorFor(m => m.MainBreakDisinfectionMethod)
+    @Html.EditorFor(m => m.MainBreakFlushMethod)
+    @Html.EditorFor(m => m.ChlorineResidual)
+    @Html.EditorFor(m => m.BoilAlertIssued)
+    
+    @Html.ButtonGroup(
+	    @<text>
+		    @Control.SubmitButton("Save Main Break").WithId("SaveMainBreak")
+		    @Control.Button("Cancel").WithCssClass("cancel").WithId("CancelMainBreak")
+	     </text>)
+</div>

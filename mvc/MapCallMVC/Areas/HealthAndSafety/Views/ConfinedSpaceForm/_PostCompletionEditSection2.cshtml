@@ -1,0 +1,140 @@
+﻿@using MapCallMVC.Areas.HealthAndSafety.Models.ViewModels
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.PostCompletionConfinedSpaceForm
+@{
+    // NOTE: This is specifically named "NewAtmosphericTests" to match with the property
+    // on ConfinedSpaceFormViewModel. The form elements will include "NewAtmosphericTests" in their
+    // names/id attributes. Form.js then modifies those name/id to include array index accessors
+    // that the model binder can use.
+    var NewAtmosphericTests = ViewModelFactory.Build<CreateConfinedSpaceFormAtmosphericTest>();
+    var isSection2Completed = Model.IsSection2Completed;
+}
+@Control.Hidden().WithId("is-section-2-completed").WithValue(isSection2Completed)
+@Html.HiddenFor(x => x.OperatingCenter)
+@if (!isSection2Completed)
+{
+    <div class="container" style="margin-bottom:12px;">
+        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+        {
+            Message = "A valid pre-entry atmospheric test must be added and saved before the other sections of this form can be started.",
+            NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+        })
+    </div>
+}
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.Original.GasMonitor.Display, new {DisplayName = "Gas Monitor"})
+</div>
+
+<div class="atmosphere-tests">
+    <div class="form-signing-section">
+        @if (!Model.IsBumpTestPreviouslyConfirmed)
+        {
+            <div class="signature-section signature-section-unsigned">
+                <div>
+                    In order to enter atmospheric tests, I confirm that a gas monitor bump test has been performed.
+                </div>
+                <div>
+                    @Html.EditorWithoutWrapperFor(x => x.IsBumpTestConfirmed)
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="signature-section signature-section-signed">
+                <div>
+                    The employee below confirmed that a gas monitor bump test was performed.
+                </div>
+                <div class="field-column fc100">
+                    @Html.DisplayFor(x => x.Original.BumpTestConfirmedBy, new { DisplayName = "Signed By" })
+                    @Html.DisplayFor(x => x.Original.BumpTestConfirmedAt, new { DisplayName = "Signed At" })
+                </div>
+            </div>
+        }
+    </div>
+
+    <div>
+        @Control.Button("Add New Test").WithId("add-atmospheric-test")
+    </div>
+    <div id="new-atmospheric-tests-list"></div>
+    @* Get yee to Form.js for understanding how this template works. *@
+    @* NOTE: The html structure here is the same as the readonly version. If you make a change here, make sure
+        that the edit view is similarly changed. *@
+    <template id="atmospheric-test-template">
+        <div class="single-atmospheric-test">
+            <div class="field-column fc100">
+                @Html.EditorFor(_ => NewAtmosphericTests.TestedAt)
+                @Html.EditorFor(_ => NewAtmosphericTests.ConfinedSpaceFormReadingCaptureTime)
+            </div>
+
+            <table class="for-structure">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Top</th>
+                        <th>Middle</th>
+                        <th>Bottom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Html.LabelFor(_ => NewAtmosphericTests.OxygenPercentageTop)</td>
+                        <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.OXYGEN</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.OxygenPercentageTop)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.OxygenPercentageMiddle)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.OxygenPercentageBottom)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(_ => NewAtmosphericTests.LowerExplosiveLimitPercentageTop)</td>
+                        <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.LEL</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.LowerExplosiveLimitPercentageTop)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.LowerExplosiveLimitPercentageMiddle)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.LowerExplosiveLimitPercentageBottom)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(_ => NewAtmosphericTests.CarbonMonoxidePartsPerMillionBottom)</td>
+                        <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.CO</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.CarbonMonoxidePartsPerMillionTop)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.CarbonMonoxidePartsPerMillionMiddle)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.CarbonMonoxidePartsPerMillionBottom)</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(_ => NewAtmosphericTests.HydrogenSulfidePartsPerMillionTop)</td>
+                        <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.H2S</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.HydrogenSulfidePartsPerMillionTop)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.HydrogenSulfidePartsPerMillionMiddle)</td>
+                        <td>@Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.HydrogenSulfidePartsPerMillionBottom)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-signing-section">
+                <div class="signature-section signature-section-unsigned signature-atmosphere-test">
+                    <div>
+                        @if (Model.IsCompleted)
+                        {
+                            <p>The above test has values that are out of the acceptable concentration range(s). If this is correct and you wish to record these results, check the box to the right.</p>
+                            <p class="warning">Also, stop work and speak to your supervisor. </p>
+                        }
+                        else
+                        {
+                            <p>
+                                The above test has values that are out of the acceptable concentration range(s). If this is correct and you wish to record these results, check the box to the right.
+                                Also, stop work and speak to your supervisor. You must record acceptable concentration ranges for all readings before completing the form.
+                            </p>
+                        }
+                    </div>
+                    <div>
+                        @Html.EditorWithoutWrapperFor(_ => NewAtmosphericTests.AcknowledgedValuesAreOutOfRange, new { @class = "atmosphere-test-out-of-range-field" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div id="existing-atmospheric-tests-list">
+        @if (Model.Original != null) // Original will be null when creating a new ConfinedSpaceForm.
+        {
+            @Html.Partial("_DisplayAtmosphericTests", Model.Original.AtmosphericTests)
+        }
+    </div>
+
+</div>

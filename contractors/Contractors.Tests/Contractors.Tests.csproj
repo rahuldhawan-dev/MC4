@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3EF37C21-52DC-4E72-BC09-0D882E026708}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Contractors.Tests</RootNamespace>
+    <AssemblyName>Contractors.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <LangVersion>7.3</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA1|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Training\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA2\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA3\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.1.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.3.1.0\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.13\lib\net45\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Linq, Version=1.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.Linq.1.0\lib\NHibernate.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=5.0.0.6, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\packages\NuGet.Frameworks.5.0.0\lib\net472\NuGet.Frameworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyTest.cs" />
+    <Compile Include="Content\BundleTest.cs" />
+    <Compile Include="ContractorAuthorizationTester.cs" />
+    <Compile Include="Controllers\CompletedWorkControllerTest.cs" />
+    <Compile Include="Controllers\ContractorControllerTest.cs" />
+    <Compile Include="Controllers\ContractorsControllerTestBase.cs" />
+    <Compile Include="Controllers\ContractorsInMemoryDatabaseTestInterceptorWithChangeTracking.cs" />
+    <Compile Include="Controllers\CountyControllerTest.cs" />
+    <Compile Include="Controllers\DocumentControllerTest.cs" />
+    <Compile Include="Controllers\DocumentLinkControllerTest.cs" />
+    <Compile Include="Controllers\MeterChangeOutCompletionsControllerTest.cs" />
+    <Compile Include="Controllers\NoteControllerTest.cs" />
+    <Compile Include="Controllers\SAPDeviceDetailControllerTest.cs" />
+    <Compile Include="Controllers\ServiceControllerTest.cs" />
+    <Compile Include="Controllers\ServiceInstallationControllerTest.cs" />
+    <Compile Include="Controllers\ServiceMaterialControllerTest.cs" />
+    <Compile Include="Controllers\ServiceRestorationContractorControllerTest.cs" />
+    <Compile Include="Controllers\SmallMeterLocationControllerTest.cs" />
+    <Compile Include="Controllers\TapOrderControllerTest.cs" />
+    <Compile Include="Controllers\TownControllerTest.cs" />
+    <Compile Include="Controllers\MeterChangeOutScheduleControllerTest.cs" />
+    <Compile Include="Controllers\MeterChangeOutControllerTest.cs" />
+    <Compile Include="Controllers\ContractorMeterCrewControllerTest.cs" />
+    <Compile Include="Controllers\AsBuiltImageControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderGeneralControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderAdditionalFinalizationInfoControllerTest.cs" />
+    <Compile Include="Controllers\ControllerTestBase.cs" />
+    <Compile Include="Controllers\CrewAssignmentControllerTest.cs" />
+    <Compile Include="Controllers\CrewControllerTest.cs" />
+    <Compile Include="Controllers\ErrorControllerTest.cs" />
+    <Compile Include="Controllers\MainBreakControllerTest.cs" />
+    <Compile Include="Controllers\MarkoutControllerTest.cs" />
+    <Compile Include="Controllers\MaterialControllerTest.cs" />
+    <Compile Include="Controllers\MaterialUsedControllerTest.cs" />
+    <Compile Include="Controllers\RestorationControllerTest.cs" />
+    <Compile Include="Controllers\RestorationMethodControllerTest.cs" />
+    <Compile Include="Controllers\SpoilControllerTest.cs" />
+    <Compile Include="Controllers\StreetControllerTest.cs" />
+    <Compile Include="Controllers\StreetOpeningPermitControllerTest.cs" />
+    <Compile Include="Controllers\TapImageControllerTest.cs" />
+    <Compile Include="Controllers\TownSectionControllerTest.cs" />
+    <Compile Include="Controllers\UserControllerTest.cs" />
+    <Compile Include="Controllers\ValveImageControllerTest.cs" />
+    <Compile Include="Controllers\WorkDescriptionControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderControllerBaseTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderFinalizationControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderInitialControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderMapControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderPlanningControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderReadOnlyControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderSchedulingControllerTest.cs" />
+    <Compile Include="Controllers\WorkOrder\WorkOrderTrafficControllerTest.cs" />
+    <Compile Include="Factories.cs" />
+    <Compile Include="FactoryTests.cs" />
+    <Compile Include="Helpers\LinkHelperTest.cs" />
+    <Compile Include="Library\SecuredRepositoryBaseTest.cs" />
+    <Compile Include="Models\Repositories\DocumentDataRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ServiceRepositoryTest.cs" />
+    <Compile Include="Models\SapProgressWorkOrderTest.cs" />
+    <Compile Include="Models\ViewModels\ContractorMeterCrewViewModelTest.cs" />
+    <Compile Include="Models\ViewModels\CreateMainBreakTest.cs" />
+    <Compile Include="Models\ViewModels\CreateMaterialUsedTest.cs" />
+    <Compile Include="Models\ViewModels\CreateServiceInstallationTest.cs" />
+    <Compile Include="Models\ViewModels\CrewAssignmentIndexTableRowViewTest.cs" />
+    <Compile Include="Models\ViewModels\CrewAssignmentIndexTest.cs" />
+    <Compile Include="Models\ViewModels\CrewAssignmentStartTest.cs" />
+    <Compile Include="Models\ViewModels\EditMaterialUsedTest.cs" />
+    <Compile Include="Models\ViewModels\EditServiceTest.cs" />
+    <Compile Include="Models\ViewModels\ForgotPasswordVerifyContractorUserTest.cs" />
+    <Compile Include="Models\ViewModels\CreateContractorMeterCrewTest.cs" />
+    <Compile Include="Models\ViewModels\EditMeterChangeOutViewModelTest.cs" />
+    <Compile Include="Models\ViewModels\MaterialUsedModelTest.cs" />
+    <Compile Include="Models\ViewModels\WorkOrderAdditionalFinalizationInfoTest.cs" />
+    <Compile Include="Models\ViewModels\WorkOrderSearchTest.cs" />
+    <Compile Include="Models\ViewModels\WorkOrderFinalizationDetailsTest.cs" />
+    <Compile Include="Models\Repositories\AsBuiltImageRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\AssetTypeRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\AuthenticationRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ContractorUserRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\CountyRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\CrewAssignmentRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\CrewRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\DocumentRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\DocumentTypeRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MainBreakRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MarkoutRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MaterialRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MaterialUsedRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\OperatingCenterRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\RestorationMethodRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\RestorationRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ServiceInstallationRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ServiceMaterialRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\SpoilFinalProcessingLocationRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\SpoilRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\SpoilStorageLocationRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\StreetOpeningPermitRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\StreetRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\TapImageRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\TownRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\TownSectionRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\AuthenticationLogRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MeterChangeOutRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ContractorMeterCrewRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\MeterChangeOutStatusRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\ValveImageRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\WorkDescriptionRepositoryTest.cs" />
+    <Compile Include="Models\Repositories\WorkOrderRepositoryTest.cs" />
+    <Compile Include="Models\ViewModels\CreateMarkoutTest.cs" />
+    <Compile Include="Models\ViewModels\SchedulingCrewAssignmentTest.cs" />
+    <Compile Include="MvcApplicationTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Controllers\AuthenticationControllerTest.cs" />
+    <Compile Include="TestConfiguration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Mvc\MapCall.Common.Mvc.csproj">
+      <Project>{2BF5A04B-77D0-435B-AE0F-D9E3C5370030}</Project>
+      <Name>MapCall.Common.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4bba-87d8-d8f49fb41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ecd277-d26d-4306-a752-1246a35b63bd}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.SAP\MapCall.SAP.csproj">
+      <Project>{9EE96C6B-095A-4792-B247-2F7B28430A9B}</Project>
+      <Name>MapCall.SAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing.Mvc\MMSINC.Testing.Mvc.csproj">
+      <Project>{E6C5BFE0-B68E-427C-9A4C-8C801ED6CA9C}</Project>
+      <Name>MMSINC.Testing.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{D6110CB2-1E3C-41B8-8056-26A9C6DF07B3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contractors.Data\Contractors.Data.csproj">
+      <Project>{9E8C7543-28AF-4405-803D-69E5DAE5FD81}</Project>
+      <Name>Contractors.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Contractors\Contractors.csproj">
+      <Project>{EAA6CB2E-A2A7-46C3-B9D7-E343A3B075CF}</Project>
+      <Name>Contractors</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

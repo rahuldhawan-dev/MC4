@@ -1,0 +1,14 @@
+﻿@model OneCallMarkoutAudit
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.DateReceived)
+    @Html.DisplayFor(x => x.DateTransmitted)
+    @Html.DisplayFor(x => x.Success)
+    @Html.RenderDisplayTemplate(String.Format("Tickets ({0})", Model.TicketNumbers.Count), @<text>
+        @foreach (var ticket in Model.TicketNumbers)
+        {
+            <div style="float:left;">@Html.ActionLink(ticket.RequestNumber.ToString(), "Show", "OneCallMarkoutTicket", new { area = "FieldOperations", id = ticket.Id }, null)&nbsp;&nbsp;</div>
+        }
+    </text>)
+    @Html.RenderDisplayTemplate("Full Text", @<div><pre class="monospaced">@Model.FullText</pre></div>)
+</div>

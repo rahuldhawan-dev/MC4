@@ -1,0 +1,37 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPlanning
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPlanning.SearchWorkOrderPlanning
+@{
+    ActionBarHelper.AddMapLink(new { DefaultLayers = new[] { "Water Network", "Sewer Network" } });
+}
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Planning/Index.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.TableFor(_ => Model, new { id = "workOrdersTable" })
+      .WithWorkOrderRowStyles()
+      .WithCaption("Records found:" + Model.Count)
+      .TemplateColumnFor("Update", x => Control.CheckBox("WorkOrderIds").WithValue(x.Id).With("IsEnabled", x.IsEnabled.ToString()).With("Id", null).With("priority", x.Priority))
+      .TemplateColumnFor("", x => Html.ActionLink("Select", "Show", new {x.Id}))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(
+          x => x.CurrentMarkout.ExpirationDate,
+          "Markout Expiration Date",
+          "CurrentMarkout.ExpirationDate")
+      .SortableColumnFor(x => x.DateReceived)
+      .SortableColumnFor(x => x.PlannedCompletionDate)
+      .SortableColumnFor(x => x.Town, "Town.ShortName")
+      .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street, "Street.FullStName")
+      .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+      .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+      .SortableColumnFor(x => x.Purpose)
+      .ColumnFor(x => x.AssetId, "Asset ID")
+      .SortableTemplateColumnFor(
+          "Description of Job (Hover for Notes)",
+          "WorkDescription.Description",
+          x => @<span title="@x.Notes">@x.WorkDescription</span>)
+      .SortableColumnFor(x => x.MarkoutRequired, "MarkoutRequirement")
+      .SortableColumnFor(x => x.Priority)
+      .WithPaginatedFooter())
+
+@Html.Partial("_PlannedCompletionDate", ViewModelFactory.Build<UpdateWorkOrderPlanning>())

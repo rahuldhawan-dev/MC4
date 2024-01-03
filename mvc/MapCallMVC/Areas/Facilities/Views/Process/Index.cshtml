@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchProcess
+           
+@(Html.TableFor(x => x)
+      .TemplateColumnFor(x => Control.ActionLink("View", "Show",  "Process", new { id = x.Id }, null))
+      .SortableColumnFor(x => x.Sequence)
+      .SortableColumnFor(x => x.ProcessStage, "ProcessStage.Description")
+      .SortableColumnFor(x => x.Description))

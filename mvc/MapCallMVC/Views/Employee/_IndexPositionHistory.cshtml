@@ -1,0 +1,25 @@
+﻿@model Employee
+
+<div class="container">
+    @Html.ParentLink(String.Format("Modules/HR/Employee/PositionHistory.aspx?EmployeeId={0}", Model.Id), "Go to Position History Page", new {@class = "link-button"})
+    
+    @(Html.TableFor(x => Model.PositionHistory, new {@class = "single-line-header no-hover", id = "positionHistoryTable"})
+          .ColumnFor(x => x.Position.OpCode)
+          .ColumnFor(x => x.StatusChangeReason)
+          .ColumnFor(x => x.Department)
+          .ColumnFor(x => x.Position)
+          .ColumnFor(x => x.PositionSubcategory)
+          .ColumnFor(x => x.VacationGrouping)
+          .ColumnFor(x => x.StartDate)
+          .ColumnFor(x => x.EndDate)
+          .ColumnFor(x => x.ReportingFacility)
+          .ColumnFor(x => x.Position.LicenseRequirementAttainment)
+          .ColumnFor(x => x.FullyQualified)
+          .ColumnFor(x => x.Position.Local)
+          .ColumnFor(x => x.ScheduleType)
+          .ColumnFor(x => x.OnCallRequirement)
+          .ColumnFor(x => x.Position.EmergencyResponsePriority)
+          .ColumnFor(x => x.NoteCount)
+          .ColumnFor(x => x.DocumentCount)
+          )
+</div>

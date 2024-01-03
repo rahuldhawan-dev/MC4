@@ -1,0 +1,19 @@
+﻿@model SearchLocal
+
+@using (Form.BeginForm("Index", "Local")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.Union)
+        @Html.EditorFor(m => m.EntityId, new { Container = Model })
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.OperatingCenter, new { Container = Model})
+        @Html.EditorFor(x => x.Division, new { Container = Model })
+        @Html.EditorFor(x => x.SAPUnionDescription)
+        @Html.EditorFor(x => x.IsActive)
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

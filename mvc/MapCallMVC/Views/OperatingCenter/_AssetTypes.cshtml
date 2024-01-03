@@ -1,0 +1,33 @@
+﻿@model OperatingCenter 
+
+@{
+    var isAdmin = Authentication.CurrentUserIsAdmin;
+    var alphabeticalAssetTypes = Model.OperatingCenterAssetTypes.OrderBy(x => x.AssetType.Description);
+
+    var table = Html.TableFor(x => alphabeticalAssetTypes)
+        .ColumnFor(x => x.AssetType);
+
+    if (isAdmin)
+    {
+        table = table.TemplateColumnFor(x => Control.SubmitButton("Remove Asset Type").WithName("OperatingCenterAssetTypeId").WithValue(x.Id));
+    }
+
+}    
+
+@if (isAdmin)
+{
+    <div class="collapse-panel" data-title="Add Asset Type">
+        @Html.Partial("_AddAssetType", ViewModelFactory.Build<AddOperatingCenterAssetType, OperatingCenter>(Model))
+    </div>
+
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("OperatingCenter", "AssetType", new {Model.Id}, ManyToManyRouteAction.Remove))
+        {
+            @table
+        }
+    </div>
+}
+else
+{
+    @table 
+}

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<AsFoundCondition>
+
+@(Html.TableFor()
+      .WithCaption("Records found: " + Model.Count())
+      .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "AsFoundCondition", new { id = x.Id }))
+      .ColumnFor(x => x.Description))    
+     

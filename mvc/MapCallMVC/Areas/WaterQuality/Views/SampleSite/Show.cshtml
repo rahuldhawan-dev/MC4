@@ -1,0 +1,18 @@
+﻿@model SampleSite
+@{
+    ActionBarHelper.AddMapLink();
+}
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowSampleSite", Model)
+    .WithTab("Service Record", "_ShowServiceRecord", Model, isVisible: Model.SampleSiteAddressLocationType != null && Model.SampleSiteAddressLocationType.Id == SampleSiteAddressLocationType.Indices.PREMISE)
+    .WithTab("Supplemental Validation", "_ShowSupplementalValidation", Model)
+    .WithTab("Water Samples", "_ShowWaterSamples", Model)
+    .WithTab("Sample Plans", "_SamplePlans", Model)
+    .WithTab("Bracket Sites", "_ShowBracketSites", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

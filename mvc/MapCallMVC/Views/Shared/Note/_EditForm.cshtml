@@ -1,0 +1,7 @@
+﻿@model EditNote
+
+@using (var form = Form.BeginForm("Update", "Note", ""))
+{
+    form.HtmlAttributes["id"] = String.Format("updateNote{0}", Model.Id);
+    @Control.TextAreaFor(n => n.Text).With(new {disabled = "disabled", rows = "2"})
+}

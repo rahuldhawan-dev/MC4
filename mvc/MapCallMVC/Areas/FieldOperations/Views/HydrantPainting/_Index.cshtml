@@ -1,0 +1,88 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.HydrantPaintings
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.HydrantPaintings.SearchHydrantPainting
+
+@{
+    var userCanCreate = Html.CurrentUserCanDo("Create", "HydrantPainting");
+    var userCanUpdate = Html.CurrentUserCanDo("Update", "HydrantPainting");
+    var userCanDelete = Html.CurrentUserCanDo("Destroy", "HydrantPainting");
+
+    var ordered = Model.Results.OrderByDescending(x => x.PaintedAt);
+    var table = Html.TableFor(_ => ordered, new {id = "paintingsTable"});
+
+    if (userCanUpdate)
+    {
+        table = table
+            .TemplateColumnFor(
+                "",
+                p => @<text>
+                         @Ajax.ActionLink(
+                             "Edit",
+                             "Index",
+                             new {
+                                 Hydrant = p.Hydrant.Id,
+                                 EditPainting = p.Id
+                             },
+                             new AjaxOptions {
+                                 UpdateTargetId = "PaintTab"
+                             })
+                         @if (userCanDelete)
+                         {
+                             @Control.SubmitButton("Delete").WithCssClass("button-link").WithName("Id").WithValue(p.Id).With("onclick", "return confirm('Are you sure you want to delete this painting record?');")
+                         }
+                      </text>);
+    }
+
+    table = table
+        .ColumnFor(x => x.Id)
+        .ColumnFor(x => x.PaintedAt);
+}
+
+<style>
+    div.box > div {
+        width: 35%;
+        padding: 4px;
+    }
+</style>
+
+@if ((!userCanCreate && !userCanUpdate && !userCanDelete) ||
+     (!Model.EditPainting.HasValue && !Model.Hydrant.HasValue))
+{
+    @table
+}
+else
+{
+    <div class="box">
+        <div>
+            @if (Model.EditPainting.HasValue && userCanUpdate)
+            {
+                using (Form.BeginForm("Update", "HydrantPainting", new { Id = Model.EditPainting }))
+                {
+                    @Html.Partial(
+                        "_Form",
+                        ViewModelFactory
+                            .Build<EditHydrantPainting, HydrantPainting>(Model.EditPaintingObj))
+                }
+            }
+            else if (Model.Hydrant.HasValue && userCanCreate)
+            {
+                using (Form.BeginForm("Create", "HydrantPainting", new { Model.Hydrant }))
+                {
+                    @Html.Partial("_Form", ViewModelFactory.Build<CreateHydrantPainting>())
+                }
+            }
+        </div>
+        <div>
+            @if (userCanDelete)
+            {
+                using (Form.BeginForm("Destroy", "HydrantPainting", new { area = "FieldOperations" }))
+                {
+                    @table
+                }
+            }
+            else
+            {
+                @table
+            }
+        </div>
+    </div>
+}

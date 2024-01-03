@@ -1,0 +1,8 @@
+﻿@model BappTeam
+
+@Html.Tabs().WithTab("Details", @<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.CreatedBy)
+</div>)

@@ -1,0 +1,21 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.ViewModels.ProductionWorkOrderNotification
+<h2>Work Order Employee Assigned Notification</h2>
+
+<a href="@Model.RecordUrl">@Model.ProductionWorkOrder.Id</a><br />
+Operating Center: @Model.ProductionWorkOrder.OperatingCenter<br />
+Planning Plant: @Model.ProductionWorkOrder.PlanningPlant<br />
+Facility: @Model.ProductionWorkOrder.Facility<br />
+Work Order Description: @Model.ProductionWorkOrder.ProductionWorkDescription<br />
+@if (!Model.ProductionWorkOrder.HasComplianceOrderType && Model.ProductionWorkOrder.Equipment != null)
+{
+    <text>Equipment Description: @Model.ProductionWorkOrder.Equipment.Description<br /> </text>
+}
+@foreach (EmployeeAssignment x in @Model.ProductionWorkOrder.EmployeeAssignments)
+{
+    <text>
+        <br />
+        Employee: @x.AssignedTo.ToString()<br />
+        Assigned For: @x.AssignedFor.ToShortDateString()<br />
+    </text>
+}

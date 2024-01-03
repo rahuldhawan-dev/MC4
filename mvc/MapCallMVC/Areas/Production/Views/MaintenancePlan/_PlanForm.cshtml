@@ -1,0 +1,63 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MapCallMVC.Areas.Production.Models.ViewModels.MaintenancePlanViewModel
+@Html.ScriptFor("~/Scripts/Areas/Production/MaintenancePlan/PlanForm.js", ScriptLoadType.LoadFromPartial)
+
+<fieldset>
+    <legend>Plan Information</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.DeactivationReason)
+        @Html.RenderEditorTemplate("Compliance", @<text>
+            <div class="compliance-div-section">
+                <div>
+                    @Html.CheckBoxFor(x => x.HasPsmRequirement)
+                    @Html.LabelFor(x => x.HasPsmRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasCompanyRequirement)
+                    @Html.LabelFor(x => x.HasCompanyRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasRegulatoryRequirement)
+                    @Html.LabelFor(x => x.HasRegulatoryRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasOshaRequirement)
+                    @Html.LabelFor(x => x.HasOshaRequirement)
+                </div>
+                <div>
+                    @Html.CheckBoxFor(x => x.HasOtherCompliance)
+                    @Html.LabelFor(x => x.HasOtherCompliance)
+                </div>
+            </div>
+        </text>)
+        @Html.EditorFor(x => x.OtherComplianceReason)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Facility Information</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.State)
+        @if (Model is CreateMaintenancePlan)
+        {
+            @Html.EditorFor(x => ((CreateMaintenancePlan)x).OperatingCenter)
+        }
+        else
+        {
+            @Html.EditorFor(x => x.OperatingCenter)
+        }
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityAreas)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Scheduling Information</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ProductionWorkOrderFrequency)
+        @Html.EditorFor(x => x.Start)
+        @Html.EditorFor(x => x.HasACompletionRequirement)
+    </div>
+</fieldset>

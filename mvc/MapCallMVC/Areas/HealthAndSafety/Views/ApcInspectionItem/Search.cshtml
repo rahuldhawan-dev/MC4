@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchApcInspectionItem
+
+@using (Form.BeginForm("Index", "ApcInspectionItem")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityInspectionAreaTypes)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.DateReported)
+        @Html.EditorFor(x => x.AssignedTo)
+        @Html.EditorFor(x => x.DateInspected)
+        @Html.EditorFor(x => x.FacilityInspectionRatingType)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

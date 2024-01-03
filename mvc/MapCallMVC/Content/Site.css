@@ -1,0 +1,247 @@
+﻿/* PRIMARY LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+noscript div {
+    background: @noscript-background-color;
+    padding: 6px;
+    color: @noscript-color;
+    font-weight:bold;
+    text-align:center;
+}
+
+@menu-width: 170px;
+@action-panel-width: 52px;
+@top-menu-height: 32px;
+
+#topMenu 
+{
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    background:@top-junk-bar-background-color 50% 50% repeat-x;
+    color:@header-text-color;
+    z-index:2;
+}
+
+#menuScrollWrap { position:fixed; z-index:2; width:@menu-width; top:@top-menu-height; left:0px; bottom:0px;  }
+html.no-menu #menuScrollWrap { display:none !important; height: 320px; }
+
+#siteContent {
+     position:fixed; 
+     top:@top-menu-height; 
+     left:@menu-width; 
+     right:@action-panel-width; 
+     bottom:0px;
+     overflow:auto;
+     /* I don't understand why this works, but it fixes it
+        so that if there's a table that's far wider than the
+        div, the correct margin-right is added so the horizontal
+        scrollbar scrolls correctly. This does not work in IE7. */
+     z-index:1;
+}
+
+html.no-menu #siteContent { left:0px; margin-left:0px; }
+
+
+/* ie7 will cause this div to hide when it's toggled. Resizing
+   the window or otherwise giving the div something to trigger hasLayout 
+   is the only fix. */
+.ie7.no-menu #siteContent { min-height: 100px; }
+
+#actionBar 
+{
+    z-index:2; 
+    position:fixed;
+    background:@bright-gray;
+    top:32px; 
+    bottom:0px; 
+    right:0px; /* hidden by default */
+    width:@action-panel-width;
+}
+
+#bodyHeader
+{
+    position:relative;
+	color:@default-text-color;
+	text-decoration:none;
+    font-weight: 400;
+	font-size:20px;
+	text-align:left;
+	padding-bottom:12px !important;
+}
+
+.ie7 #bodyHeader li 
+{
+    /* The font gets cut off in IE7 so use a smaller font here. */
+    font-size:16px;
+}
+
+/* Some conflict with link-buttons I think is moving this over too much. */
+#bodyHeader div.right ul { margin-right:-5px; }
+	
+/* ie7 does not support color:inherit on anchor tags for somer eason. */
+.ie7 #bodyHeader > div > ul > li > a {
+	color: @default-text-color;
+}
+	    
+#siteContent > div.body,
+html.no-menu #siteContent > div.body
+{
+    z-index:1;
+	padding:6px;
+}
+
+/* MISC  
+----------------------------------------------------------*/
+
+/* layout specific */
+.grid-2col > div:first-child { padding-right: 3px; }
+.grid-2col > div:last-child { padding-left:3px; }
+
+.container { margin-top:6px; position:relative; }
+.container:first-child { margin-top:0px; }
+
+ul.linkList { list-style: none outside;padding:0px; margin: 12px 6px 6px 0px; }
+ul.linkList li { margin: 0px; }
+ul.linkList li a { display:block; }
+
+.ajax-tab-loading, .ajax-map-info-loading {
+    background:white url('images/ajax-loader.gif') no-repeat center center;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+
+#googleMap { width:100%; height:400px; }
+
+#errWrapper { overflow:hidden;padding: 30px;}
+#errMessage { float:left; }
+#err404 {
+    background: transparent url('images/404.png') no-repeat;
+    width: 337px;
+    height: 203px;
+    float:right;
+    margin-right:60px;
+}
+
+/* jqModal */
+.jqmWindow {
+    display: none;
+
+    position: fixed;
+    top: 10%;
+    left: 50%;
+
+    margin-left: -300px;
+    width: 600px;
+
+    background-color: @modal-window-background-color;
+    color: @modal-window-text-color;
+    border: 1px solid @modal-window-border-color;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: @modal-window-overlay-color; }
+
+.jqmTitleText {
+    font-style: italic;    
+}
+
+.jqmClose {
+  clear:right;
+  float:right;
+  padding: 0 5px;
+  cursor:pointer;
+}
+
+.jqmContent {
+  width:99%;
+  height:90%;
+  display: block;
+  clear:both;
+  margin:auto;
+  margin-top:10px;
+  border: 1px dotted #444;
+}
+
+.picker-wrapper {
+  display: inline;
+}
+
+.coordinate-picker-icon,
+.coordinate-display-icon {
+    cursor: pointer;
+}
+
+#pickerDiv {
+    margin-left: -480px;
+    width: 960px;
+    height: 80%;    
+}
+
+#pickerMap > .google-maps-wrapper {
+    height: 521px;
+}
+
+.coordinate-picker-controls {
+    position: absolute;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.coordinate-picker-controls input,
+.coordinate-picker-controls button {
+    z-index: 1;
+    height: 26px !important;
+}
+
+#iconList {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+#iconList button {
+    padding: 0;
+    margin: 0px 2px 0px 2px;
+    border: none;
+    max-height: 36px;
+}
+
+/* Notes/Index.cshtml */
+
+.noteRow { width: 100%; }
+.noteRowEdit { width: 100%; }
+.noteRowDisplay { width: 100%;}
+.noteDisplay { width: 100%;  }
+.noteRow textarea { width: 100%; }
+
+#notesTable {
+    width: 100%;
+}
+
+#notesTable td { white-space:nowrap; }
+#notesTable td:first-child { white-space:normal;width: 100%; }
+
+#notesTable .noteEdit {
+    display:none;
+}
+
+#notesTable textarea {
+    width: 100%;
+    min-height: 100px;
+}

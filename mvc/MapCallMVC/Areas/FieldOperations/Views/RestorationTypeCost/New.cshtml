@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateRestorationTypeCost
+
+@using (Form.BeginForm("Create", "RestorationTypeCost", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.RestorationType)
+        @Html.EditorFor(x => x.Cost)
+        @Html.EditorFor(x => x.FinalCost)
+        @Html.EditorFor(x => x.OperatingCenter)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Index", "RestorationTypeCost")
+        </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<MapCall.Common.Model.Entities.PositionGroup>
+<h2>Position Groups Created</h2>
+
+The MapCall employee sync process has created the following new position groups:<br /><br />
+
+@foreach (var pg in Model)
+{
+<text>MapCall ID: @pg.Id</text><br />
+<text>SAP Position Group Key: @pg.SAPPositionGroupKey</text><br />
+<text>Position Description: @pg.PositionDescription</text><br /><br />
+}

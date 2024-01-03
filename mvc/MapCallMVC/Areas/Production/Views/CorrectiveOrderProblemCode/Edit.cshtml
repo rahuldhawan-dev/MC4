@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CorrectiveOrderProblemCodeViewModel
+
+@using (Form.BeginForm("Update", "CorrectiveOrderProblemCode", "Production", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "CorrectiveOrderProblemCode", new { Model.Id })
+                           </text>)
+    </div>
+}

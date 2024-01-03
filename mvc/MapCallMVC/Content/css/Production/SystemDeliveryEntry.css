@@ -1,0 +1,73 @@
+﻿.single-facility {
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.single-facility table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.single-facility table tr {
+     width: 250px;
+
+}
+
+#reversalTable .field-validation-error {
+    display: none;
+}
+
+/* TD styling didn't work with for-structure, stole the CSS from less and adjusted for systemdelivery'*/
+
+table.systemdelivery {
+    background: transparent !important;
+}
+
+table.systemdelivery > tbody > tr > td,
+table.systemdelivery > tbody > tr:hover > td,
+table.systemdelivery > tbody > tr:nth-child(even):hover > td,
+table.systemdelivery > tbody > tr:nth-child(odd):hover > td {
+    background: none;
+    border: none !important;
+}
+
+.reversal-note {
+    max-width: 600px;
+    margin-left: 100px;
+    margin-bottom: 14px;
+}
+.reversal-note h3 {
+    font-size: 1.5em;
+}
+
+.reversal-note .note-color {
+        max-width: 600px;
+        color: #FF6347;
+        background: none;
+    }
+
+.operating-center-total, .operating-center-day-total {
+    font-weight: bold;
+}
+
+.operating-center-total{
+    font-size: 20px
+}
+
+.seperaterLine {
+    border-top: 2px solid black;
+}
+
+.validate-btn,
+.validate-btn:focus {
+    float: right;
+    border: 1px solid green;
+    color: green !important;
+}
+
+.validate-btn:hover {
+    border: 1px solid green;
+    color: #FFF !important;
+    background: green !important;
+}

@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.CreateShortCycleWorkOrderSafetyBrief
+
+@using (Form.BeginForm("Create", "ShortCycleWorkOrderSafetyBrief", "HealthAndSafety"))
+{
+    @Html.Partial("_Form", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search")
+    </text>)
+}

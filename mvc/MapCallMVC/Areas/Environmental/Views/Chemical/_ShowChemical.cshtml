@@ -1,0 +1,38 @@
+﻿@model Chemical
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Name)
+    @Html.DisplayFor(x => x.ChemicalType)
+    @Html.DisplayFor(x => x.ExtremelyHazardousChemical)
+    @Html.DisplayFor(x => x.PartNumber)
+    @Html.DisplayFor(x => x.PricePerPoundWet)
+    @Html.DisplayFor(x => x.WetPoundsPerGal)
+    @Html.DisplayFor(x => x.PackagingType)
+    @Html.DisplayFor(x => x.PackagingQuantities)
+    @Html.DisplayFor(x => x.PackagingUnits)
+    @Html.DisplayFor(x => x.ChemicalSymbol)
+    @Html.DisplayFor(x => x.DisplayChemicalStates)
+    @Html.DisplayFor(x => x.Appearance)
+    @Html.DisplayFor(x => x.ChemicalConcentrationLiquid)
+    @Html.DisplayFor(x => x.ConcentrationLbsPerGal)
+    @Html.DisplayFor(x => x.SpecificGravity)
+    @Html.DisplayFor(x => x.RatioResidualProduction)
+    @Html.DisplayFor(x => x.CasNumber)
+    @if (Model.SdsHyperlink != null)
+    {
+        @Html.RenderDisplayTemplate(Html.LabelFor(x => x.SdsHyperlink), Html.Link(@Model.SdsHyperlink, @Model.SdsHyperlink, new { target = "_blank" }))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.SdsHyperlink)
+    }
+    @Html.DisplayFor(x => x.SubNumber)
+    @Html.DisplayFor(x => x.DepartmentOfTransportationNumber)
+    @Html.DisplayFor(x => x.IsPure)
+    @Html.DisplayFor(x => x.TradeSecret)
+    @Html.DisplayFor(x => x.EmergencyPlanningCommunityRightToKnowActOnly)
+    @Html.RenderDisplayTemplate(Html.DisplayLabelFor("HealthHazards"), @<text>@foreach (var x in Model.HealthHazards)
+        {<div>@x.Description</div>}</text>)
+    @Html.RenderDisplayTemplate(Html.DisplayLabelFor("PhysicalHazards"), @<text>@foreach (var x in Model.PhysicalHazards)
+        {<div>@x.Description</div>}</text>)
+</div>

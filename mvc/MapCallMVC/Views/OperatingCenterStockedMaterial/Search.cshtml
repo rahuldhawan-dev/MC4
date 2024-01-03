@@ -1,0 +1,14 @@
+﻿@model SearchOperatingCenterStockedMaterial
+
+@using (Form.BeginForm("Index", "OperatingCenterStockedMaterial")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PartNumber)
+
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

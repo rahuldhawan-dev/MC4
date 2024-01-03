@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{718E1B61-19B4-45DE-985F-3B583C0F7705}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MMSINC</RootNamespace>
+    <AssemblyName>MMSINC.Core.WebForms</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\MMSINC\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <LangVersion>7.3</LangVersion>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA2\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA3\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Training\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\Libs\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Web.UI.WebControls">
+      <HintPath>..\Libs\Microsoft.Practices.Web.UI.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassExtensions\ControlExtensions.cs" />
+    <Compile Include="Common\ClientScriptManagerWrapper.cs" />
+    <Compile Include="Common\EntityComparer.cs" />
+    <Compile Include="Common\EntityEventArgs.cs" />
+    <Compile Include="Common\EntityRPCProcessor.cs" />
+    <Compile Include="Common\HtmlHeadWrapper.cs" />
+    <Compile Include="Common\MasterPageWrapper.cs" />
+    <Compile Include="Common\MvpPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\MvpUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\PageWrapper.cs" />
+    <Compile Include="Common\RPCProcessor.cs" />
+    <Compile Include="Common\SessionStateWrapper.cs" />
+    <Compile Include="Common\StyleWrapper.cs" />
+    <Compile Include="Common\ViewStateWrapper.cs" />
+    <Compile Include="Common\VisibilityChangeEventArgs.cs" />
+    <Compile Include="Controls\BetterCalendar\BetterCalendar.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\BetterCalendar\BetterCalendarHeader.cs" />
+    <Compile Include="Controls\BetterCalendar\BetterCalendarHeaderDateChangedArgs.cs" />
+    <Compile Include="Controls\ClientCapableCheckBoxField.cs" />
+    <Compile Include="Controls\ClientIDRepository.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CssInclude.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\DropDownListEditTemplate.cs" />
+    <Compile Include="Controls\DropDownListItemTemplate.cs" />
+    <Compile Include="Controls\DynamicBoundField.cs" />
+    <Compile Include="Controls\EntityBoundField.cs" />
+    <Compile Include="Controls\EntityBulletedList.cs" />
+    <Compile Include="Controls\EntitySetBoundField.cs" />
+    <Compile Include="Controls\GenericControlBuilder.cs" />
+    <Compile Include="Controls\GridViewHelper\GridViewGroup.cs" />
+    <Compile Include="Controls\GridViewHelper\GridViewGroupList.cs" />
+    <Compile Include="Controls\GridViewHelper\GridViewHelper.cs" />
+    <Compile Include="Controls\GridViewHelper\GridViewSummary.cs" />
+    <Compile Include="Controls\GridViewHelper\GridViewSummaryList.cs" />
+    <Compile Include="Controls\GridViewRowCollectionWrapper.cs" />
+    <Compile Include="Controls\GridViewRowWrapper.cs" />
+    <Compile Include="Controls\IAsyncFileUpload.cs" />
+    <Compile Include="Controls\IButton.cs" />
+    <Compile Include="Controls\ICheckBox.cs" />
+    <Compile Include="Controls\IControl.cs" />
+    <Compile Include="Controls\IDataLink.cs" />
+    <Compile Include="Controls\IDetailsView.cs" />
+    <Compile Include="Controls\IDropDownList.cs" />
+    <Compile Include="Controls\IFileUpload.cs" />
+    <Compile Include="Controls\IGridView.cs" />
+    <Compile Include="Controls\IHiddenField.cs" />
+    <Compile Include="Controls\ILabel.cs" />
+    <Compile Include="Controls\IListBox.cs" />
+    <Compile Include="Controls\IListControl.cs" />
+    <Compile Include="Controls\IMenu.cs" />
+    <Compile Include="Controls\IMenuItem.cs" />
+    <Compile Include="Controls\IMenuItemAdapter.cs" />
+    <Compile Include="Controls\IObjectContainerDataSource.cs" />
+    <Compile Include="Controls\IObjectDataSource.cs" />
+    <Compile Include="Controls\IPanel.cs" />
+    <Compile Include="Controls\IPlaceHolder.cs" />
+    <Compile Include="Controls\IPostedFileWrapper.cs" />
+    <Compile Include="Controls\IRequiredFieldValidator.cs" />
+    <Compile Include="Controls\ITableRow.cs" />
+    <Compile Include="Controls\ITextBox.cs" />
+    <Compile Include="Controls\IUpdatePanel.cs" />
+    <Compile Include="Controls\MasterPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Menu.cs" />
+    <Compile Include="Controls\MenuItem.cs" />
+    <Compile Include="Controls\MenuItemAdapter.cs" />
+    <Compile Include="Controls\MvpAsyncFileUpload.cs" />
+    <Compile Include="Controls\MvpBoundField.cs" />
+    <Compile Include="Controls\MvpButton.cs" />
+    <Compile Include="Controls\MvpCheckBox.cs" />
+    <Compile Include="Controls\MvpDetailsView.cs" />
+    <Compile Include="Controls\MvpDropDownList.cs" />
+    <Compile Include="Controls\MvpFileUpload.cs" />
+    <Compile Include="Controls\MvpFormView.cs" />
+    <Compile Include="Controls\MvpGridView.cs" />
+    <Compile Include="Controls\MvpGridViewClientHandler.cs" />
+    <Compile Include="Controls\MvpHiddenField.cs" />
+    <Compile Include="Controls\MvpHyperLink.cs" />
+    <Compile Include="Controls\MvpImageButton.cs" />
+    <Compile Include="Controls\MvpLabel.cs" />
+    <Compile Include="Controls\MvpLinkButton.cs" />
+    <Compile Include="Controls\MvpListBox.cs" />
+    <Compile Include="Controls\MvpObjectContainerDataSource.cs" />
+    <Compile Include="Controls\MvpObjectDataSource.cs" />
+    <Compile Include="Controls\MvpPanel.cs" />
+    <Compile Include="Controls\MvpPlaceHolder.cs" />
+    <Compile Include="Controls\MvpTableRow.cs" />
+    <Compile Include="Controls\MvpTextBox.cs" />
+    <Compile Include="Controls\MvpUpdatePanel.cs" />
+    <Compile Include="Controls\PostedFileWrapper.cs" />
+    <Compile Include="Controls\ScriptInclude.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataPages\ControlState.cs" />
+    <Compile Include="DataPages\DataPageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataPages\DataPagePath.cs" />
+    <Compile Include="DataPages\DataPageRenderHelper.cs" />
+    <Compile Include="DataPages\DataPageRouteHelper.cs" />
+    <Compile Include="DataPages\DataPageUtility.cs" />
+    <Compile Include="DataPages\DataPageViewRecordLink.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataPages\DataRecordSavedEventArgs.cs" />
+    <Compile Include="DataPages\DataRecordSaveTypes.cs" />
+    <Compile Include="DataPages\DataRecordSavingEventArgs.cs" />
+    <Compile Include="DataPages\DetailsViewCrud.cs" />
+    <Compile Include="DataPages\DetailsViewDataPageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataPages\FilterBuilder.cs" />
+    <Compile Include="DataPages\FilterBuilderExpression.cs" />
+    <Compile Include="DataPages\FilterBuilderParameter.cs" />
+    <Compile Include="DataPages\FilterCache.cs" />
+    <Compile Include="DataPages\IControlState.cs" />
+    <Compile Include="DataPages\IDataField.cs" />
+    <Compile Include="DataPages\IDataGrid.cs" />
+    <Compile Include="DataPages\IDataPageBase.cs" />
+    <Compile Include="DataPages\IFilterBuilder.cs" />
+    <Compile Include="DataPages\IFilterBuilderExpression.cs" />
+    <Compile Include="DataPages\IFilterBuilderParameter.cs" />
+    <Compile Include="DataPages\PageModes.cs" />
+    <Compile Include="DataPages\Permissions\AggregatedDataPagePermissions.cs" />
+    <Compile Include="DataPages\Permissions\AggregatedPermission.cs" />
+    <Compile Include="DataPages\Permissions\DataPagePermissions.cs" />
+    <Compile Include="DataPages\Permissions\Permission.cs" />
+    <Compile Include="DataPages\Permissions\RoleBasedDataPagePermissions.cs" />
+    <Compile Include="DataPages\ViewLinkTemplate.cs" />
+    <Compile Include="Interface\IChildDetailView.cs" />
+    <Compile Include="Interface\IChildListView.cs" />
+    <Compile Include="Interface\IChildResourcePresenter.cs" />
+    <Compile Include="Interface\IChildResourceView.cs" />
+    <Compile Include="Interface\IClientScriptManager.cs" />
+    <Compile Include="Interface\IDataContext.cs" />
+    <Compile Include="Interface\IDetailControl.cs" />
+    <Compile Include="Interface\IDetailPresenter.cs" />
+    <Compile Include="Interface\IDetailView.cs" />
+    <Compile Include="Interface\IHtmlHead.cs" />
+    <Compile Include="Interface\IListPresenter.cs" />
+    <Compile Include="Interface\IListView.cs" />
+    <Compile Include="Interface\IMasterPage.cs" />
+    <Compile Include="Interface\IPage.cs" />
+    <Compile Include="Interface\IPresenter.cs" />
+    <Compile Include="Data\Linq\IRepository.cs" />
+    <Compile Include="Interface\IResourcePresenter.cs" />
+    <Compile Include="Interface\IResourceRPCPresenter.cs" />
+    <Compile Include="Interface\IResourceRPCView.cs" />
+    <Compile Include="Interface\IResourceView.cs" />
+    <Compile Include="Interface\ISearchPresenter.cs" />
+    <Compile Include="Interface\ISearchView.cs" />
+    <Compile Include="Interface\ISessionState.cs" />
+    <Compile Include="Interface\IStyle.cs" />
+    <Compile Include="Interface\IView.cs" />
+    <Compile Include="Data\Linq\EntityMerger.cs" />
+    <Compile Include="Data\Linq\QueryResultWrapper.cs" />
+    <Compile Include="Data\Linq\Repository.cs" />
+    <Compile Include="Data\Linq\TableWrapper.cs" />
+    <Compile Include="Presenter\ChildResourcePresenter.cs" />
+    <Compile Include="Presenter\DetailPresenter.cs" />
+    <Compile Include="Presenter\ListPresenter.cs" />
+    <Compile Include="Presenter\ResourcePresenter.cs" />
+    <Compile Include="Presenter\ResourceRPCPresenter.cs" />
+    <Compile Include="Presenter\SearchPresenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\ChildDetailView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ChildListView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ChildResourceView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\DetailView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ListView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ResourceRPCView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ResourceView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\SearchView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="MVP Page Lifecycle.odt" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

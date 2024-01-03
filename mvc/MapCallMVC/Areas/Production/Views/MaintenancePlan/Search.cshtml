@@ -1,0 +1,46 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchMaintenancePlan
+
+@using (Form.BeginForm("Index", "MaintenancePlan", "Production"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.PlanNumber)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.PlanningPlant)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.MaintenancePlanTaskType)
+    @Html.EditorFor(x => x.ProductionWorkOrderFrequency)
+    @Html.EditorFor(x => x.TaskGroupCategory)
+    @Html.EditorFor(x => x.TaskGroup)
+    @Html.EditorFor(x => x.LocalTaskDescription)
+    @Html.EditorFor(x => x.EquipmentGroup)
+    @Html.EditorFor(x => x.EquipmentTypes)
+    @Html.EditorFor(x => x.EquipmentPurposes)
+    @Html.EditorFor(x => x.IsActive)
+    @Html.HiddenFor(x => x.IsPlanPaused)
+    @Html.RenderEditorTemplate("Compliance", @<text>
+        <div class="compliance-div-section" style="width: 425px">
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasPsmRequirement) @MaintenancePlan.DisplayNames.PSM_REQUIREMENT
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasCompanyRequirement) @MaintenancePlan.DisplayNames.COMPANY_REQUIREMENT
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasRegulatoryRequirement) @MaintenancePlan.DisplayNames.REGULATORY_REQUIREMENT
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasOshaRequirement) @MaintenancePlan.DisplayNames.OSHA_REQUIREMENT
+            </div>
+            <div>
+                @Html.EditorWithoutWrapperFor(x => x.HasOtherCompliance) @MaintenancePlan.DisplayNames.OTHER_COMPLIANCE
+            </div>
+        </div>
+    </text>)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

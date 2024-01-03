@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchOpenIssuedServicesReport
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x, new {id = "results", style = "width:auto;"})
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Service", new { id = x.Id, area = "FieldOperations" }, null))
+    .SortableColumnFor(x => x.ServicePriority)
+    .SortableColumnFor(x => x.WorkIssuedTo)
+    .SortableColumnFor(x => x.DateIssuedToField)
+    .SortableColumnFor(x => x.ServiceNumber)
+    .ColumnFor(x => x.CompleteStAddress)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.ServiceCategory)
+    .SortableColumnFor(x => x.ServiceInstallationPurpose)
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.PermitNumber)
+    .ColumnFor(x => x.TapOrderNotes)
+    .SortableColumnFor(x => x.PurchaseOrderNumber)
+    .WithPaginatedFooter())

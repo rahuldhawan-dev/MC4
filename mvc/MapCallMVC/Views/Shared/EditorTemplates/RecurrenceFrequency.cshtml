@@ -1,0 +1,13 @@
+﻿@inherits MapCall.Common.Views.TemplateViewBase<RecurrenceFrequency>
+@using MMSINC.Helpers
+
+@{
+    ViewTemplateHelper.ViewData[ViewTemplateHelper.ViewDataKeys.CUSTOM_CSS_CLASS] = "recurrence-frequency";
+}
+@* Empty strings are needed for the names so MVC does things with the model correctly. *@
+@RenderEditorForTemplate(@<text>
+                            @Control.TextBoxFor(x => x.Frequency).With(ViewTemplateHelper.HtmlAttributes)
+                            @Control.DropDownFor(x => x.Unit).WithItems(SelectListItemConverter.ConvertFromEnumType(typeof(FrequencyUnit)))
+                            @Html.ValidationMessageFor(x => x.Frequency)
+                            @Html.ValidationMessageFor(x => x.Unit)
+                          </text>)

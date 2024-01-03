@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchTailgateTalk
+
+@using (Form.BeginForm("Index", "TailgateTalk"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.HeldOn)
+        @Html.EditorFor(m => m.OperatingCenter)
+        @Html.EditorFor(m => m.PresentedBy)
+        @Html.EditorFor(m => m.TailgateTopicCategory)
+        @Html.EditorFor(m => m.Topic, new {Container = @Model})
+        @Html.EditorFor(m => m.TopicId)
+        @Html.EditorFor(m => m.TopicName)
+        @Html.EditorFor(m => m.TrainingTimeHours)
+        @Html.EditorFor(m => m.OrmReferenceNumber)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

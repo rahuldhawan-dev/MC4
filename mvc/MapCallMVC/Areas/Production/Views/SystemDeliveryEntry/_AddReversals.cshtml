@@ -1,0 +1,49 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddSystemDeliveryEquipmentEntryReversal
+
+@Html.ScriptFor("~/Scripts/Areas/Production/SystemDelivery/Reversals.js", ScriptLoadType.LoadFromPartial)
+
+@using (var form = Form.BeginRouteForm("SystemDeliveryEntry", "SystemDeliveryEquipmentEntryReversal", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "ReversalForm");
+    <div class="single-facility">
+        <table class="for-structure" id="reversalTable">
+            <thead>
+                <tr>
+                    <th>Operating Center</th>
+                    <th>Facility</th>
+                    <th>Supplier Facility</th>
+                    <th>Date</th>
+                    <th>Current Value</th>
+                    <th>Reverse?</th>
+                    <th>Updated Value</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            
+            @for (var i = 0; i < Model.FacilityEntries.Count(); i++)
+            {
+                var entry = i;
+                <tr>
+                    <td>@Html.DisplayValueFor(_ => Model.FacilityEntries[entry].DisplaySystemDeliveryFacilityEntry.Facility.OperatingCenter)</td>
+                    <td>@Html.DisplayValueFor(_ => Model.FacilityEntries[entry].DisplaySystemDeliveryFacilityEntry.Facility)</td>
+                    <td>@Html.DisplayValueFor(_ => Model.FacilityEntries[entry].DisplaySystemDeliveryFacilityEntry.SupplierFacility)</td>
+                    <td>@Html.DisplayValueFor(_ => Model.FacilityEntries[entry].DisplaySystemDeliveryFacilityEntry.EntryDate)</td>
+                    <td>@Html.DisplayValueFor(_ => Model.FacilityEntries[entry].DisplaySystemDeliveryFacilityEntry.EntryValue)</td>
+                    <td>@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[entry].IsBeingAdjusted, new { size = 5 })</td>
+                    <td>@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[entry].AdjustedEntryValue, new { size = 10 })</td>
+                    <td>@Html.EditorWithoutWrapperFor(_ => Model.FacilityEntries[entry].AdjustmentComment, new { size = 15 })</td>
+                    @Html.HiddenFor(x => x.FacilityEntries[entry].EntryDate)
+                    @Html.HiddenFor(x => x.FacilityEntries[entry].EntryValue)
+                    @Html.HiddenFor(x => x.FacilityEntries[entry].SystemDeliveryEntryType.Id)
+                    @Html.HiddenFor(x => x.FacilityEntries[entry].SystemDeliveryEntryType.Description)
+                    @Html.HiddenFor(x => x.FacilityEntries[entry].Id)
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Add Adjustments").WithId("AddReversal").WithCssClass("no-double-submit")
+        </text>)
+    </div>
+}

@@ -1,0 +1,33 @@
+﻿@model ValveInspection
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Inspection Data </legend>
+        
+        @Html.RenderDisplayTemplate("Valve", Html.ActionLink(Model.Valve.ToString(), "Show", "Valve", new { Model.Valve.Id }, null))
+        @if (Model.Valve.Critical)
+        {
+            @Html.DisplayFor(x => x.Valve.CriticalNotes, new { @class = "critical-notes-display" })
+        }
+        @Html.DisplayFor(x => x.Valve.ValveLocation)
+        @Html.DisplayFor(x => x.DateInspected)
+        @Html.DisplayFor(x => x.InspectedBy)
+        @Html.DisplayFor(x => x.Inspected)
+        @Html.DisplayFor(x => x.PositionFound)
+        @Html.DisplayFor(x => x.PositionLeft)
+        @Html.DisplayFor(x => x.Valve.OpenDirection)
+        @Html.DisplayFor(x => x.Turns)
+        @Html.DisplayFor(x => x.MinimumRequiredTurns)
+        @Html.DisplayFor(x => x.TurnsNotCompleted)
+        @Html.DisplayFor(x => x.SAPErrorCode)
+        @Html.DisplayFor(x => x.SAPNotificationNumber)
+    </fieldset>
+    
+    <fieldset>
+        @Html.DisplayFor(x => x.WorkOrderRequestOne)
+        @Html.DisplayFor(x => x.WorkOrderRequestTwo)
+        @Html.DisplayFor(x => x.WorkOrderRequestThree)
+
+        @Html.DisplayFor(x => x.Remarks)
+    </fieldset>
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

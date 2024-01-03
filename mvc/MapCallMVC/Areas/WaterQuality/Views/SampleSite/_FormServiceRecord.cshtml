@@ -1,0 +1,37 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites
+@model SampleSiteViewModel
+
+<div class="field-column fc250">
+
+    @if (Model.DisplayPremise != null && Model.DisplayPremise.MostRecentService != null)
+    {
+        @Html.RenderDisplayTemplate("Service", @<text>
+            @Html.ActionLink(
+                Model.DisplayPremise.MostRecentService.Service.ToString(),
+                "Show",
+                "Service",
+                null,
+                null,
+                null,
+                new {
+                    Id = Model.DisplayPremise.MostRecentService.Service.Id,
+                    area = "FieldOperations"
+                },
+                new {
+                    target = "_blank"
+                })
+        </text>)
+
+        @Html.DisplayFor(x => x.DisplayPremise.MostRecentService.ServiceMaterial)
+        @Html.DisplayFor(x => x.DisplayPremise.MostRecentService.CustomerSideMaterial)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Service", @<text><p>No Service Record Found.</p></text>)
+    }
+
+    @Html.EditorFor(x => x.FieldVerifiedServiceMaterial)
+    @Html.EditorFor(x => x.FieldVerifiedServiceCustomerSideMaterial)
+    @Html.EditorFor(x => x.CustomerPlumbingMaterial)
+    @Html.EditorFor(x => x.FieldVerifiedCustomerPlumbingMaterial)
+</div>

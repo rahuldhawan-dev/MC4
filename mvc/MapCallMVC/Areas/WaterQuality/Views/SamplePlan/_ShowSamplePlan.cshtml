@@ -1,0 +1,46 @@
+﻿@model SamplePlan
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.PWSID)
+    @Html.DisplayFor(x => x.Name)
+    @Html.DisplayFor(x => x.ContactPerson)
+
+    @Html.RenderDisplayTemplate("System Type", @<text>
+                                                   @Html.LabelFor(x => x.Cws)
+                                                   @Html.CheckBoxFor(x => x.Cws, new {disabled = true})
+                                                   @Html.LabelFor(x => x.Ntnc)
+                                                   @Html.CheckBoxFor(x => x.Ntnc, new {disabled = true})
+                                                </text>)
+
+    @Html.DisplayFor(x => x.MonitoringPeriodFrom)
+    @Html.DisplayFor(x => x.MonitoringPeriodTo)
+
+    @Html.RenderDisplayTemplate("", @<text>
+                                        @Html.LabelFor(x => x.Standard)
+                                        @Html.CheckBoxFor(x => x.Standard, new {disabled = true})
+                                        @Html.LabelFor(x => x.Reduced)
+                                        @Html.CheckBoxFor(x => x.Reduced, new {disabled = true})
+                                     </text>)
+
+    @Html.DisplayFor(x => x.MinimumSamplesRequired)
+
+    @Html.DisplayFor(x => x.NameOfCertifiedLaboratory)
+
+    @Html.DisplayFor(x => x.SameAsPreviousPeriod)
+
+    @Html.DisplayFor(x => x.AllSamplesTier1)
+
+    @Html.DisplayFor(x => x.Tier2Sites)
+
+    @Html.DisplayFor(x => x.Tier3Sites)
+
+    @Html.DisplayFor(x => x.Tier1SitesVerified)
+
+    @Html.DisplayFor(x => x.LeadServiceLines)
+
+    @Html.DisplayFor(x => x.LeadLinesVerified)
+
+    @Html.DisplayFor(x => x.FiftyPercent)
+
+    @Html.DisplayFor(x => x.Comments)
+</div>

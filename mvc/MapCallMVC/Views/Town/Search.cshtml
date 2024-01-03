@@ -1,0 +1,15 @@
+﻿@model SearchTown
+
+@using (Form.BeginForm("Index", "Town")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.State)
+        @Html.EditorFor(m => m.County, new { Container = @Model })
+        @Html.EditorFor(m => m.Id, new { Container = @Model })
+
+        @Html.EditorFor(m => m.FullName, new { html = new { autofocus = "autofocus" } })
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

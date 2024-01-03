@@ -1,0 +1,108 @@
+﻿@model MapCall.Common.Model.Entities.Users.User
+@{
+    var currentUserRoleAccess = AuthenticationService.CurrentUser.GetUserAdministrativeRoleAccess();
+    var rolesByApplication = Model.AggregateRoles.GroupBy(x => x.Module.Application).OrderBy(x => x.Key.Name);
+    var userHasRoles = Model.AggregateRoles.Any();
+}
+
+@helper DislayOperatingCenter(OperatingCenter opc)
+{
+    var opcDisplay = opc != null ? opc.ToString() : "ALL";
+    @Html.DisplayValueFor(x => opcDisplay)
+}
+
+@helper DislayStateAbbreviation(OperatingCenter opc)
+{
+    var stateDisplay = opc != null ? opc.State.Abbreviation : "ALL";
+    @Html.DisplayValueFor(x => stateDisplay)
+}
+
+@Html.ScriptFor("~/Scripts/User/Roles.js", ScriptLoadType.LoadFromPartial)
+
+<style>
+    #roles-panel table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        #roles-panel table td {
+            width: 20%;
+        }
+</style>
+
+<div id="roles-panel">
+    <div>
+        <header>
+            @Html.Action("New", "UserRoleAccess", new { area = "Admin" })
+            @if (userHasRoles)
+            {
+                <button type="button" id="select-all-roles-button" class="checkbox-button-toggle">
+                    @Control.CheckBox().WithId("select-all-roles-checkbox")
+                    <label>Select All Roles</label>
+                </button>
+                @Control.SubmitButton("Remove Selected Roles").WithId("remove-selected-roles-button")
+            }
+        </header>
+        <div class="container">
+            @if (!userHasRoles)
+            {
+                <span id="no-user-roles">This user does not have any roles.</span>
+            }
+            else
+            { 
+                using (var f = Form.BeginForm("Destroy", "UserRoleAccess", new { id = Model.Id, area = "Admin" }))
+                {
+                    f.HtmlAttributes["id"] = "remove-roles-form";
+                    foreach (var application in rolesByApplication)
+                    {
+                        var rolesInOrder = application.OrderBy(x => x.Module.Name)
+                                                      .ThenBy(x => x.OperatingCenter != null ? x.OperatingCenter.State.Abbreviation : null)
+                                                      .ThenBy(x => x.OperatingCenter != null ? x.OperatingCenter.OperatingCenterCode : null);
+
+                        <details open class="container">
+                            <summary>@application.Key.Name</summary>
+                            <table id="application-@(((RoleApplications)application.Key.Id).ToString())">
+                                <thead>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>State</th>
+                                        <th>Operating Center</th>
+                                        <th>Action</th>
+                                        <th>Origin</th>
+                                        <th>@Control.CheckBox().WithCssClass("select-all-roles-per-app-checkbox") Select All</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var role in rolesInOrder.ToList())
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayValueFor(x => role.Module.Name)</td>
+                                            <td>@DislayStateAbbreviation(role.OperatingCenter)</td>
+                                            <td>@DislayOperatingCenter(role.OperatingCenter)</td>
+                                            <td>@Html.DisplayValueFor(x => role.Action.Name)</td>
+                                            <td>
+                                                @if (role.RoleGroup != null)
+                                                {
+                                                    @Html.ActionLink(role.RoleGroup.Name, "Show", "RoleGroup", new { Area = "Admin", id = role.RoleGroup.Id }, null)
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (role.UserRole != null && currentUserRoleAccess.CanAdministrate(role.Module.Id, role.OperatingCenter != null ? role.OperatingCenter.Id : (int?)null))
+                                                {
+                                                    <label>
+                                                        @Control.CheckBox().WithId("role" + role.UserRole.Id).WithName("RolesToRemove").WithValue(role.UserRole.Id)
+                                                        Remove
+                                                    </label>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </details>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

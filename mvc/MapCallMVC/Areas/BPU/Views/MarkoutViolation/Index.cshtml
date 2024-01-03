@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.BPU.Models.ViewModels.SearchMarkoutViolation
+@{
+    ActionBarHelper.AddExportLink();
+}
+    
+@(Html.TableFor(x => x, new { @class = "results-table" })
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.MarkoutViolationStatus)
+      .SortableColumnFor(x => x.Violation)
+      .SortableColumnFor(x => x.DateOfViolationNotice)
+      .SortableColumnFor(x => x.DateOfProbableViolation)
+      .SortableColumnFor(x => x.MarkoutRequestNumber)
+      .SortableColumnFor(x => x.OCNumber)
+      .SortableColumnFor(x => x.OperatorOfFacility)
+      .SortableColumnFor(x => x.Location)
+      .SortableColumnFor(x => x.MarkoutPerformedBy)
+      .SortableColumnFor(x => x.RootCause)
+      .SortableColumnFor(x => x.Contest)
+      .SortableColumnFor(x => x.FineAmount)
+      .WithPaginatedFooter())

@@ -1,0 +1,12 @@
+﻿@model EditMedicalCertificate
+           
+@using (Form.BeginForm("Update", "MedicalCertificate", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "MedicalCertificate", new { Model.Id })
+        </text>)
+    </div>
+}

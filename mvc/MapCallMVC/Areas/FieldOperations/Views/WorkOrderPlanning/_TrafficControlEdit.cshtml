@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPlanning.UpdateWorkOrderPlanning
+
+@using (Form.BeginForm("UpdatePlanningForTrafficControl", "WorkOrderPlanning", "FieldOperations", new { Model.Id }))
+{
+    @Html.EditorFor(x => x.TrafficControlRequiredPlanning)
+    @Html.EditorFor(x => x.NumberOfOfficersRequired)
+    @Html.DisplayFor(x => x.DisplayWorkOrder.Notes, new { DisplayName = "Current Notes:" });
+    @Html.EditorFor(x => x.AdditionalNotes)
+    @Html.ButtonGroup(@<text>@Control.SubmitButton("Update").WithId("btnUpdate")</text>)
+}

@@ -1,0 +1,17 @@
+﻿@model JobSiteCheckList
+
+<style>
+    #atmosphere { width:100%; }
+</style>
+
+<table id="atmosphere" class="for-structure">
+    <tr>
+        <td>O2</td>
+        <td>@Html.DisplayValueFor(x => x.AtmosphericOxygenLevel)</td>
+        <td>CO</td>
+        <td>@Html.DisplayValueFor(x => x.AtmosphericCarbonMonoxideLevel)</td>
+        <td>LEL</td>
+        <td>@Html.DisplayValueFor(x => x.AtmosphericLowerExplosiveLimit)</td>
+    </tr>
+</table>
+

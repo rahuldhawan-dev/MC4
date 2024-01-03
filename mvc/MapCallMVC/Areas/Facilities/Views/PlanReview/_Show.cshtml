@@ -1,0 +1,11 @@
+﻿@model PlanReview
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Plan", Html.ActionLink(Model.Plan.Id.ToString(), "Show", "EmergencyResponsePlan", new { Model.Plan.Id }, null))
+    @Html.DisplayFor(x => x.ReviewDate)
+    @Html.DisplayFor(x => x.ReviewedBy)
+    @Html.DisplayFor(x => x.ReviewChangeNotes)
+    @Html.DisplayFor(x => x.NextReviewDate)
+    @Html.DisplayFor(x => x.CreatedBy.FullName, new { DisplayName = "Created By" })
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

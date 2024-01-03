@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FleetManagement.Models.CreateVehicle
+
+@using (Form.BeginForm("Create", "Vehicle"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,11 @@
+﻿@model SearchBappTeamIdea
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(c => c.BappTeam.OperatingCenter)
+    .SortableColumnFor(c => c.BappTeam)
+    .SortableColumnFor(c => c.Contact)
+    .SortableColumnFor(c => c.SafetyImplementationCategory)
+    .SortableColumnFor(x => x.CreatedAt)
+    .ColumnFor(c => c.Description))

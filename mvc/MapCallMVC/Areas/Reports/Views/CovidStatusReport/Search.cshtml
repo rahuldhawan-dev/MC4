@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCovidStatusReport
+
+@using (Form.BeginForm("Index", "CovidStatusReport"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.SubmissionDate)
+        @Html.EditorFor(x => x.EmployeeId)
+        @Html.EditorFor(x => x.OutcomeCategory)
+        @Html.EditorFor(x => x.SubmissionStatus)
+        @Html.EditorFor(x => x.QuarantineStatus)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EstimatedReleaseDate)
+        @Html.EditorFor(x => x.ReleaseDate)
+        @Html.EditorFor(x => x.ReleaseReason)
+        @Html.EditorFor(x => x.RequestType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

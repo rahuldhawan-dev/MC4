@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.SearchEnvironmentalPermit
+           
+@{ ActionBarHelper.AddExportLink();}
+
+@(Html.TableFor(x => Model, new {id = "environmentalPermitTable"})
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id, "Id")
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.EnvironmentalPermitType)
+    .SortableColumnFor(x => x.EnvironmentalPermitStatus)
+    .SortableColumnFor(x => x.ProgramInterestNumber)
+    .SortableColumnFor(x => x.Facilities, "FirstFacility.FacilityName")
+    .ColumnFor(x => x.Equipment, "Equipment")
+    .SortableColumnFor(x => x.PermitName, "PermitName")
+    .SortableColumnFor(x => x.PermitNumber, "PermitNumber")
+    .ColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.PublicWaterSupply.Description, "PublicWaterSupply", "PublicWaterSupply")
+    .SortableColumnFor(x => x.WasteWaterSystem, "Wastewater System","WasteWaterSystem")
+    .SortableColumnFor(x => x.PermitCrossReferenceNumber)
+    .SortableColumnFor(x => x.PermitEffectiveDate)
+    .SortableColumnFor(x => x.PermitExpirationDate)
+    .SortableColumnFor(x => x.PermitRenewalDate)
+    .SortableColumnFor(x => x.RequiresFees)
+    .WithPaginatedFooter()
+)

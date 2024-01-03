@@ -1,0 +1,16 @@
+﻿@model WorkOrder
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.TrafficControlRequired)
+    @Html.DisplayFor(x => x.NumberOfOfficersRequired)
+    @Html.DisplayFor(x => x.Notes)
+</div>
+
+@Html.ActionLink("Create Traffic Control Ticket", "New", "TrafficControlTicket", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+
+@(Html.TableFor(x => x.TrafficControlTickets, new { Id = "trafficeControlTickets" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "TrafficControlTicket", new { id = x.Id, area = "FieldOperations" }, new { target = "_blank" }))
+      .ColumnFor(x => x.WorkStartDate)
+      .ColumnFor(x => x.TotalHours)
+      .ColumnFor(x => x.NumberOfOfficers)
+      .ColumnFor(x => x.BillingParty))

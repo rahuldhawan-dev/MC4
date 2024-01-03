@@ -1,0 +1,13 @@
+﻿@model MapCall.Common.Model.Entities.WorkOrder
+    
+@if (Model.DateCompleted == null && Model.DateRejected == null && Model.CancelledAt == null 
+     && (Model.ServiceInstallations == null || !Model.ServiceInstallations.Any()))
+{ 
+	@Control.ActionLink("Create Meter Set", "New", "ServiceInstallation", new {id = Model.Id})
+}
+
+@(Html.TableFor(x => x.ServiceInstallations, new { id="serviceInstallationsTable"})
+    .TemplateColumnFor("Action", rest => @<text>@Html.ActionLink("Edit", "Edit", "ServiceInstallation", new {rest.Id}, null)</text>)
+    .ColumnFor(x => x.MeterManufacturerSerialNumber)
+    .ColumnFor(x => x.MeterLocationInformation)
+)

@@ -1,0 +1,37 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+@{
+    var orders = Model.ProductionWorkOrders.Union(Model.ProductionWorkOrderEquipment.Select(x => x.ProductionWorkOrder));
+
+    var table = Html.TableFor(x => orders, new {id = "productionWorkOrderTable"})
+        .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new {x.Id, area = "Production"}, null))
+        .ColumnFor(x => x.ProductionWorkDescription)
+        .ColumnFor(x => x.Priority)
+        .TemplateColumnFor("Assigned Employees", x =>
+            @<ul>
+                 @Html.Raw(string.Join("", x.EmployeeAssignments.Select(a => "<li>" + a.AssignedTo.Display + "</li>")))
+            </ul>)
+        .ColumnFor(x => x.Status)
+        .ColumnFor(x => x.DateCompleted)
+        .TemplateColumnFor("Notes", x =>
+            @<ul>
+                @Html.Raw(string.Join("", x.Notes.Select(n => "<li>" + n.Text + "</li>")))
+            </ul>)
+        .ColumnFor(x => x.RequestedBy);
+
+    //TODO: refactor this
+    var rvd = new RouteValueDictionary(new CreateProductionWorkOrder(_container, Model));
+    rvd["area"] = "Production";
+    var htmlAttributes = new RouteValueDictionary();
+    htmlAttributes["Class"] = "link-button";
+}
+@if ((Model.EquipmentStatus == null || Model.EquipmentStatus.Id != EquipmentStatus.Indices.RETIRED) && Model.Facility != null && (Model.Facility.FacilityStatus == null || Model.Facility.FacilityStatus.Id != FacilityStatus.Indices.INACTIVE) && (Model.Facility.FacilityName == null || !Model.Facility.FacilityName.ToLower().Contains("archive")))
+{
+    <div style="padding: 3px;">
+        @Html.ActionLink("Create Production Work Order", "New", "ProductionWorkOrder", rvd, htmlAttributes)
+    </div>
+}
+
+@table

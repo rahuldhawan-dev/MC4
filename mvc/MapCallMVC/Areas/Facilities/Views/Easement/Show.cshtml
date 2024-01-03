@@ -1,0 +1,7 @@
+﻿@model Easement
+    
+@(Html.Tabs()
+      .WithTab("Details", "_Show", Model)
+      .WithNotesAndDocuments()
+      .WithLog()
+    )

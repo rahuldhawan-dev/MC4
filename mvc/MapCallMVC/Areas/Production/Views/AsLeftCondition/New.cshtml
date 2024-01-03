@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AsLeftConditionViewModel
+
+@using (Form.BeginForm("Create", "AsLeftCondition", "Production"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.AuthorizedActionLinkButton("Cancel", "Index", "AsLeftCondition")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,249 @@
+0.44
+---------
+Address jira ticket MC-1684, SAPEquipmentManufacturer now also considers MapCallDescription.
+
+
+0.43
+---------
+Address jira ticket MC-1633, WorkIssuedTo now mapped by operating center as well.
+
+
+0.42
+---------
+Added Date Installed to all equipment files.
+
+
+0.41
+---------
+Implemented updates to Facilities and Equipment via two new file formats.
+
+
+0.40
+---------
+Now setting IsActive to true on created Street records.
+
+
+0.39
+---------
+Now setting RETRY error code on equipment after updating risk characteristics so they can be sent to SAP.
+
+
+0.38
+---------
+Fixed an issue where equipment risk characteristic updates were not processing properly.
+
+
+0.37
+---------
+Removed mapping for WELL_PERMIT_LAST_DATE for Well Equipment records as the SAP supplied values of 01/01/1800 were creating issues further down the line.
+
+
+0.36
+---------
+Now able to update Facility and Equipment risk characteristics.
+
+
+0.35
+---------
+Added SewerManholes.
+
+
+0.34
+---------
+Added Risk Characteristic columns to Equipment.
+
+
+0.33
+---------
+Added Services.
+
+
+0.32
+---------
+Fixed a field that wasn't validating string life for Facilities.
+
+
+0.31
+---------
+Added a better message for when a valve or hydrant's town does not match the operating center.
+
+
+0.30
+---------
+Fixed an issue with facilities where more than one facility already existing with a given functional location would cause an error rather than giving a message.
+
+
+0.29
+---------
+Fixed an issue where string values containing numbers were having leading zeros stripped.
+
+
+0.28
+---------
+Implemented a fix for MC-773 (https://americanwater.atlassian.net/browse/MC-773).
+
+
+0.27
+---------
+Facility.PWSID is now a PublicWaterSupply reference.
+
+
+0.26
+---------
+Added Zone to T&D Hydrants for MC-606 (https://americanwater.atlassian.net/browse/MC-606)
+
+
+0.25
+---------
+Implemented a fix for MC-648 (https://americanwater.atlassian.net/browse/MC-648).
+
+
+0.24
+---------
+Updated to the latest mmsinc and mvc.
+
+
+0.23
+---------
+Optimized for performance in HydrantInspections/ValveInspections, should see some improvement for all types.
+
+
+0.22
+---------
+Added a test for SapEquipmentId uniqueness
+
+
+0.21
+---------
+Fixed an issue with coordinate values being truncated.
+
+
+0.20
+---------
+"Equipment" column in Equipment files is now nullable, when null "SAPErrorCode" on the resulting entity is set to "RETRY" so that the record will be imported to SAP.
+
+
+0.19
+---------
+Fixed a runtime issue with the new dynamic thing for audit log entries.  Hopefully fixed an issue Doug was having with validation on ValveInspections.
+
+
+0.18
+---------
+Optimized HydrantInspections and ValveInspections a bit, not a huge improvement but at least it's something.
+
+
+0.17
+---------
+Added version to window title.  Made the message a bit more clear when more than one facility is found using chunks of 'Facility MC' from equipment files.
+
+
+0.16
+---------
+Made Facility - FunctionalLocation unique via validation.
+
+
+0.15
+---------
+Fixed a bug with Facility import.
+
+
+0.14
+---------
+Updated to the latest MapCall model/db schema.
+
+
+0.13
+---------
+Fixed an issue with Equipment Models.  Optimized Equipment validation.
+
+
+0.12
+----------
+Changed MotorContactors (Equipment) Contactor Type to use the other MapCall characteristic.
+
+
+0.11
+----------
+Fixes a bug where duplicate EquipmentModels were being created.
+
+
+0.10
+----------
+Fixes Equipment Identifier numbering issue.
+
+
+0.9
+----------
+Adds "Facility MC" column to facilities, adjusts "Functional Loc." to only populate MapCall's FunctionalLocation column.
+
+
+0.8
+-----------
+Adds Facilities
+
+
+0.7
+-----------
+Equipment redo, now supports all SAP Equipment types.
+
+
+0.5
+-----------
+Initial release; supports the following:
+  - Hydrants
+  - Hydrant Inspections
+  - Streets
+  - Valves
+  - Valve Inspections
+  - Equipment:
+    - AdjustableSpeedDrive
+    - AirCompressor
+    - BatteryCharger
+    - Battery
+    - Blower
+    - ChemicalGenerators
+    - ChemicalLiquidFeeder
+    - ChemicalPiping
+    - ChemicalTank
+    - Clarifier
+    - EmergencyGenerator
+    - Engine
+    - Equipment
+    - FacilityAndGrounds
+    - FallProtection
+    - Filter
+    - FireAlarm
+    - FireSuppression
+    - FlowMeter
+    - FuelTank
+    - GasDetector
+    - HVACDehumidifier
+    - HVACHeater
+    - HVACVentilator
+    - InstrumentSwitch
+    - Motor
+    - MotorStarter
+    - NonPotableWaterTank
+    - PC
+    - PlantValve
+    - PumpPositiveDisplacement
+    - PotableWaterTank
+    - PowerBreaker
+    - PowerDisconnect
+    - PowerMonitor
+    - PowerSurgeProtection
+    - PowerTransferSwitch
+    - PumpCentrifugal
+    - PumpGrinder
+    - RTUPLC
+    - SCADARadio
+    - SCADASYSGEN
+    - SecondaryContainment
+    - SecuritySystem
+    - StreetValve
+    - Transformer
+    - Transmitter
+    - VOCStripper
+    - WaterQualityanalyzer
+    - Well

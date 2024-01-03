@@ -1,0 +1,6 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.Requisitions, new { Id = "requisitions" })
+      .ColumnFor(x => x.RequisitionType)
+      .ColumnFor(x => x.SAPRequisitionNumber)
+	)

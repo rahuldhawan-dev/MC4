@@ -1,0 +1,22 @@
+﻿@model MapCall.Common.Model.Entities.FacilityInspectionFormAnswer
+
+<tbody>
+<tr style="background-color: #e1eef7">
+    <td style="width: 400px">
+        @Html.DisplayValueFor(x => x.FacilityInspectionFormQuestion.Question)
+    </td>
+    <td style="width: 40px">
+        @Html.DisplayValueFor(x => x.FacilityInspectionFormQuestion.Weightage)
+
+    </td>
+    <td style="width: 70px">
+        @Html.DisplayValueFor(x => x.IsSafe)
+    </td>
+    <td style="width: 40px">
+        @Html.DisplayValueFor(x => x.IsPictureTaken)
+    </td>
+    <td>
+        @Html.DisplayValueFor(x => x.Comments)
+    </td>
+</tr>
+</tbody>

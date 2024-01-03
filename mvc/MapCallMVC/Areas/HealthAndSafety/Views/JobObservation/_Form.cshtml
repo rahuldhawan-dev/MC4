@@ -1,0 +1,83 @@
+﻿@model JobObservationViewModel
+           
+<div class="field-column fc300">
+    @Html.EditorFor(x => x.ObservationDate)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.JobObservedBy)
+    @Html.EditorFor(x => x.Department)
+    @Html.EditorFor(x => x.Address)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.EditorFor(x => x.TaskObserved)
+    @Html.EditorFor(x => x.WorkOrder)
+    @Html.EditorFor(x => x.ProductionWorkOrder)
+    @Html.EditorFor(x => x.OverallSafetyRating)
+    @Html.EditorFor(x => x.OverallQualityRating)
+    @Html.EditorFor(x => x.WhyWasTaskSafeOrAtRisk)  
+    @Html.EditorFor(x => x.Deficiencies)
+    @Html.EditorFor(x => x.RecommendSolutions)
+
+    <fieldset>
+        <legend>Equipment</legend>
+        @Html.EditorFor(x => x.EqTruckForkliftsHoistsLadders)
+        @Html.EditorFor(x => x.EqFrontEndLoaderOrBackhoe)
+        @Html.EditorFor(x => x.EqOther)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Confined Space</legend>
+        @Html.EditorFor(x => x.CsPreEntryChecklistOrEntryPermit)
+        @Html.EditorFor(x => x.CsAtmosphereContinuouslyMonitored)
+        @Html.EditorFor(x => x.CsRetrievalEquipmentTripodHarnessWinch)
+        @Html.EditorFor(x => x.CsVentilationEquipment)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Personal Protective Equipment</legend>
+        @Html.EditorFor(x => x.PpeHardHat)
+        @Html.EditorFor(x => x.PpeReflectiveVest)
+        @Html.EditorFor(x => x.PpeEyeProtection)
+        @Html.EditorFor(x => x.PpeEarProtection)
+        @Html.EditorFor(x => x.PpeFootProtection)
+        @Html.EditorFor(x => x.PpeGloves)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Traffic Control</legend>
+        @Html.EditorFor(x => x.TcBarricadesConesBarrels)
+        @Html.EditorFor(x => x.TcAdvancedWarningSigns)
+        @Html.EditorFor(x => x.TcLightsArrowBoard)
+        @Html.EditorFor(x => x.TcPoliceFlagman)
+        @Html.EditorFor(x => x.TcWorkZoneInCompliance)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Personal Safety</legend>
+        @Html.EditorFor(x => x.PsWalkwaysClear)
+        @Html.EditorFor(x => x.PsMaterialStockpile)
+    </fieldset>
+
+    <fieldset>
+        <legend>Excavation</legend>
+        @Html.EditorFor(x => x.ExMarkoutRequestedForWorkSite)
+        @Html.EditorFor(x => x.ExWorkSiteSafetyCheckListUtilized)
+        @Html.EditorFor(x => x.ExUtilitiesSupportedProtected)
+        @Html.EditorFor(x => x.ExAtmosphereTestingPerformed)
+        @Html.EditorFor(x => x.ExSpoilPile2FeetFromEdgeOfExcavation)
+        @Html.EditorFor(x => x.ExLadderUsedIfGreaterThan4FeetDeep)
+        @Html.EditorFor(x => x.ExShoringNecessaryOver5FeetDeep)
+        @Html.EditorFor(x => x.ExProtectiveSystemInUseOver5Feet)
+        @Html.EditorFor(x => x.ExWaterControlSystemInUse)
+    </fieldset>
+    
+    <fieldset>
+        <legend>Ergonomic</legend>
+        @Html.EditorFor(x => x.ErChecklistUtilized)
+        @Html.EditorFor(x => x.ErErgonomicFactorsProhibitingGoodBodyMechanics)
+        @Html.EditorFor(x => x.ErToolsEquipmentUsedCorrectly)
+    </fieldset>
+    
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "JobObservation")
+    </text>)
+</div>

@@ -1,0 +1,21 @@
+﻿FINISHED:
+  Need some way of viewing what work is already assigned to crews along with the estimated
+  man hours so that the administrator can see how many hours of work has been assigned for
+  a day.
+
+  Need a crews table.  Need a string field for crew descriptor, and it should allow for each
+  OpCenter to create and maintain its own set of crews.
+
+  Planning Search:
+    - Description of Work needs to be multi-select (don't know why it's not already)
+
+PENDING:
+  Planning Search:
+    - Need to filter Description of Work by Asset Type once chosen.
+
+  Emergency Markouts do not expire per se, but last as long as the emergency and work
+  is being done.
+
+  Planning Detail:
+    - "Equipment" to become "Resources".  Contains both vehicles and equipment.  Need some
+      way to allow for an administrator to decide what shows up in these lists.

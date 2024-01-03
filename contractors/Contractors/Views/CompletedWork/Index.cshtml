@@ -1,0 +1,38 @@
+﻿@using MapCall.Common.Model.Entities
+@using MMSINC.Results
+@model Contractors.Models.ViewModels.SearchCompletedWork
+
+@functions{
+
+    private DateTime? DateDocumentCreated(MeterChangeOut record, Func<IOrderedEnumerable<Document<MeterChangeOut>>, Document<MeterChangeOut>> getDoc)
+    {
+        var doc = getDoc(record.Documents.OrderBy(d => d.CreatedAt));
+        return doc == null ? null : (DateTime?)doc.CreatedAt;
+    }
+
+    public DateTime? DateFirstDocumentCreated(MeterChangeOut record)
+    {
+        return DateDocumentCreated(record, docs => docs.FirstOrDefault());
+    }
+
+    public DateTime? DateLastDocumentCreated(MeterChangeOut record)
+    {
+        return DateDocumentCreated(record, docs => docs.LastOrDefault());
+    }
+}
+
+@{
+    var ordered = Model.Results.OrderBy(co => co.DateStatusChanged).ThenBy(DateLastDocumentCreated);
+    var exportRouteData = Html.ViewData.ModelState.ToRouteValueDictionary();
+    exportRouteData["ext"] = ResponseFormatter.KnownExtensions.EXCEL_2003;
+}
+
+@Html.LinkButton("Export to Excel", "Index", "CompletedWork", exportRouteData)
+
+@(Html.TableFor(_ => ordered)
+    .ColumnFor(co => co.ServiceStreetAddressCombined)
+    .ColumnFor(co => co.ServiceCity)
+    .ColumnFor(co => co.DateStatusChanged)
+    .TemplateColumnFor("First Document Created", co => @<text>@DateFirstDocumentCreated(co)</text>)
+    .TemplateColumnFor("Last Document Created", co => @<text>@DateLastDocumentCreated(co)</text>)
+    )

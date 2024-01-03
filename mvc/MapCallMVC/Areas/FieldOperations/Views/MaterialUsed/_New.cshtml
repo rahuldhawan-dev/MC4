@@ -1,0 +1,8 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MaterialsUsed.CreateMaterialUsed
+
+@using (var f = Form.BeginAjaxForm("Create", "MaterialUsed", new { Model.Id, Model.WorkOrder }))
+{
+	f.HtmlAttributes["title"] = "Add Material Used";
+	@Control.Hidden("OperatingCenter").WithValue(Model.OperatingCenter);
+	@Html.Partial("_Form", Model)
+}

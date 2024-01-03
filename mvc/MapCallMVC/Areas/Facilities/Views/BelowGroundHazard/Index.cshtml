@@ -1,0 +1,30 @@
+﻿@using StructureMap.Query
+@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchBelowGroundHazard
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter, controller = "AssetMap" }); 
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.Coordinate.Latitude)
+      .SortableColumnFor(x => x.Coordinate.Longitude)
+      .SortableColumnFor(x => x.WorkOrder)
+      .SortableColumnFor(x => x.OperatingCenter.State)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.TownSection)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street)
+      .SortableColumnFor(x => x.CrossStreet)
+      .SortableColumnFor(x => x.HazardArea)
+      .SortableColumnFor(x => x.HazardType)
+      .SortableColumnFor(x => x.DepthOfHazard)
+      .SortableColumnFor(x => x.AssetStatus)
+      .SortableColumnFor(x => x.HazardDescription)
+      .SortableColumnFor(x => x.ProximityToAmWaterAsset)
+      .SortableColumnFor(x => x.HazardApproachRecommendedType)
+      .WithPaginatedFooter())

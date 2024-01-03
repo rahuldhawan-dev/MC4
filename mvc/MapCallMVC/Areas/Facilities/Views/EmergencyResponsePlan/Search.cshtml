@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchEmergencyResponsePlan
+
+@using (Form.BeginForm("Index", "EmergencyResponsePlan")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.EmergencyPlanCategory)
+        @Html.EditorFor(x => x.Title)
+        @Html.EditorFor(x => x.ReviewFrequency)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

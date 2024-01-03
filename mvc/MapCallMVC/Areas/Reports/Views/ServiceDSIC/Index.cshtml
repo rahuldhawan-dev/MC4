@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchServiceDSIC
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => x)
+      .WithCaption(String.Format("{0} Records", Model.Count))
+      .ColumnFor(x => x.Id)
+      .SortableTemplateColumnFor("Service Number", "ServiceNumber", x => Html.ActionLink(x.ServiceNumber.ToString(), "Show", "Service", new { x.Id, area = "FieldOperations" }, null))
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.StreetNumber)
+      .SortableColumnFor(x => x.Street)
+      .SortableColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.TaskNumber1)
+      .ColumnFor(x => x.Latitude)
+      .ColumnFor(x => x.Longitude)
+      //.ColumnFor(x => x.SAPEquipmentId)
+      .ColumnFor(x => x.DateInstalled)
+      .WithPaginatedFooter()
+)

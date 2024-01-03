@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CapitalizeProductionWorkOrder
+
+@using (Form.BeginForm("CapitalizeProductionWorkOrder", "ProductionWorkOrder", "Production", new {Model.Id}))
+{
+
+    
+        @Html.EditorFor(x => x.CapitalizationReason)
+        if (Model.CapitalizationCancelsOrder) { 
+            @Html.HiddenFor(x => x.CapitalizationCancelsOrder)
+            @Html.EditorFor(x => x.CancellationReason)
+        }
+        @Html.ButtonGroup(@<text>@Control.SubmitButton("Capitalize Order").With("onclick", "return confirm('Are you sure you want to capitalize this order?');")</text>)
+    
+}

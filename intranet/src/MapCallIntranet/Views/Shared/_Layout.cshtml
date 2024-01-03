@@ -1,0 +1,64 @@
+﻿@using MMSINC
+@using MMSINC.ClassExtensions
+@using MMSINC.Helpers
+@{
+    Layout = "~/Views/Shared/_NoFrills.cshtml";
+
+    ViewBag.Title = "Near Miss Application";
+}
+
+@section head {
+    <link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" />
+}
+
+@section styles {
+    @Styles.Render("~/content/base-css")
+    @RenderSection("styles", required: false)
+    @Html.ResourceRegistry().StyleSheets.ToMvcHtmlString()
+}
+@section scripts {
+    @Scripts.Render("~/scripts/site-js")
+    @Scripts.Render("~/scripts/web-components")
+    @RenderSection("scripts", required: false)
+    @Html.ResourceRegistry().Scripts.ToMvcHtmlString()
+}
+
+<noscript><div>This site requires javascript to be enabled.</div></noscript>
+<div class="siteWrap">
+    <div class="left">
+        <div class="inner">
+            <div>
+                @RenderSection("nav", required: false)
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="inner">
+            <div id="site-header" class="header">
+                <div class="d-flex">
+                    <div class="left">
+                        @ViewBag.Title
+                    </div>
+                    <div class="right m-left-auto">
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                Hello @Context.User.Identity.Name |
+                                <a id="logout-button" onclick="document.getElementById('logout_form').submit();" style="cursor: pointer; color: white; text-decoration: underline">Log out</a>
+
+                                <form action="/Account/Logout" method="post" id="logout_form"></form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="body">
+                <div class="content">
+                    @Html.DisplayNotifications()
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@RenderSection("footer", required: false)

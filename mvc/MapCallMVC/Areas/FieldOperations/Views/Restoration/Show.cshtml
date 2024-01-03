@@ -1,0 +1,8 @@
+﻿@model Restoration
+
+@(Html.Tabs().WithTab("Initial Data", "_Initial")
+    .WithTab("Base/Temporary Restoration", "_Partial")
+    .WithTab("Final Restoration", "_Final")
+    .WithTab("Related Restorations", "_Related")
+    .WithTab("Reopened", "_Reopened")
+    .WithNotesAndDocuments())

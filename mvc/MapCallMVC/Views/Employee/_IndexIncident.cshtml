@@ -1,0 +1,11 @@
+﻿@model Employee
+
+    @(Html.TableFor(x => Model.Incidents, new { id = "Incident" })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Incident", new { x.Id }, null))
+        .ColumnFor(x => x.IncidentStatus)
+        .ColumnFor(x => x.IncidentDate)
+        .ColumnFor(x => x.DateInvestigationWillBeCompleted)
+        .ColumnFor(x => x.IncidentClassification)
+        .ColumnFor(x => x.IncidentType)
+        .ColumnFor(x => x.SeriousInjuryOrFatalityType)
+        .ColumnFor(x => x.IsOSHARecordable))

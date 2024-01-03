@@ -1,0 +1,63 @@
+﻿@model EquipmentType
+
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@Html.ScriptFor("~/Scripts/EquipmentPurpose/EquipmentCharacteristicField.js", ScriptLoadType.LoadFromPartial)
+
+@if (userCanEdit)
+{
+    @Html.Partial("_CreateCharacteristicField", ViewModelFactory.BuildWithOverrides<CreateEquipmentCharacteristicField>(new {EquipmentType = Model.Id}))
+}
+
+<table id="characteristicFieldTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Is SAP Characteristic</th>
+            <th>Drop Down Values</th>
+            <th>Active</th>
+            <th>Order</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var field in Model.CharacteristicFields.OrderBy(z => z.Order))
+    {
+        <tr>
+            <td>@Html.DisplayValueFor(_ => field.FieldName)</td>
+            <td>@Html.DisplayValueFor(_ => field.Description)</td>
+            <td>@Html.DisplayValueFor(_ => field.FieldType)</td>
+            <td>@Html.DisplayValueFor(_ => field.Required)</td>
+            <td>@Html.DisplayValueFor(_ => field.IsSAPCharacteristic)</td>
+            <td>
+                @if (field.DropDownValues.Count > 0)
+                {
+                    <ul style="padding-left: 5px; list-style-type: none">
+                        @foreach (var value in field.DropDownValues)
+                        {
+                            <li>@Html.DisplayValueFor(_ => value.Value)</li>
+                        }
+                    </ul>
+                }
+            </td>
+            <td>@Html.DisplayValueFor(_ => field.IsActive)</td>
+            <td>@Html.DisplayValueFor(_ => field.Order)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "EquipmentCharacteristicField", new { field.Id }, new { Class = "link-button" })
+                @if (field.EquipmentCharacteristics.Count == 0)
+                {
+                    using (Form.BeginForm("Destroy", "EquipmentCharacteristicField", new { id = field.Id }))
+                    {
+                        @Control.SubmitButton("Remove Field")
+                    }
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

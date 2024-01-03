@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.ServiceLineProtection.Models.ViewModels.SearchServiceLineProtectionInvestigation
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.CustomerCity)
+    .SortableColumnFor(x => x.CustomerName)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.CustomerServiceMaterial)
+    .SortableColumnFor(x => x.CompanyServiceMaterial)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.RenewalCompleted)
+    .SortableColumnFor(x => x.Contractor)
+    .WithPaginatedFooter())

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValveRouteReport
+
+@{
+    ActionBarHelper.AddExportLink();    
+}
+
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;"})
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .TemplateColumnFor("Route", x => Html.AuthorizedActionLinkOrText(x.Route.ToString(), "Index", "Valve", new { town = x.Town.Id, route = x.Route, valveStatus = x.ValveStatus.Id, area = "FieldOperations" }, null))
+    .ColumnFor(x => x.ValveStatus)
+    .ColumnFor(x => x.Total)
+)

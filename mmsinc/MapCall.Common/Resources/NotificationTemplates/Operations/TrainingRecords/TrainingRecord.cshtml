@@ -1,0 +1,29 @@
+﻿@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.TrainingRecord
+
+<h2>Training Record</h2>
+
+Scheduled Date: @string.Format(CommonStringFormats.DATE, Model.ScheduledDate) <br/>
+Training Sessions: <br/>
+@foreach (var ts in Model.TrainingSessions)
+{
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;@ts.StartDateTime -- @ts.EndDateTime</span><br/>
+}
+Held On: @string.Format(CommonStringFormats.DATE, Model.HeldOn) <br />
+Instructor: @Model.Instructor <br />
+Second Instructor: @Model.SecondInstructor <br />
+Training Module Title: @Model.TrainingModule <br />
+Total Hours: @Model.TrainingModule.TotalHours <br />
+Class Location: @Model.ClassLocation <br />
+
+@Model.RecordUrl
+
+@if (@Model.LinkedEmployeesAttended.Count > 0)
+{
+    <h3>Attendees (@Model.LinkedEmployeesAttended.Count)</h3>
+    foreach (var e in Model.LinkedEmployeesAttended)
+    {
+        @e.Employee.Display;
+        <br/>
+    }
+}

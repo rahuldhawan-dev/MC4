@@ -1,0 +1,295 @@
+﻿@using MMSINC.ClassExtensions.IEnumerableExtensions
+@using MMSINC.ClassExtensions.IListExtensions
+@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EstimateForm
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@helper ThickBlackLine()
+{
+    <hr class="thick-black-line" />
+}
+
+@section head {
+    <style type="text/css">
+        * {
+            font-size: 18px;
+            font-family: Arial;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        section {
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-family: 'Times New Roman';
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .thick-black-line {
+            border: solid 2px black;
+            margin-bottom: 3px;
+        }
+
+        tr.heavy-line-row td {
+            border-top: solid 4px black;
+            padding-top: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        table#task-top-part td {
+            padding-bottom: 9px;
+            padding-top: 0px;
+        }
+
+        .centered-subtitle {
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        td {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        table#materials td {
+            text-align: center;
+        }
+
+        table#materials tbody td {
+            font-size: 16px;
+            border-bottom: dotted 1px black;
+        }
+
+        table#materials .description-cell {
+            width: 350px;
+        }
+
+        table#admin-table tbody td {
+            border-bottom: dotted 1px black;
+        }
+
+        table#totals tbody td {
+            border-bottom: dotted 1px black;
+        }
+
+        td.line-total {
+            text-align: right !important;
+            font-weight: bold;
+        }
+    </style>
+}
+
+@section body {
+    <section>
+        @ThickBlackLine()
+
+        <div class="title">Task Order Summary Field Sheet</div>
+
+        <table>
+            <tr>
+                <td style="width:40%;">
+                    <table id="task-top-part">
+                        <tr>
+                            <td class="label">Parent Task #</td>
+                            <td>@Html.DisplayValueFor(x => x.Project.WBSNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">PWOI #</td>
+                            <td>@Html.DisplayValueFor(x => x.Project.ProjectNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Assigned To</td>
+                            <td>@Html.DisplayValueFor(x => x.Throwaways.AssignedTo)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Town Name</td>
+                            <td>@Html.DisplayValueFor(x => x.Project.Town)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Old JDE Task #</td>
+                            <td>@Html.DisplayValueFor(x => x.Throwaways.OldJDETaskNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">WBS Element</td>
+                            <td>@Html.DisplayValueFor(x => x.Project.WBSNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="label">JDE Payroll Task</td>
+                            <td>@Html.DisplayValueFor(x => x.Throwaways.JDEPayrollTask)</td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="width:60%; border:solid 2px black; vertical-align:top; padding:6px;">
+                    <div style="font-weight:bold;">Project Location:</div>
+                    <div style="min-height:50px;">@Html.DisplayValueFor(x => x.Throwaways.ProjectLocation)</div>
+                    <div style="font-weight:bold;">Project Description:</div>
+                    <div>@Html.DisplayValueFor(x => x.Project.Description)</div>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        @ThickBlackLine()
+        <div class="centered-subtitle">Material Summary</div>
+
+        <table id="materials" style="margin-top:12px;">
+            <thead>
+                <tr>
+                    <th class="units">Units</th>
+                    <th>Asset Type</th>
+                    <th class="stock-number">Stock Number</th>
+                    <th class="description-cell">Material Description</th>
+                    <th>Unit Price</th>
+                    <th>Line Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model.Project.Materials.OrderBy(x => x.AssetType.Description))
+                {
+                    <tr>
+                        <td>@Html.DisplayValueFor(x => m.Quantity)</td>
+                        <td>@Html.DisplayValueFor(x => m.AssetType)</td>
+                        <td>@Html.DisplayValueFor(x => m.Material.PartNumber)</td>
+                        <td>@Html.DisplayValueFor(x => m.Material.Description)</td>
+                        <td>@Html.DisplayValueFor(x => m.MaterialCost)</td>
+                        <td class="line-total">@Html.DisplayValueFor(x => m.TotalCost)</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align:right; font-weight:bold;">Material Total:</td>
+                    <td colspan="1" style="text-align:right; font-weight:bold;">@Html.DisplayValueFor(x => x.Project.TotalMaterialCost)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+
+    <section>
+        @ThickBlackLine()
+        <div class="centered-subtitle">Installation/Admin Summary</div>
+
+        <table id="admin-table" style="margin-top:12px;">
+            <tbody>
+                @foreach (var oc in Model.Project.OtherCosts)
+                {
+                    <tr>
+                        <td colspan="4" class="label">@Html.DisplayValueFor(x => oc.Description):</td>
+                        <td colspan="12" class="line-total">@Html.DisplayValueFor(x => oc.TotalCost)</td>
+                    </tr>
+                }
+
+                @foreach (var permit in Model.Project.Permits)
+                {
+                    <tr>
+                        <td colspan="4" class="label">@Html.DisplayValueFor(x => permit.PermitType) Permit Fee:</td>
+                        <td colspan="12" class="line-total">@Html.DisplayValueFor(x => permit.TotalCost)</td>
+                    </tr>
+                }
+                
+                @foreach (var clc in Model.Project.CompanyLaborCosts)
+                {
+                    <tr>
+                        <td colspan="4" class="label">@Html.DisplayValueFor(_ => clc.CompanyLaborCost.Description)</td>
+                        <td colspan="12" class="line-total">@Html.DisplayValueFor(_ => clc.TotalCost)</td>
+                    </tr>
+                }
+
+                @if (Model.IsNonFramework && Model.Project.LumpSum != null)
+                {
+                    <tr>
+                        <td colspan="4" class="label">Contract Labor Lump Sum:</td>
+                        <td colspan="12" class="line-total">@Html.DisplayValueFor(x => x.Project.LumpSum)</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var type in Model.Project.ContractorLaborCosts.Where(x => x.AssetType != null).Select(x => x.AssetType).Distinct())
+                    {
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                            <td colspan="5" class="label">Contract Labor - @(type)s:</td>
+                            <td colspan="7" class="line-total">@Model.Project.ContractorLaborCosts.Where(x => x.AssetType == type).Sum(c => c.TotalCost).GetValueOrDefault().ToString("c")</td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                    }
+                }
+
+                <tr>
+                    <td colspan="4" class="label">Contract Labor Detail Sum:</td>
+                    <td colspan="12" class="line-total">@Html.DisplayValueFor(x => x.Project.TotalContractorLaborCost)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        @ThickBlackLine()
+
+        <table>
+            <tr>
+                <td colspan="5" class="label" style="text-align:right;">Admin and Install Subtotal:</td>
+                <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.AdminInstallCost)</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        @ThickBlackLine()
+
+        <table>
+            <tr>
+                <td colspan="5" class="label" style="text-align:right;">Admin/Install and Material Subtotal:</td>
+                <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.AdminInstallAndMaterialCost)</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        @ThickBlackLine()
+
+        <table id="totals">
+            <tbody>
+                <tr>
+                    <td colspan="5" class="label">Ommissions and Contingencies @@ @Html.DisplayValueFor(x => x.Project.ContingencyPercentage):</td>
+                    <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.OmmissionsAndContingencies)</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="label">Total Direct Cost:</td>
+                    <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.TotalDirectCost)</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="label">Construction Overhead @@ @Html.DisplayValueFor(x => x.Project.OverheadPercentage):</td>
+                    <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.ConstructionOverheadCost)</td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="label">Sub Total:</td>
+                    <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.SubTotal)</td>
+                </tr>
+                <tr>
+                    <td colspan="1" class="label">FTC Applied:</td>
+                    <td colspan="3">@Html.DisplayValueFor(x => x.Throwaways.FTCApplied)</td>
+                    <td colspan="1" class="label" style="text-align:right;">FTC Total:</td>
+                    <td colspan="1" class="line-total">@Html.DisplayValueFor(x => x.Throwaways.FTCTotal)</td>
+                </tr>
+                <tr class="heavy-line-row">
+                    <td colspan="5" class="label" style="font-size:30px;">Total Estimated Cost:</td>
+                    <td colspan="1" class="line-total" style="font-size:30px;">@Html.DisplayValueFor(x => x.TotalEstimatedCost)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+}

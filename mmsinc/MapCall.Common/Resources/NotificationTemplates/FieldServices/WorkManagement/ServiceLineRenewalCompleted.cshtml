@@ -1,0 +1,26 @@
+﻿@model MapCall.Common.Model.Entities.WorkOrder
+
+<h2>Service Line Renewal Completed</h2>
+
+Work Order #: <a href="@Model.RecordUrl">@Model.Id</a> <br />
+Operating Center: @Model.OperatingCenter <br />
+Town: @Model.Town <br />
+Street #: @Model.StreetNumber <br />
+Street: @Model.Street <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br/>
+Date Completed: @Model.DateCompleted <br/>
+Created By: @Model.CreatedBy <br/>
+
+Premise Number: @Model.PremiseNumber <br/><br />
+
+Previous NJAW material: @Model.PreviousServiceLineMaterial<br/>
+Previous NJAW size: @Model.PreviousServiceLineSize<br/>
+Company side material: @Model.CompanyServiceLineMaterial<br/>
+Company side size: @Model.CompanyServiceLineSize<br/>
+Customer side material: @Model.CustomerServiceLineMaterial<br/>
+Customer side size: @Model.CustomerServiceLineSize<br/>
+Date notice left: @Model.DoorNoticeLeftDate<br/>
+
+Notes:<br />
+@Model.Notes

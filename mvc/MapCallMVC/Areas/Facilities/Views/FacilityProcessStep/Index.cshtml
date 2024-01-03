@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchFacilityProcessStep
+
+@(Html.TableFor(x => x)
+      .WithCaption("Total Records: " + Model.Count)
+      .TemplateColumnFor(x => Control.ActionLink("View", "Show", "FacilityProcessStep", new { x.Id }, null))
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.StepNumber)
+      .ColumnFor(x => x.Equipment)
+      .ColumnFor(x => x.Equipment.ScadaTagName)
+      .ColumnFor(x => x.FacilityProcessStepSubProcess)
+      .ColumnFor(x => x.UnitOfMeasure)
+      .ColumnFor(x => x.ElevationInFeet)
+      .ColumnFor(x => x.ProcessTarget)
+      .ColumnFor(x => x.NormalRangeMin)
+      .ColumnFor(x => x.NormalRangeMax)
+      .WithPaginatedFooter())

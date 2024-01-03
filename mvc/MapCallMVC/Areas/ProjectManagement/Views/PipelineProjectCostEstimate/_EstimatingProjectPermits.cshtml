@@ -1,0 +1,32 @@
+﻿@using MMSINC.Utilities
+@model IEnumerable<EstimatingProjectPermit>
+@if (Model.Any())
+{
+    <tr>
+        <td colspan="6" class="sub-header">Permits & Land Rights</td>
+    </tr>
+    <tr>
+        <th>Quantity</th>
+        <th>Item No</th>
+        <th>Unit</th>
+        <th>Description</th>
+        <th>Cost</th>
+        <th>Total Cost</th>
+    </tr>
+    foreach (var x in Model)
+    {
+        <tr>
+            <td style="text-align: center;">@x.Quantity</td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"></td>
+            <td>@x.PermitType</td>
+            <td class="cost">@Html.DisplayValueFor(_ => x.Cost)</td>
+            <td class="cost">@Html.DisplayValueFor(_ => x.TotalCost)</td>
+        </tr>
+    }
+
+    <tr>
+        <td colspan="5" class="sub-footer">Subtotal</td>
+        <td class="cost sub-footer">@String.Format(CommonStringFormats.MONEY, Model.Sum(x => x.TotalCost))</td>
+    </tr>
+}

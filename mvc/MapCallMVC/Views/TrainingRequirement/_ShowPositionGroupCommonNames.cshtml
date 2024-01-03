@@ -1,0 +1,25 @@
+﻿@model TrainingRequirement
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Position Group Common Name">
+        @Html.Action("New", "PositionGroupCommonNameTrainingRequirement", new { TrainingRequirement = Model.Id })
+    </div>
+}
+
+@using (var form = Form.BeginForm("Destroy", "PositionGroupCommonNameTrainingRequirement"))
+{
+    form.HtmlAttributes["id"] = "frmRemovePositionGroupCommonName";
+    @Control.HiddenFor(x => x.Id).WithName("trainingRequirementId")
+    @(Html.TableFor(x => x.PositionGroupCommonNames, new { style = "width:100%", id = "position-group-common-names-table" })
+                .TemplateColumnFor("Description", x => @Html.ActionLink(x.Description, "Show", "PositionGroupCommonName", new { area = string.Empty, x.Id}, null))
+                .TemplateColumnFor("", m => @<div>
+                    @if (userCanEdit)
+                    {
+                        @Control.SubmitButton("Remove").WithName("positionGroupCommonNameId").WithValue(m.Id)
+                    }
+                </div>))
+}

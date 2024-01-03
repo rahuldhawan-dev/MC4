@@ -1,0 +1,9 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Job Observation", "New", "JobObservation", new { area = "HealthAndSafety", id = Model.Id }, new { Class = "link-button" })
+
+@(Html.TableFor(x => x.JobObservations, new { Id = "jobObservations" })
+      .TemplateColumnFor("", x => Html.ActionLink("View", "Show", "JobObservation", new { id = x.Id, area = "HealthAndSafety" }, new { target = "_blank" }))
+      .ColumnFor(x => x.ObservationDate)
+      .ColumnFor(x => x.OverallSafetyRating)
+      .ColumnFor(x => x.OverallQualityRating))

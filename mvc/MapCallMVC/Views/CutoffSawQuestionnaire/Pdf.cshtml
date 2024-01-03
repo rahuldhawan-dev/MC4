@@ -1,0 +1,93 @@
+﻿@model CutoffSawQuestionnaire
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+@* ReSharper disable Html.TagNotResolved *@
+
+@section head { 
+    <style type="text/css">
+        * { font-family:Arial;font-size: 20px; }
+
+        td { padding-bottom:0.5em; }
+        li { padding-bottom:0.5em;}
+    </style>
+}
+
+@section body {
+    
+    @* Server.MapPath gets the local file path, not a url. So if this fails on the live site then it
+       means the correct permissions need to be added to the file/dir. *@
+    <img src="@Server.MapPath("~/Content/images/american-water-letterhead.png")" style="width: 100%;" />
+    <br /><br />
+    <h2>
+        Appendix A - Cut-off and Ring Saw Safety Checklist
+    </h2>
+     <br />
+    <table style="width:100%;">
+        <tr>
+            <td>
+                <span>LEAD PERSON: </span>
+                <span style="text-decoration: underline;">@Html.DisplayTextFor(x => x.LeadPerson)</span>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span>SAW OPERATOR: </span>
+                <span style="text-decoration: underline;">@Html.DisplayTextFor(x => x.SawOperator)</span>
+            </td>
+            <td>
+                <span>Operated On: </span>
+                <span style="text-decoration: underline;">@Html.DisplayTextFor(x => x.OperatedOn)</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span>LOCATION: </span>
+                <span style="text-decoration: underline;">@Html.DisplayTextFor(x => x.WorkOrderLocation)</span>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    
+    <p>A) Pipe Type: @Html.DisplayTextFor(x => x.PipeMaterial.Description)</p>
+    <p>B) Pipe Size: @Html.DisplayTextFor(x => x.PipeMaterial)</p>
+    
+    <br />
+    
+    <p style="font-style: italic">Follow the manufacturer's safe operating instructions, use two hands, and don the required personal protective
+        equipment including: Hard hat, safety glasses, face shield, hearing protection, work gloves, safety vest, steel or 
+        composite toed boots. 
+    </p>
+    <br />
+    
+    <p style="font-weight: bold;">Note: Use only abrasive cutting wheels. 
+        <span style="text-decoration:underline;">Diamond tip metal blades must not be used. </span>
+    </p>
+    <br /><br/>
+    
+    <paragraph>Confirm each of the following. If any item cannot be confirmed, consult with your supervisor prior to use. </paragraph>
+    <br /><br/>
+
+    <ol style="list-style-type:decimal; list-style-position:inside; padding-left:24px;">
+        <li>The saw will not be used in a trench, excavation, pit, vault or other below grade application. </li>
+        <li>The operator of the saw is trained and authorized for use of the saw by American Water. </li>
+        <li>The saw blade has been inspected with no defects found. </li>
+        <li>The saw guard is in place, secure and covers as much of the top quadrant of the wheel as possible </li>
+        <li>The abrasive saw wheel is installed so that the arrow on the wheel points in the direction of the rotation 
+            of the spindle.  </li>
+        <li>Only the 3-6 o'clock position of the wheel will be used for cutting.  </li>
+        <li>The section of pipe being cut must be secure so that that pipe will not shift as the cut is made.  </li>
+        <li>Required PPE (listed above) is worn. </li>
+    </ol>
+    
+    <br /><br/>
+        <p style="font-weight: bold; text-align:center;">Each Item must be confirmed prior to beginning work. </p>
+    <p style="font-weight: bold; text-align:center;">Return this form to your supervisor at the end of the shift</p>
+    
+    <br /><br/>   
+    <p>Created By: @Model.CreatedBy</p>
+    <p>Created On: @Model.CreatedAt</p>
+}

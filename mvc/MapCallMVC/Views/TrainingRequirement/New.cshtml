@@ -1,0 +1,12 @@
+﻿@model TrainingRequirementViewModel
+           
+@using (Form.BeginForm("Create", "TrainingRequirement"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Index")
+        </text>)
+    </div>
+}

@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchFacilityProcessStep
+
+@using (Form.BeginForm("Index", "FacilityProcessStep"))
+{
+    <div class="field-column fc200 search-fields">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.StepNumber)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.FacilityProcessStepSubProcess)
+        @Html.EditorFor(x => x.ProcessTarget)
+        @Html.EditorFor(x => x.NormalRangeMin)
+        @Html.EditorFor(x => x.NormalRangeMax)
+        @Html.EditorFor(x => x.UnitOfMeasure)
+        @Html.EditorFor(x => x.ElevationInFeet)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

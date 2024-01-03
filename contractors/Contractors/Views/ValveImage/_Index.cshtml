@@ -1,0 +1,12 @@
+﻿@using MMSINC.Results
+@model WorkOrder
+
+@using (var f = Form.BeginAjaxForm("Index", "ValveImage", new { workOrderId = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+
+	@(Html.TableFor(x => x.Valve.ValveImages, new{ id = "valveImagesTable" })
+		  .TemplateColumnFor("Action", x => Html.ActionLink("View", "Show", new { x.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" }))
+		  .ColumnFor(x => x.CreatedAt)
+		  )
+}

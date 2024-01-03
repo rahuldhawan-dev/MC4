@@ -1,0 +1,20 @@
+﻿@using MMSINC.ClassExtensions.ObjectExtensions
+@model IThingWithEmployees
+@{
+    Layout = null;
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var dataTypeName = ViewData["DataTypeName"] as string ?? Model.DataTypeName;
+
+    if (Model.DataTypeName != dataTypeName && Model.HasPublicSetter("DataTypeName"))
+    {
+        Model.SetPublicPropertyValueByName("DataTypeName", dataTypeName);
+    }        
+}
+
+<div class="container">
+    @(Html.TableFor(x => x.LinkedEmployees, new { @class = "single-line-header no-hover", id = "employeesTable" })
+            .ColumnFor(e => e.Employee.EmployeeId)
+            .ColumnFor(e => e.Employee.FullName)
+            .ColumnFor(e => e.LinkedOn)
+            .ColumnFor(e => e.LinkedBy))
+</div>

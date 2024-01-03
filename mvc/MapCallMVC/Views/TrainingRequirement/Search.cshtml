@@ -1,0 +1,16 @@
+﻿@model SearchTrainingRequirement
+
+@using (Form.BeginForm("Index", "TrainingRequirement"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.HasActiveTrainingModules)
+        @Html.EditorFor(x => x.HasTrainingModules)
+        @Html.EditorFor(x => x.IsActive)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.IsOSHARequirement)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

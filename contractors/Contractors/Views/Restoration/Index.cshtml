@@ -1,0 +1,26 @@
+﻿
+@model Contractors.Models.ViewModels.SearchRestoration
+@{
+    ViewBag.Title = "Restorations - Search";
+}
+
+@(Html.TableFor(x => x,new { id = "restorationsTable"})
+      .TemplateColumnFor("Action", rest => @<text>@Html.ActionLink("Show", "Show", "Restoration", new { rest.Id }, null)</text>)
+       .SortableColumnFor(x => x.WorkOrder)
+       .SortableColumnFor(x => x.Town)
+       .ColumnFor(x => x.WorkOrder.StreetAddress)
+       .ColumnFor(x => x.WorkOrder.NearestCrossStreet)
+       .SortableColumnFor(x => x.AssignedContractorAt)
+       .SortableColumnFor(x => x.PartialRestorationDueDate, "Partial Due Date", "PartialRestorationDueDate")
+       .SortableColumnFor(x => x.FinalRestorationDueDate, "Final Due Date", "FinalRestorationDueDate")
+       .SortableColumnFor(x => x.RestorationType)
+       .SortableColumnFor(x => x.PavingSquareFootage)
+       .SortableColumnFor(x => x.LinearFeetOfCurb)
+       .SortableColumnFor(x => x.PartialRestorationMethodDisplay)
+       .SortableColumnFor(x => x.PartialRestorationDate, "Partial Restoration Date", "PartialRestorationDate")
+       .SortableColumnFor(x => x.FinalRestorationMethodDisplay)
+       .SortableColumnFor(x => x.FinalRestorationDate, "Final Restoration Date", "FinalRestorationDate")
+       .SortableColumnFor(x => x.ResponsePriority)
+       .SortableColumnFor(x => x.TrafficControlRequired)
+       .ColumnFor(x => x.AcknowledgedByContractor)
+       .WithPaginatedFooter())

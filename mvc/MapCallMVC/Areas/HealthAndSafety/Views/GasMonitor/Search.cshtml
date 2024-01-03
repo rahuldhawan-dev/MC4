@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchGasMonitor
+           
+@using (Form.BeginForm("Index", "GasMonitor"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.EquipmentStatus)
+        @Html.EditorFor(x => x.SerialNumber)
+        @Html.EditorFor(x => x.DueCalibration)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

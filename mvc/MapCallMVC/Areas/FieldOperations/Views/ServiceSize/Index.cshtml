@@ -1,0 +1,18 @@
+﻿@model IEnumerable<ServiceSize>
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Hydrant)
+    .ColumnFor(x => x.Lateral)
+    .ColumnFor(x => x.Main)
+    .ColumnFor(x => x.Meter)
+    .ColumnFor(x => x.Service)
+    .ColumnFor(x => x.Size)
+    .ColumnFor(x => x.ServiceSizeDescription)
+    .ColumnFor(x => x.SortOrder)
+)

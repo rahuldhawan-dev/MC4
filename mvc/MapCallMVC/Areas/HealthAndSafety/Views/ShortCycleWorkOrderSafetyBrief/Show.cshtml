@@ -1,0 +1,16 @@
+﻿@model ShortCycleWorkOrderSafetyBrief
+
+@{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.FSR)
+        @Html.DisplayFor(x => x.DateCompleted)
+        @Html.RenderDisplayTemplate("Locations", @<text>@String.Join(", ", Model.LocationTypes.Select(x => x.Description))</text>)
+        @Html.DisplayFor(x => x.IsPPEInGoodCondition)
+        @Html.DisplayFor(x => x.HasCompletedDailyStretchingRoutine)
+        @Html.RenderDisplayTemplate("Hazards", @<text>@String.Join(", ", Model.HazardTypes.Select(x => x.Description))</text>)
+        @Html.DisplayFor(x => x.HasPerformedInspectionOnVehicle)
+        @Html.RenderDisplayTemplate("PPE", @<text>@String.Join(", ", Model.PPETypes.Select(x => x.Description))</text>)
+        @Html.RenderDisplayTemplate("Tools", @<text>@String.Join(", ", Model.ToolTypes.Select(x => x.Description))</text>)
+    </div>
+}

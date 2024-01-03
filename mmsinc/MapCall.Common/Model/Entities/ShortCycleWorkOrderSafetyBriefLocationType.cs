@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FluentNHibernate.Data;
+using MMSINC.Data;
+using MMSINC.Utilities.Json;
+using Newtonsoft.Json;
+
+namespace MapCall.Common.Model.Entities
+{
+    [Serializable, JsonConverter(typeof(ToStringJsonConverter))]
+    public class ShortCycleWorkOrderSafetyBriefLocationType : EntityLookup { }
+}

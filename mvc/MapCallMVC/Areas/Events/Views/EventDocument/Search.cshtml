@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Events.Models.ViewModels.SearchEventDocument
+@using (Form.BeginForm("Index", "EventDocument"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.EventType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

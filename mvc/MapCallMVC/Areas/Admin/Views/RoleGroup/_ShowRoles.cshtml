@@ -1,0 +1,28 @@
+﻿@using MapCallMVC.Areas.Admin.Controllers
+@model RoleGroup
+@{
+    var existingRoles = Model.Roles.Select(x => new
+    {
+        id = x.Id,
+        moduleId = x.Module.Id,
+        actionId = x.Action.Id,
+        operatingCenterId = x.OperatingCenter != null ? x.OperatingCenter.Id : (int?)null
+    });
+}
+<script>
+    window.ROLE_GROUP_VIEW_DATA = @Html.Raw(@Json.Encode(ViewData[RoleGroupController.ROLE_GROUP_VIEWDATA_KEY]));
+    window.ROLE_GROUP_VIEW_DATA.existingRoles = @Html.Raw(Json.Encode(existingRoles));
+</script>
+
+@Html.ScriptModuleFor("~/Scripts/Areas/Admin/RoleGroup/Form.js", ScriptLoadType.LoadFromPartial)
+<div class="field-column fc50">
+    @Html.DisplayFor(x => x.Name)
+</div>
+
+@if (!Model.Roles.Any())
+{
+    <span id="no-roles">This template does not have any roles.</span>
+}
+
+@* See Form.js for implementation *@
+<mc-role-group-table id="roles-panel" readonly></mc-role-group-table>

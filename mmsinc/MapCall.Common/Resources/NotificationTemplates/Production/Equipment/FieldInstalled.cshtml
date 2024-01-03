@@ -1,0 +1,49 @@
+﻿@model MapCall.Common.Model.Entities.Equipment
+
+<a href="@Model.RecordUrl">Equipment Field Installed</a> <br />
+
+Id: @Model.Id <br />
+@if (Model.Facility != null)
+{
+    <text>
+    Department: @Model.Facility.Department <br />
+    Facility: @Model.Facility <br />
+    </text>
+}
+Identifier: @Model.Identifier <br />
+Description: @Model.Description <br />
+@if (Model.EquipmentPurpose != null)
+{
+    <text>
+    Type: @Model.EquipmentPurpose <br />
+    SAP Type: @Model.EquipmentPurpose.EquipmentType <br />
+    </text>
+}    
+Equipment Manufacturer: @Model.EquipmentManufacturer <br />
+Model: @Model.EquipmentModel <br />
+SAP Equipment Id: @Model.SAPEquipmentId <br />
+ABC Indicator: @Model.ABCIndicator <br />
+Serial Number: @Model.SerialNumber <br />
+
+Number: @Model.Number <br />
+Critical Rating: @Model.CriticalRating <br />
+Date Installed: @Model.DateInstalled <br />
+Prerequisites: @if (Model.ProductionPrerequisites != null)
+{
+   var count = 0;
+   foreach (var prerequisite in Model.ProductionPrerequisites)
+   {
+       var display = count > 0 ? "; " + prerequisite.ToString() : prerequisite.ToString();
+       count += 1;
+       {<text>@display</text>}
+   }
+} <br />
+Process Safety Management: @Model.HasProcessSafetyManagement <br />
+Company Requirement: @Model.HasCompanyRequirement <br />
+Environmental / Water Quality Regulatory: @Model.HasRegulatoryRequirement <br />
+OSHA Requirement: @Model.HasOshaRequirement <br />
+Other Requirement: @Model.OtherCompliance <br />
+
+Safety Notes: @Model.SafetyNotes <br />
+Maintenance Notes: @Model.MaintenanceNotes <br />
+Operation Notes: @Model.OperationNotes

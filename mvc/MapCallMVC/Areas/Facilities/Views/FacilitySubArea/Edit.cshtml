@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.EditFacilitySubArea
+@using (Form.BeginForm("Update", "FacilitySubArea", "Facilities", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.Area)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "FacilitySubArea", new { Model.Id })
+                           </text>)
+    </div>
+}

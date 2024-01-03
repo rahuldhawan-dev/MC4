@@ -1,0 +1,57 @@
+﻿@using MapCall.Common.Utility
+@using MMSINC.ClassExtensions
+@using MMSINC.Metadata
+
+@{
+    // 	NOTE: Doing Hidden("SelectedValue") returns a hidden field with an id like "Property_SelectedValue"
+    //        Some funky mvc internal thing.
+    var hiddenId = Html.Id("SelectedValue");
+    var validationMessage = Html.ValidationMessage("");
+
+    IHtmlString select, link = null;
+
+    var attr = SelectAttribute.GetFromModelMetadata(ViewData.ModelMetadata);
+    switch (attr.Type)
+    {
+        case SelectType.DropDown:
+            select = Control.DropDown("").With(ViewTemplateHelper.HtmlAttributes);
+            break;
+
+        case SelectType.MultiSelect:
+            select = Control.ListBox("").WithEmptyText(null).With(ViewTemplateHelper.HtmlAttributes);
+            break;
+
+        case SelectType.CheckBoxList:
+            var selectControl = Control.CheckBoxList("").With(ViewTemplateHelper.HtmlAttributes);
+            select = selectControl;
+            var name = selectControl.Name;
+            // Can't just append "_CheckBoxList" to the name and run it through Html.ValidationMessage.
+            // That will cause the validation-for attribute to come out as "Name.Name_CheckBoxList".
+            // I would much rather make a ControlBuilder for this, but it is way out of scope to copy
+            // all the functionality needed to make that work.
+            var validationControl = validationMessage.ToString();
+            validationControl = validationControl.Replace(name, name + "_CheckBoxList");
+            validationMessage = new MvcHtmlString(validationControl);
+            break;
+
+        case SelectType.ComboBox: 
+            var selected = (Model is SelectListItem ? ((SelectListItem)Model).Value : Model);
+            // ReSharper disable RedundantCast
+            // This SelectList cast is required for some reason, even though
+            // the GetSelectList method specifically returns SelectList.
+            var selectList = (IEnumerable<SelectListItem>)attr.GetSelectList(ViewData, selected);
+            select = Html.ComboBox("", selectList, attr.DefaultItemLabel, ViewTemplateHelper.HtmlAttributes);
+            break;
+
+        default:
+            throw new NotSupportedException(attr.Type.ToString());
+    }
+
+    var hiddenForCascades = attr.IsCascading ? Control.Hidden().WithId(hiddenId.ToString()) : null;
+
+    if (ViewData.ModelMetadata != null)
+    {
+        link = new EntityLookupLinkHelper(Html, ViewData.ModelMetadata.ContainerType, ViewData.TemplateInfo.GetFullHtmlFieldName("")).Render();
+    }
+}
+@RenderEditorForTemplate(@<text>@select @hiddenForCascades @validationMessage @link</text>)

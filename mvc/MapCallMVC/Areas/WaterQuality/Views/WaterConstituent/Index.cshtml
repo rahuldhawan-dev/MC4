@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SearchWaterConstituent
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.Description, "Description")
+    .SortableColumnFor(x => x.Min)
+    .SortableColumnFor(x => x.Max)
+    .SortableColumnFor(x => x.Mcl)
+    .SortableColumnFor(x => x.Mclg)
+    .SortableColumnFor(x => x.Smcl)
+    .SortableColumnFor(x => x.ActionLimit)
+    .SortableColumnFor(x => x.UnitOfMeasure)
+    .SortableColumnFor(x => x.Regulation)
+    .SortableColumnFor(x => x.SamplingFrequency)
+    .SortableColumnFor(x => x.SamplingMethod)
+    .SortableColumnFor(x => x.SampleContainerSizeMl)
+    .SortableColumnFor(x => x.HoldingTimeHrs)
+    .SortableColumnFor(x => x.PreservativeQuenchingAgent)
+    .SortableColumnFor(x => x.AnalyticalMethod)
+    .SortableColumnFor(x => x.TatBellvileDays)
+    .SortableColumnFor(x => x.DrinkingWaterContaminantCategory)
+    .SortableColumnFor(x => x.WasteWaterContaminantCategory)
+    .WithPaginatedFooter())

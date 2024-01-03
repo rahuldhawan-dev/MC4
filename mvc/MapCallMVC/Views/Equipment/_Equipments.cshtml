@@ -1,0 +1,14 @@
+﻿@model SearchEquipment
+
+@(Html.TableFor(x => Model, new { id = "equipments" })
+      .WithCaption("Records found:" + Model.Count)
+      .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { id = x.Id }))
+      .ColumnFor(x => x.Identifier)
+      .ColumnFor(x => x.SAPEquipmentId)
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.EquipmentStatus)
+      .ColumnFor(x => x.CreatedBy)
+      .ColumnFor(x => x.DateInstalled)
+      .ColumnFor(x => x.DateRetired)
+      .WithPaginatedFooter()
+    )

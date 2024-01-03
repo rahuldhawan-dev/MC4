@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMarkoutDamageReport
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .ColumnFor(x => x.DateAndRequestNumber)
+    .ColumnFor(x => x.TownAndLocation)
+    .ColumnFor(x => x.DamageComments)
+    .ColumnFor(x => x.ExcavatorDescription)
+    .ColumnFor(x => x.IsMarkedOut, "Mark")
+    .ColumnFor(x => x.IsMismarked, "Mis-Mark")
+    .ColumnFor(x => x.ExcavatorDiscoveredDamage, "Discover")
+    .ColumnFor(x => x.ExcavatorCausedDamage, "Cause")
+    .ColumnFor(x => x.WerePicturesTaken, "Picture"))

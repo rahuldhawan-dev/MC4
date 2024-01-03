@@ -1,0 +1,15 @@
+﻿@model Facility
+
+<div class="field-column fc100">
+    <h2>
+        @Html.DefaultActionLink(@Model.FacilityId ?? "No FacilityId", "Show", "Facility", "", new { id = @Model.Id }, null)
+    </h2>
+
+    @Html.DisplayFor(x => x.FacilityName)
+    @Html.DisplayFor(x => x.EntityNotes, new { DisplayName = "Description" })
+    @Html.DisplayFor(x => x.CompanySubsidiary)
+    @Html.DisplayFor(x => x.Operations)
+    @Html.DisplayFor(x => x.System)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.OperatingCenter.OperatingCenterCode, new { DisplayName = "Operating Center" })
+</div>

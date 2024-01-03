@@ -1,0 +1,12 @@
+﻿@model CreateAssetUpload
+
+@using (Form.BeginForm("Create", "AssetUpload", ""))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.FileUpload)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

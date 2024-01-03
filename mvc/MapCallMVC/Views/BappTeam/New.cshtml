@@ -1,0 +1,13 @@
+﻿@model CreateBappTeam
+
+@using (Form.BeginForm("Create", "BappTeam"))
+{
+    <div class="field-column fc200">
+        @Html.Editor("Description")
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.AuthorizedActionLinkButton("Cancel", "Index", "BappTeam")
+                           </text>)
+    </div>
+}

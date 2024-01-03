@@ -1,0 +1,83 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model WaterQualityComplaint
+@{
+	var sapNotification = (MapCall.SAP.Model.Entities.SAPNotification)ViewData["SAPNotification"];
+}
+@* SAP stuff *@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/index.js", ScriptLoadType.LoadFromPartial)
+<div>
+	@if (sapNotification != null)
+	{
+		// TODO: This creation of the rvd and viewmodel would be better suited in the controller action, I think. Maybe.
+		var rvd = new RouteValueDictionary();
+		rvd["SapNotificationNumber"] = sapNotification.SAPNotificationNumber;
+		rvd["PlanningPlant"] = sapNotification.PlanningPlant;
+		rvd["DateCreatedTo"] = sapNotification.DateCreatedTo;
+		rvd["DateCreatedFrom"] = sapNotification.DateCreatedFrom;
+		rvd["area"] = "FieldOperations";
+		var htmlAttributes = new RouteValueDictionary();
+		htmlAttributes["class"] = "link-button";
+		var viewModel = ViewModelFactory.BuildWithOverrides<EditSapNotification>(new { SAPNotificationNumber = sapNotification.SAPNotificationNumber});
+		viewModel.ReadOnlyNotes = (string)ViewData["ReadOnlyNotes"];
+		viewModel.RedirectUrl = Request.RawUrl;
+
+		@Html.ButtonGroup(@<text>
+			                  @Html.Partial("~/Areas/FieldOperations/Views/SapNotification/_Cancel.cshtml", viewModel)
+			                  @Html.Partial("~/Areas/FieldOperations/Views/SapNotification/_Complete.cshtml", viewModel)
+			                  @Html.ActionLink("Create Work Order", "Show", "SapNotification", rvd, htmlAttributes)
+		                   </text>)
+	}
+</div>
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OrcomOrderNumber)
+    @{
+        if (ViewData[WaterQualityComplaint.DisplayNames.WORK_ORDER_ID] != null )
+        {
+	        var workOrderId = int.Parse(ViewData[WaterQualityComplaint.DisplayNames.WORK_ORDER_ID].ToString());
+            @Html.RenderDisplayTemplate("Work Order", @Html.ActionLink(workOrderId.ToString(), "Show", "GeneralWorkOrder", new { Id = workOrderId, area="FieldOperations" }, null))
+        }
+        else
+        {
+            @Html.RenderDisplayTemplate("Work Order", @<text></text>)
+        }
+    }
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.Type)
+    @Html.DisplayFor(x => x.DateComplaintReceived)
+    @Html.DisplayFor(x => x.InitialLocalContact)
+    @Html.DisplayFor(x => x.InitialLocalResponseDate)
+    @Html.DisplayFor(x => x.InitialLocalResponseType)
+    @Html.DisplayFor(x => x.NotificationCreatedBy)
+    @Html.DisplayFor(x => x.NotificationCompletionDate)
+    @Html.DisplayFor(x => x.NotificationCompletedBy)
+    @Html.DisplayFor(x => x.CustomerName)
+    @Html.DisplayFor(x => x.HomePhoneNumber)
+    @Html.DisplayFor(x => x.Ext)
+    @Html.DisplayFor(x => x.StreetNumber)
+    @Html.DisplayFor(x => x.StreetName)
+    @Html.DisplayFor(x => x.ApartmentNumber)
+    @Html.DisplayFor(x => x.TownSection)
+    @Html.DisplayFor(x => x.ZipCode)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.PremiseNumber)
+    @Html.DisplayFor(x => x.AccountNumber)
+    @Html.DisplayFor(x => x.ComplaintDescription)
+    @Html.DisplayFor(x => x.ComplaintStartDate)
+    @Html.DisplayFor(x => x.ProblemArea)
+    @Html.DisplayFor(x => x.Source)
+    @Html.DisplayFor(x => x.SiteVisitRequired)
+    @Html.DisplayFor(x => x.SiteVisitBy)
+    @Html.DisplayFor(x => x.WaterFilterOnComplaintSource)
+    @Html.DisplayFor(x => x.CrossConnectionDetected)
+    @Html.DisplayFor(x => x.ProbableCause)
+    @Html.DisplayFor(x => x.ActionTaken)
+    @Html.DisplayFor(x => x.CustomerExpectation)
+    @Html.DisplayFor(x => x.CustomerSatisfaction)
+    @Html.DisplayFor(x => x.RootCauseIdentified)
+    @Html.DisplayFor(x => x.RootCause)
+    @Html.DisplayFor(x => x.Imported)
+</div>

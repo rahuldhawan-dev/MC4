@@ -1,0 +1,78 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model NonRevenueWaterEntry
+
+<h3>Non-Revenue Water Loss Usage</h3>
+
+<div class="field-column fc200">
+    <table id="resultsDetails" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Operating Center</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Business Unit</th>
+                <th>Work Description</th>
+                <th>Total Gallons</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.NonRevenueWaterDetails)
+            {
+                <tr>
+                    <td>@Model.OperatingCenter</td>
+                    <td>@item.Month</td>
+                    <td>@item.Year</td>
+                    <td>@item.BusinessUnit</td>
+                    <td>@item.WorkDescription</td>
+                    <td>@item.TotalGallons</td>
+                </tr>
+            }
+            <tr> 
+                <th colspan="5" style="text-align: right">Water Loss Total:</th>
+                <th id="NonRevenueWaterDetailSubTotal" style="font-weight: bolder">@Model.NonRevenueWaterDetailSubTotal</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@{
+    <div class="row">
+        <div class="collapse-panel" style="width: 50%; margin-top: 20px; margin-bottom: 15px;" data-title="Add Adjustments">
+            @Html.Partial("_AddAdjustment", ViewModelFactory.Build<AddNonRevenueWaterAdjustment>())
+        </div>
+    </div>
+}
+
+<h3>Non-Revenue Water Adjustments</h3>
+
+<div class="field-column fc200">
+    <table id="resultsAdjustments" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Operating Center</th>
+                <th>Business Unit</th>
+                <th>Comments</th>
+                <th>Total Gallons</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.NonRevenueWaterAdjustments)
+            {
+                <tr>
+                    <td>@Model.OperatingCenter</td>
+                    <td>@item.BusinessUnit</td>
+                    <td>@item.Comments</td>
+                    <td>@item.TotalGallons</td>
+
+                </tr>
+            }
+
+            <tr>
+                <th colspan="3" style="text-align: right">Grand Total (Water Loss + Adjustments):</th>
+                <th id="NonRevenueWaterGrandTotal" style="font-weight: bolder">@Model.NonRevenueWaterTotal</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

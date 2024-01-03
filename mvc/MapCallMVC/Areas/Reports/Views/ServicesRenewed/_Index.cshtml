@@ -1,0 +1,109 @@
+﻿@model IEnumerable<AggregatedService>
+@{
+    OperatingCenter operatingCenter = null;
+    var lengthOfService = 0m;
+    var subtotal = 0;
+}
+
+<table class="aggregate" id="servicesRenewed">
+    <thead>
+        <tr>
+            <th>Operating Center</th>
+            <th>Town</th>
+            <th>Category of Service</th>
+            <th>Size of Service</th>
+            <th>Total Footage</th>
+            <th>Services</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var x in Model)
+    {
+        // INITIAL SUB-TABLE-HEADING
+        if (operatingCenter == null) {
+            operatingCenter = x.OperatingCenter;
+            <tr>
+                <td colspan="6" class="init-sub-table-heading"><strong>@operatingCenter</strong></td>
+            </tr>
+        }
+        
+        // FOOTER / NEXT SUB-TABLE-HEADING
+        if (operatingCenter != x.OperatingCenter)
+        {
+            // <!-- FOOTER --> 
+            <tr class="sub-table-row">
+                <td><strong>Totals</strong></td>
+                <td colspan="3"></td>
+                <td><strong>@lengthOfService</strong></td>
+                <td><strong>@subtotal</strong></td>
+            </tr>
+            operatingCenter = x.OperatingCenter;
+            lengthOfService = 0;
+            subtotal = 0;
+            // <!-- HEADING -->
+            <tr>
+                <td colspan="6" class="sub-table-heading"><strong>@operatingCenter</strong></td>
+            </tr>
+        }
+        // CALCULATIONS
+        lengthOfService += x.TotalFootage;
+        subtotal += x.ServiceCount;
+        
+        <tr class="sub-table-row">
+            <td>@x.OperatingCenter</td>
+            <td>@x.Town</td>
+            <td>@x.ServiceCategory</td>
+            <td>@x.ServiceSize</td>
+            <td>@x.TotalFootage</td>
+            <td>@x.ServiceCount</td>
+        </tr>
+        <tr class="sub-table-row">
+            <td colspan="1"></td>
+            <td colspan="5">
+                <div class="sub-sub-table-div">
+                <table class="sub-sub-table" id="servicesRenewedSubTable">
+                    <thead>
+                        <tr>
+                            <th>Original Installation Year</th>
+                            <th>Prev Service Material</th>
+                            <th>Prev Service Length</th>
+                            <th>Length</th>
+                            <th>Service #</th>
+                            <th>WBS #</th>
+                            <th>Address</th>
+                            <th>Service Size</th>
+                            <th>Customer Side Material</th>
+                            <th>Customer Side Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var service in x.Services)
+                        {
+                            <tr>
+                                <td>@String.Format("{0:yyyy}", service.OriginalInstallationDate)</td>
+                                <td>@service.PreviousServiceMaterial</td>
+                                <td>&#8203;@service.PreviousServiceSize</td>
+                                <td>@service.LengthOfService</td>
+                                <td>@service.ServiceNumber</td>
+                                <td>@service.TaskNumber1</td>
+                                <td>@service.StreetAddress</td>
+                                <td>@service.ServiceSize</td>
+                                <td>@service.CustomerSideMaterial</td>
+                                <td>@service.CustomerSideSize</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                </div>
+            </td>
+        </tr>
+    }
+    <!-- FINAL SUB-TABLE-FOOTER -->
+    <tr class="sub-table-row">
+        <td><strong>Totals</strong></td>
+        <td colspan="3"></td>
+        <td><strong>@lengthOfService</strong></td>
+        <td><strong>@subtotal</strong></td>
+    </tr>
+    </tbody>
+</table>

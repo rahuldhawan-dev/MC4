@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FleetManagement.Models.CreateVehicleAudit
+
+@using (Form.BeginRouteForm("Vehicle", "VehicleAudit", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.AuditedOn)
+        @Html.EditorFor(x => x.Mileage)
+        @Html.EditorFor(x => x.DecalNumber)
+        @Html.EditorFor(x => x.PlateNumber)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save Audit")
+                               @Control.Button("Cancel").WithId("cancelAddCompanyLaborCostButton").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

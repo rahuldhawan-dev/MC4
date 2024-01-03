@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchRestoration
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+@(Html.TableFor(x => x, new { id = "search-results" })
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.WorkOrder)
+    .SortableColumnFor(x => x.WorkOrder.DateCompleted, "wo.DateCompleted")
+    .SortableColumnFor(x => x.WorkOrder.Town, "wo.Town")
+    .SortableColumnFor(x => x.WorkOrder.StreetNumber, "wo.StreetNumber")
+    .SortableColumnFor(x => x.WorkOrder.Street, "wo.Street")
+    .SortableColumnFor(x => x.WorkOrder.NearestCrossStreet, "wo.NearestCrossStreet")
+    .SortableColumnFor(x => x.AssignedContractorAt)
+    .SortableColumnFor(x => x.WorkOrder.WorkDescription, "wo.WorkDescription")
+    .SortableColumnFor(x => x.RestorationType)
+    .SortableColumnFor(x => x.EstimatedRestorationFootage)
+    .ColumnFor(x => x.WorkOrder.DaysSinceCompletion)
+    .SortableColumnFor(x => x.PartialRestorationDate)
+    .ColumnFor(x => x.PartialRestorationMethodsDisplay)
+    .SortableColumnFor(x => x.PartialPavingSquareFootage)
+    .SortableColumnFor(x => x.WorkOrder.CurrentCrew)
+    .SortableColumnFor(x => x.WorkOrder.AccountCharged)
+    .SortableColumnFor(x => x.WorkOrder.WorkDescription.AccountingType)
+    .ColumnFor(x => x.AcknowledgedByContractor)
+    .WithPaginatedFooter())

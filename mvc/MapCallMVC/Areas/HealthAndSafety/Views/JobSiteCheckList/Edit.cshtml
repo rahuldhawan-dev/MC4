@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditJobSiteCheckList
+
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/JobSiteCheckList/SafetyBrief.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "JobSiteCheckList", "HealthAndSafety", new { id = Model.Id }))
+{
+	@(Html.Tabs()
+		.WithTab("General", "EditorPartials/_General")
+		.WithTab("Pre Job Safety Brief", "EditorPartials/_SafetyBrief")
+		.WithTab("Work Zone Set Up", "EditorPartials/_WorkZoneSetUp")
+		.WithTab("Restraint", "EditorPartials/_Restraint")
+		.WithTab("Utility Verification", "EditorPartials/_UtilityVerification")
+		.WithTab("Excavations", "EditorPartials/_Excavations"))
+
+	@Html.ButtonGroup(Control.SubmitButton("Save"))
+}

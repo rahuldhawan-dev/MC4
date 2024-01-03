@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchTrafficControlTicketCheck
+
+@using (Form.BeginForm("Index", "TrafficControlTicketCheck")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Memo)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

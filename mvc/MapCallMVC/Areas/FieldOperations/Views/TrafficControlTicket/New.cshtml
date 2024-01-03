@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateTrafficControlTicket
+
+@using (Form.BeginForm("Create", "TrafficControlTicket", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+
+                               @if (Model.WorkOrder.HasValue)
+                               {
+	                               @Html.ActionLink("Cancel", "Show", "GeneralWorkOrder", new { id = Model.WorkOrder, area = "FieldOperations" }, new { Class = "link-button"})
+                               }
+                               else
+                               {
+                                   @Html.LinkButton("Cancel", "Index", "TrafficControlTicket", new {area = "FieldOperations"})
+                               }
+
+                           </text>)
+    </div>
+}

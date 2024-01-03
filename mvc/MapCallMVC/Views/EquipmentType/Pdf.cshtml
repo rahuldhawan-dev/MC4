@@ -1,0 +1,123 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Text
+@using MMSINC.ClassExtensions.ReflectionExtensions
+@model EquipmentType
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    var odd = false;
+    var fields = Model.CharacteristicFields.ToList();
+    Func<string, string, IHtmlString> renderField = (label, field) => {
+        var sb = new StringBuilder();
+
+        if (!odd)
+        {
+            sb.AppendLine("<tr>");
+        }
+
+        sb.AppendLine(String.Format("<td class=\"label\">{0}</td>", Html.DisplayName(label)));
+        sb.AppendLine(field);
+
+        if (odd)
+        {
+            sb.AppendLine("</tr>");
+        }
+
+        odd = !odd;
+
+        return new HtmlString(sb.ToString());
+    };
+    Func<string, IHtmlString> renderBlankLineField = label => renderField(label, "<td class=\"blank-line\">&nbsp;</td>");
+    Func<string, IHtmlString> renderCheckBoxField = label => renderField(label, "<td><input type=\"checkbox\" /></td>");
+}
+
+@section head {
+    <style>
+        * {
+            font-size: 16pt;
+        }
+
+        h1 {
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+        }
+
+        td.label {
+            width: 18%;
+            padding-top: 20px;
+        }
+
+        td:not(.label) {
+            width: 32%;
+        }
+
+        td.blank-line {
+            border-bottom: 1px solid black;
+        }
+
+        fieldset {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+}
+
+@section body {
+    <h1>@Model.ToString()</h1>
+
+    <table>
+        <tbody>
+            @foreach (var property in typeof(CreateEquipment).GetAllPropertiesWithAttribute<RequiredAttribute>())
+            {
+                @renderBlankLineField(property.Name)
+            }
+
+            @renderBlankLineField("Manufacturer")
+            @renderBlankLineField("Functional Location")
+            @renderField("ABC Indicator", "<td>A / B / C</td>")
+            @renderBlankLineField("Serial Number")
+            @renderCheckBoxField("Has Lock Out Requirement")
+            @renderCheckBoxField("New Asset")
+            @renderCheckBoxField("Replacement Asset")
+            @renderCheckBoxField("Is Confined Space")
+            @renderCheckBoxField("PSMTCPA?")
+
+            @if (fields != null)
+            {
+                foreach (var field in fields.Where(f => f.FieldType.Description != "DropDown"))
+                {
+                    @renderBlankLineField(field.FieldName)
+                }
+            }
+
+            @if (odd)
+            {
+                @Html.Raw("</tr>")
+            }
+        </tbody>
+    </table><br/>
+
+    @if (fields != null)
+    {
+        foreach (var field in fields.Where(f => f.FieldType.Description == "DropDown"))
+        {
+            <fieldset>
+                <legend>@field.FieldName</legend>
+                @foreach (var value in field.DropDownValues)
+                {
+                    <p>
+                        <input type="checkbox" id="@(field.FieldName + "/" + value.Value)" />
+                        <label for="@(field.FieldName + "/" + value.Value)">@value.Value</label>
+                    </p>
+                }
+            </fieldset><br/>
+        }            
+    }        
+}

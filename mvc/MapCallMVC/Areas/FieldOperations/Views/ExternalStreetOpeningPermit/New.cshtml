@@ -1,0 +1,41 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ExternalStreetOpeningPermits.NewExternalStreetOpeningPermitFormOptions
+@{
+    Layout = "_BaseLayout.cshtml";
+    var hasAnyForms = Model.PermitsApiStateFormId.HasValue || Model.PermitsApiCountyFormId.HasValue || Model.PermitsApiMunicipalityFormId.HasValue;
+}
+
+<style>
+    button { display:block; margin: 12px; }
+</style>
+
+@if (Model.UnableToConnectToApi)
+{
+    <h3>Unable to connect to the permits API. Try again in a few minutes. If there's still a problem, please contact an admin.</h3>
+}
+else if (!hasAnyForms)
+{
+    @* NOTE: Specifically using the property names of each State/County/Town that are used when sending to the API. Helps with debugging. *@
+    <h3>No permits are available for @Html.DisplayValueFor(x => x.WorkOrder.State.Name), @Html.DisplayValueFor(x => x.WorkOrder.Town.County.Name), or @Html.DisplayValueFor(x => x.WorkOrder.Town.ShortName)</h3>
+}
+else
+{
+    using (Form.BeginForm("NewForPermitForm", "ExternalStreetOpeningPermit"))
+    {
+        @Control.Hidden("NoApiConflictWorkOrderId").WithId(null).WithValue(Model.WorkOrder.Id)
+
+        if (Model.PermitsApiStateFormId.HasValue)
+        {
+            @Control.SubmitButton("Begin permit for state: " + Model.WorkOrder.State.Name).WithName("FormId").WithValue(Model.PermitsApiStateFormId)
+        }
+      
+        if (Model.PermitsApiCountyFormId.HasValue)
+        {
+            @Control.SubmitButton("Begin permit for county: " + Model.WorkOrder.Town.County.Name).WithName("FormId").WithValue(Model.PermitsApiCountyFormId)
+        }
+
+        if (Model.PermitsApiMunicipalityFormId.HasValue)
+        {
+            @Control.SubmitButton("Begin permit for municipality: " + Model.WorkOrder.Town.ShortName).WithName("FormId").WithValue(Model.PermitsApiMunicipalityFormId)
+        }
+    }
+}

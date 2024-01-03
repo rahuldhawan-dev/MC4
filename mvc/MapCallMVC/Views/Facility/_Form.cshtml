@@ -1,0 +1,149 @@
+﻿@model FacilityViewModel
+@Html.ScriptFor("~/Scripts/Facility/Form.js", ScriptLoadType.LoadFromPartial)
+
+<div class="field-column fc150">
+    @Html.EditorFor(x => x.FacilityName)
+    @Html.EditorFor(x => x.FacilityOwner)
+    @Html.EditorFor(x => x.FacilityStatus)
+    @Html.EditorFor(x => x.CompanySubsidiary)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @if (Model is CreateFacility)
+    {
+        @Html.Partial("_CreateTownSection", (CreateFacility)Model)
+    }
+    else
+    {
+        @Html.Partial("_EditTownSection", (EditFacility)Model)
+    }
+    @Html.EditorFor(x => x.PlanningPlant)
+    @Html.EditorFor(x => x.Department)
+    @Html.EditorFor(x => x.Operations)
+    @Html.EditorFor(x => x.System)
+    @if (Model is CreateFacility)
+    {
+        @Html.Partial("_CreatePublicWaterSupplySection", (CreateFacility)Model)
+    }
+    else
+    {
+        @Html.Partial("_EditPublicWaterSupplySection", (EditFacility)Model)
+    }
+    @if (Model is CreateFacility)
+    {
+        @Html.Partial("_CreateWasteWaterSystemSection", (CreateFacility)Model)
+    }
+    else
+    {
+        @Html.Partial("_EditWasteWaterSystemSection", (EditFacility)Model)
+    }
+    @Html.EditorFor(x => x.FunctionalLocation)
+    @Html.HiddenFor(x => x.ParentFacility)
+    @Html.EditorFor(x => x.StreetNumber)
+    @Html.EditorFor(x => x.Street)
+    @Html.EditorFor(x => x.NearestCrossStreet)
+    @Html.EditorFor(x => x.ZipCode)
+    @Html.EditorFor(x => x.CriticalRating)
+    @Html.EditorFor(x => x.YearInService)
+    @Html.EditorFor(x => x.CoordinateId)
+    @Html.EditorFor(x => x.SICNumber)
+    @Html.EditorFor(x => x.EnvironmentalRegulatorIDNumber)
+    @Html.EditorFor(x => x.WaterShed)
+    @Html.EditorFor(x => x.RegionalPlanningArea)
+    <fieldset>
+        <legend>Attributes</legend>
+        <table class="form-facility-attribute-table">
+            <tr>
+                <td>
+                    @Html.EditorFor(x => x.PropertyOnly)
+                    @Html.EditorFor(x => x.Administration)
+                    @Html.EditorFor(x => x.EmergencyPower)
+                    @Html.EditorFor(x => x.GroundWaterSupply)
+                    @Html.EditorFor(x => x.BasicGroundWaterSupply)
+                    @Html.EditorFor(x => x.SurfaceWaterSupply)
+                    @Html.EditorFor(x => x.Reservoir)
+                    @Html.EditorFor(x => x.Dam)
+                    @Html.EditorFor(x => x.Interconnection)
+                    @Html.EditorFor(x => x.PointOfEntry)
+                    @Html.EditorFor(x => x.SystemDeliveryType)
+                    @Html.EditorFor(x => x.WaterTreatmentFacility)
+                    @Html.EditorFor(x => x.Radionuclides)
+
+                </td>
+                <td>
+                    @Html.EditorFor(x => x.ChemicalFeed)
+                    @Html.EditorFor(x => x.ChemicalStorageLocation)
+                    @Html.EditorFor(x => x.DPCC)
+                    @Html.EditorFor(x => x.PSM)
+                    @Html.EditorFor(x => x.Filtration)
+                    @Html.EditorFor(x => x.ResidualsGeneration)
+                    @Html.EditorFor(x => x.TReport)
+                    @Html.EditorFor(x => x.DistributivePumping)
+                    @Html.EditorFor(x => x.BoosterStation)
+                    @Html.EditorFor(x => x.PressureReducing)
+                    @Html.EditorFor(x => x.GroundStorage)
+                </td>
+                <td>
+                    @Html.EditorFor(x => x.ElevatedStorage)
+                    @Html.EditorFor(x => x.OnSiteAnalyticalInstruments)
+                    @Html.EditorFor(x => x.SampleStation)
+                    @Html.EditorFor(x => x.SewerLiftStation)
+                    @Html.EditorFor(x => x.WasteWaterTreatmentFacility)
+                    @Html.EditorFor(x => x.FieldOperations)
+                    @Html.EditorFor(x => x.SpoilsStaging)
+                    @Html.EditorFor(x => x.CellularAntenna)
+                    @Html.EditorFor(x => x.SCADAIntrusionAlarm)
+                    @Html.EditorFor(x => x.RMP)
+                    @Html.EditorFor(x => x.RMPNumber)
+                </td>
+                <td valign="top">
+                    @Html.EditorFor(x => x.SWMStation)
+                    @Html.EditorFor(x => x.WellProd)
+                    @Html.EditorFor(x => x.WellMonitoring)
+                    @Html.EditorFor(x => x.ClearWell)
+                    @Html.EditorFor(x => x.RawWaterIntake)
+                    @Html.EditorFor(x => x.CommunityRightToKnow)
+                    @Html.EditorFor(x => x.RawWaterPumpStation)
+                    @Html.EditorFor(x => x.WaterStress)
+                    @Html.EditorFor(x => x.IgnitionEnterprisePortal)
+                    @Html.EditorFor(x => x.ArcFlashLabelRequired)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Capacity Information</legend>
+        @Html.EditorFor(x => x.FacilityTotalCapacityMGD)
+        @Html.EditorFor(x => x.FacilityReliableCapacityMGD)
+        @Html.EditorFor(x => x.FacilityOperatingCapacityMGD)
+        @Html.EditorFor(x => x.FacilityRatedCapacityMGD)
+        @Html.EditorFor(x => x.FacilityAuxPowerCapacityMGD)
+        @Html.EditorFor(x => x.UsedInProductionCapacityCalculation)
+
+    </fieldset>
+    <fieldset>
+        <legend>Insurance Information</legend>
+        @Html.EditorFor(x => x.InsuranceId)
+        @Html.EditorFor(x => x.InsuranceScore)
+        @Html.EditorFor(x => x.InsuranceScoreQuartile)
+        @Html.EditorFor(x => x.InsuranceVisitDate)
+    </fieldset>
+    @Html.EditorFor(x => x.HasConfinedSpaceRequirement)
+    @Html.EditorFor(x => x.IsInVamp)
+    @Html.EditorFor(x => x.VampUrl, "Url")
+    @Html.EditorFor(x => x.FEMAFloodRating)
+    @Html.EditorFor(x => x.DesignationTreatmentPlant)
+    @Html.EditorFor(x => x.DesignationPumpStation)
+    @Html.EditorFor(x => x.FacilityInspectionFrequency)
+    @Html.EditorFor(x => x.FacilityLoopGrouping)
+    @Html.EditorFor(x => x.FacilityLoopGroupingSub)
+    @Html.EditorFor(x => x.FacilityLoopSequence)
+    @Html.EditorFor(x => x.SecurityCategory)
+    @Html.EditorFor(x => x.SecurityGrouping)
+    @Html.EditorFor(x => x.SecurityInspectionFrequency)
+    @Html.EditorFor(x => x.SecurityLoopSequence)
+    @Html.EditorFor(x => x.EntityNotes)
+    @Html.EditorFor(x => x.FacilityContactInfo)
+    @Html.EditorFor(x => x.AWSecurityTier)
+    @Html.EditorFor(x => x.ArcFlashStudyRequired)
+    @Html.EditorFor(x => x.Process)
+</div>

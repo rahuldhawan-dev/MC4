@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.RedTagPermitAuthorizationViewModel
+
+@using (var f = Form.BeginForm("RedTagPermitAuthorizationForProductionWorkOrder", "ProductionWorkOrder", "Production", new { Model.Id }))
+{
+    @Html.EditorFor(x => x.NeedsRedTagPermitAuthorization)
+
+    @Html.ButtonGroup(@<text>
+                          @Control.SubmitButton("Authorize").With("onclick", "return confirm('Are you sure you want to authorize this production work order for Red Tag Permit?');").WithCssClass("no-double-submit")
+                       </text>)
+}
+
+

@@ -1,0 +1,11 @@
+﻿@model CreateBusinessUnit
+
+@using (Form.BeginForm("Create", "BusinessUnit"))
+{
+    @Html.Partial("_FormFields", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search")
+    </text>)
+}

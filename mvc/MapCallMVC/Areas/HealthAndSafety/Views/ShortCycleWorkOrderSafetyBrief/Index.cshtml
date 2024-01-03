@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchShortCycleWorkOrderSafetyBrief
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id}))
+      .SortableColumnFor(x => x.FSR)
+      .SortableColumnFor(x => x.DateCompleted)
+      .SortableColumnFor(x => x.LocationTypes)
+      .SortableColumnFor(x => x.IsPPEInGoodCondition)
+      .SortableColumnFor(x => x.HasCompletedDailyStretchingRoutine)
+      .SortableColumnFor(x => x.HazardTypes)
+      .SortableColumnFor(x => x.HasPerformedInspectionOnVehicle)
+      .SortableColumnFor(x => x.PPETypes)
+      .SortableColumnFor(x => x.ToolTypes)
+      .WithPaginatedFooter()
+      )

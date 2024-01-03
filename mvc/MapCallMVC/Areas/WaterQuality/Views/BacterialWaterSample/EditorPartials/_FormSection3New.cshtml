@@ -1,0 +1,50 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.CreateBacterialWaterSample
+
+@* This can't go in _FormFields because the Create model has overrides for the cascade
+	that won't be applied on _FormFields because _FormFields uses the base model type. *@
+<div class="field-column fc225">
+	@Html.EditorFor(x => x.SampleNumber)
+	@Html.EditorFor(x => x.ReceivedByLabDTM)
+	@Html.EditorFor(x => x.IsInvalid)
+	@Html.EditorFor(x => x.ReasonForInvalidation)
+	@Html.EditorFor(x => x.IsReadyForLIMS) @* This should always be visible for the create view since a new sample will never have a LIMS status. *@
+</div>
+
+<div class="grid-layout gl-2col">
+	<div>
+		<fieldset>
+			<legend>Coliform</legend>
+			<div class="field-column fc200">
+				@Html.EditorFor(x => x.ColiformConfirm)
+				@Html.EditorFor(x => x.ColiformConfirmMethod)
+				<div id="colony-counts">
+					@* This div only appears if ColiformConfirm == Yes/Present/True. *@
+					@Html.EditorFor(x => x.NonSheenColonyCount)
+					@Html.EditorFor(x => x.NonSheenColonyCountOperator)
+					@Html.EditorFor(x => x.SheenColonyCount)
+					@Html.EditorFor(x => x.SheenColonyCountOperator)
+					@Html.EditorFor(x => x.EColiConfirm)
+					@Html.EditorFor(x => x.EColiConfirmMethod)
+				</div>
+				@Html.EditorFor(x => x.ColiformSetupAnalyst)
+				@Html.EditorFor(x => x.ColiformSetupDTM)
+				@Html.EditorFor(x => x.ColiformReadAnalyst)
+				@Html.EditorFor(x => x.ColiformReadDTM)
+			</div>
+		</fieldset>
+	</div>
+	<div>
+		<fieldset>
+			<legend>Heterotrophic Plate Count</legend>
+			<div class="field-column fc200">
+				@Html.EditorFor(x => x.FinalHPC)
+				@Html.EditorFor(x => x.HPCConfirmMethod)
+				@Html.EditorFor(x => x.IsSpreader)
+				@Html.EditorFor(x => x.HPCSetupAnalyst)
+				@Html.EditorFor(x => x.HPCSetupDTM)
+				@Html.EditorFor(x => x.HPCReadAnalyst)
+				@Html.EditorFor(x => x.HPCReadDTM)
+			</div>
+		</fieldset>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.BPU.Models.ViewModels.CreateMarkoutViolation
+
+@using (Form.BeginForm("Create", "MarkoutViolation", "BPU")) {
+    @Html.Partial("_FormFields", Model)
+ 
+    @Html.ButtonGroup(@<text>
+                          @Control.SubmitButton("Save")
+                          @Html.LinkButton("Cancel", "Index", "MarkoutViolation")
+                       </text>)
+}

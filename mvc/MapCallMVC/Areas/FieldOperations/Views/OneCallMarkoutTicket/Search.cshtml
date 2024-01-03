@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOneCallMarkoutTicket
+
+@using (Form.BeginForm("Index", "OneCallMarkoutTicket")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.RequestNumber)
+        @Html.EditorFor(x => x.CDCCode)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.CountyText)    
+        @Html.EditorFor(x => x.TownText)    
+        @Html.EditorFor(x => x.StreetText)
+        @Html.EditorFor(x => x.NearestCrossStreetText)
+
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.DateTransmitted)
+        @Html.EditorFor(x => x.MessageType)
+        @Html.EditorFor(x => x.HasResponse)
+        @Html.EditorFor(x => x.ExcavatorIsAmericanWater)
+        @Html.EditorFor(x => x.Excavator)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}
+
+

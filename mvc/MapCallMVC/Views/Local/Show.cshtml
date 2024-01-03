@@ -1,0 +1,5 @@
+﻿@model Local
+@(Html.Tabs()
+    .WithTab("Local", "_ShowLocal", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

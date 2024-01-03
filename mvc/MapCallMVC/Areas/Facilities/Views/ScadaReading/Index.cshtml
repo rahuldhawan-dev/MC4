@@ -1,0 +1,38 @@
+﻿@using MMSINC.Helpers
+@using MMSINC.Results
+@model MapCallMVC.Areas.Facilities.Models.SearchScadaReading
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+
+@Html.LinkButton("Export", "Index", "ScadaReading", Model.ToRouteValuesForExcel())
+<div class="container">
+    @{
+        var cb = new ChartBuilder<DateTime, decimal> {
+            Interval = ChartIntervalType.Minute,
+            YMinValue = Model.Results.Min(r => r.Value),
+            YMaxValue = Model.Results.Max(r => r.Value),
+            YAxisLabel = Model.TagNameObj.Units,
+            Title = string.Format("{0}, Between {1} and {2}", Model.TagNameObj, Model.Results.Min(r => r.TimeStamp), Model.Results.Max(r => r.TimeStamp))
+        };
+
+        foreach (var reading in Model.Results)
+        {
+            cb.AddSeriesValue(reading.TagName, reading.TimeStamp, reading.Value);
+        }
+    }
+
+    @cb
+</div>
+
+<div class="field-column fc50">
+</div>
+
+<div class="collapse-panel" data-title="Raw Readings Data">
+    @(Html.TableFor(x => x.Results, new { id = "scada-readings-table" })
+        .ColumnFor(x => x.TagName)
+        .ColumnFor(x => x.TimeStamp)
+        .ColumnFor(x => x.Value)
+        .ColumnFor(_ => Model.TagNameObj.Units))
+</div>

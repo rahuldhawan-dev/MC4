@@ -1,0 +1,68 @@
+﻿@using MapCall.Common.Model.Entities.Users
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.Authentication
+@using MMSINC.Utilities
+@model ProductionWorkOrder
+@{
+    // NOTE: This canEdit is not correct. We're displaying all assignments for an order here
+    // but a user should not actually see the Start/End links for assignments that are not their
+    // own (unless they're a user administrator for the role).
+    var canEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(x => x.EmployeeAssignments, new {id = "employeeAssignmentsTable"})
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "EmployeeAssignment", new {id = x.Id, area = "Production"}, null))
+        .ColumnFor(x => x.AssignedTo)
+        .ColumnFor(x => x.AssignedFor)
+        .TemplateColumnFor("Date Started", x => @<text>
+                                                    @if (canEdit && x.CanBeStarted && x.DateStarted == null)
+                                                    {
+                                                        @Html.Partial("_StartEmployeeAssignment", ViewModelFactory.Build<StartEmployeeAssignment, EmployeeAssignment>(x))
+                                                    }
+                                                    else
+                                                    {
+                                                        if (!x.DateStarted.HasValue && !x.CanBeStarted)
+                                                        {
+                                                            <div>@EmployeeAssignment.CANNOT_BE_STARTED</div>
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.DisplayValueFor(_ => x.DateStarted, CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE)
+                                                        }
+                                                    }</text>)
+        .TemplateColumnFor("Date Ended", x => @<text>
+                                                    @if (x.DateEnded == null && x.DateStarted != null && canEdit && 
+                                                         (x.ProductionWorkOrder.OrderType.Id == OrderType.Indices.ROUTINE_13 || !x.RequiredTankInspectionNotCompleted))
+                                                    {
+														@*NOTE: This logic is somewhat duplicated in EmployeeAssignments/Index.cshtml as well*@
+	                                                    @(Control.Button("End")
+																 .WithName("EmployeeAssignmentEndButton")
+																 // NOTE: It has to be ToString or else the formatting is wrong.
+																 .With("data-datestarted", x.DateStarted.ToString())
+																 .With("data-assignmentid", x.Id)
+																 .With("data-productionworkorder", Model.Id))
+                                                    } else{@Html.DisplayValueFor(_ => x.DateEnded, CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE)}</text>)
+        .ColumnFor(x => x.HoursWorked)
+        .ColumnFor(x => x.AssignedBy)
+        .TemplateColumnFor(x => @<text>
+                                   @using (var f = Form.BeginRouteForm("ProductionWorkOrder", "EmployeeAssignment", new {Model.Id}, ManyToManyRouteAction.Remove))
+                                   {
+                                       f.HtmlAttributes.Add("class", "no-double-submit");
+                                       f.HtmlAttributes.Add("id", "removeEmployeeAssignmentForm");
+                                       f.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this employee assignment?");
+                                       @Control.SubmitButton("Remove Employee Assignment").WithName("EmployeeAssignment").WithValue(x.Id)
+                                   }
+                                </text>).IsVisible(canEdit)
+        ;
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Employee Assignment">
+        @Html.Partial("_AddEmployeeAssignment", ViewModelFactory.BuildWithOverrides<AddEmployeeAssignmentProductionWorkOrder>(new {Id = Model.Id, OperatingCenter = Model.OperatingCenter.Id}))
+    </div>
+}
+
+@table
+
+@* This view is more of a template, which is why we're sending it a null model and not an actual model. *@
+@Html.Partial("_EndEmployeeAssignment", ViewModelFactory.Build<EndEmployeeAssignment, EmployeeAssignment>(null))

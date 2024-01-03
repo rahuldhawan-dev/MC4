@@ -1,0 +1,82 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model  TrafficControlTicketViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/TrafficControlTicket/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+@Control.Hidden("WorkOrderAccountingCodeUrl").WithValue(Url.Action("GetAccountingCode", "WorkOrder", new { area = "FieldOperations" }))
+@{
+    // so we only lock down fields when prepopulated from 271,
+    // otherwise they might need to still edit things
+    var actionIsNew = Model is CreateTrafficControlTicket;
+}
+
+@Html.EditorFor(x => x.WorkStartDate)
+@Html.EditorFor(x => x.WorkEndDate)
+
+@if (actionIsNew && Model.OperatingCenter.HasValue)
+{
+    @Html.DisplayAndHiddenFor(x => x.OperatingCenterDisplay, x => x.OperatingCenter)
+    @Html.DisplayAndHiddenFor(x => x.WorkOrderDisplay, x => x.WorkOrder)
+}
+else
+{
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.WorkOrder)
+}
+
+@if (actionIsNew && Model.SAPWorkOrderNumber.HasValue)
+{
+    @Html.DisplayAndHiddenFor(x => x.SAPWorkOrderNumber)
+}
+else
+{
+    @Html.EditorFor(x => x.SAPWorkOrderNumber)
+}
+
+@* This contains an absolutely terrible hack to force the proper DropDownAttribute to work. It's
+    either that or copy/pasting this form into two different views just because the types
+    differ. *@
+@if (actionIsNew && Model.OperatingCenter.HasValue)
+{
+    @Html.DisplayAndHiddenFor(x => x.StreetNumber)
+    @Html.DisplayAndHiddenFor(x => x.StreetDisplay, x => ((CreateTrafficControlTicket)x).Street)
+    @Html.DisplayAndHiddenFor(x => x.TownDisplay, x => x.Town)
+    @Html.DisplayAndHiddenFor(x => x.CrossStreetDisplay, x => ((CreateTrafficControlTicket)x).CrossStreet)
+    @Html.DisplayAndHiddenFor(x => x.CoordinateDisplay, x => x.Coordinate)
+}
+else
+{
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.StreetNumber)
+    if (actionIsNew)
+    {
+        @Html.EditorFor(x => ((CreateTrafficControlTicket)x).Street)
+        @Html.EditorFor(x => ((CreateTrafficControlTicket)x).CrossStreet)
+    }
+    else
+    {
+        @Html.EditorFor(x => ((EditTrafficControlTicket)x).Street)
+        @Html.EditorFor(x => ((EditTrafficControlTicket)x).CrossStreet)
+    }
+    @Html.EditorFor(x => x.Coordinate)
+}
+
+@Html.EditorFor(x => x.TotalHours)
+@Html.EditorFor(x => x.NumberOfOfficers)
+@Html.EditorFor(x => x.TrafficControlTicketNotes)
+
+@Html.EditorFor(x => x.BillingParty)
+
+@if (Model.WorkOrderDisplay != null && Model.WorkOrderDisplay.AccountCharged == Model.AccountingCode && !String.IsNullOrWhiteSpace(Model.AccountingCode))
+{
+    @Html.DisplayAndHiddenFor(x => x.AccountingCode)
+}
+else
+{
+    if (String.IsNullOrWhiteSpace(Model.AccountingCode) && !actionIsNew)
+    {
+        @Html.RenderDisplayTemplate("", @Control.Button("Lookup Accounting Code").WithId("UpdatedAccountingCode"))
+    }
+    @Html.EditorFor(x => x.AccountingCode)
+}
+@Html.EditorFor(x => x.PaidByNJAW)

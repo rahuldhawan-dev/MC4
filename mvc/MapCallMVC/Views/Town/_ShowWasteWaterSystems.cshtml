@@ -1,0 +1,43 @@
+﻿@model Town
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+<table id="wasteWaterSystemTable">
+	<thead>
+		<tr>
+			<th>Waste Water Systems</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var pws in Model.WasteWaterSystems)
+		{
+			<tr>
+				<td>@pws.Description</td>
+				<td>
+					@if (userCanEdit)
+					{
+						using (Form.BeginRouteForm("Town", "WasteWaterSystem", new { id = Model.Id, wasteWaterSystemId = 0 }, ManyToManyRouteAction.Remove))
+						{
+							@Control.Hidden("Id").WithValue(Model.Id)
+							@Control.Hidden("WasteWaterSystemId").WithValue(pws.Id)
+							@Control.SubmitButton("Remove Waste Water System").With("onclick", "return confirm('Are you sure?');")
+						}
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@if (userCanEdit)
+{
+	<div class="container">
+		@using (Form.BeginRouteForm("Town", "WasteWaterSystem", new { id = Model.Id, wasteWaterSystemId = 0 }, ManyToManyRouteAction.Add))
+		{
+			@Control.Hidden("Id").WithValue(Model.Id)
+			@Control.DropDown("WasteWaterSystemId").WithItems(((IEnumerable<SelectListItem>)ViewData["WasteWaterSystem"]))
+			@Control.SubmitButton("Add Waste Water System")
+		}
+	</div>
+}

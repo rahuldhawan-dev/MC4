@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ConfinedSpaceFormAtmosphericTest>
+@{
+    var testCount = 0;
+}
+
+@* NOTE: The html structure here is the same as the editable version. If you make a change here, make sure
+    that the edit view is similarly changed. *@
+@foreach (var test in Model)
+{
+    <div class="single-atmospheric-test single-atmospheric-test-readonly" id="readonly-atmospheric-test-@test.Id">
+        @Control.HiddenFor(_ => test.AllReadingsHaveAcceptableConcentrations).WithCssClass("all-readings-acceptable").WithId(null)
+        <div class="tested-by-fields tbf-labels">
+            <div>@Html.DisplayLabelFor(_ => test.TestedBy)</div>
+            <div>@Html.DisplayLabelFor(_ => test.TestedAt)</div>
+            <div><label>Reading Taken</label></div> @* MC-2665 is going to deal with this more *@
+        </div>
+        <div class="tested-by-fields">
+            <div>@Html.DisplayValueFor(_ => test.TestedBy)</div>
+            <div>@Html.DisplayValueFor(_ => test.TestedAt)</div>
+            <div id="ConfinedSpaceFormReadingCaptureTime-@testCount">@Html.DisplayValueFor(x => test.ConfinedSpaceFormReadingCaptureTime)</div> @* MC-2665 is going to deal with this more *@
+        </div>
+
+        <table id="atmospheric-test-@testCount">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Top</th>
+                    <th>Middle</th>
+                    <th>Bottom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.LabelFor(_ => test.OxygenPercentageTop)</td>
+                    <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.OXYGEN</td>
+                    <td>@Html.DisplayValueFor(_ => test.OxygenPercentageTop)</td>
+                    <td>@Html.DisplayValueFor(_ => test.OxygenPercentageMiddle)</td>
+                    <td>@Html.DisplayValueFor(_ => test.OxygenPercentageBottom)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(_ => test.LowerExplosiveLimitPercentageTop)</td>
+                    <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.LEL</td>
+                    <td>@Html.DisplayValueFor(_ => test.LowerExplosiveLimitPercentageTop)</td>
+                    <td>@Html.DisplayValueFor(_ => test.LowerExplosiveLimitPercentageMiddle)</td>
+                    <td>@Html.DisplayValueFor(_ => test.LowerExplosiveLimitPercentageBottom)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(_ => test.CarbonMonoxidePartsPerMillionBottom)</td>
+                    <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.CO</td>
+                    <td>@Html.DisplayValueFor(_ => test.CarbonMonoxidePartsPerMillionTop)</td>
+                    <td>@Html.DisplayValueFor(_ => test.CarbonMonoxidePartsPerMillionMiddle)</td>
+                    <td>@Html.DisplayValueFor(_ => test.CarbonMonoxidePartsPerMillionBottom)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(_ => test.HydrogenSulfidePartsPerMillionTop)</td>
+                    <td>@ConfinedSpaceFormAtmosphericTest.AcceptableConcentrations.H2S</td>
+                    <td>@Html.DisplayValueFor(_ => test.HydrogenSulfidePartsPerMillionTop)</td>
+                    <td>@Html.DisplayValueFor(_ => test.HydrogenSulfidePartsPerMillionMiddle)</td>
+                    <td>@Html.DisplayValueFor(_ => test.HydrogenSulfidePartsPerMillionBottom)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    testCount++;
+}

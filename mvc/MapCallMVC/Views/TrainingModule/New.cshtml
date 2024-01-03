@@ -1,0 +1,11 @@
+﻿@model CreateTrainingModule
+
+@using (Form.BeginForm("Create", "TrainingModule", new {Model.Id})) {
+    <div class="field-column fc300">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

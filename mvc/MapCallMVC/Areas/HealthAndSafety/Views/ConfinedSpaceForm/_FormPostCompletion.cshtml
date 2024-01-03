@@ -1,0 +1,36 @@
+﻿@using MMSINC.Data.NHibernate
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.PostCompletionConfinedSpaceForm
+@{
+    var showIfSection2IsCompleted = Model.Original.IsSection2Completed;
+}
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/ConfinedSpaceForm/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.StylesheetFor("~/Content/css/HealthAndSafety/ConfinedSpaceForm.css", true)
+@Control.Hidden().WithId("is-section-2-completed").WithValue(showIfSection2IsCompleted)
+@{ var csfEntity = _container.GetInstance<IRepository<ConfinedSpaceForm>>().Find(Model.Id);}
+
+@Control.HiddenFor(x => x.ProductionWorkOrder)
+@Control.HiddenFor(x => x.GeneralDateTime)
+@Control.HiddenFor(x => x.LocationAndDescriptionOfConfinedSpace)
+@Control.HiddenFor(x => x.PurposeOfEntry)
+@Control.HiddenFor(x => x.ShortCycleWorkOrderNumber)
+
+@if (AuthenticationService.CurrentUser.Employee == null)
+{
+    <div class="container" style="margin-bottom:12px;">
+        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+        {
+            Message = "Your MapCall user account does not have an employee record associated with it. You can still create or edit a Confined Space Form, but you will not be able to sign any sections or add atmospheric tests until your user account is corrected.",
+            NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+        })
+    </div>
+}
+
+@(Html.Tabs()
+      .WithTab("Section 1", "_DisplaySection1", partialModel: csfEntity)
+      .WithTab("Section 2", "_PostCompletionEditSection2")
+      .WithTab("Section 3", "_DisplaySection3", isVisible: showIfSection2IsCompleted, partialModel: csfEntity)
+      .WithTab("Section 4", "_DisplaySection4", isVisible: showIfSection2IsCompleted, partialModel: csfEntity)
+      // Entrants is part of Section 5, so keep these grouped together.
+      .WithTab("Section 5", "_PostCompletionDisplaySection5", isVisible: (showIfSection2IsCompleted && csfEntity.IsSection5Enabled))
+      .WithTab("Role Assignment", "_EditEntrants", isVisible: (showIfSection2IsCompleted && csfEntity.IsSection5Enabled))
+)

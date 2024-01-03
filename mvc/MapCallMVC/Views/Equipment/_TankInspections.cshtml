@@ -1,0 +1,11 @@
+﻿@model Equipment
+
+@{
+    var table = Html.TableFor(x => x.TankInspections, new { id = "tankInspectionTable" })
+                    .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "TankInspection", new { x.Id, area = "Facilities" }, null))
+                    .ColumnFor(x => x.OperatingCenter)
+                    .ColumnFor(x => x.Facility)
+                    .ColumnFor(x => x.Equipment);
+}
+
+@table

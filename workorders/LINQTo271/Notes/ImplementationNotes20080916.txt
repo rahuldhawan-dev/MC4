@@ -1,0 +1,124 @@
+FINISHED:
+1. Add "Call Center" RequestedBy value.
+
+2. Setup validation rules for WorkOrder regarding RequestedBy value:
+ - "Customer" to require street number, and to include (optionally)
+   phone number, extra contact info (notes-style field?), and ServiceOrderNumber
+   (currently called ServiceNumber, must rename)
+
+ - "Employee" to require RequestingEmployee
+
+3. Nearest Cross Street is always a required field.
+
+4. Description of Work needs to be ripped from the source access database,
+   filtered out by asset type, and put into their own class/table
+
+8. Setup validation rules for WorkOrder regarding AssetType value:
+   - "Valve" to require that a valid valve be entered.
+
+   - "Hydrant" to require that a valid hydrant be entered.
+
+12. Once an asset has been chosen or a street address entered, need to display
+    table of all work orders recorded for that given asset and/or address.
+
+PENDING:
+2. Setup validation rules for WorkOrder regarding RequestedBy value:
+ - "Local Government" to require some field for information on specifically
+   who requested the order (such as a notes field. this is labeled "official's
+   info in the demo, is that ok?)
+
+ - "Call Center" to require ServiceOrderNumber 
+
+5. Need "Add Street" functionality for work order input screen.  This cannot go
+   unchecked however, as blanketly allowing users to add streets to the system
+   is pretty dangerous (current design doesn't allow for this project to do
+   inserts, updates, or deletes to existing tables from MapCall).  We need to
+   decide who can add streets, because the people in the fields should not be
+   allowed IMO.  Just requiring that a report of all user-added streets be run
+   once a month is not enough, because that will not get done.  If this becomes
+   an issue, I will remove the functionality.
+
+6. "Service ID" is actually PremiseNumber when AssetType is Service.
+
+7. Asset type to be configurable by operating center (with valve and hydrant as
+   static, since everyone has those).  I think that we should just start by
+   defining what NJ7 needs, as it is the first rollout target.
+
+8. Setup validation rules for WorkOrder regarding AssetType value:
+   - "Main" will require nothing on initial data entry, but will need extra
+     information upon completion (what is the extra information?)
+
+   - "Service" to require a valid PremiseNumber (do we get a list of
+   PremiseNumbers?)
+
+9. We'll need further consideration into the idea of "nesting" work orders
+   together, i.e., should restoration on a work order spawn and exist as
+   a new work order?
+
+10. Need to get the table of contractors into the system.
+
+11. Incorporate Lat/Lon picker (with Coordinate object).
+
+12. Once an asset has been chosen or a street address entered, need to display
+    table of all work orders recorded for that given asset and/or address.  It
+    should constantly be filtered as data is entered.  This table should also
+    provide a system to expand the scope of what's been brought back, to entire
+    street, or a specified radius of the Lat/Lon that's been picked.
+
+13. Need to attach documents similarly to how MapCall already does (notes
+    are a straight db field, is this ok?)
+
+14. Priority may need to be setup as an OpCode-configured system, like AssetType
+    above, and OperatingCenterStockedMaterials from the initial design.  Is this
+    really necessary?  It's extra work, and may make reporting more difficult.
+    If it is, we need to decide what the static values should be (if any), and
+    start with the values necessary for NJ7.
+
+15. MarkoutRequired to become MarkoutRequirement, with a separate class/table.
+    Values are "None", "Routine", and "Emergency".  Add field
+    MarkoutRequestNumber (need to know type/validation), and PlannedStartDate.
+    This will display as a table int he "Markouts" tab in the edit screen,
+    which will provide the ability to re-request.
+
+16. OneCallExpress - need to find out if/how we'll be linking to them for
+    Markouts.
+
+17. The Search screen should have the following fields:
+  Work Order Number
+  Town
+  Town Section
+  Street
+  Nearest Cross Street
+  Asset Type
+  Asset ID/Premise #
+  Status
+  Date Started
+  Date Requested
+  Date Completed
+  Markout Ready?
+  Markout Number
+  Markout Expiration Date
+
+18. The Search Results table should have the following columns:
+  Town/Address
+  Asset
+  Description of Work
+  Markout Ready
+  Dig Date
+  Priority
+  "Assign" link, which pops up
+
+19. The Search Results screen should allow batch assignments.  This will entail
+    an "Assign Job" column when the search specified search for all open orders.
+    Also, a box at the bottom for the employee (foreman) to assign to, and
+    another box for truck/crew number for those op centers that don't want to
+    assign work directly to foremen (is this necessary for NJ7?)
+
+20. The Markouts entry screen should have the following fields:
+  Markout Number
+  Date
+
+21. The Planning tab (still to be added) should include the following:
+  Markout Dates (read-only, from the Markouts tab)
+  Street Opening Permits?
+  Traffic Control (drop down)

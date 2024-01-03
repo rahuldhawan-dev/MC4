@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerMainCleanings.CreateSewerMainCleaning
+
+@using (Form.BeginForm("Create", "SewerMainCleaning", "FieldOperations"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Index", "SewerMainCleaning")
+                           </text>)
+    </div>
+}

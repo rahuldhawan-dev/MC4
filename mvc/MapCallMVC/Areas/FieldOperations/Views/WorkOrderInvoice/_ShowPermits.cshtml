@@ -1,0 +1,18 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model WorkOrderInvoice
+
+@{
+    var newModel = ViewModelFactory.Build<WorkOrderInvoicePdf, WorkOrderInvoice>(Model);
+}
+@if (newModel.Permits != null)
+{ 
+@(Html.TableFor(x => newModel.Permits)
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.PermitFor)
+    .ColumnFor(x => x.TotalCharged)
+)
+}
+else
+{
+    <div>No Permits have been created for this work order.</div>
+}

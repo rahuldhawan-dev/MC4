@@ -1,0 +1,51 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderSchedulingSearch
+@{
+    ViewBag.Title = "Work Order - Scheduling - Search";
+}
+
+@using (Form.BeginForm("Index", "WorkOrderScheduling")) {
+    <div class="field-column fc-stretch fc200 searchFields">
+        @Html.EditorFor(m => m.Id)
+
+        <div class="field-pair">
+            <div class="label" style="text-align: right">-OR-</div>
+            <div class="field">&nbsp;</div>
+        </div>
+
+        @* OperatingCenterID *@
+        @Html.EditorFor(m => m.OperatingCenter)
+
+        @* TownID: *@
+        @Html.EditorFor(m => m.Town)
+
+        @Html.EditorFor(m => m.TownSection)
+
+        @Html.EditorFor(m => m.Street)
+
+        @Html.EditorFor(m => m.StreetNumber)
+
+        @Html.EditorFor(m => m.NearestCrossStreet)
+        
+        @Html.EditorFor(m => m.AssetType)
+        
+        @Html.EditorFor(m => m.WorkDescription)
+        
+        @Html.EditorFor(m => m.Priority)
+
+        @Html.EditorFor(m => m.TrafficControlRequired)
+
+        @Html.EditorFor(m => m.CompletionTime)
+
+        @Html.EditorFor(m => m.MarkoutRequired)
+
+        @Html.EditorFor(m => m.HasPendingAssignments)
+
+        @Html.EditorFor(m => m.MarkoutExpirationDays)
+        
+        @Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}
+
+@section styles {
+    @Html.StylesheetFor("~/Content/WorkOrder/Search.css")
+}

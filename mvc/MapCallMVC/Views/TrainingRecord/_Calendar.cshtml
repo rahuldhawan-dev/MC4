@@ -1,0 +1,60 @@
+﻿@model SearchTrainingRecord
+@using Colors = MapCall.Common.Model.Entities.TrainingSession.CalendarColors;
+
+<style>
+    div#calendar {
+        margin: 10px;
+    }
+    
+     fieldset#legend {
+         width: 250px;
+         float: right;
+         margin-right: 10px
+     }
+    
+    .percent50 {
+        background-color: @Colors.Background.LESS_THAN_FIFTY !important;
+        color: @Colors.Text.LESS_THAN_FIFTY !important;
+    }
+
+    .percent99 {
+        background-color: @Colors.Background.LESS_THAN_ONE_HUNDRED !important;
+        color: @Colors.Text.LESS_THAN_ONE_HUNDRED !important;
+    }
+
+    .percent100 {
+        background-color: @Colors.Background.ONE_HUNDRED !important;
+        color: @Colors.Text.ONE_HUNDRED !important;
+    }
+    
+    .past {
+        background-color:@Colors.Background.PAST !important;
+        color: @Colors.Text.PAST !important;
+    }
+
+    .canceled {
+        background-color: @Colors.Background.CANCELED !important;
+        color: @Colors.Text.CANCELED !important;
+    }
+</style>    
+
+<div id="calendar"></div>
+<fieldset id="legend">
+    <legend>Legend</legend>
+    <div class="fc-event fc-day-grid-event percent50">
+        < 50% Attendance
+    </div>
+    <div class="fc-event fc-day-grid-event percent99">
+        < 99% Attendance
+    </div>
+    <div class="fc-event fc-day-grid-event percent100">
+        100% Attendance
+    </div>
+    <div class="fc-event fc-day-grid-event past">
+        Past
+    </div>
+    <div class="fc-event fc-day-grid-event canceled">
+        Canceled
+    </div>
+</fieldset>
+

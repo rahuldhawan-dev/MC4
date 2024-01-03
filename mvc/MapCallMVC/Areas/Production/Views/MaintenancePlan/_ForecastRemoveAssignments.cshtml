@@ -1,0 +1,40 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MaintenancePlanForecastResults
+
+@{
+    var tableItems = Model.ForecastWorkOrders.Where(y => y.Assignments.Any());
+}
+
+@using (Form.BeginForm("RemoveScheduledAssignments", "MaintenancePlan", "Production"))
+{
+    @Html.Hidden("Id", Model.MaintenancePlan, new { id = "Id" })
+
+    <div class="field-column fc200 searchFields">
+        @Control.SubmitButton("Remove Assignments").WithId("Remove").With("onclick", "return confirm('Are you sure you want to remove the selected assignment(s)?')")
+    </div>
+
+    <br />
+    @Control.Button("Check All").With("onclick", "$('input[name=SelectedAssignments]').prop('checked', true)")
+    @Control.Button("Uncheck All").With("onclick", "$('input[name=SelectedAssignments]').prop('checked', false)")
+    <br />
+
+    @(Html.TableFor(x => tableItems, new { id = "forecastRemoveAssignmentsTable" })
+          .ColumnFor(x => x.PlannedDate)
+          .TemplateColumnFor("Scheduled Assignments", x => @<text>
+                                                               @if (x.Assignments.Any())
+                                                               {
+                                                                   foreach (var assignment in x.Assignments)
+                                                                   {
+                                                                       <div style="display:flex; align-items:center; width:180px; margin:2px;">
+                                                                           @Control.CheckBox("SelectedAssignments").WithId("SelectedAssignment_" + assignment.Id).WithValue(assignment.Id)
+                                                                           <label for=@("SelectedAssignment_" + assignment.Id)>@assignment</label>
+                                                                       </div>
+                                                                   }
+                                                               }
+                                                            </text>)
+          .ColumnFor(x => x.LocalTaskDescription)
+          .ColumnFor(x => x.SkillSet)
+          .ColumnFor(x => x.Resources)
+          .ColumnFor(x => x.EstimatedHours)
+        )
+}

@@ -1,0 +1,6 @@
+﻿@model MapCall.Common.Model.ViewModels.ArcFlashCompletionReportItem
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowArcFlashStatus", Model)
+    .WithLog()
+    )

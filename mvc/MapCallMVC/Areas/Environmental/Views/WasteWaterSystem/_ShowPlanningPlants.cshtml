@@ -1,0 +1,35 @@
+﻿@model WasteWaterSystem
+@{
+    var canAddRemovePlanningPlants = Authentication.CurrentUserIsAdmin;
+}
+
+@if (canAddRemovePlanningPlants)
+{
+    @Html.Partial("_AddPlanningPlantWasteWaterSystem", ViewModelFactory.BuildWithOverrides<CreatePlanningPlantWasteWaterSystem>(new { WasteWaterSystem = Model.Id }))
+}
+
+<table id="planningPlantTable">
+    <thead>
+    <tr>
+        <th>Planning Plant</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var pln in Model.PlanningPlantWasteWaterSystems)
+    {
+        <tr>
+            <td>@pln.PlanningPlant</td>
+            <td>
+                @using (Form.BeginForm("Destroy", "PlanningPlantWasteWaterSystem", new { id = pln.Id }))
+                {
+                    if (canAddRemovePlanningPlants)
+                    {
+                        @Control.SubmitButton("Remove Planning Plant").With("onclick", "return confirm('Are you sure?');")
+                    }
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,12 @@
+﻿@model MapCall.Common.Model.ViewModels.ForbiddenRoleAccessModel
+@{
+    ActionBarHelper.AutoGenerateCrudLinks = false;
+    ViewBag.Title = "";
+}
+
+<h2>You do not have the roles necessary to access this resource.</h2>
+
+<p>
+Contact your administrator and ask them for access to the roles listed below.
+</p>
+@Html.Partial("_RequiredRolesTable", Model.RequiredRoles)

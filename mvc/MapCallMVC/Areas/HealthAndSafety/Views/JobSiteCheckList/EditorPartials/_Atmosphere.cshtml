@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.BaseJobSiteCheckListViewModel
+
+<style>
+    #atmosphere { width:100%; }
+     #atmosphere input {
+         width: 50px !important;
+     }
+</style>
+
+<table id="atmosphere" class="for-structure">
+    <tr>
+        <td>O2</td>
+        <td>@Html.EditorWithoutWrapperFor(x => x.AtmosphericOxygenLevel)</td>
+        <td>CO</td>
+        <td>@Html.EditorWithoutWrapperFor(x => x.AtmosphericCarbonMonoxideLevel)</td>
+        <td>LEL</td>
+        <td>@Html.EditorWithoutWrapperFor(x => x.AtmosphericLowerExplosiveLimit)</td>
+    </tr>
+</table>
+

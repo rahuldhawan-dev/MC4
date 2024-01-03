@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchInvestmentProject
+
+@using (Form.BeginForm("Index", "InvestmentProject"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.ProjectNumber)
+        @Html.EditorFor(x => x.PPWorkOrder)
+        @Html.EditorFor(x => x.ProjectCategory)
+        @Html.EditorFor(x => x.AssetCategory)
+        @Html.EditorFor(x => x.Phase)
+        @Html.EditorFor(x => x.EstimatedProjectCost)
+        @Html.EditorFor(x => x.ProjectFlagged)
+        @Html.EditorFor(x => x.ForecastedInServiceDate)
+        @Html.EditorFor(x => x.InServiceDate)
+        @Html.EditorFor(x => x.CreatedBy)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

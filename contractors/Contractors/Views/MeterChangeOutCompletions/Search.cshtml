@@ -1,0 +1,17 @@
+﻿@model Contractors.Models.ViewModels.SearchMeterChangeOutCompletions
+@{
+    ViewBag.Title = "Meter Change Out Completions";
+}
+@using (Form.BeginForm("Index", "MeterChangeOutCompletions"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.CalledInByContractorMeterCrew)
+        @Html.EditorFor(x => x.DateStatusChanged)
+        @Html.EditorFor(x => x.MeterChangeOutStatus)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+        </text>)
+    </div>
+}

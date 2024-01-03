@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValveBPUReport
+@{
+    ActionBarHelper.AddExportLink();
+}           
+@(Html.TableFor(x => x, new { id = "results", style="width:auto;"})
+    //.WithCaption("Records found: " + Model.Count)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.ValveBilling)
+    .ColumnFor(x => x.ValveStatus)
+    .ColumnFor(x => x.SizeRange)
+    .ColumnFor(x => x.Total)
+)

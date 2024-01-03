@@ -1,0 +1,8 @@
+﻿@model FacilityProcessStepTriggerAction
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Trigger", Html.AuthorizedActionLinkOrText(Model.Trigger.ToString(), "Show", "FacilityProcessStepTrigger", new { id = Model.Trigger.Id, area = "Facilities" }))
+    @Html.DisplayFor(x => x.Sequence)
+    @Html.DisplayFor(x => x.Action)
+    @Html.DisplayFor(x => x.ActionResponse)
+</div>

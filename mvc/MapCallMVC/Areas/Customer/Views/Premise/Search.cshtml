@@ -1,0 +1,36 @@
+﻿@model MapCallMVC.Areas.Customer.Models.ViewModels.SearchPremise
+    
+
+@using (Form.BeginForm("Index", "Premise"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.State, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.PremiseType)
+        @Html.EditorFor(x => x.ServiceCity)
+        @Html.EditorFor(x => x.PremiseNumber)
+        @Html.EditorFor(x => x.StatusCode)
+        @Html.EditorFor(x => x.IsMajorAccount)
+        @Html.EditorFor(x => x.CriticalCareType)
+        @Html.EditorFor(x => x.DeviceSerialNumber)
+        @Html.EditorFor(x => x.MeterSerialNumber)
+        @Html.EditorFor(x => x.MeterLocationFreeText)
+        @Html.EditorFor(x => x.ServiceAddressHouseNumber)
+        @Html.EditorFor(x => x.ServiceAddressApartment)
+        @Html.EditorFor(x => x.ServiceAddressStreet)
+        @Html.EditorFor(x => x.ServiceDistrict)
+        @Html.EditorFor(x => x.FullStreetAddress)
+        @Html.EditorFor(x => x.AreaCode)
+        @Html.EditorFor(x => x.RegionCode)
+        @Html.EditorFor(x => x.RouteNumber)
+        @Html.EditorFor(x => x.ServiceUtilityType)
+        @Html.EditorFor(x => x.MeterSize)
+        @Html.EditorFor(x => x.HasMeter)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

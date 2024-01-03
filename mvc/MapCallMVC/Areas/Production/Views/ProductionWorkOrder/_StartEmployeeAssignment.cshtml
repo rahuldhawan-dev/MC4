@@ -1,0 +1,11 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.StartEmployeeAssignment
+
+@using ( Form.BeginForm("Start", "EmployeeAssignment", "Production", new { Model.Id }))
+{
+	// Don't include the id on the datepicker. If there are multiple copies of this form on the page then
+	// only the first datepicker will actually work.
+	@Control.DatePickerFor(x => x.DateStarted).With("style", "width:150px !important;").WithId(null)
+    @Html.HiddenFor(x => x.ProductionWorkOrder)
+    @Control.SubmitButton("Start")
+    <div style="color: #346EA1;font-style:italic">Press 'Start' to use the current time</div>
+}

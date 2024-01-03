@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrder
+@{
+    var table = Html.TableFor(x => Model, new {id = "productionWorkOrderTable"})
+        .WithCaption("Records found:" + Model.Count)
+        .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new {x.Id, area = "Production"}, null))
+        .ColumnFor(x => x.Equipment)
+        .ColumnFor(x => x.ProductionWorkDescription)
+        .ColumnFor(x => x.Priority)
+        .TemplateColumnFor("Assigned Employees", x =>
+            @<ul>
+                 @Html.Raw(string.Join("", x.EmployeeAssignments.Select(a => "<li>" + a.AssignedTo.Display + "</li>")))
+            </ul>)
+        .ColumnFor(x => x.Status)
+        .ColumnFor(x => x.DateCompleted)
+        .TemplateColumnFor("Notes", x =>
+            @<ul>
+                @Html.Raw(string.Join("", x.Notes.Select(n => "<li>" + n.Text + "</li>")))
+            </ul>)
+        .ColumnFor(x => x.RequestedBy)
+        .WithPaginatedFooter();
+}
+
+@table
+

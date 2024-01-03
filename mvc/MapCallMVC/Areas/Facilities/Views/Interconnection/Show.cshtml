@@ -1,0 +1,45 @@
+﻿@model Interconnection
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/Facilities/Interconnection/Show.js")
+}
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+        <div class="field-column fc150">
+            @Html.DisplayFor(x => x.Facility.OperatingCenter)
+            @Html.RenderDisplayTemplate("Facility ID", @<div>
+            @if (Model.Facility != null) {
+                @Html.ActionLink(Model.Facility.FacilityId, "Show", "Facility", new {Area = "", Model.Facility.Id}, null)
+            }</div>)
+            @Html.DisplayFor(x => x.Facility.FacilityName)
+            @Html.DisplayFor(x => x.DEPDesignation)
+			@Html.DisplayFor(x => x.Coordinate)
+        </div>
+    }
+
+    using (g.FlexBox())
+    {
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.Category)
+            @Html.DisplayFor(x => x.OperatingStatus)
+            @Html.DisplayFor(x => x.Direction)
+            @Html.DisplayFor(x => x.Type)
+            @Html.DisplayFor(x => x.ContractStartDate)
+            @Html.DisplayFor(x => x.ContractEndDate)
+        </div>
+    }
+}
+
+<div style="margin-top:6px;">
+@(Html.Tabs()
+      .WithTab("PWSID", "PWSID/_Show")
+      .WithTab("Meters", "Meters/_Show")
+      .WithTab("Water Quality", "WaterQuality/_Show")
+      .WithTab("Capacity", "Capacity/_Show")
+      .WithTab("Reversibility", "Reversibility/_Show")
+      .WithNotesAndDocuments()
+      .WithLog())
+</div>

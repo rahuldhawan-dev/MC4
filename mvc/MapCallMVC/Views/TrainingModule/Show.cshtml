@@ -1,0 +1,13 @@
+﻿@model TrainingModule
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/TrainingModule/Show.js")
+}
+
+@(Html.Tabs()
+    .WithTab("Training Module", "_ShowTrainingModule", Model)
+    .WithTab("Training Records", "_TrainingRecords", Model, Html.CurrentUserCanDo("Show", "TrainingRecord"))
+    .WithTab("Attendees", "_Attendees")
+    .WithVideos()
+    .WithNotesAndDocuments()
+    .WithLog())

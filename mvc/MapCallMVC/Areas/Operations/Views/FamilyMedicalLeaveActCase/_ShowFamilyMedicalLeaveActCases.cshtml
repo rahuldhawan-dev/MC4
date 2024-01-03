@@ -1,0 +1,7 @@
+﻿@model IEnumerable<FamilyMedicalLeaveActCase>
+           
+@(Html.TableFor(x => Model, new { id = "fmlacasesTable"})
+    .TemplateColumnFor("FMLA Case", x => Html.ActionLink(x.Id.ToString(), "Show", "FamilyMedicalLeaveActCase", new { x.Id, area = "Operations" }, null))
+    .ColumnFor(x => x.StartDate)
+    .ColumnFor(x => x.EndDate)
+)

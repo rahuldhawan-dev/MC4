@@ -1,0 +1,9 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "ScriptsProject", "ScriptsProject.ssmssqlproj", "{F12AC3FC-A2EA-4ECB-B9E8-1528EEAF60F0}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

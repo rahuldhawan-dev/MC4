@@ -1,0 +1,37 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.ProductionWorkOrderEquipmentViewModel
+
+<script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (event) {
+            AsLeftAsFoundEdit.initialize(@Model.Id);
+        });
+</script>
+
+@using (var form = Form.BeginForm("Update", "ProductionWorkOrderEquipment"))
+{
+    var formName = string.Format("{0}{1}", "productionWorkOrderEquipmentConditionForm", @Model.Id);
+    form.HtmlAttributes.Add("id", formName);
+    <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+    @Control.HiddenFor(x => x.ProductionWorkOrderId)
+    @Control.HiddenFor(x => x.Equipment)
+    <div style="width: 100%;" class="div-container">
+        <ul>
+            <li>
+                @Html.EditorFor(x => x.AsFoundCondition, new { html = new { disabled = "disabled" } })
+                @Html.EditorFor(x => x.AsFoundConditionReason, new { html = new { disabled = "disabled" } })
+                @Html.EditorFor(x => x.AsFoundConditionComment, new { html = new { disabled = "disabled" } })
+            </li>
+            <li>
+                @Html.EditorFor(x => x.AsLeftCondition, new { html = new { disabled = "disabled" } })
+                @Html.EditorFor(x => x.AsLeftConditionReason, new { html = new { disabled = "disabled" } })
+                @Html.EditorFor(x => x.AsLeftConditionComment, new { html = new { disabled = "disabled" } })
+                @Html.EditorFor(x => x.RepairComment, new { html = new { disabled = "disabled" } })
+            </li>
+            <li>
+                @Control.SubmitButton("Save").WithId("AsLeftAsFoundSaveButton").With("disabled", "disabled")
+            </li>
+            <li>
+                @Control.Button("Edit").WithId("AsLeftAsFoundEditButton")
+            </li>
+        </ul>
+    </div>
+}

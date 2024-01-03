@@ -1,0 +1,124 @@
+﻿@model Equipment
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @if (Model.Facility != null)
+    {
+        @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.Facility.FacilityName + " - " + Model.Facility.FacilityId, "Show", "Facility", new { Model.Facility.Id }, null))
+        @Html.DisplayFor(x => x.Facility.PlanningPlant)
+        @Html.DisplayFor(x => x.Facility.Department)
+        @Html.DisplayFor(x => x.FacilityFacilityArea.Display)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Facility", @<text>This piece of equipment is not currently linked to a facility. Please visit the page for the facility that this piece of equipment belongs to, and add this piece of equipment to it.</text>)
+    }
+    @Html.DisplayFor(x => x.CriticalNotes, new { @class = "critical-notes-display" })
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.Identifier)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.FunctionalLocation)
+    @Html.DisplayFor(x => x.WBSNumber)
+    @Html.DisplayFor(x => x.Coordinate)
+    @if (Model.ParentEquipment != null)
+    {
+        @Html.RenderDisplayTemplate("Parent Equipment", Html.ActionLink(Model.ParentEquipment.ToString(), "Show", "Equipment", new { Model.ParentEquipment.Id, area = "" }, null))
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Parent Equipment", @<text></text>)
+    }
+    @Html.DisplayFor(x => x.EquipmentGroup)
+    @Html.DisplayFor(x => x.EquipmentType)
+    @Html.DisplayFor(x => x.EquipmentPurpose)
+    @Html.DisplayFor(x => x.EquipmentManufacturer)
+    @if (!string.IsNullOrWhiteSpace(Model.ManufacturerOther))
+    {
+        @Html.DisplayFor(x => x.ManufacturerOther)
+    }
+
+    @Html.DisplayFor(x => x.EquipmentModel)
+    @Html.DisplayFor(x => x.SerialNumber)
+    @Html.DisplayFor(x => x.SAPEquipmentId)
+
+    @Html.DisplayFor(x => x.Portable)
+    @Html.DisplayFor(x => x.EquipmentStatus)
+    
+    <fieldset>
+        <legend>Equipment Life Information</legend>
+        @Html.DisplayFor(x => x.DateInstalled)
+        @Html.DisplayFor(x => x.ServiceLife)
+        @Html.DisplayFor(x => x.RemainingUsefulLife)
+        @Html.DisplayFor(x => x.ExtendedUsefulLifeWorkOrderId)
+        @Html.DisplayFor(x => x.LifeExtendedOnDate)
+        @Html.DisplayFor(x => x.ExtendedUsefulLifeComment)
+        @Html.DisplayFor(x => x.ExtendedRemainingUsefulLife)
+        @Html.DisplayFor(x => x.PlannedReplacementYear)
+        @Html.DisplayFor(x => x.EstimatedReplaceCost)
+        @if (Model.EquipmentStatus.Id == EquipmentStatus.Indices.RETIRED || Model.EquipmentStatus.Id == EquipmentStatus.Indices.PENDING_RETIREMENT)
+        {
+            @Html.DisplayFor(x => x.DateRetired)
+
+        }
+        </fieldset>
+
+    @Html.DisplayFor(x => x.ABCIndicator)
+    @Html.DisplayFor(x => x.ScadaTagName)
+
+    @Html.DisplayFor(x => x.Number)
+    
+    
+    @Html.RenderDisplayTemplate("Prerequisites", @Html.TableFor(x => x.ProductionPrerequisites, new { id = "productionPrerequisitesTable" }).ColumnFor(x => x.Description, ""))
+    @Html.RenderDisplayTemplate("Compliance", @<text>
+        <div class="compliance-div-section">
+            <div>
+                @Html.CheckBoxFor(x => x.HasProcessSafetyManagement, new { disabled = true })
+                @Html.LabelFor(x => x.HasProcessSafetyManagement)
+            </div>
+            <div>
+                @Html.CheckBoxFor(x => x.HasCompanyRequirement, new { disabled = true })
+                @Html.LabelFor(x => x.HasCompanyRequirement)
+            </div>
+            <div>
+                @Html.CheckBoxFor(x => x.HasRegulatoryRequirement, new { disabled = true })
+                @Html.LabelFor(x => x.HasRegulatoryRequirement)
+            </div>
+            <div>
+                @Html.CheckBoxFor(x => x.HasOshaRequirement, new { disabled = true })
+                @Html.LabelFor(x => x.HasOshaRequirement)
+            </div>
+            <div>
+                @Html.CheckBoxFor(x => x.OtherCompliance, new { disabled = true })
+                @Html.LabelFor(x => x.OtherCompliance)
+            </div>
+        </div>
+    </text>)
+    @if (Model.OtherCompliance)
+    {
+        @Html.DisplayFor(x => x.OtherComplianceReason)
+    }
+    @Html.DisplayFor(x => x.Legacy)
+    @Html.DisplayFor(x => x.SafetyNotes)
+    @Html.DisplayFor(x => x.MaintenanceNotes)
+    @Html.DisplayFor(x => x.OperationNotes)
+
+
+    @Html.DisplayFor(x => x.ReplacedEquipment)
+
+    @if (Model.ReplacementProductionWorkOrder != null)
+    {
+        @Html.RenderDisplayTemplate(Equipment.REPLACEMENT_PROD_WORK_ORDER_ID_LABEL, Html.ActionLink(Model.ReplacementProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { Model.ReplacementProductionWorkOrder.Id, area = "Production" }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.ReplacementProductionWorkOrder, new {DisplayName = Equipment.REPLACEMENT_PROD_WORK_ORDER_ID_LABEL })
+    }
+
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.RequestedBy)
+
+    @Html.DisplayFor(x => x.AssetControlSignOffDate)
+    @Html.DisplayFor(x => x.AssetControlSignOffBy)
+
+    @Html.DisplayFor(x => x.SAPErrorCode)
+</div>

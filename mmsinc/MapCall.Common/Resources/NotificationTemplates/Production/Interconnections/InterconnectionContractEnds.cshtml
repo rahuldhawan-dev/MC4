@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+Interconnection ID: <a href="@Model.RecordUrl">@Model.Id</a><br />
+@* Facility is a nullable field, even though there's only one record without a facility. *@
+@if (Model.Facility != null)
+{
+<text>
+Operating Center: @Model.Facility.OperatingCenter <br />
+Facility: @Model.Facility.FacilityName <br />
+</text>
+}
+
+Contract Start Date: @Model.ContractStartDate <br />
+Contract End Date: @Model.ContractEndDate <br />

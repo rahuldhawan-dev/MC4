@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Models.ViewModels.Users.CreateUser
+
+@using (Form.BeginForm("Create", "User"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.UserName)
+        @Html.EditorFor(x => x.UserType)
+        @Html.EditorFor(x => x.Email)
+        @Html.EditorFor(x => x.HasAccess)
+        @Html.EditorFor(x => x.FullName)
+        @Html.EditorFor(x => x.EmployeeNumber)
+        @Html.EditorFor(x => x.DefaultOperatingCenter)
+        @Html.EditorFor(x => x.Address)
+        @Html.EditorFor(x => x.City)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.ZipCode)
+        @Html.EditorFor(x => x.PhoneNumber)
+        @Html.EditorFor(x => x.CellPhoneNumber)
+        @Html.EditorFor(x => x.FaxNumber)
+        @Html.EditorFor(x => x.IsUserAdmin)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Save")
+                @Html.LinkButton("Cancel", "Search", "User")
+        </text>)
+    </div>
+}

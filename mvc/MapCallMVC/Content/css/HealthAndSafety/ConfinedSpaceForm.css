@@ -1,0 +1,108 @@
+﻿/* TODO: Figure out how to make page-specific stuff use the .LESS compiler if it's possible. 
+    I'm not a fan of having every individual page css inside of site.css just for the .LESS stuff.
+*/
+
+/* hazard-item css is used by show/new/edit views */
+.hazard-item {
+    display: flex;
+    align-content:center;
+}
+
+.hazard-item-readonly > div {
+    padding: 6px;
+    align-content: center;
+}
+
+    .hazard-notes {
+        flex-grow: 1;
+    }
+
+    .hazard-notes input {
+        width: 100%;
+    }
+
+    .hazard-description {
+        font-weight: bold;
+        width:250px;
+        text-align:right;
+    }
+
+    .unused-hazard-type {
+        font-weight: normal !important;
+        color: #666666;
+    }
+
+.hazard-checkbox {
+    flex-shrink: 1;
+}
+/* NOTE: all the atmospheric test css is used by the Show/New/Edit views. */
+.atmosphere-tests {
+    width: 900px;
+    max-width: 900px;
+}
+
+.single-atmospheric-test {
+    border: solid 1px silver;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+    .single-atmospheric-test table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+        .single-atmospheric-test table th {
+            table-layout: fixed;
+            width: 100%;
+            border-left: none;
+            border-right: none;
+        }
+        /* The reading name column */
+        .single-atmospheric-test table tr > th:nth-child(1) {
+            width: 70px;
+        }
+
+        /* The acceptable concentrations column */
+        .single-atmospheric-test table tr > th:nth-child(2) {
+            width: 250px;
+        }
+
+        /* Hiding the validation messages for raedings because they aren't really necessary.
+               All fields are required and need a value greater than or equal to zero. */
+        .single-atmospheric-test table .field-validation-error {
+            display: none;
+        }
+
+.tested-by-fields {
+    display: flex;
+}
+
+    .tested-by-fields div {
+        flex: 0 1 auto;
+        width: 33%;
+    }
+
+        .tested-by-fields div:nth-child(1) {
+            text-align: left;
+        }
+
+        .tested-by-fields div:nth-child(2) {
+            text-align: center;
+        }
+
+        .tested-by-fields div:nth-child(3) {
+            text-align: right;
+        }
+
+.tbf-labels label {
+    font-weight: bold;
+}
+
+.add-entrant-item {
+    border: solid 1px silver;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}

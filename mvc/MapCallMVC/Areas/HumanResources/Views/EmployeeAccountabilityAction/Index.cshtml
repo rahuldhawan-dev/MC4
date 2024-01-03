@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.SearchEmployeeAccountabilityAction
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .ColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterName")
+      .SortableColumnFor(x => x.Employee, "Employee.LastName")
+      .SortableColumnFor(x => x.DisciplineAdministeredBy, "Employee.Id")
+      .SortableColumnFor(x => x.AccountabilityActionTakenType)
+      .SortableColumnFor(x => x.DateAdministered)
+      .SortableColumnFor(x => x.StartDate)
+      .SortableColumnFor(x => x.EndDate)
+      .SortableColumnFor(x => x.NumberOfWorkDays)
+      .ColumnFor(x => x.DescriptionOfIncident)
+    /* Modified*/
+      .SortableColumnFor(x => x.HasModifiedDiscipline)
+      .SortableColumnFor(x => x.ModifiedDisciplineAdministeredBy)
+      .SortableColumnFor(x => x.ModifiedAccountabilityActionTakenType)
+      .SortableColumnFor(x => x.DateModified)
+      .SortableColumnFor(x => x.ModifiedStartDate)
+      .SortableColumnFor(x => x.ModifiedEndDate)
+      .SortableColumnFor(x => x.ModifiedNumberOfWorkDays)
+      .SortableColumnFor(x => x.BackPayRequired)
+      .WithPaginatedFooter())

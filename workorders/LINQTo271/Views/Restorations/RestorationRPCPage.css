@@ -1,0 +1,7 @@
+﻿*, body {
+  font-family: Arial, "Arial Black";
+}
+
+.required {
+    color: #F00;
+}

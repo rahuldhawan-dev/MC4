@@ -1,0 +1,15 @@
+﻿@model MarkoutDamage
+@{
+	ActionBarHelper.AddMapLink();
+}
+@if (Model.WerePicturesTaken)
+{
+	<div id="reminder-messages" class="notification" style="margin-bottom:12px;">
+		<div class="message">Reminder: Attach any photos that have been taken!</div>
+	</div>
+}
+
+@(Html.Tabs()
+    .WithTab("General", "_ShowDetails")
+	.WithNotesAndDocuments()
+	.WithLog())

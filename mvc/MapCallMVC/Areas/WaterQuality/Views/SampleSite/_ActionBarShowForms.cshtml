@@ -1,0 +1,21 @@
+﻿@using MMSINC.Results
+@model SampleSite 
+
+@{
+    var planCount = Model.SamplePlans.Count();
+}
+
+<ul class="linkList">
+    @if (planCount > 1)
+    {
+        <li>@Html.AuthorizedActionLink("Lead and Copper Sample Site Certification", "New", "SampleSiteLeadCopperCertification", new { id = Model.Id })</li>
+    }
+    else if (planCount == 1)
+    {
+        <li>@Html.AuthorizedActionLink("Lead and Copper Sample Site Certification", "Show", "SampleSiteLeadCopperCertification", new { id = Model.Id, SamplePlan = Model.SamplePlans.Single().Id, ext = ResponseFormatter.KnownExtensions.PDF })</li>
+    }
+    else
+    {
+        <li>This sample site needs at least one sample plan associated with it in order to create the lead and copper sample site certification pdf.</li>
+    }
+</ul>

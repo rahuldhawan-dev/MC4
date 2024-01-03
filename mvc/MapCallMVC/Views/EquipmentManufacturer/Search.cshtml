@@ -1,0 +1,15 @@
+﻿@model SearchEquipmentManufacturer
+
+@using (Form.BeginForm("Index", "EquipmentManufacturer"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.MapCallDescription)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

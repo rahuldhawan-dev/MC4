@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerMainCleanings.EditSewerMainCleaning
+
+@using (Form.BeginForm("Update", "SewerMainCleaning", "FieldOperations", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+
+        @Html.DisplayFor(x => x.Display.SAPErrorCode)
+        @Html.DisplayFor(x => x.Display.SAPNotificationNumber)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "SewerMainCleaning", new { Model.Id })
+        </text>)
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@using MMSINC.Results
+@model Incident
+
+@{
+    var curUser = AuthenticationService.CurrentUser;
+    var module = MapCall.Common.Model.Entities.RoleModules.HumanResourcesAccountabilityAction;
+    var action = MapCall.Common.Model.Entities.RoleActions.Edit;
+    var opc = Model.OperatingCenter;
+}
+@{
+    ActionBarHelper.AddLink("PDF", "ab-export", "Show", "Incident", new { id = Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }, null);
+    ActionBarHelper.AddMapLink();
+}
+
+
+@(Html.Tabs()
+      .WithTab("Incident", "_Show", Model)
+      .WithTab("Lost Time / Restrictive Duty", "_ShowEmployeeAvailability", Model)
+      .WithTab("Investigations", "_ShowIncidentInvestigations", Model)
+      .WithTab("Five Whys", "_ShowFiveWhys", isVisible: Model.FiveWhysCompleted)
+      .WithTab("Accountability Actions", "_IndexAccountabilityActions", Model, MapCall.Common.Helpers.ClassExtensions.HtmlHelperExtensions.CurrentUserCanDo(this.Html,
+          curUser, module,RoleActions.Read, opc))
+      .WithNotesDocumentsAndActionItems()
+      .WithLog())

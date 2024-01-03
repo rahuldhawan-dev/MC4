@@ -1,0 +1,14 @@
+﻿@model SearchRegulation
+
+@using (Form.BeginForm("Index", "Regulation"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.RegulationShort)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Agency)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}    

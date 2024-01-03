@@ -1,0 +1,9 @@
+﻿@model ContractorLaborCost
+           
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.StockNumber)
+    @Html.DisplayFor(x => x.Unit)
+    @Html.DisplayFor(x => x.JobDescription)
+    @Html.DisplayFor(x => x.SubDescription)
+    @(Model.Cost.HasValue ? Html.DisplayFor(x => x.Cost) : Html.DisplayFor(x => x.Percentage))            
+</div>

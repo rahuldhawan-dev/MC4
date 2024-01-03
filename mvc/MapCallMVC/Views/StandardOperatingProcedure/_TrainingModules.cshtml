@@ -1,0 +1,21 @@
+﻿@model StandardOperatingProcedure
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add Training Module">
+        @Html.Partial("_AddTrainingModule", ViewModelFactory.BuildWithOverrides<AddSOPTrainingModule>(new { Id = Model.Id }))
+    </div>
+}
+
+@(Html.TableFor(x => x.TrainingModules)
+    .ColumnFor(x => x.Title)
+    .TemplateColumnFor(x => @<text>
+        @using (Form.BeginRouteForm("StandardOperatingProcedure", "TrainingModule", new { Model.Id }, ManyToManyRouteAction.Remove))
+        {
+            @Control.SubmitButton("Remove").WithValue(x.Id).WithName("TrainingModule")
+        }
+    </text>).IsVisible(userCanEdit)
+)

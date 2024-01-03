@@ -1,0 +1,89 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRecurringProject
+
+<div class="field-column fc200">
+    @Control.Hidden("WBSElementFindUrl").WithValue(Url.Action("Find", "WBSElement", new { area = "SAP" }))
+    @Html.Hidden("thisIsMyIdThereAreManyLikeItButThisOneIsMine", Model.Id)
+    @Html.RenderDisplayTemplate("WBS Charged", @<text>
+                                                   <div id="wbsElementLookupLink">
+                                                       @Ajax.ActionLink("Click here to Lookup and Verify the WBS Number", "Find", "WBSElement", new {area = "SAP"}, new AjaxOptions {HttpMethod = "GET"}, new {data_ajax_table = "#wbsElementTable", id = "WBSElementFindLink"})
+                                                   </div>
+                                                   @Html.EditorWithoutWrapperFor(x => x.WBSNumber)
+                                                </text>)
+    @Html.EditorFor(x => x.OperatingCenter)
+
+    @Control.HiddenFor(x => x.DisplayRecurringProject.OperatingCenter.InfoMasterMapId).WithId("OperatingCenter_InfoMasterMapId").WithName("")
+    @Control.HiddenFor(x => x.DisplayRecurringProject.OperatingCenter.InfoMasterMapLayerName).WithId("OperatingCenter_InfoMasterMapLayerName").WithName("")
+    @Control.Hidden("OperatingCenterInfoMasterMapUrl").WithValue(Url.Action("GetInfoMasterInfo", "OperatingCenter", new {area = string.Empty}))
+    @Control.Hidden("IsContractedOperationsUrl").WithValue(Url.Action("IsContractedOperations", "OperatingCenter", new {area = string.Empty}))
+
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.ProjectTitle)
+    @Html.EditorFor(x => x.ProjectDescription)
+    @Html.EditorFor(x => x.AssetCategory)
+    @Html.EditorFor(x => x.CPSReferenceId)
+    @Html.EditorFor(x => x.AssetType)
+    @Html.EditorFor(x => x.District)
+    @Html.EditorFor(x => x.OriginationYear)
+    @Html.EditorFor(x => x.HistoricProjectID)
+    @Html.EditorFor(x => x.NJAWEstimate)
+
+    @Html.EditorFor(x => x.HighCostFactors, new {html = new {@class = "checkbox-list-wider"}})
+    @Html.EditorFor(x => x.RecurringProjectType)
+<fieldset>
+    <legend>Infomaster</legend>
+    @*INFO MASTER SELECTOR*@
+    @Html.RenderDisplayTemplate("InfoMaster Main Selector <span class=\"required-label\">*</span>", @<text>
+        <img id="mains" src="~/Content/images/map-icon-blue.png" />
+    </text>)
+    @Html.EditorFor(x => x.OverrideInfoMasterDecision)
+    @Html.EditorFor(x => x.OverrideInfoMasterReason)
+    <fieldset id="GISDataCorrectionInfo" style="display: none;">
+        <legend>GIS Inaccuracy Details</legend>
+        <div class="grid-layout gl-2col" style="width: 900px;">
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.GISDataInaccuracies)
+                @Html.EditorFor(x => x.FileUpload)
+            </div>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.CorrectDiameter)
+                @Html.EditorFor(x => x.CorrectMaterial)
+                @Html.EditorFor(x => x.CorrectInstallationDate)
+                @Html.EditorFor(x => x.MainBreakOrders)
+            </div>
+
+        </div>
+    </fieldset>
+    @Html.EditorFor(x => x.OverrideInfoMasterJustification)
+
+    @Html.EditorFor(x => x.ProposedLength)
+    @Html.DisplayFor(x => x.TotalInfoMasterScore)
+    @Html.HiddenFor(x => x.TotalInfoMasterScore)
+</fieldset>
+
+    <fieldset>
+        <legend>Main Information</legend>
+        @Html.EditorFor(x => x.ProposedDiameter)
+        @Html.EditorFor(x => x.ProposedPipeMaterial)
+
+        @Html.DisplayFor(x => x.DisplayRecurringProject.MainsExistingDiameter)
+        @Html.EditorFor(x => x.ExistingDiameterOverride)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.MainsExistingPipeMaterial)
+        @Html.EditorFor(x => x.ExistingPipeMaterialOverride)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.MainsDecadeInstalled)
+        @Html.EditorFor(x => x.DecadeInstalledOverride)
+    </fieldset>
+    @Html.EditorFor(x => x.Justification)
+    @Html.EditorFor(x => x.AcceleratedAssetInvestmentCategory)
+    @Html.EditorFor(x => x.SecondaryAssetInvestmentCategory)
+    @Html.EditorFor(x => x.EstimatedProjectDuration)
+    @Html.EditorFor(x => x.EstimatedInServiceDate)
+    @Html.EditorFor(x => x.ActualInServiceDate)
+    @Html.EditorFor(x => x.FoundationalFilingPeriod)
+    @Html.EditorFor(x => x.RegulatoryStatus)
+    @Html.EditorFor(x => x.Status)
+    @Html.DisplayFor(x => x.FinalCriteriaScore)
+    @Html.DisplayFor(x => x.FinalRawScore)
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.DisplayRecurringProject.CreatedBy)
+    @Html.DisplayFor(x => x.DisplayRecurringProject.CreatedAt)
+</div>

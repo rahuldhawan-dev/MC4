@@ -1,0 +1,16 @@
+﻿@model WaterQualityComplaint
+
+<h2>
+    @Html.DefaultActionLink(string.Format("Water Quality Complaint: #{0}", Model.Id), "Show", "WaterQualityComplaint", "WaterQuality", new { id = @Model.Id }, null)
+</h2>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.DateComplaintReceived)
+    @Html.DisplayFor(x => x.InitialLocalResponseDate)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.Type)
+    @Html.DisplayFor(x => x.ProblemArea)
+    @Html.DisplayFor(x => x.Source)
+    @Html.DisplayFor(x => x.ProbableCause)
+</div>

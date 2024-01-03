@@ -1,0 +1,25 @@
+﻿@model TrainingRequirementViewModel
+
+@using (Form.BeginForm("Update", "TrainingRequirement", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        
+        <fieldset>
+            
+            @Html.EditorFor(x => x.HasCombinedTrainingModule)
+
+            @Html.EditorFor(x => x.ActiveInitialTrainingModule)
+            @Html.EditorFor(x => x.ActiveRecurringTrainingModule)
+            @Html.EditorFor(x => x.ActiveInitialAndRecurringTrainingModule)
+
+            <legend></legend>
+        </fieldset>
+        
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "TrainingRequirement", new{ id = Model.Id })
+        </text>)
+    </div>
+}

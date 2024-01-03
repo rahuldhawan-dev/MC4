@@ -1,0 +1,45 @@
+﻿@using MapCall.Common.Model.Entities
+@model MapCall.Common.Model.Entities.Incident
+
+<h2>Incident Added</h2>
+
+<strong>Is OSHA Recordable: @(Model.IsOSHARecordable ? "Yes" : "No")</strong>
+<br />
+@Model.CreatedBy : @Model.CreatedAt
+<br />
+Incident ID: @Model.Id
+<br />
+Incident Date: @Model.IncidentDate
+<br />
+Date Investigation Will Be Completed: @Model.DateInvestigationWillBeCompleted
+<br />
+Operating Center: @Model.OperatingCenter
+<br />
+@if (@Model.EmployeeType.Id == EmployeeType.Indices.EMPLOYEE)
+{
+    if (@Model.Employee != null)
+    {
+        <text>
+            Employee Name: @Model.Employee.FullName
+            <br />
+            Employee ID: @Model.Employee.EmployeeId
+            <br />
+        </text>
+    }
+}
+else
+{
+    <text>
+        Contractor Name: @Model.ContractorName
+        <br />
+        Contractor Company: @Model.ContractorCompany
+        <br />
+    </text>
+}
+Incident Classification: @Model.IncidentClassification.ToString()
+<br />
+Incident Type: @(Model.IncidentType != null ? Model.IncidentType.ToString() : "")
+<br />
+Any Immediate Corrective Actions Applied: @Model.AnyImmediateCorrectiveActionsApplied
+<br />
+Sought Medical Attention: @(Model.SoughtMedicalAttention ? "Yes" : "No")

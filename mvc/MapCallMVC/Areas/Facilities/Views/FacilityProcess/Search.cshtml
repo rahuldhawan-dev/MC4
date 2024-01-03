@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.SearchFacilityProcess
+           
+@using (Form.BeginForm("Index", "FacilityProcess"))
+{
+    <div class="field-column fc200 search-fields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.ProcessStage)
+        @Html.EditorFor(x => x.Process)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

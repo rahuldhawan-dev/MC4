@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchTrainingModulePositionGroupCommonName
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x)
+.WithCaption("Records found: " + Model.Count)
+      .SortableColumnFor(x => x.ModuleCategory, "tmc.Description")
+      .SortableColumnFor(x => x.ModuleTitle, "mod.Title")
+      .SortableColumnFor(x => x.PositionGroupCommonName, "Description")
+      .SortableColumnFor(x => x.IsOSHARequirement, "tr.IsOSHARequirement"))

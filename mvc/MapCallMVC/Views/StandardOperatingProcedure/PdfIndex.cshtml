@@ -1,0 +1,21 @@
+﻿@model IList<StandardOperatingProcedure>
+
+@{
+    Layout = null;
+}
+
+@(Html.TableFor(_ => Model)
+    .ColumnFor(x => x.FunctionalArea)
+    .ColumnFor(x => x.Section)
+    .ColumnFor(x => x.SubSection)
+    .ColumnFor(x => x.Status)
+    .ColumnFor(x => x.Category)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Facility)
+    .ColumnFor(x => x.DateApproved)
+    .ColumnFor(x => x.DateIssued)
+    .ColumnFor(x => x.Revision)
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.PsmTcpa)
+    .ColumnFor(x => x.Dpcc)
+    .TemplateColumnFor(x => Html.AbsoluteActionLink("View", "Show", "StandardOperatingProcedure", new {area = "", x.Id}, new {})))

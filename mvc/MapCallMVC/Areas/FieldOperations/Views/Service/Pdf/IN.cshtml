@@ -1,0 +1,559 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<Service>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ShowPageNumbersInFooter = ShowHeader = false;
+    var topBottom = MarginWidth.HalfInch;
+    var leftRight = MarginWidth.QuarterInch;
+    TopMargin = topBottom;
+    BottomMargin = topBottom;
+    LeftMargin = leftRight;
+    RightMargin = leftRight;
+    IsLandscape = true;
+}
+
+@section head {
+    <style>
+        /* general stuff */
+        html {
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 13px;
+        }
+
+        .centered {
+            text-align: center !important;
+        }
+
+        .top {
+            vertical-align: top;
+        }
+
+        .small {
+            font-size: smaller;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .entry {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        table.first-page,
+        table.second-page {
+            width: 100%;
+        }
+    </style>
+    <style>
+        /* first page */
+        table.first-page {
+            height: 198mm;
+            border: 1px solid black;
+        }
+
+            table.first-page > tbody > tr {
+                height: 3.33%;
+            }
+
+                table.first-page > tbody > tr > td,
+                table.first-page > tbody > tr > th {
+                    border: 1px solid black;
+                    width: 12.5%;
+                    padding: 2px;
+                    white-space: nowrap;
+                }
+
+                table.first-page > tbody > tr > th {
+                    text-align: left;
+                }
+
+                table.first-page > tbody > tr.bottom-heading {
+                    height: 1.66%;
+                }
+
+                    table.first-page > tbody > tr.bottom-heading > td {
+                        text-align: center;
+                        font-size: smaller;
+                        border: none;
+                    }
+
+                table.first-page > tbody > tr.fixer,
+                table.first-page > tbody > tr.fixer > td {
+                    visibility: hidden;
+                }
+
+                table.first-page > tbody > tr.bottom > td {
+                    font-size: smaller;
+                    border: none;
+                }
+
+                    table.first-page > tbody > tr.bottom > td > span {
+                        display: table-cell;
+                    }
+
+                        table.first-page > tbody > tr.bottom > td > span.underline {
+                            border-bottom: 1px solid black;
+                        }
+
+                        table.first-page > tbody > tr.bottom > td > span.width3 {
+                            width: 30px;
+                        }
+
+                        table.first-page > tbody > tr.bottom > td > span.width5 {
+                            width: 50px;
+                        }
+
+                        table.first-page > tbody > tr.bottom > td > span.width30 {
+                            width: 300px;
+                        }
+
+                        table.first-page > tbody > tr.bottom > td > span.width52 {
+                            width: 420px;
+                        }
+    </style>
+    <style>
+        /* second page */
+        table.second-page {
+            border: none;
+            table-layout: fixed;
+        }
+
+            table.second-page > tbody > tr.header > td {
+                text-align: center;
+                border: none;
+            }
+
+            table.second-page > tbody > tr > td {
+                width: 16.66%;
+                vertical-align: top;
+                padding: 2px;
+            }
+
+                table.second-page > tbody > tr > td > div,
+                table.second-page > tbody > tr > td > table {
+                    border: 1px solid black;
+                }
+
+                table.second-page > tbody > tr > td > table {
+                    font-size: smaller;
+                }
+
+                    table.second-page > tbody > tr > td > div,
+                    table.second-page > tbody > tr > td > table > tbody > tr > td {
+                        padding: 2px;
+                    }
+
+                    table.second-page > tbody > tr > td > table > thead > tr > td {
+                        text-align: center;
+                        border-bottom: 1px solid gray;
+                    }
+
+                    table.second-page > tbody > tr > td > table td + td {
+                        border-left: 1px solid gray;
+                    }
+
+                    table.second-page > tbody > tr > td > table tr + tr {
+                        border-top: 1px solid gray;
+                    }
+    </style>
+}
+
+@helper DisplayFor(object value) {
+    <span class="entry">@value</span>
+}
+
+@section body {
+    <table class="first-page">
+        <tbody>
+            <tr>
+                <td colspan="2" rowspan="4"><img src="@Server.MapPath("~/Content/Images/indiana-american-water-logo.png")" /></td>
+                <th class="centered" colspan="2">SERVICE LINE</th>
+                <th colspan="4">WBS # @DisplayFor(Model.TaskNumber1)</th>
+            </tr>
+            <tr>
+                <td>SERVICE: INSTALL</td>
+                <td colspan="2">SERVICE: @DisplayFor(Model.ServiceSideType)</td>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">DISTRICT & PLANNING PLANT:</td>
+                <td colspan="3">PROJECT MANAGER:</td>
+            </tr>
+            <tr>
+                <td colspan="3">CONTRACTOR: @DisplayFor(Model.WorkIssuedTo)</td>
+                <td colspan="3">INSPECTOR:</td>
+            </tr>
+            <tr>
+                <td colspan="2">STREET NO: @DisplayFor(Model.StreetNumber)</td>
+                <td colspan="6">STREET NAME: @DisplayFor(Model.Street)</td>
+            </tr>
+            <tr>
+                <td colspan="3">CROSS STREET NAME: @DisplayFor(Model.CrossStreet)</td>
+                <td colspan="2">CITY: @DisplayFor(Model.Town)</td>
+                <td colspan="3">ZIP CODE: @DisplayFor(Model.Zip)</td>
+            </tr>
+            <tr>
+                <td colspan="5">SUBDIVISION: @DisplayFor(Model.Block)</td>
+                <td colspan="3">LOT #: @DisplayFor(Model.Lot)</td>
+            </tr>
+            <tr>
+                <td colspan="2">COUNTY: @DisplayFor(Model.Town.County)</td>
+                <td colspan="3">TOWNSHIP:</td>
+                <td colspan="3">MUNICIPALITY:</td>
+            </tr>
+            <tr>
+                <td class="top small" colspan="3" rowspan="6">DETAILED DESCRIPTION OF WORK:</td>
+                <td class="top" colspan="5" rowspan="18">ADDITIONAL NOTES/SKETCH</td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr class="bottom-heading">
+                <td class="centered small" colspan="3">MATERIALS USED</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr class="bottom-heading">
+                <td colspan="8">CL = Center of Road&nbsp;&nbsp;&nbsp;BL = Building Line&nbsp;&nbsp;&nbsp;PL = Property Line</td>
+            </tr>
+            <tr class="bottom">
+                <td class="centered" colspan="4">TAP CORP</td>
+                <td class="centered" colspan="4">POINT OF CONTROL</td>
+            </tr>
+            <tr class="bottom">
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL OF</span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF CL OF</span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+            </tr>
+            <tr class="bottom">
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL</span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span>OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width5">&nbsp;</span>
+                    <span>OF</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>BL</span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span>OF</span>
+                    <span class="underline width52">&nbsp;</span>
+                </td>
+            </tr>
+            <tr class="bottom">
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width3">&nbsp;</span>
+                    <span>OF CL / </span>
+                    <span class="underline width3">&nbsp;</span>
+                    <span>BL / </span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span class="underline width3">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width30">&nbsp;</span>
+                </td>
+                <td>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>FT</span>
+                    <span class="underline width5">&nbsp;</span>
+                    <span>I N</span>
+                </td>
+                <td class="centered">
+                    <span class="underline width3">&nbsp;</span>
+                    <span>OF CL / </span>
+                    <span class="underline width3">&nbsp;</span>
+                    <span>BL / </span>
+                </td>
+                <td style="border-right: 1px solid black" colspan="2">
+                    <span class="underline width3">&nbsp;</span>
+                    <span>PL OF</span>
+                    <span class="underline width30">&nbsp;</span>
+                </td>
+            </tr>
+            <!-- hidden; ensures the columns all render evenly -->
+            <tr class="fixer">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="second-page">
+        <tbody>
+            <tr class="hidden">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr class="header">
+                <td colspan="6">
+                    ALL FIELDS REQUIRED: FILL IN OR CIRCLE (IF OTHER FILL IN CORRECT INFORMATION)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><div>IN-SERVICE DATE:</div></td>
+                <td colspan="3"><div>WBS # @DisplayFor(Model.TaskNumber1)</div></td>
+            </tr>
+            <tr>
+                <td colspan="4"><div>SERVICE ADDRESS: @DisplayFor(Model.StreetAddress)</div></td>
+                <td colspan="2"><div>PREMISE NO: @DisplayFor(Model.PremiseNumber)</div></td>
+            </tr>
+            <tr>
+                <td colspan="3" rowspan="21">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="3">COMPANY SERVICE LINE</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SIZE</td>
+                                <td colspan="2">@DisplayFor(Model.ServiceSize)</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAL</td>
+                                <td colspan="2">@DisplayFor(Model.ServiceMaterial)</td>
+                            </tr>
+                            <tr>
+                                <td>(CIRCLE ALL THAT APPLY)</td>
+                                    <td colspan="2">@DisplayFor(Model.ServiceCategory)</td>
+                            </tr>
+                            <tr>
+                                <td>TYPE</td>
+                                <td colspan="2">SINGLE / DUAL</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" rowspan="2">DUAL CONNECTION ADDRESS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="3">WATERMAIN TAPPED</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SIZE</td>
+                                <td colspan="2">@DisplayFor(Model.MainSize)</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAL</td>
+                                <td colspan="2">@DisplayFor(Model.MainType)</td>
+                            </tr>
+                            <tr>
+                                <td>DEPTH</td>
+                                <td colspan="2">@DisplayFor(Model.DepthMain)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="3">CUSTOMER SERVICE LINE</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SIZE</td>
+                                <td colspan="2">@DisplayFor(Model.CustomerSideSize)</td>
+                            </tr>
+                            <tr>
+                                <td>MATERIAL</td>
+                                <td colspan="2">@DisplayFor(Model.CustomerSideMaterial)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td colspan="3" rowspan="21">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colspan="3">POINT OF CONTROL (POC)</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DISTANCE TAP TO POC</td>
+                                <td colspan="2">FT IN</td>
+                            </tr>
+                            <tr>
+                                <td>TYPE</td>
+                                <td colspan="2">METER PIT / CURB STOP</td>
+                            </tr>
+                            <tr>
+                                <td>LOCATION</td>
+                                <td colspan="2">GRASS / SIDEWALK / DRIVEWAY</td>
+                            </tr>
+                            <tr>
+                                <td class="italic" colspan="3">IF CURB STOP FILL IN BELOW</td>
+                            </tr>
+                            <tr>
+                                <td>VALVE #:</td>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>SAP ID:</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>MANUFACTURER</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>MODEL NO.</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>YEAR MANUFACTURED</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>VALVE TYPE</td>
+                                <td colspan="2">BALL</td>
+                            </tr>
+                            <tr>
+                                <td>OPEN DIRECTION</td>
+                                <td colspan="2">LEFT / RIGHT</td>
+                            </tr>
+                            <tr>
+                                <td>APPLICATION</td>
+                                <td colspan="2">SERVICE LINE</td>
+                            </tr>
+                            <tr>
+                                <td>....IF SERVICE LINE</td>
+                                <td colspan="2">DOMESTIC / COMBINED</td>
+                            </tr>
+                            <tr>
+                                <td>ACTUATOR TYPE</td>
+                                <td colspan="2">MANUAL</td>
+                            </tr>
+                            <tr>
+                                <td>NUMBER OF TURNS</td>
+                                <td colspan="2">0.25</td>
+                            </tr>
+                            <tr>
+                                <td>NORMAL POSITION</td>
+                                <td colspan="2">OPEN / CLOSED</td>
+                            </tr>
+                            <tr>
+                                <td>VALVE SIZE</td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>PIPE MATERIAL</td>
+                                <td colspan="2">PE</td>
+                            </tr>
+                            <tr>
+                                <td>ACCESS TYPE</td>
+                                <td colspan="2">VALVE BOX / METER PIT / VAULT</td>
+                            </tr>
+                            <tr>
+                                <td>JOINT TYPE</td>
+                                <td colspan="2">THREADED / COMPRESSION</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

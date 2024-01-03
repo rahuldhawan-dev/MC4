@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSAPMaintenancePlan
+
+@using (Form.BeginForm("Index", "SAPMaintenancePlan"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.FunctionalLocation)
+        @Html.EditorFor(x => x.MaintenancePlan)
+        @Html.EditorFor(x => x.SAPEquipmentID)
+        @Html.EditorFor(x => x.EquipmentType)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

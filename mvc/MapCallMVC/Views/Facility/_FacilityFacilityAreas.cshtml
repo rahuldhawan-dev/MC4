@@ -1,0 +1,49 @@
+﻿@using MapCallMVC.Areas.Facilities.Controllers
+@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model Facility
+
+
+@{
+    var facilityAreas = Model.FacilityAreas == null ? null : Model.FacilityAreas.OrderBy(x => x.FacilityArea.Description)
+                             .ThenBy(x => x.FacilitySubArea == null ? null : x.FacilitySubArea.Description);
+
+    var canEdit = RoleService.CanAccessRole(FacilityAreaController.ROLE, RoleActions.Edit);
+    var canDelete = RoleService.CanAccessRole(FacilityAreaController.ROLE, RoleActions.Delete);
+    var table = Html.TableFor(x => facilityAreas, new { id = "areaFacilitiesTable" })
+        .ColumnFor(x => x.FacilityArea)
+        .ColumnFor(x => x.FacilitySubArea)
+        .TemplateColumnFor("Coordinate", x =>
+            x.Coordinate != null ? @Html.DisplayFor(_ => x.Coordinate) : @Html.DisplayFor(_ => x.Facility.Coordinate));
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Area to Facility">
+        @Html.Partial("_AddFacilityFacilityArea", ViewModelFactory.Build<AddFacilityFacilityArea, Facility>(Model))
+    </div>
+}
+
+
+@if (canDelete)
+{
+    using (var form = Form.BeginRouteForm("Facility", "FacilityFacilityArea", new { Model.Id }, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeAreaForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this Area?");
+        @table.TemplateColumnFor(x => @<text>
+            @*If there is an equipment within the Area that has a status of 'In Service' then don't allow user to delete.*@      
+            @if (Model.Equipment.Any(e => e.FacilityFacilityArea != null && e.FacilityFacilityArea.Id == x.Id && e.EquipmentStatus.Id == EquipmentStatus.Indices.IN_SERVICE))
+            {
+                <text>Cannot delete while the area has an equipment with status of 'In Service'.</text>
+            }
+            else
+            {
+                @Control.SubmitButton("Remove Area").WithName("FacilityFacilityArea").WithValue(x.Id)
+            }
+        </text>)
+    }
+}
+else
+{
+    @table
+}

@@ -1,0 +1,36 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditNpdesRegulatorInspection
+
+@using (Form.BeginForm("Update", "NpdesRegulatorInspection", "FieldOperations", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "NpdesRegulatorInspection", new { id = Model.Id }, new { id = "cancel-button" })
+            @Control.Button("Done").WithId("done-button")
+        </text>)
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        var cancelButton = $('#cancel-button');
+        var doneButton = $('#done-button');
+        var par = window.parent;
+        if (Application.isInsideIframe) {
+            $('#IsMapPopup').val('true');
+            cancelButton.hide();
+            doneButton.show();
+            doneButton.on('click', function() {
+                par.Maps.hideInfoWindow();
+            });
+        } else {
+            cancelButton.show();
+            doneButton.hide();
+        }
+        @* We only want this script running if it's loaded in an iframe from the AssetMap page.*@
+        if (par && par.AssetMaps) {
+            par.AssetMaps.resetToInitialData({ fitLayerBoundsAfterLoading: false });
+        }
+    </script>
+}

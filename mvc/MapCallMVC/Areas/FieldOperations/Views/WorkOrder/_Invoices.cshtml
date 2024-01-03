@@ -1,0 +1,10 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Invoice", "New", "WorkOrderInvoice", new { area = "FieldOperations", id = Model.Id }, new { Class = "link-button" })
+
+@(Html.TableFor(x => x.Invoices, new { Id = "invoices" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "WorkOrderInvoice", new { area = "FieldOperations", x.Id }, null))
+      .ColumnFor(x => x.InvoiceDate)
+      .ColumnFor(x => x.SubmittedDate)
+      .ColumnFor(x => x.CanceledDate)
+      .ColumnFor(x => x.IncludeMaterials))

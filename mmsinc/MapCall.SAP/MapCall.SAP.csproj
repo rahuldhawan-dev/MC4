@@ -1,0 +1,495 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MapCall.SAP</RootNamespace>
+    <AssemblyName>MapCall.SAP</AssemblyName>
+    <TargetFramework>net472</TargetFramework>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <Platform>x64</Platform>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configurations>Debug;Release;QA1;QA4</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
+    <PackageReference Include="Iesi.Collections" Version="4.0.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
+    <PackageReference Include="StructureMap" Version="4.7.1" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MapCall.Common\MapCall.Common.csproj" />
+    <ProjectReference Include="..\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\CompleteScheduledUnscheduledWO_OB_SYN1.wsdl" />
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\MapCall.SAP.CompleteScheduledUnscheduledWOWS.CompleteScheduledUnscheduledWOStatusUnscheduledWOResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\MapCall.SAP.CompleteScheduledUnscheduledWOWS.CompleteScheduledUnscheduledWO_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateBPEMWS\BPEM_OB_SYC1.wsdl" />
+    <None Include="Service References\CreateBPEMWS\MapCall.SAP.CreateBPEMWS.BPEMStatusStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateBPEMWS\MapCall.SAP.CreateBPEMWS.BPEM_OB_SYCResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateShortCycleWS\CreateShortCycle_OB_SYN1.wsdl" />
+    <None Include="Service References\CreateShortCycleWS\MapCall.SAP.CreateShortCycleWS.CreateShortCycle_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateShortCycleWS\MapCall.SAP.CreateShortCycleWS.ShortCycleStatusStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateUnscheduledWOWS\CreateUnscheduledWO_OB_SYN1.wsdl" />
+    <None Include="Service References\CreateUnscheduledWOWS\MapCall.SAP.CreateUnscheduledWOWS.CreateUnscheduledWO_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CreateUnscheduledWOWS\MapCall.SAP.CreateUnscheduledWOWS.UnscheduledWOStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CustomerOrder\CustomerOrder_FSR_Get_OB_SYN1.wsdl" />
+    <None Include="Service References\CustomerOrder\MapCall.SAP.CustomerOrder.CustomerOrder_FSRInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CustomerOrder\MapCall.SAP.CustomerOrder.CustomerOrder_FSR_Get_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DeviceDetailWS\DeviceDetails_Get_OB_SYN.wsdl" />
+    <None Include="Service References\DeviceDetailWS\MapCall.SAP.DeviceDetailWS.DeviceDetailsInfo1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DeviceDetailWS\MapCall.SAP.DeviceDetailWS.DeviceDetails_Get_OB_SYNResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DeviceRemoveReplaceWS\DeviceRemoveReplace_OB_SYC.wsdl" />
+    <None Include="Service References\DeviceRemoveReplaceWS\MapCall.SAP.DeviceRemoveReplaceWS.DeviceRemoveReplace_OB_SYCResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DeviceRemoveReplaceWS\MapCall.SAP.DeviceRemoveReplaceWS.Device_Remove_Replace_Status1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FunctionalLocationWS\FunctionalLocation_Get_OB_SYN.wsdl" />
+    <None Include="Service References\FunctionalLocationWS\MapCall.SAP.FunctionalLocationWS.FunctionalLocationInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FunctionalLocationWS\MapCall.SAP.FunctionalLocationWS.FunctionalLocation_Get_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetPMOrderWS\MapCall.SAP.GetPMOrderWS.PMOrdersInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetPMOrderWS\MapCall.SAP.GetPMOrderWS.PMOrders_Get_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GetPMOrderWS\PMOrders_Get_OB_SYN.wsdl" />
+    <None Include="Service References\GoodsIssueWS\GoodsIssue_OB_SYN1.wsdl" />
+    <None Include="Service References\GoodsIssueWS\MapCall.SAP.GoodsIssueWS.GoodsIssueStatusGoodsIssueStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\GoodsIssueWS\MapCall.SAP.GoodsIssueWS.GoodsIssue_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MaintenancePlanLookupWS\MaintenancePlanLookup_OB_SYN1.wsdl" />
+    <None Include="Service References\MaintenancePlanLookupWS\MapCall.SAP.MaintenancePlanLookupWS.MaintenancePlanLookup_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MaintenancePlanLookupWS\MapCall.SAP.MaintenancePlanLookupWS.MaintenancePlan_Info.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MaintenancePlanUpdateWS\MaintenancePlanUpdate_OB_SYN1.wsdl" />
+    <None Include="Service References\MaintenancePlanUpdateWS\MapCall.SAP.MaintenancePlanUpdateWS.MaintenancePlanUpdate_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MaintenancePlanUpdateWS\MapCall.SAP.MaintenancePlanUpdateWS.MaintenancePlan_ResponseRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ManufacturerLookupWS\ManufacturerLookup_OB_SYN1.wsdl" />
+    <None Include="Service References\ManufacturerLookupWS\MapCall.SAP.ManufacturerLookupWS.ManufacturerLookup_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ManufacturerLookupWS\MapCall.SAP.ManufacturerLookupWS.Manufacturer_Info.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MiscellaneousWorksWS\MapCall.SAP.MiscellaneousWorksWS.MiscellaneousWorksStatus1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MiscellaneousWorksWS\MapCall.SAP.MiscellaneousWorksWS.MiscellaneousWorks_OB_SYCResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MiscellaneousWorksWS\MiscellaneousWorks_OB_SYC.wsdl" />
+    <None Include="Service References\NotificationStatusWS\MapCall.SAP.NotificationStatusWS.NotificationStatusStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\NotificationStatusWS\MapCall.SAP.NotificationStatusWS.NotificationStatus_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\NotificationStatusWS\NotificationStatus_OB_SYN1.wsdl" />
+    <None Include="Service References\PreDispatchWS\MapCall.SAP.PreDispatchWS.WO_Predispatch_PULL_OB_SYCResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PreDispatchWS\MapCall.SAP.PreDispatchWS.WO_Predispatch_PULL_StatusRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PreDispatchWS\WO_Predispatch_PULL_OB_SYC.wsdl" />
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\MapCall.SAP.ProgressScheduledUnscheduledWOWS.ProgressScheduledUnscheduledWOStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\MapCall.SAP.ProgressScheduledUnscheduledWOWS.ProgressScheduledUnscheduledWO_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\ProgressScheduledUnscheduledWO_OB_SYN1.wsdl" />
+    <None Include="Service References\SAPEquipmentWS\Equipments_OB_SYN1.wsdl" />
+    <None Include="Service References\SAPEquipmentWS\MapCall.SAP.SAPEquipmentWS.Equipments_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SAPEquipmentWS\MapCall.SAP.SAPEquipmentWS.SAPEquipmentStatusEquipments.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TechnicalMasterWS\MapCall.SAP.TechnicalMasterWS.TechnicalMaster_AccountDetailsInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TechnicalMasterWS\MapCall.SAP.TechnicalMasterWS.TechnicalMaster_AccountDetails_Get_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TechnicalMasterWS\TechnicalMaster_AccountDetails_Get_OB_SYN.wsdl" />
+    <None Include="Service References\TimeConfirmationWS\MapCall.SAP.TimeConfirmationWS.TimeConfirmationResponseRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimeConfirmationWS\MapCall.SAP.TimeConfirmationWS.TimeConfirmation_OB_SYCResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimeConfirmationWS\TimeConfirmation_OB_SYC1.wsdl" />
+    <None Include="Service References\WBSElementWS\MapCall.SAP.WBSElementWS.WBSElementInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WBSElementWS\MapCall.SAP.WBSElementWS.WBSElement_Get_OB_SYNResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WBSElementWS\WBSElement_Get_OB_SYN.wsdl" />
+    <None Include="Service References\WorkOrderStatusUpdateWS\MapCall.SAP.WorkOrderStatusUpdateWS.WOStatusUpdateStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WorkOrderStatusUpdateWS\MapCall.SAP.WorkOrderStatusUpdateWS.WO_StatusUpdate_OB_SYCResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WorkOrderStatusUpdateWS\WO_StatusUpdate_OB_SYC1.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CompleteScheduledUnscheduledWOWS\" />
+    <WCFMetadataStorage Include="Service References\CreateBPEMWS\" />
+    <WCFMetadataStorage Include="Service References\CreateShortCycleWS\" />
+    <WCFMetadataStorage Include="Service References\CreateUnscheduledWOWS\" />
+    <WCFMetadataStorage Include="Service References\CreateWorkOrderWS\" />
+    <WCFMetadataStorage Include="Service References\CustomerOrder\" />
+    <WCFMetadataStorage Include="Service References\DeviceDetailWS\" />
+    <WCFMetadataStorage Include="Service References\DeviceRemoveReplaceWS\" />
+    <WCFMetadataStorage Include="Service References\FunctionalLocationWS\" />
+    <WCFMetadataStorage Include="Service References\GetNotificationWS\" />
+    <WCFMetadataStorage Include="Service References\GetPMOrderWS\" />
+    <WCFMetadataStorage Include="Service References\GoodsIssueWS\" />
+    <WCFMetadataStorage Include="Service References\MaintenancePlanLookupWS\" />
+    <WCFMetadataStorage Include="Service References\MaintenancePlanUpdateWS\" />
+    <WCFMetadataStorage Include="Service References\ManufacturerLookupWS\" />
+    <WCFMetadataStorage Include="Service References\MiscellaneousWorksWS\" />
+    <WCFMetadataStorage Include="Service References\NewServiceInstallationWS\" />
+    <WCFMetadataStorage Include="Service References\NotificationStatusWS\" />
+    <WCFMetadataStorage Include="Service References\PreDispatchWS\" />
+    <WCFMetadataStorage Include="Service References\ProgressScheduledUnscheduledWOWS\" />
+    <WCFMetadataStorage Include="Service References\SAPEquipmentWS\" />
+    <WCFMetadataStorage Include="Service References\TechnicalMasterWS\" />
+    <WCFMetadataStorage Include="Service References\TimeConfirmationWS\" />
+    <WCFMetadataStorage Include="Service References\WBSElementWS\" />
+    <WCFMetadataStorage Include="Service References\WorkOrderStatusUpdateWS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificationStatusWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificationStatusWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificationStatusWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WBSElementWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WBSElementWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WBSElementWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerOrder\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerOrder\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CustomerOrder\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateUnscheduledWOWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateUnscheduledWOWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateUnscheduledWOWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CompleteScheduledUnscheduledWOWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ManufacturerLookupWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ManufacturerLookupWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ManufacturerLookupWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanLookupWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanLookupWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanLookupWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanUpdateWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanUpdateWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MaintenancePlanUpdateWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetPMOrderWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetPMOrderWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GetPMOrderWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgressScheduledUnscheduledWOWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SAPEquipmentWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SAPEquipmentWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SAPEquipmentWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GoodsIssueWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GoodsIssueWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\GoodsIssueWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimeConfirmationWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimeConfirmationWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimeConfirmationWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WorkOrderStatusUpdateWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WorkOrderStatusUpdateWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WorkOrderStatusUpdateWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateBPEMWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateBPEMWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateBPEMWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateShortCycleWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateShortCycleWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CreateShortCycleWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TechnicalMasterWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TechnicalMasterWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TechnicalMasterWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FunctionalLocationWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FunctionalLocationWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FunctionalLocationWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PreDispatchWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PreDispatchWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PreDispatchWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceRemoveReplaceWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceRemoveReplaceWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceRemoveReplaceWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MiscellaneousWorksWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MiscellaneousWorksWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MiscellaneousWorksWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceDetailWS\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceDetailWS\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\DeviceDetailWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchServiceRestoration
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+
+    .SortableColumnFor(x => x.Service.ServiceNumber)
+    .SortableColumnFor(x => x.Service.StreetAddress)
+    .SortableColumnFor(x => x.Service.OperatingCenter, "serv.OperatingCenter")
+    .SortableColumnFor(x => x.Service.Town, "serv.Town")
+    .SortableColumnFor(x => x.Service.ServiceCategory, "serv.ServiceCategory")
+    .SortableColumnFor(x => x.Service.WorkIssuedTo)
+    .SortableColumnFor(x => x.Service.DateInstalled)
+    .SortableColumnFor(x => x.EstimatedRestorationAmount)
+    .SortableColumnFor(x => x.FinalRestorationMethod)
+    .SortableColumnFor(x => x.ApprovedOn)
+    .SortableColumnFor(x => x.Service.TaskNumber1)
+    .SortableColumnFor(x => x.EstimatedValue)
+    .SortableColumnFor(x => x.PurchaseOrderNumber)
+
+    .SortableColumnFor(x => x.RestorationType)
+    .SortableColumnFor(x => x.InitiatedBy)
+    .SortableColumnFor(x => x.PartialRestorationDate)
+    .SortableColumnFor(x => x.PartialRestorationCompletionBy)
+    .SortableColumnFor(x => x.FinalRestorationDate)
+    .SortableColumnFor(x => x.FinalRestorationCompletionBy)
+    .SortableColumnFor(x => x.PurchaseOrderNumber, "PurchaseOrderNumber")
+    .WithPaginatedFooter())

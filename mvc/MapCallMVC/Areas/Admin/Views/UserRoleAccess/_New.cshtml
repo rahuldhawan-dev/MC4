@@ -1,0 +1,155 @@
+﻿@using MapCallMVC.Areas.Admin.Controllers
+@model MapCallMVC.Areas.Admin.Models.ViewModels.Users.CreateUserRoles
+
+@*
+
+NOTE: THIS VIEW IS USED BY BOTH THE USER ROLES TAB AS WELL AS THE ROLE GROUP CREATION/EDIT VIEWS!    
+
+*@
+
+@{
+    var operatingCentersByState = (List<OperatingCenterState>)ViewData[UserRoleAccessController.OPERATING_CENTER_STATES_VIEWDATA_KEY];
+    // Key needs to be a string, the JSON serializer fails otherwise.
+    var opcByStateDictionary = operatingCentersByState.GroupBy(x => x.StateId).ToDictionary(x => x.Key.ToString(), x => x.Select(y => y.OperatingCenterId).ToList());
+}
+
+<script>
+    window.operatingCentersByState = @Html.Raw(@Json.Encode(opcByStateDictionary));
+</script>
+@Html.ScriptFor("~/Scripts/Areas/Admin/UserRoleAccess/New.js", ScriptLoadType.LoadFromPartial)
+
+<style>
+    dialog::backdrop {
+        backdrop-filter: blur(2px) brightness(40%);
+    }
+
+    dialog {
+        height: auto !important; /* Needed so that only the center is scrollable rather than the entire dialog */
+        max-height: 600px;
+        min-width: 600px;
+    }
+
+        dialog .checkbox-list {
+            width: 100%;
+            max-height: unset;
+            min-height: 0;
+            height: unset;
+            overflow: auto;
+        }
+
+        dialog .field-pair {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            overflow-y: auto;
+            padding: 6px;
+        }
+
+        dialog header {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        dialog .field-pair .label {
+            flex: 0 1 0;
+        }
+       
+        dialog .field-pair .label > label {
+            font-weight: 700;
+        }
+
+        dialog .field-pair .field {
+            display:flex;
+            flex: 1 0 0;
+            overflow-y: auto;
+        }
+
+        dialog .field-pair .field > div {
+            display:flex;
+            flex-direction:column;
+            width:100%;
+        }
+
+            dialog .field-pair .field > div > div:first-child {
+              flex: 1 0 0;
+            }
+
+        dialog .fp-is-for-all-opc {
+            flex-direction: row !important;
+        }
+
+            dialog .fp-is-for-all-opc .label {
+                flex: 1 0 auto;
+                flex-direction: row !important;
+            }
+
+            dialog .fp-is-for-all-opc .field {
+                flex: 0 1 auto;
+                flex-direction: row !important;
+            }
+        dialog .fp-select-all-modules {
+            flex-direction:row;
+        }
+
+        dialog .fp-select-all-modules > * {
+            padding:6px;
+        }
+
+        dialog .fp-select-all-modules label {
+            font-weight: 700;
+        }
+</style>
+
+@using (var f = Form.BeginForm("Create", "UserRoleAccess", new { Id = Model.Id, area = "Admin" }))
+{
+    f.HtmlAttributes["id"] = "add-roles-form";
+    <dialog id="add-roles-dialog">
+        <div style="display:flex; flex-direction:column; height:100%;">
+            <header style="flex: 0 1 auto;">Add Roles</header>
+            <div style="flex: 1 0 0; display:flex; flex-direction:row;">
+                <div style="flex:1 0 0;">
+                    <div style="display: flex; flex-direction: column; height: 100%;">
+                        <div style="flex: 0 1 0; display:flex;  height:100%;" class="fp-select-all-modules">
+                            <label for="select-all-modules">Select All Modules</label>
+                            @Control.CheckBox().WithId("select-all-modules")
+                        </div>
+                        <div style="flex: 1 0 0; display:flex;  height:100%;">
+                            @Html.EditorFor(x => x.Modules)
+                        </div>
+                        <div style="flex: 1 0 0; display:flex;  height:100%;">
+                            @Html.EditorFor(x => x.Actions)
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1 0 0; ">
+                    <div style="display: flex; flex-direction: column; height: 100%;">
+                        @if (Model.UserCanAdministrateAllOperatingCenters)
+                        {
+                            <div style="flex:0 1 0;">
+                                <div style="flex: 0 1 0; display: flex;">
+                                    @Html.EditorFor(x => x.IsForAllOperatingCenters, new { @class = "fp-is-for-all-opc" })
+                                </div>
+                            </div>
+                        }
+                        else {
+                            @* Hidden field needed for requiredwhen validation. *@
+                            @Control.HiddenFor(x => x.IsForAllOperatingCenters)
+                        }
+                        <div style="flex: 1 0 0; display:flex;  height:100%;">
+                            @Html.EditorFor(x => x.States)
+                        </div>
+                        <div style="flex: 1 0 0; display:flex;  height:100%;">
+                            @Html.EditorFor(x => x.OperatingCenters)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer style="flex: 0 1 auto;">
+                @Control.SubmitButton("Save").WithId("save-roles-button")
+                @Control.Button("Cancel").WithCssClass("close-dialog-button")
+                @Control.Button("Reset").WithId("reset-add-roles-form-button")
+            </footer>
+        </div>
+    </dialog>
+}
+<button id="open-dialog-button">Add Roles</button>

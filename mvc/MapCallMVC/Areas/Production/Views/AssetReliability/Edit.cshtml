@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditAssetReliability
+    
+@using (Form.BeginForm("Update", "AssetReliability", "Production", new {Model.Id}))
+{
+    <div class="field-column fc200">
+       @Html.Partial("_Form", Model)
+       @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "AssetReliability", new { Model.Id })
+                          </text>)
+    </div>
+}

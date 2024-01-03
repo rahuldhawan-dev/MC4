@@ -1,0 +1,53 @@
+﻿@model PublicWaterSupply
+
+<div class="field-column fc300">
+    @Html.DisplayFor(x => x.OperatingCenterPublicWaterSupplies)
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.OperatingArea)
+    @Html.DisplayFor(x => x.System)
+    @Html.DisplayFor(x => x.Identifier)
+    @Html.DisplayFor(x => x.LIMSProfileNumber)
+    @Html.DisplayFor(x => x.LocalCertifiedStateId)
+    @Html.DisplayFor(x => x.Status)
+    @Html.DisplayFor(x => x.Ownership)
+    @Html.DisplayFor(x => x.Type)
+    @Html.DisplayFor(x => x.AWOwned)
+    @Html.DisplayFor(x => x.UsageLastYear)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.JanuaryRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.FebruaryRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.MarchRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.AprilRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.MayRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.JuneRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.JulyRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.AugustRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.SeptemberRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.OctoberRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.NovemberRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.DecemberRequiredBacterialWaterSamples)
+    @Html.DisplayFor(x => x.FreeChlorineReported)
+    @Html.DisplayFor(x => x.TotalChlorineReported)
+    @if ((Model.Status.Id == PublicWaterSupplyStatus.Indices.PENDING) || (Model.AnticipatedActiveDate != null))
+    {
+        @Html.DisplayFor(x => x.AnticipatedActiveDate)
+    }
+    @Html.DisplayFor(x => x.HasConsentOrder)
+    @Html.DisplayFor(x => x.DateOfOwnership)
+    @Html.DisplayFor(x => x.ConsentOrderStartDate)
+    @Html.DisplayFor(x => x.ConsentOrderEndDate)
+    @Html.DisplayFor(x => x.NewSystemInitialSafetyAssessmentCompleted)
+    @Html.DisplayFor(x => x.DateSafetyAssessmentActionItemsCompleted)
+    @Html.DisplayFor(x => x.NewSystemInitialWQEnvAssessmentCompleted)
+    @Html.DisplayFor(x => x.DateWQEnvAssessmentActionItemsCompleted)
+
+    @Html.DisplayFor(x => x.AnticipatedMergerDate)
+    @Html.DisplayFor(x => x.ValidTo)
+    @Html.DisplayFor(x => x.ValidFrom)
+    @Html.RenderDisplayTemplate("Anticipated Merge Public Water Supply",
+                                    @<text>@if (Model.AnticipatedMergePublicWaterSupply != null)
+                                                    {
+                                            @Html.ActionLink(Model.AnticipatedMergePublicWaterSupply.Identifier, "Show", "PublicWaterSupply", new { Model.AnticipatedMergePublicWaterSupply.Id }, null)
+                                                    }
+                                    </text>)
+</div>

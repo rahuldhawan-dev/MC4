@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkDescription
+
+@using (Form.BeginForm("Index", "WorkDescription")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

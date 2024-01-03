@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.SearchEmployeeAccountabilityAction
+
+@using (Form.BeginForm("Index", "EmployeeAccountabilityAction", "HumanResources"))
+{
+    <div class="field-column fc200 searchFields">
+        @*   Original   *@
+        @Html.EditorFor(e => e.OperatingCenter)
+        @Html.EditorFor(e => e.Employee)
+        @Html.EditorFor(e => e.DisciplineAdministeredBy)
+        @Html.EditorFor(e => e.AccountabilityActionTakenType)
+        @Html.EditorFor(e => e.DateAdministered)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+        @Html.EditorFor(e => e.NumberOfWorkDays)
+        @Html.EditorFor(e => e.Incident)
+        @Html.EditorFor(e => e.Grievance)
+        @*   Modified   *@
+        @Html.EditorFor(e => e.HasModifiedDiscipline)
+        @Html.EditorFor(e => e.ModifiedDisciplineAdministeredBy)
+        @Html.EditorFor(e => e.ModifiedAccountabilityActionTakenType)
+        @Html.EditorFor(e => e.DateModified)
+        @Html.EditorFor(e => e.ModifiedStartDate)
+        @Html.EditorFor(e => e.ModifiedEndDate)
+        @Html.EditorFor(e => e.ModifiedNumberOfWorkDays)
+        @Html.EditorFor(e => e.BackPayRequired)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+} 

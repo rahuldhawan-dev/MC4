@@ -1,0 +1,32 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.ChemicalViewModel
+
+@Html.EditorFor(x => x.Name)
+@Html.EditorFor(x => x.ChemicalType)
+@Html.EditorFor(x => x.ExtremelyHazardousChemical)
+@Html.EditorFor(x => x.PartNumber)
+@Html.EditorFor(x => x.PricePerPoundWet)
+@Html.EditorFor(x => x.WetPoundsPerGal)
+@Html.EditorFor(x => x.PackagingType)
+@Html.EditorFor(x => x.PackagingQuantities)
+@Html.EditorFor(x => x.PackagingUnits)
+@Html.EditorFor(x => x.ChemicalSymbol)
+@Html.EditorFor(x => x.ChemicalStates)
+@Html.EditorFor(x => x.Appearance)
+@Html.EditorFor(x => x.ChemicalConcentrationLiquid)
+@Html.EditorFor(x => x.ConcentrationLbsPerGal)
+@Html.RenderEditorTemplate("Specific Gravity", @<text>
+        <div style="float:left">@Html.EditorWithoutWrapperFor(x => x.SpecificGravityMin)</div>
+        <div style="margin-left: 10px; margin-right: 10px; float: left">-</div>
+        <div style="float: left">@Html.EditorWithoutWrapperFor(x => x.SpecificGravityMax)</div>
+     </text>)
+
+@Html.EditorFor(x => x.RatioResidualProduction)
+@Html.EditorFor(x => x.CasNumber)
+@Html.EditorFor(x => x.SdsHyperlink)
+@Html.EditorFor(x => x.SubNumber)
+@Html.EditorFor(x => x.DepartmentOfTransportationNumber)
+@Html.EditorFor(x => x.IsPure)
+@Html.EditorFor(x => x.TradeSecret)
+@Html.EditorFor(x => x.EmergencyPlanningCommunityRightToKnowActOnly)
+@Html.EditorFor(x => x.HealthHazards)
+@Html.EditorFor(x => x.PhysicalHazards)

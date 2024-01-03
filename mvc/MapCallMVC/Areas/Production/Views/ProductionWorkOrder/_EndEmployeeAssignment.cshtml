@@ -1,0 +1,26 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EndEmployeeAssignment
+
+@* NOTE: This view is a template. The values are populated by client-side. *@
+
+<div class="jqmWindow" style="z-index: 3000; top: 25%; bottom: 40%; min-height: 280px;" id="EmployeeAssignmentEndModal">
+    <div class="jqmTitle">
+        <button class="jqmClose">Close X</button>
+        <span class="jqmTitleText">End Assignment</span>
+    </div>
+    @using (Form.BeginForm("End", "EmployeeAssignment", "Production"))
+    {
+        <div class="field-column fc100">
+            @Control.HiddenFor(x => x.Id).WithValue(null) @* Set value to null, otherwise it defaults to the parent ProductionWorkOrder Id.*@
+            @Control.HiddenFor(x => x.DateStarted)
+            @Control.HiddenFor(x => x.ProductionWorkOrder)
+            @Html.DisplayFor(x => x.DateStarted, new { @class = "fp-date-started" })
+            @Html.EditorFor(x => x.DateEnded)
+            @Html.EditorFor(x => x.HoursWorked)
+            @Html.EditorFor(x => x.Notes)
+            @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("End Assignment")
+                <span style="color: #346EA1; font-style: italic;">Press "End Assignment" to use the current time</span>
+            </text>)
+        </div>
+    }
+</div>

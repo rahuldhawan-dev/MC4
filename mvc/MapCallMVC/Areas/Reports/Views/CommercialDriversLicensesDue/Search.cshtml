@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCommercialDriversLicensesDue
+
+@using (Form.BeginForm("Index", "CommercialDriversLicensesDue"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.CommercialDriversLicenseProgramStatus)
+        @Html.EditorFor(x => x.PositionGroup)
+        @Html.EditorFor(x => x.EmployeeId)
+        @Html.EditorFor(x => x.LastName)
+        @Html.EditorFor(x => x.FirstName)
+        @* no-form-state will stop form-state.js from saving and repopulating this value *@
+        @Html.EditorFor(x => x.DriversLicenseRenewalDate, new { html = new{ @class = "no-form-state" }}) 
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

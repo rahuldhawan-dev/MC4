@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.EditContractor
+
+@using (Form.BeginForm("Update", "Contractor", "Contractors", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "Contractor", new { Model.Id })
+                           </text>)
+    </div>
+}

@@ -1,0 +1,27 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Models.ViewModels
+@model BacterialWaterSampleAnalyst
+	
+@{
+	var userCanEdit = Html.CurrentUserCanEdit();
+
+	var table = Html.TableFor(x => x.OperatingCenters)
+		            .ColumnFor(x => x.OperatingCenterCode);
+
+	if (userCanEdit)
+	{
+		table.TemplateColumnFor(x => @<text>
+			                             @using(Form.BeginRouteForm("BacterialWaterSampleAnalyst", "OperatingCenter", new{ Model.Id, OperatingCenter = x.Id }, ManyToManyRouteAction.Remove))
+			                             {
+					                          @Control.SubmitButton("Remove").With("onclick", "return confirm('Are you sure you want to remove " + x.OperatingCenterCode + "?');")
+			                             }
+		                              </text>);
+	}
+
+}
+
+@if (userCanEdit)
+{
+	@Html.Partial("_AddOperatingCenter", ViewModelFactory.BuildWithOverrides<AddBacterialWaterSampleAnalystOperatingCenter>(new { Id = Model.Id }))
+}
+
+@table

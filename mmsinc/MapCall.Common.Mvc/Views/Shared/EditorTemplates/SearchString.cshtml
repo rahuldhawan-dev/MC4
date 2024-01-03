@@ -1,0 +1,22 @@
+﻿@using MMSINC.Data
+@model SearchString
+@{
+    ViewTemplateHelper.ViewData["class"] = "search-string";
+    var matchTypes = new List<SelectListItem>();
+    var matchEnums = MMSINC.ClassExtensions.EnumExtensions.EnumExtensions.GetValues<SearchStringMatchType>();
+    // Bug 2430: Default this to wildcard. Form resets also need to default to Wildcard.
+    SearchStringMatchType selected = Model != null ? Model.MatchType : SearchStringMatchType.Wildcard;
+    foreach (var me in matchEnums)
+    {
+        matchTypes.Add(new SelectListItem {
+            Text = me.ToString(),
+            Value = Convert.ToInt32(me).ToString()
+        });
+    }
+
+    // Kill the -- Select -- on this by doing WithEmptyText(null)
+    var matchDrop = Control.DropDown("MatchType").WithItems(matchTypes).WithEmptyText(null).WithSelectedValues(new object[] { selected });
+    matchDrop.With("data-select-on-reset", Convert.ToInt32(SearchStringMatchType.Wildcard));
+}
+@* Validation may need to be modified here if this ever requires validation messages. *@
+@RenderEditorForTemplate(@<text>@Control.TextBox("Value") @matchDrop @Html.ValidationMessage("")</text>)

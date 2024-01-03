@@ -1,0 +1,17 @@
+﻿@model MapCall.Common.Model.ViewModels.EnvironmentalNonComplianceEventCreatedNotification
+
+<h2>Environmental Non-Compliance Event Created</h2>
+
+<a href="@Model.RecordUrl">View on MapCall</a> <br /><br />
+
+Created By: @Model.CreatedByFullName <br />
+State: @Model.EnvironmentalNonComplianceEvent.State <br />
+Operating Center: @Model.EnvironmentalNonComplianceEvent.OperatingCenter <br />
+Public Water System: @Model.EnvironmentalNonComplianceEvent.PublicWaterSupply <br />
+WW System: @Model.EnvironmentalNonComplianceEvent.WasteWaterSystem <br />
+Event Date: @Model.EnvironmentalNonComplianceEvent.EventDate <br />
+Status: @Model.EnvironmentalNonComplianceEvent.IssueStatus <br />
+Type: @Model.EnvironmentalNonComplianceEvent.IssueType <br />
+Sub Type: @Model.EnvironmentalNonComplianceEvent.IssueSubType <br />
+Failure Type: @Model.EnvironmentalNonComplianceEvent.FailureType <br />
+Failure Type Description: @Model.EnvironmentalNonComplianceEvent.FailureTypeDescription <br />

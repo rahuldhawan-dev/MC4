@@ -1,0 +1,9 @@
+﻿@model MainCrossing
+           
+@(Html.Tabs()
+    .WithTab("Main Crossing", "_ShowMainCrossing", Model)
+    .WithTab("Inspections", "_ShowInspections", Model)
+    .WithTab("WorkOrders", "_WorkOrders", Model, itemCount: Model.WorkOrders.Count)
+    .WithTab("Valves", "_Valves")
+    .WithNotesAndDocuments()
+    .WithLog())

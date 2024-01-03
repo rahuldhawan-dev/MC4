@@ -1,0 +1,25 @@
+﻿@model AbsenceNotification
+
+@{
+    var emp = Model.Employee;
+    var fmla = emp.FamilyMedicalLeaveActCases.OrderByDescending(x => x.StartDate).ToList();
+    var absences = emp.AbsenceNotifications.Where(x => x.HumanResourcesReviewed && x.AbsenceStatus != null);
+    var fmlaAbsences = absences.Where(x => x.AbsenceStatus.Id == AbsenceStatus.Indices.FMLA_APPROVED).OrderByDescending(x => x.StartDate);
+    var nonFmlaAbsences = absences.Where(x => x.AbsenceStatus.Id == AbsenceStatus.Indices.OCCURRENCE).OrderByDescending(x => x.StartDate);
+    var pending = emp.AbsenceNotifications.Where(x => !x.HumanResourcesReviewed).OrderByDescending(x => x.StartDate);
+
+    // Bug 2503: Only display count of last 365 days, but display all records.
+    var fmlAbsenceCount = fmlaAbsences.Where(x => x.StartDate.HasValue && (DateTime.Now - x.StartDate.Value).Days <= 365).Count();
+    var nonFmlaAbsenceCount = nonFmlaAbsences.Where(x => x.StartDate.HasValue && (DateTime.Now - x.StartDate.Value).Days <= 365).Count();
+}
+
+@* Bug-2508: Don't allow active-tab rememberin' *@
+@(Html.Tabs(new { @class = "no-tab-storage" })
+    .WithTab("Details", "_ShowAbsenceNotification", Model)
+    .WithTab("FMLA Cases", "_ShowFamilyMedicalLeaveActCases", fmla, itemCount: fmla.Count)
+    .WithTab("FMLA Absences", "_ShowFamilyMedicalLeaveActAbsences", fmlaAbsences, itemCount: fmlAbsenceCount)
+    .WithTab("Non-FMLA Occurence", "_ShowNonFamilyMedicalLeaveActAbsences", nonFmlaAbsences, itemCount: nonFmlaAbsenceCount)
+    .WithTab("Pending", "_ShowPending", pending, itemCount:pending.Count() )
+    .WithNotesAndDocuments()    
+)
+

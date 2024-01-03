@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EditAllocationPermitWithdrawalNode
+
+@using (Form.BeginForm("Update", "AllocationPermitWithdrawalNode", "Environmental", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(m => m.Id)
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "AllocationPermitWithdrawalNode", new { Model.Id })
+        </text>)
+    </div>
+}

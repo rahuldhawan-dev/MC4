@@ -1,0 +1,11 @@
+﻿@model IEnumerable<EquipmentLifespan>
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "EquipmentLifespan", new { id = x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.EstimatedLifespan)
+    .ColumnFor(x => x.ExtendedLifeMajor)
+    .ColumnFor(x => x.ExtendedLifeMinor))

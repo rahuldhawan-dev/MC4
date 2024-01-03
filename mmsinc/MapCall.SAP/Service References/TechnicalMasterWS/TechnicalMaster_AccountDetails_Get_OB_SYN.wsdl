@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:p1="http://amwater.com/EAM/0015/MAPCALL/GetTechnicalMaster_AccountDetails" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" name="TechnicalMaster_AccountDetails_Get_OB_SYN" targetNamespace="http://amwater.com/EAM/0015/MAPCALL/GetTechnicalMaster_AccountDetails" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_TechnicalMaster_AccountDetails_Get_OB_SYN" />
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/EAM/0015/MAPCALL/GetTechnicalMaster_AccountDetails" targetNamespace="http://amwater.com/EAM/0015/MAPCALL/GetTechnicalMaster_AccountDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="TechnicalMaster_AccountDetails_Response" type="p1:TechnicalMaster_AccountDetailsInfo" />
+      <xsd:element name="TechnicalMaster_AccountDetails_Request" type="p1:TechnicalMaster_AccountDetailsQuery" />
+      <xsd:complexType name="TechnicalMaster_AccountDetailsQuery">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">a44f99860e3e11e7a47d00000083afea</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="PremiseNumber" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">02be30f40adc11e7bbbc0050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Equipment" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">02be30f70adc11e7b6bb0050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="InstallationType" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">a43e970f0e3e11e7a3400050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TechnicalMaster_AccountDetailsInfo">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">e69edea8d15e11ea85e000000066337a</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Record">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">cc83f1e0089411e78a83005056860098</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="InstallationType" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">2d24f65c0adc11e7802d0050568600a9</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Device" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b335c058611e78e35005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="MeterSize" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">2d24f65d0adc11e78eae0050568600a9</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="DeviceLocation" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b335d058611e79793005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Installation" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b335e058611e7af03005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="AccountNo" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b335f058611e7af6a005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="AccountStatusAfterReview" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3360058611e7a374005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Customer" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3361058611e7c881005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Owner" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3362058611e7a3c1005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="BillingClassification" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3363058611e7988d005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="CustomerEmail" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3364058611e7a87f005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Phone" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">cc1b3365058611e7b5fa005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="MobilePhone" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">59e609b515ef11e7c26e0050568600a9</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ServiceSize" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">e04b4cba19d311e787be005056860098</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Equipment" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">265979be1aa511e787bb0050568600a9</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="ManufacturerSerialNo" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">1991451dd15f11eab42d005056bc0004</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="CriticalCareType" type="xsd:string" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Exception" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">f742532e0adb11e789540050568600a9</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="TechnicalMaster_AccountDetails_Request">
+    <wsdl:documentation />
+    <wsdl:part name="TechnicalMaster_AccountDetails_Request" element="p1:TechnicalMaster_AccountDetails_Request" />
+  </wsdl:message>
+  <wsdl:message name="TechnicalMaster_AccountDetails_Response">
+    <wsdl:documentation />
+    <wsdl:part name="TechnicalMaster_AccountDetails_Response" element="p1:TechnicalMaster_AccountDetails_Response" />
+  </wsdl:message>
+  <wsdl:portType name="TechnicalMaster_AccountDetails_Get_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="TechnicalMaster_AccountDetails_Get_OB_SYN">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_TechnicalMaster_AccountDetails_Get_OB_SYN" />
+      </wsp:Policy>
+      <wsdl:input message="p1:TechnicalMaster_AccountDetails_Request" />
+      <wsdl:output message="p1:TechnicalMaster_AccountDetails_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TechnicalMaster_AccountDetails_Get_OB_SYNBinding" type="p1:TechnicalMaster_AccountDetails_Get_OB_SYN">
+    <binding transport="http://schemas.xmlsoap.org/soap/http" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="TechnicalMaster_AccountDetails_Get_OB_SYN">
+      <operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <body use="literal" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TechnicalMaster_AccountDetails_Get_OB_SYNService">
+    <wsdl:port name="HTTP_Port" binding="p1:TechnicalMaster_AccountDetails_Get_OB_SYNBinding">
+      <address location="http://dp2.amwaternp.net:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=TechnicalMaster_AccountDetails_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0015%2FMAPCALL%2FGetTechnicalMaster_AccountDetails" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:TechnicalMaster_AccountDetails_Get_OB_SYNBinding">
+      <address location="https://dp2.amwaternp.net:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=MapCall&amp;receiverParty=&amp;receiverService=&amp;interface=TechnicalMaster_AccountDetails_Get_OB_SYN&amp;interfaceNamespace=http%3A%2F%2Famwater.com%2FEAM%2F0015%2FMAPCALL%2FGetTechnicalMaster_AccountDetails" xmlns="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

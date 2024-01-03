@@ -1,0 +1,15 @@
+﻿@model ClassLocationViewModel
+
+@using (Form.BeginForm("Update", "ClassLocation", new {id = Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Description)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.AuthorizedActionLinkButton("Cancel", "Show", "ClassLocation", new { id = Model.Id })
+                           </text>)
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿@model SearchTrainingRecord
+
+@(Html.TableFor(x => Model)
+        .WithCaption("Records found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.TrainingModule, "TrainingModule.Title")
+        .SortableColumnFor(x => x.TrainingModule.TCHCreditValue, "TrainingModule.TCHCreditValue")
+        .SortableColumnFor(x => x.TrainingModule.CourseApprovalNumber, "NJDEP Course #", "TrainingModule.CourseApprovalNumber")
+        .SortableColumnFor(x => x.HeldOn)
+        .WithPaginatedFooter())

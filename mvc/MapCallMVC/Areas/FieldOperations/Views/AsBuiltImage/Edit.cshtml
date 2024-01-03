@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditAsBuiltImage
+
+@using (Form.BeginForm("Update", "AsBuiltImage", "FieldOperations", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.OfficeReviewRequired)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "AsBuiltImage", new{ id = Model.Id })
+        </text>)
+    </div>
+}

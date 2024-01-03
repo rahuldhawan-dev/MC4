@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchApcInspectionItem
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.Type)
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.DateReported)
+    .SortableColumnFor(x => x.AssignedTo)
+    .SortableColumnFor(x => x.DateInspected)
+    .SortableColumnFor(x => x.FacilityInspectionRatingType)
+    .SortableColumnFor(x => x.DisplayFacilityInspectionAreaType)
+
+    .WithPaginatedFooter())

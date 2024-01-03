@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.BPU.Models.ViewModels.SearchMarkoutViolation
+    
+@using (Form.BeginForm("Index", "MarkoutViolation")) {
+<div class="field-column fc200 search-fields">
+    @Html.EditorFor(x => x.EntityId)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.DateOfViolationNotice)
+    @Html.EditorFor(x => x.Violation)
+    @Html.EditorFor(x => x.MarkoutViolationStatus)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

@@ -1,0 +1,14 @@
+﻿@model EditGeneralLiabilityClaim
+@using (Form.BeginForm("Update", "GeneralLiabilityClaim", "HealthAndSafety", new {id = Model.Id}))
+{
+    <div class="field-column fc200">
+    @(Html.Tabs()
+          .WithTab("GeneralLiabilityClaim", "_Form")
+          .WithTab("Five Whys", "_AddFiveWhys")
+        );
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "GeneralLiabilityClaim", new {Model.Id})
+        </text>)
+    </div>
+}

@@ -1,0 +1,372 @@
+﻿@using FluentNHibernate.Conventions.Helpers
+@using MMSINC.ClassExtensions.BooleanExtensions
+@using MMSINC.ClassExtensions.EnumExtensions
+@using System.ComponentModel.DataAnnotations
+@using System.Web.Razor.Parser.SyntaxTree
+@using MMSINC.Utilities
+@inherits MapCall.Common.Views.PdfViewBase<MapCallMVC.Areas.ProjectManagement.Models.ViewModels.PipelineProjectCostEstimate>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+
+    var assetTypes = ((IEnumerable<AssetType>)ViewData["AssetTypes"]).ToArray();
+
+    TopMargin = LeftMargin = RightMargin = BottomMargin = (MarginWidth)1;
+
+    ShowHeader = true;
+    HeaderHeight = 45;
+    HeaderHtml = HeaderHelper().ToHtmlString();
+    ShowPageNumbersInHeader = true;
+    PageNumberFormat = "Sheet &p; of &P;";
+    SkipHeaderOnFirstPage = true;
+
+}
+
+@section head {
+    <style>
+        body {
+            margin-left: 2%;
+            margin-right: 2%;
+            font-family: arial;
+        }
+
+        table {
+            border: 0px solid black;
+            vertical-align: top;
+        }
+
+            table td {
+                vertical-align: text-top;
+                /*border: 1px solid black;*/
+                padding: 2px;
+            }
+
+            table.top-info {
+                font-size: 16px;
+                vertical-align: top;
+            }
+
+        .header {
+            font-size: 28px;
+        }
+
+        .header-summary {
+        }
+
+        .header-summary-label {
+            width: 100px;
+            text-align: right;
+        }
+
+        .header-summary-value {
+            font-weight: bold;
+        }
+
+        .estimate-summary {
+            border: 1px solid black;
+        }
+
+        .estimate-summary-table {
+            width: 400px;
+            margin: 0 auto;
+        }
+
+            .estimate-summary-table td {
+                text-align: left;
+                border: 1px solid black;
+            }
+
+                .estimate-summary-table td.sub-label {
+                    text-align: center;
+                    font-weight: bold;
+                    background-color: #C0C0C0;
+                }
+
+                .estimate-summary-table td.cost {
+                    text-align: right;
+                }
+
+        .estimators {
+            width: 700px;
+            margin: 0 auto;
+        }
+
+            .estimators td {
+                text-align: left;
+            }
+
+                .estimators td.label {
+                    width: 25%;
+                    text-align: right;
+                    font-weight: bold;
+                }
+
+        .remarks {
+            border: 1px solid black;
+        }
+
+            .remarks td {
+                border-right: 1px solid black;
+            }
+
+        .detail-table {
+            margin-top: 40px;
+        }
+
+        .detail-table td.header {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            background-color: lightgray;
+        }
+
+        .detail-table th {
+            border: 1px solid black;
+        }
+
+        .detail-table td {
+            border: 1px solid black;
+        }
+
+        .detail-table td.cost {
+            border: 1px solid black;
+            text-align: right;
+        }
+
+        .detail-table td.sub-header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            background-color: #C0C0C0;
+        }
+
+        .detail-table td.sub-footer {
+            text-align: right;
+            background-color: #CFCFCF;
+            font-weight: bold;
+        }
+    </style>
+}
+
+@helper HeaderHelper()
+{
+    <table style="width:100%;top:10px;position:relative;font-family:arial;">
+        <tr>
+            <td style="width: 100%;">
+                <table style="width: 100%;margin: 0 auto;">
+                    <tr>
+                        <td style="width:100px;text-align:right;">Project Name:</td>
+                        <td>@Model.ProjectName</td>
+                        <td style="text-align: right;">DVS #: </td>
+                        <td>@Model.DVSNumber</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px;text-align:right;">Street Name:</td>
+                        <td>@Model.Street</td>
+                        <td style="text-align: right;">WBS #: </td>
+                        <td>@Model.WBSNumber</td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px;text-align:right;">Municipality:</td>
+                        <td>@Model.Town</td>
+                        <td style="text-align: right;">MapCall Project ID: </td>
+                        <td>@Model.Id</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+}
+
+@section body {
+    <table>
+        <!-- HEADER -->
+        <tr>
+            <td>
+                <div class="header">
+                    New Jersey - American
+                    <br />
+                    Pipeline Project Cost Estimate
+                </div>
+            </td>
+            <td>
+                <table class="top-info">
+                    <tr>
+                        <td style="text-align: right;">DVS #: </td>
+                        <td>@Model.DVSNumber</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">WBS #: </td>
+                        <td>@Model.WBSNumber</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">MapCall Project ID: </td>
+                        <td>@Model.Id</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- HEADER SUMMARY -->
+        <tr>
+            <td colspan="2">
+                <div class="header-summary">
+                    <table>
+                        <tr>
+                            <td class="header-summary-label">Project Name:</td>
+                            <td class="header-summary-value">@Model.ProjectName</td>
+                        </tr>
+                        <tr>
+                            <td class="header-summary-label">Street Name:</td>
+                            <td class="header-summary-value">@Model.Street</td>
+                        </tr>
+                        <tr>
+                            <td class="header-summary-label">Municipality:</td>
+                            <td class="header-summary-value">@Model.Town</td>
+                        </tr>
+                        <tr>
+                            <td class="header-summary-label">Description:</td>
+                            <td class="header-summary-value">@Model.Description</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <!-- ESTIMATE SUMMARY -->
+        <tr>
+            <td colspan="2" style="text-align: center; width: 100%;">
+                <table class="estimate-summary-table">
+                    <tr>
+                        <td colspan="2" style="text-align: center; background-color: lightgray"><h2>Estimate Summary</h2></td>
+                    </tr>
+                    @foreach (var assetType in assetTypes)
+                    {
+                        if (Model.HasRecordsForAssetType(assetType))
+                        {
+                            <tr>
+                                <td class="sub-label"></td>
+                                <td class="sub-label">@assetType.Description</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="sub-label">Actual</td>
+                            </tr>
+                            foreach (var costType in EnumExtensions.GetValues<EstimatingProject.CostType>())
+                            {
+                                <tr>
+                                    <td>@costType</td>
+                                    <td class="cost">@String.Format(CommonStringFormats.MONEY, Model.GetCostForAssetType(assetType, costType))</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td>Estimated Sub Total</td>
+                                <td class="cost">@String.Format(CommonStringFormats.MONEY, Model.GetCostTotalForAssetType(assetType))</td>
+                            </tr>
+                        }
+                    }
+
+                    <!-- TOTALS -->
+                    <tr>
+                        <td></td>
+                        <td class="sub-label">Totals</td>
+                    </tr>
+                    <tr>
+                        <td>Estimated Construction Cost</td>
+                        <td class="cost">@Html.DisplayValueFor(_ => Model.EstimatedConstructionCost)</td>
+                    </tr>
+                    <tr>
+                        <td>Overhead  @Html.DisplayValueFor(_ => Model.OverheadPercentage)</td>
+                        <td class="cost">@Html.DisplayValueFor(_ => Model.OverheadCost)</td>
+                    </tr>
+                    <tr>
+                        <td>Contingencies  @Html.DisplayValueFor(_ => Model.ContingencyPercentage)</td>
+                        <td class="cost">@Html.DisplayValueFor(_ => Model.ContingencyCost)</td>
+                    </tr>
+                    @if (Model.IsNonFramework && Model.LumpSum != null)
+                    {
+                        <tr>
+                            <td>Lump Sum</td>
+                            <td class="cost">@Html.DisplayValueFor(_ => Model.LumpSum)</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>Total Estimated Cost (TEC)</td>
+                        <td class="cost" style="background-color: #909090">@Html.DisplayValueFor(_ => Model.TotalEstimatedCost)</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center; width: 100%;">
+                <table class="estimators">
+                    <tr>
+                        <td class="label">Estimator:</td>
+                        <td style="width: 25%;">@Model.Estimator</td>
+                        <td class="label">Approver:</td>
+                        <td style="width: 25%;"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Estimate Date:</td>
+                        <td>@DateTime.Now</td>
+                        <td class="label">Approval Date: </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center; width: 100%;">
+                <table class="remarks">
+                    <tr>
+                        <td>Remarks</td>
+                        <td style="border-bottom: 1px solid black; text-align: left;">
+                            Revisions:
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td style="height: 200px;">
+                                        Date
+                                    </td>
+                                    <td>Description</td>
+                                    <td>By</td>
+                                    <td style="border-right: 0px;">Appr.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        
+        @foreach (var assetType in assetTypes)
+        {
+            if (Model.HasRecordsForAssetType(assetType))
+            {
+                <tr>
+                    <td colspan="2">
+                        <table class="detail-table">
+                            <tr>
+                                <td colspan="6" class="header">@assetType.Description</td>
+                            </tr>
+                            
+                            @Html.Partial("_EstimatingProjectMaterials", Model.GetEnumerablesForAssetTypeAndCostType<EstimatingProjectMaterial>(assetType, EstimatingProject.CostType.Material))
+                            @Html.Partial("_EstimatingProjectContractorLaborCosts", Model.GetEnumerablesForAssetTypeAndCostType<EstimatingProjectContractorLaborCost>(assetType, EstimatingProject.CostType.ContractorLabor))
+                            @Html.Partial("_EstimatingProjectCompanyLaborCosts", Model.GetEnumerablesForAssetTypeAndCostType<EstimatingProjectCompanyLaborCost>(assetType, EstimatingProject.CostType.CompanyLabor))
+                            @Html.Partial("_EstimatingProjectOtherCosts", Model.GetEnumerablesForAssetTypeAndCostType<EstimatingProjectOtherCost>(assetType, EstimatingProject.CostType.Other))
+                            @Html.Partial("_EstimatingProjectPermits", Model.GetEnumerablesForAssetTypeAndCostType<EstimatingProjectPermit>(assetType, EstimatingProject.CostType.Permit))
+                            
+                            <tr>
+                                <td colspan="5" class="sub-footer">@assetType.Description Total</td>
+                                <td class="cost sub-footer">@String.Format(CommonStringFormats.MONEY, Model.GetCostTotalForAssetType(assetType))</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}

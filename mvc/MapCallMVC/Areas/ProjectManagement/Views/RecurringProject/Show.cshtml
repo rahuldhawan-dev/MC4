@@ -1,0 +1,37 @@
+﻿@using MapCall.Common.ClassExtensions.MapExtensions
+@model RecurringProject
+
+@*
+    * MAINS
+    /Areas/ProjectManagement/RecurringProjects/DisplayPartials/_Mains.cshtml
+    -- Displays the mains on the Show page in the main tab
+
+    /Areas/ProjectManagement/RecurringProjects/EditorPartials/_EditMains.cshtml
+    -- Displays the mains on the Edit page in the main tab
+
+    /Areas/ProjectManagement/RecurringProjects/EditorPartials/_NewMains.cshtml
+    -- Displays the mains on the New page in the main tab
+
+    /RecurringProjectMain/Edit.cshtml
+    -- Displayed in the bottom left of the picker when editing
+
+    /RecurringProjectMain/Show.cshtml
+    -- Displayed in the bottom left of the picker when viewing
+
+    /Shared/DisplayTemplates/RecurringProjectMain.cshtml
+    -- Displays the main on the _Mains.cshtml view
+
+    /Shared/EditorTemplates/EditRecurringProjectMain.cshtml
+    -- Displays the main on the _New/_EditMains.cshtml view
+*@
+
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RecurringProject/Show.js", ScriptLoadType.LoadFromPartial)
+
+    
+@(Html.Tabs()
+      .WithTab("Details", "_ShowRecurringProject", Model)
+      .WithTab("Secondary Criteria", "_PipeData", Model)
+      .WithTab("Mains", "DisplayPartials/_Mains")
+      .WithTab("Endorsements", "_Endorsements", Model, itemCount: Model.ProjectEndorsements.Count)
+      .WithNotesAndDocuments()
+      )

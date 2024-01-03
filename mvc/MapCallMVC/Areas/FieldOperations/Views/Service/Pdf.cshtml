@@ -1,0 +1,104 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<Service>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ShowPageNumbersInFooter = false;
+    LeftMargin = MarginWidth.InchAndQuarter;
+    RightMargin = MarginWidth.InchAndQuarter;
+}
+
+@section head {
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 20px;
+        }
+         h2 {
+             width: 100%;
+             text-align: center;
+             text-decoration: underline;
+         }
+        p, div {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        .half-page-underline {
+            height: 52px;
+            width: 49%; border-bottom: 1px solid black
+        }
+        div > div {
+        }
+    </style>
+}
+
+@section body {
+    <h2>WATER SERVICE LINE REPLACEMENT LICENSE</h2>
+
+    <p>
+        The undersigned @Model.Name and _________________________ ("Customer") grants to New Jersey-American Water Company ("Company") and to its approved contractors and/or subcontractors a license to enter upon Customer's property at @Model.JustStreetAddress, New Jersey @Model.Zip ("Property") for the purpose of connecting Customer's residence to a Company water main at the front of the Property, at no cost to Customer. The term of this license shall be four (4) months following the date set forth below. Customer represents that @Model.Name is/are the sole owner(s) of the Property and has/have sole authority to agree to this License.
+    </p>
+    <p>
+        Company or its approved contractors and/or subcontractors will install the Company service line from the water main to a Company meter or valve installation (“Installation”) at Customer's front Property line. Company will determine the location of the Installation. The Company service line and the Installation will be owned and maintained by Company.
+    </p>
+    <p>
+        In addition, Company or its approved contractors and/or subcontractors will install a Customer connecting line from the Installation to Customer's residence. The Customer connecting line is currently and will continue to be owned and maintained by Customer.
+    </p>
+    <p>
+        Upon completion of the work necessary to effect the new connection, Company will restore Customer's Property as nearly as practicable to its former condition.
+    </p>
+    <p>
+        Customer acknowledges that @Model.Name has/have received the “Important Notice About Your Water” and “Lead” fact sheets provided by Company.
+    </p>
+    <p>
+        In consideration for performing the work to install the Customer service line at Company’s cost, Customer agrees to indemnify, release and hold harmless Company and its affiliates and agents from and against all claims, liability and costs (“Claims”) resulting from acts and omissions of Company and/or its approved subcontractors in installing the Customer service line. Notwithstanding the foregoing, Company warrants the workmanship of its installation of the Customer service line for a period of 12 months following the date set forth below, with Company’s liability limited to the cost of repairing or replacing the Customer service line.
+    </p>
+    <div>
+        <div style="float: left; width: 7%">
+            DATE:
+        </div>
+        <div style="display: inline-block" class="half-page-underline">&nbsp;</div>
+        <div style="float: right; width: 44%"></div>
+    </div>
+    <p>
+        CUSTOMER:
+    </p>
+    <div>
+        <div style="float: left" class="half-page-underline">
+        </div>
+        <div style="float: right" class="half-page-underline">
+        </div>
+    </div>
+    <div>
+        <div style="float: left" class="half-page-underline">
+        </div>
+        <div style="float: right" class="half-page-underline">
+        </div>
+    </div>
+    <div>
+        <div style="float: left; width: 50%; text-align: center">
+            [Print Name]
+        </div>
+        <div style="float: right; width: 50%; text-align: center">
+            [Print Name]
+        </div>
+    </div>
+    <div style="clear: both">
+        NEW JERSEY-AMERICAN WATER COMPANY
+    </div>
+    <div>
+        <div style="float: left; width: 3%">
+            By:
+        </div>
+        <div style="display: inline-block" class="half-page-underline">&nbsp;</div>
+        <div style="float: right; width: 48%"></div>
+    </div>
+    <div>
+        <div style="float: left; width: 3%"></div>
+        <div style="display: inline-block" class="half-page-underline">&nbsp;</div>
+        <div style="float: right; clear: left; width: 47%"></div>
+    </div>
+    <div>
+        <div style="float: left; width: 3%"></div>
+        <div style="display: inline-block; text-align: center">[Print Name and Title]</div>
+        <div style="float: right; clear: left; width: 47%"></div>
+    </div>
+}

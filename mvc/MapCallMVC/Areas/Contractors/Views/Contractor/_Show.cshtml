@@ -1,0 +1,47 @@
+﻿@model Contractor
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.Name)
+    @Html.DisplayFor(x => x.VendorId)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.OperatingCenters), 
+        @<text>
+            @foreach (var i in Model.OperatingCenters)
+            {
+                <div>@Html.DisplayValueFor(x => i)</div>
+            }
+         </text>)
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.Street)
+    @Html.DisplayFor(x => x.HouseNumber)
+    @Html.DisplayFor(x => x.ApartmentNumber)
+    @Html.DisplayFor(x => x.Zip)
+    @Html.DisplayFor(x => x.Phone)
+    @Html.DisplayFor(x => x.IsUnionShop)
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.IsBcpPartner)
+    @Html.DisplayFor(x => x.ContractorsAccess)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.FrameworkOperatingCenters), 
+        @<text>
+            @foreach (var i in Model.FrameworkOperatingCenters)
+            {
+                <div>@Html.DisplayValueFor(x => i)</div>
+            }
+         </text>)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.WorkCategories), 
+        @<text>
+            @foreach (var i in Model.WorkCategories)
+            {
+                <div>@Html.DisplayValueFor(x => i)</div>
+            }
+         </text>)
+    @Html.RenderDisplayTemplate(Html.LabelFor(x => x.FunctionalAreas), 
+        @<text>
+            @foreach (var i in Model.FunctionalAreas)
+            {
+                <div>@Html.DisplayValueFor(x => i)</div>
+            }
+         </text>)
+    @Html.DisplayFor(x => x.AWR)
+</div>

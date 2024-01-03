@@ -1,0 +1,10 @@
+﻿@model EquipmentLifespan
+
+@Html.Tabs().WithTab("Details", @<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.EstimatedLifespan)
+    @Html.DisplayFor(x => x.ExtendedLifeMajor)
+    @Html.DisplayFor(x => x.ExtendedLifeMinor)
+</div>)

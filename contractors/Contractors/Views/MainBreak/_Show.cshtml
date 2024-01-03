@@ -1,0 +1,39 @@
+﻿@using MMSINC.Authentication
+@using MMSINC.Metadata
+@model MapCall.Common.Model.Entities.MainBreak
+
+@{
+    var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+}
+<tr>
+    @if (!isGeneralReadOnly)
+    {
+        <td>
+            @Ajax.ActionLink("Edit", "Edit", "MainBreak", new { MainBreakID = Model.Id }, new AjaxOptions { HttpMethod = "GET" })
+            @{
+                var meh = Ajax.SecureActionLink<ContractorUser>(_container.GetInstance<ISecureFormTokenService>(), _container.GetInstance<IAuthenticationService<ContractorUser>>().CurrentUser,
+                    "Delete", "Destroy", "MainBreak",
+                    new { MainBreakID = Model.Id }, new AjaxOptions {
+                        HttpMethod = "DELETE",
+                        Confirm = "Are you sure you want to delete this main break?"
+                    });
+            }
+            @meh
+        </td>
+    }
+    <td>@Html.DisplayTextFor(m => m.MainBreakMaterial)</td>
+    <td>@Html.DisplayTextFor(m => m.FootageReplaced)</td>
+    <td>@Html.DisplayTextFor(m => m.ReplacedWith)</td>
+    <td>@Html.DisplayTextFor(m => m.MainCondition)</td>
+    <td>@Html.DisplayTextFor(m => m.MainFailureType)</td>
+    <td>@Html.DisplayTextFor(m => m.Depth)</td>
+    <td>@Html.DisplayTextFor(m => m.MainBreakSoilCondition)</td>
+    <td>@Html.DisplayTextFor(m => m.CustomersAffected)</td>
+    <td>@Html.DisplayTextFor(m => m.ShutdownTime)</td>
+    <td>@Html.DisplayTextFor(m => m.MainBreakDisinfectionMethod)</td>
+    <td>@Html.DisplayTextFor(m => m.MainBreakFlushMethod)</td>
+    <td>@Html.DisplayTextFor(m => m.ChlorineResidual)</td>
+    <td>@Html.CheckBoxFor(m => m.BoilAlertIssued, new { Disabled = "true" })</td>
+    <td>@Html.DisplayTextFor(m => m.ServiceSize)</td>
+
+</tr>

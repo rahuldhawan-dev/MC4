@@ -1,0 +1,33 @@
+﻿@model Interconnection
+
+@using (var g = Html.Grid()) {
+    using (g.FlexBox()) {
+        using (var form = Form.BeginForm("Destroy", "InterconnectionMeter", "Facilities"))
+        {
+            form.HtmlAttributes["id"] = "frmRemoveMeter";
+            @Control.HiddenFor(m => m.Id).WithName("interconnectionId")
+            @(Html.TableFor(x => x.Meters, new {style = "width:100%"})
+                  .ColumnFor(m => m.Profile.Size)
+                  .ColumnFor(m => m.SerialNumber)
+                  .ColumnFor(m => m.Profile.Type)
+                  .TemplateColumnFor("", m => @<div>
+                                                   @if (Html.CurrentUserCanEdit())
+                                                   {
+                                                       Control.SubmitButton("Remove").WithName("meterId").WithValue(m.Id);
+                                                   }
+                                               </div>))
+        }
+    }
+
+    if (Html.CurrentUserCanEdit())
+    {
+        using (g.FlexBox())
+        {
+            @Control.Button("Add Meter").WithId("btnAddMeter")
+
+            <div id="addMeterPanel" style="display: none">
+                @Html.Action("New", "InterconnectionMeter", new {area = "Facilities", Interconnection = Model.Id})
+            </div>
+        }
+    }
+}

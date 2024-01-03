@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://amwater.com/EAM/0009/MAPCALL/CompleteWorkOrder" xmlns:p1="http://amwater.com/EAM/0009/MAPCALL/CompleteWorkOrder" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://amwater.com/EAM/0009/MAPCALL/CompleteWorkOrder" xmlns="http://amwater.com/EAM/0009/MAPCALL/CompleteWorkOrder" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="CompleteScheduledUnscheduledWOResponse" type="CompleteScheduledUnscheduledWOStatus"/>
+            <xsd:element name="CompleteScheduledUnscheduledWORequest" type="CompleteScheduledUnscheduledWO"/>
+            <xsd:complexType name="CompleteScheduledUnscheduledWO">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="UnscheduledWORequest">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="TimeConfirmation">
+                                    <xsd:complexType>
+                                    <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="OrderNo" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="DateCompleted" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="Employee" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="ActualWork" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="Finalize" type="xsd:string"/>
+                                    <xsd:element name="StartDate" type="xsd:string"/>
+                                    <xsd:element name="StartTime" type="xsd:string"/>
+                                    <xsd:element name="EndDate" type="xsd:string"/>
+                                    <xsd:element name="EndTime" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="Capitalized" type="xsd:string"/>
+                                    </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangeOrder">
+                                    <xsd:complexType>
+                                    <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="WorkOrderDesc" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="PMActType" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="Notes" type="xsd:string"/>
+                                    </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="GoodsIssue">
+                                    <xsd:complexType>
+                                    <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="DocumentDate" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="PostingDate" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="OperatingCenterPlant" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="SAPOrderNumber" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="PartNumber" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="Quantity" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="SAPStockLocation" type="xsd:string"/>
+                                    </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="CompleteScheduledUnscheduledWOStatus">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="UnscheduledWOResponse">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="OrderNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="WBSElement" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MaterialDocument" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="SAPStatus" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CompleteScheduledUnscheduledWORequest">
+<wsdl:documentation/>
+    <wsdl:part name="CompleteScheduledUnscheduledWORequest" element="p1:CompleteScheduledUnscheduledWORequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CompleteScheduledUnscheduledWOResponse">
+<wsdl:documentation/>
+    <wsdl:part name="CompleteScheduledUnscheduledWOResponse" element="p1:CompleteScheduledUnscheduledWOResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="CompleteScheduledUnscheduledWO_OB_SYN">
+<wsdl:documentation/>
+    <wsdl:operation name="CompleteScheduledUnscheduledWO_OB_SYN">
+<wsdl:documentation/>
+      <wsdl:input message="p1:CompleteScheduledUnscheduledWORequest">
+    </wsdl:input>
+      <wsdl:output message="p1:CompleteScheduledUnscheduledWOResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CompleteScheduledUnscheduledWO_OB_SYNBinding" type="p1:CompleteScheduledUnscheduledWO_OB_SYN">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:Policy>
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+    <wsdl:operation name="CompleteScheduledUnscheduledWO_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:CompleteScheduledUnscheduledWO_OB_SYNBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/CompleteScheduledUnscheduledWO"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy required="true"/>
+    <wsp:Policy wsu:Id="BN__binding">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                    <wsp:ExactlyOne>
+                                    <sp:HttpBasicAuthentication/>
+                                    <sp:RequireClientCertificate/>
+                                    </wsp:ExactlyOne>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256/>
+                                    <sp:Basic192/>
+                                    <sp:Basic128/>
+                                    <sp:TripleDes/>
+                                    <sp:Basic256Rsa15/>
+                                    <sp:Basic192Rsa15/>
+                                    <sp:Basic128Rsa15/>
+                                    <sp:TripleDesRsa15/>
+                                    <sp:Basic256Sha256/>
+                                    <sp:Basic192Sha256/>
+                                    <sp:Basic128Sha256/>
+                                    <sp:TripleDesSha256/>
+                                    <sp:Basic256Sha256Rsa15/>
+                                    <sp:Basic192Sha256Rsa15/>
+                                    <sp:Basic128Sha256Rsa15/>
+                                    <sp:TripleDesSha256Rsa15/>
+                                </wsp:ExactlyOne>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

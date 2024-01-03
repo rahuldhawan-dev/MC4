@@ -1,0 +1,44 @@
+﻿@model HydrantInspection
+<div class="field-column fc200">
+  @Html.RenderDisplayTemplate("Hydrant", Html.AuthorizedActionLinkOrText(Model.Hydrant.ToString(), "Show", "Hydrant", new {id = Model.Hydrant.Id}))
+  @if (Model.Hydrant.Critical)
+  {
+    @Html.DisplayFor(x => x.Hydrant.CriticalNotes)
+  }
+  @Html.DisplayFor(x => x.Hydrant.Location)
+  @Html.DisplayFor(x => x.DateInspected)
+  @Html.DisplayFor(x => x.InspectedBy)
+  @Html.DisplayFor(x => x.CreatedAt)
+  @Html.DisplayFor(x => x.HydrantInspectionType)
+  @Html.DisplayFor(x => x.FullFlow)
+  @Html.DisplayFor(x => x.GPM)
+  @Html.DisplayFor(x => x.MinutesFlowed)
+  @Html.DisplayFor(x => x.StaticPressure)
+  @Html.DisplayFor(x => x.PreResidualChlorine)
+  @Html.DisplayFor(x => x.ResidualChlorine)
+  @Html.DisplayFor(x => x.FreeNoReadReason)
+  @Html.DisplayFor(x => x.PreTotalChlorine)
+  @Html.DisplayFor(x => x.TotalChlorine)
+  @Html.DisplayFor(x => x.TotalNoReadReason)
+  @Html.DisplayFor(x => x.HydrantTagStatus)
+  @Html.DisplayFor(x => x.HydrantProblem)
+  @Html.DisplayFor(x => x.Remarks)
+  @Html.DisplayFor(x => x.SAPErrorCode)
+  @Html.DisplayFor(x => x.SAPNotificationNumber)
+  @Html.DisplayFor(x => x.BusinessUnit)
+</div>
+
+@if (Model.Hydrant.LateralValve != null)
+{
+  @Html.AuthorizedActionLinkButton("New Inspection for Lateral Valve", "New", "ValveInspection", new {id = Model.Hydrant.LateralValve.Id})
+}
+
+@section scripts {
+  <script type="text/javascript">
+    var par = window.parent;
+    @* We only want this script running if it's loaded in an iframe from the AssetMap page.*@
+    if (par && par.AssetMaps) {
+      par.AssetMaps.updateLastSelectedMarkerIcon('@Url.Action("Index", "Hydrant", new {ext = "map", EntityId = Model.Hydrant.Id})');
+    }
+  </script>
+}

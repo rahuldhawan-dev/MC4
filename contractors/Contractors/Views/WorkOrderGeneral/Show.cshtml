@@ -1,0 +1,22 @@
+﻿@model MapCall.Common.Model.Entities.WorkOrder
+
+@{
+    ViewBag.Title = "Work Order - General - Details";
+}
+
+@if (Model == null)
+{
+    <h3>WorkOrder does not exist for planning.</h3>
+}
+else
+{
+    <h3>Order Number: @Html.DisplayTextFor(m => m.Id)</h3>
+    if (Model.SpecialInstructions != null)
+    {
+        <h5>
+            @Html.DisplayLabelFor(x => x.SpecialInstructions):
+            <span style="color: red" id="WorkOrderSpecialInstructions">@Html.DisplayTextFor(m => m.SpecialInstructions)</span>
+        </h5>
+    }
+    @Html.Partial("_Tabs", Model)
+}

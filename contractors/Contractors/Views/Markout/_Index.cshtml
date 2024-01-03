@@ -1,0 +1,37 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the planning and finalization tabs. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/Markout/Index.js", ScriptLoadType.LoadFromPartial)
+@{
+	Markout temp = null;
+	var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+}
+<table id="markoutsTable">
+	<thead>
+        <tr>
+            @if (!isGeneralReadOnly)
+            {
+                <th>Action</th>
+            }
+            <th>@Html.DisplayLabelFor(_ => temp.MarkoutNumber)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.MarkoutType)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.Note)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.DateOfRequest)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.ReadyDate)</th>
+            <th>@Html.DisplayLabelFor(_ => temp.ExpirationDate)</th>
+        </tr>
+	</thead>
+	<tbody>
+		@foreach (var markout in Model.Markouts)
+		{
+			@Html.Partial("~/Views/Markout/_Show.cshtml", markout)
+		}
+	</tbody>
+</table>
+
+@if (!isGeneralReadOnly && Model.MarkoutRequired)
+{
+	@Ajax.ActionLink("Add New Markout", "New", "Markout",
+			new { workOrderId = @Model.Id },
+			new AjaxOptions { HttpMethod = "GET" },
+			new { data_ajax_table = "#markoutsTable" })
+}

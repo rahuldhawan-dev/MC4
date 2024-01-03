@@ -1,0 +1,14 @@
+﻿@model ServiceLineProtectionInvestigation
+
+<div class="esri-info">
+    <h2>
+        @Html.DefaultActionLink(Model.Id.ToString(), "Show", "ServiceLineProtectionInvestigation", "ServiceLineProtection", new {id = Model.Id})
+    </h2>
+
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.Status)
+        @Html.DisplayFor(x => x.StreetNumber)
+        @Html.DisplayFor(x => x.Street)
+        @Html.DisplayFor(x => x.CustomerCity)
+    </div>
+</div>

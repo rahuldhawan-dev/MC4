@@ -1,0 +1,37 @@
+﻿@using MapCallMVC.Areas.Operations.Models.ViewModels
+@model AtRiskBehaviorSection
+@{
+    var orderedSubs = Model.SubSections.OrderBy(x => x.SubSectionNumber).ToList();
+
+    var table = Html.TableFor(x => orderedSubs)
+                    .ColumnFor(x => x.Description)
+                    .ColumnFor(x => x.SubSectionNumber);
+
+    var userCanEdit = Html.CurrentUserCanEdit();
+    if (userCanEdit)
+    {
+        table.TemplateColumnFor(x => @<text>
+            @using (var f = Form.BeginRouteForm("AtRiskBehaviorSection", "AtRiskBehaviorSubSection", new {id = Model.Id}, ManyToManyRouteAction.Remove))
+            {
+                f.HtmlAttributes["data-confirm"] = "Are you sure you want to remove this sub section?";
+                @Control.HiddenFor(y => x.Id).WithId(null).WithName("AtRiskBehaviorSubSectionId")
+                @Control.SubmitButton("Remove")
+            }
+        </text>);
+    }
+}           
+
+@(Html.Tabs()
+      .WithTab("Details", @<div class="field-column fc100">
+                                @Html.DisplayFor(x => x.Description)
+                                @Html.DisplayFor(x => x.SectionNumber)
+                            </div>)
+      .WithTab("Sub Sections", @<text>
+                                    <div class="collapse-panel" data-title="Add Sub Section">
+                                        @Html.Partial("_AddSubSection", ViewModelFactory.BuildWithOverrides<AddAtRiskBehaviorSubSectionToSection>(new {
+                                            Section = Model.Id 
+                                        }))
+                                    </div>
+                                    @table
+                                </text>)
+)

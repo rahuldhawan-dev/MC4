@@ -1,0 +1,12 @@
+﻿@model CreateLocal
+
+@using (Form.BeginForm("Create", "Local")) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "Local", new {Model.Id})
+                           </text>)
+    </div>
+}

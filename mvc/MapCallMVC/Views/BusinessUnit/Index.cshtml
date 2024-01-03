@@ -1,0 +1,18 @@
+﻿@model SearchBusinessUnit
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id}))
+      .ColumnFor(x => x.BU)
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.Department)
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.Area)
+      .ColumnFor(x => x.EmployeeResponsible)
+      .ColumnFor(x => x.IsActive)
+      .WithPaginatedFooter()
+    )

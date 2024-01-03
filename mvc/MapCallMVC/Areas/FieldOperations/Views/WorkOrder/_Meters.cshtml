@@ -1,0 +1,12 @@
+﻿@model WorkOrder
+
+@if (!Model.ServiceInstallations.Any())
+{
+	@Html.ActionLink("Create Set Meter", "New", "ServiceInstallation", new { area = "FieldOperations", id = Model.Id }, new { Class = "link-button" })
+}
+
+<br/>
+@(Html.TableFor(x => x.ServiceInstallations, new { Id = "meters" })
+      .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ServiceInstallation", new { id = x.Id, area = "FieldOperations" }, null))
+      .ColumnFor(x => x.MeterManufacturerSerialNumber)
+      .ColumnFor(x => x.MeterLocationInformation))

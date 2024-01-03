@@ -1,0 +1,17 @@
+﻿@model SearchFilterMedia
+
+@using (Form.BeginForm("Index", "FilterMedia")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.State)
+        @Html.EditorFor(m => m.Town, new {Container = @Model})
+        @Html.EditorFor(i => i.Facility, new {Container = @Model})
+        @Html.EditorFor(m => m.FilterType)
+        @Html.EditorFor(m => m.WashType)
+        @Html.EditorFor(m => m.MediaType)
+        @Html.EditorFor(m => m.Location)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

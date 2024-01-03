@@ -1,0 +1,16 @@
+﻿@model SearchLockoutDevice
+           
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.Person.FullName)
+    .SortableColumnFor(x => x.LockoutDeviceColor)
+    .SortableColumnFor(x => x.SerialNumber)
+    .SortableColumnFor(x => x.Description)
+    .WithCaption("Records found: " + Model.Count)
+    .WithPaginatedFooter()
+)

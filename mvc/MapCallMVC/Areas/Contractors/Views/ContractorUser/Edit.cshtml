@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.EditContractorUser
+
+@using (Form.BeginForm("Update", "ContractorUser", "Contractors", new { Model.Id }))
+{
+	<div class="field-column fc250">
+		@Html.EditorFor(x => x.Contractor)
+		@Html.DisplayFor(x => x.Email)
+		@Html.EditorFor(x => x.IsAdmin)
+		@Html.EditorFor(x => x.IsActive)
+		@Html.EditorFor(x => x.Password)
+		@Html.EditorFor(x => x.ConfirmPassword)
+		@Html.EditorFor(x => x.PasswordQuestion)
+		@Html.EditorFor(x => x.PasswordAnswer)
+
+		@Html.ButtonGroup(@<text>
+			@Control.SubmitButton("Save")
+			@Html.LinkButton("Cancel", "Show", "ContractorUser", new { Model.Id })
+		</text>)
+	</div>
+}

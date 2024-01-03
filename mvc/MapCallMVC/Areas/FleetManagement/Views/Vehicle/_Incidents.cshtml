@@ -1,0 +1,6 @@
+﻿@model Vehicle 
+
+@(Html.TableFor(x => x.Incidents)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "Incident", new { x.Id, area = "" }, null))
+      .ColumnFor(x => x.IncidentDate)
+      .ColumnFor(x => x.Employee))

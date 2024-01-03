@@ -1,0 +1,103 @@
+﻿@model RecurringProject
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.WBSNumber)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.HiddenFor(x => x.OperatingCenter.InfoMasterMapId)
+    @Html.HiddenFor(x => x.OperatingCenter.InfoMasterMapLayerName)
+    @*@Html.HiddenFor(x => x.OperatingCenter.CurrentInfoMasterMap.MapId)*@
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.ProjectTitle)
+    @Html.DisplayFor(x => x.ProjectDescription)
+    @Html.DisplayFor(x => x.AssetCategory)
+    @Html.DisplayFor(x => x.CPSReferenceId)
+    @Html.DisplayFor(x => x.AssetType)
+    @Html.DisplayFor(x => x.District)
+    @Html.DisplayFor(x => x.OriginationYear)
+    @Html.DisplayFor(x => x.HistoricProjectID)
+    @Html.DisplayFor(x => x.NJAWEstimate)
+    @Html.RenderDisplayTemplate("High Cost Factors", @<text>
+        @foreach (var factor in Model.HighCostFactors)
+        {
+            <div>
+                <li>@Html.DisplayValueFor(_ => factor.Description)</li>
+            </div>
+        }</text>)
+    @Html.DisplayFor(x => x.RecurringProjectType)
+
+    <div class="grid-layout gl-2col">
+        <div class="field-column fc200">
+            <fieldset>
+                <legend>Infomaster</legend>
+
+                @Html.RenderDisplayTemplate("InfoMaster Main Selector", @<text>
+                                                                            <img id="mains" src="~/Content/images/map-icon-blue.png" />
+                                                                         </text>)
+                @Html.DisplayFor(x => x.OverrideInfoMasterDecision)
+                @Html.DisplayFor(x => x.OverrideInfoMasterReason)
+                @Html.DisplayFor(x => x.OverrideInfoMasterJustification)
+                @Html.DisplayFor(x => x.ProposedLength)
+                @Html.DisplayFor(x => x.TotalInfoMasterScore)
+            </fieldset>
+        </div>
+        <div class="field-column fc200">
+            @if (Model.OverrideInfoMasterReason != null && Model.OverrideInfoMasterReason.Id == OverrideInfoMasterReason.Indices.GIS_DATA_INCORRECT)
+            {
+                <fieldset>
+                    <legend>GIS Inaccuracy Details</legend>
+                    @Html.RenderDisplayTemplate("GIS Data Inaccuracies",
+                        @<text>
+                            @foreach (var thing in Model.GISDataInaccuracies)
+                            {
+                                <div>
+                                    <li>@Html.DisplayValueFor(_ => thing.Description)</li>
+                                </div>
+                            }
+                         </text>)
+                    @Html.DisplayFor(x => x.CorrectDiameter)
+                    @Html.DisplayFor(x => x.CorrectMaterial)
+                    @Html.DisplayFor(x => x.CorrectInstallationDate)
+                    @Html.RenderDisplayTemplate("Main Break Orders",
+                        @<text>
+                            @foreach (var order in Model.MainBreakOrders)
+                            {
+                                <div>
+                                    <li>@Html.DisplayValueFor(_ => order.Id)</li>
+                                </div>
+                            }
+                         </text>)
+
+                </fieldset>
+            }
+        </div>
+    </div>
+
+    <fieldset>
+        <legend>Main Information</legend>
+        @Html.DisplayFor(x => x.ProposedDiameter)
+        @Html.DisplayFor(x => x.ProposedPipeMaterial)
+
+        @Html.DisplayFor(x => x.MainsExistingDiameter)
+        @Html.DisplayFor(x => x.ExistingDiameterOverride)
+        @Html.DisplayFor(x => x.MainsExistingPipeMaterial)
+        @Html.DisplayFor(x => x.ExistingPipeMaterialOverride)
+        @Html.DisplayFor(x => x.MainsDecadeInstalled)
+        @Html.DisplayFor(x => x.DecadeInstalledOverride)
+    </fieldset>
+    @Html.DisplayFor(x => x.Justification)
+    @Html.DisplayFor(x => x.AcceleratedAssetInvestmentCategory)
+    @Html.DisplayFor(x => x.SecondaryAssetInvestmentCategory)
+    @Html.DisplayFor(x => x.EstimatedProjectDuration)
+    @Html.DisplayFor(x => x.EstimatedInServiceDate)
+    @Html.DisplayFor(x => x.ActualInServiceDate)
+    @Html.DisplayFor(x => x.EstimatedInServicePeriod)
+    @Html.DisplayFor(x => x.FoundationalFilingPeriod)
+    @Html.DisplayFor(x => x.RegulatoryStatus)
+    @Html.DisplayFor(x => x.Status)
+    @Html.DisplayFor(x => x.FinalCriteriaScore)
+    @Html.DisplayFor(x => x.FinalRawScore)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+</div>

@@ -1,0 +1,9 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchHydrantsDuePaintingReport
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id="results", style = "width:auto;" })
+    .ColumnFor(x => x.OperatingCenter)
+    .TemplateColumnFor("Town", x => Html.ActionLink(x.Town, "Index", "Hydrant", new { area = "FieldOperations", Town = x.TownId, OperatingCenter = x.OperatingCenterId, RequiresPainting = "true" }, null))
+    .ColumnFor(x => x.Count)
+)

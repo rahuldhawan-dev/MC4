@@ -1,0 +1,19 @@
+﻿@using System.Web.UI.WebControls
+@model Facility
+
+@{
+    var arcFlashStudies = Model.ArcFlashStudies.OrderByDescending(x => x.Id);
+}
+@Html.LinkButton("Create New Arc Flash Study", "New", "ArcFlashStudy", new { state = Model.OperatingCenter.State.Id, operatingCenter = Model.OperatingCenter.Id, facility = Model.Id, area = "Engineering" })
+
+@(Html.TableFor(x => x.ArcFlashStudies, new { id = "arc-flash-studies-table" })
+      .TemplateColumnFor(x => Control.ActionLink("View", "Show", "ArcFlashStudy", new { id = x.Id, area = "Engineering" }))
+      .ColumnFor(x => x.Id)
+      .ColumnFor(x => x.ArcFlashStatus)
+      .ColumnFor(x => x.DateLabelsApplied)
+      .ColumnFor(x => x.UtilityCompanyDataReceivedDate)
+      .ColumnFor(x => x.UtilityCompany)
+      .ColumnFor(x => x.UtilityCompanyOther)
+      .ColumnFor(x => x.UtilityAccountNumber)
+      .ColumnFor(x => x.PowerPhase)
+)

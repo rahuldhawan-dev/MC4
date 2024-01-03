@@ -1,0 +1,51 @@
+﻿@model NpdesRegulatorInspection
+
+<div class="field-column fc200">
+
+    @Html.RenderDisplayTemplate("NPDES Regulator",
+        Html.ActionLink(Model.SewerOpening.RegulatorNumber, "Show", "SewerOpening", new {
+            Model.SewerOpening.Id
+        }, null))
+    @Html.DisplayFor(x => x.SewerOpening.NpdesPermitNumber)
+    @Html.DisplayFor(x => x.SewerOpening.Street)
+    @Html.DisplayFor(x => x.SewerOpening.LocationDescription)
+    @Html.DisplayFor(x => x.SewerOpening.OutfallNumber)
+    @Html.DisplayFor(x => x.ArrivalDateTime)
+    @Html.DisplayFor(x => x.DepartureDateTime)
+    @Html.DisplayFor(x => x.InspectedBy)
+    @Html.DisplayFor(x => x.NpdesRegulatorInspectionType)
+    @Html.DisplayFor(x => x.HasInfiltration)
+    @Html.DisplayFor(x => x.WeatherCondition)
+    @Html.DisplayFor(x => x.OutfallCondition)
+    @Html.DisplayFor(x => x.GateStatusAnswerType)
+    @Html.DisplayFor(x => x.BlockCondition)
+    @Html.DisplayFor(x => x.IsDischargePresent)
+    @if (Model.IsDischargePresent)
+    {
+        @Html.DisplayFor(x => x.DischargeWeatherRelatedType)
+        @Html.DisplayFor(x => x.RainfallEstimate)
+        @Html.DisplayFor(x => x.SewerOpening.BodyOfWater)
+        @Html.DisplayFor(x => x.DischargeFlow)
+        @Html.DisplayFor(x => x.DischargeCause)
+        @Html.DisplayFor(x => x.DischargeDuration)
+        @Html.DisplayFor(x => x.IsPlumePresent)
+        @Html.DisplayFor(x => x.IsErosionPresent)
+        @Html.DisplayFor(x => x.IsSolidFloatPresent)
+        @Html.DisplayFor(x => x.IsAdditionalEquipmentNeeded)
+        @Html.DisplayFor(x => x.HasSamplesBeenTaken)
+        if (Model.HasSamplesBeenTaken)
+        {
+            @Html.DisplayFor(x => x.SampleLocation)
+        }
+    }
+    @Html.DisplayFor(x => x.HasFlowMeterMaintenanceBeenPerformed)
+    @if (Model.HasFlowMeterMaintenanceBeenPerformed)
+    {
+        @Html.DisplayFor(x => x.HasDownloadedFlowMeterData)
+        @Html.DisplayFor(x => x.HasCalibratedFlowMeter)
+        @Html.DisplayFor(x => x.HasInstalledFlowMeter)
+        @Html.DisplayFor(x => x.HasRemovedFlowMeter)
+        @Html.DisplayFor(x => x.HasFlowMeterBeenMaintainedOther)
+    }
+    @Html.DisplayFor(x => x.Remarks)
+</div>

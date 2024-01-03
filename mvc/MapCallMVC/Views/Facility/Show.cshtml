@@ -1,0 +1,26 @@
+﻿@using MapCall.Common.Model.Repositories
+@model Facility
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+@{
+    var equipments = Model.Equipment.OrderBy(y => y.EquipmentStatus == null ? "" : y.EquipmentStatus.Description).ToList();
+}
+@(Html.Tabs()
+        .WithTab("Facility", "_ShowFacility", Model)
+        .WithTab("Maintenance Plans", "_MaintenancePlans", Model, itemCount: Model.MaintenancePlans.Count)
+        .WithTab("Risk Characteristics", "_RiskCharacteristics", Model)
+        .WithTab("Community Right To Know", "_CommunityRightToKnows")
+        .WithTab("Sub Facilities", "_SubFacilities", Model.ChildFacilities, Model.ChildFacilities.Any())
+        .WithTab("Equipment", "~/Views/Equipment/_Index.cshtml", equipments)
+        .WithAjaxTab("System Delivery History", "_FacilitySystemDeliveryHistory", new SearchFacilitySystemDeliveryHistory{Id = Model.Id})
+        .WithTab("System Delivery", "_FacilitySystemDeliveryEntryTypes", Model, Model.PointOfEntry)
+        .WithAjaxTab("Readings", "_Readings", new SearchFacilityReadings {Id = Model.Id, StartDate = DateTime.Today.AddMonths(-1), EndDate = DateTime.Today, Interval = ReadingGroupType.Daily})
+        .WithTab("Arc Flash", "DisplayPartials/_ArcFlashStudies")
+        .WithTab("Filter Media", "~/Views/FilterMedia/_Facility_Index.cshtml")
+        //.WithTab("Processes", "_FacilityProcesses", Model, itemCount: Model.FacilityProcesses.Count) // Hide until future use
+        .WithTab("Areas", "_FacilityFacilityAreas")
+        //.WithTab("Process Steps", "_FacilityProcessSteps", Model, itemCount: Model.AllProcessStepsInOrder.Count()) // Hide until future use
+        .WithVideos()
+        .WithNotesAndDocuments()
+        .WithLog())

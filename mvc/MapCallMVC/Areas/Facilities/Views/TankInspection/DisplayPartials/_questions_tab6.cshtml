@@ -1,0 +1,40 @@
+﻿@using MMSINC.Data.NHibernate
+@model TankInspection
+
+@{
+    var questionQuestions = Model.TankInspectionQuestions;
+    var questionTypes = _container.GetInstance<IRepository<TankInspectionQuestionType>>().GetAll().ToList();
+}
+
+@foreach (TankInspectionQuestionType tank in questionTypes.Where(tank => tank.TankInspectionQuestionGroup.Id == TankInspectionQuestionGroup.Indices.OVERFLOW_PIPING))
+{
+    {
+        var name = tank.Description;
+        var obsAndComments = "";
+        bool? repairs = null;
+        DateTime? correctiveCreated = null;
+        DateTime? correctiveCompleted = null;
+
+        for (int i = 0; i < questionQuestions.Count; i++)
+        {
+            if (questionQuestions[i].TankInspectionQuestionType == tank)
+            {
+                name = questionQuestions[i].TankInspectionQuestionType.Description;
+                obsAndComments = questionQuestions[i].ObservationAndComments;
+                repairs = questionQuestions[i].RepairsNeeded;
+                correctiveCreated = questionQuestions[i].CorrectiveWoDateCreated;
+                correctiveCompleted = questionQuestions[i].CorrectiveWoDateCompleted;
+                i = questionTypes.Count;
+            }
+        }
+
+    <fieldset>
+        <legend>@name</legend>
+        <div class="field-column fc400">Observations and Comments: @obsAndComments</div>
+        <a href="https://mapcall.awapps.com/Modules/mvc/HelpTopic/Show/258#Documents" target="_new">Click here</a> for EPA Tank Tech Tips.
+        <div class="field-column fc400">Repairs Needed: @repairs</div>
+        <div class="field-column fc400">Corrective Work Order Date Created: @correctiveCreated</div>
+        <div class="field-column fc400">Corrective Work Order Date Completed: @correctiveCompleted</div>
+    </fieldset>
+    }
+} 

@@ -1,0 +1,739 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{45A068AF-75DC-4446-BB6D-79E6EE978E26}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkOrders</RootNamespace>
+    <AssemblyName>WorkOrders</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>Model\WorkOrders.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <OutputPath>bin\x64\QA2\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <OutputPath>bin\x64\QA3\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <OutputPath>bin\x64\Training\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <OutputPath>bin\x64\QA4\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30930.28736, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.3.3.1\lib\net461\FluentMigrator.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMigrator.Abstractions, Version=3.3.1.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentMigrator.Abstractions.3.3.1\lib\net461\FluentMigrator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.6.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Options.6.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=6.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.6.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Library\ControlExtensions\ControBaseExtensions.cs" />
+    <Compile Include="Library\Controls\WorkOrdersMvpPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Library\Controls\WorkOrdersMvpUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Library\Permissions\PermissionsExtensions.cs" />
+    <Compile Include="Library\Permissions\SecurityService.cs" />
+    <Compile Include="Library\Utilities.cs" />
+    <Compile Include="Model\AccountingType.cs" />
+    <Compile Include="Model\AccountingTypeRepository.cs" />
+    <Compile Include="Model\AcousticMonitoringType.cs" />
+    <Compile Include="Model\AcousticMonitoringTypeRepository.cs" />
+    <Compile Include="Model\AggregateRole.cs" />
+    <Compile Include="Model\Asset.cs" />
+    <Compile Include="Model\AssetStatus.cs" />
+    <Compile Include="Model\AssetType.cs" />
+    <Compile Include="Model\AssetTypeRepository.cs" />
+    <Compile Include="Model\BillingParty.cs" />
+    <Compile Include="Model\BusinessUnit.cs" />
+    <Compile Include="Model\BusinessUnitRepository.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\ContactType.cs" />
+    <Compile Include="Model\Contractor.cs" />
+    <Compile Include="Model\ContractorOperatingCenter.cs" />
+    <Compile Include="Model\ContractorRepository.cs" />
+    <Compile Include="Model\Coordinate.cs" />
+    <Compile Include="Model\County.cs" />
+    <Compile Include="Model\Crew.cs" />
+    <Compile Include="Model\CrewAssignment.cs" />
+    <Compile Include="Model\CrewAssignmentRepository.cs" />
+    <Compile Include="Model\CrewRepository.cs" />
+    <Compile Include="Model\CustomerImpactRange.cs" />
+    <Compile Include="Model\CustomerImpactRangeRepository.cs" />
+    <Compile Include="Model\DataType.cs" />
+    <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\DetectedLeak.cs" />
+    <Compile Include="Model\Document.cs" />
+    <Compile Include="Model\DocumentData.cs" />
+    <Compile Include="Model\DocumentDataRepository.cs" />
+    <Compile Include="Model\DocumentRepository.cs" />
+    <Compile Include="Model\DocumentType.cs" />
+    <Compile Include="Model\DocumentTypeRepository.cs" />
+    <Compile Include="Model\DocumentWorkOrder.cs" />
+    <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\EmployeeRepository.cs" />
+    <Compile Include="Model\EmployeeWorkOrder.cs" />
+    <Compile Include="Model\Equipment.cs" />
+    <Compile Include="Model\EquipmentPurpose.cs" />
+    <Compile Include="Model\Facility.cs" />
+    <Compile Include="Model\FacilityRepository.cs" />
+    <Compile Include="Model\FireDistrict.cs" />
+    <Compile Include="Model\FlushingNoticeType.cs" />
+    <Compile Include="Model\Hydrant.cs" />
+    <Compile Include="Model\HydrantBilling.cs" />
+    <Compile Include="Model\HydrantManufacturer.cs" />
+    <Compile Include="Model\HydrantRepository.cs" />
+    <Compile Include="Model\IAsset.cs" />
+    <Compile Include="Model\MainCrossingStatus.cs" />
+    <Compile Include="Model\MarkoutDamage.cs" />
+    <Compile Include="Model\MarkoutDamageRepository.cs" />
+    <Compile Include="Model\MarkoutViolation.cs" />
+    <Compile Include="Model\MarkoutViolationRepository.cs" />
+    <Compile Include="Model\MostRecentlyInstalledService.cs" />
+    <Compile Include="Model\MostRecentlyInstalledServiceRepository.cs" />
+    <Compile Include="Model\NewServiceInstallation.cs" />
+    <Compile Include="Model\PitcherFilterCustomerDeliveryMethod.cs" />
+    <Compile Include="Model\PitcherFilterCustomerDeliveryMethodRepository.cs" />
+    <Compile Include="Model\PlantMainenantanceActivityType.cs" />
+    <Compile Include="Model\PlantMaintenanceActivityTypeRepository.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\Premise.cs" />
+    <Compile Include="Model\SampleSite.cs" />
+    <Compile Include="Model\SampleSiteRepository.cs" />
+    <Compile Include="Model\SapWorkOrdersBaseRepository.cs" />
+    <Compile Include="Model\SAPWorkOrderStep.cs" />
+    <Compile Include="Model\SewerClearingMethod.cs" />
+    <Compile Include="Model\SewerOpeningMaterial.cs" />
+    <Compile Include="Model\SewerOverflow.cs" />
+    <Compile Include="Model\SewerOverflowArea.cs" />
+    <Compile Include="Model\SewerOverflowReason.cs" />
+    <Compile Include="Model\SewerOverflowRepository.cs" />
+    <Compile Include="Model\StateRepository.cs" />
+    <Compile Include="Model\StreetPrefix.cs" />
+    <Compile Include="Model\StreetSuffix.cs" />
+    <Compile Include="Model\ValveControl.cs" />
+    <Compile Include="Model\ValveManufacturer.cs" />
+    <Compile Include="Model\ValveNormalPosition.cs" />
+    <Compile Include="Model\ValveOpenDirection.cs" />
+    <Compile Include="Model\ValveSize.cs" />
+    <Compile Include="Model\ValveType.cs" />
+    <Compile Include="Model\WorkOrderCancellationReason.cs" />
+    <Compile Include="Model\WorkOrderCancellationReasonRepository.cs" />
+    <Compile Include="Model\MainCrossing.cs" />
+    <Compile Include="Model\WorkOrderInvoice.cs" />
+    <Compile Include="Model\JobObservation.cs" />
+    <Compile Include="Model\JobSiteCheckList.cs" />
+    <Compile Include="Model\LeakReportingSource.cs" />
+    <Compile Include="Model\LeakReportingSourceRepository.cs" />
+    <Compile Include="Model\LostWater.cs" />
+    <Compile Include="Model\MainBreak.cs" />
+    <Compile Include="Model\MainBreakDisinfectionMethod.cs" />
+    <Compile Include="Model\MainBreakDisinfectionMethodRepository.cs" />
+    <Compile Include="Model\MainBreakFlushMethod.cs" />
+    <Compile Include="Model\MainBreakFlushMethodRepository.cs" />
+    <Compile Include="Model\MainBreakMaterial.cs" />
+    <Compile Include="Model\MainBreakMaterialRepository.cs" />
+    <Compile Include="Model\MainBreakRepository.cs" />
+    <Compile Include="Model\MainBreakSoilCondition.cs" />
+    <Compile Include="Model\MainBreakSoilConditionRepository.cs" />
+    <Compile Include="Model\MainBreakValveOperation.cs" />
+    <Compile Include="Model\MainCondition.cs" />
+    <Compile Include="Model\MainConditionRepository.cs" />
+    <Compile Include="Model\MainFailureType.cs" />
+    <Compile Include="Model\MainFailureTypeRepository.cs" />
+    <Compile Include="Model\Markout.cs" />
+    <Compile Include="Model\MarkoutRepository.cs" />
+    <Compile Include="Model\MarkoutRequirement.cs" />
+    <Compile Include="Model\MarkoutRequirementRepository.cs" />
+    <Compile Include="Model\MarkoutStatus.cs" />
+    <Compile Include="Model\MarkoutStatusRepository.cs" />
+    <Compile Include="Model\MarkoutType.cs" />
+    <Compile Include="Model\MarkoutTypeRepository.cs" />
+    <Compile Include="Model\Material.cs" />
+    <Compile Include="Model\MaterialRepository.cs" />
+    <Compile Include="Model\MaterialsUsed.cs" />
+    <Compile Include="Model\MaterialsUsedRepository.cs" />
+    <Compile Include="Model\Migrations\InitialSeedData.cs" />
+    <Compile Include="Model\OperatingCenter.cs" />
+    <Compile Include="Model\OperatingCenterAssetType.cs" />
+    <Compile Include="Model\OperatingCenterAssetTypeRepository.cs" />
+    <Compile Include="Model\OperatingCenterRepository.cs" />
+    <Compile Include="Model\OperatingCenterSpoilRemovalCost.cs" />
+    <Compile Include="Model\OperatingCenterSpoilRemovalCostRepository.cs" />
+    <Compile Include="Model\OperatingCenterStockedMaterial.cs" />
+    <Compile Include="Model\OperatingCenterStockedMaterialRepository.cs" />
+    <Compile Include="Model\OperatingCenterTown.cs" />
+    <Compile Include="Model\OperatingCenterTownRepository.cs" />
+    <Compile Include="Model\OperatingCenterUser.cs" />
+    <Compile Include="Model\OperatingCenterUserRepository.cs" />
+    <Compile Include="Model\OrcomOrderCompletion.cs" />
+    <Compile Include="Model\OrcomOrderCompletionRepository.cs" />
+    <Compile Include="Model\RepairTimeRange.cs" />
+    <Compile Include="Model\RepairTimeRangeRepository.cs" />
+    <Compile Include="Model\ReportViewing.cs" />
+    <Compile Include="Model\ReportViewingRepository.cs" />
+    <Compile Include="Model\Repositories.cs" />
+    <Compile Include="Model\Requisition.cs" />
+    <Compile Include="Model\RequisitionRepository.cs" />
+    <Compile Include="Model\RequisitionType.cs" />
+    <Compile Include="Model\Restoration.cs" />
+    <Compile Include="Model\RestorationAccountingCode.cs" />
+    <Compile Include="Model\RestorationAccountingCodeRepository.cs" />
+    <Compile Include="Model\RestorationMethod.cs" />
+    <Compile Include="Model\RestorationPriorityUpchargeType.cs" />
+    <Compile Include="Model\RestorationProductCode.cs" />
+    <Compile Include="Model\RestorationProductCodeRepository.cs" />
+    <Compile Include="Model\RestorationResponsePriority.cs" />
+    <Compile Include="Model\RestorationResponsePriorityRepository.cs" />
+    <Compile Include="Model\RestorationTypeCost.cs" />
+    <Compile Include="Model\RestorationMethodRestorationType.cs" />
+    <Compile Include="Model\RestorationRepository.cs" />
+    <Compile Include="Model\RestorationType.cs" />
+    <Compile Include="Model\RestorationTypeCostRepository.cs" />
+    <Compile Include="Model\SafetyMarker.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\ServiceMaterial.cs" />
+    <Compile Include="Model\ServiceSize.cs" />
+    <Compile Include="Model\ServiceSizeRepository.cs" />
+    <Compile Include="Model\SewerOpening.cs" />
+    <Compile Include="Model\SewerOpeningRepository.cs" />
+    <Compile Include="Model\Spoil.cs" />
+    <Compile Include="Model\SpoilFinalProcessingLocation.cs" />
+    <Compile Include="Model\SpoilFinalProcessingLocationRepository.cs" />
+    <Compile Include="Model\SpoilRemoval.cs" />
+    <Compile Include="Model\SpoilRemovalRepository.cs" />
+    <Compile Include="Model\SpoilRepository.cs" />
+    <Compile Include="Model\SpoilStorageLocation.cs" />
+    <Compile Include="Model\SpoilStorageLocationRepository.cs" />
+    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\StockLocation.cs" />
+    <Compile Include="Model\StockLocationRepository.cs" />
+    <Compile Include="Model\StormWaterAsset.cs" />
+    <Compile Include="Model\Street.cs" />
+    <Compile Include="Model\StreetOpeningPermit.cs" />
+    <Compile Include="Model\StreetOpeningPermitRepository.cs" />
+    <Compile Include="Model\StreetRepository.cs" />
+    <Compile Include="Model\Town.cs" />
+    <Compile Include="Model\TownContact.cs" />
+    <Compile Include="Model\TownRepository.cs" />
+    <Compile Include="Model\TownSection.cs" />
+    <Compile Include="Model\TownSectionRepository.cs" />
+    <Compile Include="Model\TrafficControlTicket.cs" />
+    <Compile Include="Model\UnitOfMeasure.cs" />
+    <Compile Include="Model\ValveRepository.cs" />
+    <Compile Include="Model\WorkAreaType.cs" />
+    <Compile Include="Model\WorkCategory.cs" />
+    <Compile Include="Model\WorkDescription.cs" />
+    <Compile Include="Model\WorkDescriptionRepository.cs" />
+    <Compile Include="Model\WorkOrder.cs" />
+    <Compile Include="Model\WorkOrderDescriptionChange.cs" />
+    <Compile Include="Model\WorkOrderPriority.cs" />
+    <Compile Include="Model\WorkOrderPriorityRepository.cs" />
+    <Compile Include="Model\WorkOrderPurpose.cs" />
+    <Compile Include="Model\WorkOrderPurposeRepository.cs" />
+    <Compile Include="Model\WorkOrderRepository.cs" />
+    <Compile Include="Library\AddressVerification.cs" />
+    <Compile Include="Model\WorkOrderRequester.cs" />
+    <Compile Include="Model\WorkOrderRequesterRepository.cs" />
+    <Compile Include="Model\WorkOrders.cs" />
+    <Compile Include="Model\Valve.cs" />
+    <Compile Include="Model\ScheduleOfValueCategory.cs" />
+    <Compile Include="Model\ScheduleOfValueCategoryRepository.cs" />
+    <Compile Include="Model\ScheduleOfValue.cs" />
+    <Compile Include="Model\WorkOrderScheduleOfValuesLaborItemRepository.cs" />
+    <Compile Include="Model\WorkOrdersDataContext.cs" />
+    <Compile Include="Model\WorkOrdersRepository.cs" />
+    <Compile Include="Model\WorkOrdersWorkOrderScheduleOfValuesLaborItem.cs" />
+    <Compile Include="Model\ZoneType.cs" />
+    <Compile Include="Presenters\Abstract\WorkOrdersAdminResourcePresenter.cs" />
+    <Compile Include="Presenters\Abstract\WorkOrdersResourcePresenter.cs" />
+    <Compile Include="Presenters\Abstract\WorkOrdersResourceRPCPresenter.cs" />
+    <Compile Include="Presenters\Assets\AssetLatLonPickerPresenter.cs" />
+    <Compile Include="Presenters\ContractorCrewAssignments\ContractorCrewAssignmentListPresenter.cs" />
+    <Compile Include="Presenters\ContractorCrewAssignments\ContractorCrewAssignmentResourcePresenter.cs" />
+    <Compile Include="Presenters\ContractorCrewAssignments\ContractorCrewAssignmentSearchPresenter.cs" />
+    <Compile Include="Presenters\CrewAssignments\CrewAssignmentListPresenter.cs" />
+    <Compile Include="Presenters\CrewAssignments\CrewAssignmentResourcePresenter.cs" />
+    <Compile Include="Presenters\CrewAssignments\CrewAssignmentResourceRPCPresenter.cs" />
+    <Compile Include="Presenters\CrewAssignments\CrewAssignmentSearchPresenter.cs" />
+    <Compile Include="Presenters\CrewAssignments\CrewAssignmentsReadOnlyPresenter.cs" />
+    <Compile Include="Presenters\Crews\CrewDetailPresenter.cs" />
+    <Compile Include="Presenters\Crews\CrewResourcePresenter.cs" />
+    <Compile Include="Presenters\Crews\CrewsListPresenter.cs" />
+    <Compile Include="Presenters\Documents\DocumentDetailPresenter.cs" />
+    <Compile Include="Presenters\Documents\DocumentResourceRPCPresenter.cs" />
+    <Compile Include="Presenters\Materials\MaterialListPresenter.cs" />
+    <Compile Include="Presenters\Materials\MaterialResourcePresenter.cs" />
+    <Compile Include="Presenters\Materials\MaterialSearchPresenter.cs" />
+    <Compile Include="Presenters\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostListPresenter.cs" />
+    <Compile Include="Presenters\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourcePresenter.cs" />
+    <Compile Include="Presenters\RestorationAccountingCodes\RestorationAccountingCodeListPresenter.cs" />
+    <Compile Include="Presenters\RestorationAccountingCodes\RestorationAccountingCodeResourcePresenter.cs" />
+    <Compile Include="Presenters\RestorationAccountingCodes\RestorationAccountingCodeSearchPresenter.cs" />
+    <Compile Include="Presenters\RestorationProductCodes\RestorationProductCodeListPresenter.cs" />
+    <Compile Include="Presenters\RestorationProductCodes\RestorationProductCodeResourcePresenter.cs" />
+    <Compile Include="Presenters\RestorationProductCodes\RestorationProductCodeSearchPresenter.cs" />
+    <Compile Include="Presenters\Restorations\RestorationDetailPresenter.cs" />
+    <Compile Include="Presenters\Restorations\RestorationResourceRPCPresenter.cs" />
+    <Compile Include="Presenters\RestorationTypeCosts\RestorationTypeCostListPresenter.cs" />
+    <Compile Include="Presenters\RestorationTypeCosts\RestorationTypeCostResourcePresenter.cs" />
+    <Compile Include="Presenters\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationListPresenter.cs" />
+    <Compile Include="Presenters\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourcePresenter.cs" />
+    <Compile Include="Presenters\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchPresenter.cs" />
+    <Compile Include="Presenters\SpoilRemovals\SpoilRemovalListPresenter.cs" />
+    <Compile Include="Presenters\SpoilRemovals\SpoilRemovalResourcePresenter.cs" />
+    <Compile Include="Presenters\SpoilRemovals\SpoilRemovalSearchPresenter.cs" />
+    <Compile Include="Presenters\SpoilStorageLocations\SpoilStorageLocationListPresenter.cs" />
+    <Compile Include="Presenters\SpoilStorageLocations\SpoilStorageLocationResourcePresenter.cs" />
+    <Compile Include="Presenters\SpoilStorageLocations\SpoilStorageLocationSearchPresenter.cs" />
+    <Compile Include="Presenters\StockLocations\StockLocationListPresenter.cs" />
+    <Compile Include="Presenters\StockLocations\StockLocationResourcePresenter.cs" />
+    <Compile Include="Presenters\StockLocations\StockLocationSearchPresenter.cs" />
+    <Compile Include="Presenters\WorkOrders\WorkOrderDetailPresenter.cs" />
+    <Compile Include="Presenters\WorkOrders\WorkOrderResourceRPCPresenter.cs" />
+    <Compile Include="Presenters\WorkOrders\WorkOrderSearchPresenter.cs" />
+    <Compile Include="Presenters\WorkOrders\WorkOrderListPresenter.cs" />
+    <Compile Include="Presenters\WorkOrders\WorkOrderResourcePresenter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Assets\IAssetLatLonPickerView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentDeleteEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentPrioritizeEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentStartEndEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\IContractorCrewAssignmentsSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsByMonth.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsReadOnly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsResourceView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsRPCListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\ICrewAssignmentsSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\IMaterialListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\IMaterialSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\IRestorationAccountingCodeListView.cs" />
+    <Compile Include="Views\RestorationAccountingCodes\IRestorationAccountingCodeSearchView.cs" />
+    <Compile Include="Views\RestorationProductCodes\IRestorationProductCodeListView.cs" />
+    <Compile Include="Views\RestorationProductCodes\IRestorationProductCodeSearchView.cs" />
+    <Compile Include="Views\Restorations\IRestorationDetailView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\IRestorationResourceRPCView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\ISpoilFinalProcessingLocationListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\ISpoilFinalProcessingLocationSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\ISpoilRemovalListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\ISpoilRemovalSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilStorageLocations\ISpoilStorageLocationListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilStorageLocations\ISpoilStorageLocationSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\StockLocations\IStockLocationListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\StockLocations\IStockLocationSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkDescriptions\IWorkDescriptionListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkDescriptions\IWorkDescriptionSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderApprovalDetailView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderMarkoutPlanningListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderPrePlanningListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderResourceRPCView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderSchedulingListView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderSearchView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\IWorkOrderView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanningEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\OfficeAssignmentEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\OfficeContractorAssignmentEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\WorkOrderAssignmentEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\Scripts\NJ7\ScriptsProject.ssmssln" />
+    <None Include="Model\Scripts\NJ7\ScriptsProject.ssmssqlproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Model\Markouts to WorkOrders.cd" />
+    <None Include="Model\Scripts\Common\01 DropDatabase.sql" />
+    <None Include="Model\Scripts\Common\02 CreateExistingTables.sql" />
+    <None Include="Model\Scripts\Common\04 ImportSiteData.sql" />
+    <None Include="Model\Scripts\Common\03 CreateDatabase.sql" />
+    <None Include="Model\Scripts\Common\05 CreateStaticData.sql" />
+    <None Include="Model\Scripts\Common\06 CreateOperatingCenterData.sql" />
+    <None Include="Model\Scripts\Common\07 CreateSampleData.sql" />
+    <None Include="Model\Scripts\Common\GetObjectCounts.sql" />
+    <None Include="Model\Scripts\NJ7\000 IMPORT.sql" />
+    <None Include="Model\Scripts\NJ7\000 MERGE.sql" />
+    <None Include="Model\Scripts\NJ7\000 MISC.sql" />
+    <None Include="Model\Scripts\NJ7\000 NORMALIZE.sql" />
+    <None Include="Model\Old Markouts to WorkOrders 20081231.cd" />
+    <None Include="Model\Scripts\NJ7\CreateDatabase - Old Markouts 20081231.sql" />
+    <None Include="Model\Scripts\NJ7\DropDatabase - Old Markouts 20081231.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1343.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-227.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-235.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-271.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-382.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-383.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Indexes-2010-01-22.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Spoils.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-309.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-331.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-332.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-345.sql" />
+    <None Include="Model\Scripts\RolloutScripts\EW1.sql" />
+    <None Include="Model\Scripts\RolloutScripts\EW3.sql" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\Scripts\NJ7\DevSetupImportedData.js" />
+    <Content Include="Model\Scripts\NJ7\ImportTables.png" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1043.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1050.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1091.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1107.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1123.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1129.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1159.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1215.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1221.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1223.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1284.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1287.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1289.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1290.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1329.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1332.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1338.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1339.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1350.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1357.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1359.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1363.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1376.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1397.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\bug-1465.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1499.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1512.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1610.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-1644.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-515.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-925.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-927.sql" />
+    <Content Include="Model\Scripts\RolloutScripts\Bug-959.sql" />
+    <None Include="Model\Scripts\Other\WorkCompletedReport-2010-06-29.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-213.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-397.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-300.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-428.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-461.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-464.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-491.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-494.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-493.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-517.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-534.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-553.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-558.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-574.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-591.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-592.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-557.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-615.sql" />
+    <None Include="Model\Scripts\RolloutScripts\bug-619.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-620.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-622.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-673.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-691.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-693.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-694.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-712.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-713.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-715.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-717.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-720.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-730.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-741.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-760.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-741.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-760.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-768.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-723.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-774.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-795.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-811.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-822.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-856.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-871.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-886.sql" />
+    <None Include="Model\Scripts\RolloutScripts\NJ6.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Documents.sql" />
+    <None Include="Model\Scripts\RolloutScripts\Bug-384.sql" />
+    <None Include="Model\Scripts\RolloutScripts\EW2.sql" />
+    <None Include="Model\Scripts\RolloutScripts\NJ3.sql" />
+    <None Include="Model\Scripts\RolloutScripts\NJ5.sql" />
+    <None Include="Model\Scripts\RolloutScripts\NJ9.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.WebForms\MapCall.Common.WebForms.csproj">
+      <Project>{336D9861-ACDD-4C64-AC42-6F80AC1693EE}</Project>
+      <Name>MapCall.Common.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.SAP\MapCall.SAP.csproj">
+      <Project>{9EE96C6B-095A-4792-B247-2F7B28430A9B}</Project>
+      <Name>MapCall.SAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.WebForms\MMSINC.Core.WebForms.csproj">
+      <Project>{718E1B61-19B4-45DE-985F-3B583C0F7705}</Project>
+      <Name>MMSINC.Core.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Presenters\Permits\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

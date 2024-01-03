@@ -1,0 +1,112 @@
+﻿
+/* For additional styles needed by MapCall that aren't included in the Bender theme */
+
+div.buttonSplit > div.right { text-align:right; }
+
+table.prettyTable { width:100%; }
+table.prettyTable td.label  
+{
+    text-align:right; 
+    font-weight:bold;
+    padding-right:10px;
+    white-space:normal !important;
+}
+
+/* .searchBox is used by the SearchBox control. */
+table.searchBox td.label 
+{
+    width:auto !important;
+} 
+    
+/* dualCol in bender.css should be redone to match this */
+.boxContainer { position:relative; overflow:auto; }
+.boxContainer > div {  float:left; } /* 49.9 stops IE from dropping to the next line on odd-numbered widths */
+.boxContainer > div > .bc-box { margin-left:6px;}
+.boxContainer>div:first-child>.bc-box { margin-left:0px; }
+
+.boxContainer ul { list-style:none outside !important; margin:6px; padding: 0px; padding-left:18px;}
+.boxContainer h2 { margin: 0px;}
+
+.bc-1col > div { width: 100%; }
+.bc-2col > div { width:49.9999%; } /* 49.9999 stops IE from dropping to the next line on odd-numbered widths. 50% causes it to round up. */
+.bc-3col > div { width: 33.3%; }
+
+.bc-box { position:relative; border:solid 1px #eaeaea; padding:6px; border-radius:3px; }
+.bc-box h2 { color:#21539B; font-size:18px; padding:0px; margin:0px; font-weight:normal; }
+.bc-box:hover { border-color: #A6C9E2; }
+
+.newDoc { background:url('images/dpb-home-new-document-background-default.png') no-repeat right; }
+.newDoc:hover { background:url('images/dpb-home-new-document-background.png') no-repeat right; }
+
+.bc-box-search { background:url('images/dpb-home-new-search-background-default.png') no-repeat right; }
+.bc-box-search:hover { background:url('images/dpb-home-new-search-background.png') no-repeat right; }
+
+.bc-box-contractors { background:url('images/dpb-home-contractors-background-gray.png') no-repeat right; }
+.bc-box-contractors:hover { background:url('images/dpb-home-contractors-background.png') no-repeat right; }
+
+.bc-box-field-services { background:url('images/dpb-home-field-services-background-gray.png') no-repeat right; }
+.bc-box-field-services:hover { background:url('images/dpb-home-field-services-background.png') no-repeat right; }
+
+.bc-box-health { background:url('images/dpb-home-health-background-gray.png') no-repeat right; }
+.bc-box-health:hover { background:url('images/dpb-home-health-background.png') no-repeat right; }
+
+.bc-box-training { background:url('images/dpb-home-training-background-gray.png') no-repeat right; }
+.bc-box-training:hover { background:url('images/dpb-home-training-background.png') no-repeat right; }
+
+.bc-box-vehicles { background:url('images/dpb-home-vehicles-background-gray.png') no-repeat right; }
+.bc-box-vehicles:hover { background:url('images/dpb-home-vehicles-background.png') no-repeat right; }
+
+.bc-box-waterquality { background:url('images/dpb-home-water-quality-background-gray.png') no-repeat right; }
+.bc-box-waterquality:hover { background:url('images/dpb-home-water-quality-background.png') no-repeat right; }
+
+.bc-box-work-management { background:url('images/dpb-home-work-management-background-gray.png') no-repeat right; }
+.bc-box-work-management:hover { background:url('images/dpb-home-work-management-background.png') no-repeat right; }
+
+/* bc-bigLink */
+.boxContainer>div.bc-bigLink>a { display:block; border:solid 1px #eaeaea; height:100px; margin-left:4px; padding:6px; border-radius:3px; text-decoration:none !important; }
+.boxContainer>div.bc-bigLink>a:first-child { margin-right:4px; margin-left:0px; }
+.boxContainer>div.bc-bigLink>a:hover { border-color:#A6C9E2; }
+.boxContainer>div.bc-bigLink>a>span { display:block; font-size:18px; }
+.boxContainer>div.bc-bigLink>a>p { color:#666666; font-size:10px; font-weight:bold; }
+
+
+.simpleTable>tbody>tr>td, .simpleTable>thead>tr>th { padding:6px; }
+
+.calButton { padding:0px; margin-left:2px; top:2px; }
+
+.expanderToggle, .expanderToggle-down, .expanderToggle-up { width:21px; height:19px; background:url('images/expander-toggle-button.png'); }
+.expanderToggle-down { background-position:0px 0px; }
+.expanderToggle-up { background-position:-21px 0px; }
+
+/* Needed so IE7-8 don't have heart attacks when subContainer is used as an expander. */
+.subContainer, .subContainer .body { overflow:auto; } 
+.subContainer .expanderToggle 
+{
+    position:absolute; right:0px; top:50%; margin-top:-9px; margin-right:6px;
+}
+.subContainer .header { position:relative; }
+
+/* DateTimeRange control. */
+.dateTimeRange { position:relative; white-space:nowrap;}
+.dateTimeRange div { display:inline-block; *display:inline; white-space:nowrap;padding:0px; margin-right:6px; position:relative; zoom:1;}
+.dateTimeRange div * { position:relative; }
+.dateTimeRange .helpBoxButton  
+{
+    position:relative; 
+    top:-4px; /* real browsers */
+    *margin-top:-31px; /* IE7, ugh */
+    top /*\**/: 7px\9; /* IE8 */
+}
+
+
+.footer-body {
+	display: flex;
+}
+
+.footer-body > div {
+	width: 50%;
+}
+
+.footer-body .links {
+	text-align: right;
+}

@@ -1,0 +1,6 @@
+﻿@model IEnumerable<EnvironmentalNonComplianceEventSubType>
+
+@(Html.TableFor(_ => Model)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "EnvironmentalNonComplianceEventSubType", new {area = "Environmental", x.Id}, null))
+      .ColumnFor(x => x.Description)
+      .ColumnFor(x => x.EnvironmentalNonComplianceEventType))

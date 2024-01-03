@@ -1,0 +1,15 @@
+﻿@model Material
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.PartNumber)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.DoNotOrder)
+    @if (Model.OperatingCenterStockedMaterials.Any())
+    {
+        <fieldset>
+            <legend>Operating Center Stocked Materials</legend>
+            @Html.DisplayFor(x => x.OperatingCenterStockedMaterials)
+        </fieldset>
+    }
+</div>

@@ -1,0 +1,58 @@
+﻿@using MapCall.Common.Metadata
+@using MMSINC.Data.NHibernate
+@using MMSINC.Helpers
+@using StructureMap
+
+@functions {
+
+    private class SomeModel
+    {
+        [Coordinate]
+        public Coordinate CoordinateDisplay { get; set; }
+        
+        [Coordinate]
+        public int? CoordinateEdit { get; set; }
+    }
+
+}
+@{
+    var crumbs = new CrumbBuilder(ViewContext);
+    crumbs.Separator = " : ";
+    crumbs.WithLinkCrumb("Some Link", "Home", "Index");
+    crumbs.WithTextCrumb("Some Text");
+    ViewBag.TitleCrumbs = crumbs;
+
+    ViewData.ModelState.AddModelError("TextGoesHere", "Some validation error");
+    ViewData.ModelState.AddModelError("DropDown", "A validation error");
+
+    ActionBarHelper.Clear();
+    ActionBarHelper.AddLink("Search", "ab-search", "Search", "", null, null);
+    ActionBarHelper.AddLink("Show", "ab-show", "Show", "", null, null);
+    ActionBarHelper.AddLink("Add", "ab-new", "New", "", null, null);
+    ActionBarHelper.AddLink("Edit", "ab-edit", "New", "", null, null);
+    ActionBarHelper.AddLink("Delete", "ab-destroy", "Destroy", "", null, null);
+    ActionBarHelper.AddLink("Export", "ab-ex" +
+                                      "port", "Export", "", null, null);
+    ActionBarHelper.AddLink("Import", "ab-import", "Import", "Employee", null, null);
+    ActionBarHelper.AddLink("Map", "ab-map", "Map", "", null, null);
+
+    var model = new SomeModel {
+        CoordinateDisplay = DependencyResolver.Current.GetService<IRepository<Coordinate>>().Find(1),
+        CoordinateEdit = 1
+    };
+}
+
+@Html.ScriptFor("~/scripts/chart-js", ScriptLoadType.LoadFromPartial)
+    
+@(Html.Tabs(new{ id = "custom-tabs"})
+.WithTab("Site-specific Controls", @<div>
+                                        <div class="collapse-panel" data-title="I'm the title!">
+                                            I'm a collapse panel!
+                                        </div>
+                                        <div class="field-column fc125">
+                                            @Html.DisplayFor(x => model.CoordinateDisplay)
+                                            @Html.EditorFor(x => model.CoordinateEdit)
+                                        </div>
+                                    </div>)
+.WithTab("Charts", "_Charts")
+)

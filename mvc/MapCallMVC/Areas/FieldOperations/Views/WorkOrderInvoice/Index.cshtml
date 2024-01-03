@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchWorkOrderInvoice
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.WorkOrder.Id, "WorkOrder")
+    .SortableColumnFor(x => x.WorkOrderInvoiceStatus)
+    .SortableColumnFor(x => x.InvoiceDate)
+    .SortableColumnFor(x => x.SubmittedDate)
+    .SortableColumnFor(x => x.CanceledDate)
+    .WithPaginatedFooter())

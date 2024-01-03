@@ -1,0 +1,78 @@
+﻿@using MapCall.Common.Model.Repositories
+@using MMSINC.Models.ViewModels
+@model  EditEquipmentCharacteristicField
+
+@{
+
+    var isDropDown = Model.DisplayEquipmentCharacteristicField.FieldType.DataType == EquipmentCharacteristicFieldType.DataTypes.DROPDOWN;
+    var isSAPCharacteristic = Model.DisplayEquipmentCharacteristicField.IsSAPCharacteristic;
+
+    var dropDownValuesInUse = 
+        isDropDown
+            ? _container.GetInstance<IEquipmentRepository>().GetAllCharacteristicDropDownValuesCurrentlyInUse(Model.DisplayEquipmentCharacteristicField)
+            : Enumerable.Empty<int>();
+    
+    var dropDownValuesTable = Html.TableFor(x => Model.DisplayEquipmentCharacteristicField.DropDownValues, new { id = "dropdownValuesTable" })
+                                  .ColumnFor(x => x.Value, "Drop Down Value");
+}
+
+@if (isDropDown && isSAPCharacteristic)
+{
+    @Html.DisplayInlineNotification(new NotificationItem {
+        Message = "This Characteristic Field is marked as an SAP Characteristic. Drop Down Values cannot be edited.",
+        NotificationType = NotificationItemType.Warning
+    })
+}
+
+<div class="container">
+    <div class="field-column fc200" id="addEquipmentPurposeFieldWrap">
+        @using (var form = Form.BeginForm("Update", "EquipmentCharacteristicField", new { Model.Id }))
+        {
+            form.Method = FormMethod.Post;
+            form.HtmlAttributes.Add("id", "createEquipmentCharacteristicForm");
+            @Html.RenderDisplayTemplate("Equipment Type", Html.ActionLink(Model.DisplayEquipmentCharacteristicField.EquipmentType.ToString(), "Show", new { Controller = "EquipmentType", Model.DisplayEquipmentCharacteristicField.EquipmentType.Id }))
+            @Html.DisplayFor(m => m.DisplayEquipmentCharacteristicField.FieldName)
+            @Html.EditorFor(m => m.Description)
+            @Html.DisplayFor(m => m.DisplayEquipmentCharacteristicField.FieldType)
+            @Html.DisplayFor(m => m.DisplayEquipmentCharacteristicField.Required)
+            @Html.DisplayFor(m => m.DisplayEquipmentCharacteristicField.IsSAPCharacteristic)
+            @Html.EditorFor(m => m.IsActive)
+            @Html.EditorFor(m => m.Order, new { html = new { autocomplete = "off" } })
+
+            if (AuthenticationService.CurrentUser.IsAdmin && isDropDown && !isSAPCharacteristic)
+            {
+                @Html.EditorFor(x => x.DropDownValues)
+            }
+
+            @Html.ButtonGroup(@<text>
+                                  @Control.SubmitButton("Update")
+                                  @Html.LinkButton("Cancel", "Show", "EquipmentType", new { Model.DisplayEquipmentCharacteristicField.EquipmentType.Id })
+                               </text>)
+        }
+
+        @if (isDropDown)
+        {
+            using (var f = Form.BeginForm("RemoveDropdownValue", "EquipmentCharacteristicField"))
+            {
+                f.HtmlAttributes["id"] = "RemoveDropDownValueForm";
+                f.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this dropdown value?");
+                f.RouteData["Id"] = Model.Id;
+            }
+            
+            if (!isSAPCharacteristic)
+            {
+                // Only add delete buttons to drop down values that are not being used.
+                dropDownValuesTable = dropDownValuesTable.TemplateColumnFor(x =>
+                    dropDownValuesInUse.Contains(x.Id)
+                        ? null
+                        : Control.SubmitButton("Delete")
+                                 .WithName("SelectedDropDownValue")
+                                 .WithValue(x.Id)
+                                 .With("form", "RemoveDropDownValueForm"));
+            }
+
+            @dropDownValuesTable
+        }
+    </div>
+</div>
+

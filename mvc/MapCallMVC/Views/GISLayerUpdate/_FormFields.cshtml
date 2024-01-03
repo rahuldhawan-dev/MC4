@@ -1,0 +1,14 @@
+﻿@model GISLayerUpdateViewModel
+
+@Html.EditorFor(x => x.MapId)
+@Html.EditorFor(x => x.Updated)
+@if (!Model.IsActive.HasValue || !Model.IsActive.Value)
+{
+    @Html.EditorFor(x => x.IsActive)
+}
+else
+{
+    @Html.HiddenFor(x => x.IsActive)
+}
+
+<span class="disclaimer">Note: Setting this update to active will deactivate the currently active update.</span>

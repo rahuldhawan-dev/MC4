@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkDescription
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+      .SortableColumnFor(x => x.Description)
+      .SortableColumnFor(x => x.EquipmentType)
+      .SortableColumnFor(x => x.OrderType)
+      .SortableColumnFor(x => x.PlantMaintenanceActivityType)
+      .SortableColumnFor(x => x.BreakdownIndicator)
+      .SortableColumnFor(x => x.MaintenancePlanTaskType)
+      .SortableColumnFor(x => x.TaskGroup)
+      .WithPaginatedFooter()
+    )

@@ -1,0 +1,26 @@
+﻿@model SearchTrainingRequirement
+
+@{
+    ActionBarHelper.AddExportLink();
+}           
+
+@(Html.TableFor(x => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Description)
+    .ColumnFor(x => x.HasActiveTrainingModules)
+    .ColumnFor(x => x.Regulation)
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.ActiveInitialTrainingModule)
+    .ColumnFor(x => x.ActiveRecurringTrainingModule)
+    .ColumnFor(x => x.ActiveInitialAndRecurringTrainingModule)
+    .ColumnFor(x => x.HasRecurringTrainingRequirement)
+    .ColumnFor(x => x.IsDOTRequirement)
+    .ColumnFor(x => x.IsOSHARequirement)
+    .ColumnFor(x => x.OSHAStandard.OSHADescription, "OSHA Standard")
+    .ColumnFor(x => x.IsDPCCRequirement)
+    .ColumnFor(x => x.IsPSMTCPARequirement)
+    .ColumnFor(x => x.IsProductionRequirement)
+    .ColumnFor(x => x.IsFieldOperationsRequirement)
+    .WithPaginatedFooter()
+    )

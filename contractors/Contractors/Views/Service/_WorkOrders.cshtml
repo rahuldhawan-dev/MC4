@@ -1,0 +1,30 @@
+﻿@using MapCall.Common.Helpers.ClassExtensions
+@using MMSINC.Authentication
+@model Service
+@{
+    var currentUser = _container.GetInstance<IAuthenticationService<ContractorUser>>().CurrentUser;
+}
+@(Html.TableFor(x => Model.WorkOrdersForDisplay, new { id = "workOrdersTable" })
+      .TemplateColumnFor("WORK ORDER GENERAL", wo => @<text>
+                                                  @if (wo.AssignedContractor != null && currentUser.Contractor.Id == wo.AssignedContractor.Id)
+                                                  {
+                                                      @Html.AuthorizedActionLinkOrText(wo.Id.ToString(), "Show", "WorkOrderGeneral", new {id = wo.Id}, null)
+                                                  }
+                                                  else
+                                                  {
+                                                      @wo.Id
+                                                  }
+                                               </text>)
+      .TemplateColumnFor("WORK ORDER FINALIZATION", wo => @<text>
+                                                              @if (wo.AssignedContractor != null && currentUser.Contractor.Id == wo.AssignedContractor.Id)
+                                                              {
+                                                                  @Html.AuthorizedActionLinkOrText(wo.Id.ToString(), "Edit", "WorkOrderFinalization", new { id = wo.Id }, null)
+                                                              }
+                                                              else
+                                                              {
+                                                                  @wo.Id
+                                                              }
+                                                           </text>)
+.ColumnFor(x => x.WorkDescription)
+.ColumnFor(x => x.DateCompleted)
+)

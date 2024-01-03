@@ -1,0 +1,18 @@
+﻿@model dynamic
+
+<h2>Work Order Main Break Alert</h2>
+
+Work Order #: @Model.Id <br />
+SAP Work Order #: @Model.SAPWorkOrderNumber <br />
+Operating Center: @Model.OperatingCenter <br />
+Entered By: @Model.CreatedBy <br />
+Address: @Model.StreetNumber @Model.Street, @Model.Town @Model.Town.State <br />
+Nearest Cross Street: @Model.NearestCrossStreet <br />
+Work Description: @Model.WorkDescription <br />
+Estimated Customer Impact: @Model.EstimatedCustomerImpact <br />
+Anticipated Repair Time: @Model.AnticipatedRepairTime <br />
+Significant Traffic Impact: @(Model.SignificantTrafficImpact != null && Model.SignificantTrafficImpact ? "yes" : "no") <br />
+Alert Issued: @(Model.AlertIssued != null && Model.AlertIssued ? "yes" : "no") <br />
+Markout Requirement: @Model.MarkoutRequirement<br/>
+Notes:<br />
+@Model.Notes

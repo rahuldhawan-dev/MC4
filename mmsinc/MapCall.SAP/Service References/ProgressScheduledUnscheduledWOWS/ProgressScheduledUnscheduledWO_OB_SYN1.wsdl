@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:p1="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" targetNamespace="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:UsingPolicy required="true" />
+  <wsp:Policy wsu:Id="BN__binding">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <wsp:ExactlyOne>
+                      <sp:HttpBasicAuthentication />
+                      <sp:RequireClientCertificate />
+                    </wsp:ExactlyOne>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <wsp:ExactlyOne>
+                  <sp:Basic256 />
+                  <sp:Basic192 />
+                  <sp:Basic128 />
+                  <sp:TripleDes />
+                  <sp:Basic256Rsa15 />
+                  <sp:Basic192Rsa15 />
+                  <sp:Basic128Rsa15 />
+                  <sp:TripleDesRsa15 />
+                  <sp:Basic256Sha256 />
+                  <sp:Basic192Sha256 />
+                  <sp:Basic128Sha256 />
+                  <sp:TripleDesSha256 />
+                  <sp:Basic256Sha256Rsa15 />
+                  <sp:Basic192Sha256Rsa15 />
+                  <sp:Basic128Sha256Rsa15 />
+                  <sp:TripleDesSha256Rsa15 />
+                </wsp:ExactlyOne>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema xmlns="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" targetNamespace="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder">
+      <xsd:element name="ProgressScheduledUnscheduledWORequest" type="p1:ProgressScheduledUnscheduledWO" />
+      <xsd:element name="ProgressScheduledUnscheduledWOResponse" type="p1:ProgressScheduledUnscheduledWOStatus" />
+      <xsd:complexType name="ProgressScheduledUnscheduledWO">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="UnscheduledWORequest">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="ChangeOrder">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="OperatingCenter" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="SAPNotificationNo" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="SAPWorkOrderNo" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="SAPFunctionalLoc" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="SAPEquipmentNo" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="RequestedBY" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="PurposeGroup" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="PurposeCode" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="Priority" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="Notes" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="AccountCharged" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="CancelOrder" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="CancellationReason" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="WorkDescription" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="PMActType" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="BreakDownIndicator" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="TimeToComplete" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="Permit" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="Employee" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="Capitalized" type="xsd:string" />
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="EmployeeAssignment">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="Person" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="StartDate" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="StartTime" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="EndDate" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="EndTime" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="TimetoComplete" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="TimetoCompleteUnit" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" name="CrewAssignment">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="CrewAssign" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="DateStart" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="DateEnd" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="DateCompleted" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Materials">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="PartNumber" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="Description" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="Quantity" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="StcokLocation" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="OperatingCenterCode" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="ItemCategory" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="ChildNotification">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="NotificationType" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="NotificationNumber" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="SAPFunctionalLocation" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="SAPEquipmentNumber" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="ReqStartDate" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="NotificationLongText" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="PurposeCode" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="CompleteFlag" type="xsd:string" />
+                            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Dependencies">
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element minOccurs="0" name="Code" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string" />
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" maxOccurs="unbounded" name="Actions">
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element minOccurs="0" name="Code" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string" />
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element minOccurs="0" maxOccurs="unbounded" name="MeasuringPoints">
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element minOccurs="0" name="MeasuringPoint1" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="MeasuringReading1" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="Unit1" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="MeasuringDocument" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="CancellationFlag" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="NoReadingTakenFlag" type="xsd:string" />
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Dependencies">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="Code" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Actions">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="Code" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="CodeGroup" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="MeasuringPoints">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="MeasuringPoint1" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="MeasuringReading1" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="Unit1" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="MeasuringDocument" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="CancellationFlag" type="xsd:string" />
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ProgressScheduledUnscheduledWOStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="UnscheduledWOResponse">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" maxOccurs="unbounded" name="Response">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element minOccurs="0" name="OrderNumber" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="NotificationNumber" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="WBSElement" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="MaterialDocument" type="xsd:string" />
+                      <xsd:element minOccurs="0" name="SAPStatus" type="xsd:string" />
+                      <xsd:element minOccurs="0" maxOccurs="unbounded" name="ChildNotification_Equipment">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element minOccurs="0" name="NotificationNo" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="EquipmentNo" type="xsd:string" />
+                            <xsd:element minOccurs="0" name="NotificationStatus" type="xsd:string" />
+                            <xsd:element minOccurs="0" maxOccurs="unbounded" name="MeasuringPoint">
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element minOccurs="0" name="MeasuringPoint1" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="MeasuringDocument" type="xsd:string" />
+                                  <xsd:element minOccurs="0" name="MeasuringPointStatus" type="xsd:string" />
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProgressScheduledUnscheduledWOResponse">
+    <wsdl:documentation />
+    <wsdl:part name="ProgressScheduledUnscheduledWOResponse" element="p1:ProgressScheduledUnscheduledWOResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProgressScheduledUnscheduledWORequest">
+    <wsdl:documentation />
+    <wsdl:part name="ProgressScheduledUnscheduledWORequest" element="p1:ProgressScheduledUnscheduledWORequest" />
+  </wsdl:message>
+  <wsdl:portType name="ProgressScheduledUnscheduledWO_OB_SYN">
+    <wsdl:documentation />
+    <wsdl:operation name="ProgressScheduledUnscheduledWO_OB_SYN">
+      <wsdl:documentation />
+      <wsdl:input message="p1:ProgressScheduledUnscheduledWORequest" />
+      <wsdl:output message="p1:ProgressScheduledUnscheduledWOResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProgressScheduledUnscheduledWO_OB_SYNBinding" type="p1:ProgressScheduledUnscheduledWO_OB_SYN">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsp:Policy>
+      <wsp:PolicyReference URI="#BN__binding" />
+    </wsp:Policy>
+    <wsdl:operation name="ProgressScheduledUnscheduledWO_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:ProgressScheduledUnscheduledWO_OB_SYNBinding">
+      <soap:address location="https://l13032-iflmap.hcisbp.us3.hana.ondemand.com:443/cxf/ProgressScheduledUnscheduledWO" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

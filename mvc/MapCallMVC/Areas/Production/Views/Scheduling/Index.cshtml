@@ -1,0 +1,6 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model SearchSchedulingProductionWorkOrder
+
+@(Html.Tabs()
+    .WithTab("Add Assignments", "_AddAssignmentsForm", Model)
+    .WithTab("Remove Assignments", "_RemoveAssignmentsForm", Model))

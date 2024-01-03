@@ -1,0 +1,11 @@
+﻿@model UpdateFilterMedia
+
+@using (Form.BeginForm("Update", "FilterMedia", new {Model.Id})) {
+    @Html.Partial("_Form")
+    @Control.SubmitButton("Save")
+    if (Model.Facility != 0) {
+        @Html.LinkButton("Cancel", "Show", "Facility", new {id = Model.Facility})
+    } else {
+        @Html.LinkButton("Cancel", "Search", "FilterMedia")
+    }
+}

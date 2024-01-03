@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.CreateConfinedSpaceForm
+@{
+    ActionBarHelper.AddWorkOrderLinkForConfinedSpaceForm(Model);
+}
+@using (Form.BeginForm("Create", "ConfinedSpaceForm"))
+{
+    @Html.Partial("_Form")
+
+<div class="container">
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @if (Model.ProductionWorkOrder != null)
+        {
+            @Html.LinkButton("Cancel", "Show", "ProductionWorkOrder", new { area = "Production", id = Model.ProductionWorkOrder.Value })
+        }
+        else if (Model.WorkOrder != null)
+        {
+            @Html.LinkButton("Cancel", "Show", "WorkOrder", new { area = "FieldOperations", id = Model.WorkOrder.Value })
+        }
+    </text>)
+</div>
+}

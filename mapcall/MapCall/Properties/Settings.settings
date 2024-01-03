@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MapCall.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MapCall_com_networkcar_www_GpsInfo" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://www.networkcar.com:80/networkcar/pub/webservices/gpsuri</Value>
+    </Setting>
+    <Setting Name="MapCall_info_mapcall_UserService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://mapcall.info/public/UserService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

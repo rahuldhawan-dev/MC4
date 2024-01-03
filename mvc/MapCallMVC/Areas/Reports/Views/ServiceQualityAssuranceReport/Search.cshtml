@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServiceQAReport
+
+@using (Form.BeginForm("Index", "ServiceQualityAssuranceReport"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.ServiceCategory)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+             </text>)
+    </div>
+}

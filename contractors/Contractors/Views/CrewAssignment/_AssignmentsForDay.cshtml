@@ -1,0 +1,97 @@
+﻿@using Contractors.Models.ViewModels
+@using MMSINC.Utilities
+@model CrewAssignmentCalendarSearch
+
+@{
+	var isAdmin = Authentication.CurrentUserIsAdmin;
+}
+<fieldset id="assignments">
+    <legend>Assignments for @Html.DisplayValueFor(m => m.Date)</legend>
+@if (Model == null || Model.AssignmentsForDate == null || !Model.AssignmentsForDate.Any())
+{
+    <text>No assignments to display.</text>
+}
+else
+{
+	var assignments = Model.AssignmentsForDate.Select(x => new CrewAssignmentIndexTableRowView(_container.GetInstance<IDateTimeProvider>(), x)).ToList();
+	
+    if(isAdmin)
+    {
+		<div class="container">
+			@Html.ActionLink("Manage Crew Assignments", "Manage", new { Crew = Model.Crew, Date = Model.Date.Value.ToShortDateString() })
+		</div>
+	}
+	<div class="container">
+        * Orders in green are completed
+    </div>
+    <div class="container">
+        @*Purposely left empty. This is needed for the unobtrusive postback for Start.*@
+		@using (var f = Form.BeginForm(null, null))
+		{
+			f.Method = FormMethod.Post;
+			f.HtmlAttributes["id"] = "startAssignmentForm";
+		}
+		
+		@(Html.TableFor(x => assignments, new { id = "assignmentsTable" })
+		      .WithRowBuilder((model, tag) => {
+			      if (model.IsCompleted)
+			      {
+				      tag.AddCssClass("completed");
+			      }
+		      })
+		      .TemplateColumnFor(x => @<text>
+			                              @if (x.ContractorsMatch)
+			                              {
+				                              @Html.ActionLink("Select", "Show", "WorkOrderReadOnly", new {id = x.WorkOrder}, null)
+			                              }
+		                               </text>)
+		      .ColumnFor(x => x.WorkOrder, "Order Number")
+		      .ColumnFor(x => x.CrewAssignmentPriority, "Priority")
+		      .ColumnFor(x => x.StreetNumber)
+		      .ColumnFor(x => x.StreetName, "Street")
+		      .ColumnFor(x => x.NearestCrossStreetName, "Nearest Cross Street")
+		      .ColumnFor(x => x.Town)
+		      .ColumnFor(x => x.TownSection)
+		      .ColumnFor(x => x.NotesTitle, "Description of Job (Hover for Notes)").WithCellBuilder((x, tag) => {
+			      tag.Attributes.Add("title", x.Notes);
+		      })
+		      .ColumnFor(x => x.TimeToCompletion, "Est. TTC (hours)")
+		      .ColumnFor(x => x.WorkOrderPriority)
+		      .ColumnFor(x => x.MarkoutExpirationDate, "Markout Expiration")
+		      .ColumnFor(x => x.AssignedOn)
+		      .TemplateColumnFor("Start Time", x => @<text>
+			                                            @if (x.CanSetStartTime && x.ContractorsMatch)
+			                                            {
+			                                                var meh = Html.SecureActionLink<ContractorUser>("Start", "Start", "CrewAssignment", new {id = x.CrewAssignment.Id}, new {@class = "start"});
+                                                            @meh
+			                                            }
+			                                            else
+			                                            {
+				                                            @Html.DisplayValueFor(_ => x.StartTime)
+			                                            }
+		                                             </text>)
+		      .TemplateColumnFor("End Time", x => @<text>
+			                                          @if (x.CanSetEndTime && x.ContractorsMatch)
+			                                          {
+			                                                var meh = Html.SecureActionLink<ContractorUser>("End", "End", "CrewAssignment", new {id = x.CrewAssignment.Id}, new {@class = "end", data_id = x.Id});
+                                                            @meh
+			                                          }
+			                                          else
+			                                          {
+				                                            @Html.DisplayValueFor(_ => x.EndTime)
+			                                          }
+		                                             </text>)
+		      .TemplateColumnFor("Employees on Crew", x => @<text>
+			                                                   @if (x.CanSetEndTime && x.ContractorsMatch)
+			                                                   {
+				                                                   var newModel = ViewModelFactory.BuildWithOverrides<CrewAssignmentEnd>(new { Id = x.Id, EmployeesOnJob = x.EmployeesOnJob });
+				                                                   @Html.Partial("_EndAssignment", newModel)
+			                                                   }
+			                                                   else
+			                                                   {
+				                                                   @Html.DisplayValueFor(_ => x.EmployeesOnJob)
+			                                                   }
+		                                             </text>))
+    </div>
+}
+</fieldset>

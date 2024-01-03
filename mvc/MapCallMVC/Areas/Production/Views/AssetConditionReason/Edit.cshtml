@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AssetConditionReasonViewModel
+
+@using (Form.BeginForm("Update", "AssetConditionReason", new { id = Model.Id }))
+{
+<div class="field-column fc200">
+    @Html.Partial("_Form", Model)
+    @Html.ButtonGroup(
+                    @<text>
+                        @Control.SubmitButton("Save")
+                        @Html.AuthorizedActionLinkButton("Cancel", "Show", "AssetConditionReason", new { id = Model.Id })
+                    </text>)
+</div>
+}

@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EstimatingProjectViewModel
+
+@Html.ScriptFor("~/Scripts/EstimatingProject/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.ProjectNumber)
+@Html.EditorFor(x => x.WBSNumber)
+@Html.EditorFor(x => x.JDEPayrollNumber)
+@Html.EditorFor(x => x.ProjectName)
+@Html.EditorFor(x => x.ProjectType)
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town, new {Container = @Model})
+@Html.EditorFor(x => x.Street)
+@Html.EditorFor(x => x.Contractor, new {Container = @Model})
+@Html.EditorFor(x => x.Estimator)
+@Html.EditorFor(x => x.OverheadPercentage)
+@Html.EditorFor(x => x.ContingencyPercentage)
+@Html.EditorFor(x => x.LumpSum)
+@Html.EditorFor(x => x.Description)
+@Html.EditorFor(x => x.EstimateDate)
+@Html.EditorFor(x => x.Remarks)

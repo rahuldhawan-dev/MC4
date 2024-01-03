@@ -1,0 +1,70 @@
+﻿@model EstimatingProject
+
+<table>
+    <tbody>
+        <tr>
+            <th>Material</th>
+            <td>@Html.DisplayValueFor(x => x.TotalMaterialCost)</td>
+        </tr>
+        <tr>
+            <th>Contractor Labor</th>
+            <td>@Html.DisplayValueFor(x => x.TotalContractorLaborCost)</td>
+        </tr>
+        <tr>
+            <th>Permits & Land Rights</th>
+            <td>@Html.DisplayValueFor(x => x.TotalPermitCost)</td>
+        </tr>
+        <tr>
+            <th>NJAW Labor</th>
+            <td>@Html.DisplayValueFor(x => x.TotalCompanyLaborCost)</td>
+        </tr>
+        <tr>
+            <th>Other</th>
+            <td>@Html.DisplayValueFor(x => x.TotalOtherCost)</td>
+        </tr>
+        <tr>
+            <th>Estimated Construction Cost</th>
+            <td>@Html.DisplayValueFor(x => x.EstimatedConstructionCost)</td>
+        </tr>
+        <tr>
+            <th>
+                @using (var g = Html.Grid())
+                {
+                    using (g.FlexBox())
+                    {
+                        <text>Overhead</text>
+                    }
+                    using (g.FlexBox())
+                    {
+                        @Html.DisplayValueFor(x => x.OverheadPercentage)
+                    }
+                }
+            </th>
+            <td>@Html.DisplayValueFor(x => x.OverheadCost)</td>
+        </tr>
+        <tr>
+            <th>
+                @using (var g = Html.Grid())
+                {
+                    using (g.FlexBox())
+                    {
+                        <text>Contingencies</text>
+                    }
+                    using (g.FlexBox())
+                    {
+                        @Html.DisplayValueFor(x => x.ContingencyPercentage)
+                    }
+                }
+            </th>
+            <td>@Html.DisplayValueFor(x => x.ContingencyCost)</td>
+        </tr>
+        <tr>
+            <th>Lump Sum</th>
+            <td>@Html.DisplayValueFor(x => x.LumpSum)</td>
+        </tr>
+        <tr>
+            <th>Total Estimated Cost (TEC)</th>
+            <td>@Html.DisplayValueFor(x => x.TotalEstimatedCost)</td>
+        </tr>
+    </tbody>
+</table>

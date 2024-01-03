@@ -1,0 +1,17 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services
+@model EditTapImage
+
+@Html.Partial("_ServiceLookup", new SearchServicePremiseNumberServiceNumber())
+
+@using (Form.BeginForm("Update", "TapImage", "FieldOperations", new{ id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.EditorFor(x => x.OfficeReviewRequired)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "TapImage", new{ id = Model.Id })
+        </text>)
+    </div>
+}

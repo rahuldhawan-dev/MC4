@@ -1,0 +1,40 @@
+﻿@model dynamic
+
+<h2>ProjectsRP GIS Data Incorrect</h2>
+
+Id: <a href="@Model.RecordUrl">@Model.Id</a> <br />
+Operating Center: @Model.OperatingCenter <br />
+Town: @Model.Town <br />
+Project Title: @Model.ProjectTitle <br />
+Project Description: @Model.ProjectDescription <br />
+District: @Model.District <br />
+Origination Year: @Model.OriginationYear <br />
+Historic Project ID: @Model.HistoricProjectID <br />
+NJAW Estimate (Dollars): @Model.NJAWEstimate <br />
+Project Type: @Model.RecurringProjectType <br />
+Proposed Length (ft): @Model.ProposedLength <br />
+Estimated Project Duration (days): @Model.EstimatedProjectDuration <br />
+Estimated In Service Date: @Model.EstimatedInServiceDate <br />
+Proposed Diameter: @Model.ProposedDiameter <br />
+Proposed Pipe Material: @Model.ProposedPipeMaterial <br />
+Accelerated Asset Investment Category: @Model.AcceleratedAssetInvestmentCategory <br />
+Secondary Asset Investment Category: @Model.SecondaryAssetInvestmentCategory <br />
+Foundational Filing Period: @Model.FoundationalFilingPeriod <br />
+Justification: @Model.Justification <br />
+Override InfoMaster Reason: @Model.OverrideInfoMasterReason<br />
+Override InfoMaster Justification: @Model.OverrideInfoMasterJustification<br />
+Updated By: @Model.ModifiedBy @Model.ModifiedByEmail<br /><br />
+
+GIS Data Inaccuracies:<br />
+@foreach (var x in Model.GISDataInaccuracies)
+{
+    <text><li>@x.Description</li></text><br />
+}
+Correct Diameter: @Model.CorrectDiameter<br />
+Correct Material: @Model.CorrectMaterial<br />
+Correct Installation Date: @Model.CorrectInstallationDate<br />
+Main Break Work Orders:<br/>
+@foreach (var x in Model.MainBreakOrders)
+{
+    <text><li>WorkOrderID: @x.Id</li></text> <br />
+}

@@ -1,0 +1,132 @@
+﻿
+table {
+    /* Need non-transparent background so tables that go off 
+       the layout don't show the site border line */
+    background: @table-background-color;
+    border: @table-border;
+    border-collapse: collapse;
+    border-spacing:0; 
+    /* This needs to be relative primarily for IE7, but doesn't hurt all the other things.
+       Without it, buttons like to just disappear/not render in IE7. */
+    position: relative;
+
+    td, th {
+        border: @table-cell-border;
+        padding: @table-cell-padding;
+        vertical-align: @table-cell-vertical-align;
+    }
+
+    th {
+        text-align: left;
+        background-color: @table-header-cell-background-color;
+        /* Firefox note: The up/down icons push the alignment of the text up a few pixels. It's stupid, but it's Firefox only. */
+        a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        span {
+            display: inline-block;
+            margin-left: 6px; /* Not sure what this is for. -Ross 11/6/2014 */
+        }
+
+        &.sort-asc,
+        &.sort-desc {
+            background: @table-header-sorted-background-color;
+            color: @table-header-sorted-color;
+
+            a, span {
+                background: @table-header-sorted-background-color;
+                color: @table-header-sorted-color;
+            }
+        }
+
+        &:hover,
+        &:hover * {
+            background: @table-header-hover-background-color;
+            color: @table-header-sorted-color;
+        }
+    }
+
+    caption {
+        text-align: left;
+        color: @table-caption-color;
+    }
+}
+
+table.results-table {
+    width: 100%;
+}
+
+table.single-line-header th {
+    white-space: nowrap;
+}
+
+table > tbody > tr.odd > td,
+table.no-hover > tbody > tr.odd:hover > td {
+    background: @table-row-odd-background;
+}
+
+/* nth-child completely messes up IE8. it blows up the entire
+    selector, not just the one that includes nth-child, so it
+    needs to be separated.
+*/
+
+table > tbody > tr:nth-child(odd) > td,
+table.no-hover > tbody > tr:nth-child(odd):hover > td {
+    background: @table-row-odd-background;
+}
+
+table > tbody > tr.even > td,
+table.no-hover > tbody > tr.even:hover > td {
+    background: @table-row-even-background;
+}
+
+table > tbody > tr:nth-child(even) > td,
+table.no-hover > tbody > tr:nth-child(even):hover > td {
+    background: @table-row-even-background;
+}
+
+table > tbody > tr:hover > td {
+    .table-row-hover-cell-style;
+}
+
+table > tfoot > tr > td {
+    .table-row-hover-cell-style;
+    font-weight: bold;
+}
+
+/* We can use display:table and table-cell now so this probably shouldn't be used. */
+/* This class has been used incorrectly for too long. It's used to remove table styling 
+	but keeps vertical-align:middle to keep things centered properly when used for
+	form elements.
+*/
+table.for-structure { background: transparent !important; }
+table.for-structure > tbody > tr > td,
+table.for-structure > tbody > tr:hover > td,
+table.for-structure > tbody > tr:nth-child(even):hover > td,
+table.for-structure > tbody > tr:nth-child(odd):hover > td {
+    background: transparent !important;
+    border: none !important;
+}
+
+.table-wrapper {
+    table {
+        width: 100%;
+    }
+
+    .table-footer {
+        display: table;
+        width: 100%;
+
+        .page-links {
+            display: table-cell;
+            text-align: left;
+        }
+
+        .page-links-results-per-page {
+            display: table-cell;
+            text-align: right;
+        }
+    }
+}

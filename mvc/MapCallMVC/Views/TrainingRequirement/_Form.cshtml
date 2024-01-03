@@ -1,0 +1,15 @@
+﻿@model TrainingRequirementViewModel
+           
+@Html.ScriptFor("~/Scripts/TrainingRequirement/Edit.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.Description)
+@Html.EditorFor(x => x.Regulation)
+@Html.EditorFor(x => x.IsActive)
+@Html.EditorFor(x => x.TrainingFrequency)
+@Html.EditorFor(x => x.IsDOTRequirement)
+@Html.EditorFor(x => x.IsOSHARequirement)
+@Html.EditorFor(x => x.OSHAStandard)
+@Html.EditorFor(x => x.IsDPCCRequirement)
+@Html.EditorFor(x => x.IsPSMTCPARequirement)
+@Html.EditorFor(x => x.IsProductionRequirement)
+@Html.EditorFor(x => x.IsFieldOperationsRequirement)

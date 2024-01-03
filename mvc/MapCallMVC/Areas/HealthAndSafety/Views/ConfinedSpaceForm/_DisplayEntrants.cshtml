@@ -1,0 +1,10 @@
+﻿@model ConfinedSpaceForm
+@{
+    var entrants = Model.Entrants.OrderBy(x => x.EntrantType.Description);
+}
+
+@(Html.TableFor(_ => entrants, new { id = "entrantsTable" })
+                    .ColumnFor(x => x.EntrantType)
+                    .ColumnFor(x => x.Employee)
+                    .ColumnFor(x => x.ContractingCompany)
+                    .ColumnFor(x => x.ContractorName))

@@ -1,0 +1,26 @@
+﻿@model dynamic
+
+@{
+    var htmlAttributes = new {id = "grievancesTable"};
+    var paginatedModel = Model as ISearchSet<Grievance>;
+    var enumerableModel = Model as IEnumerable<Grievance>;
+    var isPaginated = paginatedModel != null;
+    
+    var table = isPaginated ? Html.TableFor(x => paginatedModel, htmlAttributes).WithPaginatedFooter()
+        : Html.TableFor(x => enumerableModel, htmlAttributes);
+        
+    table = table.TemplateColumnFor(x => Html.ActionLink("View", "Show", "Grievance", new {x.Id}, null))
+        .ColumnFor(x => x.Id)
+        .ColumnFor(x => x.OperatingCenter.OperatingCenterCode)
+        .ColumnFor(x => x.Contract.Id, "Contract ID")
+        .ColumnFor(x => x.GrievanceCategory)
+        .ColumnFor(x => x.Categorization)
+        .ColumnFor(x => x.Status)
+        .ColumnFor(x => x.Number)
+        .ColumnFor(x => x.DateReceived)
+        .ColumnFor(x => x.IncidentDate)
+        .ColumnFor(x => x.NoteCount)
+        .ColumnFor(x => x.DocumentCount);
+}
+
+@table

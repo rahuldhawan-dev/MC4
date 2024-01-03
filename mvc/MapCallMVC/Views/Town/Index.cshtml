@@ -1,0 +1,11 @@
+﻿@model SearchTown
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => Model)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+      .ColumnFor(x => x.ShortName)
+      .ColumnFor(x => x.County.Name, "County")
+      .ColumnFor(x => x.State)
+      .WithPaginatedFooter())

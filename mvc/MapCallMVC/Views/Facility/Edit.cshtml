@@ -1,0 +1,15 @@
+﻿@model EditFacility
+@Html.ScriptFor("~/Scripts/Facility/Form.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "Facility", new { Model.Id }))
+{
+@Control.Hidden("GetStateUrl").WithValue(Url.Action("GetStateIdByOperatingCenterId", "OperatingCenter", new { area = string.Empty }))
+@(Html.Tabs()
+                .WithTab("General", "_Form")
+                .WithTab("Risk Characteristics", "_RiskCharacteristicsForm"))
+
+@Html.ButtonGroup(@<text>
+    @Control.SubmitButton("Save")
+    @Html.LinkButton("Cancel", "Show", "Facility", new { Model.Id })
+</text>)
+}

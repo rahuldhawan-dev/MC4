@@ -1,0 +1,51 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+<div class="field-column fc100">
+    <h2>
+        Equipment - @Html.DefaultActionLink(@Model.Id.ToString(), "Show", "Equipment", "", null)
+    </h2>
+    
+    @if (Model.OperatingCenter.WorkOrdersEnabled && Model.Facility.Department.Id == Department.Indices.T_AND_D)
+    {
+        //TODO: refactor this
+        var rvd = new RouteValueDictionary(new CreateWorkOrder(_container, Model));
+        rvd["area"] = "FieldOperations";
+        var htmlAttributes = new RouteValueDictionary();
+        htmlAttributes["Class"] = "link-button";
+        htmlAttributes["target"] = "_new";
+
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create Work Order", "New", "WorkOrder", rvd, htmlAttributes)
+        </div>
+    }
+
+    @if ((Model.EquipmentStatus == null || Model.EquipmentStatus.Id != EquipmentStatus.Indices.RETIRED) && Model.Facility != null && (Model.Facility.FacilityStatus == null || Model.Facility.FacilityStatus.Id != FacilityStatus.Indices.INACTIVE) && (Model.Facility.FacilityName == null || !Model.Facility.FacilityName.ToLower().Contains("archive")))
+    {
+        var prodRvd = new RouteValueDictionary(new CreateProductionWorkOrder(_container, Model));
+        prodRvd["area"] = "Production";
+        var htmlAttributes = new RouteValueDictionary();
+        htmlAttributes["Class"] = "link-button";
+        htmlAttributes["target"] = "_new";
+
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create Production Work Order", "New", "ProductionWorkOrder", prodRvd, htmlAttributes)
+        </div>
+    }
+    
+    @if (Model.Facility != null)
+    {
+        @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new {Model.Facility.Id}, null))
+        @Html.DisplayFor(x => x.Facility.Department)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Facility", @<text>This piece of equipment is not currently linked to a facility. Please visit the page for the facility that this piece of equipment belongs to, and add this piece of equipment to it.</text>)
+    }
+    @Html.DisplayFor(f => f.Identifier)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.FunctionalLocation)
+    @Html.DisplayFor(x => x.EquipmentType)
+    @Html.DisplayFor(x => x.EquipmentPurpose)
+</div>

@@ -1,0 +1,177 @@
+﻿@using System.Net.Configuration
+@using MapCallMVC.Controllers
+@model Incident
+@{
+    // MC 2576: Certain fields are only viewable by userAdmin
+    var hasDrugSectionReadAccess = RoleService.CanAccessRole(RoleModules.OperationsIncidentsDrugTesting, RoleActions.Read, Model.OperatingCenter);
+}
+
+@* This action requires site admin *@
+@if (Html.CurrentUserCanDo("SendNotification", "Incident"))
+{
+    using (Form.BeginForm("SendNotification", "Incident", new { id = Model.Id, }))
+    {
+        @Control.Hidden("sendOSHANotification").WithValue(false)
+        @Control.SubmitButton("Send Notification")
+    }
+}
+
+<fieldset>
+    <legend>Incident Data</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.Facility)
+        @Html.DisplayFor(x => x.EmployeeType)
+        @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.EMPLOYEE))
+        {
+            @Html.DisplayFor(x => x.Employee)
+        }
+        @if (Model.EmployeeType.Id.Equals(EmployeeType.Indices.CONTRACTOR))
+        {
+            @Html.DisplayFor(x => x.ContractorName)
+            @Html.DisplayFor(x => x.ContractorCompany)
+        }
+        @Html.DisplayFor(x => x.PersonnelArea)
+        @Html.DisplayFor(x => x.Supervisor)
+        @Html.DisplayFor(x => x.IncidentStatus)
+        @Html.DisplayFor(x => x.EventExposureType)
+        @Html.DisplayFor(x => x.IncidentDate)
+        @Html.DisplayFor(x => x.IncidentReportedDate)
+        @Html.DisplayFor(x => x.DateInvestigationWillBeCompleted)
+        @Html.DisplayFor(x => x.DateRecorded)
+        @Html.DisplayFor(x => x.IncidentShift)
+        @Html.DisplayFor(x => x.IsOvertime)
+        @Html.DisplayFor(x => x.NumberOfHoursOvertimeInPastWeek)
+        @Html.DisplayFor(x => x.IncidentClassification)
+        @Html.DisplayFor(x => x.IncidentType)
+        @Html.DisplayFor(x => x.GeneralLiabilityCode)
+        @Html.DisplayFor(x => x.MotorVehicleCode)
+        @Html.DisplayFor(x => x.IncidentSummary)
+        @Html.DisplayFor(x => x.AnyImmediateCorrectiveActionsApplied)
+        @Html.DisplayFor(x => x.IsInLitigation)
+        @Html.DisplayFor(x => x.IsOSHARecordable)
+        @Html.DisplayFor(x => x.IsSafetyCodeViolation)
+        @Html.DisplayFor(x => x.IsChargeableMotorVehicleAccident)
+        @Html.DisplayFor(x => x.Vehicle)
+        @Html.DisplayFor(x => x.NumberOfLostWorkDays)
+        @Html.DisplayFor(x => x.NumberOfRestrictiveDutyDays)
+        @Html.DisplayFor(x => x.CaseNumber)
+        @Html.DisplayFor(x => x.CaseManager)
+        @Html.DisplayFor(x => x.Claimant)
+        @Html.DisplayFor(x => x.MarkoutNumber)
+        @Html.DisplayFor(x => x.PremiseNumber)
+        @Html.RenderDisplayTemplate(Incident.DisplayNames.MAP_CALL_WORK_ORDER,
+                @<text>
+                    @if (Model.MapCallWorkOrder != null)
+                             {
+                                 @Html.ActionLink(Model.MapCallWorkOrder.ToString(), "Show", "WorkOrder", new { id = Model.MapCallWorkOrder.Id, area = "FieldOperations" }, null)
+                             }
+                </text>)
+        
+        @Html.DisplayFor(x => x.WorkOrderId)
+        @Html.DisplayFor(x => x.AtRiskBehaviorSection)
+        @Html.DisplayFor(x => x.AtRiskBehaviorSubSection)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Incident Data</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.AccidentTown.County.State)
+        @Html.DisplayFor(x => x.AccidentTown.County)
+        @Html.DisplayFor(x => x.AccidentTown, new { DisplayName = "Town" })
+        @Html.DisplayFor(x => x.AccidentStreetNumber)
+        @Html.DisplayFor(x => x.AccidentStreetName)
+        @Html.DisplayFor(x => x.AccidentCoordinate)
+        @Html.DisplayFor(x => x.PoliceReportFiled)
+        @Html.DisplayFor(x => x.WitnessName)
+        @Html.DisplayFor(x => x.WitnessPhone)
+        @Html.DisplayFor(x => x.QuestionEmployeeDoingBeforeIncidentOccurred)
+        @Html.DisplayFor(x => x.QuestionWhatHappened)
+        @Html.DisplayFor(x => x.QuestionInjuryOrIllness)
+        @Html.RenderDisplayTemplate("Body Part(s)", @<span id="bodyparts">@string.Join(", ", Model.BodyParts.OrderBy(x => x.Description))</span>)
+        @Html.DisplayFor(x => x.QuestionWhatObjectOrSubstanceDirectlyHarmedEmployee)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Prior Injuries</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.QuestionHaveHadSimilarInjuryBefore)
+        @Html.DisplayFor(x => x.PriorInjuryDate)
+        @Html.DisplayFor(x => x.NatureOfPriorInjury)
+        @Html.DisplayFor(x => x.PriorInjuryMedicalProvider)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Activities</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.QuestionParticipatedInAthleticActivitiesInLastTwelveMonths)
+        @Html.DisplayFor(x => x.AthleticActivitiesInLastTwelveMonths)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Other Employers</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.QuestionHaveJobOutsideOfAmericanWater)
+        @Html.DisplayFor(x => x.OtherEmployers)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Initial Evaluation by Nurse</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.EmployeeSpokeWithNurse)
+        @Html.DisplayFor(x => x.IncidentNurseRecommendationType)
+        @Html.DisplayFor(x => x.RecommendedMedicalProvider)
+        @Html.DisplayFor(x => x.NonMedicalTreatmentRecommendation)
+        @Html.DisplayFor(x => x.EmployeeAcceptedRecommendationByNurse)
+        @Html.DisplayFor(x => x.NursePhone)
+        @Html.DisplayFor(x => x.ReasonEmployeeDidNotAcceptRecommendationByNurse)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Medical</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.SoughtMedicalAttention)
+        @Html.DisplayFor(x => x.MedicalProviderName)
+        @Html.DisplayFor(x => x.MedicalProviderPhone)
+        @Html.DisplayFor(x => x.MedicalProviderTown.County.State)
+        @Html.DisplayFor(x => x.MedicalProviderTown.County)
+        @Html.DisplayFor(x => x.MedicalProviderTown)
+    </div>
+</fieldset>
+
+@if (hasDrugSectionReadAccess)
+{
+    <fieldset>
+        <legend>Drug and Alcohol Testing</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.DrugAndAlcoholTestingDecision)
+            @Html.DisplayFor(x => x.DrugAndAlcoholTestingResult)
+            @Html.DisplayFor(x => x.DrugAndAlcoholTestingNotes)
+        </div>
+    </fieldset>
+}
+
+<fieldset>
+    <legend>Incident Committee Report</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.IncidentCommitteeReportTargetCompletionDate, new { DisplayName = "Target Completion Date" })
+        @Html.DisplayFor(x => x.IncidentCommitteeReportCompletionDate, new { DisplayName = "Completion Date" })
+        @Html.DisplayFor(x => x.IncidentCommitteeReportResults, new { DisplayName = "Results" })
+        @Html.DisplayFor(x => x.SeriousInjuryOrFatalityType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Insurance Carrier</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.WorkersCompensationClaimStatus)
+        @Html.DisplayFor(x => x.ClaimsCarrierId)
+        @Html.DisplayFor(x => x.TravelersReport)
+    </div>
+</fieldset>

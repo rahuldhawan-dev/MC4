@@ -1,0 +1,26 @@
+﻿@model SearchGeneralLiabilityClaim
+           
+@using (Form.BeginForm("Index", "GeneralLiabilityClaim"))
+{
+<div class="field-column fc200 searchFields">
+    @Html.EditorFor(x => x.Id)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.CompanyContact, new { Container = @Model })
+    @Html.EditorFor(x => x.ClaimsRepresentative)
+    @Html.EditorFor(x => x.ClaimNumber)
+    @Html.EditorFor(x => x.LiabilityType)
+    @Html.EditorFor(x => x.GeneralLiabilityClaimType)
+    @Html.EditorFor(x => x.CrashType)
+    @Html.EditorFor(x => x.PhhContacted)
+    @Html.EditorFor(x => x.IncidentDateTime)
+    @Html.EditorFor(x => x.PoliceCalled)
+    @Html.EditorFor(x => x.AnyInjuries)
+    @Html.EditorFor(x => x.IncidentNotificationDate)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

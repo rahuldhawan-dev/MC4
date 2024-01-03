@@ -1,0 +1,26 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Employee
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.ProductionSkillSets, new {id = "employeeProductionSkillSetsTable"})
+        .ColumnFor(x => x.ProductionSkillSet);
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Production Skill Set">
+        @Html.Partial("_AddEmployeeProductionSkillSet", ViewModelFactory.BuildWithOverrides<AddEmployeeProductionSkillSet>(new {Id = Model.Id}))
+    </div>
+    using (var form = Form.BeginRouteForm("Employee", "ProductionSkillSets", new {Model.Id},
+        ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeEmployeeProductionSkillSetForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this Production Skill Set?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Production Skill Set").WithName("EmployeeProductionSkillSet").WithValue(x.Id))
+    }
+}
+else
+{
+    @table
+}

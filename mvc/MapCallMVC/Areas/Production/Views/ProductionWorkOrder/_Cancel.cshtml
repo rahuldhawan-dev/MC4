@@ -1,0 +1,7 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.CancelProductionWorkOrder
+
+@using (Form.BeginForm("CancelProductionWorkOrder", "ProductionWorkOrder", "Production", new { Model.Id }))
+{
+    @Html.EditorFor(x => x.CancellationReason)
+    @Html.ButtonGroup(@<text>@Control.SubmitButton("Cancel Order").With("onclick", "return confirm('Are you sure you want to cancel this order?');")</text>)
+}

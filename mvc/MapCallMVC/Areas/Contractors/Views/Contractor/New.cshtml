@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.CreateContractor
+
+@using (Form.BeginForm("Create", "Contractor", "Contractors"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search", "Contractor")
+                           </text>)
+    </div>
+}

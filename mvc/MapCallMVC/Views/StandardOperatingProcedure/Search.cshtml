@@ -1,0 +1,22 @@
+﻿@model SearchStandardOperatingProcedure
+
+@using (Form.BeginForm("Index", "StandardOperatingProcedure"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.HasReviewRequirements)
+        @Html.EditorFor(x => x.Section)
+        @Html.EditorFor(x => x.SubSection)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.FunctionalArea)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Category)
+        @Html.EditorFor(x => x.System)
+        @Html.EditorFor(x => x.DateApproved)
+        @Html.EditorFor(x => x.DateIssued)
+        @Html.EditorFor(x => x.Description)
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿@using MMSINC.Results
+@model Contractors.Models.ViewModels.SearchValveImage
+@{
+	ViewBag.Title = "Valve Images";
+}
+@(Html.TableFor(x => x, new {@class = "results-table"})
+        .WithCaption("Records found: " + Model.Count)
+		.TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+	    .TemplateColumnFor(x => Html.ActionLink("PDF", "Show", new { x.Id, ext = ResponseFormatter.KnownExtensions.PDF }, new { target = "_blank" }))
+        .SortableColumnFor(x => x.ValveNumber)
+        .ColumnFor(x => x.Town.County.State)
+        .ColumnFor(x => x.Town.County)
+        .SortableColumnFor(x => x.Town)
+        .SortableColumnFor(x => x.TownSection)
+        .SortableColumnFor(x => x.StreetNumber)
+        .SortableColumnFor(x => x.StreetPrefix)
+        .SortableColumnFor(x => x.Street)
+        .SortableColumnFor(x => x.StreetSuffix)
+        .SortableColumnFor(x => x.CrossStreet)
+        .SortableColumnFor(x => x.ValveSize)
+        .SortableColumnFor(x => x.DateCompleted)
+        .SortableColumnFor(x => x.OpenDirection)
+        .SortableColumnFor(x => x.Location)
+        .SortableColumnFor(x => x.NumberOfTurns)
+        .SortableColumnFor(x => x.NormalPosition)
+        .SortableColumnFor(x => x.IsDefaultImageForValve)
+        .SortableColumnFor(x => x.OfficeReviewRequired)
+        .SortableColumnFor(x => x.CreatedAt)
+        .WithPaginatedFooter())

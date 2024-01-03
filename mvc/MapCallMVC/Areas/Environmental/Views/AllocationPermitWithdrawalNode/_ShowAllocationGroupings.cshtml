@@ -1,0 +1,30 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels
+@model AllocationPermitWithdrawalNode
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(x => x.AllocationGroupings, new {id = "allocationGroupingsTable"})
+        .TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", "AllocationPermit", new {id = x.Id, area = "Environmental"}, null))
+        .ColumnFor(x => x.EnvironmentalPermit.PermitNumber)
+        .ColumnFor(x => x.PermitType)
+        .ColumnFor(x => x.EffectiveDateOfPermit)
+        .ColumnFor(x => x.ExpirationDate)
+        .ColumnFor(x => x.ActivePermit);
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Allocation Grouping">
+        @Html.Partial("_AddAllocationGrouping", ViewModelFactory.BuildWithOverrides<AddAllocationPermitAllocationPermitWithdrawalNode>(new {Model.Id}))
+    </div>
+    using (var form = Form.BeginRouteForm("AllocationPermitWithdrawalNode", "AllocationPermit", new {Model.Id}, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("id", "removeSamplePlanForm");
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this allocation grouping?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove Allocation Grouping").WithName("AllocationPermit").WithValue(x.Id))
+    }
+}
+else
+{
+    @table
+}

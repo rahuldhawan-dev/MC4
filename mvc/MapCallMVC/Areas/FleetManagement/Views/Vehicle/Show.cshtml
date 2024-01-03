@@ -1,0 +1,7 @@
+﻿@model Vehicle 
+           
+@(Html.Tabs()
+    .WithTab("Details", "_Show")
+    .WithTab("Audits", "_Audit")
+    .WithTab("Incidents", "_Incidents")
+    .WithNotesAndDocuments())

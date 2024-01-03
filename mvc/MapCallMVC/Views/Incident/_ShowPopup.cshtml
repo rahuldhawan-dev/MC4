@@ -1,0 +1,16 @@
+﻿@model Incident
+
+<h2>
+    @Html.DefaultActionLink(string.Format("Incident: #{0}", Model.Id), "Show", "Incident", string.Empty)
+</h2>
+
+<div class="field-column fc100">
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.Employee)
+    @Html.DisplayFor(x => x.IncidentDate)
+    @Html.DisplayFor(x => x.IncidentClassification)
+    @Html.DisplayFor(x => x.IncidentType)
+    @Html.DisplayFor(x => x.GeneralLiabilityCode)
+    @Html.DisplayFor(x => x.CaseManager)
+</div>

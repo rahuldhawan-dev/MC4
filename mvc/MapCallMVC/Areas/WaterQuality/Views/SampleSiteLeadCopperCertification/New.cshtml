@@ -1,0 +1,14 @@
+﻿@using MMSINC.Results
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites.CreateSampleSiteLeadCopperCertification
+
+@using (Form.BeginForm("Show", "SampleSiteLeadCopperCertification", new { Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.SamplePlan)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Get PDF")
+            @Html.LinkButton("Cancel", "Show", "SampleSite", new { Model.Id })
+        </text>)
+    </div>
+}

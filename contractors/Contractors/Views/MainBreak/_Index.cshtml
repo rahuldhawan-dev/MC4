@@ -1,0 +1,45 @@
+﻿@model WorkOrder
+@* NOTE: This view is loaded directly from the planning and finalization tabs. There is no specific Index action. *@
+@Html.ScriptFor("~/Scripts/MainBreak/Index.js", ScriptLoadType.LoadFromPartial)
+@{
+    var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+    MainBreak temp = null;
+}
+<table id="mainBreaksTable">
+    <thead>
+        @if (!isGeneralReadOnly)
+        {
+            <th>Action</th>
+        }
+        <th>Material</th>
+        <th>@Html.DisplayLabelFor(_ => temp.FootageReplaced)</th>
+        <th>@Html.DisplayLabelFor(_ => temp.ReplacedWith)</th>
+        <th>@Html.DisplayLabelFor(_ => temp.MainCondition)</th>
+        <th>Failure Type</th>
+        <th>@Html.DisplayLabelFor(_ => temp.Depth)</th>
+        <th>Soil Condition</th>
+        <th>@Html.DisplayLabelFor(_ => temp.CustomersAffected)</th>
+        <th>@Html.DisplayLabelFor(_ => temp.ShutdownTime)</th>
+        <th>Disinfection Method</th>
+        <th>Flush Method</th>
+        <th>@Html.DisplayLabelFor(_ => temp.ChlorineResidual)</th>
+        <th>@Html.DisplayLabelFor(_ => temp.BoilAlertIssued)</th>
+        <th>@Html.DisplayLabelFor(_ => temp.ServiceSize)</th>
+    </thead>
+    <tbody>
+        @foreach (var mainBreak in Model.MainBreaks)
+        {
+            @Html.Partial("~/Views/MainBreak/_Show.cshtml", mainBreak)
+        }
+    </tbody>
+</table>
+
+@if (!isGeneralReadOnly)
+{
+    @Ajax.ActionLink("Add New Main Break", "New", "MainBreak",
+        new { workOrderId = @Model.Id },
+        new AjaxOptions { HttpMethod = "GET" },
+        new { data_ajax_table = "#mainBreaksTable" })
+}
+
+

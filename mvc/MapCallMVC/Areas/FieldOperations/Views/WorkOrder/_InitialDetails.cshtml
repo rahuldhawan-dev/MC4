@@ -1,0 +1,301 @@
+﻿@model WorkOrder
+
+@{
+    var displayOriginalOrder = (Model.OriginalOrderNumber == null) ? "none" : "run-in";
+    var displayColumnsForOrderNumber = (Model.OriginalOrderNumber == null) ? 3 : 1;
+    var displayMainBreak = (Model.WorkDescription != null && Model.WorkDescription.IsMainReplaceOrRepair) ? "" : "none";    
+    var displayCustomerInfo = (Model.RequestedBy.Id == WorkOrderRequester.Indices.CUSTOMER) ? "" : "none";
+    var isServiceWorkOrder = Model.AssetType.Id == AssetType.Indices.SERVICE;
+}
+
+<style>
+    table.grid.WorkOrderDisplay > tbody > tr > td:nth-child(odd) > label,
+    table.grid.WorkOrderDisplay > tbody > tr > td:nth-child(odd) {
+        font-weight: bold;
+    }
+
+    table.grid.WorkOrderDisplay {
+        width: 80%;
+        height: 80%;
+    }
+
+    #work-order-initial-details-table td {
+        border: solid 1px silver !important;
+    }
+
+    tr.sapError {
+        color: white;
+        background-color: red;
+    }
+</style>
+
+<table id="work-order-initial-details-table" class="grid WorkOrderDisplay for-structure">
+    <colgroup>
+        <col style="width: 20%" />
+        <col style="width: 30%" />
+        <col style="width: 20%" />
+        <col style="width: 30%" />
+    </colgroup>
+    <tr>
+        <td>Operating Center</td>
+        <td colspan="4">@Html.DisplayValueFor(x => x.OperatingCenter)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.Id)</td>
+        <td colspan='@displayColumnsForOrderNumber' id="WorkOrderId">@Html.DisplayValueFor(m => m.Id)</td>
+        <td style='display: @displayOriginalOrder'>@Html.DisplayLabelFor(x => x.OriginalOrderNumber)</td>
+        <td style='display: @displayOriginalOrder' id="OriginalOrderNumber">
+            @if (Model.OriginalOrderNumber != null)
+            {
+                @Html.ActionLink(Model.OriginalOrderNumber.Id.ToString(), "Show", "GeneralWorkOrder", new { id = Model.OriginalOrderNumber.Id, area = "FieldOperations" }, new { target = "_blank" })
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.Town)</td>
+        <td id="Town">@Html.DisplayValueFor(m => m.Town)</td>
+        <td>@Html.DisplayLabelFor(x => x.TownSection)</td>
+        <td id="TownSection">@Html.DisplayValueFor(m => m.TownSection)</td>
+    </tr>
+    <tr style="display: @displayMainBreak">
+        <td>Main Break Note</td>
+        <td colspan="3" id="CriticalMainBreakNotes">@Html.DisplayValueFor(m => m.Town.CriticalMainBreakNotes)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.StreetNumber)</td>
+        <td id="StreetNumber">@Html.DisplayValueFor(m => m.StreetNumber)</td>
+        <td>@Html.DisplayLabelFor(x => x.Street)</td>
+        <td id="Street">@Html.DisplayValueFor(m => m.Street)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.ApartmentAddtl)</td>
+        <td id="ApartmentAddtl">@Html.DisplayValueFor(m => m.ApartmentAddtl)</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.NearestCrossStreet)</td>
+        <td id="NearestCrossStreet">@Html.DisplayValueFor(m => m.NearestCrossStreet)</td>
+        <td>@Html.DisplayLabelFor(x => x.ZipCode)</td>
+        <td id="ZipCode">@Html.DisplayValueFor(m => m.ZipCode)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.AssetType)</td>
+        <td id="AssetType">@Html.DisplayValueFor(m => m.AssetType)</td>
+        <td>
+            <div id="divAssetLabel">@Html.DisplayValueFor(x => x.AssetType.Description) Id:</div>
+            <div>
+                Data Collection:
+                <a href="@Model.ArcCollectorLink" target="_blank">
+                    <img src="~/Content/images/collector.png" alt style="height:20px;width:20px" />
+                </a>
+            </div>
+        </td>
+        <td id="AssetId">
+            <div style='color: red;'>@Html.DisplayValueFor(m => m.AssetCriticalNotes)</div>
+            @if (Model.AssetId != null)
+            {
+                switch (Model.AssetType.AssetTypeEnum)
+                {
+                    case AssetTypeEnum.MainCrossing:
+                        @Html.ActionLink(Model.AssetId.AssetId, "Show", "MainCrossing", new { area = "Facilities", id = Model.MainCrossing.Id }, null) <br />
+                        break;
+                    case AssetTypeEnum.Hydrant:
+                        @Html.ActionLink(Model.AssetId.AssetId, "Show", "Hydrant", new { area = "FieldOperations", id = Model.Hydrant.Id }, null) <br />
+                        break;
+                    case AssetTypeEnum.Valve:
+                        @Html.ActionLink(Model.AssetId.AssetId, "Show", "Valve", new { area = "FieldOperations", id = Model.Valve.Id }, null) <br />
+                        break;
+                    case AssetTypeEnum.SewerOpening:
+                        @Html.ActionLink(Model.AssetId.AssetId, "Show", "SewerOpening", new { area = "FieldOperations", id = Model.SewerOpening.Id }, null) <br />
+                        break;
+                    case AssetTypeEnum.StormCatch:
+                        if (Model.StormWaterAsset != null)
+                        {
+                            @Html.ActionLink(Model.AssetId.AssetId, "Show", "StormWaterAsset", new { id = Model.StormWaterAsset.Id }, null)
+                        }
+                        <br/>
+                        break;
+                    default:
+                        @Html.DisplayValueFor(m => m.AssetId) <br />
+                        break;
+                }
+            }
+
+
+            @if (Model.AssetType.AssetTypeEnum == AssetTypeEnum.Service ||
+                 Model.AssetType.AssetTypeEnum == AssetTypeEnum.SewerLateral)
+            {
+                <text>
+                    Device Location: @Html.DisplayTextFor(m => m.DeviceLocation)<br />
+                    Equipment #: @Html.DisplayTextFor(m => m.SAPEquipmentNumber)<br />
+                    Installation: @Html.DisplayTextFor(m => m.Installation)<br />
+                </text>
+                if (Model.Service != null)
+                {
+                    @Html.ActionLink("View Service", "Show", "Service", new { area = "FieldOperations", id = Model.Service.Id }, null) <br />
+                }
+
+                if (Model.SampleSites.Any(x => x.Premise.ToString() == Model.PremiseNumber)) 
+                { 
+                    <div style='color: red;'>This Premise is Linked to a Sample Site. Contact WQ before making any changes.</div> 
+                } 
+
+                @Html.ActionLink("Premise Details", "Index", "Premise", new RouteValueDictionary {
+                    { "PremiseNumber.MatchType",  SearchStringMatchType.Exact},
+                    { "PremiseNumber.Value", Model.PremiseNumber},
+                    { "area" , "Customer" }
+                }, new RouteValueDictionary {
+                    { "target" , "_blank" }
+                })<br />
+
+                @Html.ActionLink("SAP Technical Master Data", "Index", "SAPTechnicalMasterAccount", new { area = "Customer", PremiseNumber = Model.PremiseNumber, Equipment = Model.Equipment }, new { target = "_blank" }) <br />
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>Requested By:</td>
+        <td id="RequestedByDescription">@Model.RequestedBy.Description</td>
+        <td>
+            @switch (Model.RequestedBy.Id)
+            {
+                case WorkOrderRequester.Indices.ACOUSTIC_MONITORING:
+                    <text>Acoustic Monitoring Type:</text>
+                    break;
+                case WorkOrderRequester.Indices.EMPLOYEE:
+                    <text>Requesting Employee:</text>
+                    break;
+                case WorkOrderRequester.Indices.CUSTOMER:
+                    <text>Customer Name:</text>
+                    break;
+            }
+        </td>
+        <td id="RequestedBy">
+            @switch (Model.RequestedBy.Id)
+            {
+                case WorkOrderRequester.Indices.ACOUSTIC_MONITORING:
+                    <text>@Model.AcousticMonitoringType</text>
+                    break;
+                case WorkOrderRequester.Indices.CUSTOMER:
+                    <text>@Model.CustomerName</text>
+                    break;
+                case WorkOrderRequester.Indices.EMPLOYEE:
+                    <text>@Model.RequestingEmployee.FullName</text>
+                    break;
+            }
+        </td>
+    </tr>
+    <tr style="display: @displayCustomerInfo">
+        <td>@Html.DisplayLabelFor(x => x.PhoneNumber)</td>
+        <td id="PhoneNumber">@Html.DisplayValueFor(m => m.PhoneNumber)</td>
+        <td>Secondary Number:</td>
+        <td id="SecondaryPhoneNumber">@Html.DisplayValueFor(m => m.SecondaryPhoneNumber)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.Purpose)</td>
+        <td id="Purpose">@Html.DisplayValueFor(m => m.Purpose)</td>
+        <td>Job Priority:</td>
+        <td id="Priority">@Html.DisplayValueFor(m => m.Priority)</td>
+    </tr>
+    <tr>
+        <td>Description of Work:</td>
+        <td colspan="3" id="WorkDescription">@Html.DisplayValueFor(m => m.WorkDescription)</td>
+    </tr>
+
+    <tr style="display: @displayMainBreak">
+        <td>@Html.DisplayLabelFor(x => x.EstimatedCustomerImpact)</td>
+        <td id="EstimatedCustomerImpact">@Html.DisplayValueFor(m => m.EstimatedCustomerImpact)</td>
+        <td>@Html.DisplayLabelFor(x => x.AnticipatedRepairTime)</td>
+        <td id="AnticipatedRepairTime">@Html.DisplayValueFor(m => m.AnticipatedRepairTime)</td>
+    </tr>
+    <tr style="display: @displayMainBreak">
+        <td>@Html.DisplayLabelFor(x => x.AlertIssued)</td>
+        <td id="AlertIssuedDisplay">@Html.DisplayValueFor(m => m.AlertIssued)</td>
+        <td>@Html.DisplayLabelFor(x => x.SignificantTrafficImpact)</td>
+        <td id="SignificantTrafficImpact">@Html.DisplayValueFor(m => m.SignificantTrafficImpact)</td>
+    </tr>
+    <tr>
+        <td>PMAT Override:</td>
+        <td id="PlantMaintenanceActivityTypeOverride">@Html.DisplayValueFor(m => m.PlantMaintenanceActivityTypeOverride)</td>
+        <td>Markout Requirement:</td>
+        <td id="MarkoutRequirement">@Html.DisplayValueFor(m => m.MarkoutRequirement)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.AccountCharged)</td>
+        <td colspan="3" id="AccountCharged">@Html.DisplayValueFor(x => x.AccountCharged)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.TrafficControlRequired)</td>
+        <td>@Html.CheckBoxFor(x => x.TrafficControlRequired, new { disabled = true })</td>
+        <td>@Html.DisplayLabelFor(x => x.StreetOpeningPermitRequired)</td>
+        <td>@Html.CheckBoxFor(x => x.StreetOpeningPermitRequired, new { disabled = true })</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.DigitalAsBuiltRequired)</td>
+	    <td>@Html.CheckBoxFor(x => x.DigitalAsBuiltRequired, new { disabled = true })</td>
+	    <td>@Html.DisplayLabelFor(x => x.DigitalAsBuiltCompleted)</td>
+	    <td>@Control.CheckBoxFor(x => x.DigitalAsBuiltCompleted).With("disabled", "disabled").WithId("DigitalAsBuiltCompletedCheckbox")</td>
+    </tr>
+	@if (isServiceWorkOrder)
+	{
+		<tr>
+			<td>@Html.DisplayLabelFor(x => x.MeterLocation)</td>
+			<td colspan="3" id="MeterLocationInit">@Html.DisplayValueFor(m => m.MeterLocation)</td>
+		</tr>
+	}
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.Notes)</td>
+        <td colspan="3" id="Notes">
+            <pre style="white-space: pre-wrap;">@Html.DisplayValueFor(m => m.Notes)</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.CreatedBy)</td>
+        <td id="CreatedBy">@Html.DisplayValueFor(m => m.CreatedBy.FullName)</td>
+        <td>@Html.DisplayLabelFor(x => x.DateReceived)</td>
+        <td id="DateReceived">@Html.DisplayValueFor(m => m.DateReceived)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.PlannedCompletionDate)</td>
+        <td colspan="3" id="PlannedCompletionDate">@Html.DisplayValueFor(x => x.PlannedCompletionDate)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.CompletedBy)</td>
+	    <td id="CompletedBy">
+	        @Html.DisplayValueFor(m => m.ActuallyCompletedBy)
+	    </td>
+        <td>@Html.DisplayLabelFor(x => x.DateCompleted)</td>
+        <td id="DateCompleted">@Html.DisplayValueFor(m => m.DateCompleted)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.FlushingNoticeType)</td>
+        <td id="FlushingNoticeTypeInit">@Html.DisplayValueFor(m => m.FlushingNoticeType)</td>
+        <td>@Html.DisplayLabelFor(x => x.CreatedAt)</td>
+        <td id="CreatedOn">@Html.DisplayValueFor(m => m.CreatedAt)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.SAPNotificationNumber)</td>
+        <td id="SAPNotificationNumber">@Html.DisplayValueFor(m => m.SAPNotificationNumber)</td>
+        <td>@Html.DisplayLabelFor(x => x.ApprovedOn)</td>
+        <td id="ApprovedOn">@Html.DisplayValueFor(m => m.ApprovedOn)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.SAPWorkOrderNumber)</td>
+        <td id="SAPWorkOrderNumber">@Html.DisplayValueFor(m => m.SAPWorkOrderNumber)</td>
+        <td>@Html.DisplayLabelFor(x => x.MaterialsApprovedOn)</td>
+        <td id="MaterialsApprovedOn">@Html.DisplayValueFor(m => m.MaterialsApprovedOn)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayLabelFor(x => x.SAPErrorCode)</td>
+        <td id="SAPErrorCode">@Html.DisplayValueFor(m => m.SAPErrorCode)</td>
+        <td>@Html.DisplayLabelFor(x => x.MaterialPlanningCompletedOn)</td>
+        <td id="MaterialPlanningCompletedOn">@Html.DisplayValueFor(m => m.MaterialPlanningCompletedOn)</td>
+    </tr>
+    @if (Model.AssignedContractor != null)
+    {
+        <tr>
+            <td>Contractor Assigned To</td>
+            <td colspan="3" id="AssignedContractor">@Html.DisplayValueFor(x => x.AssignedContractor) On @Html.DisplayValueFor(x => x.AssignedToContractorOn)</td>
+        </tr>
+    }
+</table>

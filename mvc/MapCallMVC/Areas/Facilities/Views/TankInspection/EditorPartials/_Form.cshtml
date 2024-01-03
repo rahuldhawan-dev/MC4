@@ -1,0 +1,65 @@
+﻿
+@model MapCallMVC.Areas.Facilities.Models.ViewModels.TankInspectionViewModel
+    <div class="field-column fc-left-label fc200">
+        
+        
+        @{
+            if (!String.IsNullOrWhiteSpace(Model.DisplayOperatingCenter))
+            {
+                Html.DisplayFor(m => m.DisplayOperatingCenter);
+            }
+
+        }
+
+        @{
+            if (!String.IsNullOrWhiteSpace(Model.DisplayProductionWorkOrder))
+            {
+                @Html.RenderDisplayTemplate("Production Work Order", @Html.ActionLink(Model.DisplayProductionWorkOrder, "Show", "ProductionWorkOrder", new {Id = Model.ProductionWorkOrder, area = "Production"}, null))
+            }
+        }
+        @{
+            if (!String.IsNullOrWhiteSpace(Model.DisplayEquipment))
+            {
+                @Html.RenderDisplayTemplate("Equipment", @Html.ActionLink(Model.DisplayEquipment.ToString(), "Show", "Equipment", new { Id = Model.Equipment, area = "" }, null))
+            }
+            else
+            {
+                @Html.RenderDisplayTemplate("Equipment", @<text></text>)
+            }
+        }
+        @{
+            if (!String.IsNullOrWhiteSpace(Model.DisplayFacility))
+            {
+                @Html.RenderDisplayTemplate("Facility", @Html.ActionLink(Model.DisplayFacility.ToString(), "Show", "Facility", new {Id = Model.Facility, area = ""}, null))
+            }
+        }
+
+        @Html.DisplayAndHiddenFor(m => m.TankAddress)
+
+        @Html.EditorFor(m => m.Coordinate)
+
+        @{
+            if (!String.IsNullOrWhiteSpace(Model.DisplayPublicWaterSupply))
+            {
+                @Html.DisplayAndHiddenFor(m => m.DisplayPublicWaterSupply)
+            }
+            else
+            {
+                @Html.RenderDisplayTemplate("Public Water Supply", @<text></text>)
+            }
+        }
+
+        @Html.HiddenFor(m => m.OperatingCenter)
+        @Html.HiddenFor(m => m.ProductionWorkOrder)
+        @Html.HiddenFor(m => m.Equipment)
+        @Html.HiddenFor(m => m.Facility)
+        @Html.HiddenFor(m => m.PublicWaterSupply)
+        @Html.HiddenFor(m => m.Town)
+        @Html.HiddenFor(m => m.TankObservedBy)
+        @Html.HiddenFor(m => m.TankAddress)
+        @Html.EditorFor(m => m.TankCapacity)
+        @Html.EditorFor(m => m.ObservationDate)
+        @Html.EditorFor(m => m.TankInspectionType)
+        @Html.DisplayAndHiddenFor(m => m.LastObserved)
+
+    </div>

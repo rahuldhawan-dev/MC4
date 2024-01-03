@@ -1,0 +1,20 @@
+﻿@model Contractors.Models.ViewModels.CreateCrew
+
+@{
+    ViewBag.Title = "Create Crew";
+}
+
+@using (Form.BeginForm("Create", "Crew"))
+{
+    <div class="field-column fc150">
+        @Html.EditorFor(m => m.Description)
+        @Html.EditorFor(m => m.Availability)
+        <div class="field-pair">
+            <div class="label"></div>
+            <div class="field">
+                @Control.SubmitButton("Save").WithName("Submit")
+                @Html.LinkButton("Cancel", "Index", "Crew")
+            </div>
+        </div>
+    </div>  
+}

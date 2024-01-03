@@ -1,0 +1,10 @@
+﻿@model IEnumerable<ContractorLaborCost>
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "ContractorLaborCost", new {id = x.Id, area = "ProjectManagement"}, null))
+    .ColumnFor(x => x.StockNumber)
+    .ColumnFor(x => x.Unit)
+    .ColumnFor(x => x.JobDescription)
+    .ColumnFor(x => x.SubDescription)
+    .ColumnFor(x => x.Cost)
+    .ColumnFor(x => x.Percentage))

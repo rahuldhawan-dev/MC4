@@ -1,0 +1,9 @@
+
+02/12/2009 --------------------------------------------------------------------
+
+Create workorders from Inspection screens in MapCall
+    - Valve Inspections
+    - Hydrant Inspections
+    - Will need to have descriptions of work on the inspections form
+
+Fix picker color when lat/lon set

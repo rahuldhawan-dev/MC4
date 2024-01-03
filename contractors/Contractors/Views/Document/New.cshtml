@@ -1,0 +1,28 @@
+﻿@model Contractors.Models.ViewModels.NewDocument
+@{
+    // This needs to be null so that the Html.Action call that loads this renders it as a Partial.
+    Layout = null;
+}
+@if (Request.IsAjaxRequest())
+{
+    @*Need to load this way if the docs tab is loading as an ajax tab. *@
+    @Html.ScriptFor("~/Scripts/Document/New.js", ScriptLoadType.LoadNormally)
+}
+else
+{
+    @Html.ScriptFor("~/Scripts/Document/New.js", ScriptLoadType.LoadFromPartial)
+}
+
+@using (var form = Form.BeginForm("Create", "Document"))
+{
+    // Using Update action to go with the index view that checks @Html.CurrentUserCanEdit
+    <div class="field-column fc150">
+        @Html.EditorFor(x => x.FileUpload)
+        @Html.EditorFor(m => m.FileName)
+        @Html.EditorFor(x => x.DocumentType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save").WithId("Save").WithName("Submit").With("disabled", "disabled")
+            @Control.Button("Cancel").WithId("btnCancelNewDocument").WithCssClass("cancel")
+        </text>)
+    </div>
+}

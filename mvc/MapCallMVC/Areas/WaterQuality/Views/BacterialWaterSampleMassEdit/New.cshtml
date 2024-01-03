@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.CreateBacterialWaterSampleMassEdit
+
+@using (Form.BeginForm("Create", "BacterialWaterSampleMassEdit", "WaterQuality")) {
+
+	<div class="field-column fc200">
+		@Html.EditorFor(x => x.FileUpload.FileUpload)
+	</div>
+
+    <div class="container">
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "BacterialWaterSample")
+                           </text>)
+    </div>
+}

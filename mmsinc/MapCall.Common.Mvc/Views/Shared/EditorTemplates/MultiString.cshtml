@@ -1,0 +1,13 @@
+﻿@model string[]
+
+@RenderEditorForTemplate(@<div class="multistring" id="@Html.IdForModel()">
+                             @Control.Hidden().WithId(Html.IdForModel() + "_FormState").WithCssClass("multistring-formstate")
+                             @if (Model != null)
+                             {
+                                 foreach (var s in Model)
+                                 {
+                                     @Control.Hidden().WithValue(s)
+                                 }
+                             }
+                         </div>)
+

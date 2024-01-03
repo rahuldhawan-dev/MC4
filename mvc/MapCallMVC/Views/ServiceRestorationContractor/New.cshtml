@@ -1,0 +1,13 @@
+﻿@model CreateServiceRestorationContractor
+
+@using (Form.BeginForm("Create", "ServiceRestorationContractor"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Search", "ServiceRestorationContractor")
+                           </text>)
+    </div>
+}

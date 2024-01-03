@@ -1,0 +1,40 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.CreateInterconnection
+
+@using (Form.BeginForm("Create", "Interconnection", "Facilities"))
+{
+    using (var g = Html.Grid())
+    {
+        using (g.FlexBox())
+        {
+            <div class="field-column fc150">
+                @Html.EditorFor(x => x.OperatingCenter)
+                @Html.EditorFor(x => x.Facility)
+                @Html.EditorFor(x => x.DEPDesignation)
+                @Html.EditorFor(x => x.CoordinateId)
+            </div>
+        }
+
+        using (g.FlexBox())
+        {
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.Category)
+                @Html.EditorFor(x => x.OperatingStatus)
+                @Html.EditorFor(x => x.Direction)
+                @Html.EditorFor(x => x.Type)
+                @Html.EditorFor(x => x.ContractStartDate)
+                @Html.EditorFor(x => x.ContractEndDate)
+            </div>
+        }
+    }
+
+    <div style="margin-top: 6px;">
+        @(Html.Tabs()
+              .WithTab("PWSID", "PWSID/_Form")
+              .WithTab("Water Quality", "WaterQuality/_Form")
+              .WithTab("Capacity", "Capacity/_Form")
+              .WithTab("Reversibility", "Reversibility/_Form"))
+    </div>
+
+    @Control.SubmitButton("Save")
+    @Html.LinkButton("Cancel", "Search", "Interconnection")
+}

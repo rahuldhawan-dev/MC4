@@ -1,0 +1,78 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MMSINC.Results
+@model Hydrant
+
+<div id="hydrant@(Model.Id)Popup">
+<div class="esri-info">
+    @Html.DisplayNotifications()
+
+    <h2>
+        @Html.DefaultActionLink(Model.HydrantNumber, "Show", "Hydrant", "FieldOperations", new{ id = Model.Id }, new{ target = "_blank"})
+    </h2>
+    <h3>Legacy ID: @Html.DisplayValueFor(x => x.LegacyId)</h3>
+    @Control.Button("Hide").WithCssClass("esri-toggle")
+    @if (Model.OperatingCenter.WorkOrdersEnabled)
+    {
+        <div style="padding: 3px;">
+            @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model), new { area = "FieldOperations", Class = "link-button", target = "_new" })
+        </div>
+    }
+
+    @if (Model.IsInspectable && Model.OperatingCenter.IsActive)
+    {
+        @Html.AuthorizedActionLinkButton("New Inspection", "New", "HydrantInspection", new { id = Model.Id }, new { id = "btnNewInspection", @class = "inspect-button" })
+        if (Model.LateralValve != null)
+        {
+            @Html.AuthorizedActionLinkButton("New Inspection for Lateral Valve", "New", "ValveInspection", new { id = Model.LateralValve.Id }, new { @class = "inspect-button" })
+        }
+    }
+    else
+    {
+        <div class="notification notifications-warning">
+            <div class="message">New inspection records can not be created for assets that are cancelled, inactive, retired, or removed.</div>
+        </div>
+    }
+
+    @if (Model.IsPaintable && Model.OperatingCenter.IsActive && !Model.PaintedToday)
+    {
+        using (var f = Form.BeginAjaxForm("Create", "HydrantPainting", new {
+            Hydrant = Model.Id,
+            PaintedToday = true,
+            ext = ResponseFormatter.KnownExtensions.FRAGMENT
+        }))
+        {
+            f.Ajax.OnComplete = "AssetMaps.reloadAndKillPopup";
+
+            @Control.SubmitButton("Painted Today").With(
+                "onclick",
+                "return confirm('This will add a new painting record for hydrant " +
+                Model.HydrantNumber +
+                " with the date set to today, are you sure?');")
+        }
+    }
+    else
+    {
+        <div class="notification notifications-warning">
+            <div class="message">New painting records can not be created for assets that are cancelled, inactive, retired, or removed.</div>
+        </div>
+    }
+
+
+    <div class="field-column fc100">
+        @Html.DisplayFor(x => x.FireDistrict)
+        @if (Model.Critical)
+        {
+            @Html.DisplayFor(x => x.CriticalNotes, new {@class = "critical-notes-display"})
+        }
+        @Html.DisplayFor(x => x.HydrantManufacturer)
+        @Html.DisplayFor(x => x.HydrantDueInspection.LastInspectionDate)
+        @Html.DisplayFor(x => x.HydrantDuePainting.LastPaintedAt)
+        @Html.DisplayFor(x => x.HasOpenWorkOrder)
+        @Html.DisplayFor(x => x.HydrantDueInspection.RequiresInspection)
+        @Html.DisplayFor(x => x.FunctionalLocation)
+        @Html.DisplayFor(x => x.OutOfService)
+        @Html.DisplayFor(x => x.Route)
+        @Html.DisplayFor(x => x.Stop)
+    </div>
+</div>
+</div>

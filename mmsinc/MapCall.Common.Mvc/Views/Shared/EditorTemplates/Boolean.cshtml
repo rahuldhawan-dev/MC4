@@ -1,0 +1,23 @@
+﻿@using MMSINC.Metadata
+@*
+ HOW DO USE? 
+ -----------
+ For your basic needs, you just need to do this in your view:
+    @Html.EditorFor(m => m.StringProperty)
+
+ That's it. If you want to pass additional parameters in, you'll want to pass
+ them in through the additionalViewData parameter.
+    Ex: @Html.EditorFor(m => m.StringProperty, new { Parameter = value })
+
+ Parameter       | Type(default) | What do
+ -------------------------------------------------------------------
+ DisplayName     | string(empty) | Set the label to a custom value if you don't
+                 |               | want it to automagically find it for you.
+*@
+@model bool?
+@{
+    // Use a checkbox only if a nullable boolean property has the CheckBoxAttribute affixed to it.
+    var useBoolDrop = ViewData.ModelMetadata.IsNullableValueType && CheckBoxAttribute.GetFromModelMetadata(ViewData.ModelMetadata) == null;
+    var control = (useBoolDrop ? (IHtmlString)Control.BoolDropDown("").With(ViewTemplateHelper.HtmlAttributes) : (IHtmlString)Control.CheckBox("").With(ViewTemplateHelper.HtmlAttributes));
+}
+@RenderEditorForTemplate(@<text>@control @Html.ValidationMessage("")</text>)

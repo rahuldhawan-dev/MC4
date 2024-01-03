@@ -1,0 +1,10 @@
+﻿@model SearchHepatitisBVaccination
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Employee.OperatingCenter)
+    .SortableColumnFor(x => x.Employee)
+    .SortableColumnFor(x => x.HepatitisBVaccineStatus)
+    .SortableColumnFor(x => x.ResponseDate)
+    .WithPaginatedFooter())

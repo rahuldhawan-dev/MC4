@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.PreJobSafetyBriefs.SearchProductionPreJobSafetyBrief
+
+@helper FlattenEmployees(ProductionPreJobSafetyBrief brief) {
+    foreach (var employee in brief.Workers)
+    {
+        <div>
+            @if (employee.Employee != null)
+            {
+                @Html.DisplayValueFor(_ => employee.Employee)
+            }
+            else
+            {
+                @Html.DisplayValueFor(_ => employee.Contractor)
+            }
+        </div>
+    }
+}
+
+@(Html.TableFor(_ => Model)
+      .WithCaption("Records found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id}))
+      .SortableColumnFor(x => x.SafetyBriefDateTime)
+      .ColumnFor(x => x.ProductionWorkOrder.OperatingCenter)
+      .ColumnFor(x => x.ProductionWorkOrder.Facility)
+      .TemplateColumnFor("Employees", x => FlattenEmployees(x))
+      .WithPaginatedFooter()
+      )

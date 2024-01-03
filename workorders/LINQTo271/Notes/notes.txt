@@ -1,0 +1,92 @@
+Begin:
+  - Choose OpCode.  This will be eventually defined by the OpCode of the logged-
+    in user, or will display as a list of all the OpCodes that user can see.
+
+Search:
+  - Fields:
+    Town (drop down)
+    Town Section (drop down, disabled)
+    Street (autosuggest, disabled)
+    Nearest Cross Street (autosuggest, disabled)
+    Asset Type (drop down)
+    Status (drop down)
+
+  - Choosing Town filters and fills the list for Town Section, enabling it.
+
+  - Choosing Town Section filters and fills Street and Nearest Cross Street
+    enabling them.
+
+Create New:
+  - Fields:
+    Requested By (drop down)
+    Customer Name (text box, hidden)
+    Employee (autosuggest, hidden)
+    Gov't Official's Info (text area, hidden)
+    Nearest Cross Street (autosuggest, disabled)
+    Street Number (text box, hidden)
+    Street (autosuggest, disabled)
+    Town (drop down)
+    Town Section (drop down, disabled)
+    Asset Type (drop down)
+    Asset ID # (dowp down, disabled)
+    Markout Required (checkbox)
+    Date Received (date picker, default to current date/time)
+
+  - Same logic for Town, Town Section, and Streets for search apply.
+
+  - Asset ID field remains disabled until value is set for both street
+    and Asset Type, and its list is filtered by those fields.
+
+Reports:
+
+Search Results:
+  - Table Fields:
+    Order Number
+    Status (open/closed)
+    Town
+    Town Section
+    Priority
+    Markout Required
+    Date Received
+    Requested By
+    
+  - Choosing a row opens that Work Order in Edit Mode
+
+Edit:
+  - Tabs:
+    Initial Information:
+    - Same fields as in Create
+
+    - Will allow editing of information only to supervisors
+
+  - Markouts:
+    - Records information on each individual markout requirement, and when
+      each is satisfied
+
+  - Excavation:
+    - Records information on excavation for a given work order, including
+      the backhoe operator's digital signature stating that the site has
+      been marked out and inspected properly, and is ready for excavation.
+
+  - Timesheets:
+    - Records data for each time an employee works on a given work order, to
+      later calculate total man hours for a given job.
+
+  - Material:
+    - Records all stock and non-stock materials used on a given job.
+
+  - Leak Survey:
+    - Records all detected leaks on a job, and the estimated amount of water
+      lost.
+
+  - Safety Markers:
+    - Records all the safety markers left on a job, and the date they were
+      retrieved.
+
+  - Restoration:
+    - Records all steps necessary to restore property after a work order/excavation.
+
+  - Closing Information:
+    - Allows a supervisor to review all the informat that has gone into the work
+      order, and certify that the work is complete as of the "Time Left Job" on
+      the last employee timesheet.

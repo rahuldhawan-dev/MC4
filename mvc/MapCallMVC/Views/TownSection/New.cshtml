@@ -1,0 +1,12 @@
+﻿@model CreateTownSection
+
+@using (Form.BeginForm("Create", "TownSection"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields")
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Search")
+                           </text>)
+    </div>
+}

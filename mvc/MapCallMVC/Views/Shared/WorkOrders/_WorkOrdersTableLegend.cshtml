@@ -1,0 +1,21 @@
+﻿@model object
+
+<style>
+    .workorders-table-legend td.color-block {
+        height: 30px;
+        width: 150px;
+        text-align: center;
+        border: none !important;
+    }
+</style>
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+    <tr>
+        <td class="color-block wo-completed">Completed</td>
+        <td class="color-block wo-cancelled">Cancelled</td>
+        <td class="color-block wo-scheduled-previously">Previously Scheduled</td>
+        <td class="color-block wo-scheduled-currently">Currently Scheduled</td>
+        <td class="color-block wo-requires-supervisor-approval">Requires Supervisor Approval</td>
+        <td class="color-block asset-not-inspectable">Work Order With Compliance</td>
+    </tr>
+</table>
+

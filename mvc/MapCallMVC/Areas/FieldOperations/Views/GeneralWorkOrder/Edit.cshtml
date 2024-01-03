@@ -1,0 +1,83 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder.EditGeneralWorkOrderModel
+
+@{
+    var additionalViewModel = ViewModelFactory.Build<EditGeneralAdditional, WorkOrder>(Model.WorkOrder);
+    var trafficeControlViewModel = ViewModelFactory.Build<EditTrafficControl, WorkOrder>(Model.WorkOrder);
+    var canAddOrEditMaterials = !(Model.WorkOrder.ApprovedOn.HasValue && Model.WorkOrder.MaterialsApprovedOn.HasValue);
+    var materialsView = "~/Areas/FieldOperations/Views/WorkOrder/_Materials.cshtml";
+    if (canAddOrEditMaterials)
+    {
+        materialsView = "~/Areas/FieldOperations/Views/MaterialUsed/_Index.cshtml";
+    }
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Show.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/General/Edit.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/SAPNotificationSearchStorage.js", ScriptLoadType.LoadFromPartial)
+@if (Model.WorkOrder.SpecialInstructions != null)
+{
+    <h5>
+        @Html.DisplayLabelFor(x => x.WorkOrder.SpecialInstructions):
+        <span style="color: red" id="WorkOrderSpecialInstructions">@Html.DisplayTextFor(m => m.WorkOrder.SpecialInstructions)</span>
+    </h5>
+}
+
+@(Html.Tabs()
+      .WithTab("Initial Information", "_EditInitialDetails", Model)
+      .WithTab("Materials", materialsView, Model.WorkOrder, itemCount: Model.WorkOrder.MaterialsUsed.Count)
+      .WithTab("Spoils", "~/Areas/FieldOperations/Views/Spoil/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Spoils.Count)
+      .WithTab("Markouts", "~/Areas/FieldOperations/Views/Markout/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Markouts.Count)
+      .WithTab("Markout Violations", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutViolations.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MarkoutViolations.Count)
+      .WithTab("Markout Damages", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutDamages.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MarkoutDamages.Count)
+      .WithTab("Traffic Control", "~/Areas/FieldOperations/Views/GeneralWorkOrder/_TrafficControl.cshtml", trafficeControlViewModel, itemCount: Model.WorkOrder.TrafficControlTickets.Count)
+      .WithTab("Restoration", "~/Areas/FieldOperations/Views/WorkOrder/_EditRestorations.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Restorations.Count)
+      .WithTab("Crew Assignments", "~/Areas/FieldOperations/Views/WorkOrder/_CrewAssignments.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.CrewAssignments.Count)
+      .WithTab("Additional", "~/Areas/FieldOperations/Views/GeneralWorkOrder/_EditGeneralAdditional.cshtml", additionalViewModel)
+      .WithTab("Street Opening Permit", "~/Areas/FieldOperations/Views/StreetOpeningPermit/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.StreetOpeningPermitRequired, itemCount: Model.WorkOrder.StreetOpeningPermits.Count)
+      .WithTab("Main Break", "~/Areas/FieldOperations/Views/MainBreak/_Index.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.MainBreaks.Count, tabHtmlAttributes: new { id = "WorkOrderMainBreaksTab" })
+      .WithTab("Schedule Of Values", "~/Areas/FieldOperations/Views/WorkOrderScheduleOfValue/_Index.cshtml", Model.WorkOrder, isVisible: Model.WorkOrder.OperatingCenter.HasWorkOrderInvoicing, itemCount: Model.WorkOrder.WorkOrdersScheduleOfValues.Count)
+      .WithTab("Purchase Orders(PO)", "~/Areas/FieldOperations/Views/WorkOrderSupervisorApproval/_Requisitions.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Requisitions.Count)
+      .WithTab("Job Site Check Lists", "~/Areas/FieldOperations/Views/WorkOrder/_JobSiteCheckLists.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.JobSiteCheckLists.Count)
+      .WithTab("Job Observations", "~/Areas/FieldOperations/Views/WorkOrder/_JobObservations.cshtml", Model.WorkOrder)
+      .WithTab("Invoices", "~/Areas/FieldOperations/Views/WorkOrder/_Invoices.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.Invoices.Count, isVisible: Model.WorkOrder.OperatingCenter.HasWorkOrderInvoicing)
+      .WithTab("Set Meter", "~/Areas/FieldOperations/Views/WorkOrder/_Meters.cshtml", Model.WorkOrder, itemCount: Model.WorkOrder.ServiceInstallations.Count, isVisible: Model.WorkOrder.IsNewServiceInstallation)
+      .WithDocuments(Model.WorkOrder)
+	)
+
+<div class="container">
+    @Html.LinkButton("Refresh", "Edit", "GeneralWorkOrder", new { area = "FieldOperations", id = Model.WorkOrder.Id })
+
+    @if (Model.WorkOrder.CancelledAt == null &&
+         !Model.WorkOrder.DateCompleted.HasValue &&
+         !Model.WorkOrder.MaterialsUsed.Any() &&
+         (Model.WorkOrder.CrewAssignments == null || Model.WorkOrder.CrewAssignments.All(x => x.DateStarted == null)) &&
+         !Model.WorkOrder.CrewAssignments.Any(x => x.AssignedFor.Date == DateTime.Today))
+    {
+        @Control.Button("Cancel Order").WithId("btnCancelOrder")
+    }
+
+    @if (!Model.WorkOrder.DateCompleted.HasValue && !Model.WorkOrder.MaterialPlanningCompletedOn.HasValue)
+    {
+        using (Form.BeginForm("CompleteMaterialPlanning", "WorkOrder", "FieldOperations", new { Model.WorkOrder.Id }))
+        {
+            @Control.SubmitButton("Complete Material Planning").With("onclick", "return confirm('Are you sure you want to complete Material Planning?');").WithCssClass("no-double-submit");
+        }
+    }
+
+    @Html.ActionLink("SAP Notifications", "Search", "SAPNotification", new { area = "FieldOperations" }, new { Class = "link-button" })
+
+    @if (Model.WorkOrder.AssetType != null && (Model.WorkOrder.AssetType.Id == AssetType.Indices.SERVICE || Model.WorkOrder.AssetType.Id == AssetType.Indices.SEWER_LATERAL)  && Model.WorkOrder.Service == null)
+    {
+        @Html.ActionLink("Create Service", "LinkOrNew", "Service", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+    }
+
+    <div id="cancelOrderPanel" style="display: none; padding: 6px;" class="field-column fc200">
+        <fieldset>
+            <legend>Cancel</legend>
+            @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Cancel.cshtml", ViewModelFactory.Build<CancelWorkOrder, WorkOrder>(Model.WorkOrder))
+        </fieldset>
+    </div>
+</div>

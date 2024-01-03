@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchFieldCompletedBacklogQAReport
+    
+@using (Form.BeginForm("Index", "FieldCompletedBacklogQAReport"))
+{
+    <div class="field-column fc200 search-fields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

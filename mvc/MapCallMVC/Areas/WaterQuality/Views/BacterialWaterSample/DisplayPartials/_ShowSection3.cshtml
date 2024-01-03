@@ -1,0 +1,48 @@
+﻿@model BacterialWaterSample
+
+<div class="field-column fc200">
+	@Html.DisplayFor(x => x.SampleNumber)
+	@Html.DisplayFor(x => x.ReceivedByLabDTM)
+	@Html.DisplayFor(x => x.IsInvalid)
+	@if (Model.IsInvalid)
+	{
+		@Html.DisplayFor(x => x.ReasonForInvalidation)
+	}
+	@Html.DisplayFor(x => x.LIMSStatus)
+</div>
+
+<div class="grid-layout gl-2col">
+	<div>
+		<fieldset>
+			<legend>Coliform</legend>
+			<div class="field-column fc200">
+				@Html.DisplayFor(x => x.ColiformConfirm)
+				@Html.DisplayFor(x => x.ColiformConfirmMethod)
+				@Html.DisplayFor(x => x.NonSheenColonyCount)
+				@Html.DisplayFor(x => x.NonSheenColonyCountOperator)
+				@Html.DisplayFor(x => x.SheenColonyCount)
+				@Html.DisplayFor(x => x.SheenColonyCountOperator)
+				@Html.DisplayFor(x => x.EColiConfirm)
+				@Html.DisplayFor(x => x.EColiConfirmMethod)
+				@Html.DisplayFor(x => x.ColiformSetupAnalyst)
+				@Html.DisplayFor(x => x.ColiformSetupDTM)
+				@Html.DisplayFor(x => x.ColiformReadAnalyst)
+				@Html.DisplayFor(x => x.ColiformReadDTM)
+			</div>
+		</fieldset>
+	</div>
+	<div>
+		<fieldset>
+			<legend>Heterotrophic Plate Count</legend>
+			<div class="field-column fc200">
+				@Html.DisplayFor(x => x.FinalHPC)
+				@Html.DisplayFor(x => x.HPCConfirmMethod)
+				@Html.DisplayFor(x => x.IsSpreader)
+				@Html.DisplayFor(x => x.HPCSetupAnalyst)
+				@Html.DisplayFor(x => x.HPCSetupDTM)
+				@Html.DisplayFor(x => x.HPCReadAnalyst)
+				@Html.DisplayFor(x => x.HPCReadDTM)
+			</div>
+		</fieldset>
+		</div>
+</div>

@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.PlanReviews.PlanReviewViewModel
+
+@using (Form.BeginForm("Update", "PlanReview", "Facilities", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ReviewDate)
+        @Html.EditorFor(x => x.ReviewedBy)
+        @Html.EditorFor(x => x.ReviewChangeNotes)
+        @Html.EditorFor(x => x.NextReviewDate)
+        @Html.HiddenFor(x => x.Plan)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "EmergencyResponsePlan", new { Model.Plan })
+        </text>)
+    </div>
+}

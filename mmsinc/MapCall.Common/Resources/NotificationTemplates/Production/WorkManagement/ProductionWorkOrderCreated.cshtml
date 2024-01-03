@@ -1,0 +1,26 @@
+﻿@model MapCall.Common.Model.ViewModels.ProductionWorkOrderNotification
+
+<h2>Work Order Created Notification</h2>
+
+<a href="@Model.RecordUrl">@Model.ProductionWorkOrder.Id</a><br />
+
+Operating Center: @Model.ProductionWorkOrder.OperatingCenter <br />
+
+Planning Plant: @Model.ProductionWorkOrder.PlanningPlant <br />
+
+Facility: @Model.ProductionWorkOrder.Facility <br />
+
+Work Order Description: @Model.ProductionWorkOrder.ProductionWorkDescription <br />
+
+@if (Model.ProductionWorkOrder.CorrectiveOrderProblemCode != null)
+{
+    <text>Corrective Problem Code: @Model.ProductionWorkOrder.CorrectiveOrderProblemCode <br /></text>
+}
+
+@if (Model.ProductionWorkOrder.ProductionWorkDescription.OrderType.Id != 2 && Model.ProductionWorkOrder.Equipment != null)
+{
+    <text>Equipment Description: @Model.ProductionWorkOrder.Equipment.Description <br /></text>
+}
+
+Notes: @Model.ProductionWorkOrder.OrderNotes <br />
+

@@ -1,0 +1,98 @@
+﻿@using MapCallIntranet.Models.ViewModels
+@using MMSINC.Helpers
+@model MapCallIntranet.Models.ViewModels.CreateNearMiss
+
+@section scripts
+{
+    <script>
+        $(function() {
+            NearMiss.init(
+                @EmployeeType.Indices.EMPLOYEE,
+                @NearMissType.Indices.ENVIRONMENTAL,
+                {
+                    tdWorkorderType: @WorkOrderType.Indices.TANDD_DEPARTMENT,
+                    productionWorkorderType: @WorkOrderType.Indices.PRODUCTION,
+                    shortCycleWorkorderType: @WorkOrderType.Indices.SHORT_CYCLE,
+                    unknownWorkorderType: @WorkOrderType.Indices.UNKNOWN,
+                    drinkingWaterSystemType: @SystemType.Indices.DRINKING_WATER,
+                    wasteWaterSystemType: @SystemType.Indices.WASTE_WATER
+                },
+                @SeverityType.Indices.RED);
+        });
+    </script>
+    @Html.ScriptFor("~/Scripts/NearMiss/Form.js")
+}
+
+@using (Form.BeginForm("Create", "NearMiss"))
+{
+    if (Model.Type == NearMissType.Indices.ENVIRONMENTAL)
+    {
+<p class="message-box">
+    Environmental Near Miss includes issues related to water quality and environmental compliance or stewardship that have the potential to create, but did not result in, a regulatory compliance issue, environmental concern, or jeopardize public health. Regulatory compliance refers to compliance with the EPA and state primacy agencies drinking water, wastewater, and environmental regulatory requirements. Remember – serious situations must be reported to your supervisor so that immediate action can be taken.” If you are having any issues submitting this form, please submit via the Security Hotline at @CreateNearMiss.IOC_CONTACT_NUMBER. Please remember to select a facility in the site drop-down and provide enough detail for corrective action.
+</p>
+    }
+    else
+    {
+<p class="message-box">
+    THIS FORM SHOULD BE UTILIZED TO REPORT A SAFETY NEAR MISS SITUATION. YOU MAY REPORT THE NEAR MISS ANONYMOUSLY OR PROVIDE YOUR NAME FOR FOLLOW UP PURPOSES. If you are having any issues submitting this form, please submit via the Security Hotline at @CreateNearMiss.IOC_CONTACT_NUMBER;
+</p>
+
+    }
+
+<div class="field-column fc200">
+
+    @Html.EditorFor(x => x.Type)
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @Html.EditorFor(x => x.NotCompanyFacility)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.LocationDetails)
+
+    @Html.EditorFor(x => x.Coordinate)
+    @Html.EditorFor(x => x.ActionTakenType)
+    @Html.EditorFor(x => x.SystemType)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.PublicWaterSupply)
+    @Html.EditorFor(x => x.ActionTaken)
+    @Html.EditorFor(x => x.CompletedCorrectiveActions)
+    @Html.EditorFor(x => x.WorkOrderType)
+    @Html.EditorFor(x => x.WorkOrder)
+    @Html.EditorFor(x => x.ProductionWorkOrder)
+    @Html.EditorFor(x => x.ShortCycleWorkOrderNumber)
+    @Html.EditorFor(x => x.WorkOrderNumber)
+    @Html.EditorFor(x => x.ReportAnonymously)
+    @Html.EditorFor(x => x.RelatedToContractor)
+    @Html.EditorFor(x => x.ContractorCompany)
+    @Html.EditorFor(x => x.OccurredAt)
+    @Html.EditorFor(x => x.Category)
+    @Html.EditorFor(x => x.DescribeOther)
+    @Html.EditorFor(x => x.SubCategory)
+    @Html.EditorFor(x => x.Description)
+    @if (Model.ReportAnonymously == false)
+    {
+        @Html.EditorFor(x => x.ReportedBy)
+    }
+    @Html.EditorFor(x => x.SubmittedOnBehalfOfAnotherEmployee)
+    @Html.EditorFor(x => x.Employee)
+    @Html.EditorFor(x => x.Severity)
+    @Html.EditorFor(x => x.StopWorkAuthorityPerformed)
+    @Html.EditorFor(x => x.StopWorkUsageType)
+    <div class="field-pair fp-edit" style="padding-top: 0px; margin-top: 0px; color:red">
+        <div class="label"></div>
+        <div class="field">
+            <div>Only 1 document can be attached for each attachment upload</div>
+        </div>
+    </div>
+    @Html.EditorFor(x => x.FileUpload)
+    @Html.EditorFor(x => x.FileUpload1)
+    @Html.EditorFor(x => x.FileUpload2)
+
+ 
+</div>
+
+@Html.ButtonGroup(@<text>
+    @Control.SubmitButton("Save")
+    @Html.LinkButton("Cancel", "Create", "NearMiss")
+</text>)
+}

@@ -1,0 +1,41 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.HydrantInspectionViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/HydrantInspection/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.RenderDisplayTemplate("Hydrant", Html.ActionLink(Model.HydrantDisplay.ToString(), "Show", "Hydrant", new {id = Model.Hydrant}, null))
+@Control.HiddenFor(x => x.State).WithId("State")
+@if (Model.HydrantDisplay.Critical)
+{
+  @Html.DisplayFor(x => x.HydrantDisplay.CriticalNotes, new {@class = "critical-notes-display"})
+}
+@Html.DisplayFor(x => x.HydrantDisplay.Location)
+@if (Authentication.CurrentUserIsAdmin)
+{
+  @Html.EditorFor(x => x.DateInspected)
+}
+else
+{
+  // This only needs to be secured for non-admins since they can't edit it.
+  // Secured from the view that renders this partial
+  @Html.DisplayFor(x => x.DateInspected)
+}
+@Html.Display("InspectedBy")
+@Html.EditorFor(x => x.HydrantInspectionType, new {html = new {autofocus = "autofocus"}})
+@Html.EditorFor(x => x.FullFlow)
+@Html.EditorFor(x => x.GPM)
+@Html.EditorFor(x => x.MinutesFlowed)
+@Html.EditorFor(x => x.StaticPressure)
+@Html.EditorFor(x => x.PreResidualChlorine)
+@Html.EditorFor(x => x.ResidualChlorine)
+@Html.EditorFor(x => x.FreeNoReadReason)
+@Html.EditorFor(x => x.PreTotalChlorine)
+@Html.EditorFor(x => x.TotalChlorine)
+@Html.EditorFor(x => x.TotalNoReadReason)
+@Html.EditorFor(x => x.HydrantTagStatus)
+@Html.EditorFor(x => x.Remarks)
+@Html.HiddenFor(x => x.IsMapPopup) @* script call for this is in New and Edit.cshtml *@
+@Html.Hidden("MaxChlorineLevel", HydrantInspectionViewModel.MAX_CHLORINE_LEVEL)
+@Html.Hidden("MinChlorineLevel", HydrantInspectionViewModel.MIN_CHLORINE_LEVEL)
+@Html.DisplayFor(x => x.Display.SAPErrorCode)
+@Html.DisplayFor(x => x.Display.SAPNotificationNumber)

@@ -1,0 +1,26 @@
+﻿@model EditDocumentLink
+           
+@using (Form.BeginForm("Update", "DocumentLink", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.UrlReferrer)
+        @Html.DisplayFor(x => x.Document.Id)
+        @Html.DisplayFor(x => x.Document.FileName)
+        @Html.DisplayFor(x => x.Document.CreatedAt)
+        @Html.EditorFor(x => x.DocumentType)
+        @if (Authentication.CurrentUserIsAdmin && Model.TableName == DocumentModel.HELP_TOPIC_TABLE_NAME)
+        {
+            @Html.EditorFor(x => x.DocumentStatus)
+            @Html.RenderEditorTemplate(new MvcHtmlString("Review Frequency"), null, @<text>
+                @Control.TextBoxFor(x => x.ReviewFrequency).WithCssClass("numeric")
+                @Control.DropDownFor(x => x.ReviewFrequencyUnit)
+                @Html.ValidationMessageFor(x => x.ReviewFrequency)
+                @Html.ValidationMessageFor(x => x.ReviewFrequencyUnit)
+            </text>)
+        }
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", Model.UrlReferrer, new { Class = "link-button" })
+        </text>)
+    </div>
+}

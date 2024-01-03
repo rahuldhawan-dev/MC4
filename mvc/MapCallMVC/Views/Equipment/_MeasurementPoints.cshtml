@@ -1,0 +1,44 @@
+﻿@model Equipment
+@{
+    var orders = Model.ProductionWorkOrderEquipment.Select(x => x.ProductionWorkOrder).Union(Model.ProductionWorkOrders).Distinct().OrderByDescending(x => x.DateCompleted);
+    if (orders.Any())
+    {
+        foreach (var pwo in orders)
+        {
+            var measurementPoints = Model.EquipmentType.MeasurementPoints;
+            if (measurementPoints.Any())
+            {
+                var firstPoint = measurementPoints.FirstOrDefault();
+                // Greg - 2/10/20 - This is gross but tablefor needs a IEnumerbale but I need one row per work order to display
+                List<MeasurementPointEquipmentType> newList = new List<MeasurementPointEquipmentType>();
+                newList.Add(firstPoint);
+
+                var table = Html.TableFor(x => newList, new { id = "measurementPointsTable" })
+                                .TemplateColumnFor("Work Order", x => @Html.ActionLink(pwo.Id.ToString(), "Show", "ProductionWorkOrder", null, null, "MeasuringPointsTab", new { area = "Production", pwo.Id }, null))
+                                .ColumnFor(x => pwo.DateCompleted, "Date")
+                                .ColumnFor(x => pwo.CompletedBy, "Employee");
+
+                foreach (var x in measurementPoints)
+                {
+                    var header = x.Description;
+                    table.TemplateColumnFor(header, row => @<text>
+                                                               @if (pwo.ProductionWorkOrderMeasurementPointValues != null)
+                                                               {
+                                                                   var value = pwo.ProductionWorkOrderMeasurementPointValues
+                                                                                  .Where(k => k.ProductionWorkOrder.Id == pwo.Id
+                                                                                              && x.EquipmentType == Model.EquipmentType
+                                                                                              && x.Id == k.MeasurementPointEquipmentType.Id
+                                                                                              && x.Description == header).FirstOrDefault();
+                                                                   @Html.DisplayValueFor(_ => value.Value)
+                                                               }
+                                                            </text>);
+                }
+                <fieldset>@table</fieldset>
+            }
+        }
+    }
+    else
+    {
+        <div>Equipment does not require measurement points or no production work order is associated with equipment</div>
+    }
+}

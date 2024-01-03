@@ -1,0 +1,48 @@
+﻿@model ContactViewModel
+@{
+    var action = (string)ViewBag.ContactFormAction;
+    var routeValues = (object)ViewBag.ContactFormRouteValues;
+}
+@Html.ScriptFor("~/Scripts/Contact/Contact.js", ScriptLoadType.LoadFromPartial)
+@using (var f = Form.BeginForm(action, "Contact", routeValues))
+{
+    f.HtmlAttributes["id"] = "contactsForm";
+	
+	using (var g = Html.Grid())
+	{
+		using (g.FlexBox())
+		{
+            <fieldset class="field-column fc100">
+                <legend>General</legend>
+                @Html.EditorFor(x => x.FirstName)
+                @Html.EditorFor(x => x.MiddleInitial)
+                @Html.EditorFor(x => x.LastName)
+                @Html.EditorFor(x => x.Email)
+            </fieldset>
+    
+            <fieldset class="field-column fc100">
+                <legend>Phone</legend>
+                @Html.EditorFor(x => x.BusinessPhoneNumber)
+                @Html.EditorFor(x => x.FaxNumber)
+                @Html.EditorFor(x => x.HomePhoneNumber)
+                @Html.EditorFor(x => x.MobilePhoneNumber)
+            </fieldset>
+        }
+         
+        using (g.FlexBox())
+        {
+            <fieldset id="addressFields" class="field-column fc100">
+                @* TODO: This checkbox must die. Need a good validator that can deal with this. *@
+                <legend>Include Address <input type="checkbox" id="chkIncludeAddress" @(Model != null && Model.Address != null ? "checked=checked":"") /></legend>
+                @Html.EditorFor(x => x.Address.Address1)
+                @Html.EditorFor(x => x.Address.Address2)
+                @Html.EditorFor(x => x.Address.State)
+                @Html.EditorFor(x => x.Address.County, new { Container = Model.Address }) @* Container is needed here because of the nested model access. *@
+                @Html.EditorFor(x => x.Address.Town, new { Container = Model.Address })
+                @Html.EditorFor(x => x.Address.ZipCode)
+            </fieldset>
+        }
+    }
+    
+    @Control.SubmitButton("Save")
+}

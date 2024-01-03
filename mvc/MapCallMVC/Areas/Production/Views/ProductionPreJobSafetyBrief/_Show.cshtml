@@ -1,0 +1,137 @@
+﻿@model ProductionPreJobSafetyBrief
+@helper DisplayYesNoWithNotes(string displayLabel, bool? yesNoNah, string optionalNotes)
+{
+    var dispText = Html.DisplayValueFor(_ => yesNoNah).ToString();
+    if (!string.IsNullOrWhiteSpace(optionalNotes))
+    {
+        dispText = dispText + " - " + optionalNotes;
+    }
+    @Html.RenderDisplayTemplate(displayLabel, @<text>@dispText</text>)
+}
+
+@if (Model.ProductionWorkOrder != null)
+{
+    <fieldset>
+        <legend>Production Work Order #@Html.DisplayValueFor(x => x.ProductionWorkOrder.Id)</legend>
+        @Html.LinkButton("Back to Order", "Show", "ProductionWorkOrder", new {
+            id = Model.ProductionWorkOrder.Id
+        })
+        <div class="field-column fc100">
+            @Html.DisplayFor(x => x.ProductionWorkOrder.OperatingCenter.State)
+            @Html.DisplayFor(x => x.OperatingCenter)
+            @Html.DisplayFor(x => x.ProductionWorkOrder.PlanningPlant)
+            @Html.DisplayFor(x => x.Facility)
+            @Html.DisplayFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+        </div>
+    </fieldset>
+}
+
+<div class="field-column fc300">
+    @if (Model.ProductionWorkOrder == null)
+    {
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.Facility)
+    }
+    @Html.DisplayFor(x => x.CreatedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.SafetyBriefDateTime)
+    @if (Model.ProductionWorkOrder == null)
+    {
+        @Html.DisplayFor(x => x.DescriptionOfWork)
+    }
+    @Html.RenderDisplayTemplate(
+        "Workers",
+        Html.TableFor(_ => Model.Workers)
+            .TemplateColumnFor("Worker", x =>
+                    @<text>
+                        @if (x.Employee != null)
+                        {
+                            @Html.DisplayValueFor(_ => x.Employee)
+                        }
+                        else
+                        {
+                            @Html.DisplayValueFor(_ => x.Contractor)
+                        }
+                    </text>)
+        .ColumnFor(x => x.SignedAt))
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.WEATHER_HAZARDS,
+        Model.AnyPotentialWeatherHazards,
+        string.Join(", ", Model.SafetyBriefWeatherHazardTypes.Select(x => x.Description)))
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.CONVO_WEATHER_HAZARDS,
+        Model.HadConversationAboutWeatherHazard,
+        Model.HadConversationAboutWeatherHazardNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.TIME_CONSTRAINT,
+        Model.AnyTimeOfDayConstraints,
+        string.Join(", ", Model.SafetyBriefTimeOfDayConstraintTypes.Select(x => x.Description)))
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.TRAFFIC_HAZARDS,
+        Model.AnyTrafficHazards,
+        string.Join(", ", Model.SafetyBriefTrafficHazardTypes.Select(x => x.Description)))
+    @Html.DisplayFor(x => x.InvolveConfinedSpace)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.OVERHEAD_HAZARDS,
+        Model.AnyPotentialOverheadHazards,
+        string.Join(", ", Model.SafetyBriefOverheadHazardTypes.Select(x => x.Description)))
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.UNDERGROUND_HAZARDS,
+        Model.AnyUndergroundHazards,
+        string.Join(", ", Model.SafetyBriefUndergroundHazardTypes.Select(x => x.Description)))
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.ELECTRICAL_HAZARDS,
+        Model.AreThereElectricalOrOtherEnergyHazards,
+        string.Join(", ", Model.SafetyBriefElectricalHazardTypes.Select(x => x.Description)))
+    @Html.DisplayFor(x => x.AnyWorkPerformedGreaterThanOrEqualToFourFeetAboveGroundLevel)
+    @Html.DisplayFor(x => x.TypeOfFallPreventionProtectionSystemBeingUsed)
+    @Html.DisplayFor(x => x.DoesJobInvolveUseOfChemicals)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.IS_SSD_AVAILABLE,
+        Model.IsSafetyDataSheetAvailableForEachChemical,
+        Model.IsSafetyDataSheetAvailableForEachChemicalNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.EQUIPMENT_TO_DO_JOB_SAFELY,
+        Model.HaveEquipmentToDoJobSafely,
+        Model.HaveEquipmentToDoJobSafelyNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.HAS_PRE_USE_INSPECTION,
+        Model.HasPreUseInspectionBeenCompletedForEquipmentRequiringPreUseInspection,
+        Model.HasPreUseInspectionBeenCompletedForEquipmentRequiringPreUseInspectionNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.ERGO_HAZARDS,
+        Model.ReviewedErgonomicHazards,
+        Model.ReviewedErgonomicHazardsNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.HAS_STRETCH_AND_FLEX_BEEN_PERFORMED,
+        Model.HasStretchAndFlexBeenPerformed,
+        Model.HasStretchAndFlexBeenPerformedNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.SAFETY_EQUIPMENT,
+        Model.ReviewedLocationOfSafetyEquipment,
+        Model.ReviewedLocationOfSafetyEquipmentNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.OTHER_HAZARDS,
+        Model.OtherHazardsIdentified,
+        Model.OtherHazardNotes)
+    @DisplayYesNoWithNotes(
+        ProductionPreJobSafetyBrief.Display.STOP_WORK_AUTHORITY,
+        Model.CrewMembersRemindedOfStopWorkAuthority,
+        Model.CrewMembersRemindedOfStopWorkAuthorityNotes)
+
+    <fieldset>
+        <legend>Personal Protective Equipment(PPE)(check below boxes that pertain)</legend>
+        @Html.DisplayFor(x => x.HeadProtection)
+        @Html.DisplayFor(x => x.HandProtection)
+        @Html.DisplayFor(x => x.ElectricalProtection)
+        @Html.DisplayFor(x => x.FallProtection)
+        @Html.DisplayFor(x => x.FootProtection)
+        @Html.DisplayFor(x => x.EyeProtection)
+        @Html.DisplayFor(x => x.FaceShield)
+        @Html.DisplayFor(x => x.SafetyGarment)
+        @Html.DisplayFor(x => x.HearingProtection)
+        @Html.DisplayFor(x => x.RespiratoryProtection)
+        @Html.DisplayFor(x => x.PPEOther)
+        @Html.DisplayFor(x => x.PPEOtherNotes)
+    </fieldset>
+</div>

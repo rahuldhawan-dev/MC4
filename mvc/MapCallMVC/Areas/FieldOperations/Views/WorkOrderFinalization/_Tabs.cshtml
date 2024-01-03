@@ -1,0 +1,41 @@
+﻿@model WorkOrder
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/AssetTabs.js", ScriptLoadType.LoadFromPartial)
+@* NOTE: This needs to exist *outside of the tabs* otherwise this error will get missed
+    due to the tab-remembering feature. *@
+@if (Model.HasRealSAPError)
+{
+    @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+    {
+        Message = Model.SAPErrorCode,
+        NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Error
+    })
+}
+
+@(Html.Tabs()
+      .WithTab("Initial Information", "~/Areas/FieldOperations/Views/WorkOrder/_InitialDetails.cshtml", Model)
+      .WithTab("Valve", "~/Areas/FieldOperations/Views/WorkOrder/_Valve.cshtml", Model.Valve, isVisible: Model.AssetType.Id == AssetType.Indices.VALVE)
+      .WithTab("Hydrant", "~/Areas/FieldOperations/Views/WorkOrder/_Hydrant.cshtml", Model.Hydrant, isVisible: Model.AssetType.Id == AssetType.Indices.HYDRANT)
+      .WithTab("Sewer Opening", "~/Areas/FieldOperations/Views/WorkOrder/_SewerOpening.cshtml", Model.SewerOpening, isVisible: Model.AssetType.Id == AssetType.Indices.SEWER_OPENING)
+      .WithTab("Service", "~/Areas/FieldOperations/Views/WorkOrder/_Service.cshtml", Model.Service, isVisible: Model.Service != null)
+      .WithTab("Materials", "~/Areas/FieldOperations/Views/WorkOrder/_Materials.cshtml", Model, itemCount: Model.MaterialsUsed.Count)
+      .WithTab("Spoils", "~/Areas/FieldOperations/Views/WorkOrder/_Spoils.cshtml", Model, itemCount: Model.Spoils.Count)
+      .WithTab("Markouts", "~/Areas/FieldOperations/Views/Markout/_Index.cshtml", Model, itemCount: Model.Markouts.Count)
+      .WithTab("Markout Violations", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutViolations.cshtml", Model, itemCount: Model.MarkoutViolations.Count)
+      .WithTab("Markout Damages", "~/Areas/FieldOperations/Views/WorkOrder/_MarkoutDamages.cshtml", Model, itemCount: Model.MarkoutDamages.Count)
+      .WithTab("Restoration", "~/Areas/FieldOperations/Views/WorkOrder/_Restorations.cshtml", Model, itemCount: Model.Restorations.Count)
+      .WithTab("Crew Assignments", "~/Areas/FieldOperations/Views/WorkOrder/_CrewAssignments.cshtml", Model, itemCount: Model.CrewAssignments.Count)
+      .WithTab("Traffic Control", "~/Areas/FieldOperations/Views/WorkOrder/_TrafficControl.cshtml", Model, itemCount: Model.TrafficControlTickets.Count)
+      .WithTab("Additional", "~/Areas/FieldOperations/Views/WorkOrder/_Additional.cshtml", Model)
+      .WithTab("Sewer Overflows", "~/Areas/FieldOperations/Views/WorkOrder/_SewerOverflows.cshtml", Model, isVisible: Model.IsSewerOverflow(), itemCount: Model.SewerOverflows.Count)
+      .WithTab("Account", "~/Areas/FieldOperations/Views/WorkOrder/_Account.cshtml", Model, isVisible: Model.DateCompleted.HasValue)
+      .WithTab("Street Opening Permit", "~/Areas/FieldOperations/Views/StreetOpeningPermit/_Index.cshtml", Model, isVisible: Model.StreetOpeningPermitRequired, itemCount: Model.StreetOpeningPermits.Count)
+      .WithTab("Main Break", "~/Areas/FieldOperations/Views/WorkOrder/_MainBreaks.cshtml", Model, isVisible: Model.IsMainBreak(), itemCount: Model.MainBreaks.Count)
+      .WithTab("Schedule Of Values", "~/Areas/FieldOperations/Views/WorkOrder/_ScheduleOfValues.cshtml", Model, isVisible: Model.OperatingCenter.HasWorkOrderInvoicing, itemCount: Model.WorkOrdersScheduleOfValues.Count)
+      .WithTab("Purchase Orders(PO)", "~/Areas/FieldOperations/Views/WorkOrder/_Requisitions.cshtml", Model, itemCount: Model.Requisitions.Count)
+      .WithTab("Job Site Check Lists", "~/Areas/FieldOperations/Views/WorkOrder/_JobSiteCheckLists.cshtml", Model, itemCount: Model.JobSiteCheckLists.Count)
+      .WithTab("Job Observations", "~/Areas/FieldOperations/Views/WorkOrder/_JobObservations.cshtml", Model)
+      .WithTab("Invoices", "~/Areas/FieldOperations/Views/WorkOrder/_Invoices.cshtml", Model, itemCount: Model.Invoices.Count, isVisible: Model.OperatingCenter.HasWorkOrderInvoicing)
+      .WithTab("Set Meter", "~/Areas/FieldOperations/Views/WorkOrder/_Meters.cshtml", Model, itemCount: Model.ServiceInstallations.Count, isVisible: Model.IsNewServiceInstallation)
+      .WithDocuments()
+      .WithLog()
+	)

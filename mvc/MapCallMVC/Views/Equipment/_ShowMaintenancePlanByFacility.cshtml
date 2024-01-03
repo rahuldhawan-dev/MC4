@@ -1,0 +1,33 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model Equipment
+
+<style>
+    label[for="MaintenancePlan"] {
+        display: none;
+    }
+</style>
+
+@{
+    var table = Html.TableFor(x=>x.Facility.MaintenancePlans, htmlAttributes: new { id = "facilityMaintenancePlanTable" }).WithCaption("Records found: " + Model.Facility.MaintenancePlans.Count())
+                    .TemplateColumnFor("Action", x => @<text>
+    @Html.ActionLink("Show", "Show", new { Controller = "MaintenancePlan", x.Id, area = "Production" })</text>);
+
+    table = table.TemplateColumnFor("Maintenance Item", x => @Html.Partial("_AddToMaintenancePlan", ViewModelFactory.BuildWithOverrides<AddSingleEquipmentMaintenancePlan>(new { Model.Id, Facility = Model.Facility.Id, EquipmentType = Model.EquipmentType.Id, ControlId = "FacilityMaintenancePlan" })));
+    table = table
+    .ColumnFor(x => x.PlanNumber)
+    .ColumnFor(x => x.Name)
+    .ColumnFor(x => x.PlanType)
+    .ColumnFor(x => x.HasComplianceRequirement)
+    .ColumnFor(x => x.IsActive)
+    .ColumnFor(x => x.LastWorkOrderCompleted)
+    .ColumnFor(x => x.NextWorkOrderDueDate);
+
+    if ((int)Model.Facility.MaintenancePlans.Count() > 0)
+    {
+        @table
+    }
+    else
+    {
+        <div>No matching maintenance plans were found.</div>
+    }
+}

@@ -1,0 +1,49 @@
+﻿FINISHED:
+  Work Order Input:
+    Historical Work Order Table:
+      Need date completed.
+
+    Need ORCOM Service Order Number.  Always on the form, required when Requester is Call Center.
+  
+    Historical Work Order Table:
+      When selecting a historical work order from the table, it should pop up in a new window so that
+      the current order being entered isn't lost.
+  
+  Crew Assignments:
+    Need Start and End buttons for each work order assigned, so they can record when they start a job,
+    and when they complete a job.
+
+  Finalization:
+    Do not need map.
+  
+  Need an "Old Work Order #" field.
+
+PENDING:
+  Work Order Input:
+    "Traffic Control Required?" and "Street Opening Permit Required?" should only show when Requester == Employee.
+  
+    When an order's Description of Work is changed from the Initial screen, a description of work
+    change should be recorded.
+  
+    Need to collect radius for OneCall, as well as some description of the area to be marked.
+  
+  Work Order Finalization:
+    Need to display a similar history table to the one on the input screen, which allows them to close
+    multiple orders with the same asset.
+  
+    Materials
+  
+  Crew Assignments:
+    Clicking End will ask the user if the work is complete, yes or no.
+  
+  Finalization:
+    Instead of Total Man Hours, need Start Time, # of Hours, and How may employees were there.
+  
+    In addition to restoration, need How many customers lost service, and for how long (hours).
+  
+    Employee Work Order from the bottom of the original form.
+  
+  Need a map of all the work that's been scheduled for a given day.
+  
+  Part Numbers:
+    Need "PowerPlant Asset Grouping" from the newer tblPartNumbers table.

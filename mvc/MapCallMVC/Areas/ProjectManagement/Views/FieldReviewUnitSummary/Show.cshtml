@@ -1,0 +1,84 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.FieldReviewUnitSummary
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@section head {
+    <style>
+        div.header {
+            width: 100%;
+            text-align: center;
+        }
+
+        div.left-details {
+            float: left;
+        }
+
+        div.right-details {
+            float: right;
+        }
+
+        div.details {
+            width: 48%;
+            border: 1px solid black;
+            margin: 3px;
+            padding: 3px;
+            height: 65px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        td {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+    </style>
+}
+
+@section body {
+    <div class="header">
+        <h3>@Html.DisplayValueFor(m => m.OperatingCenter)</h3>
+    </div>
+
+    <div>
+        <h2>Field Review Unit Summary</h2>
+
+        <div class="details left-details">
+            @DateTime.Now.ToShortDateString() <br />
+            Project Location: @Html.DisplayValueFor(m => m.ProjectName)
+        </div>
+
+        <div class="details right-details">
+            PWO File # @Html.DisplayValueFor(m => m.ProjectNumber) <br />
+            WBS # @Html.DisplayValueFor(m => m.WBSNumber) <br />
+            Town @Html.DisplayValueFor(m => m.Town) <br />
+        </div>
+    </div> <br style="clear:both" />
+    
+    <div>&nbsp;</div>
+    <h4>Questions regarding this summary should be directed to: @Html.DisplayValueFor(m => m.Estimator)</h4>
+    <div>&nbsp;</div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contractorLaborCost in Model.GroupedContractorLaborCosts.OrderBy(x => x.ContractorLaborCost.Description))
+            {
+                <tr>
+                    <td>@Html.DisplayValueFor(_ => contractorLaborCost.ContractorLaborCost.Description)</td>
+                    <td>@Html.DisplayValueFor(_ => contractorLaborCost.Quantity)</td>
+                    <td>@Html.DisplayValueFor(_ => contractorLaborCost.ContractorLaborCost.Unit)</td>
+                </tr>
+            }
+        </tbody>
+    </table> <br /><br />
+
+}

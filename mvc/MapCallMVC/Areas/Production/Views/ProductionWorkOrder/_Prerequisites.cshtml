@@ -1,0 +1,24 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model ProductionWorkOrder
+
+
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    ViewBag.AllowEdit = true;
+
+    var table = Html.TableFor(_ => Model.ProductionWorkOrderProductionPrerequisites, new {id = "prerequisitesTable"});
+    Html.RenderPartial("_ShowPrerequisitesColumns", table);
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Prerequisite">
+        @Html.Partial("_AddProductionWorkOrderProductionPrerequisite", ViewModelFactory.Build<AddProductionWorkOrderProductionPrerequisite, ProductionWorkOrder>(Model))
+    </div>
+    @table
+}
+
+else
+{
+    @table
+}

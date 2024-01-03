@@ -1,0 +1,24 @@
+﻿@using System.Configuration
+@using MMSINC.Utilities
+@model MapCall.Common.Model.Entities.HydrantOutOfService
+@{
+    var hydrant = Model.Hydrant;
+}
+<h2>Hydrant Status Notification</h2>
+
+The following hydrant was called @if (Model.BackInServiceDate.HasValue) { <text>back into </text> } else { <text>out of</text> } service:<br/>
+
+Town: @hydrant.Town <br/>
+Hydrant Number: @hydrant.HydrantNumber <br />
+Hydrant Status: @hydrant.Status <br />
+Street Number: @hydrant.StreetNumber <br />
+Street: @hydrant.Street <br />
+Cross Street: @hydrant.CrossStreet <br />
+
+Called out of service on: @String.Format(CommonStringFormats.DATE, Model.OutOfServiceDate) <br/>
+@if (Model.BackInServiceDate.HasValue)
+{
+<text>
+    Called back into service on: @String.Format(CommonStringFormats.DATE, Model.BackInServiceDate)<br/>
+</text>
+}

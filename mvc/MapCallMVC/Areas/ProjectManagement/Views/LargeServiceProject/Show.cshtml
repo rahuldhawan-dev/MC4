@@ -1,0 +1,6 @@
+﻿@model LargeServiceProject
+@{ActionBarHelper.AddMapLink();}
+@(Html.Tabs()
+    .WithTab("Details", "_ShowLargeServiceProject", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.InterconnectionViewModel
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+            <fieldset>
+                <legend>Supplying System - "Source"</legend>
+                <div class="field-column fc100">
+                    @Html.EditorFor(x => x.InletPWSID)
+                </div>
+            </fieldset>
+    }
+
+    using (g.FlexBox())
+    {
+            <fieldset>
+                <legend>Receiving System - "Sink"</legend>
+                <div class="field-column fc100">
+                    @Html.EditorFor(x => x.OutletPWSID)
+                </div>
+            </fieldset>
+    }
+}

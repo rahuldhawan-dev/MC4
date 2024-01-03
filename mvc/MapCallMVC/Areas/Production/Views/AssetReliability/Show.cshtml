@@ -1,0 +1,22 @@
+﻿@model AssetReliability
+
+@{
+    ActionBarHelper.AddCopyButton();
+}
+
+    <div class="field-column fc200">
+        @Html.RenderDisplayTemplate("Work Order", Html.ActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { id = Model.ProductionWorkOrder.Id, area = "Production" }, null))
+        @Html.DisplayFor(x => x.ProductionWorkOrder.ProductionWorkDescription)
+        @Html.DisplayFor(x => x.ProductionWorkOrder.OrderNotes)
+        @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.ProductionWorkOrder.Facility.ToString(), "Show", "Facility", new { id = Model.ProductionWorkOrder.Facility.Id, area = "" }, null))
+        @Html.RenderDisplayTemplate("Equipment", Html.ActionLink(Model.Equipment.Description.ToString(), "Show", "Equipment", new { id = Model.Equipment.Id, area = "" }, null))
+        @Html.DisplayFor(x => x.Equipment.EquipmentPurpose)
+        @Html.DisplayFor(x => x.Employee)
+        @Html.DisplayFor(x => x.DateTimeEntered)
+        @Html.DisplayFor(x => x.AssetReliabilityTechnologyUsedType)
+        @Html.DisplayFor(x => x.TechnologyUsedNote)
+        @Html.DisplayFor(x => x.RepairCostNotAllowedToFail)
+        @Html.DisplayFor(x => x.RepairCostAllowedToFail)
+        @Html.DisplayFor(x => x.CostAvoidance)
+        @Html.DisplayFor(x => x.CostAvoidanceNote)
+    </div>

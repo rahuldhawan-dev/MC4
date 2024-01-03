@@ -1,0 +1,1 @@
+aws s3api put-object-acl --bucket mapcall-va-np-bucket --key MapCallProdBackups/MCProdBackup.bak --grant-full-control id=f0855c744dcc645f4dccd072ec447ce01640a86554173e7cf58a7f37694a3dde

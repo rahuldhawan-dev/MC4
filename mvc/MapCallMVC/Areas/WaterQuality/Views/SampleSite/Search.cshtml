@@ -1,0 +1,94 @@
+﻿@using Fasterflect
+@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites.SearchSampleSite
+@Html.ScriptFor("~/Scripts/SampleSite/Search.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "SampleSite"))
+{
+    <fieldset>
+        <legend>General Information</legend>
+        <div class="field-column fc200 searchFields">
+            @Html.EditorFor(x => x.EntityId)
+            @Html.EditorFor(x => x.State)
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.PublicWaterSupply, new { html = new { autofocus = "autofocus" } })
+            @Html.EditorFor(x => x.Availability)
+            @Html.EditorFor(x => x.Status)
+            @Html.EditorFor(x => x.SampleSiteInactivationReason)
+            @Html.EditorFor(x => x.ServiceMaterial)
+            @Html.EditorFor(x => x.FieldVerifiedServiceMaterial)
+            @Html.EditorFor(x => x.CustomerSideMaterial)
+            @Html.EditorFor(x => x.FieldVerifiedServiceCustomerSideMaterial)
+            @Html.EditorFor(x => x.CustomerPlumbingMaterial)
+            @Html.EditorFor(x => x.FieldVerifiedCustomerPlumbingMaterial)
+            @Html.EditorFor(x => x.IsAlternateSite)
+            @Html.EditorFor(x => x.SamplePlan)
+            @Html.EditorFor(x => x.SampleSiteValidationStatus)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Lead and Copper</legend>
+        <div class="field-column fc200 searchFields">
+            @Html.EditorFor(x => x.LeadServiceLineReplacementSite)
+            @Html.EditorFor(x => x.LeadCopperSite)
+            @Html.EditorFor(x => x.LeadCopperTierClassification)
+            @Html.EditorFor(x => x.LeadCopperTierSampleCategory)
+            @Html.EditorFor(x => x.LeadCopperValidationMethod)
+            @Html.EditorFor(x => x.CustomerParticipationConfirmed)
+            @Html.EditorFor(x => x.IsCertified)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Location</legend>
+        <div class="field-column fc200 searchFields">
+            @Html.EditorFor(x => x.SampleSiteAddressLocationType)
+            @Html.EditorFor(x => x.Facility)
+            @Html.EditorFor(x => x.Hydrant)
+            @Html.EditorFor(x => x.Valve)
+            @Html.EditorFor(x => x.PremiseNumber)
+            @Html.EditorFor(x => x.OutOfServiceArea)
+            @Html.EditorFor(x => x.StreetNumber)
+            @Html.EditorFor(x => x.Street)
+            @Html.EditorFor(x => x.CrossStreet)
+            @Html.EditorFor(x => x.Town)
+            @Html.EditorFor(x => x.TownText)
+            @Html.EditorFor(x => x.TownSection)
+            @Html.EditorFor(x => x.County)
+            @Html.EditorFor(x => x.ZipCode)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Site Details</legend>
+        <div class="field-column fc200 searchFields">
+            @Html.EditorFor(x => x.LocationType)
+            @Html.EditorFor(x => x.ParentSite)
+            @Html.EditorFor(x => x.CommonSiteName)
+            @Html.EditorFor(x => x.Gradient)
+            @Html.EditorFor(x => x.AgencyId)
+            @Html.EditorFor(x => x.BactiSite)
+            @Html.EditorFor(x => x.PreviousMonitoringPeriod)
+            @Html.EditorFor(x => x.CollectionType)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Horizon LIMS</legend>
+        <div class="field-column fc200 searchFields">
+            @Html.EditorFor(x => x.IsLimsLocation)
+            @Html.EditorFor(x => x.LimsFacilityId)
+            @Html.EditorFor(x => x.LimsPrimaryStationCode)
+            @Html.EditorFor(x => x.LimsSiteId)
+            @Html.EditorFor(x => x.LimsSequenceNumber)
+            @Html.EditorFor(x => x.SampleSiteProfile)
+        </div>
+    </fieldset>
+
+    <div class="field-column fc200 searchFields">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

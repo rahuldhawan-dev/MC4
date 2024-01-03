@@ -1,0 +1,36 @@
+﻿@model SearchCustomerLocation
+@using MMSINC.Helpers
+@{
+    Layout = "_PartialLayout.cshtml";
+}
+
+<ul>
+    @foreach (var location in Model.Results)
+    {
+        <li class="outer" data-url="@Url.Action("Edit", new {location.Id, ext = "frag"})"
+            data-id="@location.Id" title="@location.Address @location.City, @location.State @location.Zip">
+            @location.PremiseNumber<br />
+            @location.Address
+            @Html.Partial("_IndexCustomerCoordinates", location.CustomerCoordinates)
+        </li>
+    }
+</ul>
+
+<div class="pagination">
+    @Html.PaginationLinks(Model, (PageNumber, SortBy, SortDir, PageSize) =>
+        Url.Action("Index", new {
+            PageNumber,
+            SortBy,
+            SortDir,
+            PageSize,
+            ext = "frag"
+        }))
+</div><br />
+
+<a href="#" id="zoomExtents" class="link-button">Zoom to Extents</a>
+<a href="#" id="backToSearch" class="link-button" data-url="@Html.UrlForAction("Search", "CustomerLocation", Html.ViewData.ModelState.ToRouteValueDictionary().Merge(new {ext = "frag"}))">Back to Search</a>
+<div>
+    @Html.AuthorizedActionLinkButton("Export to Excel", "Index", "CustomerLocation", Html.ViewData.ModelState.ToRouteValueDictionary().Merge(new {ext = "xls"}))
+</div>
+
+<a href="/Modules/HR/Home.aspx">Back to MapCall</a>

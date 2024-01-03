@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.StockLocationViewModel
+    
+@using (Form.BeginForm("Update", "StockLocation", new { id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "StockLocation", new { Model.Id })
+        </text>)
+    </div>
+}

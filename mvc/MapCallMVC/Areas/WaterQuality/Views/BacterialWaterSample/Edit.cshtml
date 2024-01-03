@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.EditBacterialWaterSample
+
+@using (Form.BeginForm("Update", "BacterialWaterSample", "WaterQuality", new {Model.Id})) {
+	    @(Html.Tabs()
+		      .WithTab("Collection Information", "EditorPartials/_FormSection1")
+		      .WithTab("Field Values", "EditorPartials/_FormSection2")
+		      .WithTab("Bacterial Results", "EditorPartials/_FormSection3Edit"))
+
+	<div class="container">
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "BacterialWaterSample", new {Model.Id})
+                           </text>)
+    </div>
+}

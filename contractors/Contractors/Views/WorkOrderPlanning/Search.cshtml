@@ -1,0 +1,65 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderPlanningSearch
+           
+@{
+    ViewBag.Title = "Work Orders - Planning - Search";
+}
+
+@using (Form.BeginForm("Index", "WorkOrderPlanning")) {
+    <div class="field-column fc-stretch fc200 searchFields">
+        @* WorkOrderNumber: *@
+        @Html.EditorFor(m => m.Id)
+        
+        <div class="field-pair">
+            <div class="label" style="text-align: right">-OR-</div>
+            <div class="field">&nbsp;</div>
+        </div>
+        
+        @* OperatingCenterID *@
+        @Html.EditorFor(m => m.OperatingCenter)
+
+        @* TownID: *@
+        @Html.EditorFor(m => m.Town)
+
+        @* TownSectionID: *@
+        @Html.EditorFor(m => m.TownSection)
+
+        @* StreetID: *@
+        @Html.EditorFor(m => m.Street)
+        
+        @* StreetNumber: *@
+        @Html.EditorFor(m => m.StreetNumber)
+
+        @* NearestCrossStreetID: *@
+        @Html.EditorFor(m => m.NearestCrossStreet)
+        
+        @* AssetTypeID: *@
+        @Html.EditorFor(m => m.AssetType)
+
+        @* WorkDescriptionID: *@
+        @Html.EditorFor(m => m.WorkDescription)
+
+        @* PriorityID: *@
+        @Html.EditorFor(m => m.Priority)
+
+        @* DateReceived: *@
+        @Html.EditorFor(m => m.DateReceived)
+        
+        @* ReqeustedByID: *@
+        @Html.EditorFor(m => m.Requester)
+
+        @* MarkoutRequirementID: *@
+        @Html.EditorFor(m => m.MarkoutRequirement)
+
+        @* SOPRequired: *@
+        @Html.EditorFor(x => x.StreetOpeningPermitRequired)
+
+        @* PurposeID: *@
+        @Html.EditorFor(m => m.Purpose)
+        
+        @Html.ButtonGroup(Control.SubmitButton("Search").WithId("Search"))
+    </div>
+}
+
+@section styles {
+    @Html.StylesheetFor("~/Content/WorkOrder/Search.css")
+}

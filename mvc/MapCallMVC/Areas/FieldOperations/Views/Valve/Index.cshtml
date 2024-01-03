@@ -1,0 +1,85 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchValve
+
+@{
+    ActionBarHelper.AddExportLink();
+
+    if (Model.Count > SearchValveForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchValveForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink(new { Model.OperatingCenter, controller = "AssetMap" });
+    }
+}
+
+@helper TryCreateInspectionLink(Valve val)
+{
+    if (val.IsInspectable && val.OperatingCenter.IsActive)
+    {
+        @Html.AuthorizedActionLink("Inspect", "New", "ValveInspection", new { id = val.Id }, new { target = "_blank" })
+    }
+}
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+    <tr>
+        <td class="color-block" style="background-color:#ffbdbd!important;">Asset Not Inspectable</td>
+    </tr>
+</table>
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .WithRowBuilder((m, help) =>
+    {
+        if (!m.IsInspectable)
+        {
+            help.AddCssClass("asset-not-inspectable");
+        }
+    })
+    .TemplateColumnFor("Valve #", x => Html.ActionLink(x.ValveNumber, "Show", new { x.Id }, null))
+    .TemplateColumnFor("", x => TryCreateInspectionLink(x))
+    .SortableColumnFor(x => x.SAPEquipmentId)
+    .SortableColumnFor(x => x.WorkOrderNumber)
+    .SortableColumnFor(x => x.StreetNumber)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.CrossStreet)
+    .SortableColumnFor(x => x.LastInspectionDate)
+    .SortableColumnFor(x => x.LastBlowOffInspectionDate)
+    .SortableTemplateColumnFor("Has Open WorkOrder", "MostRecentOpenWorkOrderWorkDescription", x => @<text>
+        <span style="color:red;">
+        <br />
+        @Html.DisplayValueFor(_ => x.MostRecentOpenWorkOrderWorkDescription)
+    </span>
+    </text>)
+    .SortableColumnFor(x => x.DateInstalled)
+    .SortableColumnFor(x => x.Status)
+    .SortableColumnFor(x => x.ValveSize, "ValveSize.Size")
+    .SortableColumnFor(x => x.Traffic)
+    .SortableColumnFor(x => x.ValveZone)
+     .TemplateColumnFor("Drawing", x => @<text>
+        @if (x.DefaultValveImage != null)
+        {
+            <span>@Html.ActionLink("PDF", "Show", "ValveImage", new { x.DefaultValveImage.Id, ext = "pdf" }, new { target = "_blank" })</span>
+        }
+    </text>)
+//.TemplateColumnFor("PDF", x => Html.ActionLink(x.ValveNumber, "Show", new { x.Id }, null))
+    .SortableColumnFor(x => x.GISUID)
+    .SortableColumnFor(x => x.FunctionalLocation)
+    .SortableColumnFor(x => x.Route)
+    .SortableColumnFor(x => x.Stop)
+    .SortableColumnFor(x => x.UpdatedAt)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.WaterSystem)
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.ValveSuffix)
+    .SortableColumnFor(x => x.LegacyId)
+    //.SortableTemplateColumnFor("RequiresInspection", x => Html.ActionLink((x.RequiresInspection) ? "Yes" : "No", "New", "ValveInspection", new { id = x.Id}, null))
+    .SortableColumnFor(x => x.RequiresInspection)
+    .SortableColumnFor(x => x.RequiresBlowOffInspection)
+    .SortableColumnFor(x => x.ValveType)
+    .SortableColumnFor(x => x.ValveControls)
+    .SortableColumnFor(x => x.Initiator)
+    .SortableColumnFor(x => x.NormalPosition)
+    .SortableColumnFor(x => x.PositionLeft)
+    .SortableColumnFor(x => x.SAPErrorCode)
+    .WithPaginatedFooter()
+)

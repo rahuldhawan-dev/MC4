@@ -1,0 +1,949 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{485EE674-D74B-4903-9437-6B6068BDB9B0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MapCallImporter</RootNamespace>
+    <AssemblyName>MapCallImporter.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\QA4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.14.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DocumentFormat.OpenXml.2.14.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Iesi.Collections.4.0.4\lib\net461\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\packages\Microsoft.TestPlatform.ObjectModel.17.0.0\lib\net451\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\MSTest.TestFramework.2.2.8\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="NHibernate, Version=5.3.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NHibernate.5.3.10\lib\net461\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=5.0.0.6, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\packages\NuGet.Frameworks.5.0.0\lib\net472\NuGet.Frameworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq.EagerFetching, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.115.5, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.IO.Packaging.6.0.0\lib\net461\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Library\Testing\EquipmentCharacteristicMappingTester.cs" />
+    <Compile Include="Library\Testing\EquipmentExcelRecordTestBase.cs" />
+    <Compile Include="Library\Testing\MapCallImporterInMemoryDatabaseTestInterceptorWithChangeTracking.cs" />
+    <Compile Include="Library\TypeRegistration\TestStructureMapRegistry.cs" />
+    <Compile Include="SampleValues\AmericanWaterFacilityOwner.cs" />
+    <Compile Include="SampleValues\CompanySubsidiaries.cs" />
+    <Compile Include="SampleValues\EquipmentCharacteristicDropDownValues.cs" />
+    <Compile Include="SampleValues\EquipmentCharacteristicFields.cs" />
+    <Compile Include="SampleValues\EquipmentModels.cs" />
+    <Compile Include="SampleValues\EquipmentPurposes.cs" />
+    <Compile Include="SampleValues\Facilities.cs" />
+    <Compile Include="SampleValues\P218PlanningPlant.cs" />
+    <Compile Include="SampleValues\ProductionDepartment.cs" />
+    <Compile Include="SampleValues\ProductionWorkDescriptions.cs" />
+    <Compile Include="SampleValues\PublicWaterSupplyPressureZones.cs" />
+    <Compile Include="SampleValues\EquipmentManufacturers.cs" />
+    <Compile Include="SampleValues\EquipmentTypes.cs" />
+    <Compile Include="SampleValues\StreetSuffixes.cs" />
+    <Compile Include="SampleValues\SystemDeliveryTypes.cs" />
+    <Compile Include="SampleValues\TaskGroups.cs" />
+    <Compile Include="SampleValues\WasteWaterSystemBasins.cs" />
+    <Compile Include="SampleValues\WasteWaterSystems.cs" />
+    <Compile Include="Tests\Importing\ExcelFileImportingServiceTest.cs" />
+    <Compile Include="Tests\Models\Import\ArcFlashStudyExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\ContractorOverrideLaborCostExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\AdjustableSpeedDriveExcelRecordTest.cs" />
+    <Compile Include="Library\Testing\ExcelRecordMappingTester.cs" />
+    <Compile Include="Library\Testing\ExcelRecordTestBase.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\AeratorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\AirCompressorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\AirVacuumTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\AMIDATACOLLExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ArcFlashProtectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BatteryChargerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BatteryExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BlowerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BlowOffValveExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BoilerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\BurnerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\CalibrationDeviceExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\CathodicProtectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalDryFeederExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalGasFeederExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalGeneratorsExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalLiquidFeederExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalPipingExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ChemicalTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ClarifierExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\CleanOutExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\CollectionSystemGeneralExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ControllerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ControlPanelExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ConveyorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\CoolingTowerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\DamExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\DefibrillatorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\DistributionSystemExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\DistributionToolExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ElevatorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\EmergencyGeneratorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\EmergencyLightExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\EngineExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\EyewashExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FacilityAndGroundsExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FallProtectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FilterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FireAlarmExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FireExtinguisherExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FireSuppressionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FirewallExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FloatationDeviceExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FlowMeterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FlowWeirExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\FuelTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\GasDetectorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\GearboxExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\GravitySewerMainExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\GrinderExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HeatExchangerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HoistExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HVACChillerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HVACCombinationUnitExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HVACDehumidifierExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HVACHeaterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HVACVentilatorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\HydrantExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\IndicatorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\InstrumentSwitchExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\KitExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\LabEquipmentExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\LeakMonitorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ManholeExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\MixerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ModemExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\MotorContactorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\MotorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\MotorStarterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\NetworkRouterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\NetworkSwitchExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\NonPotableWaterTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\OperatorComputerTerminalExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PCExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PDMToolExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PhaseConverterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PlantValveExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PotableWaterTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerBreakerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerConditionerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerDisconnectExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerFeederCableExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerMonitorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerPanelExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerRelayExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerSurgeProtectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PowerTransferSwitchExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PressureDamperExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PrinterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PumpCentrifugalExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PumpGrinderExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\PumpPositiveDisplacementExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\RecorderExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\RespiratorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\RTUPLCExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SafetyShowerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SCADARadioExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SCADASystemGenExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ScaleExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ScreenExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ScrubberExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SecondaryContainmentExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SecuritySystemExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ServerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\SoftenerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\StreetValveExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\TelephoneExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\ToolExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\TransformerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\TransmitterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\UninteruptedPowerSupplyExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\UVSanitizerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\VehicleExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\VOCStripperExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\WasteTankExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\WaterHeaterExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\WaterQualityAnalyzerExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\WaterTreatmentContactorExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\Equipment\WellExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\FacilityExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\HydrantExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\HydrantInspectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\LockoutDeviceExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\MaintenancePlanExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\ServiceExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\SewerOpeningExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Import\StreetExcelRecordTest.cs" />
+    <Compile Include="Library\Testing\TestExcelRecordItemValidationHelper.cs" />
+    <Compile Include="Tests\Models\Import\ValveExcelRecordTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleFiles\SampleFiles.cs" />
+    <Compile Include="SampleValues\AberdeenMonmouthNJStreets.cs" />
+    <Compile Include="SampleValues\AberdeenMonmouthNJTown.cs" />
+    <Compile Include="SampleValues\FireDistricts.cs" />
+    <Compile Include="SampleValues\FunctionalLocations.cs" />
+    <Compile Include="SampleValues\MonmouthNJCounty.cs" />
+    <Compile Include="SampleValues\NJState.cs" />
+    <Compile Include="SampleValues\OperatingCenters.cs" />
+    <Compile Include="SampleValues\WaterSystems.cs" />
+    <Compile Include="SampleValues\TestDataHelper.cs" />
+    <Compile Include="Tests\Models\Import\ValveInspectionExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\EquipmentInstallationInfoExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\EquipmentRiskCharacteristicsExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\FacilityBooleanAttributesExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\FacilityRiskCharacteristicsExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\ServiceBlockZonesExcelRecordTest.cs" />
+    <Compile Include="Tests\Models\Update\ValveInspectionFrequenciesExcelRecordTest.cs" />
+    <Compile Include="Tests\Validation\ExcelFileValidationServiceTest.cs" />
+    <Compile Include="Library\Testing\MapCallImporterInMemoryDatabaseTestBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="..\..\doc\Samples\Import\Indeterminable Content Type.xlsx">
+      <Link>SampleFiles\Indeterminable Content Type.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Invalid File Type.png">
+      <Link>SampleFiles\Invalid File Type.png</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Facilities\Valid Facilities.xlsx">
+      <Link>SampleFiles\Import\Facilities\Valid Facilities.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Streets\Valid Streets.xlsx">
+      <Link>SampleFiles\Import\Streets\Valid Streets.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Streets\Missing County Streets.xlsx">
+      <Link>SampleFiles\Import\Streets\Missing County Streets.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Streets\Missing State Streets.xlsx">
+      <Link>SampleFiles\Import\Streets\Missing State Streets.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Streets\Missing Town Streets.xlsx">
+      <Link>SampleFiles\Import\Streets\Missing Town Streets.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Valves\Valid Valves.xlsx">
+      <Link>SampleFiles\Import\Valves\Valid Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\ValveInspections\Valid Valve Inspections.xlsx">
+      <Link>SampleFiles\Import\ValveInspections\Valid Valve Inspections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Valves\Missing Town Valves.xlsx">
+      <Link>SampleFiles\Import\Valves\Missing Town Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Valves\Missing Street Valves.xlsx">
+      <Link>SampleFiles\Import\Valves\Missing Street Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Hydrants\Valid Hydrants.xlsx">
+      <Link>SampleFiles\Import\Hydrants\Valid Hydrants.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Hydrants\Bad Elevation Value Hydrants.xlsx">
+      <Link>SampleFiles\Import\Hydrants\Bad Elevation Value Hydrants.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\HydrantInspections\Valid Hydrant Inspections.xlsx">
+      <Link>SampleFiles\Import\HydrantInspections\Valid Hydrant Inspections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\AdjustableSpeedDrive\Valid Adjustable Speed Drives.xlsx">
+      <Link>SampleFiles\Import\Equipment\AdjustableSpeedDrive\Valid Adjustable Speed Drives.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Aerator\Valid Aerators.xlsx">
+      <Link>SampleFiles\Import\Equipment\Aerator\Valid Aerators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\AirCompressor\Valid Air Compressors.xlsx">
+      <Link>SampleFiles\Import\Equipment\AirCompressor\Valid Air Compressors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\AirVacuumTank\Valid Air Vacuum Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\AirVacuumTank\Valid Air Vacuum Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\AMIDATACOLL\Valid AMIDATACOLLs.xlsx">
+      <Link>SampleFiles\Import\Equipment\AMIDATACOLL\Valid AMIDATACOLLs.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ArcFlashProtection\Valid Arc Flash Protections.xlsx">
+      <Link>SampleFiles\Import\Equipment\ArcFlashProtection\Valid Arc Flash Protections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Battery\Valid Batteries.xlsx">
+      <Link>SampleFiles\Import\Equipment\Battery\Valid Batteries.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\BatteryCharger\Valid Battery Chargers.xlsx">
+      <Link>SampleFiles\Import\Equipment\BatteryCharger\Valid Battery Chargers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Blower\Valid Blowers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Blower\Valid Blowers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\BlowOffValve\Valid Blow Off Valves.xlsx">
+      <Link>SampleFiles\Import\Equipment\BlowOffValve\Valid Blow Off Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Boiler\Valid Boilers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Boiler\Valid Boilers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Burner\Valid Burners.xlsx">
+      <Link>SampleFiles\Import\Equipment\Burner\Valid Burners.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\CalibrationDevice\Valid Calibration Devices.xlsx">
+      <Link>SampleFiles\Import\Equipment\CalibrationDevice\Valid Calibration Devices.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\CathodicProtection\Valid Cathodic Protections.xlsx">
+      <Link>SampleFiles\Import\Equipment\CathodicProtection\Valid Cathodic Protections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalDryFeeder\Valid Chemical Dry Feeders.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalDryFeeder\Valid Chemical Dry Feeders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalGasFeeder\Valid Chemical Gas Feeders.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalGasFeeder\Valid Chemical Gas Feeders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalGenerators\Valid Chemical Generators.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalGenerators\Valid Chemical Generators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalLiquidFeeder\Valid Chemical Liquid Feeders.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalLiquidFeeder\Valid Chemical Liquid Feeders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalPiping\Valid Chemical Pipings.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalPiping\Valid Chemical Pipings.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ChemicalTank\Valid Chemical Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\ChemicalTank\Valid Chemical Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Clarifier\Valid Clarifiers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Clarifier\Valid Clarifiers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\CleanOut\Valid Clean Outs.xlsx">
+      <Link>SampleFiles\Import\Equipment\CleanOut\Valid Clean Outs.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\CollectionSystemGeneral\Valid Collection System Generals.xlsx">
+      <Link>SampleFiles\Import\Equipment\CollectionSystemGeneral\Valid Collection System Generals.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Controller\Valid Controllers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Controller\Valid Controllers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\ControlPanel\Valid Control Panels.xlsx">
+      <Link>SampleFiles\Import\Equipment\ControlPanel\Valid Control Panels.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Conveyor\Valid Conveyors.xlsx">
+      <Link>SampleFiles\Import\Equipment\Conveyor\Valid Conveyors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Dam\Valid Dams.xlsx">
+      <Link>SampleFiles\Import\Equipment\Dam\Valid Dams.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Defibrillator\Valid Defibrillators.xlsx">
+      <Link>SampleFiles\Import\Equipment\Defibrillator\Valid Defibrillators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\DistributionSystem\Valid Distribution Systems.xlsx">
+      <Link>SampleFiles\Import\Equipment\DistributionSystem\Valid Distribution Systems.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\DistributionTool\Valid Distribution Tools.xlsx">
+      <Link>SampleFiles\Import\Equipment\DistributionTool\Valid Distribution Tools.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Elevator\Valid Elevators.xlsx">
+      <Link>SampleFiles\Import\Equipment\Elevator\Valid Elevators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\EmergencyGenerator\Valid Emergency Generators.xlsx">
+      <Link>SampleFiles\Import\Equipment\EmergencyGenerator\Valid Emergency Generators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\EmergencyLight\Valid Emergency Lights.xlsx">
+      <Link>SampleFiles\Import\Equipment\EmergencyLight\Valid Emergency Lights.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Engine\Valid Engines.xlsx">
+      <Link>SampleFiles\Import\Equipment\Engine\Valid Engines.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Eyewash\Valid Eyewashes.xlsx">
+      <Link>SampleFiles\Import\Equipment\Eyewash\Valid Eyewashes.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FacilityAndGrounds\Valid Facility And Grounds.xlsx">
+      <Link>SampleFiles\Import\Equipment\FacilityAndGrounds\Valid Facility And Grounds.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FallProtection\Valid Fall Protections.xlsx">
+      <Link>SampleFiles\Import\Equipment\FallProtection\Valid Fall Protections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Filter\Valid Filters.xlsx">
+      <Link>SampleFiles\Import\Equipment\Filter\Valid Filters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FireAlarm\Valid Fire Alarms.xlsx">
+      <Link>SampleFiles\Import\Equipment\FireAlarm\Valid Fire Alarms.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FireExtinguisher\Valid Fire Extinguishers.xlsx">
+      <Link>SampleFiles\Import\Equipment\FireExtinguisher\Valid Fire Extinguishers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FireSuppression\Valid Fire Suppressions.xlsx">
+      <Link>SampleFiles\Import\Equipment\FireSuppression\Valid Fire Suppressions.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Firewall\Valid Firewalls.xlsx">
+      <Link>SampleFiles\Import\Equipment\Firewall\Valid Firewalls.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FloatationDevice\Valid Floatation Devices.xlsx">
+      <Link>SampleFiles\Import\Equipment\FloatationDevice\Valid Floatation Devices.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FlowMeter\Valid Flow Meters.xlsx">
+      <Link>SampleFiles\Import\Equipment\FlowMeter\Valid Flow Meters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FlowWeir\Valid Flow Weirs.xlsx">
+      <Link>SampleFiles\Import\Equipment\FlowWeir\Valid Flow Weirs.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\FuelTank\Valid Fuel Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\FuelTank\Valid Fuel Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\GasDetector\Valid Gas Detectors.xlsx">
+      <Link>SampleFiles\Import\Equipment\GasDetector\Valid Gas Detectors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Gearbox\Valid Gearboxes.xlsx">
+      <Link>SampleFiles\Import\Equipment\Gearbox\Valid Gearboxes.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\GravitySewerMain\Valid Gravity Sewer Mains.xlsx">
+      <Link>SampleFiles\Import\Equipment\GravitySewerMain\Valid Gravity Sewer Mains.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Grinder\Valid Grinders.xlsx">
+      <Link>SampleFiles\Import\Equipment\Grinder\Valid Grinders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Hoist\Valid Hoists.xlsx">
+      <Link>SampleFiles\Import\Equipment\Hoist\Valid Hoists.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HVACChiller\Valid HVAC Chillers.xlsx">
+      <Link>SampleFiles\Import\Equipment\HVACChiller\Valid HVAC Chillers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HVACCombinationUnit\Valid HVAC Combination Units.xlsx">
+      <Link>SampleFiles\Import\Equipment\HVACCombinationUnit\Valid HVAC Combination Units.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HVACDehumidifier\Valid HVAC Dehumidifiers.xlsx">
+      <Link>SampleFiles\Import\Equipment\HVACDehumidifier\Valid HVAC Dehumidifiers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HeatExchanger\Valid Heat Exchangers.xlsx">
+      <Link>SampleFiles\Import\Equipment\HeatExchanger\Valid Heat Exchangers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HVACHeater\Valid HVAC Heaters.xlsx">
+      <Link>SampleFiles\Import\Equipment\HVACHeater\Valid HVAC Heaters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\CoolingTower\Valid Cooling Towers.xlsx">
+      <Link>SampleFiles\Import\Equipment\CoolingTower\Valid Cooling Towers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\HVACVentilator\Valid HVAC Ventilators.xlsx">
+      <Link>SampleFiles\Import\Equipment\HVACVentilator\Valid HVAC Ventilators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\WaterHeater\Valid Water Heaters.xlsx">
+      <Link>SampleFiles\Import\Equipment\WaterHeater\Valid Water Heaters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Hydrant\Valid Hydrants.xlsx">
+      <Link>SampleFiles\Import\Equipment\Hydrant\Valid Hydrants.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Indicator\Valid Indicators.xlsx">
+      <Link>SampleFiles\Import\Equipment\Indicator\Valid Indicators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\InstrumentSwitch\Valid Instrument Switches.xlsx">
+      <Link>SampleFiles\Import\Equipment\InstrumentSwitch\Valid Instrument Switches.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Kit\Valid Kits.xlsx">
+      <Link>SampleFiles\Import\Equipment\Kit\Valid Kits.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\LabEquipment\Valid Lab Equipment.xlsx">
+      <Link>SampleFiles\Import\Equipment\LabEquipment\Valid Lab Equipment.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\LeakMonitor\Valid Leak Monitors.xlsx">
+      <Link>SampleFiles\Import\Equipment\LeakMonitor\Valid Leak Monitors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Manhole\Valid Manholes.xlsx">
+      <Link>SampleFiles\Import\Equipment\Manhole\Valid Manholes.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Mixer\Valid Mixers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Mixer\Valid Mixers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Modem\Valid Modems.xlsx">
+      <Link>SampleFiles\Import\Equipment\Modem\Valid Modems.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Motor\Valid Motors.xlsx">
+      <Link>SampleFiles\Import\Equipment\Motor\Valid Motors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\MotorContactor\Valid Motor Contactors.xlsx">
+      <Link>SampleFiles\Import\Equipment\MotorContactor\Valid Motor Contactors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\MotorStarter\Valid Motor Starters.xlsx">
+      <Link>SampleFiles\Import\Equipment\MotorStarter\Valid Motor Starters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\NetworkRouter\Valid Network Routers.xlsx">
+      <Link>SampleFiles\Import\Equipment\NetworkRouter\Valid Network Routers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\NetworkSwitch\Valid Network Switches.xlsx">
+      <Link>SampleFiles\Import\Equipment\NetworkSwitch\Valid Network Switches.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\NonPotableWaterTank\Valid Non Potable Water Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\NonPotableWaterTank\Valid Non Potable Water Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\OperatorComputerTerminal\Valid Operator Computer Terminals.xlsx">
+      <Link>SampleFiles\Import\Equipment\OperatorComputerTerminal\Valid Operator Computer Terminals.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PC\Valid PCs.xlsx">
+      <Link>SampleFiles\Import\Equipment\PC\Valid PCs.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PDMTool\Valid PDM Tools.xlsx">
+      <Link>SampleFiles\Import\Equipment\PDMTool\Valid PDM Tools.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PhaseConverter\Valid Phase Converters.xlsx">
+      <Link>SampleFiles\Import\Equipment\PhaseConverter\Valid Phase Converters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PlantValve\Valid Plant Valves.xlsx">
+      <Link>SampleFiles\Import\Equipment\PlantValve\Valid Plant Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PotableWaterTank\Valid Potable Water Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\PotableWaterTank\Valid Potable Water Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerBreaker\Valid Power Breakers.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerBreaker\Valid Power Breakers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerConditioner\Valid Power Conditioners.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerConditioner\Valid Power Conditioners.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerDisconnect\Valid Power Disconnects.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerDisconnect\Valid Power Disconnects.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerFeederCable\Valid Power Feeder Cables.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerFeederCable\Valid Power Feeder Cables.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerMonitor\Valid Power Monitors.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerMonitor\Valid Power Monitors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerPanel\Valid Power Panels.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerPanel\Valid Power Panels.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerRelay\Valid Power Relays.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerRelay\Valid Power Relays.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerSurgeProtection\Valid Power Surge Protections.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerSurgeProtection\Valid Power Surge Protections.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PowerTransferSwitch\Valid Power Transfer Switches.xlsx">
+      <Link>SampleFiles\Import\Equipment\PowerTransferSwitch\Valid Power Transfer Switches.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PressureDamper\Valid Pressure Dampers.xlsx">
+      <Link>SampleFiles\Import\Equipment\PressureDamper\Valid Pressure Dampers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Printer\Valid Printers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Printer\Valid Printers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PumpCentrifugal\Valid Pump Centrifugals.xlsx">
+      <Link>SampleFiles\Import\Equipment\PumpCentrifugal\Valid Pump Centrifugals.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PumpGrinder\Valid Pump Grinders.xlsx">
+      <Link>SampleFiles\Import\Equipment\PumpGrinder\Valid Pump Grinders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\PumpPositiveDisplacement\Valid Pump Positive Displacements.xlsx">
+      <Link>SampleFiles\Import\Equipment\PumpPositiveDisplacement\Valid Pump Positive Displacements.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Recorder\Valid Recorders.xlsx">
+      <Link>SampleFiles\Import\Equipment\Recorder\Valid Recorders.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Respirator\Valid Respirators.xlsx">
+      <Link>SampleFiles\Import\Equipment\Respirator\Valid Respirators.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\RTUPLC\Valid RTUPLCs.xlsx">
+      <Link>SampleFiles\Import\Equipment\RTUPLC\Valid RTUPLCs.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\SafetyShower\Valid Safety Showers.xlsx">
+      <Link>SampleFiles\Import\Equipment\SafetyShower\Valid Safety Showers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\SCADARadio\Valid SCADA Radios.xlsx">
+      <Link>SampleFiles\Import\Equipment\SCADARadio\Valid SCADA Radios.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\SCADASystemGen\Valid SCADA System Gens.xlsx">
+      <Link>SampleFiles\Import\Equipment\SCADASystemGen\Valid SCADA System Gens.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Scale\Valid Scales.xlsx">
+      <Link>SampleFiles\Import\Equipment\Scale\Valid Scales.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Screen\Valid Screens.xlsx">
+      <Link>SampleFiles\Import\Equipment\Screen\Valid Screens.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Scrubber\Valid Scrubbers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Scrubber\Valid Scrubbers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\SecondaryContainment\Valid Secondary Containments.xlsx">
+      <Link>SampleFiles\Import\Equipment\SecondaryContainment\Valid Secondary Containments.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\SecuritySystem\Valid Security Systems.xlsx">
+      <Link>SampleFiles\Import\Equipment\SecuritySystem\Valid Security Systems.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Server\Valid Servers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Server\Valid Servers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Softener\Valid Softeners.xlsx">
+      <Link>SampleFiles\Import\Equipment\Softener\Valid Softeners.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\StreetValve\Valid Street Valves.xlsx">
+      <Link>SampleFiles\Import\Equipment\StreetValve\Valid Street Valves.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Telephone\Valid Telephones.xlsx">
+      <Link>SampleFiles\Import\Equipment\Telephone\Valid Telephones.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Tool\Valid Tools.xlsx">
+      <Link>SampleFiles\Import\Equipment\Tool\Valid Tools.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Transformer\Valid Transformers.xlsx">
+      <Link>SampleFiles\Import\Equipment\Transformer\Valid Transformers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Transmitter\Valid Transmitters.xlsx">
+      <Link>SampleFiles\Import\Equipment\Transmitter\Valid Transmitters.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\UninteruptedPowerSupply\Valid Uninterupted Power Supplies.xlsx">
+      <Link>SampleFiles\Import\Equipment\UninteruptedPowerSupply\Valid Uninterupted Power Supplies.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\UVSanitizer\Valid UV Sanitizers.xlsx">
+      <Link>SampleFiles\Import\Equipment\UVSanitizer\Valid UV Sanitizers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Vehicle\Valid Vehicles.xlsx">
+      <Link>SampleFiles\Import\Equipment\Vehicle\Valid Vehicles.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\VOCStripper\Valid VOC Strippers.xlsx">
+      <Link>SampleFiles\Import\Equipment\VOCStripper\Valid VOC Strippers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\WasteTank\Valid Waste Tanks.xlsx">
+      <Link>SampleFiles\Import\Equipment\WasteTank\Valid Waste Tanks.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\WaterQualityAnalyzer\Valid Water Quality Analyzers.xlsx">
+      <Link>SampleFiles\Import\Equipment\WaterQualityAnalyzer\Valid Water Quality Analyzers.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\WaterTreatmentContactor\Valid Water Treatment Contactors.xlsx">
+      <Link>SampleFiles\Import\Equipment\WaterTreatmentContactor\Valid Water Treatment Contactors.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Equipment\Well\Valid Wells.xlsx">
+      <Link>SampleFiles\Import\Equipment\Well\Valid Wells.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\Services\Valid Services.xlsx">
+      <Link>SampleFiles\Import\Services\Valid Services.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Import\SewerOpenings\Valid Sewer Openings.xlsx">
+      <Link>SampleFiles\Import\SewerOpenings\Valid Sewer Openings.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Update\EquipmentRiskCharacteristics\Valid Equipment Risk Characteristics.xlsx">
+      <Link>SampleFiles\Update\EquipmentRiskCharacteristics\Valid Equipment Risk Characteristics.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Update\FacilityRiskCharacteristics\Valid Facility Risk Characteristics.xlsx">
+      <Link>SampleFiles\Update\FacilityRiskCharacteristics\Valid Facility Risk Characteristics.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Update\FacilityBooleanAttributes\Valid Facility Boolean Attributes.xlsx">
+      <Link>SampleFiles\Update\FacilityBooleanAttributes\Valid Facility Boolean Attributes.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\doc\Samples\Update\EquipmentInstallationInfo\Valid Equipment Installation Info.xlsx">
+      <Link>SampleFiles\Update\EquipmentInstallationInfo\Valid Equipment Installation Info.xlsx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mmsinc\MapCall.Common.Testing\MapCall.Common.Testing.csproj">
+      <Project>{00096530-6883-4BBA-87D8-D8F49FB41692}</Project>
+      <Name>MapCall.Common.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ecd277-d26d-4306-a752-1246a35b63bd}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Core.Mvc\MMSINC.Core.Mvc.csproj">
+      <Project>{53CF0CDE-856B-4DC1-ABAE-9BD835C9C5D2}</Project>
+      <Name>MMSINC.Core.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122b2768-130d-4bee-a23a-9b2916eafc67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Testing.Mvc\MMSINC.Testing.Mvc.csproj">
+      <Project>{e6c5bfe0-b68e-427c-9a4c-8c801ed6ca9c}</Project>
+      <Name>MMSINC.Testing.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mmsinc\MMSINC.Testing\MMSINC.Testing.csproj">
+      <Project>{d6110cb2-1e3c-41b8-8056-26a9c6df07b3}</Project>
+      <Name>MMSINC.Testing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mvc\MapCallMVC\MapCallMVC.csproj">
+      <Project>{787beadf-bd8f-439b-99a3-b7f0b360df55}</Project>
+      <Name>MapCallMVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\MapCallImporter.Core\MapCallImporter.Core.csproj">
+      <Project>{b474e607-49ee-4138-ba8e-41711788d3c9}</Project>
+      <Name>MapCallImporter.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\..\packages\MSTest.TestAdapter.2.2.8\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.115.5\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>

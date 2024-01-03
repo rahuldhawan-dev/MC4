@@ -1,0 +1,4 @@
+﻿@Html.Partial("_Notifications")
+@Control.Hidden().WithName("actionName").WithId("actionName").WithValue(ViewContext.RouteData.Values["action"])
+
+@RenderBody()

@@ -1,0 +1,31 @@
+﻿@model Contractors.Models.ViewModels.WorkOrderGeneralSearch
+@{
+    ViewBag.Title = "Work Order - General - Results";
+}
+        * Orders in green are completed
+
+@(Html.TableFor(x => x, new{ id = "generalOrders"})
+	  .WithRowBuilder((wo, tag) => {
+		  if (wo.DateCompleted.HasValue)
+		  {
+			  tag.AddCssClass("completed");
+		  }
+	  })
+	  .SortableTemplateColumnFor(x => x.Id, "Id", x => @<text>@Html.ActionLink(x.Id.ToString(), "Show", new { id = x.Id })</text>)
+	  .TemplateColumnFor(x => Html.ActionLink("Print", "Show", "WorkOrderReadOnly", new { id = x.Id }, null))
+	  .SortableColumnFor(x => x.DateCompleted)
+	  .TemplateColumnFor("Markout Expiration Date", x => @<text>@String.Format(MMSINC.Utilities.CommonStringFormats.DATETIME_WITHOUT_SECONDS, x.MarkoutExpirationDate)</text>)
+	  .SortableColumnFor(x => x.Town, "Town.ShortName")
+	  .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+	  .SortableColumnFor(x => x.StreetNumber)
+	  .SortableColumnFor(x => x.Street, "Street.FullStName")
+	  .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+	  .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+	  .ColumnFor(x => x.AssetKey, "Asset ID") // Dunno why this is labeled "Asset ID" when it uses AssetKey instead of AssetId.
+	  .SortableColumnFor(x => x.WorkDescription, "Description of Job", "WorkDescription.Description")
+	  .SortableColumnFor(x => x.MarkoutRequirement)
+	  .SortableColumnFor(x => x.Priority)
+	  .SortableColumnFor(x => x.Purpose)
+	  .SortableColumnFor(x => x.StreetOpeningPermitRequired)
+	  .WithPaginatedFooter()
+	  )

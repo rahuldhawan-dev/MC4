@@ -1,0 +1,46 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.WasteWaterSystems.SearchWasteWaterSystem
+
+@if (Html.CurrentUserCanEdit() == false)
+{
+    <div class="container" style="margin-bottom: 12px;">
+        <div class="notification notification-item-warning">
+            <img src="@Url.Content("~/Resources/Png/?file=Icons/notification-icon.png")" />
+            <div class="message">
+                To request a change to a Wastewater System Record or a new Wastewater System, please email @Html.Link("mailto:wwid@amwater.com", "wwid@amwater.com").
+            </div>
+        </div>
+    </div>
+}
+
+@using (Form.BeginForm("Index", "WasteWaterSystem"))
+{
+    <div class="field-column fc250 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.BusinessUnit)
+        @Html.EditorFor(x => x.WasteWaterSystemName, new { DisplayName = WasteWaterSystem.DisplayNames.WASTEWATER_SYSTEM })
+        @Html.EditorFor(x => x.PermitNumber)
+        @Html.EditorFor(x => x.Status)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.SubType)
+        @Html.EditorFor(x => x.Ownership)
+        @Html.EditorFor(x => x.DateOfResponsibility)
+        @Html.EditorFor(x => x.GravityLength)
+        @Html.EditorFor(x => x.ForceLength)
+        @Html.EditorFor(x => x.NumberOfLiftStations)
+        @Html.EditorFor(x => x.TreatmentDescription)
+        @Html.EditorFor(x => x.NumberOfCustomers)
+        @Html.EditorFor(x => x.PeakFlowMGD)
+        @Html.EditorFor(x => x.IsCombinedSewerSystem)
+        @Html.EditorFor(x => x.HasConsentOrder)
+        @Html.EditorFor(x => x.DateOfOwnership)
+        @Html.EditorFor(x => x.ConsentOrderStartDate)
+        @Html.EditorFor(x => x.ConsentOrderEndDate)
+        @Html.EditorFor(x => x.NewSystemInitialSafetyAssessmentCompleted)
+        @Html.EditorFor(x => x.NewSystemInitialWQEnvAssessmentCompleted)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

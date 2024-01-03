@@ -1,0 +1,32 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model BillingParty
+           
+@{
+    var table = Html.TableFor(x => x.BillingPartyContacts, new {id = "contactsTable"})
+        .TemplateColumnFor("Name", x => @Html.ActionLink(x.Contact.ContactName, "Show", "Contact", new {id = x.Contact.Id, area = ""}, null))
+        .ColumnFor(x => x.Contact.Address)
+        .ColumnFor(x => x.Contact.Email)
+        .ColumnFor(x => x.ContactType);
+
+    if (Html.CurrentUserCanEdit() && Html.CurrentUserCanDo("DestroyBillingPartyContact", "BillingParty"))
+    {
+        table = table.TemplateColumnFor("", x => @<text>
+            @using (Form.BeginForm("DestroyBillingPartyContact", "BillingParty", new {id = Model.Id, BillingPartyContactId = x.Id}))
+            {
+                @Control.SubmitButton("Remove")
+            }</text>);
+    }
+}
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/BillingPartyContact.js", ScriptLoadType.LoadFromPartial)
+
+<div class="collapse-panel" data-title="Add Contact for Billing Party">
+    @if (Html.CurrentUserCanEdit() && Html.CurrentUserCanDo("CreateBillingPartyContact", "BillingParty"))
+    {
+        @Html.Partial("_CreateBillingPartyContact", ViewModelFactory.BuildWithOverrides<CreateBillingPartyContact>(new {Id = Model.Id}))
+    }
+</div>
+
+<div id="contactsTableWrap" class="container">
+    @table
+</div>
+

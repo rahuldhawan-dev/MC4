@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditMarkoutPlanning
+
+@*@Html.ScriptFor("~/Scripts/Areas/FieldOperations/MarkoutPlanning/Edit.js", ScriptLoadType.LoadFromPartial)*@
+<div style="width:500px;">
+    @using (var f = Form.BeginAjaxForm("Update", "MarkoutPlanning", new { id = Model.Id }))
+    {
+        f.HtmlAttributes["title"] = "Edit Markout Plan";
+        <div class="field-column fc100">
+            @Html.EditorFor(m => m.DateMarkoutNeeded)
+            @Html.EditorFor(m => m.MarkoutTypeNeeded)
+            @Html.EditorFor(m => m.RequiredMarkoutNote)
+        </div>
+        @Html.Partial("_DialogButtons", "Save")
+    }
+</div>

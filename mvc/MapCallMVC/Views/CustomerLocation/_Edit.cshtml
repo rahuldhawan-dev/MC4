@@ -1,0 +1,35 @@
+﻿@model UpdateCustomerLocation
+@{
+    Layout = "_PartialLayout.cshtml";
+}
+
+<div data-latitude="@Model.SuggestedLatitude"
+     data-longitude="@Model.SuggestedLongitude"
+     class="edit">
+    @Model.PremiseNumber<br/>
+    @Model.Address<br/>
+    @Model.City, @Model.State @Model.Zip
+    @Html.Partial("_IndexCustomerCoordinates", Model.CustomerCoordinates)
+
+    @using (var f = Form.BeginForm("Update", "CustomerLocation", new {id = Model.Id, ext = "frag"}))
+    {
+		f.HtmlAttributes["id"] = "editForm";
+        @Control.HiddenFor(x => x.Latitude)
+        @Control.HiddenFor(x => x.Longitude)
+        @Control.HiddenFor(x => x.ReturnUrl)
+        @Control.SubmitButton("Save").WithId("save").With("disabled", "disabled")
+    } <br />
+    <a href="#" id="backToList" class="link-button">Back to List</a>
+    <a href="#" id="zoomExtents" class="link-button">Zoom to Extents</a>
+
+    <div>
+        <p><strong>Instructions: </strong></p>
+        
+        <p>
+            Drag the red marker to the location you would like to use, or double click a spot on the map to set the actual location of the shown address.
+            Then, press 'Save' to save the selected coordinate and continue.
+        </p>
+
+        <p>Click 'Back to List' to cancel editing this location without saving.</p>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+﻿@using System.Collections
+@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.EditApcInspectionItem
+
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/ApcInspectionItem/Form.js", ScriptLoadType.LoadFromPartial)
+
+@functions
+{
+    public class FacilityInspectionCategories
+    {
+        public int Id;
+        public string CategoryName;
+        public string TableName;
+    }
+}
+
+@{
+    var categoryList = new ArrayList {
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.GENERAL_WORK_AREA_CONDITIONS, CategoryName = "General Work Area/Conditions", TableName = "GeneralWorkAreaConditions"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.EMERGENCY_RESPONSE_FIRST_AID, CategoryName = "Emergency Response/First Aid", TableName = "EmergencyResponseFirstAid"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.SECURITY, CategoryName = "Security", TableName = "Security"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.FIRE_SAFETY, CategoryName = "Fire Safety", TableName = "FireSafety"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.PERSONAL_PROTECTIVE_EQUIPMENT, CategoryName = "Personal Protective Equipment", TableName = "PersonalProtectiveEquipment"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.CHEMICAL_STORAGE_HAZ_COM, CategoryName = "Chemical Storage/HazCom", TableName = "ChemicalStorageHazCom"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.EQUIPMENT_TOOLS, CategoryName = "Equipment/Tools", TableName = "EquipmentTools"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.CONFINED_SPACE, CategoryName = "Confined Space", TableName = "ConfinedSpace"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.VEHICLE_MOTORIZED_EQUIPMENT, CategoryName = "Vehicle/Motorized Equipment", TableName = "VehicleMotorizedEquipment"},
+        new FacilityInspectionCategories {Id = FacilityInspectionFormQuestionCategory.Indices.OSHA_TRAINING, CategoryName = "OSHA Training", TableName = "OshaTraining"}
+    };
+}
+
+@using (Form.BeginForm("Update", "ApcInspectionItem", "HealthAndSafety", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityInspectionAreaTypes)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.DateReported)
+        @Html.EditorFor(x => x.AssignedTo)
+        @Html.EditorFor(x => x.DateInspected)
+        @Html.EditorFor(x => x.FacilityInspectionRatingType)
+        @Html.EditorFor(x => x.Percentage)
+        @Html.EditorFor(x => x.Score)
+
+        @foreach (FacilityInspectionCategories facilityInspectionCategories in categoryList)
+        {
+            <div class="table-wrapper">
+                <fieldset>
+                    <legend>@facilityInspectionCategories.CategoryName</legend>
+                    @Html.CheckBox("NotApplicable" + facilityInspectionCategories.TableName + "Section", new { @class = "checkNotApplicableSection" })  Not Applicable
+                    <table id=@facilityInspectionCategories.TableName>
+                        @Html.Partial("_AnswerTableHeader")
+                        <tbody>
+                        @for (var i = 0; i < Model.EditApcFormAnswers.Count(); i++)
+                        {
+                            if (Model.EditApcFormAnswers[i].FacilityInspectionFormQuestionDisplay.Category.Id == facilityInspectionCategories.Id)
+                            {
+                                @Html.EditorFor(_ => Model.EditApcFormAnswers[i])
+                            }
+                        }
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+        }
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "ApcInspectionItem", new { Model.Id })
+        </text>)
+    </div>
+}

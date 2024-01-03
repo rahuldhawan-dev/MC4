@@ -1,0 +1,8 @@
+﻿@model TrainingRequirement
+           
+@(Html.Tabs()
+    .WithTab("Training Requirement", "_ShowTrainingRequirement", Model)
+    .WithTab("Training Modules", "_TrainingModules", Model)
+    .WithTab("Position Group Common Names", "_ShowPositionGroupCommonNames", Model)
+    .WithLog()
+)

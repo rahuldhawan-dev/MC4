@@ -1,0 +1,58 @@
+﻿@model EnvironmentalNonComplianceEvent
+
+<fieldset>
+    <legend>Location</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.State)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.PublicWaterSupply)
+        @Html.DisplayFor(x => x.WasteWaterSystem)
+        @Html.DisplayFor(x => x.Facility)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Key Dates</legend>
+    <div class="field-column fc200">
+            @Html.DisplayFor(x => x.EventDate)
+            @Html.DisplayFor(x => x.AwarenessDate)
+            @Html.DisplayFor(x => x.CreatedAt)
+            @Html.DisplayFor(x => x.CreatedByFullName)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Issue Type and Status</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.IssueType)
+        @Html.DisplayFor(x => x.IssueSubType)
+        @Html.DisplayFor(x => x.IssueStatus)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Third Party Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Responsibility)
+        @Html.DisplayFor(x => x.NameOfThirdParty)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Issue Description</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.FailureType)
+        @Html.DisplayFor(x => x.FailureTypeDescription)
+        @Html.DisplayFor(x => x.DisplayRootCause)
+        @Html.DisplayFor(x => x.SummaryOfEvent)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>NOV Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.DateFinalized)
+        @Html.DisplayFor(x => x.CountsAgainstTarget)
+        @Html.DisplayFor(x => x.IssueYear)
+        @Html.DisplayFor(x => x.IssuingEntity)
+        @Html.DisplayFor(x => x.NameOfEntity)
+        @Html.DisplayFor(x => x.FineAmount)
+        @Html.DisplayFor(x => x.NOVWorkGroupReviewDate)
+        @Html.DisplayFor(x => x.ChiefEnvOfficerApprovalDate)
+    </div>
+</fieldset>

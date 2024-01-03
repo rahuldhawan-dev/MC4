@@ -1,0 +1,9 @@
+﻿@model Local
+
+<div class="field-column fc100">
+    <h2>
+        @Html.DefaultActionLink(@Model.Name, "Show", "Local", "", new { id = @Model.Id }, null)
+    </h2>
+</div>
+
+@Html.Partial("_ShowLocal")

@@ -1,0 +1,22 @@
+﻿@model SearchEmployeeTrainingRecordExport
+
+@{
+    ViewBag.Title = "Employee Training Record Export";
+}
+
+@using (Form.BeginForm("Index", "EmployeeTrainingRecordExport", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Exported)
+        @Html.EditorFor(x => x.AmericanWaterCourseNumber)
+        @Html.EditorFor(x => x.HeldOn)
+        @Html.EditorFor(x => x.ScheduledDate)
+        @Html.EditorFor(x => x.AttendeesExportedDate)
+        @Html.EditorFor(x => x.TrainingModule)
+        
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Search").WithId("Search")
+                               @Control.ResetButton()
+                           </text>)
+    </div>
+}

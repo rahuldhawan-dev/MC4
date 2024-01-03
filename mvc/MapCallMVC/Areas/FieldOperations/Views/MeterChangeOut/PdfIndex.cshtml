@@ -1,0 +1,22 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<IEnumerable<MeterChangeOut>>
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+    ShowPageNumbersInFooter = true;
+    FooterHtml = FooterHelper().ToHtmlString();
+    FooterHeight = 24;
+}
+
+@helper FooterHelper()
+{
+    <div style="text-align: left; width: 100%; font-family: arial; font-size: 12px;">
+        @DateTime.Now.ToShortDateString()
+    </div>
+}
+
+@section body {
+    @Html.Partial("_PdfStyle")
+    @foreach (var mco in Model)
+    {
+        @Html.Partial("_PdfBody", mco)
+    }
+}

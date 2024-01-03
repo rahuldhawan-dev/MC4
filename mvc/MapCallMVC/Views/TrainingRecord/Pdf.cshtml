@@ -1,0 +1,221 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Web.Razor.Parser.SyntaxTree
+@inherits MapCall.Common.Views.PdfViewBase<TrainingRecord>
+@{
+	Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+
+    var employeeLinks = Model.LinkedEmployeesEligibleForCertificates;
+    // If there's a specific employee we're printing
+    if (ViewData["employeeId"] != null)
+    {
+        var employeeId = Int32.Parse(ViewData["employeeId"].ToString());
+        var employeeLink = Model.LinkedEmployeesEligibleForCertificates.First(x => x.Employee.Id == employeeId);
+        if (employeeLink != null)
+        {
+            employeeLinks = new List<IEmployeeLink> { employeeLink };
+        }
+    }
+    
+	IsLandscape = true;
+}
+@* ReSharper disable Html.TagNotResolved *@
+@section styles {
+    <link href='https://fonts.googleapis.com/css?family=Mrs+Saint+Delafield' rel='stylesheet' type='text/css'>
+}
+@section head {
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+		}
+
+		.border {
+		    page-break-inside: avoid;
+			height: 750px;
+			border: solid 10px navy;
+			background: -webkit-linear-gradient(left, #B2DEED 95%, navy 100%);
+			-webkit-background-size: 20px 10px;
+		}
+
+		.inner-box {
+			margin: 100px auto;
+			background: white;
+			width: 801px;
+			height: 545px;
+			border: solid 1px navy;
+		}
+
+		.inner-inner-box {
+			margin: 15px auto;
+			width: 770px;
+			height: 517px;
+			border: solid 20px navy;
+			text-align: center;
+			padding: 5px;
+		}
+
+		.signatures {
+			width: 98%;
+		}
+
+			.signatures .sigsect {
+				width: 25%;
+				font-size: 10px;
+				font-weight: bold;
+				font-family: Arial;
+			    float: left;
+			}
+
+		.sigdiv {
+			margin: 3px;
+		    margin-bottom: 0px;
+			padding: 6px;
+		    white-space: nowrap;
+		}
+        .sigLine {
+            margin: 6px;
+            border-bottom: solid 1px navy;
+            font-family: 'Mrs Saint Delafield', cursive;
+            font-size: 22px;
+        }
+	</style>
+}
+
+@section body {
+    
+@foreach (var el in employeeLinks)
+{
+    var employee = el.Employee;
+    <div class="border">
+		<div class="inner-box">
+			<div class="inner-inner-box">
+
+				<img class="aw-logo" src="@Server.MapPath("~/Content/images/njaw-logo-595x280.png")" style="width:25%; margin-bottom:12px;" />
+
+
+				<div style="font-family:Georgia;">
+					<div style="font-size:27px; font-weight:bold; margin-bottom:6px;">Certificate of Completion</div>
+					<div style="font-size:20px; margin-bottom:12px;">
+						(@Model.TrainingModule.TCHCreditValue) Training Contact Hour(s) <br />
+						is hereby granted to:
+					</div>
+				</div>
+				<div style="font-family:Arial;">
+					<div style="font-size:20px; font-weight:bold; margin-bottom:12px;">@employee.FullName</div>
+					<div style="font-size:20px; margin-bottom:12px;">
+						Operator License No:
+						<span style="font-size:17px;">
+							@if (!String.IsNullOrWhiteSpace(employee.LicenseWaterTreatment))
+							{
+								<span>@employee.LicenseWaterTreatment</span>
+								<span>@employee.TLicense</span>
+							}
+
+							@if (!String.IsNullOrWhiteSpace(employee.LicenseWaterDistribution))
+							{
+								<span>@employee.LicenseWaterDistribution</span>
+								<span>@employee.WLicense</span>
+							}
+
+							@if (!String.IsNullOrWhiteSpace(employee.LicenseSewerCollection))
+							{
+								<span>@employee.LicenseSewerCollection</span>
+								<span>@employee.CLicense</span>
+							}
+
+							@if (!String.IsNullOrWhiteSpace(employee.LicenseSewerTreatment))
+							{
+								<span>@employee.LicenseSewerTreatment</span>
+								<span>@employee.SLicense</span>
+							}
+
+							@if (!String.IsNullOrWhiteSpace(employee.LicenseIndustrialDischarge))
+							{
+								<span>@employee.LicenseIndustrialDischarge</span>
+								<span>@employee.NLicense</span>
+							}
+						</span>
+					</div>
+					<div style="margin-bottom:12px;">
+						to certify that he/she has completed to satisfaction
+					</div>
+					<div style="margin-bottom:12px; font-weight:bold;">
+						@Model.TrainingModule.Title
+					</div>
+				    <div style="margin-bottom:12px;">
+				        <table>
+				            <tr>
+				                <td>
+                                    NJDEP Course ID: @Model.TrainingModule.CourseApprovalNumber<br />
+                                    @Model.TrainingModule.TCHClassification
+				                </td>
+				                <td>
+                                    Awarded: @((Model.HeldOn != null) ? Model.HeldOn.Value.ToString("MMMM d, yyyy") : string.Empty)
+				                </td>
+				            </tr>
+				        </table>
+					</div>
+
+				</div>
+                
+				<div style="position:absolute; bottom:10px; width:100%;">
+					<div class="signatures" style="overflow:hidden;">
+							@if (Model.Instructor != null)
+							{
+							    <div class="sigsect">
+							        <div class="sigLine">
+							            @Model.Instructor.FullName
+							        </div>
+							        <div class="sigdiv">
+							            @Model.Instructor.FullName<br />
+							            @if (Model.Instructor.PositionGroup != null && Model.Instructor.PositionGroup.PositionDescription != null)
+							            {
+							                @Model.Instructor.PositionGroup.PositionDescription
+							            }
+							        </div>
+							    </div>
+							}
+							@if (Model.SecondInstructor != null)
+							{
+							    <div class="sigsect">
+                                    <div class="sigLine">
+                                        @Model.SecondInstructor.FullName
+                                    </div>
+							        <div class="sigdiv">
+							            @Model.SecondInstructor.FullName<br />
+							            @if (Model.SecondInstructor.PositionGroup != null && Model.SecondInstructor.PositionGroup.PositionDescription != null)
+							            {
+							                @Model.SecondInstructor.PositionGroup.PositionDescription
+							            }
+							        </div>
+							    </div>
+							}
+
+							@if (Model.OutsideInstructor != null)
+							{
+							    <div class="sigsect">
+                                    <div class="sigLine">
+                                        @Model.OutsideInstructor
+                                    </div>
+							        <div class="sigdiv">
+							            @Model.OutsideInstructor<br />
+							            @Model.OutsideInstructorTitle
+							        </div>
+							    </div>
+							}
+						
+						    <div class="sigsect" style="float:right;">
+                                <div class="sigLine">
+                                    &nbsp;
+                                </div>
+						        <div class="sigdiv">
+						            @Model.ProgramCoordinator<br />
+						            TCH Program Coordinator
+						        </div>
+						    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    }
+}

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.ExternalStreetOpeningPermits.ExternalStreetOpeningPermitBeginPayment
+@{
+    Layout = "_BaseLayout.cshtml";
+}
+
+@using (Form.BeginForm("CompletePayment", "ExternalStreetOpeningPermit"))
+{
+    @Control.HiddenFor(x => x.Id)
+    @Html.Raw(Model.PaymentFormHtml)
+    @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+    </text>)
+}

@@ -1,0 +1,16 @@
+﻿@model MapCall.Common.Model.Entities.ServiceNotification
+@{
+    var service = Model.Service;
+}
+<h2>Service Renewal - Installation Notification</h2>
+
+Service #: @service.ServiceNumber<br />
+Premise #: @service.PremiseNumber<br />
+OpCode: @service.OperatingCenter<br />
+Category of Service: @service.ServiceCategory<br />
+Date Installed : @service.DateInstalled<br />
+Street : @service.StreetAddress<br />
+Town: @service.Town<br />
+Size of Service: @service.ServiceSize<br />
+Customer Name: @service.Name<br />
+Email: @Model.UserEmail<br />

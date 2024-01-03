@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServicesRetired
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Town)
+    .ColumnFor(x => x.YearRetired)
+    .ColumnFor(x => x.ServiceCategory)
+    .ColumnFor(x => x.PreviousServiceMaterial)
+    .ColumnFor(x => x.PreviousServiceSizeDescription)
+    .ColumnFor(x => x.Total)
+)

@@ -1,0 +1,44 @@
+﻿@using MMSINC.Helpers
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.LinkOrNewService
+@{
+    var cb = new CrumbBuilder(ViewContext, Model);
+    cb.Separator = " : ";
+    cb.WithLinkCrumb("Services", "Service", "Index");
+    cb.WithTextCrumb("Link Service to Work Order or Create New Service");
+    ViewData["TitleCrumbs"] = cb;
+}
+<fieldset>
+    <legend>Work Order Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.WorkOrder.Id)
+        @Html.DisplayFor(x => x.WorkOrder.ServiceNumber)
+        @Html.DisplayFor(x => x.WorkOrder.PremiseNumber)
+        @Html.LinkButton("Create New Service", "NewFromWorkOrder", "Service", new { workOrderId = Model.WorkOrder.Id })
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Existing Services</legend>
+
+    @if (!Model.RelatedServices.Any())
+    {
+        <div>There are no existing services that match.</div>
+    }
+    else
+    {
+        @(Html.TableFor(x => x.RelatedServices)
+            .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+            .TemplateColumnFor(x => @<text>
+                                        @using (Form.BeginRouteForm("Service", "WorkOrder", new { Id = x.Id, WorkOrder = Model.WorkOrder.Id }, ManyToManyRouteAction.Add))
+                                        {
+                                        @Control.SubmitButton("Link Service")
+                                        }
+                                    </text>)
+            .ColumnFor(x => x.ServiceNumber)
+            .ColumnFor(x => x.StreetNumber)
+            .ColumnFor(x => x.Street)
+            .ColumnFor(x => x.OperatingCenter)
+            .ColumnFor(x => x.ServiceType)
+        )
+    }
+</fieldset>

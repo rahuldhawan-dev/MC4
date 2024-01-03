@@ -1,0 +1,72 @@
+﻿@model CreateGeneralLiabilityClaim
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.CompanyContact, new { Container = @Model })
+@Html.EditorFor(x => x.ClaimsRepresentative)
+@Html.EditorFor(x => x.ClaimNumber)
+@Html.EditorFor(x => x.LiabilityType)
+@Html.EditorFor(x => x.GeneralLiabilityClaimType)
+@Html.EditorFor(x => x.CrashType)
+@Html.EditorFor(x => x.OtherTypeOfCrash)
+@Html.EditorFor(x => x.Name)
+@Html.EditorFor(x => x.PhoneNumber)
+@Html.EditorFor(x => x.Address)
+@Html.EditorFor(x => x.Email)
+
+<fieldset>
+    <legend>Company property or process involved: (check below boxes that pertain)</legend>
+    <table>
+        <tr>
+            <td>
+                @Html.EditorFor(x => x.MeterBox)
+                @Html.EditorFor(x => x.Excavation)
+                @Html.EditorFor(x => x.Vehicle)
+                @Html.EditorFor(x => x.FireHydrant)
+                @Html.EditorFor(x => x.WaterQuality)
+                @Html.EditorFor(x => x.WaterMain)
+            </td>
+            <td>
+                @Html.EditorFor(x => x.CurbValveBox)
+                @Html.EditorFor(x => x.Barricades)
+                @Html.EditorFor(x => x.WaterMeter)
+                @Html.EditorFor(x => x.Backhoe)
+                @Html.EditorFor(x => x.WaterPressure)
+                @Html.EditorFor(x => x.ServiceLine)
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+@Html.EditorFor(x => x.Description)
+
+@Html.EditorFor(x => x.DriverName)
+@Html.EditorFor(x => x.DriverPhone)
+@Html.EditorFor(x => x.PhhContacted)
+
+@Html.EditorFor(x => x.OtherDriver)
+@Html.EditorFor(x => x.OtherDriverPhone)
+@Html.EditorFor(x => x.OtherDriverAddress)
+@Html.EditorFor(x => x.VehicleYear)
+@Html.EditorFor(x => x.VehicleMake)
+@Html.EditorFor(x => x.VehicleVin)
+@Html.EditorFor(x => x.LicenseNumber)
+
+@Html.EditorFor(x => x.LocationOfIncident)
+@Html.EditorFor(x => x.Coordinate)
+@Html.EditorFor(x => x.IncidentDateTime)
+
+@Html.EditorFor(x => x.PoliceCalled)
+@Html.EditorFor(x => x.PoliceDepartment)
+@Html.EditorFor(x => x.PoliceCaseNumber)
+@Html.EditorFor(x => x.WitnessStatement)
+
+@Html.EditorFor(x => x.Witness)
+@Html.EditorFor(x => x.WitnessPhone)
+
+@Html.EditorFor(x => x.AnyInjuries)
+@Html.EditorFor(x => x.SAPWorkOrderId)
+
+@Html.EditorFor(x => x.ReportedBy)
+@Html.EditorFor(x => x.ReportedByPhone)
+@Html.EditorFor(x => x.IncidentNotificationDate)
+@Html.EditorFor(x => x.IncidentReportedDate)

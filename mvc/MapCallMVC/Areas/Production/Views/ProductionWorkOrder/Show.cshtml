@@ -1,0 +1,60 @@
+﻿@model ProductionWorkOrder
+@{
+    if (Model.OrderType.Id == OrderType.Indices.ROUTINE_13)
+    {
+        ActionBarHelper.HideEditButton = true;
+    }
+
+    var showLockoutForms = Model.LockoutForms.Any() || Model.LockoutFormRequired;
+    var showConfinedSpaceForms = Model.ConfinedSpaceForms.Any() || Model.ConfinedSpaceFormRequired;
+    var showProductionSafetyBrief = Model.HasPreJobSafetyBrief ||
+                                    Model.OrderType.Id == OrderType.Indices.CORRECTIVE_ACTION_20 ||
+                                    Model.OrderType.Id == OrderType.Indices.OPERATIONAL_ACTIVITY_10 ||
+                                    Model.PreJobSafetyFormRequired;
+    var isCompleted = Model.Status == WorkOrderStatus.Completed;
+    var isCancelled = Model.Status == WorkOrderStatus.Cancelled;
+}
+@{
+    if (isCompleted || isCancelled)
+    {
+        ActionBarHelper.AddPdfLink();
+    }
+}
+@Html.ScriptFor("~/Scripts/Areas/Production/ProductionWorkOrder/Show.js", ScriptLoadType.LoadFromPartial)
+
+<style>
+    div.body {
+        height: 92%;
+        position: relative;
+    }
+
+    div.tabs-container {
+        height: 100%;
+    }
+
+    div#Map {
+        height: 100%
+    }
+</style>
+@{
+    var tabs = Html.Tabs()
+        .WithTab("Work Order", "_ShowProductionWorkOrder")
+        .WithTab("Pre-Job Safety Briefs", "_ShowPreJobSafetyBriefs", isVisible: showProductionSafetyBrief)
+        .WithTab("Red Tag Permit", "_RedTagPermit", isVisible: Model.IsEligibleForRedTagPermit)
+        .WithTab("Lockout Forms", "_LockoutForms", isVisible: showLockoutForms)
+        .WithTab("Confined Space Forms", "_ConfinedSpaceForms", isVisible: showConfinedSpaceForms)
+        .WithTab("Employee Assignments", "_EmployeeAssignments")
+        .WithTab("Finalization", "_Finalization")
+        .WithTab("Prerequisites", "_Prerequisites")
+        .WithTab("Job Observations", "_JobObservations", isVisible: Model.JobObservations.Count > 0)
+        .WithTab("Equipment", "_Equipment")
+        .WithTab("Well Test Results", "_WellTests", isVisible: Model.HasComplianceOrderType)
+        .WithTab("Measuring Points", "_MeasurementPoints")
+        .WithTab("Asset Reliability", "_AssetReliability")
+        .WithTab("Tank Inspections", "_TankInspections", isVisible: (Model.RequiresTankInspection || Model.HasTankInspections))
+        .WithNotesAndDocuments()
+        .WithTab("Maintenance Plan Documents", "_MaintenancePlanDocuments", itemCount: (Model.MaintenancePlan != null && Model.MaintenancePlan.Documents != null) ? Model.MaintenancePlan.Documents.Count : 0)
+        .WithLog();
+}
+
+@tabs

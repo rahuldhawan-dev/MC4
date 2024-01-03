@@ -1,0 +1,1861 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E6B0B2D1-6ECC-4412-8F1D-F365B0E5A9BF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LINQTo271</RootNamespace>
+    <AssemblyName>LINQTo271</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkProfile />
+    <UseIISExpress>true</UseIISExpress>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30930.28736, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="dotnetCHARTING, Version=5.2.3313.16645, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\dotnetCHARTING.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Web.UI.WebControls, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Microsoft.Practices.Web.UI.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\StructureMap.4.7.1\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\structuremap.web.4.0.0.315\lib\net40\StructureMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ComboBox\ComboBox.ascx" />
+    <Content Include="ComboBox\ComboBox.js" />
+    <Content Include="Common\ClientIDRepository.ascx" />
+    <Content Include="Common\MapMenu.ascx" />
+    <Content Include="Controls\AssetLink.ascx" />
+    <Content Include="Controls\WorkOrders\JobObservationForm.ascx" />
+    <Content Include="Controls\WorkOrders\JobSiteCheckListForm.ascx" />
+    <Content Include="Controls\WorkOrders\NewServiceInstallationForm.ascx" />
+    <Content Include="Controls\WorkOrders\TrafficControlForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderInvoiceForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMarkoutDamageForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderRequisitionForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMarkoutViolationForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderScheduleOfValuesForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderScheduleOfValuesForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderSewerOverflowForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitCreateForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitCreateForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderTableLegend.ascx" />
+    <Content Include="GC161.aspx" />
+    <Content Include="Includes\collector.png" />
+    <Content Include="Includes\ddlArrowNormal.png" />
+    <Content Include="Includes\ddlArrowPressed.png" />
+    <Content Include="Includes\images\ui-bg_highlight-soft_75_bcd6ed_1x100.png" />
+    <Content Include="Index.aspx" />
+    <Content Include="Resources\dijit\images\popup.png" />
+    <Content Include="Resources\dijit\images\ajax-loader.gif" />
+    <Content Include="Views\AssetTypes\AssetTypesJSView.ascx" />
+    <Content Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsListView.ascx" />
+    <Content Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.ascx" />
+    <Content Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.aspx" />
+    <Content Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsSearchView.ascx" />
+    <Content Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsSearchView.js" />
+    <Content Include="Views\Contractors\ContractorsServiceView.asmx" />
+    <Content Include="Views\CrewAssignments\CrewAssignmentsByMonth.ascx" />
+    <Content Include="Views\CrewAssignments\CrewAssignmentsMonthLegend.ascx" />
+    <Content Include="Views\CrewAssignments\CrewAssignmentsResourceView.aspx" />
+    <Content Include="Views\CrewAssignments\CrewAssignmentRPCPage.aspx" />
+    <Content Include="Views\Employees\EmployeesServiceView.asmx" />
+    <Content Include="Views\Equipments\EquipmentServiceView.asmx" />
+    <Content Include="Views\MainCrossings\MainCrossingsServiceView.asmx" />
+    <Content Include="Views\Markouts\MarkoutsServiceView.asmx" />
+    <Content Include="Views\OperatingCenters\OperatingCenterServiceView.asmx" />
+    <Content Include="Views\Reports\MainBreaksAndServiceLineRepairsUnregulated.aspx" />
+    <Content Include="Views\Materials\MaterialListView.ascx" />
+    <Content Include="Views\Materials\MaterialResourceView.ascx" />
+    <Content Include="Views\Materials\MaterialResourceView.aspx" />
+    <Content Include="Views\Materials\MaterialSearchView.ascx" />
+    <Content Include="Views\Permits\Drawings.asmx" />
+    <Content Include="Views\Reports\MaterialsUsed.aspx" />
+    <Content Include="Views\Reports\StreetOpeningPermits.aspx" />
+    <Content Include="Views\Reports\TrafficControlRequirement.aspx" />
+    <Content Include="Views\Reports\SpoilsPerWorkOrder.aspx" />
+    <Content Include="Views\RestorationAccountingCodes\RestorationAccountingCodes.js" />
+    <Content Include="Views\RestorationAccountingCodes\RestorationAccountingCodeSearchView.ascx" />
+    <Content Include="Views\RestorationAccountingCodes\RestorationAccountingCodeListView.ascx" />
+    <Content Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.ascx" />
+    <Content Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.aspx" />
+    <Content Include="Views\RestorationProductCodes\RestorationProductCodeListView.ascx" />
+    <Content Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.ascx" />
+    <Content Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.aspx" />
+    <Content Include="Views\RestorationProductCodes\RestorationProductCodeSearchView.ascx" />
+    <Content Include="Views\ScheduleOfValues\ScheduleOfValuesServiceView.asmx" />
+    <Content Include="Views\StockLocations\StockLocationServiceView.asmx" />
+    <Content Include="Views\Streets\StreetsServiceView.asmx" />
+    <Content Include="Views\TownSections\TownSectionsServiceView.asmx" />
+    <Content Include="Views\Valves\ValvesServiceView.asmx" />
+    <Content Include="Views\WorkDescriptions\WorkDescriptionsJSView.ascx" />
+    <Content Include="Views\WorkDescriptions\WorkDescriptionsServiceView.asmx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputDetailView.js" />
+    <Content Include="Views\WorkOrderRequesters\WorkOrderRequestersJSView.ascx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputListView.ascx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputResourceView.aspx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputDetailView.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComboBox\ComboBox.ascx.cs">
+      <DependentUpon>ComboBox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComboBox\ComboBox.ascx.designer.cs">
+      <DependentUpon>ComboBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MapMenu.ascx.cs">
+      <DependentUpon>MapMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\MapMenu.ascx.designer.cs">
+      <DependentUpon>MapMenu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MvpHiddenField.cs" />
+    <Compile Include="Common\ClientIDRepository.ascx.cs">
+      <DependentUpon>ClientIDRepository.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\ClientIDRepository.ascx.designer.cs">
+      <DependentUpon>ClientIDRepository.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\DateRange.ascx.cs">
+      <DependentUpon>DateRange.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\DateRange.ascx.designer.cs">
+      <DependentUpon>DateRange.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\WorkOrderColorHelper.cs" />
+    <Compile Include="Common\WorkOrdersFormView.cs" />
+    <Compile Include="Common\LatLonPicker.ascx.cs">
+      <DependentUpon>LatLonPicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\LatLonPicker.ascx.designer.cs">
+      <DependentUpon>LatLonPicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\LatLonPickerSample.aspx.cs">
+      <DependentUpon>LatLonPickerSample.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\LatLonPickerSample.aspx.designer.cs">
+      <DependentUpon>LatLonPickerSample.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MyButton.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Controls\AssetLink.ascx.cs">
+      <DependentUpon>AssetLink.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AssetLink.ascx.designer.cs">
+      <DependentUpon>AssetLink.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\BaseWorkOrderSearch.ascx.cs">
+      <DependentUpon>BaseWorkOrderSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\BaseWorkOrderSearch.ascx.designer.cs">
+      <DependentUpon>BaseWorkOrderSearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\JobObservationForm.ascx.cs">
+      <DependentUpon>JobObservationForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\JobObservationForm.ascx.designer.cs">
+      <DependentUpon>JobObservationForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\JobSiteCheckListForm.ascx.cs">
+      <DependentUpon>JobSiteCheckListForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\JobSiteCheckListForm.ascx.designer.cs">
+      <DependentUpon>JobSiteCheckListForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\NewServiceInstallationForm.ascx.cs">
+      <DependentUpon>NewServiceInstallationForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\NewServiceInstallationForm.ascx.designer.cs">
+      <DependentUpon>NewServiceInstallationForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\TrafficControlForm.ascx.cs">
+      <DependentUpon>TrafficControlForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\TrafficControlForm.ascx.designer.cs">
+      <DependentUpon>TrafficControlForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderAccountForm.ascx.cs">
+      <DependentUpon>WorkOrderAccountForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderAccountForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderAccountForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderCrewAssignmentForm.ascx.cs">
+      <DependentUpon>WorkOrderCrewAssignmentForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderCrewAssignmentForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderCrewAssignmentForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderDocumentsForm.ascx.cs">
+      <DependentUpon>WorkOrderDocumentsForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderDocumentsForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderDocumentsForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderInvoiceForm.ascx.cs">
+      <DependentUpon>WorkOrderInvoiceForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderInvoiceForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderInvoiceForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMainBreakForm.ascx.cs">
+      <DependentUpon>WorkOrderMainBreakForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMainBreakForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMainBreakForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMapForm.ascx.cs">
+      <DependentUpon>WorkOrderMapForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMapForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMapForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutDamageForm.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutDamageForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutDamageForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutDamageForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutForm.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderRequisitionForm.ascx.cs">
+      <DependentUpon>WorkOrderRequisitionForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderRequisitionForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderRequisitionForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutViolationForm.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutViolationForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMarkoutViolationForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutViolationForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderScheduleOfValuesForm.ascx.cs">
+      <DependentUpon>WorkOrderScheduleOfValuesForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderScheduleOfValuesForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderScheduleOfValuesForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderSpoilsForm.ascx.cs">
+      <DependentUpon>WorkOrderSpoilsForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderSpoilsForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderSpoilsForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderSewerOverflowForm.ascx.cs">
+      <DependentUpon>WorkOrderSewerOverflowForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderSewerOverflowForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderSewerOverflowForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStockApprovalForm.ascx.cs">
+      <DependentUpon>WorkOrderStockApprovalForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStockApprovalForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderStockApprovalForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitCreateForm.ascx.cs">
+      <DependentUpon>WorkOrderStreetOpeningPermitCreateForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitCreateForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderStreetOpeningPermitCreateForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitForm.ascx.cs">
+      <DependentUpon>WorkOrderStreetOpeningPermitForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderStreetOpeningPermitForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderAdditionalFinalizationInfoForm.ascx.cs">
+      <DependentUpon>WorkOrderAdditionalFinalizationInfoForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderAdditionalFinalizationInfoForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderAdditionalFinalizationInfoForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderDetailControlBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderInputFormView.ascx.cs">
+      <DependentUpon>WorkOrderInputFormView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderInputFormView.ascx.designer.cs">
+      <DependentUpon>WorkOrderInputFormView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMaterialsUsedForm.ascx.cs">
+      <DependentUpon>WorkOrderMaterialsUsedForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderMaterialsUsedForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderMaterialsUsedForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderRestorationForm.ascx.cs">
+      <DependentUpon>WorkOrderRestorationForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderRestorationForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderRestorationForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderTableLegend.ascx.cs">
+      <DependentUpon>WorkOrderTableLegend.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderTableLegend.ascx.designer.cs">
+      <DependentUpon>WorkOrderTableLegend.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderTrafficControlForm.ascx.cs">
+      <DependentUpon>WorkOrderTrafficControlForm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\WorkOrders\WorkOrderTrafficControlForm.ascx.designer.cs">
+      <DependentUpon>WorkOrderTrafficControlForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionHandler.aspx.cs">
+      <DependentUpon>ExceptionHandler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ExceptionHandler.aspx.designer.cs">
+      <DependentUpon>ExceptionHandler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GC161.aspx.cs">
+      <DependentUpon>GC161.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GC161.aspx.designer.cs">
+      <DependentUpon>GC161.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StillAlive.aspx.cs">
+      <DependentUpon>StillAlive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StillAlive.aspx.designer.cs">
+      <DependentUpon>StillAlive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Abstract\AssetLatLonPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\CrewAssignmentRPCListView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderApprovalDetailView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderApprovalResourceView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderApprovalSearchView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderDetailView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderListView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderResourceRPCView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderResourceView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersReport.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersResourceRPCView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersSearchView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersDetailView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersListView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrdersResourceView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Assets\AssetEntityEventArgs.cs" />
+    <Compile Include="Views\Assets\AssetLatLonPickerView.aspx.cs">
+      <DependentUpon>AssetLatLonPickerView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Assets\AssetLatLonPickerView.aspx.designer.cs">
+      <DependentUpon>AssetLatLonPickerView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Assets\AssetLatLonReadOnlyView.aspx.cs">
+      <DependentUpon>AssetLatLonReadOnlyView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Assets\AssetLatLonReadOnlyView.aspx.designer.cs">
+      <DependentUpon>AssetLatLonReadOnlyView.aspx</DependentUpon>
+    </Compile>
+    <Content Include="Views\Assets\AssetLatLongPickerViewClose.js" />
+    <Compile Include="Views\AssetTypes\AssetTypesJSView.ascx.cs">
+      <DependentUpon>AssetTypesJSView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AssetTypes\AssetTypesJSView.ascx.designer.cs">
+      <DependentUpon>AssetTypesJSView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssetTypes\AssetTypesServiceView.asmx.cs">
+      <DependentUpon>AssetTypesServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsListView.ascx.cs">
+      <DependentUpon>ContractorCrewAssignmentsListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsListView.ascx.designer.cs">
+      <DependentUpon>ContractorCrewAssignmentsListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.ascx.cs">
+      <DependentUpon>ContractorCrewAssignmentsResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.ascx.designer.cs">
+      <DependentUpon>ContractorCrewAssignmentsResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.aspx.cs">
+      <DependentUpon>ContractorCrewAssignmentsResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsResourceView.aspx.designer.cs">
+      <DependentUpon>ContractorCrewAssignmentsResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsSearchView.ascx.cs">
+      <DependentUpon>ContractorCrewAssignmentsSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ContractorCrewAssignments\ContractorCrewAssignmentsSearchView.ascx.designer.cs">
+      <DependentUpon>ContractorCrewAssignmentsSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contractors\ContractorsServiceView.asmx.cs">
+      <DependentUpon>ContractorsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Coordinates\CoordinateServiceView.asmx.cs">
+      <DependentUpon>CoordinateServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsByMonth.ascx.cs">
+      <DependentUpon>CrewAssignmentsByMonth.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsByMonth.ascx.designer.cs">
+      <DependentUpon>CrewAssignmentsByMonth.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsMonthLegend.ascx.cs">
+      <DependentUpon>CrewAssignmentsMonthLegend.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsMonthLegend.ascx.designer.cs">
+      <DependentUpon>CrewAssignmentsMonthLegend.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsResourceView.aspx.cs">
+      <DependentUpon>CrewAssignmentsResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentsResourceView.aspx.designer.cs">
+      <DependentUpon>CrewAssignmentsResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentRPCPage.aspx.cs">
+      <DependentUpon>CrewAssignmentRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CrewAssignments\CrewAssignmentRPCPage.aspx.designer.cs">
+      <DependentUpon>CrewAssignmentRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Crews\CrewDetailView.ascx.cs">
+      <DependentUpon>CrewDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Crews\CrewDetailView.ascx.designer.cs">
+      <DependentUpon>CrewDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Crews\CrewListView.ascx.cs">
+      <DependentUpon>CrewListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Crews\CrewListView.ascx.designer.cs">
+      <DependentUpon>CrewListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Crews\CrewResourceView.ascx.cs">
+      <DependentUpon>CrewResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Crews\CrewResourceView.ascx.designer.cs">
+      <DependentUpon>CrewResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Crews\CrewResourceView.aspx.cs">
+      <DependentUpon>CrewResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Crews\CrewResourceView.aspx.designer.cs">
+      <DependentUpon>CrewResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Crews\CrewsServiceView.asmx.cs">
+      <DependentUpon>CrewsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentDetailView.ascx.cs">
+      <DependentUpon>DocumentDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentDetailView.ascx.designer.cs">
+      <DependentUpon>DocumentDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentResourceRPCPage.aspx.cs">
+      <DependentUpon>DocumentResourceRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentResourceRPCPage.aspx.designer.cs">
+      <DependentUpon>DocumentResourceRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentResourceRPCView.ascx.cs">
+      <DependentUpon>DocumentResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Documents\DocumentResourceRPCView.ascx.designer.cs">
+      <DependentUpon>DocumentResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Employees\EmployeesServiceView.asmx.cs">
+      <DependentUpon>EmployeesServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Equipments\EquipmentServiceView.asmx.cs">
+      <DependentUpon>EquipmentServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Hydrants\HydrantsServiceView.asmx.cs">
+      <DependentUpon>HydrantsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\MainCrossings\MainCrossingsServiceView.asmx.cs">
+      <DependentUpon>MainCrossingsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\MainCrossings\MainCrossingsServiceView.asmx.designer.cs">
+      <DependentUpon>MainCrossingsServiceView.asmx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Markouts\MarkoutsServiceView.asmx.cs">
+      <DependentUpon>MarkoutsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialListView.ascx.cs">
+      <DependentUpon>MaterialListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialListView.ascx.designer.cs">
+      <DependentUpon>MaterialListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialResourceView.ascx.cs">
+      <DependentUpon>MaterialResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialResourceView.ascx.designer.cs">
+      <DependentUpon>MaterialResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialResourceView.aspx.cs">
+      <DependentUpon>MaterialResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialResourceView.aspx.designer.cs">
+      <DependentUpon>MaterialResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialSearchView.ascx.cs">
+      <DependentUpon>MaterialSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Materials\MaterialSearchView.ascx.designer.cs">
+      <DependentUpon>MaterialSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostListView.ascx.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostListView.ascx.designer.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.ascx.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.ascx.designer.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.aspx.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.aspx.designer.cs">
+      <DependentUpon>OperatingCenterSpoilRemovalCostResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperatingCenterStockedMaterials\OperatingCenterStockedMaterialServiceView.asmx.cs">
+      <DependentUpon>OperatingCenterStockedMaterialServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\OperatingCenters\OperatingCenterServiceView.asmx.cs">
+      <DependentUpon>OperatingCenterServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Permits\Drawings.asmx.cs">
+      <DependentUpon>Drawings.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\AccrualReport.aspx.cs">
+      <DependentUpon>AccrualReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\AccrualReport.aspx.designer.cs">
+      <DependentUpon>AccrualReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\AverageCompletionTimes.aspx.cs">
+      <DependentUpon>AverageCompletionTimes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\AverageCompletionTimes.aspx.designer.cs">
+      <DependentUpon>AverageCompletionTimes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\AverageCompletionTimesByWorkDescription.aspx.cs">
+      <DependentUpon>AverageCompletionTimesByWorkDescription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\AverageCompletionTimesByWorkDescription.aspx.designer.cs">
+      <DependentUpon>AverageCompletionTimesByWorkDescription.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\CompletedWorkOrders.aspx.cs">
+      <DependentUpon>CompletedWorkOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\CompletedWorkOrders.aspx.designer.cs">
+      <DependentUpon>CompletedWorkOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\CapitalAccrualReport.aspx.cs">
+      <DependentUpon>CapitalAccrualReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\CapitalAccrualReport.aspx.designer.cs">
+      <DependentUpon>CapitalAccrualReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\DSICMainBreaks.aspx.cs">
+      <DependentUpon>DSICMainBreaks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\DSICMainBreaks.aspx.designer.cs">
+      <DependentUpon>DSICMainBreaks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\GroundWaterLocationsForGPS.aspx.cs">
+      <DependentUpon>GroundWaterLocationsForGPS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\GroundWaterLocationsForGPS.aspx.designer.cs">
+      <DependentUpon>GroundWaterLocationsForGPS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteLeaks.aspx.cs">
+      <DependentUpon>IncompleteLeaks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\KPIReportByHours.aspx.cs">
+      <DependentUpon>KPIReportByHours.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\KPIReportByHours.aspx.designer.cs">
+      <DependentUpon>KPIReportByHours.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteLeaks.aspx.designer.cs">
+      <DependentUpon>IncompleteLeaks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteWorkOrders.aspx.cs">
+      <DependentUpon>IncompleteWorkOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteWorkOrders.aspx.designer.cs">
+      <DependentUpon>IncompleteWorkOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteWorkOrdersWithMaterials.aspx.cs">
+      <DependentUpon>IncompleteWorkOrdersWithMaterials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\IncompleteWorkOrdersWithMaterials.aspx.designer.cs">
+      <DependentUpon>IncompleteWorkOrdersWithMaterials.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\KPIReport.aspx.cs">
+      <DependentUpon>KPIReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\KPIReport.aspx.designer.cs">
+      <DependentUpon>KPIReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\MainBreaksAndServiceLineRepairsUnregulated.aspx.cs">
+      <DependentUpon>MainBreaksAndServiceLineRepairsUnregulated.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\MainBreaksAndServiceLineRepairsUnregulated.aspx.designer.cs">
+      <DependentUpon>MainBreaksAndServiceLineRepairsUnregulated.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\MainBreaksAndServiceLineRepairs.aspx.cs">
+      <DependentUpon>MainBreaksAndServiceLineRepairs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\MainBreaksAndServiceLineRepairs.aspx.designer.cs">
+      <DependentUpon>MainBreaksAndServiceLineRepairs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\MaterialsUsed.aspx.cs">
+      <DependentUpon>MaterialsUsed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\MaterialsUsed.aspx.designer.cs">
+      <DependentUpon>MaterialsUsed.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\OrcomOrders.aspx.cs">
+      <DependentUpon>OrcomOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\OrcomOrders.aspx.designer.cs">
+      <DependentUpon>OrcomOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\PowerPlantAsbuiltReport.aspx.cs">
+      <DependentUpon>PowerPlantAsbuiltReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\PowerPlantAsbuiltReport.aspx.designer.cs">
+      <DependentUpon>PowerPlantAsbuiltReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\ReportUseReport.aspx.cs">
+      <DependentUpon>ReportUseReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\ReportUseReport.aspx.designer.cs">
+      <DependentUpon>ReportUseReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\SpoilsPerWorkOrder.aspx.cs">
+      <DependentUpon>SpoilsPerWorkOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\SpoilsPerWorkOrder.aspx.designer.cs">
+      <DependentUpon>SpoilsPerWorkOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\SpoilsTotalsReport.aspx.cs">
+      <DependentUpon>SpoilsTotalsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\SpoilsTotalsReport.aspx.designer.cs">
+      <DependentUpon>SpoilsTotalsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\StreetOpeningPermits.aspx.cs">
+      <DependentUpon>StreetOpeningPermits.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\StreetOpeningPermits.aspx.designer.cs">
+      <DependentUpon>StreetOpeningPermits.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\TrafficControlRequirement.aspx.cs">
+      <DependentUpon>TrafficControlRequirement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\TrafficControlRequirement.aspx.designer.cs">
+      <DependentUpon>TrafficControlRequirement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reports\WorkOrdersCreatedBy.aspx.cs">
+      <DependentUpon>WorkOrdersCreatedBy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Reports\WorkOrdersCreatedBy.aspx.designer.cs">
+      <DependentUpon>WorkOrdersCreatedBy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeSearchView.ascx.cs">
+      <DependentUpon>RestorationAccountingCodeSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeSearchView.ascx.designer.cs">
+      <DependentUpon>RestorationAccountingCodeSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeListView.ascx.cs">
+      <DependentUpon>RestorationAccountingCodeListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeListView.ascx.designer.cs">
+      <DependentUpon>RestorationAccountingCodeListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.ascx.cs">
+      <DependentUpon>RestorationAccountingCodeResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.ascx.designer.cs">
+      <DependentUpon>RestorationAccountingCodeResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.aspx.cs">
+      <DependentUpon>RestorationAccountingCodeResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationAccountingCodes\RestorationAccountingCodeResourceView.aspx.designer.cs">
+      <DependentUpon>RestorationAccountingCodeResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationMethods\RestorationMethodsServiceView.asmx.cs">
+      <DependentUpon>RestorationMethodsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeListView.ascx.cs">
+      <DependentUpon>RestorationProductCodeListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeListView.ascx.designer.cs">
+      <DependentUpon>RestorationProductCodeListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.ascx.cs">
+      <DependentUpon>RestorationProductCodeResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.ascx.designer.cs">
+      <DependentUpon>RestorationProductCodeResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.aspx.cs">
+      <DependentUpon>RestorationProductCodeResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeResourceView.aspx.designer.cs">
+      <DependentUpon>RestorationProductCodeResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeSearchView.ascx.cs">
+      <DependentUpon>RestorationProductCodeSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationProductCodes\RestorationProductCodeSearchView.ascx.designer.cs">
+      <DependentUpon>RestorationProductCodeSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationDetailView.ascx.cs">
+      <DependentUpon>RestorationDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationDetailView.ascx.designer.cs">
+      <DependentUpon>RestorationDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyDetailView.ascx.cs">
+      <DependentUpon>RestorationReadOnlyDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyDetailView.ascx.designer.cs">
+      <DependentUpon>RestorationReadOnlyDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyRPCPage.aspx.cs">
+      <DependentUpon>RestorationReadOnlyRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyRPCPage.aspx.designer.cs">
+      <DependentUpon>RestorationReadOnlyRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyRPCView.ascx.cs">
+      <DependentUpon>RestorationReadOnlyRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationReadOnlyRPCView.ascx.designer.cs">
+      <DependentUpon>RestorationReadOnlyRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationResourceRPCView.ascx.cs">
+      <DependentUpon>RestorationResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationResourceRPCView.ascx.designer.cs">
+      <DependentUpon>RestorationResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationRPCPage.aspx.cs">
+      <DependentUpon>RestorationRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Restorations\RestorationRPCPage.aspx.designer.cs">
+      <DependentUpon>RestorationRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostListView.ascx.cs">
+      <DependentUpon>RestorationTypeCostListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostListView.ascx.designer.cs">
+      <DependentUpon>RestorationTypeCostListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.ascx.cs">
+      <DependentUpon>RestorationTypeCostResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.ascx.designer.cs">
+      <DependentUpon>RestorationTypeCostResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.aspx.cs">
+      <DependentUpon>RestorationTypeCostResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.aspx.designer.cs">
+      <DependentUpon>RestorationTypeCostResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScheduleOfValues\ScheduleOfValuesServiceView.asmx.cs">
+      <DependentUpon>ScheduleOfValuesServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\SewerOpenings\SewerOpeningsServiceView.asmx.cs">
+      <DependentUpon>SewerOpeningsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationListView.ascx.cs">
+      <DependentUpon>SpoilFinalProcessingLocationListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationListView.ascx.designer.cs">
+      <DependentUpon>SpoilFinalProcessingLocationListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.ascx.cs">
+      <DependentUpon>SpoilFinalProcessingLocationResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.ascx.designer.cs">
+      <DependentUpon>SpoilFinalProcessingLocationResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.aspx.cs">
+      <DependentUpon>SpoilFinalProcessingLocationResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.aspx.designer.cs">
+      <DependentUpon>SpoilFinalProcessingLocationResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchView.ascx.cs">
+      <DependentUpon>SpoilFinalProcessingLocationSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchView.ascx.designer.cs">
+      <DependentUpon>SpoilFinalProcessingLocationSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalListView.ascx.cs">
+      <DependentUpon>SpoilRemovalListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalListView.ascx.designer.cs">
+      <DependentUpon>SpoilRemovalListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalResourceView.ascx.cs">
+      <DependentUpon>SpoilRemovalResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalResourceView.ascx.designer.cs">
+      <DependentUpon>SpoilRemovalResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalResourceView.aspx.cs">
+      <DependentUpon>SpoilRemovalResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalResourceView.aspx.designer.cs">
+      <DependentUpon>SpoilRemovalResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalSearchView.ascx.cs">
+      <DependentUpon>SpoilRemovalSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\SpoilRemovals\SpoilRemovalSearchView.ascx.designer.cs">
+      <DependentUpon>SpoilRemovalSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StockLocations\StockLocationServiceView.asmx.cs">
+      <DependentUpon>StockLocationServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\StormCatches\StormCatchesServiceView.asmx.cs">
+      <DependentUpon>StormCatchesServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Streets\StreetsServiceView.asmx.cs">
+      <DependentUpon>StreetsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\TownSections\TownSectionsServiceView.asmx.cs">
+      <DependentUpon>TownSectionsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Towns\TownsServiceView.asmx.cs">
+      <DependentUpon>TownsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Valves\ValvesServiceView.asmx.cs">
+      <DependentUpon>ValvesServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\WorkDescriptions\WorkDescriptionsJSView.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>WorkDescriptionsJSView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkDescriptions\WorkDescriptionsJSView.ascx.designer.cs">
+      <DependentUpon>WorkDescriptionsJSView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkDescriptions\WorkDescriptionsServiceView.asmx.cs">
+      <DependentUpon>WorkDescriptionsServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationDetailView.ascx.cs">
+      <DependentUpon>WorkOrderFinalizationDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationListView.ascx.cs">
+      <DependentUpon>WorkOrderFinalizationListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCPage.aspx.cs">
+      <DependentUpon>WorkOrderFinalizationResourceRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCPage.aspx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationResourceRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCView.ascx.cs">
+      <DependentUpon>WorkOrderFinalizationResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCView.ascx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.ascx.cs">
+      <DependentUpon>WorkOrderFinalizationResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.aspx.cs">
+      <DependentUpon>WorkOrderFinalizationResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationSearchView.ascx.cs">
+      <DependentUpon>WorkOrderFinalizationSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Finalization\WorkOrderFinalizationSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderFinalizationSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralDetailView.ascx.cs">
+      <DependentUpon>WorkOrderGeneralDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderGeneralDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralListView.ascx.cs">
+      <DependentUpon>WorkOrderGeneralListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderGeneralListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCPage.aspx.cs">
+      <DependentUpon>WorkOrderGeneralResourceRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCPage.aspx.designer.cs">
+      <DependentUpon>WorkOrderGeneralResourceRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCView.ascx.cs">
+      <DependentUpon>WorkOrderGeneralResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCView.ascx.designer.cs">
+      <DependentUpon>WorkOrderGeneralResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.ascx.cs">
+      <DependentUpon>WorkOrderGeneralResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderGeneralResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.aspx.cs">
+      <DependentUpon>WorkOrderGeneralResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderGeneralResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralSearchView.ascx.cs">
+      <DependentUpon>WorkOrderGeneralSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\General\WorkOrderGeneralSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderGeneralSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceRPCView.ascx.cs">
+      <DependentUpon>WorkOrderInputResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceRPCView.ascx.designer.cs">
+      <DependentUpon>WorkOrderInputResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceView.ascx.cs">
+      <DependentUpon>WorkOrderInputResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderInputResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputRPCView.aspx.cs">
+      <DependentUpon>WorkOrderInputRPCView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputRPCView.aspx.designer.cs">
+      <DependentUpon>WorkOrderInputRPCView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningListView.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.aspx.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningSearchView.ascx.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderMarkoutPlanningSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingDetailView.ascx.cs">
+      <DependentUpon>PermitProcessingDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingDetailView.ascx.designer.cs">
+      <DependentUpon>PermitProcessingDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceView.aspx.cs">
+      <DependentUpon>PermitProcessingResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceView.aspx.designer.cs">
+      <DependentUpon>PermitProcessingResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPC.ascx.cs">
+      <DependentUpon>PermitProcessingResourceViewRPC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPC.ascx.designer.cs">
+      <DependentUpon>PermitProcessingResourceViewRPC.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPCPage.aspx.cs">
+      <DependentUpon>PermitProcessingResourceViewRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPCPage.aspx.designer.cs">
+      <DependentUpon>PermitProcessingResourceViewRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningListView.ascx.cs">
+      <DependentUpon>WorkOrderPlanningListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderPlanningListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.ascx.cs">
+      <DependentUpon>WorkOrderPlanningResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderPlanningResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.aspx.cs">
+      <DependentUpon>WorkOrderPlanningResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderPlanningResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningSearchView.ascx.cs">
+      <DependentUpon>WorkOrderPlanningSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrderRequesters\WorkOrderRequestersJSView.ascx.cs">
+      <DependentUpon>WorkOrderRequestersJSView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrderRequesters\WorkOrderRequestersJSView.ascx.designer.cs">
+      <DependentUpon>WorkOrderRequestersJSView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Abstract\WorkOrderSearchView.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderPlanningSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyDetailView.ascx.cs">
+      <DependentUpon>WorkOrderReadOnlyDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderReadOnlyDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyResourceRPCView.ascx.cs">
+      <DependentUpon>WorkOrderReadOnlyResourceRPCView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyResourceRPCView.ascx.designer.cs">
+      <DependentUpon>WorkOrderReadOnlyResourceRPCView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyRPCPage.aspx.cs">
+      <DependentUpon>WorkOrderReadOnlyRPCPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyRPCPage.aspx.designer.cs">
+      <DependentUpon>WorkOrderReadOnlyRPCPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputListView.ascx.cs">
+      <DependentUpon>WorkOrderInputListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderInputListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceView.aspx.cs">
+      <DependentUpon>WorkOrderInputResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderInputResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputDetailView.ascx.cs">
+      <DependentUpon>WorkOrderInputDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Input\WorkOrderInputDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderInputDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningDetailView.ascx.cs">
+      <DependentUpon>WorkOrderPlanningDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\Planning\WorkOrderPlanningDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderPlanningDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingDetailView.ascx.cs">
+      <DependentUpon>WorkOrderRestorationProcessingDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderRestorationProcessingDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingListView.ascx.cs">
+      <DependentUpon>WorkOrderRestorationProcessingListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderRestorationProcessingListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.ascx.cs">
+      <DependentUpon>WorkOrderRestorationProcessingResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderRestorationProcessingResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.aspx.cs">
+      <DependentUpon>WorkOrderRestorationProcessingResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderRestorationProcessingResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingSearchView.ascx.cs">
+      <DependentUpon>WorkOrderRestorationProcessingSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderRestorationProcessingSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingDetailView.ascx.cs">
+      <DependentUpon>SOPProcessingDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingDetailView.ascx.designer.cs">
+      <DependentUpon>SOPProcessingDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingListView.ascx.cs">
+      <DependentUpon>SOPProcessingListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingListView.ascx.designer.cs">
+      <DependentUpon>SOPProcessingListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.ascx.cs">
+      <DependentUpon>SOPProcessingResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.ascx.designer.cs">
+      <DependentUpon>SOPProcessingResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.aspx.cs">
+      <DependentUpon>SOPProcessingResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.aspx.designer.cs">
+      <DependentUpon>SOPProcessingResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingSearchView.ascx.cs">
+      <DependentUpon>SOPProcessingSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SOPProcessing\SOPProcessingSearchView.ascx.designer.cs">
+      <DependentUpon>SOPProcessingSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueDetailView.ascx.cs">
+      <DependentUpon>WorkOrderStockToIssueDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderStockToIssueDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueListView.ascx.cs">
+      <DependentUpon>WorkOrderStockToIssueListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderStockToIssueListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.ascx.cs">
+      <DependentUpon>WorkOrderStockToIssueResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderStockToIssueResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.aspx.cs">
+      <DependentUpon>WorkOrderStockToIssueResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderStockToIssueResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueSearchView.ascx.cs">
+      <DependentUpon>WorkOrderStockToIssueSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderStockToIssueSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalDetailView.ascx.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalDetailView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalDetailView.ascx.designer.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalDetailView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalListView.ascx.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalListView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalListView.ascx.designer.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalListView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.ascx.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalResourceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.ascx.designer.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalResourceView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.aspx.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalResourceView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.aspx.designer.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalResourceView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalSearchView.ascx.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalSearchView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalSearchView.ascx.designer.cs">
+      <DependentUpon>WorkOrderSupervisorApprovalSearchView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrders\WorkOrdersServiceView.asmx.cs">
+      <DependentUpon>WorkOrdersServiceView.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkOrders.Master.cs">
+      <DependentUpon>WorkOrders.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WorkOrders.Master.designer.cs">
+      <DependentUpon>WorkOrders.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common.WebForms\MapCall.Common.WebForms.csproj">
+      <Project>{336D9861-ACDD-4C64-AC42-6F80AC1693EE}</Project>
+      <Name>MapCall.Common.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.Common\MapCall.Common.csproj">
+      <Project>{63ECD277-D26D-4306-A752-1246A35B63BD}</Project>
+      <Name>MapCall.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MapCall.SAP\MapCall.SAP.csproj">
+      <Project>{9EE96C6B-095A-4792-B247-2F7B28430A9B}</Project>
+      <Name>MapCall.SAP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core.WebForms\MMSINC.Core.WebForms.csproj">
+      <Project>{718E1B61-19B4-45DE-985F-3B583C0F7705}</Project>
+      <Name>MMSINC.Core.WebForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\MMSINC.Core\MMSINC.Core.csproj">
+      <Project>{122B2768-130D-4BEE-A23A-9B2916EAFC67}</Project>
+      <Name>MMSINC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mmsinc\Permits.Data.Client\Permits.Data.Client.csproj">
+      <Project>{17B00AD4-E78B-4CA2-88D2-9101A372FEA5}</Project>
+      <Name>Permits.Data.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkOrders\WorkOrders.csproj">
+      <Project>{45A068AF-75DC-4446-BB6D-79E6EE978E26}</Project>
+      <Name>WorkOrders</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\WorkOrders\BaseWorkOrderSearch.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderAccountForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderAdditionalFinalizationInfoForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderCrewAssignmentForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderCrewAssignmentForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderDocumentsForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderDocumentsForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderInputFormView.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderAccountForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderMainBreakForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMapForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMapForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderMarkoutForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMaterialsUsedForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderRestorationForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderSpoilsForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderStockApprovalForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderStockApprovalForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderStreetOpeningPermitForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderAdditionalFinalizationInfoForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderInputFormView.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderMaterialsUsedForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderRestorationForm.ascx" />
+    <Content Include="Controls\WorkOrders\WorkOrderTrafficControlForm.ascx" />
+    <Content Include="Global.asax" />
+    <Content Include="Includes\960.css" />
+    <Content Include="Includes\jquery.tablednd.js" />
+    <Content Include="Includes\reset.css" />
+    <Content Include="Includes\tabs.png" />
+    <Content Include="Includes\text.css" />
+    <Content Include="Login.aspx" />
+    <Content Include="Views\Assets\AssetLatLonReadOnlyView.aspx" />
+    <Content Include="Views\Assets\EsriPicker.js" />
+    <Content Include="Includes\WorkOrdersIE.css" />
+    <Content Include="Common\DateRange.ascx" />
+    <Content Include="Common\LatLonPicker.ascx" />
+    <Content Include="Includes\LatLonPicker.js" />
+    <Content Include="Common\LatLonPickerSample.aspx" />
+    <Content Include="Includes\jqModal.css" />
+    <Content Include="Includes\jqModal.js" />
+    <Content Include="Includes\jquery-vsdoc.js" />
+    <Content Include="Includes\map-icon-red.png" />
+    <Content Include="Includes\map-icon-blue.png" />
+    <Content Include="Views\Assets\AssetLatLonPickerView.aspx" />
+    <Content Include="Views\AssetTypes\AssetTypesServiceView.asmx" />
+    <Content Include="Views\Coordinates\CoordinateServiceView.asmx" />
+    <Content Include="Views\Crews\CrewDetailView.ascx" />
+    <Content Include="Views\Crews\CrewDetailView.js" />
+    <Content Include="Views\Crews\CrewListView.ascx" />
+    <Content Include="Views\Crews\CrewResourceView.ascx" />
+    <Content Include="Views\Crews\CrewResourceView.aspx" />
+    <Content Include="Views\Crews\CrewsServiceView.asmx" />
+    <Content Include="Views\Documents\DocumentDetailView.ascx" />
+    <Content Include="Views\Documents\DocumentResourceRPCPage.aspx" />
+    <Content Include="Views\Documents\DocumentResourceRPCView.ascx" />
+    <Content Include="Views\Hydrants\HydrantsServiceView.asmx" />
+    <Content Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostListView.ascx" />
+    <Content Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.ascx" />
+    <Content Include="Views\OperatingCenterSpoilRemovalCosts\OperatingCenterSpoilRemovalCostResourceView.aspx" />
+    <Content Include="Views\OperatingCenterStockedMaterials\OperatingCenterStockedMaterialServiceView.asmx" />
+    <Content Include="Views\Reports\AccrualReport.aspx" />
+    <Content Include="Views\Reports\CompletedWorkOrders.aspx" />
+    <Content Include="Views\Reports\IncompleteLeaks.aspx" />
+    <Content Include="Views\Reports\KPIReportByHours.aspx" />
+    <Content Include="Views\Reports\IncompleteWorkOrders.aspx" />
+    <Content Include="Views\Reports\KPIReport.aspx" />
+    <Content Include="Views\Reports\PowerPlantAsbuiltReport.aspx" />
+    <Content Include="Views\Reports\SpoilsTotalsReport.aspx" />
+    <Content Include="Views\RestorationMethods\RestorationMethodsServiceView.asmx" />
+    <Content Include="Views\Restorations\RestorationDetailView.ascx" />
+    <Content Include="Views\Restorations\RestorationDetailView.js" />
+    <Content Include="Views\Restorations\RestorationResourceRPCView.ascx" />
+    <Content Include="Views\Restorations\RestorationRPCPage.aspx" />
+    <Content Include="Views\RestorationTypeCosts\RestorationTypeCostListView.ascx" />
+    <Content Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.ascx" />
+    <Content Include="Views\RestorationTypeCosts\RestorationTypeCostResourceView.aspx" />
+    <Content Include="Views\SewerOpenings\SewerOpeningsServiceView.asmx" />
+    <Content Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationListView.ascx" />
+    <Content Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.ascx" />
+    <Content Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationResourceView.aspx" />
+    <Content Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchView.ascx" />
+    <Content Include="Views\SpoilFinalProcessingLocations\SpoilFinalProcessingLocationSearchView.js" />
+    <Content Include="Views\SpoilRemovals\SpoilRemovalListView.ascx" />
+    <Content Include="Views\SpoilRemovals\SpoilRemovalResourceView.ascx" />
+    <Content Include="Views\SpoilRemovals\SpoilRemovalResourceView.aspx" />
+    <Content Include="Views\SpoilRemovals\SpoilRemovalSearchView.ascx" />
+    <Content Include="Views\SpoilRemovals\SpoilRemovalSearchView.js" />
+    <Content Include="Views\Towns\TownsServiceView.asmx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationDetailView.ascx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationDetailView.js" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationListView.ascx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCPage.aspx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceRPCView.ascx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.ascx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationResourceView.aspx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationSearchView.ascx" />
+    <Content Include="Views\WorkOrders\Finalization\WorkOrderFinalizationSearchView.js" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralDetailView.ascx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralDetailView.js" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralListView.ascx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCView.ascx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.ascx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralResourceView.aspx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralSearchView.ascx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralSearchView.js" />
+    <Content Include="Views\WorkOrders\Input\Chickenfoot.js" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputListView.js" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputResourceRPCView.ascx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputResourceView.ascx" />
+    <Content Include="Views\WorkOrders\Input\WorkOrderInputRPCView.aspx" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningListView.ascx" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningListView.js" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.ascx" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningResourceView.aspx" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningSearchView.ascx" />
+    <Content Include="Views\WorkOrders\MarkoutPlanning\WorkOrderMarkoutPlanningSearchView.js" />
+    <Content Include="Views\WorkOrders\PermitProcessing\PermitProcessingDetailView.ascx" />
+    <Content Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceView.aspx" />
+    <Content Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPC.ascx" />
+    <Content Include="Views\WorkOrders\PermitProcessing\PermitProcessingResourceViewRPCPage.aspx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningDetailView.js" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningListView.ascx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.ascx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningResourceView.aspx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningSearchView.ascx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningSearchView.js" />
+    <Content Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyDetailView.ascx" />
+    <Content Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyDetailView.css" />
+    <Content Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyResourceRPCView.ascx" />
+    <Content Include="Views\WorkOrders\ReadOnly\WorkOrderReadOnlyRPCPage.aspx" />
+    <Content Include="Views\WorkOrders\Planning\WorkOrderPlanningDetailView.ascx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingDetailView.ascx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingDetailView.js" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingListView.ascx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.ascx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingResourceView.aspx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingSearchView.ascx" />
+    <Content Include="Views\WorkOrders\RestorationProcessing\WorkOrderRestorationProcessingSearchView.js" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingDetailView.ascx" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingDetailView.js" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingListView.ascx" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.ascx" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingResourceView.aspx" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingSearchView.ascx" />
+    <Content Include="Views\WorkOrders\SOPProcessing\SOPProcessingSearchView.js" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueDetailView.ascx" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueListView.ascx" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.ascx" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueResourceView.aspx" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueSearchView.ascx" />
+    <Content Include="Views\WorkOrders\StockToIssue\WorkOrderStockToIssueSearchView.js" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalDetailView.ascx" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalListView.ascx" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.ascx" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.aspx" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalResourceView.js" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalSearchView.ascx" />
+    <Content Include="Views\WorkOrders\SupervisorApproval\WorkOrderSupervisorApprovalSearchView.js" />
+    <Content Include="WorkOrders.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_offline.htm.disabled" />
+    <Content Include="Controls\WorkOrders\WorkOrderMainBreakForm.js" />
+    <Content Include="Controls\WorkOrders\WorkOrderMarkoutForm.js" />
+    <Content Include="ExceptionHandler.aspx" />
+    <Content Include="Includes\jquery-idleTimeout.js" />
+    <Content Include="Includes\jquery.dialog.css" />
+    <Content Include="Includes\WorkOrders.css" />
+    <Content Include="StillAlive.aspx" />
+    <Content Include="Views\Reports\AverageCompletionTimes.aspx" />
+    <Content Include="Views\Reports\AverageCompletionTimesByWorkDescription.aspx" />
+    <Content Include="Views\Reports\CapitalAccrualReport.aspx" />
+    <Content Include="Views\Reports\DSICMainBreaks.aspx" />
+    <Content Include="Views\Reports\GroundWaterLocationsForGPS.aspx" />
+    <Content Include="Views\Reports\IncompleteWorkOrdersWithMaterials.aspx" />
+    <Content Include="Views\Reports\OrcomOrders.aspx" />
+    <Content Include="Views\Reports\MainBreaksAndServiceLineRepairs.aspx" />
+    <Content Include="Views\Reports\ReportUseReport.aspx" />
+    <Content Include="Views\Reports\WorkOrdersCreatedBy.aspx" />
+    <Content Include="Views\StormCatches\StormCatchesServiceView.asmx" />
+    <Content Include="Views\WorkOrders\General\WorkOrderGeneralResourceRPCPage.aspx" />
+    <Content Include="Views\Restorations\RestorationRPCPage.css" />
+    <Content Include="Views\WorkOrders\WorkOrdersServiceView.asmx" />
+    <Content Include="Views\Restorations\RestorationReadOnlyDetailView.ascx" />
+    <Content Include="Views\Restorations\RestorationReadOnlyRPCPage.aspx" />
+    <Content Include="Views\Restorations\RestorationReadOnlyRPCPage.css" />
+    <Content Include="Views\Restorations\RestorationReadOnlyRPCView.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="Web.QA1.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA2.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA3.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.QA4.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Web.Training.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\WorkOrders\Leakage Chart.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Uh, what.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="temp\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+    <VSToolsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA2|x64'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA3|x64'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Training|x64'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'QA4|x64'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'QA1|x64' ">
+    <OutputPath>bin\x64\QA1\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>44148</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4932/modules/WorkOrders</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

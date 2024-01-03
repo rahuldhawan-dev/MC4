@@ -1,0 +1,10 @@
+﻿@model TrafficControlTicketCheck
+
+<div class="field-column fc200">
+    @Html.RenderDisplayTemplate("Traffic Control Ticket", @<text>
+        @Html.ActionLink(Model.TrafficControlTicket.Id.ToString(), "Show", "TrafficControlTicket", new { area = "FieldOperations", id = Model.TrafficControlTicket.Id }, null)
+    </text> )
+    @Html.DisplayFor(x => x.CheckNumber)
+    @Html.DisplayFor(x => x.Amount)
+    @Html.DisplayFor(x => x.Memo)
+</div>

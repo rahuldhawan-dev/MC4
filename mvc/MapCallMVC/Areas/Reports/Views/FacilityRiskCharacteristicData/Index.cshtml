@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchFacilityRiskCharacteristicData
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;" })
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.OperatingCenter)
+      .SortableColumnFor(x => x.PlanningPlant)
+      .SortableColumnFor(x => x.FacilityName)
+      .SortableColumnFor(x => x.Performance)
+      .SortableColumnFor(x => x.Condition)
+      .SortableColumnFor(x => x.LikelihoodOfFailure)
+      .SortableColumnFor(x => x.ConsequenceOfFailure)
+      .SortableColumnFor(x => x.MaintenanceRiskOfFailure)
+      .SortableColumnFor(x => x.StrategyTier)
+      .SortableColumnFor(x => x.ConsequenceOfFailureFactor)
+      .SortableColumnFor(x => x.WeightedRiskOfFailureScore)
+      .WithPaginatedFooter()
+)

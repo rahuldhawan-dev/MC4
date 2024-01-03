@@ -1,0 +1,9 @@
+﻿@model WasteWaterSystem
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowWasteWaterSystem", Model)
+    .WithTab("Licensed Operators", "_ShowLicensedOperators", Model, itemCount: Model.OperatorLicenses.Count)
+    .WithTab("Environmental Permits", "_ShowEnvironmentalPermits", Model)
+    .WithTab("Planning Plants", "_ShowPlanningPlants", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

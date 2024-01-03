@@ -1,0 +1,9 @@
+﻿@model Employee
+
+    @(Html.TableFor(x => Model.GeneralLiabilityClaims, new { id = "GeneralLiabilityClaim" })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", "GeneralLiabilityClaim", new { x.Id, Area = "HealthAndSafety" }, null))
+        .ColumnFor(x => x.IncidentDateTime)
+        .ColumnFor(x => x.ClaimsRepresentative)
+        .ColumnFor(x => x.ClaimNumber)
+        .ColumnFor(x => x.Name)
+        .ColumnFor(x => x.LiabilityType))

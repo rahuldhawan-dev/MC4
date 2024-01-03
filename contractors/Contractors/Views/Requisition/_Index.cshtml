@@ -1,0 +1,5 @@
+﻿@model IEnumerable<MapCall.Common.Model.Entities.Requisition>
+@* NOTE: This is loaded from WorkOrderGeneral/_Tabs. There is no controller for this. *@
+@(Html.TableFor()
+    .ColumnFor(x => x.RequisitionType)
+    .ColumnFor(x => x.SAPRequisitionNumber))

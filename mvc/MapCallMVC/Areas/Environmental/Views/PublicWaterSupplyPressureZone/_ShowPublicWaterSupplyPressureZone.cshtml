@@ -1,0 +1,17 @@
+﻿@model MapCall.Common.Model.Entities.PublicWaterSupplyPressureZone
+
+<div class="field-column fc300">
+    @Html.RenderDisplayTemplate("Public Water Supply", 
+        @<div>
+            @Html.ActionLink(Model.PublicWaterSupply.ToString(), "Show", "PublicWaterSupply", new { id = Model.PublicWaterSupply.Id, area = "" }, null)
+        </div>
+    )
+    @Html.DisplayFor(x => x.PublicWaterSupplyFirmCapacity.FirmSystemSourceCapacityMGD)
+    @Html.DisplayFor(x => x.PublicWaterSupplyFirmCapacity.UpdatedAt, new { DisplayName = "Firm Capacity Updated Date" })
+    @Html.DisplayFor(x => x.HydraulicModelName)
+    @Html.DisplayFor(x => x.CommonName)
+    @Html.DisplayFor(x => x.HydraulicGradientMin)
+    @Html.DisplayFor(x => x.HydraulicGradientMax)
+    @Html.DisplayFor(x => x.PressureMin)
+    @Html.DisplayFor(x => x.PressureMax)
+</div>

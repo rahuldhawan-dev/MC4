@@ -1,0 +1,31 @@
+﻿@model InterconnectionTest
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Id)
+    @Html.DisplayFor(x => x.Facility.OperatingCenter.State)
+    @Html.DisplayFor(x => x.Facility.OperatingCenter)
+    @if (Model.Facility != null)
+    {
+        @Html.RenderDisplayTemplate(Html.LabelFor(x => x.Facility), Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { Model.Facility.Id, area = "" }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.Facility)
+    }
+    @Html.DisplayFor(x => x.InspectionDate)
+    @Html.DisplayFor(x => x.InterconnectionInspectionRating)
+    @Html.DisplayFor(x => x.MaxFlowMGDAchieved)
+    @Html.DisplayFor(x => x.AllValvesOperational)
+    @Html.DisplayFor(x => x.Employee)
+    @Html.DisplayFor(x => x.Contractor)
+    @if (Model.WorkOrder != null)
+    {
+        @Html.RenderDisplayTemplate(Html.LabelFor(x => x.WorkOrder), Html.ActionLink(Model.WorkOrder.ToString(), "Show", "ProductionWorkOrder", new { Model.WorkOrder.Id, area = "Production" }, null))
+    }
+    else
+    {
+        @Html.DisplayFor(x => x.WorkOrder)
+    }
+    @Html.DisplayFor(x => x.InspectionComments)
+    @Html.DisplayFor(x => x.RepresentativeOnSite)
+</div>

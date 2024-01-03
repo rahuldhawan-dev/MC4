@@ -1,0 +1,122 @@
+﻿/// <reference path="../Includes/jquery.js" />
+
+var map, centerMarker;
+var defaults = {
+  lat: 40.32246702,
+  lon: -74.14810180
+};
+
+var assetTypeID = parseInt(document.URL.toString().match(/assetTypeID=(\d+)&/)[1], 10);
+
+//TODO: Fix, hacked 20090309 ARR
+function btnSave_Click() {
+  if (assetTypeID == 1 || assetTypeID == 2  || assetTypeID == 5 || assetTypeID == 8) {
+    if (confirm('You have chosen new coordinates for this asset, which will ' +
+                'have a site-wide effect. Are you sure?')) {
+      var latlng = getCenterMarker().getLatLng();
+      setCenterMarker(null, latlng);
+      returnLatLon(null, latlng);
+      return true;
+    }
+  } else {
+    if (defaults.lat == getCenterMarker().getLatLng().y
+        && defaults.lon == getCenterMarker().getLatLng().x) {
+      alert('Please select a coordinate.');
+      return false;
+    }
+        
+    returnLatLon(null, getCenterMarker().getLatLng());
+    window.top.document.getElementById('btnClose').click();
+  }
+  return false;
+}
+
+function isNaNOrEmptyString(str) {
+  return isNaN(str) || (str == '');
+}
+
+function getMap() {
+  if (!map) {
+    map = $('#map')[0];
+    map = new GMap2(map);
+  }
+  return map;
+}
+
+function getCenterMarker() {
+  if (!centerMarker) {
+    centerMarker = new GMarker(getMap().getCenter(), { draggable: true });
+    GEvent.addListener(centerMarker, 'dragend', (function() {
+      return function(latlng) {
+        // no idea why, but latlng is always undefined
+        setCenterMarker(null, getCenterMarker().getLatLng());
+      };
+    })());
+  }
+  return centerMarker;
+}
+
+function setCenterMarker(overlay, latlng) {
+  getCenterMarker().setLatLng(latlng);
+  getServerElement('hidLatitude').val(latlng.lat());
+  getServerElement('hidLongitude').val(latlng.lng());
+}
+
+function loadMap() {
+  if (!GBrowserIsCompatible()) return;
+
+  var lat = getServerElement('hidLatitude').val(),
+      lon = getServerElement('hidLongitude').val();
+
+  setUpMap(lat, lon);
+  
+  //These are the default locations
+  if(( lat == 40.32246702 && lon == -74.14810180 ) ||
+    (lat == 0 && lon == 0) )
+  {    
+    if ($('#txtLocation').val()) {
+      getServerElement('btnGeoCode')[0].click();
+    }
+  }
+}
+
+function setUpMap(lat, lon) {
+  getMap().setCenter(new GLatLng(lat, lon), 13);
+
+  map.addControl(new GLargeMapControl());
+  map.addControl(new GMapTypeControl());
+  map.enableScrollWheelZoom();
+
+  map.addOverlay(getCenterMarker());
+
+  // double-click based:
+  //GEvent.addListener(map, 'dblclick', returnLatLon);
+
+  // click and drag based:
+  GEvent.addListener(map, 'dblclick', setCenterMarker);
+}
+
+function returnLatLon(overlay, latlng) {
+  if (window.top.setLat && window.top.setLon) {
+    window.top.setLat(latlng.lat());
+    window.top.setLon(latlng.lng());
+  }
+}
+
+function setLatLon(location, point) {
+  if (point) {
+    getMap().setCenter(point, 13);
+    setCenterMarker(null, point);
+  } else {
+    alert('Address \'' + location + '\' was not found.  Please alter your search.');
+  }
+}
+
+function geoCodeMe(location) {
+  var geocoder = new GClientGeocoder();
+  geocoder.getLatLng(location, (function(loc) {
+    return function(point) {
+      return setLatLon(loc, point);
+    }
+  })(location));
+}

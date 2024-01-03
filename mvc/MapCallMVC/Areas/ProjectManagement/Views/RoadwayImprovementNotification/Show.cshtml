@@ -1,0 +1,6 @@
+﻿@model RoadwayImprovementNotification
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowRoadwayImprovementNotification", Model)
+    .WithTab("Streets", "_RoadwayImprovementNotificationStreets", Model)
+    .WithNotesAndDocuments())

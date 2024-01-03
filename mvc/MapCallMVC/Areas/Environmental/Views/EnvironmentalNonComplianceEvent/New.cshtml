@@ -1,0 +1,56 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.CreateEnvironmentalNonComplianceEvent
+@Html.ScriptFor("~/Scripts/Areas/Environmental/EnvironmentalNonComplianceEvent/Form.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Create", "EnvironmentalNonComplianceEvent"))
+{
+    <fieldset>
+        <legend>Location</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.State)
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.WaterType)
+            @Html.EditorFor(x => x.PublicWaterSupply)
+            @Html.EditorFor(x => x.WasteWaterSystem)
+            @Html.EditorFor(x => x.Facility)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Key Dates</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.EventDate)
+            @Html.EditorFor(x => x.AwarenessDate)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Issue Type and Status</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.IssueType)
+            @Html.EditorFor(x => x.IssueSubType)
+            @Html.EditorFor(x => x.IssueStatus)
+            @Html.HiddenFor(x => x.Responsibility)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Issue Description</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.FailureType)
+            @Html.EditorFor(x => x.FailureTypeDescription)
+            @Html.EditorFor(x => x.RootCauses)
+            @Html.EditorFor(x => x.SummaryOfEvent)
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>NOV Information</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.DateFinalized)
+            @Html.EditorFor(x => x.IssuingEntity)
+            @Html.EditorFor(x => x.NameOfEntity)
+            @Html.EditorFor(x => x.FineAmount)
+        </div>
+    </fieldset>
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "EnvironmentalNonComplianceEvent", new { Model.Id })
+    </text>)
+
+}

@@ -1,0 +1,35 @@
+﻿@model SampleSite
+
+<div class="field-column fc250">
+
+    @if (Model.Premise != null && Model.Premise.MostRecentService != null)
+    {
+        @Html.RenderDisplayTemplate("Service", @<text>
+            @Html.ActionLink(
+                Model.Premise.MostRecentService.Service.ToString(),
+                "Show",
+                "Service",
+                null,
+                null,
+                null,
+                new {
+                    Id = Model.Premise.MostRecentService.Service.Id,
+                    area = "FieldOperations"
+                },
+                new {
+                    target = "_blank"
+                })
+        </text>)
+        @Html.DisplayFor(x => x.Premise.MostRecentService.ServiceMaterial)
+        @Html.DisplayFor(x => x.Premise.MostRecentService.CustomerSideMaterial)
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Service", @<text><p>No Service Record Found.</p></text>)
+    }
+
+    @Html.DisplayFor(x => x.FieldVerifiedServiceMaterial)
+    @Html.DisplayFor(x => x.FieldVerifiedServiceCustomerSideMaterial)
+    @Html.DisplayFor(x => x.CustomerPlumbingMaterial)
+    @Html.DisplayFor(x => x.FieldVerifiedCustomerPlumbingMaterial)
+</div>

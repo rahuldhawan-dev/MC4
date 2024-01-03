@@ -1,0 +1,263 @@
+﻿/* 
+    Use this to set any theme-specific fonts, font colors, border colors, background
+    colors, color colors, and whatever else that is referenced from shared mvc stylesheets.
+
+    If you're creating .css and .map files when you save/build the project, go to 
+    Tools -> Options -> Web Essentials -> LESS and set all of the values to false. Visual
+    Studio should not be compiling our .less files for us.
+/*
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------NAMED COLORS--------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+/* monochromonous */
+@white: #ffffff;
+@black: #000000;
+@bright-gray: #3C454F; /* weird name, that's not bright at all! */
+@5-gray:  #555555;
+@7-gray:  #777777;
+@9-gray:  #999999;
+@d-gray:  #dddddd;
+@e6-gray: #e6e6e6;
+@f6-gray: #f6f6f6;
+
+/* blues */
+@astral: #346EA1; /* Also use in place of #026890 */
+@regent-st-blue: #A6C9E2; 
+@boston-blue: #458bc3;
+@spindle-blue: #BCD6ED;
+@not-as-ice-water: #e1eef7;
+@ice-water: #F5F8FC;
+@ice-water-at-night: #83b9de;
+
+/* reds */
+@your-pink: #FFBDBD;
+@bittersweet:     #ff7171;
+
+/* the other ones */
+@dolly: #FFF282;
+@successfully-green: #89b630;
+@your-yellow: #fffdb9;
+@your-orange: #ffe08d;
+@your-blue: #bbf1ff;
+@your-green: #bbffbc;
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------COMMONLY USED-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@page-background-color: @white;
+@default-link-color: @astral;
+@default-link-hover-color: @regent-st-blue; 
+@default-link-visited-color: @astral; /* no visited color link for mapcall */
+@default-something-is-active-background-color: @spindle-blue;
+@default-something-is-active-color: @astral;
+@default-something-is-not-active-background-color: @astral;
+@default-something-is-not-active-color: @white;
+@default-text-color: @black;
+@default-font-family:'Trebuchet MS', Helvetica, sans-serif; 
+@default-font-weight:400;
+@default-font-size:12px;
+@noscript-background-color: @bittersweet;
+@noscript-color: @white;
+@top-junk-bar-background-color: @astral;
+@dark-background-text-color: @white;
+@light-background-text-color: @default-text-color;
+@body-line-height: 1.5;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------- FORM ELEMENTS-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@default-form-control-border: solid 1px @d-gray;
+@default-form-control-height: 24px;
+@fieldset-border: @default-form-control-border;
+@fieldset-padding: 12px;
+@default-form-control-font-family: @default-font-family;
+@default-form-control-font-size: @default-font-size;
+@numericpicker-textbox-width: 100px;
+@default-form-control-padding: 2px;
+@validation-error-text-color: @bittersweet;
+@validation-input-error-border: solid 1px @bittersweet;
+@validation-input-error-background-color: @your-pink;
+@field-description-color: @5-gray;
+@field-description-font-size: 10px;
+@field-description-font-weight: bold;
+@field-description-text-align: right;
+@field-description-line-height: 1.2em;
+@default-form-control-disabled-text-color: @7-gray;
+@default-form-control-disabled-background-color: @e6-gray;
+@default-form-control-disabled-border: solid 1px @d-gray;
+
+/* Sets the common styles for all form controls. */
+.default-form-control-style() { }
+
+/*----------------------------------------------------------------------------*/
+/*-----------------------------------BUTTONS----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@button-default-font-family: @default-font-family;
+@button-default-font-size: 11px;
+@button-default-font-weight: bold;
+@button-default-height: @default-form-control-height;
+@button-default-text-color: @boston-blue;
+@button-default-background-color: @f6-gray;
+@button-default-border: @default-form-control-border;
+@button-default-padding-top: 0px;
+@button-default-padding-left: 12px;
+@button-default-padding-bottom: 0px;
+@button-default-padding-right: 12px;
+@button-border-line-height-offset: 2px; /* This must be equal for the sum size values for the top and bottom border */
+@button-disabled-text-color: @7-gray;
+@button-disabled-background-color: @e6-gray;
+@button-disabled-border: solid 1px @d-gray;
+@button-hover-text-color: @dark-background-text-color;
+@button-hover-background-color: @regent-st-blue;
+@button-hover-border: solid 1px @regent-st-blue;
+
+.button-default-state() {
+    padding:0px 12px;
+}
+
+.button-hover-state() {}
+.button-disabled-state() {}
+
+/*----------------------------------------------------------------------------*/
+/*-----------------------------------DATEPICKER-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@datepicker-width: 210px;
+@datepicker-shadow:  0px 0px 5px @d-gray;
+@datepicker-background-color: @white;
+@datepicker-border: @default-form-control-border;
+@datepicker-header-background: @default-something-is-not-active-background-color;
+@datepicker-header-color: @dark-background-text-color;
+@datepicker-textbox-width: 70px; /* the textbox widths need to be adjusted with font size. */
+@datetimepicker-textbox-width: 140px;
+@datepicker-default-day-background: transparent;
+@datepicker-default-day-color: @default-link-color;
+@datepicker-today-anchor-background-color: @white;
+@datepicker-current-day-anchor-background-color: @default-something-is-active-background-color;
+@datepicker-current-day-anchor-text-color: @black;
+@datepicker-hovered-anchor-background-color: @default-something-is-active-background-color;
+@datepicker-hovered-anchor-text-color: @default-something-is-active-color;
+@datepicker-unselectable-date-background-color: @d-gray;
+@datepicker-unselectable-date-color: @black;
+
+/*----------------------------------------------------------------------------*/
+/*--------------------------------NOTIFICATIONS-------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@notification-error-color: @bittersweet;
+@notification-warning-color: @dolly;
+@notification-success-color: @successfully-green;
+@notification-reminder-color: @not-as-ice-water;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------------TABLES----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@table-background-color: @white;
+@table-border: none;
+@table-cell-border: solid 1px @ice-water-at-night;
+@table-cell-padding: 5px;
+@table-cell-vertical-align: middle;
+@table-row-default-background-color: @table-background-color;
+@table-row-odd-background: @table-row-default-background-color;
+@table-row-even-background: @not-as-ice-water;
+@table-row-hover-background: @ice-water-at-night;
+@table-caption-color: @default-text-color;
+@table-header-cell-border: solid 1px @ice-water-at-night;
+@table-header-cell-background-color: @white;
+@table-header-sorted-background-color: @default-something-is-active-background-color;
+@table-header-sorted-color: @default-something-is-active-color;
+@table-header-hover-background-color: @ice-water-at-night;
+
+/* Sets the style for all cells in a row when the row is moused over */
+.table-row-hover-cell-style() {
+    background: @table-row-hover-background;
+}
+
+/*----------------------------------------------------------------------------*/
+/*-------------------------------------TABS-----------------------------------*/
+/*----------------------------------------------------------------------------*/
+@tab-header-border: solid 1px @default-something-is-active-background-color;
+@tab-header-height: 32px;
+@tab-header-padding: 0px 12px;
+@tab-height: 31px; /* Adjusting this because of the 1px border */
+@tab-header-background: @f6-gray;
+@tab-default-background: transparent;
+@tab-default-border:none;
+@tab-default-color: @default-link-color;
+@tab-active-border: none;
+@tab-active-background: @default-something-is-active-background-color;
+@tab-active-color: @default-something-is-active-color;
+@tab-content-border: none;
+@tab-content-padding: 6px 0px 0px 0px;
+
+.tab-header-font() {
+    font-family: 'Roboto';
+    font-weight:700;
+    font-size:10px;
+    text-transform:uppercase;
+}
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------------MODALS----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@modal-window-background-color: @f6-gray;
+@modal-window-text-color: @default-text-color;
+@modal-window-border: solid 1px @black;
+@modal-window-overlay-color: @black;
+
+/* Sets the default values that resets ALL tags. */
+
+/* Sets the background color of the html tag for a page. */
+.html-background() {
+    background-color: @page-background-color;
+}
+
+/* Sets the default values that resets ALL tags. */
+.reset() {}
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------------AUTOCOMPLETE-------------------------------*/
+/*----------------------------------------------------------------------------*/
+@autocomplete-border: @default-form-control-border;
+@autocomplete-hover-background-color: @default-something-is-active-background-color;
+@autocomplete-hover-color: @default-something-is-active-color;
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------ACTION BAR/PANEL------------------------------*/
+/*----------------------------------------------------------------------------*/
+@action-bar-background-color: @bright-gray;
+@action-bar-button-color: @default-something-is-not-active-color;
+@action-bar-button-hover-background-color: @default-something-is-active-background-color;
+@action-bar-button-hover-color: @default-something-is-active-color;
+@action-bar-flyout-background-color: @not-as-ice-water;
+@action-bar-flyout-color: @default-text-color;
+@top-junk-bar-text-color: @white;
+
+
+/*----------------------------------------------------------------------------*/
+/*-------------------------------------MENU-----------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+@menu-disabled-link-color: @9-gray;
+@menu-header-background-color: @boston-blue;
+@menu-header-background: @menu-header-background-color;
+@menu-header-active-background-color: @default-something-is-active-background-color;
+@menu-header-active-background: @menu-header-active-background-color;
+@menu-header-active-color: @astral;
+@menu-header-default-color: @white;
+@menu-section-background-color: @white;
+@menu-section-link-color: @default-text-color;
+@menu-section-link-hover-color: @default-link-color;
+@menu-section-current-link-color: @default-link-color;
+
+
+/*----------------------------------------------------------------------------*/
+/*-----------------------------------MISC-------------------------------------*/
+/*----------------------------------------------------------------------------*/
+@sop-question-correct-background-color: @successfully-green;
+@sop-question-incorrect-background-color: @bittersweet;

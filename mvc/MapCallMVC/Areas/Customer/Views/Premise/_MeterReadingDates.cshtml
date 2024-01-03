@@ -1,0 +1,9 @@
+﻿@model MeterReadingRoute
+
+@{
+    var results = (Model != null && Model.MeterReadingDates != null) ? Model.MeterReadingDates.OrderByDescending(x => x.ReadingDate) : null;
+}
+@(Html.TableFor(x =>results)
+    .ColumnFor(x => x.MeterReadingRoute)
+    .ColumnFor(x => x.ReadingDate)
+)

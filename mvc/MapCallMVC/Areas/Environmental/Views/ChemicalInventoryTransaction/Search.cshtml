@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemicalInventoryTransaction
+
+@using (Form.BeginForm("Index", "ChemicalInventoryTransaction")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.InventoryRecordType)
+        @Html.EditorFor(x => x.Delivery)
+        @Html.EditorFor(x => x.Chemical)
+        @Html.EditorFor(x => x.Date)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

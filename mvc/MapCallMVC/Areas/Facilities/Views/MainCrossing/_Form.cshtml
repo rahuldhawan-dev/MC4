@@ -1,0 +1,83 @@
+﻿@using MapCallMVC.Areas.Facilities.Models.ViewModels
+@model MapCallMVC.Areas.Facilities.Models.ViewModels.MainCrossingViewModel
+
+@Html.ScriptFor("~/Scripts/MainCrossing/Form.js", ScriptLoadType.LoadFromPartial)
+
+<div class="field-column fc200">
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.Town)
+    @* This contains an absolutely terrible hack to force the proper DropDownAttribute to work. It's
+        either that or copy/pasting this form into two different views just because the types
+        differ. *@
+    @if (Model is CreateMainCrossing)
+    {
+        @Html.EditorFor(x => ((CreateMainCrossing)x).Street)
+        @Html.EditorFor(x => ((CreateMainCrossing)x).ClosestCrossStreet)
+    }
+    else
+    {
+        @Html.EditorFor(x => ((EditMainCrossing)x).Street)
+        @Html.EditorFor(x => ((EditMainCrossing)x).ClosestCrossStreet)
+    }
+    @Html.EditorFor(x => x.CoordinateId)
+    @*TODO : Filter by operating center when PWSID is corrected*@
+    @Html.EditorFor(x => x.PWSID)
+    @Html.EditorFor(x => x.PressureZone)
+</div>
+
+<fieldset>
+    <legend>Crossing Details</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.MainCrossingStatus)
+        @Html.EditorFor(x => x.AssetCategory)
+        @Html.EditorFor(x => x.CrossingCategory)
+        @Html.EditorFor(x => x.ConsequenceOfFailure)
+        @Html.EditorFor(x => x.ImpactTo)
+        @Html.EditorFor(x => x.IsolationValves)
+        @Html.EditorFor(x => x.RailwayOwnerType, new { @class = "visible-for-railroad" })
+        @Html.EditorFor(x => x.RailwayCrossingId, new { @class = "visible-for-railroad" })
+        @Html.EditorFor(x => x.EmergencyPhoneNumber, new { @class = "visible-for-railroad" })
+        @Html.EditorFor(x => x.MainInCasing)
+        @Html.EditorFor(x => x.BodyOfWater)
+        @Html.EditorFor(x => x.CrossingType)
+        @Html.EditorFor(x => x.SupportStructure)
+        @Html.EditorFor(x => x.ConstructionType)
+        @Html.EditorFor(x => x.TypicalOperatingPressureRange)
+        @Html.EditorFor(x => x.PressureSurgePotentialType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Inspection Requirements</legend>
+    <div class="field-column fc200">
+        @* This isn't using the RecurrenceFrequency stuff because RecurrenceFrequency doesn't
+            use the RecurringFrequencyUnit table. *@
+        @Html.RenderEditorTemplate("Inspection Frequency", @<text>
+            @Control.TextBoxFor(x => x.InspectionFrequency).WithCssClass("numeric")
+            @Control.DropDownFor(x => x.InspectionFrequencyUnit)
+            @Html.ValidationMessageFor(x => x.InspectionFrequency)
+            @Html.ValidationMessageFor(x => x.InspectionFrequencyUnit)
+        </text>)
+        @Html.EditorFor(x => x.InspectionType)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Pipeline</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.MainDiameter)
+        @Html.EditorFor(x => x.MainMaterial)
+        @Html.EditorFor(x => x.IsCompanyOwned)
+        @Html.EditorFor(x => x.LengthOfSegment)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Criticality</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.IsCriticalAsset)
+        @Html.EditorFor(x => x.MaximumDailyFlow)
+        @Html.EditorFor(x => x.CustomerRange)
+        @Html.EditorFor(x => x.Comments)
+    </div>
+</fieldset>

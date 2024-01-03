@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MapCall.Common.Model.ViewModels.AgedPendingAssetReportItem>
+          
+@{
+    var now = DateTime.Now;
+    var ninety = now.AddDays(-90).ToShortDateString();
+    var oneEighty = now.AddDays(-180).ToShortDateString();
+    var threeSixty = now.AddDays(-360).ToShortDateString();
+    
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new { id = "results", style = "width:auto;" })
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.AssetType)
+      .TemplateColumnFor("0 - 90 Days", x => @<text>
+        @Html.ActionLink(x.ZeroToNinety.ToString(), "Index", x.AssetType, new RouteValueDictionary {
+            {"OperatingCenter",  x.OperatingCenterId.ToString()},
+            { "Status", "3"},
+            { "CreatedAt.End", ninety },
+            { "CreatedAt.Operator", RangeOperator.GreaterThan},
+            { "area" , "FieldOperations" }
+        }, null)</text>)
+      .TemplateColumnFor("91 - 180 Days", x => @<text>
+        @Html.ActionLink(x.NinetyOneToOneEighty.ToString(), "Index", x.AssetType, new RouteValueDictionary {
+            {"OperatingCenter",  x.OperatingCenterId.ToString()},
+            { "Status", "3"},
+            { "CreatedAt.Start", oneEighty},
+            { "CreatedAt.End", ninety },
+            { "CreatedAt.Operator", RangeOperator.Between},
+            { "area" , "FieldOperations" }
+        }, null)</text>)
+    .TemplateColumnFor("181 - 360 Days", x => @<text>
+        @Html.ActionLink(x.OneEightyToThreeSixty.ToString(), "Index", x.AssetType, new RouteValueDictionary {
+            {"OperatingCenter",  x.OperatingCenterId.ToString()},
+            { "Status", "3"},
+            { "CreatedAt.Start", threeSixty},
+            { "CreatedAt.End", oneEighty },
+            { "CreatedAt.Operator", RangeOperator.Between},
+            { "area" , "FieldOperations" }
+        }, null)</text>)
+    .TemplateColumnFor("> 360 Days", x => @<text>
+        @Html.ActionLink(x.ThreeSixtyPlus.ToString(), "Index", x.AssetType, new RouteValueDictionary {
+            {"OperatingCenter",  x.OperatingCenterId.ToString()},
+            { "Status", "3"},
+            { "CreatedAt.End", threeSixty },
+            { "CreatedAt.Operator", RangeOperator.LessThan},
+            { "area" , "FieldOperations" }
+        }, null)</text>)
+    .ColumnFor(x => x.Total)
+)

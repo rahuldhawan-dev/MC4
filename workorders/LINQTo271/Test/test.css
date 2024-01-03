@@ -1,0 +1,29 @@
+th.result-header {
+  font-size: larger;
+  font-weight: bold;
+}
+
+tr.class-result td {
+  cursor: pointer;
+}
+
+tr.method-result td {
+  font-family: monospace;
+}
+
+tr.method-result td span {
+  font-style: italic;
+}
+
+tr.successful-result td span.method-result {
+  color: Green;
+}
+
+tr.failed-result td span.method-result {
+  color: Red;
+}
+
+tr.exception-result td span.method-result {
+  color: Blue;
+}
+

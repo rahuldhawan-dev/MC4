@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchPipeDataLookupValue
+
+@using (Form.BeginForm("Index", "PipeDataLookupValue"))
+{
+    <div class="field-column fc200 search-fields">
+        @Html.EditorFor(x => x.PipeDataLookupType)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

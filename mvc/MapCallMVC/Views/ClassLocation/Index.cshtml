@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ClassLocation>
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", "ClassLocation", new { id = x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.OperatingCenter)    
+    .ColumnFor(x => x.Name))

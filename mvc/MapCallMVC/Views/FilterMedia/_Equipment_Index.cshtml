@@ -1,0 +1,17 @@
+﻿@model Equipment
+
+@using (var g = Html.Grid())
+{
+    using (g.FlexBox())
+    {
+        @Html.Partial("~/Views/FilterMedia/_Index.cshtml", Model.FilterMediae)
+    }
+
+    if (Model.Facility != null)
+    {
+        using (g.FlexBox())
+        {
+            @Html.LinkButton("Add New", "New", "FilterMedia", new {Facility = Model.Facility.Id, Equipment = Model.Id}, new {id = "addNewFilterMediaButton"})
+        }
+    }
+}

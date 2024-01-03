@@ -1,0 +1,69 @@
+﻿@using System.Web.Optimization
+@using MapCall.Common.ClassExtensions.MapExtensions
+@using MapCall.Common.Model.Entities
+@using MapCall.Common.Model.Entities.Users
+@using MMSINC.Authentication
+@using MMSINC.Data.NHibernate
+@{
+    Layout = "~/Views/Shared/_NoFrills.cshtml";
+    var user = AuthenticationService.CurrentUser;
+    var gisLayerRepo = _container.GetInstance<IRepository<GISLayerUpdate>>();
+}
+
+@section scripts {
+    @Scripts.Render("~/scripts/map-js")
+    <script type="text/javascript">
+        var Application = Application || {};
+        Application.DEFAULT_COORDINATES = @Html.DisplayCurrentMapCenter(user);
+        Application.MAP_ID = '@Html.DisplayCurrentMapId(gisLayerRepo, user)';
+    </script>
+    @RenderSection("scripts")
+}
+@section styles {
+    @Styles.Render("~/content/base-css")
+    @Styles.Render("~/content/map-css")
+    @Styles.Render("https://js.arcgis.com/3.33/esri/css/esri.css")
+    
+    <style>
+    html, body { height: 100%; }
+    </style>
+
+    @RenderSection("styles", required: false)
+}
+
+@RenderSection("aboveMap", required: false)
+
+<div class="map-legend-wrapper">
+    <div class="map-legend">
+        @RenderSection("extraLegendItemsTop", required: false)
+        <div class="map-legend-header" id="default-legend-header">Legend</div>
+        <div class="map-legend-section" id="default-legend"></div>
+        <div class="map-legend-header">GIS Layers</div>
+        <div class="map-legend-section" id="gis-layers"></div>
+        <div class="map-legend-header">GIS Legend</div>
+        <div class="map-legend-section" id="gis-legend"></div>
+        <div class="map-legend-header">Basemap</div>
+        <div class="map-legend-section">
+            <div id="basemap-gallery"></div>
+        </div>
+        <div class="map-legend-header">Note</div>
+        <div class="map-legend-section">
+            <p>
+                Not all GIS layers are active at every zoom level. The GIS Legend displays the layers which are visible at the current scale from among those chosen.
+            </p>
+            <p>
+                GIS Layer data is current as of 24 hours prior to the current date/time. Raw data layers (layers whose names begin with 'Raw') represent new coordinate points in the system pending verification and inclusion into the official GIS map.
+            </p>
+            <p style="display: none">
+                Base Map last updated @Html.DisplayGISDataDate(gisLayerRepo).
+            </p>
+        </div>
+        <div id="LocateButton"></div>
+        @RenderSection("extraLegendItemsBottom", required: false)
+    </div>
+</div>
+
+
+<div id="@(ViewBag.MapId ?? "Map")" style="height: 100%"></div>
+
+@RenderSection("belowMap", required: false)

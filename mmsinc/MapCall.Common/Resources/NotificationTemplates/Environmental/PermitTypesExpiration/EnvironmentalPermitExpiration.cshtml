@@ -1,0 +1,10 @@
+﻿@model dynamic
+
+Permit Number: <a href="@Model.RecordUrl">@Model.PermitNumber</a><br/>
+Expiration Date: @Model.PermitExpirationDate <br/>
+Renewal Date: @Model.PermitRenewalDate <br/>
+Description: @Model.Description <br/>
+Operating Centers: @String.Join(", ", Model.OperatingCenters) <br/>
+Permit Type: @Model.EnvironmentalPermitType <br/>
+PWSID: @Model.PublicWaterSupply <br/>
+Facilities: @string.Join(", ", Model.Facilities)

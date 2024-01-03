@@ -1,0 +1,12 @@
+﻿@model NotificationConfiguration 
+
+<div class="field-column fc200">
+    <fieldset>
+        <legend>Notification Configuration</legend>
+        @Html.DisplayFor(x => x.Contact.ContactName)
+        @Html.DisplayFor(x => x.AppliesToAllOperatingCenters)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.RenderDisplayTemplate("Notification Purposes", @<text>@string.Join(", ", Model.NotificationPurposes.Select(x => x.Purpose))</text>)
+    </fieldset>
+</div>
+

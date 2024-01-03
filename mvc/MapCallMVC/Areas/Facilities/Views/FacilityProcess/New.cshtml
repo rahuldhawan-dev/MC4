@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.FacilityProcessViewModel
+
+@using (Form.BeginForm("Create", "FacilityProcess", "Facilities"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.ProcessStage)
+        @Html.EditorFor(x => x.Process)
+        @Html.EditorFor(x => x.FacilityProcessDescription)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@using MapCallMVC.Areas.Environmental.Models.ViewModels
+@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalPermits.CreateEnvironmentalPermit
+
+@Html.ScriptFor("~/Scripts/EnvironmentalPermit/New.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Create", "EnvironmentalPermit", "Environmental", new { Model.Id }))
+{
+    @(Html.Tabs()
+                  .WithTab("General", "_Form")
+                  .WithTab("Requirements","_AddEnvironmentalPermitRequirementForm", Model)
+    )
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

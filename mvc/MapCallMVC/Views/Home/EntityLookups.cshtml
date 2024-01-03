@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Type>
+@Html.ScriptFor("~/Scripts/Home/EntityLookups.js", ScriptLoadType.LoadFromPartial)
+
+<table id="lookups">
+<thead>
+    <tr>
+        <th>Type</th>
+        <th>Editable?</th>
+        <th>In Menu?</th>
+    </tr>    
+</thead>
+<tbody>
+@foreach (var type in Model)
+{
+    <tr>
+        <td>@if (type.IsSubclassOf(typeof(EntityLookup)))
+            {
+                @Html.ActionLink(type.Name, "Index", type.Name);
+            }
+            else
+            {
+                @type.Name
+            }</td>
+        
+        <td>@(type.IsSubclassOf(typeof(EntityLookup)) ? "yes" : "no")</td>
+        <td></td>
+    </tr>
+}
+</tbody>
+</table>

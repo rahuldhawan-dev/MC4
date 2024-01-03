@@ -1,0 +1,64 @@
+* PRIORITY 1
+** Supervisor Approval
+*** General
+**** Instructions needs a space.
+*** DetailView
+**** Validation should not allow them to hit "Save" without checking the "Approved?" box.
+**** The "Account Entry" field should be limited to the number of characters that that field in the db allows (should match the same field in existing services system under MapCall).
+*** SearchView
+**** "Approved" default should be "No".
+**** Should filter out incomplete orders.
+
+
+** Stock To Issue
+*** SearchView
+**** Should filter out orders which haven't been approved, and orders that have no materials used records.
+**** Needs a field, "Stock Issued" yes/no, default to "no".
+*** DetailView
+**** Display "Account #" (from SupervisorApproval) underneath "Old Order Number".
+**** Validation should not allow them to hit "Save" without checking the "Approved?" box.
+
+
+** Anything existing that's completed should have its DateApproved set, and ApprovedBy set to Doug Thorn, DateMaterialsApproved set and MaterialsApprovedBy set to George Bauer.
+
+
+** Finalization
+*** 
+
+
+* PRIORITY 2
+** Crew Assignments
+*** DetailView
+**** 
+*** DetailView - Print Form
+**** Need to display Employee Name, not EmployeeNumber.  Not sure where those are on the form, will need to search in the design for any mention of it.
+
+
+** Crew Management
+*** General
+**** Need to be able to re-prioritize work from this screen.  Will probably require the same calendar from Crew Assignments.
+
+** Planning
+*** DetailView - Markout
+**** Does not record time, only date that markout was called.  Need a better date picker.
+
+
+** Finalization
+*** DetailView - Restoration
+**** Editing and hitting save on .info (order # 49800) caused an error.
+
+
+** On .info - SupervisorApproval, select 'Test Crew 1' as "Last Crew Assigned", and click search.
+
+
+** Wherever there's an Update Panel, there should be something that denotes the the form is reloading, once an Insert/Update/Delete link has been clicked.
+
+
+** Input
+*** Lat/Lon picker
+**** When choosing an asset that already has coordinates, those coordinates should be used when first displaying the picker, and the address info should only be searched for when the "Find" button is clicked.
+
+
+* PRIORITY 3
+** Input
+*** Hitting the "Save" button twice causes a double-insert.  Prevent this by somehow disabling the button after the first click.

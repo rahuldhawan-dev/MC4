@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchSpoilFinalProcessingLocation
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter.State, "oc.State")
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town)
+    .SortableColumnFor(x => x.Street)
+    .SortableColumnFor(x => x.Name)
+
+    .WithPaginatedFooter())

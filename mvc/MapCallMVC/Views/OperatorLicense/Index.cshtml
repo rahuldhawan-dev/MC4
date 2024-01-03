@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Models.ViewModels.OperatorLicenses.SearchOperatorLicense
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model, new {id = "operatingLicenseTable"})
+      .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+      .SortableColumnFor(x => x.Employee.OperatingCenter)
+      .SortableColumnFor(x => x.Employee)
+      .SortableColumnFor(x => x.Employee.EmployeeId)
+      .ColumnFor(x => x.Employee.Status, OperatorLicense.DisplayNames.EMPLOYEE_STATUS)
+      .SortableColumnFor(x => x.OperatorLicenseType)
+      .SortableColumnFor(x => x.LicensedOperatorOfRecord)
+      .TemplateColumnFor("Operator of Record", x => @<text>
+                                                        @string.Join(", ", x.PublicWaterSupplies.Select(y => y.PublicWaterSupply))
+                                                     </text>)
+      .SortableColumnFor(x => x.State)
+      .SortableColumnFor(x => x.LicenseLevel)
+      .SortableColumnFor(x => x.LicenseSubLevel)
+      .SortableColumnFor(x => x.LicenseNumber)
+      .SortableColumnFor(x => x.ValidationDate)
+      .SortableColumnFor(x => x.ExpirationDate)
+      .WithPaginatedFooter())

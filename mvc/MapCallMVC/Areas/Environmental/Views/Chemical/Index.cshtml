@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.SearchChemical
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Name)
+    .SortableColumnFor(x => x.ChemicalType)
+    .SortableColumnFor(x => x.ExtremelyHazardousChemical)
+    .SortableColumnFor(x => x.PartNumber)
+    .SortableColumnFor(x => x.PricePerPoundWet)
+    .SortableColumnFor(x => x.WetPoundsPerGal)
+    .SortableColumnFor(x => x.PackagingType)
+    .SortableColumnFor(x => x.PackagingQuantities)
+    .SortableColumnFor(x => x.PackagingUnits)
+    .SortableColumnFor(x => x.ChemicalSymbol)
+    .ColumnFor(x => x.DisplayChemicalStates)
+    .SortableColumnFor(x => x.Appearance)
+    .SortableColumnFor(x => x.ChemicalConcentrationLiquid)
+    .SortableColumnFor(x => x.ConcentrationLbsPerGal)
+    .SortableColumnFor(x => x.SpecificGravityMin)
+    .SortableColumnFor(x => x.SpecificGravityMax)
+    .SortableColumnFor(x => x.RatioResidualProduction)
+    .SortableColumnFor(x => x.CasNumber)
+    .ColumnFor(x => x.SdsHyperlink)
+    .WithPaginatedFooter())

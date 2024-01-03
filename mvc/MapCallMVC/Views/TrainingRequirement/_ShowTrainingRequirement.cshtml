@@ -1,0 +1,26 @@
+﻿@model TrainingRequirement
+           
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.Regulation)
+    @Html.DisplayFor(x => x.IsActive)
+    @Html.DisplayFor(x => x.HasRecurringTrainingRequirement)
+    @Html.DisplayFor(x => x.TrainingFrequencyObj)
+    @Html.DisplayFor(x => x.IsDOTRequirement)
+    @Html.DisplayFor(x => x.IsOSHARequirement)
+    @Html.DisplayFor(x => x.OSHAStandard.OSHADescription, "OSHA Standard")
+    @Html.DisplayFor(x => x.IsDPCCRequirement)
+    @Html.DisplayFor(x => x.IsPSMTCPARequirement)
+    @Html.DisplayFor(x => x.IsProductionRequirement)
+    @Html.DisplayFor(x => x.IsFieldOperationsRequirement)
+    @if (Model.ActiveInitialAndRecurringTrainingModule == null)
+    {
+        @Html.DisplayFor(x => x.ActiveInitialTrainingModule.Display, new { DisplayName = "Active Initial Training Module" })
+        if (Model.HasRecurringTrainingRequirement) { 
+        @Html.DisplayFor(x => x.ActiveRecurringTrainingModule.Display, new { DisplayName = "Active Recurring Training Module" })
+        }
+    } else { 
+        @Html.DisplayFor(x => x.ActiveInitialAndRecurringTrainingModule.Display, new { DisplayName = "Active Initial and Recurring Training Module" })
+    }
+
+</div>

@@ -1,0 +1,7 @@
+﻿@model SearchEquipmentType
+
+@(Html.TableFor(_ => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.Abbreviation)
+    .SortableColumnFor(x => x.Description)
+    .SortableColumnFor(x => x.EquipmentGroup))

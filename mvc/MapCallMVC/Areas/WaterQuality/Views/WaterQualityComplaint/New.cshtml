@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.CreateWaterQualityComplaint
+
+@using (Form.BeginForm("Create", "WaterQualityComplaint", "WaterQuality")) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "WaterQualityComplaint")
+                           </text>)
+    </div>
+}

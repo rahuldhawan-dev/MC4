@@ -1,0 +1,8 @@
+﻿@model OperatorLicense
+
+@(Html.Tabs()
+      .WithTab("Details", "_Show")
+      .WithTab("PWSID", "_ShowPublicWaterSupplies", Model, itemCount: Model.PublicWaterSupplies.Count)
+      .WithTab("WWSID", "_ShowWasteWaterSystems", Model, itemCount: Model.WasteWaterSystems.Count)
+      .WithNotesAndDocuments()
+      .WithLog())

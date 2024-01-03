@@ -1,0 +1,28 @@
+﻿@model Generator
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.EngineManufacturer)
+    @Html.DisplayFor(x => x.EngineModel)
+    @Html.DisplayFor(x => x.EngineSerialNumber)
+    @Html.DisplayFor(x => x.GeneratorManufacturer)
+    @Html.DisplayFor(x => x.GeneratorModel)
+    @Html.DisplayFor(x => x.GeneratorSerialNumber)
+    @Html.DisplayFor(x => x.EmergencyPowerType)
+    @Html.DisplayFor(x => x.OutputVoltage)
+    @Html.DisplayFor(x => x.OutputKW)
+    @Html.DisplayFor(x => x.LoadCapacity)
+    @Html.DisplayFor(x => x.HasParallelElectricOperation)
+    @Html.DisplayFor(x => x.HasAutomaticStart)
+    @Html.DisplayFor(x => x.HasAutomaticPowerTransfer)
+    @Html.DisplayFor(x => x.IsPortable)
+    @Html.DisplayFor(x => x.SCADA)
+    @Html.DisplayFor(x => x.TrailerVIN)
+    @Html.DisplayFor(x => x.GVWR)
+    @Html.DisplayFor(x => x.FuelType)
+    @Html.DisplayFor(x => x.FuelGPH)
+    @Html.DisplayFor(x => x.BTU)    
+    @Html.DisplayFor(x => x.HP)
+    @Html.DisplayFor(x => x.AQPermitNumber)
+    
+    @Html.AuthorizedActionLinkButton("Edit", "Edit", "Generator", new { id = Model.Id })
+</div>

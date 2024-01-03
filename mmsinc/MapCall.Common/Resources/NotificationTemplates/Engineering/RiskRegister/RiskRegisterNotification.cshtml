@@ -1,0 +1,26 @@
+﻿@model MapCall.Common.Model.Entities.RiskRegisterAsset
+
+@if (Model.CompletionActualDate.HasValue)
+{
+<h2>MapCall Notification - Risk Register Completed</h2>
+}
+else
+{
+<h2>MapCall Notification - Risk Register Created</h2>
+}
+
+ID: <a href="@Model.RecordUrl">@Model.Id</a><br/>
+State: @Model.OperatingCenter.State<br/>
+Operating Center: @Model.OperatingCenter<br/>
+Grouping: @Model.RiskRegisterAssetGroup<br/>
+Risk Category: @Model.RiskRegisterAssetCategory<br/>
+Description of Risk: @Model.RiskDescription<br/>
+Impact: @Model.CofMax<br/>
+Description of Impact: @Model.ImpactDescription<br/>
+Date Risk Identified: @Model.IdentifiedAt<br/>
+Risk Owner: @Model.Employee<br/>
+Target Completion Date: @Model.CompletionTargetDate<br/>
+@if (Model.CompletionActualDate.HasValue)
+{
+<text>Actual Completion Date: @Model.CompletionActualDate</text><br/>
+}

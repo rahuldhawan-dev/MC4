@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EditSystemDeliveryEntryViewModel
+@Html.ScriptFor("~/Scripts/Areas/Production/SystemDelivery/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.ScriptFor("~/Scripts/Areas/Production/SystemDeliveryEntry/FieldVisibility.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Update", "SystemDeliveryEntry", "Production", new { Model.Id }))
+{
+    @Html.Partial("_EditForm")
+    <div class="container">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search", "SystemDeliveryEntry")
+        </text>)
+    </div>
+}

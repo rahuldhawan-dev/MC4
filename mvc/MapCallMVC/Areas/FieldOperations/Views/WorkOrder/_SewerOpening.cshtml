@@ -1,0 +1,16 @@
+﻿@model SewerOpening
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/SewerOpeningTab.js", ScriptLoadType.LoadFromPartial)
+@{
+    var sewerOpeningShowUrl = Url.Action("Show", "SewerOpening", new { area = "FieldOperations", Model.Id });
+    var sewerOpeningEditUrl = Url.Action("Edit", "SewerOpening", new { area = "FieldOperations", Model.Id });
+}
+
+@Control.Hidden().WithId("sewerOpeningEditUrl").WithValue(sewerOpeningEditUrl)
+
+@if (Html.CurrentUserCanDo("Edit", "SewerOpening"))
+{
+    @Control.Button("Edit SewerOpening").WithId("sewerOpeningEditButton")
+}
+
+<iframe id="sewerOpeningFrame" style="width:100%; height:450px;" src="@sewerOpeningShowUrl" title="SewerOpening"></iframe>

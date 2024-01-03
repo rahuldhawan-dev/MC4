@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.SearchProductionWorkOrder
+
+@if (Model.Results != null && Model.Results.Any())
+{
+    @Html.Partial("_History", Model)
+}
+else
+{
+    <text>No historical work orders found for selected equipment.</text>
+}

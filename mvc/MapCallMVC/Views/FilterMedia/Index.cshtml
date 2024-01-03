@@ -1,0 +1,14 @@
+﻿@model SearchFilterMedia
+
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "FilterMedia", new {id = x.Id}, null))
+    .ColumnFor(x => x.Facility)
+    .TemplateColumnFor("Equipment", x => @<div>
+        @(x.Equipment != null ? x.Equipment.Identifier : x.EquipmentIdentifier)        
+    </div>)
+    .ColumnFor(x => x.FilterType)
+    .ColumnFor(x => x.LevelControlMethod)
+    .ColumnFor(x => x.WashType)
+    .ColumnFor(x => x.MediaType)
+    .ColumnFor(x => x.Location)
+    .WithPaginatedFooter())

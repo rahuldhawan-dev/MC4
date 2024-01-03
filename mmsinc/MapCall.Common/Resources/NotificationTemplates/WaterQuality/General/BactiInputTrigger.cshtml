@@ -1,0 +1,80 @@
+﻿@model MapCall.Common.Model.Entities.BacterialWaterSample
+
+<h2>WQ Sample Bacti</h2>
+
+Triggered By: <br/>
+@if (Model.FreeAmmonia.HasValue && Model.FreeAmmonia.Value > 0.2m)
+{
+    <text>
+        Free Ammonia: @Model.FreeAmmonia <br />
+    </text>
+}
+@if (Model.Nitrite.HasValue && Model.Nitrite.Value > 0.05m)
+{
+    <text>
+        Nitrite : @Model.Nitrite <br />
+    </text>
+}
+@if (Model.Cl2Total < 0.2m)
+{
+    <text>
+        Cl2 Total : @Model.Cl2Total <br />
+    </text>
+}
+@if (Model.Cl2Free < 0.2m)
+{
+    <text>
+        Cl2 Free : @Model.Cl2Free <br />
+    </text>
+}
+@if (Model.Ph < 6.5m)
+{
+    <text>
+        pH : @Model.Ph <br />
+    </text>
+}
+@if (Model.ColiformConfirm == true)
+{
+    <text>
+        Coliform Confirm: @Model.ColiformConfirm
+    </text>
+}
+@if (@Model.EColiConfirm == true)
+{
+    <text>
+        E Coli Confirm: @Model.EColiConfirm
+    </text>
+}
+<br/><br/>
+Detail:<br/>
+ID: @Model.Id <br/>
+Sample Site: @Model.SampleSite <br/>
+Sample Date: @Model.SampleCollectionDTM <br/>
+Bacti Sample Type: @Model.BacterialSampleType <br/>
+Collected By: @Model.CollectedBy <br/>
+Analysis Performed By: @Model.Collector <br/>
+Location: @Model.Location <br />
+Cl2 Free: @Model.Cl2Free <br />
+Cl2 Total: @Model.Cl2Total <br />
+Nitrite: @Model.Nitrite <br />
+Nitrate: @Model.Nitrate <br />
+HPC: @Model.FinalHPC <br />
+Monochloramine: @Model.Monochloramine <br />
+Free Ammonia: @Model.FreeAmmonia <br />
+pH: @Model.Ph <br />
+Temperature (C): @Model.Temperature<br />
+Value Fe: @Model.Iron <br />
+Value Mn: @Model.Manganese <br />
+Value Turb: @Model.Turbidity <br />
+Value Ortho: @Model.OrthophosphateAsP <br />
+Value Conductivity: @Model.Conductivity <br />
+Non Sheen Colony Count: @Model.NonSheenColonyCount <br />
+Non Sheen Colony Count Operator: @Model.NonSheenColonyCountOperator <br />
+Sheen Colony Count: @Model.SheenColonyCount <br />
+Sheen Colony CountOperator: @Model.SheenColonyCountOperator <br />
+Coliform Confirm: @(Model.ColiformConfirm ? "Present" : "Absent") <br />
+E Coli Confirm: @(Model.EColiConfirm.GetValueOrDefault() ? "Present" : "Absent") <br />
+DTM Incubator In: @Model.ColiformSetupDTM <br />
+DTM Incubator Out: @Model.ColiformReadDTM <br />
+DTM Data Entered: @Model.DataEntered <br /> 
+Flush Time (min): @Model.FlushTimeMinutes <br />

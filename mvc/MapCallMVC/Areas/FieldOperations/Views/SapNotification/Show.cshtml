@@ -1,0 +1,75 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model CreateSapNotificationWorkOrder
+@*
+    TODO: This page is a mess
+    1. Page receives a SAPNotificationNumber and looks that up and returns a CreateSapNotificationWorkOrder from it
+    2. It then creates a CreateWorkOrder that the page will send to WorkOrder/New prepopulated with info.
+
+*@
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/index.js", ScriptLoadType.LoadFromPartial)
+
+@helper ShowCheckMark(string label, object val)
+{
+    <div class="field-pair fd-display">
+        <div class="label">
+            <label>@label</label>
+        </div>
+        <div class="field">
+            @if (val != null && !string.IsNullOrWhiteSpace(val.ToString()))
+            { <img src="~/Content/images/icon-check.png" style="position: relative;height: 24px; top: -3px;" />
+            }
+            else
+            {
+            <img src="~/Content/images/icon-x.png" style="position: relative;height: 24px; top: -3px;"/>
+            }      
+        </div>
+    </div>
+}
+
+@*  // EXISTING WORK ORDERS*@
+@Html.Partial("_ExistingWorkOrders", Model)
+
+
+@{
+    // BUTTONS FOR CREATE/COMPLETE/CANCEL
+    var htmlAttributes = new RouteValueDictionary();
+    htmlAttributes["Class"] = "link-button";
+
+    var createWorkOrder = Model.ToCreateWorkOrder();
+    RouteValueDictionary rvd = new RouteValueDictionary(createWorkOrder);
+    rvd.Add("area", "FieldOperations");
+}
+@Html.ButtonGroup(@<text>
+                      @Html.Partial("_Cancel", ViewModelFactory.BuildWithOverrides<EditSapNotification>(new {SAPNotificationNumber = Model.SAPNotificationNumber}))
+                      @Html.Partial("_Complete", ViewModelFactory.BuildWithOverrides<EditSapNotification>(new {SAPNotificationNumber = Model.SAPNotificationNumber}))
+                      @Html.ActionLink("Create Work Order", "New", "WorkOrder", rvd, htmlAttributes)
+                   </text>)
+
+@*// THIS SHOWS WHAT'S GOING TO MATCH WHEN CREATING THE ORDER*@
+<table class="no-hover">
+    <tr>
+        <td style="vertical-align: top; width: 50%;">
+            @Html.Partial("_WorkOrder", Model)
+        </td>
+
+        <td style="vertical-align: top;">
+            <div class="field-column fc200">
+                <fieldset>
+                    <legend>Work Order</legend>
+                    @ShowCheckMark("OperatingCenter", createWorkOrder.OperatingCenter)
+                    @ShowCheckMark("Asset Found", createWorkOrder.Hydrant ?? createWorkOrder.Valve ?? createWorkOrder.SewerOpening)
+                    @ShowCheckMark("Town", createWorkOrder.Town)
+                    @ShowCheckMark("Street", createWorkOrder.Street)
+                    @ShowCheckMark("Nearest Cross Street", createWorkOrder.NearestCrossStreet)
+                    @Html.DisplayFor(x => createWorkOrder.PremiseNumber)
+                    @Html.DisplayFor(x => createWorkOrder.SAPNotificationNumber)
+                    @ShowCheckMark("Asset Type", createWorkOrder.OperatingCenter)
+                    @ShowCheckMark("Priority", createWorkOrder.Priority)
+                    @ShowCheckMark("Purpose", createWorkOrder.Purpose)
+                    @ShowCheckMark("RequestedBy", createWorkOrder.RequestedBy)
+                </fieldset>
+            </div>
+        </td>
+    </tr>
+</table>
+    

@@ -1,0 +1,36 @@
+﻿@model ContractorLaborCost
+
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+    var table = Html.TableFor(_ => Model.OperatingCenters, new {id = "operatingCentersTable", style = "width:100%;"})
+        .ColumnFor(x => x.OperatingCenterCode)
+        .ColumnFor(x => x.OperatingCenterName);
+
+    if (userCanEdit)
+    {
+        table = table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("operatingCenterId").WithValue(x.Id));
+    }            
+}
+
+@if (userCanEdit)
+{
+    <div class="collapse-panel" data-title="Add New Operating Center">
+        @using (Form.BeginRouteForm("ContractorLaborCost", "OperatingCenter", new {id = Model.Id, operatingCenterId = 0}, ManyToManyRouteAction.Add))
+        {
+            @Control.DropDown("OperatingCenterId").WithItems(((IEnumerable<SelectListItem>)ViewData["OperatingCenter"]))
+            @Control.SubmitButton("Add Operating Center").WithId("addOperatingCenterButton")
+        }        
+    </div>
+    <div class="container">
+        @using (var form = Form.BeginRouteForm("ContractorLaborCost", "OperatingCenter", new {Model.Id}, ManyToManyRouteAction.Remove))
+        {
+            form.HtmlAttributes.Add("id", "deleteOperatingCenterForm");
+                        
+            @table
+        }        
+    </div>
+}
+else
+{
+    @table
+}

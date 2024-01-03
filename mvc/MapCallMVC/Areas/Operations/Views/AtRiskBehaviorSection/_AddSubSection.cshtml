@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.AddAtRiskBehaviorSubSectionToSection
+
+@using (Form.BeginRouteForm("AtRiskBehaviorSection", "AtRiskBehaviorSubSection", new { area = "Operations" }, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+		@Control.HiddenFor(x => x.Section)
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.SubSectionNumber)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Sub Section")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

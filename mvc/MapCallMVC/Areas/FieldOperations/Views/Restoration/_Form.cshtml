@@ -1,0 +1,96 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.RestorationViewModel
+@{
+    var url = Url.Action("New", new { id = ""});
+}
+@Html.ScriptFor("~/Scripts/Restoration/Form.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden().WithId("redirect-url").WithValue(url)
+
+<fieldset>
+    <legend>Initial Data</legend>
+    <div class="field-column fc200">
+        @*If you're looking for the Update button, it's generated in Form.js only on New pages. *@
+        @Html.EditorFor(x => x.WorkOrder)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.WBSNumber)
+        @Html.EditorFor(x => x.RestorationType)
+
+        @* These two fields are used for EstimatedRestorationFootage *@
+        @Html.EditorFor(x => x.EstimatedRestorationFootage)
+
+        @Html.DisplayFor(x => x.TotalAccruedCost)
+        @Html.EditorFor(x => x.RestorationNotes)
+        @Html.EditorFor(x => x.ResponsePriority)
+
+        @* This absolutely terrible hack is to force the proper DropDownAttribute to work. It's
+           either that or copy/pasting this form into two different views just because the types
+           differ. *@
+        @if (Model is EditRestoration)
+        {
+            @Html.EditorFor(x => ((EditRestoration)x).AssignedContractor)
+        }
+        else if (Model is CreateRestoration)
+        {
+            @Html.EditorFor(x => ((CreateRestoration)x).AssignedContractor)
+        }
+        @Html.DisplayFor(x => x.AssignedContractorAt)
+        @Html.EditorFor(x => x.EightInchStabilizeBaseByCompanyForces)
+        @Html.EditorFor(x => x.TrafficControlRequired)
+        @Html.EditorFor(x => x.InitialPurchaseOrderNumber)
+        @Html.EditorFor(x => x.AcknowledgedByContractor)
+    </div>
+</fieldset>
+
+<fieldset class="hide-if-completed-by-others">
+    <legend>Reopened</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.DateReopened)
+        @Html.EditorFor(x => x.DateRescheduled)
+        @Html.EditorFor(x => x.DateRecompleted)
+    </div>
+</fieldset>
+
+<fieldset class="hide-if-completed-by-others">
+    <legend>Base/Temporary Restoration</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.PartialRestorationCompletedBy)
+        @Html.DisplayFor(x => x.PartialRestorationDueDate)
+        @Html.EditorFor(x => x.PartialRestorationNotes)
+        @Html.EditorFor(x => x.PartialPavingSquareFootage)
+        @Html.EditorFor(x => x.PartialRestorationBreakoutBilling)
+        @Html.EditorFor(x => x.PartialRestorationMethods)
+        @Html.EditorFor(x => x.PartialRestorationInvoiceNumber)
+        @Html.EditorFor(x => x.PartialRestorationActualCost)
+        @Html.EditorFor(x => x.PartialRestorationDate)
+        @Html.EditorFor(x => x.PartialRestorationTrafficControlCost)
+        @Html.EditorFor(x => x.PartialRestorationTrafficControlInvoiceNumber)
+        @Html.EditorFor(x => x.PartialRestorationPriorityUpchargeType)
+        @Html.EditorFor(x => x.PartialRestorationPriorityUpcharge)
+        @Html.DisplayFor(x => x.Display.PartialRestorationStatus)
+        @Html.EditorFor(x => x.PartialRestorationPurchaseOrderNumber)
+        @Html.EditorFor(x => x.PartialRestorationApprovedAt)
+    </div>
+</fieldset>
+
+<fieldset class="hide-if-completed-by-others">
+    <legend>Final Restoration</legend>
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.FinalRestorationCompletedBy)
+        @Html.EditorFor(x => x.CompletedByOthers)
+        @Html.EditorFor(x => x.CompletedByOthersNotes)
+        @Html.DisplayFor(x => x.FinalRestorationDueDate)
+        @Html.EditorFor(x => x.FinalRestorationNotes)
+        @Html.EditorFor(x => x.FinalPavingSquareFootage)
+        @Html.EditorFor(x => x.FinalRestorationMethods)
+        @Html.EditorFor(x => x.FinalRestorationInvoiceNumber)
+        @Html.EditorFor(x => x.FinalRestorationActualCost)
+        @Html.EditorFor(x => x.FinalRestorationDate)
+        @Html.EditorFor(x => x.FinalRestorationTrafficControlCost)
+        @Html.EditorFor(x => x.FinalRestorationTrafficControlInvoiceNumber)
+        @Html.EditorFor(x => x.FinalRestorationPriorityUpchargeType)
+        @Html.EditorFor(x => x.FinalRestorationPriorityUpcharge)
+        @Html.EditorFor(x => x.FinalRestorationApprovedAt)
+        @Html.EditorFor(x => x.FinalRestorationPurchaseOrderNumber)
+    </div>
+</fieldset>

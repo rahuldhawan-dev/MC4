@@ -1,0 +1,13 @@
+﻿@model TailgateTalk
+
+<div class="field-column fc200">
+    @Html.DisplayFor(m => m.HeldOn)
+    @Html.RenderDisplayTemplate("Topic", @<text>
+        @if (Model.Topic != null)
+        {
+            @Html.ActionLink(Model.Topic.Description, "Show", new { Controller = "TailgateTalkTopic", Model.Topic.Id })
+        }
+    </text>)
+    @Html.DisplayFor(m => m.PresentedBy)
+    @Html.DisplayFor(m => m.TrainingTimeHours)
+</div>

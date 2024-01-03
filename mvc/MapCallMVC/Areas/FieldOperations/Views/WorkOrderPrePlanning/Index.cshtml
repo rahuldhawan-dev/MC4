@@ -1,0 +1,58 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPrePlanning
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPrePlanning.SearchWorkOrderPrePlanning
+
+@{
+    // The OperatingCenter value needs to be set on the AssignWorkOrderPrePlanning view model
+    // so that cascading works. If a user searches specifically by work order number, then there
+    // won't be an OperatingCenter value. In that case, we want to get the value from the single
+    // record that should exist in the results.
+    var operatingCenterId = Model.OperatingCenter;
+    if (operatingCenterId == null)
+    {
+        operatingCenterId = Model.Results.Single().OperatingCenter.Id;
+    }
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/PrePlanning/Index.js", ScriptLoadType.LoadFromPartial)
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+@using (Form.BeginForm("Assign", "WorkOrderPrePlanning", "FieldOperations"))
+{
+    @(Html.TableFor(_ => Model, new { id = "workOrdersTable" })
+          .WithWorkOrderRowStyles()
+          .WithCaption("Records found:" + Model.Count)
+          .TemplateColumnFor("Assign", x => Control.CheckBox("WorkOrderIds").WithValue(x.Id).With("IsEnabled", x.IsEnabled.ToString()).With("Id", null))
+          .SortableColumnFor(x => x.Id)
+          .SortableColumnFor(x => x.SAPNotificationNumber)
+          .SortableColumnFor(x => x.SAPWorkOrderNumber)
+          .SortableColumnFor(x => x.DateReceived)
+          .SortableColumnFor(x => x.PlannedCompletionDate)
+          .SortableColumnFor(x => x.StreetNumber)
+          .SortableColumnFor(x => x.ApartmentAddtl)
+          .SortableColumnFor(x => x.Street, "Street.FullStName")
+          .SortableColumnFor(x => x.NearestCrossStreet, "NearestCrossStreet.FullStName")
+          .SortableColumnFor(x => x.Town, "Town.ShortName")
+          .SortableColumnFor(x => x.TownSection, "TownSection.Name")
+          .SortableColumnFor(x => x.AssetType, "AssetType.Description")
+          .ColumnFor(x => x.AssetId)
+          .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+          .SortableColumnFor(x => x.WorkDescription.TimeToComplete, "Estimated TTC (hours)", "WorkDescription.TimeToComplete")
+          .SortableColumnFor(x => x.Priority, new { Class = "priorityClass" })
+          .SortableColumnFor(x => x.StreetOpeningPermitRequired)
+          .SortableColumnFor(x => x.OfficeAssignment)
+          .SortableColumnFor(x => x.OfficeAssignedOn)
+          .SortableColumnFor(x => x.AssignedContractor)
+          .SortableColumnFor(x => x.AssignedToContractorOn)
+        )
+
+    @* HUGE NOTE: Without passing a new ViewDataDictionary, *this* view's ViewDataDictionary and ModelState will
+        be passed to the partial, causing it to render with the values from the search model and *not* the view model
+        being passed to the view. So if a user searches by work order number only, even though we are populating 
+        the view model with an operating center, the hidden input in that partial will not render with a value at all 
+        because it's pulling the value from *this* view. *@
+    @Html.Partial("_AssignmentControls", ViewModelFactory.BuildWithOverrides<AssignWorkOrderPrePlanning>((x) => {
+        x.OperatingCenter = operatingCenterId.Value;
+    }), new ViewDataDictionary())
+}
+
+@Html.Partial("_PlannedCompletionDate", ViewModelFactory.Build<UpdateWorkOrderPrePlanning>())

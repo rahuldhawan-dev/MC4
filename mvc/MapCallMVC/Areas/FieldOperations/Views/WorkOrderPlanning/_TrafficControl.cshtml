@@ -1,0 +1,26 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderPlanning
+@model WorkOrder
+
+<div class="field-column fc200">
+    @if (Html.CurrentUserCanEdit())
+    {
+        @Html.Partial("_TrafficControlEdit", ViewModelFactory.Build<UpdateWorkOrderPlanning, WorkOrder>(Model))
+    }
+    else
+    {
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.TrafficControlRequired)
+            @Html.DisplayFor(x => x.NumberOfOfficersRequired)
+            @Html.DisplayFor(x => x.Notes)
+        </div>
+    }
+</div>
+
+@Html.ActionLink("Create Traffic Control Ticket", "New", "TrafficControlTicket", new { area = "FieldOperations", workOrderId = Model.Id }, new { Class = "link-button" })
+
+@(Html.TableFor(x => x.TrafficControlTickets, new { Id = "trafficeControlTickets" })
+      .ColumnFor(x => x.WorkStartDate)
+      .ColumnFor(x => x.TotalHours)
+      .ColumnFor(x => x.NumberOfOfficers)
+      .ColumnFor(x => x.BillingParty)   
+	)

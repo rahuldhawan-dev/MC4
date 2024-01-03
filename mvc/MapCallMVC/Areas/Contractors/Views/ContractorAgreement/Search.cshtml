@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Contractors.Models.ViewModels.SearchContractorAgreement
+
+@using (Form.BeginForm("Index", "ContractorAgreement"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Contractor)
+        @Html.EditorFor(x => x.ContractorWorkCategoryType)
+        @Html.EditorFor(x => x.ContractorAgreementStatusType)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

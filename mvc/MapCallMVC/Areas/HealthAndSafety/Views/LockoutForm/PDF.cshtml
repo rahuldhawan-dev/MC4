@@ -1,0 +1,289 @@
+﻿@model LockoutForm
+@{
+    Layout = "~/Views/Shared/PdfBaseLayout.cshtml";
+}
+
+@helper CheckBoxWithLabel(string label, bool? isChecked)
+{
+    <div class="checkbox-label-wrap">
+        @if (isChecked.HasValue && isChecked.Value)
+        {
+            <input type="checkbox" checked="checked" />
+        }
+        else
+        {
+            <input type="checkbox" />
+        }
+        <label class="checkbox-label">@label</label>
+    </div>
+}
+
+@helper YesNahCheckBox(bool? isChecked)
+{
+    @CheckBoxWithLabel("Yes", isChecked.HasValue && isChecked == true)
+    @CheckBoxWithLabel("N/A", !isChecked.HasValue || isChecked == false)
+}
+
+@section head {
+    <style type="text/css">
+        /* Just for this pdf*/
+        * {
+            font-family: Arial;
+            font-size: 18px;
+            line-height: 1.2em;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            margin-bottom: 12px;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 4px;
+            border: 1px solid lightgray;
+        }
+
+        .header {
+            font-size: 34px;
+            border: none;
+        }
+
+        .logo {
+            text-align: right;
+            border: none;
+        }
+
+        .noborder td {
+            border: none;
+        }
+        
+        .spacer {
+            border-left: 1px solid white;
+            border-right: 1px solid white;
+            height: 25px;
+        }
+
+        .headerPartDeux {
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .signature-box {
+            padding-top: 10px;
+            border: 1px solid white;
+        }
+
+        .signature {
+            border-top: 1px solid black;
+            font-weight: bold;
+        }
+
+        div.checkbox-label-wrap {
+            display: inline-block;
+            margin-right: 12px;
+            height: 26px;
+        }
+
+        input[type='checkbox'] {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 2px;
+            border: 2px solid #555;
+            top: 2px;
+        }
+
+        input[type='checkbox']:checked {
+            background: #444;
+        }
+
+        .checkbox-label {
+            position: relative;
+            top: -4px;
+            padding-left: 4px;
+        }
+    </style>
+}
+
+@section body {
+    <table>
+        @*Header*@
+        <tr>
+            <td class="header" colspan="6">
+                Lock Out / Tag Out Log Sheet
+            </td>
+            <td class="logo" colspan="2">
+                <img id="aw-logo" style="width: 150px;" src="@Server.MapPath("~/Content/images/american-water-logo-400x150.png")" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Name(s):</strong>
+                @Html.DisplayValueFor(x => x.OutOfServiceAuthorizedEmployee)
+            </td>
+            <td colspan="4">
+                <strong>Work Order Number:</strong>
+                @if (Model.ProductionWorkOrder != null)
+                {
+                    @Html.DisplayValueFor(x => x.ProductionWorkOrder.Id)
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Date/Time:</strong>
+                @Html.DisplayValueFor(x => x.LockoutDateTime)
+            </td>
+            <td colspan="4">
+                <strong>Facility:</strong>
+                @Html.DisplayValueFor(x => x.Facility)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <strong>Operating Center:</strong>
+                @Html.DisplayValueFor(x => x.OperatingCenter)
+            </td>
+            <td colspan="4">
+                <strong>Equipment:</strong>
+                @Html.DisplayValueFor(x => x.Equipment.Description)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Reason for Lock Out/Tag Out:</strong>
+                @Html.DisplayValueFor(x => x.ReasonForLockout)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <h1>Reason for Lock Out/Tag Out Notes:</h1>
+                @Html.DisplayValueFor(x => x.LockoutReason)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <h1>Contractor Lock Out/Tag Out (Y/N): @Html.DisplayValueFor(x => x.ContractorLockOutTagOut)</h1>
+                @Html.Raw(LockoutForm.Questions.AUTH_AFFIX_LOCKOUT)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <strong>Location of Lock Out/Tag Out Device(s):</strong>
+                @Html.DisplayValueFor(x => x.IsolationPoint)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <h1>Location of Lock Out/Tag Out Device(s) Notes:</h1>
+                @Html.DisplayValueFor(x => x.LocationOfLockoutNotes)
+            </td>
+        </tr>
+
+        @if (Model.LockoutConditionAnswers.Any(x => x.LockoutFormQuestion.Category.Id == LockoutFormQuestionCategory.Indices.LOCKOUT_CONDITIONS))
+        {
+            <tr>
+                <td colspan="8" class="spacer"></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <h1>Lockout Conditions</h1></td>
+                <td colspan="1">
+                    <h1>Yes/No</h1></td>
+                <td colspan="2">
+                    <h1>Comments</h1></td>
+            </tr>
+            foreach (var thing in Model.LockoutConditionAnswers)
+            {
+                var thing1 = thing;
+                <tr>
+                    <td colspan="5">@Html.DisplayValueFor(_ => thing1.LockoutFormQuestion.Question)</td>
+                    <td colspan="1">@Html.DisplayValueFor(_ => thing1.Answer)</td>
+                    <td colspan="2">@Html.DisplayValueFor(_ => thing1.Comments)</td>
+                </tr>
+            }
+        }
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        <tr>
+            <td colspan="5"><h1>Out of Service</h1></td>
+            <td colspan="1"><h1>Yes/No</h1></td>
+            <td colspan="2"><h1>Comments</h1></td>
+        </tr>
+        @foreach (var thing in Model.OutOfServiceConditionAnswers)
+        {
+            var thing1 = thing;
+            <tr>
+                <td colspan="5">@Html.DisplayValueFor(_ => thing1.LockoutFormQuestion.Question)</td>
+                <td colspan="1">@Html.DisplayValueFor(_ => thing1.Answer)</td>
+                <td colspan="2">@Html.DisplayValueFor(_ => thing1.Comments)</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5" class="signature-box">
+                @Html.DisplayValueFor(x => x.OutOfServiceAuthorizedEmployee)
+                <div class="signature">
+                    Authorized Employee
+                </div>
+            </td>
+            <td colspan="3" class="signature-box">
+                @Html.DisplayValueFor(x => x.OutOfServiceDateTime)
+
+                <div class="signature">
+                    Out of Service Date/Time
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="8" class="spacer"></td>
+        </tr>
+        <tr>
+            <td colspan="5"><h1>Return to Service</h1></td>
+            <td colspan="1"><h1>Yes/No</h1></td>
+            <td colspan="2"><h1>Comments</h1></td>
+        </tr>
+        @foreach (var thing in Model.ReturnToServiceAnswers)
+        {
+            var thing1 = thing;
+            <tr>
+                <td colspan="5">@Html.DisplayValueFor(_ => thing1.LockoutFormQuestion.Question)</td>
+                <td colspan="1">@Html.DisplayValueFor(_ => thing1.Answer)</td>
+                <td colspan="2">@Html.DisplayValueFor(_ => thing1.Comments)</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="8">
+                <strong>Return to Service Notes:</strong>
+                <br />
+                @Html.DisplayValueFor(x => x.ReturnedToServiceNotes)
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5" class="signature-box">
+                @Html.DisplayValueFor(x => x.ReturnToServiceAuthorizedEmployee)
+                <div class="signature">
+                    <strong>Authorized Employee</strong>
+                </div>
+            </td>
+            <td colspan="3" class="signature-box">
+                @Html.DisplayValueFor(x => x.ReturnedToServiceDateTime)
+                <div class="signature">
+                    Return to Service Date/Time
+                </div>
+            </td>
+        </tr>
+
+    </table>
+}

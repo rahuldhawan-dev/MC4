@@ -1,0 +1,131 @@
+﻿@model Contractors.Models.ViewModels.EditRestoration
+@{
+    ViewBag.Title = "Editing Restoration";
+    var isPartialApproved = Model.Display.PartialRestorationApprovedAt.HasValue;
+    var isFinalApproved = Model.Display.FinalRestorationApprovedAt.HasValue;
+}
+@Html.ScriptFor("~/Scripts/Restoration/Form.js", ScriptLoadType.LoadFromPartial)
+@using (Form.BeginForm("Update", "Restoration", new { Model.Id }))
+{
+    <div>
+        <fieldset>
+            <legend>Initial Data</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.Display.WorkOrder)
+                @Html.DisplayFor(x => x.Display.OperatingCenter)
+                @Html.DisplayFor(x => x.Display.Town)
+                @Html.DisplayFor(x => x.Display.WBSNumber)
+                @Html.DisplayFor(x => x.Display.RestorationType) @Control.HiddenFor(x => x.RestorationType)
+                @Html.DisplayFor(x => x.Display.EstimatedRestorationFootage)
+                @Html.DisplayFor(x => x.Display.RestorationNotes)
+                @Html.DisplayFor(x => x.Display.ResponsePriority)
+                @Html.DisplayFor(x => x.Display.EightInchStabilizeBaseByCompanyForces)
+                @Html.EditorFor(x => x.TrafficControlRequired)
+                @Html.EditorFor(x => x.AcknowledgedByContractor)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Base/Temporary Restoration</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.Display.PartialRestorationDueDate)
+                @Html.EditorFor(x => x.PartialRestorationNotes)
+                @if (!isPartialApproved)
+                {
+                    @Html.EditorFor(x => x.PartialPavingSquareFootage)
+                    @Html.EditorFor(x => x.PartialRestorationMethods)
+                    @Html.EditorFor(x => x.PartialRestorationInvoiceNumber)
+                    @Html.EditorFor(x => x.PartialRestorationActualCost)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.PartialPavingSquareFootage)
+                    @Control.HiddenFor(x => x.PartialPavingSquareFootage)
+                    @Html.DisplayFor(x => x.Display.PartialRestorationMethodDisplay)
+                    if (Model.PartialRestorationMethods != null)
+                    {
+                        for (var i = 0; i < Model.PartialRestorationMethods.Length; i++)
+                        {
+                            @Control.HiddenFor(x => x.PartialRestorationMethods).WithValue(Model.PartialRestorationMethods[i])
+                        }
+                    }
+
+                    @Html.DisplayFor(x => x.PartialRestorationInvoiceNumber)
+                    @Control.HiddenFor(x => x.PartialRestorationInvoiceNumber)
+                    @Html.DisplayFor(x => x.PartialRestorationActualCost)
+                    @Control.HiddenFor(x => x.PartialRestorationActualCost)
+                }
+
+                @Html.EditorFor(x => x.PartialRestorationDate)
+                @Html.EditorFor(x => x.PartialRestorationTrafficControlCost)
+                @Html.EditorFor(x => x.PartialRestorationTrafficControlInvoiceNumber)
+                @Html.EditorFor(x => x.PartialRestorationPriorityUpchargeType)
+                @if (!isPartialApproved)
+                {
+                    @Html.EditorFor(x => x.PartialRestorationPriorityUpcharge)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.PartialRestorationPriorityUpcharge)
+                    @Control.HiddenFor(x => x.PartialRestorationPriorityUpcharge)
+                }
+                @Html.DisplayFor(x => x.Display.PartialRestorationApprovedAt)
+                @Html.DisplayFor(x => x.Display.PartialRestorationPurchaseOrderNumber)
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Final Restoration</legend>
+            <div class="field-column fc200">
+                @Html.DisplayFor(x => x.Display.FinalRestorationDueDate)
+                @Html.EditorFor(x => x.FinalRestorationNotes)
+                @if (!isFinalApproved)
+                {
+                    @Html.EditorFor(x => x.FinalPavingSquareFootage)
+                    @Html.EditorFor(x => x.FinalRestorationMethods)
+                    @Html.EditorFor(x => x.FinalRestorationInvoiceNumber)
+                    @Html.EditorFor(x => x.FinalRestorationActualCost)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.FinalPavingSquareFootage)
+                    @Control.HiddenFor(x => x.FinalPavingSquareFootage)
+                    @Html.DisplayFor(x => x.Display.FinalRestorationMethodDisplay)
+                    if (Model.FinalRestorationMethods != null)
+                    {
+                        for (var i = 0; i < Model.FinalRestorationMethods.Length; i++)
+                        {
+                            @Control.HiddenFor(x => x.FinalRestorationMethods).WithValue(Model.FinalRestorationMethods[i])
+                        }
+                    }
+
+                    @Html.DisplayFor(x => x.FinalRestorationInvoiceNumber)
+                    @Control.HiddenFor(x => x.FinalRestorationInvoiceNumber)
+                    @Html.DisplayFor(x => x.FinalRestorationActualCost)
+                    @Control.HiddenFor(x => x.FinalRestorationActualCost)
+                }
+                @Html.EditorFor(x => x.FinalRestorationDate)
+                @Html.EditorFor(x => x.FinalRestorationTrafficControlCost)
+                @Html.EditorFor(x => x.FinalRestorationTrafficControlInvoiceNumber)
+                @Html.EditorFor(x => x.FinalRestorationPriorityUpchargeType)
+                @if (!isFinalApproved)
+                {
+                    @Html.EditorFor(x => x.FinalRestorationPriorityUpcharge)
+                }
+                else
+                {
+                    @Html.DisplayFor(x => x.FinalRestorationPriorityUpcharge)
+                    @Control.HiddenFor(x => x.FinalRestorationPriorityUpcharge)
+                }
+                @Html.DisplayFor(x => x.Display.FinalRestorationApprovedAt)
+                @Html.DisplayFor(x => x.Display.FinalRestorationPurchaseOrderNumber)
+            </div>
+        </fieldset>
+    </div>
+    <div class="editor-buttons">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Restoration")
+            @Html.LinkButton("Cancel", "Show", "Restoration", new { Model.Id })
+        </text>)
+    </div>
+}

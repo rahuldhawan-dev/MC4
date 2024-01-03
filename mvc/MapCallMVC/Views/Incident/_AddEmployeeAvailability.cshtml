@@ -1,0 +1,17 @@
+﻿@model AddIncidentEmployeeAvailability
+
+@using (var form = Form.BeginRouteForm("Incident", "IncidentEmployeeAvailability", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.ExistingEmployeeAvailability)
+        @Html.EditorFor(x => x.EmployeeAvailabilityType)
+        @Html.EditorFor(x => x.StartDate)
+        @Html.EditorFor(x => x.EndDate)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Employee Availability")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchTailgateTalkTopic
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(m => m.IsActive)
+    .SortableColumnFor(x => x.CreatedBy)
+    .SortableColumnFor(m => m.Topic)
+    .SortableColumnFor(m => m.Category)
+    .SortableColumnFor(m => m.Month)
+    .SortableColumnFor(m => m.TargetDeliveryDate)
+    .SortableColumnFor(m => m.TopicLevel)
+    .SortableColumnFor(m => m.OrmReferenceNumber)
+    .WithPaginatedFooter())

@@ -1,0 +1,21 @@
+﻿@model Premise
+
+    <div class="field-column fc100">
+        <h2>
+            @Html.DefaultActionLink("Premise: " + @Model.PremiseNumber, "Show", "Premise", "Customer", new { id = @Model.Id }, null)
+        </h2>
+        @Html.DisplayFor(x => x.OperatingCenter.OperatingCenterCode, new { DisplayName = "Operating Center" })
+        @Html.DisplayFor(x => x.RegionCode)
+        @Html.DisplayFor(x => x.PremiseNumber)
+        @Html.DisplayFor(x => x.CriticalCareType)
+        @Html.DisplayFor(x => x.ServiceAddressApartment)
+        @Html.DisplayFor(x => x.ServiceAddressFraction)
+        @Html.DisplayFor(x => x.ServiceAddressHouseNumber)
+        @Html.DisplayFor(x => x.ServiceAddressStreet)
+        @Html.DisplayFor(x => x.ServiceCity)
+        @Html.DisplayFor(x => x.ServiceZip)
+        @Html.DisplayFor(x => x.MajorAccountManager)
+        @Html.DisplayFor(x => x.AccountManagerEmail)
+        @Html.DisplayFor(x => x.AccountManagerContactNumber)
+
+    </div>

@@ -1,0 +1,13 @@
+﻿@using MapCallMVC.Areas.WaterQuality.Controllers
+   
+<h3>A notification will be sent when any of the following conditions are met and it is a compliance sample:</h3>
+
+<ul>
+    <li>CL2Total < @BacterialWaterSampleController.CL2_TOTAL_THRESHOLD</li>
+    <li>CL2Free < @BacterialWaterSampleController.CL2_FREE_THRESHOLD</li>
+    <li>Nitrite > @BacterialWaterSampleController.NITRITE_THRESHOLD</li>
+    <li>Free Amonia > @BacterialWaterSampleController.FREE_AMMONIA_THRESHOLD</li>
+    <li>pH < @BacterialWaterSampleController.PH_THRESHOLD</li>
+    <li>ColiformConfirm is checked</li>
+    <li>EColiConfirm is checked</li>
+</ul>

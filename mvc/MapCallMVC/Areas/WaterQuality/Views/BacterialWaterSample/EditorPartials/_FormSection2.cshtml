@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.BacterialWaterSampleViewModel
+
+<div class="grid-layout gl-2col" style="width:650px;"> @* width set because it's otherwise super spaced out *@
+	<div class="field-column fc200">
+		@Html.EditorFor(x => x.Ph)
+		@Html.EditorFor(x => x.Temperature)
+		@Html.EditorFor(x => x.Cl2Free)
+		@Html.EditorFor(x => x.Cl2Total)
+		@Html.EditorFor(x => x.FlushTimeMinutes)
+		@Html.EditorFor(x => x.Monochloramine)
+		@Html.EditorFor(x => x.FreeAmmonia)
+		@Html.EditorFor(x => x.Nitrite)
+		@Html.EditorFor(x => x.Nitrate)
+	</div>
+	<div class="field-column fc200">
+		@Html.EditorFor(x => x.Alkalinity)
+		@Html.EditorFor(x => x.Iron)
+		@Html.EditorFor(x => x.Manganese)
+		@Html.EditorFor(x => x.Turbidity)
+		@Html.EditorFor(x => x.Conductivity)
+		@Html.EditorFor(x => x.OrthophosphateAsP)
+		@Html.EditorFor(x => x.OrthophosphateAsPO4)
+	</div>
+</div>

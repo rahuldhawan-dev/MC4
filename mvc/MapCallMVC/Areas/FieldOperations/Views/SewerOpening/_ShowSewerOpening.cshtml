@@ -1,0 +1,65 @@
+﻿@using MapCall.Common.Utility
+@model SewerOpening
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.SAPEquipmentId)
+        @Html.DisplayFor(x => x.SAPErrorCode)
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.Town)
+        @Html.DisplayFor(x => x.WasteWaterSystem)
+        @if (Model.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR && Model.WasteWaterSystem != null &&
+             Model.WasteWaterSystem.EnvironmentalPermits != null)
+        {
+            if (Model.WasteWaterSystem.EnvironmentalPermits.Any(x => x.EnvironmentalPermitType.Id == EnvironmentalPermitType.Indices.PDES_PERMIT &&
+                                                                     x.PermitExpirationDate < DateTime.Now))
+            {
+                <span style="color: red;">
+                    @Html.DisplayFor(x => x.NpdesPermitNumber)
+                </span>
+            }
+            else
+            {
+                @Html.DisplayFor(x => x.NpdesPermitNumber)
+            }
+        }
+        @Html.DisplayFor(x => x.SewerOpeningType)
+        @Html.DisplayFor(x => x.TownSection)
+        @Html.DisplayFor(x => x.OpeningNumber)
+        @Html.DisplayFor(x => x.OpeningSuffix)
+        @if (Model.SewerOpeningType.Id == SewerOpeningType.Indices.NPDES_REGULATOR)
+        {
+            @Html.DisplayFor(x => x.OutfallNumber)
+            @Html.RenderDisplayTemplate("Body of Water", @<text>
+                                                             @Html.ActionLink(Model.BodyOfWater.ToString(), "Show", new { Controller = "BodyOfWater", area = "", Model.BodyOfWater.Id })
+                                                         </text>)
+            @Html.DisplayFor(x => x.LocationDescription)
+        }
+        @Html.DisplayFor(x => x.OldNumber)
+        @Html.DisplayFor(x => x.Critical)
+        @Html.DisplayFor(x => x.StreetNumber)
+        @Html.DisplayFor(x => x.Street)
+        @Html.DisplayFor(x => x.IntersectingStreet)
+        @Html.DisplayFor(x => x.Status)
+        @Html.DisplayFor(x => x.DepthToInvert)
+        @Html.DisplayFor(x => x.RimElevation)
+        @Html.DisplayFor(x => x.SewerOpeningMaterial)
+        @Html.DisplayFor(x => x.DateInstalled)
+        @Html.DisplayFor(x => x.DateRetired)
+        @Html.DisplayFor(x => x.MapPage)
+        @Html.DisplayFor(x => x.Coordinate)
+        @Html.RenderDisplayTemplate("ArcGIS Collector", @<text>@ViewData["ArcCollectorLink"]</text>)
+        @Html.DisplayFor(x => x.DistanceFromCrossStreet)
+        @Html.DisplayFor(x => x.IsEpoxyCoated)
+        @Html.DisplayFor(x => x.GeoEFunctionalLocation)
+        @Html.DisplayFor(x => x.FunctionalLocation)
+        @Html.DisplayFor(x => x.IsDoghouseOpening)
+        @Html.DisplayFor(x => x.Route)
+        @Html.DisplayFor(x => x.Stop)
+        @Html.DisplayFor(x => x.TaskNumber)
+        @Html.DisplayFor(x => x.CriticalNotes, new { @class = "critical-notes-display" })
+        @Html.DisplayFor(x => x.InspectionFrequency)
+        @Html.DisplayFor(x => x.InspectionFrequencyUnit)
+        @Html.DisplayFor(x => x.CreatedBy)
+        @Html.DisplayFor(x => x.CreatedAt)
+    </div>

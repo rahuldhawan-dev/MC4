@@ -1,0 +1,18 @@
+﻿@model AllocationPermitWithdrawalNode
+
+<div class="field-column fc100">
+    <h2>
+        <span>Allocation Permit Withdrawal Node: </span>
+        @Html.DefaultActionLink(@Model.Id.ToString(), "Show", "AllocationPermitWithdrawalNode","Environmental", new { id = @Model.Id }, null)
+    </h2>
+    @Html.DisplayFor(x => x.AllocationCategory)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.WellPermitNumber)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.AllowableGpm)
+    @Html.DisplayFor(x => x.AllowableGpd)
+    @Html.DisplayFor(x => x.AllowableMgm)
+    @Html.DisplayFor(x => x.CapableGpm)
+    @Html.DisplayFor(x => x.WithdrawalConstraint)
+    @Html.DisplayFor(x => x.HasStandByPower)
+</div>

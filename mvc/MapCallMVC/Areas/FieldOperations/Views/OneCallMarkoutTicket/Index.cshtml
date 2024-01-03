@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchOneCallMarkoutTicket
+
+@{
+    if (Model.Count < 20000)
+    {
+        ActionBarHelper.AddExportLink();
+    }
+}
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.RequestNumber)
+    .SortableTemplateColumnFor("Related Request", "RelatedRequestNumber", x => x.RelatedRequest == null
+        ? new HtmlString(x.RelatedRequestNumber.HasValue ? x.RelatedRequestNumber.ToString() : String.Empty)
+        : Html.ActionLink(x.RelatedRequestNumber.ToString(), "Show", new {x.RelatedRequest.Id}))
+    .SortableColumnFor(x => x.MessageType, "MessageType.Description")
+    .SortableColumnFor(x => x.DateTransmitted)
+    .SortableColumnFor(x => x.DateReceived)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.CountyText)
+    .SortableColumnFor(x => x.TownText)
+    .SortableColumnFor(x => x.StreetText)
+    .SortableColumnFor(x => x.NearestCrossStreetText)
+    .SortableColumnFor(x => x.DateReceived)
+    .SortableColumnFor(x => x.Excavator)
+      .WithPaginatedFooter())
+

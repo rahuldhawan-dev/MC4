@@ -1,0 +1,6 @@
+﻿@model Bond
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowBond", Model)
+    .WithNotesAndDocuments()    
+)

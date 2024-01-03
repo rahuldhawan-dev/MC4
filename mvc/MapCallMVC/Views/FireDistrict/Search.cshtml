@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Models.ViewModels.FireDistricts.SearchFireDistrict
+
+
+@using (Form.BeginForm("Index", "FireDistrict")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(m => m.State)
+        @Html.EditorFor(m => m.DistrictName)
+        @Html.ButtonGroup(
+            @<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+             </text>)
+    </div>
+}

@@ -1,0 +1,49 @@
+﻿@using MapCall.Common.Model.Repositories
+@model EquipmentType
+
+@{
+    var measurementPointsAlreadyInUse = _container.GetInstance<IMeasurementPointEquipmentTypeRepository>()
+                                                  .GetAllInUse(Model.Id);
+    
+    var canEdit = Html.CurrentUserCanDo("Edit", "MeasurementPointEquipmentType");
+    var canDestroy = Html.CurrentUserCanDo("RemoveMeasurementPoint", "EquipmentType");
+
+    var table = Html.TableFor(_ => Model.MeasurementPoints, new { id = "measurementPointsTable" })
+                    .ColumnFor(x => x.IsActive)
+                    .ColumnFor(x => x.Category)
+                    .ColumnFor(x => x.Description)
+                    .ColumnFor(x => x.Position)
+                    .ColumnFor(x => x.UnitOfMeasure)
+                    .ColumnFor(x => x.Min)
+                    .ColumnFor(x => x.Max);
+}
+
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="Add Measurement Point">
+        @Html.Partial("_AddMeasurementPoint", ViewModelFactory.BuildWithOverrides<MeasurementPointEquipmentTypeViewModel>(new { EquipmentType = Model.Id }))
+    </div>
+    
+    table = table.TemplateColumnFor(x => 
+        Html.ActionLink("Edit", "Edit", "MeasurementPointEquipmentType", new { x.Id }, new { Class = "link-button" }));
+}
+
+@if (canDestroy)
+{
+    using (var f = Form.BeginForm("RemoveMeasurementPoint", "EquipmentType"))
+    {
+        f.HtmlAttributes["id"] = "DeleteMeasurementPointsForm";
+        f.HtmlAttributes.Add("data-confirm", "Are you sure you want to delete this measurement point?");
+        f.RouteData["Id"] = Model.Id;
+    }
+    
+    table = table.TemplateColumnFor(x => 
+        measurementPointsAlreadyInUse.Contains(x.Id) 
+            ? null 
+            : Control.SubmitButton("Delete")
+                     .WithName("MeasurementPointId")
+                     .WithValue(x.Id)
+                     .With("form", "DeleteMeasurementPointsForm"));
+}
+
+@table

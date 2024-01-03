@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns:p1="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns="http://amwater.com/EAM/0008/MAPCALL/ProgressWorkOrder" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="ProgressWorkOrderResponse" type="ProgressWorkOrderStatus"/>
+            <xsd:element name="ProgressWorkOrderRequest" type="ProgressWorkOrder"/>
+            <xsd:complexType name="ProgressWorkOrder">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="WorkOrder">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="ChangeOrder">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element minOccurs="0" name="OperatingCenter" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="SAPNotificationNo" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="SAPWorkOrderNo" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="UserId" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="HouseNo" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Street" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="CrossStreet" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Town" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="TownSection" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Zipcode" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="State" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Country" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Latitude" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Longitude" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="AssetType" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="SAPFunctionalLoc" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="SAPEquipmentNo" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Installation" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="RequestedBY" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Customer" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="PurposeGroup" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="PurposeCode" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Priority" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Premise" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Notes" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="AccountCharged" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="CancelOrder" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="CancellationReason" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="WorkDescription" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="PMActType" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="TimeToComplete" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="SetMeter" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Location" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="BasicFinish" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="Materials">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element minOccurs="0" name="PartNumber" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="Quantity" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="StcokLocation" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="OperatingCenterCode" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="ItemCategory" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                                <xsd:element maxOccurs="unbounded" minOccurs="0" name="CrewAssignment">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element minOccurs="0" name="CrewAssign" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="DateStart" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="DateEnd" type="xsd:string"/>
+                                            <xsd:element minOccurs="0" name="DateCompleted" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProgressWorkOrderStatus">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="Status">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element minOccurs="0" name="OrderNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="NotificationNumber" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="WBSElement" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="MaterialDocument" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="Status" type="xsd:string"/>
+                                <xsd:element minOccurs="0" name="CostCenter" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProgressWorkOrderResponse">
+<wsdl:documentation/>
+    <wsdl:part name="ProgressWorkOrderResponse" element="p1:ProgressWorkOrderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ProgressWorkOrderRequest">
+<wsdl:documentation/>
+    <wsdl:part name="ProgressWorkOrderRequest" element="p1:ProgressWorkOrderRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ProgressWorkOrder_OB_SYN">
+<wsdl:documentation/>
+    <wsdl:operation name="ProgressWorkOrder_OB_SYN">
+<wsdl:documentation/>
+      <wsdl:input message="p1:ProgressWorkOrderRequest">
+    </wsdl:input>
+      <wsdl:output message="p1:ProgressWorkOrderResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProgressWorkOrder_OB_SYNBinding" type="p1:ProgressWorkOrder_OB_SYN">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:Policy>
+            <wsp:PolicyReference URI="#BN__binding"/>
+        </wsp:Policy>
+    <wsdl:operation name="ProgressWorkOrder_OB_SYN">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="port" binding="p1:ProgressWorkOrder_OB_SYNBinding">
+      <soap:address location="https://e10028-iflmap.hcisbt.us3.hana.ondemand.com:443/cxf/ProgressWorkOrder"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy required="true"/>
+    <wsp:Policy wsu:Id="BN__binding">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <wsp:ExactlyOne>
+                                            <sp:HttpBasicAuthentication/>
+                                            <sp:RequireClientCertificate/>
+                                        </wsp:ExactlyOne>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <wsp:ExactlyOne>
+                                    <sp:Basic256/>
+                                    <sp:Basic192/>
+                                    <sp:Basic128/>
+                                    <sp:TripleDes/>
+                                    <sp:Basic256Rsa15/>
+                                    <sp:Basic192Rsa15/>
+                                    <sp:Basic128Rsa15/>
+                                    <sp:TripleDesRsa15/>
+                                    <sp:Basic256Sha256/>
+                                    <sp:Basic192Sha256/>
+                                    <sp:Basic128Sha256/>
+                                    <sp:TripleDesSha256/>
+                                    <sp:Basic256Sha256Rsa15/>
+                                    <sp:Basic192Sha256Rsa15/>
+                                    <sp:Basic128Sha256Rsa15/>
+                                    <sp:TripleDesSha256Rsa15/>
+                                </wsp:ExactlyOne>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

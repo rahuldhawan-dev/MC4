@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.RedTagPermits.RedTagPermitViewModel
+
+@using (Form.BeginForm("Update", "RedTagPermit", "HealthAndSafety", new { Model.Id }))
+{
+<div class="field-column fc300">
+    @Html.Partial("_FormFields", Model)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Show", "RedTagPermit", new { Model.Id })
+    </text>)
+</div>}

@@ -1,0 +1,12 @@
+﻿@model CreateGrievance
+
+@using (Form.BeginForm("Create", "Grievance")) {
+    <div class="field-column fc200">
+        @Html.Partial("_NewFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "Grievance")
+                           </text>)
+   </div>
+}

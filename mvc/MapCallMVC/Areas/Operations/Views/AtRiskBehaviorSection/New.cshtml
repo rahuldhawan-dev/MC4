@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.Operations.Models.ViewModels.AtRiskBehaviorSectionViewModel
+
+@using (Form.BeginForm("Create", "AtRiskBehaviorSection", "Operations"))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Description)
+        @Html.EditorFor(x => x.SectionNumber)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Search")
+        </text>)
+    </div>
+}

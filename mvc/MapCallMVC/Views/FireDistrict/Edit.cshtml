@@ -1,0 +1,10 @@
+﻿@model MapCallMVC.Models.ViewModels.FireDistricts.FireDistrictViewModel
+
+@using (Form.BeginForm("Update", "FireDistrict", new { Model.Id })) {
+    @Html.Partial("_Form")
+    @Html.ButtonGroup(
+        @<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "FireDistrict", new { Model.Id })
+         </text>)
+}

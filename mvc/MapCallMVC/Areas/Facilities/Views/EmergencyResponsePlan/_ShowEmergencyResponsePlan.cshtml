@@ -1,0 +1,25 @@
+﻿@model EmergencyResponsePlan
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @if (Model.Facility != null)
+    {
+        if (Html.CurrentUserCanDo("Show", "Facility", ""))
+        {
+            @Html.RenderDisplayTemplate("Facility", Html.ActionLink(Model.Facility.ToString(), "Show", "Facility", new { Model.Facility.Id, area = "" }, null))
+        }
+        else
+        {
+            @Html.DisplayFor(x => x.Facility)
+        }
+    }
+    else
+    {
+        @Html.RenderDisplayTemplate("Facility", @<text>This plan is not currently linked to a facility.</text>)
+    }
+    @Html.DisplayFor(x => x.EmergencyPlanCategory)
+    @Html.DisplayFor(x => x.Title)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.ReviewFrequency)
+</div>

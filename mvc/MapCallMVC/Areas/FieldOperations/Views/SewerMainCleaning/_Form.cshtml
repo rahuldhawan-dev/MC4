@@ -1,0 +1,54 @@
+@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerMainCleanings
+@model SewerMainCleaningViewModel
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/SewerMainCleaning/Form.js", ScriptLoadType.LoadFromPartial)
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town)
+@if (Model is CreateSewerMainCleaning)
+{
+    @Html.EditorFor(x => ((CreateSewerMainCleaning)x).Street)
+}
+else
+{
+    @Html.EditorFor(x => ((EditSewerMainCleaning)x).Street)
+}
+@Html.EditorFor(x => x.Date)
+@Html.EditorFor(x => x.InspectedDate)
+@if (Model is CreateSewerMainCleaning)
+{
+    @Html.EditorFor(x => ((CreateSewerMainCleaning)x).CrossStreet)
+}
+else
+{
+    @Html.EditorFor(x => ((EditSewerMainCleaning)x).CrossStreet)
+}
+@Html.EditorFor(x => x.CrossStreet2)
+@Html.EditorFor(x => x.InspectionType)
+@Html.RenderDisplayTemplate(
+    "",
+    Html.Link("~/Content/DefectGradeGuide.pdf", "Defect Grading Guide", new {target = "_blank"}),
+    "defect-grade-guide")
+@Html.EditorFor(x => x.InspectionGrade)
+@Html.EditorFor(x => x.FootageOfMainInspected)
+@Html.EditorFor(x => x.GallonsOfWaterUsed)
+@if (Model is CreateSewerMainCleaning)
+{
+    @Html.EditorFor(x => ((CreateSewerMainCleaning)x).HydrantUsed)
+}
+else
+{
+    @Html.EditorFor(x => ((EditSewerMainCleaning)x).HydrantUsed)
+}
+@Html.EditorFor(x => x.Opening1)
+@Html.EditorFor(x => x.Opening1Condition)
+@Html.EditorFor(x => x.Opening1FrameAndCover)
+@Html.EditorFor(x => x.OpeningTwoIsATerminus)
+@Html.EditorFor(x => x.Opening2)
+@Html.EditorFor(x => x.Opening2Condition)
+@Html.EditorFor(x => x.Opening2FrameAndCover)
+@Html.EditorFor(x => x.TableNotes)
+@Html.EditorFor(x => x.Overflow)
+@Html.EditorFor(x => x.SewerOverflow)
+@Html.EditorFor(x => x.BlockageFound)
+@Html.EditorFor(x => x.CauseOfBlockage)

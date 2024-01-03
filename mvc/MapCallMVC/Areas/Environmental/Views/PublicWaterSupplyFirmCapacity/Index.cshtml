@@ -1,0 +1,21 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.PublicWaterSupplyFirmCapacities.SearchPublicWaterSupplyFirmCapacityViewModel
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(
+    Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.PublicWaterSupply.State, "s.Abbreviation")
+        .SortableColumnFor(x => x.PublicWaterSupply, "pws.Identifier")
+        .SortableColumnFor(x => x.CurrentSystemPeakDailyDemandMGD)
+        .SortableColumnFor(x => x.CurrentSystemPeakDailyDemandYearMonth)
+        .SortableColumnFor(x => x.TotalSystemSourceCapacityMGD)
+        .SortableColumnFor(x => x.TotalCapacityFacilitySumMGD)
+        .SortableColumnFor(x => x.FirmCapacityMultiplier)
+        .SortableColumnFor(x => x.FirmSystemSourceCapacityMGD)
+        .SortableColumnFor(x => x.UpdatedAt)
+        .WithPaginatedFooter()
+)

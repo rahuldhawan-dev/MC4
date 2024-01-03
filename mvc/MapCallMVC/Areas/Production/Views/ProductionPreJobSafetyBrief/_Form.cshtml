@@ -1,0 +1,123 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels.PreJobSafetyBriefs
+@model ProductionPreJobSafetyBriefViewModelBase
+
+@Html.ScriptFor(
+    "~/Scripts/Areas/Production/ProductionPreJobSafetyBrief/Form.js",
+    ScriptLoadType.LoadFromPartial)
+@Html.StylesheetFor("~/Content/css/Production/ProductionPreJobSafetyBrief.css", true)
+
+@if (Model.ProductionWorkOrder != null)
+{
+    var pwoDisplay = Model.GetProductionWorkOrderForDisplay();
+
+    <fieldset>
+        <legend>Production Work Order #@Html.DisplayValueFor(x => pwoDisplay.Id)</legend>
+        @Html.LinkButton("Back to Order", "Show", "ProductionWorkOrder", new { id = pwoDisplay.Id })
+        <div class="field-column fc100">
+            @Html.DisplayFor(_ => pwoDisplay.OperatingCenter.State)
+            @Html.DisplayFor(_ => pwoDisplay.OperatingCenter)
+            @Html.DisplayFor(_ => pwoDisplay.PlanningPlant)
+            @Html.DisplayFor(_ => pwoDisplay.Facility)
+            @Html.DisplayFor(_ => pwoDisplay.ProductionWorkDescription)
+        </div>
+    </fieldset>
+
+    @Html.HiddenFor(x => x.ProductionWorkOrder)
+}
+else if (Model is CreateProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((CreateProductionPreJobSafetyBriefNoWorkOrder)x).OperatingCenter)
+    @Html.EditorFor(x => ((CreateProductionPreJobSafetyBriefNoWorkOrder)x).Facility)
+}
+else if (Model is EditProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((EditProductionPreJobSafetyBriefNoWorkOrder)x).OperatingCenter)
+    @Html.EditorFor(x => ((EditProductionPreJobSafetyBriefNoWorkOrder)x).Facility)
+}
+
+@Html.EditorFor(x => x.SafetyBriefDateTime)
+
+@* This field is only for ad-hoc safety briefs. *@
+@if (Model is CreateProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((CreateProductionPreJobSafetyBriefNoWorkOrder)x).DescriptionOfWork)
+}
+else if (Model is EditProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((EditProductionPreJobSafetyBriefNoWorkOrder)x).DescriptionOfWork)
+}
+
+@* each of these view models have a different set of attributes for this property unfortunately *@
+@if (Model is CreateProductionPreJobSafetyBriefFromWorkOrder)
+{
+    @Html.EditorFor(x => ((CreateProductionPreJobSafetyBriefFromWorkOrder)x).Employees)
+}
+else if (Model is CreateProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((CreateProductionPreJobSafetyBriefNoWorkOrder)x).Employees)
+}
+else if (Model is EditProductionPreJobSafetyBriefNoWorkOrder)
+{
+    @Html.EditorFor(x => ((EditProductionPreJobSafetyBriefNoWorkOrder)x).Employees)
+}
+else if (Model is EditProductionPreJobSafetyBriefWithWorkOrder)
+{
+    @Html.EditorFor(x => ((EditProductionPreJobSafetyBriefWithWorkOrder)x).Employees)
+}
+
+@Html.EditorFor(x => x.Contractors)
+@Html.EditorFor(x => x.AnyPotentialWeatherHazards)
+@Html.EditorFor(x => x.SafetyBriefWeatherHazardTypes)
+@Html.EditorFor(x => x.HadConversationAboutWeatherHazard)
+@Html.EditorFor(x => x.HadConversationAboutWeatherHazardNotes)
+@Html.EditorFor(x => x.AnyTimeOfDayConstraints)
+@Html.EditorFor(x => x.SafetyBriefTimeOfDayConstraintTypes)
+@Html.EditorFor(x => x.AnyTrafficHazards)
+@Html.EditorFor(x => x.SafetyBriefTrafficHazardTypes)
+@Html.EditorFor(x => x.InvolveConfinedSpace)
+@Html.EditorFor(x => x.AnyPotentialOverheadHazards)
+@Html.EditorFor(x => x.SafetyBriefOverheadHazardTypes)
+@Html.EditorFor(x => x.AnyUndergroundHazards)
+@Html.EditorFor(x => x.SafetyBriefUndergroundHazardTypes)
+@Html.EditorFor(x => x.AreThereElectricalOrOtherEnergyHazards)
+@Html.EditorFor(x => x.SafetyBriefElectricalHazardTypes)
+@Html.EditorFor(x => x.AnyWorkPerformedGreaterThanOrEqualToFourFeetAboveGroundLevel)
+@Html.EditorFor(x => x.TypeOfFallPreventionProtectionSystemBeingUsed)
+@Html.EditorFor(x => x.DoesJobInvolveUseOfChemicals)
+@Html.EditorFor(x => x.IsSafetyDataSheetAvailableForEachChemical)
+@Html.EditorFor(x => x.IsSafetyDataSheetAvailableForEachChemicalNotes)
+@Html.EditorFor(x => x.HaveEquipmentToDoJobSafely)
+@Html.EditorFor(x => x.HaveEquipmentToDoJobSafelyNotes)
+@Html.EditorFor(x => x.HasPreUseInspectionBeenCompletedForEquipmentRequiringPreUseInspection)
+@Html.EditorFor(x => x.HasPreUseInspectionBeenCompletedForEquipmentRequiringPreUseInspectionNotes)
+@Html.EditorFor(x => x.ReviewedErgonomicHazards)
+@Html.EditorFor(x => x.ReviewedErgonomicHazardsNotes)
+@Html.EditorFor(x => x.HasStretchAndFlexBeenPerformed)
+@Html.EditorFor(x => x.HasStretchAndFlexBeenPerformedNotes)
+@Html.EditorFor(x => x.ReviewedLocationOfSafetyEquipment)
+@Html.EditorFor(x => x.ReviewedLocationOfSafetyEquipmentNotes)
+@Html.EditorFor(x => x.OtherHazardsIdentified)
+@Html.EditorFor(x => x.OtherHazardNotes)
+@Html.EditorFor(x => x.CrewMembersRemindedOfStopWorkAuthority)
+@Html.EditorFor(x => x.CrewMembersRemindedOfStopWorkAuthorityNotes)
+@Html.EditorFor(x => x.HaveAllHazardsAndPrecautionsBeenReviewed)
+
+<fieldset id="ppe-fieldset">
+    <legend>Personal Protective Equipment(PPE)(check below boxes that pertain)</legend>
+    @* Other versions of this form have this as three columns. On smaller screens, this causes the text
+        to sometimes scroll off the screen as well as making the PPEOtherNotes field too small to be useful.
+        So keep this as a single column. Or have at it and make it a proper responsive design somehow. *@
+    @Html.EditorFor(x => x.HeadProtection)
+    @Html.EditorFor(x => x.HandProtection)
+    @Html.EditorFor(x => x.ElectricalProtection)
+    @Html.EditorFor(x => x.FallProtection)
+    @Html.EditorFor(x => x.FootProtection)
+    @Html.EditorFor(x => x.EyeProtection)
+    @Html.EditorFor(x => x.FaceShield)
+    @Html.EditorFor(x => x.SafetyGarment)
+    @Html.EditorFor(x => x.HearingProtection)
+    @Html.EditorFor(x => x.RespiratoryProtection)
+    @Html.EditorFor(x => x.PPEOther)
+    @Html.EditorFor(x => x.PPEOtherNotes)
+</fieldset>
+

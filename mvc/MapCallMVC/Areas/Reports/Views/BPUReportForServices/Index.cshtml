@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchBPUReportForServices
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.Year)
+    .ColumnFor(x => x.InstalledSize)
+    .ColumnFor(x => x.InstalledType)
+    .ColumnFor(x => x.InstalledNew)
+    .ColumnFor(x => x.Replaced)
+)

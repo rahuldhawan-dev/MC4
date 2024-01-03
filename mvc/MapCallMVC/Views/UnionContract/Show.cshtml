@@ -1,0 +1,8 @@
+﻿@model UnionContract
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowContract", Model)
+    .WithTab("Proposals", "_IndexProposals", Model)    
+    .WithTab("Grievances", "_IndexGrievances", Model)
+    .WithNotesAndDocuments()
+    .WithLog())

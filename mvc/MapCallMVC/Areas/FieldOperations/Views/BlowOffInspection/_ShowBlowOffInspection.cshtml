@@ -1,0 +1,32 @@
+﻿@model BlowOffInspection
+
+<div class="field-column fc200">
+  <fieldset>
+    <legend>Inspection Data </legend>
+    @Html.RenderDisplayTemplate("Valve", Html.AuthorizedActionLinkOrText(Model.Valve.ToString(), "Show", "Valve", new {id = Model.Valve.Id}))
+    @if (Model.Valve.Critical)
+    {
+      @Html.DisplayFor(x => x.Valve.CriticalNotes)
+    }
+    @Html.DisplayFor(x => x.Valve.ValveLocation)
+    @Html.DisplayFor(x => x.DateInspected)
+    @Html.DisplayFor(x => x.InspectedBy)
+    @Html.DisplayFor(x => x.CreatedAt)
+    @Html.DisplayFor(x => x.HydrantInspectionType)
+    @Html.DisplayFor(x => x.FullFlow)
+    @Html.DisplayFor(x => x.GPM)
+    @Html.DisplayFor(x => x.MinutesFlowed)
+    @Html.DisplayFor(x => x.StaticPressure)
+    @Html.DisplayFor(x => x.PreResidualChlorine)
+    @Html.DisplayFor(x => x.ResidualChlorine)
+    @Html.DisplayFor(x => x.FreeNoReadReason)
+    @Html.DisplayFor(x => x.PreTotalChlorine)
+    @Html.DisplayFor(x => x.TotalChlorine)
+    @Html.DisplayFor(x => x.TotalNoReadReason)
+    @Html.DisplayFor(x => x.HydrantTagStatus)
+    @Html.DisplayFor(x => x.Remarks)
+    @Html.DisplayFor(x => x.SAPErrorCode)
+    @Html.DisplayFor(x => x.SAPNotificationNumber)
+    @Html.DisplayFor(x => x.BusinessUnit)
+  </fieldset>
+</div>

@@ -1,0 +1,8 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.BaseJobSiteCheckListViewModel
+<div class="field-column fc-left-label fc200">
+	@* Hidden field needed for client-side validation. *@
+	@Control.HiddenFor(x => x.IsPressurizedRisksRestrainedFieldRequired)
+	@Html.EditorFor(x => x.PressurizedRiskRestrainedType)
+	@Html.EditorFor(x => x.NoRestraintReason, new { @class = "fp-no-restraint-reason"})
+	@Html.EditorFor(x => x.RestraintMethod, new { @class = "fp-restraint-method"})
+</div>

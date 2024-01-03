@@ -1,0 +1,29 @@
+﻿@model OperatorLicense
+@{
+    var userCanEdit = Html.CurrentUserCanEdit();
+
+    var table = Html.TableFor(x => x.PublicWaterSupplies, new {id = "publicWaterSupplyTable"})
+                    .ColumnFor(x => x.PublicWaterSupply)
+                    .TemplateColumnFor(x => @Control.SubmitButton("Remove Public Water Supply")
+                                                    .WithValue(x.Id)
+                                                    .WithName("id")
+                                                    .With("onclick", "return confirm('Are you sure?');"))
+                    .IsVisible(userCanEdit);
+}
+
+@if (userCanEdit)
+{
+    @Html.Partial("_AddPublicWaterSupplyLicensedOperator", ViewModelFactory.BuildWithOverrides<CreatePublicWaterSupplyLicensedOperator>(new {LicensedOperator = Model.Id}))
+}
+
+@if (userCanEdit)
+{
+    using (Form.BeginForm("Destroy", "PublicWaterSupplyLicensedOperator"))
+    {
+        @table
+    }
+}
+else
+{
+    @table
+}

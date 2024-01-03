@@ -1,0 +1,29 @@
+﻿@model MapCall.Common.Model.Entities.Equipment
+
+<a href="@Model.RecordUrl">Equipment Created with Unknown Manufacturer</a> <br />
+
+Id: @Model.Id <br />
+@if (Model.Facility != null)
+{
+    <text>
+    Department: @Model.Facility.Department <br />
+    Facility: @Model.Facility <br />
+    </text>
+}
+Identifier: @Model.Identifier <br />
+Description: @Model.Description <br />
+@if (Model.EquipmentPurpose != null)
+{
+    <text>
+    Type: @Model.EquipmentPurpose <br />
+    SAP Type: @Model.EquipmentPurpose.EquipmentType <br />
+    </text>
+}   
+ 
+Unknown Manufacturer: @Model.ManufacturerOther <br/>
+
+Process Safety Management: @Model.HasProcessSafetyManagement <br />
+Company Requirement: @Model.HasCompanyRequirement <br />
+Environmental / Water Quality Regulatory: @Model.HasRegulatoryRequirement <br />
+OSHA Requirement: @Model.HasOshaRequirement <br />
+Other Requirement: @Model.OtherCompliance <br />

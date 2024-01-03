@@ -1,0 +1,11 @@
+﻿@using MMSINC.Utilities
+@model IEnumerable<EntityLookup>
+@{
+    var routeContext = new RouteContext(ViewContext);
+}
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.AuthorizedActionLink("View", "Show", routeContext.RouteControllerName, new { id = x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Description))

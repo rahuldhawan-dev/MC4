@@ -1,0 +1,13 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Markout Violation", "New", "MarkoutViolation", new { area = "BPU", workOrderId = Model.Id }, new { Class = "link-button" })
+<br />
+@(Html.TableFor(x => x.MarkoutViolations, new { Id = "markoutViolations" })
+      .TemplateColumnFor(x => 
+	      @<text>
+		      @Html.ActionLink("Select", "Show", "MarkoutViolation", new { id = x.Id, area = "BPU" }, null)
+              @Html.ActionLink("Edit", "Edit", "MarkoutViolation", new { id = x.Id, area = "BPU" }, null)
+	       </text>)
+      .ColumnFor(x => x.DateOfViolationNotice)
+      .ColumnFor(x => x.MarkoutViolationStatus)
+      .ColumnFor(x => x.MarkoutRequestNumber))

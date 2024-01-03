@@ -1,0 +1,10 @@
+﻿@model WorkOrder
+
+@(Html.TableFor(x => x.WorkOrdersScheduleOfValues, new { Id = "scheduleOfValues" })
+      .ColumnFor(x => x.ScheduleOfValue.ScheduleOfValueCategory)
+      .ColumnFor(x => x.ScheduleOfValue)
+      .ColumnFor(x => x.OtherDescription)
+      .ColumnFor(x => x.Total)
+      .ColumnFor(x => x.ScheduleOfValue.UnitOfMeasure)
+      .ColumnFor(x => x.IsOvertime)
+	)

@@ -1,0 +1,12 @@
+﻿@model EditLockoutFormAnswer
+
+@Html.RenderDisplayTemplate(Model.LockoutFormQuestionDisplay.Question,
+    @<text>
+        @Html.EditorWithoutWrapperFor(x => x.Answer)
+    </text>
+            )
+@Html.HiddenFor(x => x.Id)
+@Html.EditorFor(x => x.Comments)
+@Html.HiddenFor(x => x.LockoutForm)
+@Html.HiddenFor(x => x.LockoutFormQuestion)
+@Html.HiddenFor(x => x.Category)

@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchEstimatingProject
+
+@using (Form.BeginForm("Index", "EstimatingProject"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.EditorFor(x => x.ProjectType)
+        @Html.EditorFor(x => x.ProjectNumber)
+        @Html.EditorFor(x => x.WBSNumber)
+        @Html.EditorFor(x => x.ProjectName)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Estimator)
+        @Html.EditorFor(x => x.EstimateDate)
+        @Html.EditorFor(x => x.CreatedBy)
+        
+        @Html.ButtonGroup(@<text>@Control.SubmitButton("Search").WithId("Search") @Control.ResetButton()</text>)
+    </div>
+}

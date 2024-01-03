@@ -1,0 +1,58 @@
+﻿@model SearchEquipment
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddMapLink();
+}
+
+<table class="workorders-table-legend" style="margin-bottom:6px;">
+    <tr>
+        <td class="color-block asset-not-inspectable">Retired Equipment</td>
+        <td class="color-block asset-cancelled">Cancelled Equipment</td>
+        <td class="color-block asset-pending_retirement">Pending Retirement</td>
+        <td class="color-block asset-pending">Pending</td>
+    </tr>
+</table>
+@(Html.TableFor(x => Model, new { id = "equipment-table" })
+        .WithCaption("Records found: " + Model.Count)
+        .WithRowBuilder((x, help) => {
+            if (x.EquipmentStatus.Id == EquipmentStatus.Indices.RETIRED)
+            {
+                help.AddCssClass("asset-not-inspectable");
+            }
+            else if (x.EquipmentStatus.Id == EquipmentStatus.Indices.CANCELLED)
+            {
+                help.AddCssClass("asset-cancelled");
+            }
+            else if (x.EquipmentStatus.Id == EquipmentStatus.Indices.PENDING_RETIREMENT)
+            {
+                help.AddCssClass("asset-pending_retirement");
+            }
+            else if (x.EquipmentStatus.Id == EquipmentStatus.Indices.PENDING)
+            {
+                help.AddCssClass("asset-pending");
+            }
+        })
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.Id,"Id")
+        .SortableColumnFor(x => x.Description, "Description")
+        .SortableColumnFor(x => x.EquipmentPurpose, "EquipmentPurpose")
+        .SortableColumnFor(x => x.EquipmentStatus, "EquipmentStatus")
+        .SortableColumnFor(x => x.DateInstalled)
+        .SortableColumnFor(x => x.DateRetired)
+        .SortableColumnFor(x => x.EquipmentManufacturer, "EquipmentManufacturer.Description")
+        .SortableColumnFor(x => x.EquipmentModel, "Model Number", "EquipmentModel")
+        .SortableColumnFor(x => x.SerialNumber)
+        .SortableColumnFor(x => x.WBSNumber, "WBSNumber")
+        .SortableColumnFor(x => x.Legacy)
+        .SortableColumnFor(x => x.HasComplianceRequirement)
+        .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+        .SortableColumnFor(x => x.Facility, "Facility.FacilityName")
+        .SortableColumnFor(x => x.FacilityFacilityArea.FacilityArea.Description, "Facility Area", "area.Description")
+        .SortableColumnFor(x => x.FacilityFacilityArea.FacilitySubArea.Description, "Facility SubArea", "subArea.Description")
+        .SortableColumnFor(x => x.EquipmentType, "Equipment Type", "EquipmentType.Abbreviation")
+        .SortableColumnFor(x => x.CriticalNotes)
+        .ColumnFor(x => x.HasTankInspections)
+        .SortableColumnFor(x => x.EquipmentGroup, "EquipmentType.EquipmentGroup")
+        .WithPaginatedFooter()
+)

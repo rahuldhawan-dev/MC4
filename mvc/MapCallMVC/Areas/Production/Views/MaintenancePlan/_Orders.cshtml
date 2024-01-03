@@ -1,0 +1,7 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MaintenancePlan
+
+@using (Form.BeginAjaxForm("IndexForMaintenancePlanOrders", "ProductionWorkOrder", "Production", new { ext = "frag", MaintenancePlan = Model.Id }))
+{
+
+}

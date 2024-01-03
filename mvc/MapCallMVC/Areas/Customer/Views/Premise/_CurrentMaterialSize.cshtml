@@ -1,0 +1,62 @@
+﻿@model Premise
+
+@if (Model.MostRecentService != null)
+{
+    <fieldset>
+        <legend>Company Side</legend>
+        <div class="field-column fc200">
+            @Html.RenderDisplayTemplate("Service", Html.ActionLink(Model.MostRecentService.Service.Id.ToString(), "Show", "Service", new { area = "FieldOperations", id = Model.MostRecentService.Service.Id }, null))
+            @Html.DisplayFor(x => x.MostRecentService.DateInstalled)
+            @Html.DisplayFor(x => x.MostRecentService.UpdatedAt)
+            @Html.DisplayFor(x => x.MostRecentService.MeterSettingSize)
+            @Html.DisplayFor(x => x.MostRecentService.ServiceMaterial)
+            @Html.DisplayFor(x => x.MostRecentService.ServiceSize)
+            @Html.DisplayFor(x => x.MostRecentServiceCompanyMaterialEPACode, new {
+                DisplayName = "EPA Converted Material Type"
+            })
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Customer Side</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.MostRecentService.DateInstalled)
+            @Html.DisplayFor(x => x.MostRecentService.UpdatedAt)
+            @Html.DisplayFor(x => x.MostRecentService.CustomerSideMaterial, new {
+                DisplayName = "Customer Material At Tie-In"
+            })
+            @Html.DisplayFor(x => x.MostRecentService.CustomerSideSize)
+            @Html.DisplayFor(x => x.MostRecentServiceCustomerMaterialEPACode, new {
+                DisplayName = "EPA Converted Material Type"
+            })
+        </div>
+    </fieldset>
+}
+    <fieldset>
+        <legend>Customer Side - Work1V</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.MostRecentCustomerMaterial.AssignmentStart)
+            @Html.DisplayFor(x => x.MostRecentCustomerMaterial.CustomerSideMaterial)
+            @Html.DisplayFor(x => x.MostRecentCustomerMaterial.ServiceLineSize, new { DisplayName = "Meter/Service Line Size" })
+            @Html.DisplayFor(x => x.MostRecentCustomerMaterial.ReadingDevicePositionalLocation)
+            @Html.DisplayFor(x => x.MostRecentCustomerMaterialEPACode, new {
+                DisplayName = "EPA Converted Material Type"
+            })
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Consolidated Customer Side - Work1V Converted Material</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.ConsolidatedCustomerSideMaterial, new {
+                DisplayName = "EPA Converted Material Type"
+            })
+        </div>
+    </fieldset>
+
+@if (Model.MostRecentService == null && Model.MostRecentCustomerMaterial == null)
+{
+    <div>
+        No records are available to display the Current Material/Size Information.
+    </div>
+}

@@ -1,0 +1,27 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCompletedWorkOrdersWithMaterial
+@{
+    ActionBarHelper.AddExportLink();
+    Func<int, int, bool?, RouteValueDictionary> getRouteValues = (operatingCenterId, workDescriptionId, hasMaterials) => {
+        var ret = new RouteValueDictionary {
+            { "area", "FieldOperations"},
+            { "OperatingCenter", operatingCenterId},
+            { "DateCompleted.Operator", (int)Model.DateCompleted.Operator },
+            { "DateCompleted.End", ((Model.DateCompleted.End.HasValue) ? Model.DateCompleted.End.ToString() : string.Empty)},
+            { "DateCompleted.Start", ((Model.DateCompleted.Start.HasValue) ? Model.DateCompleted.Start.ToString() : string.Empty)},
+            { "IsAssignedContractor", Model.IsAssignedContractor},
+            { "State", Model.State},
+            { "WorkDescription", workDescriptionId }
+        };
+        
+        ret.Add("HasMaterialsUsed", hasMaterials);
+        return ret;
+    };
+}
+@(Html.TableFor(x => x, new { id = "search-results" })
+  .ColumnFor(x => x.State)
+  .ColumnFor(x => x.OperatingCenter)
+  .ColumnFor(x => x.WorkDescription)
+  .TemplateColumnFor("Total", x => Html.ActionLink(x.WorkOrderCount.ToString(), "Index", "GeneralWorkOrder", getRouteValues(x.OperatingCenterId, x.WorkDescriptionId, null), null))
+  .TemplateColumnFor("With Materials", x => Html.ActionLink(x.WorkOrdersWithMaterialCount.ToString(), "Index", "GeneralWorkOrder", getRouteValues(x.OperatingCenterId, x.WorkDescriptionId, true), null))
+  .TemplateColumnFor("Without Materials", x => Html.ActionLink(x.WorkOrdersWithoutMaterialCount.ToString(), "Index", "GeneralWorkOrder", getRouteValues(x.OperatingCenterId, x.WorkDescriptionId, false), null))
+  .ColumnFor(x => x.PercentageWithMaterial))

@@ -1,0 +1,149 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var ShortCycleWorkOrder = (function ($) {
+        var ELEMENTS = {
+            //To test locally: chrome.exe --user-data-dir="C:/Chrome dev session" --disable-web-security
+            url: (window.location.toString().indexOf('localhost') === -1) ? 'https://mapcall.amwaternp.com/modules/api/ShortCycleWorkOrder/' : 'http://localhost:55667/ShortCycleWorkOrder/'
+        };
+
+        var scwo = {
+            initialize: function () {
+            },
+            //auth in 'un:pd' format
+            create: function (orderNumber, auth) {
+                var x;
+                for (x = 0; x < 1; x++) {
+                    $.ajax({
+                        type: 'POST',
+                        url: ELEMENTS.url + "CreateOrUpdate/",
+                        dataType: 'json',
+                        async: 'true',
+                        headers: {
+                            'Authorization': 'Basic ' + btoa(auth),
+                            'Content-Type': 'application/json'
+                        },
+                        contentType: 'application/json',
+                        data: '{"WorkOrder":"' +
+                            (orderNumber + x) +
+                            '",' +
+                            '"DueDate":"20190505",' +
+                            '"DueTime":"131359",' +
+                            '"ServiceFound":"ARGH",' +
+                            '"Installation":"installed",' +
+                            '"Equipment":[ {"EquipmentId":"000000000051834919", "ProcessingIndicator":"X"}, {"EquipmentID":"000000000051834918","DeviceCategory":"devcat"}],' +
+                            '"FunctionalLocation":6001841541,' +
+                            '"NotificationNumber":313518958,' +
+                            '"Priority":"5: Within 30 Days",' +
+                            '"BackReportingType":32,' +
+                            '"CompanyCode":1015,' +
+                            '"Premise":9050075666,' +
+                            '"Status":"argh",' +
+                            '"WBSElement":"E15-1420-153666",' +
+                            '"PlanningPlant":"D401",' +
+                            '"MatCode":"CKM",' +
+                            '"MATCodeDescription":"Check MeterVerif Serial #&Read",' +
+                            '"OperationText":"Check Meter, Verify Serial #, Read",' +
+                            '"FSRId":60001272,' +
+                            '"FSRName":"Moustachio Featherbottoms",' +
+                            '"CustomerNumber":1101748666,' +
+                            '"ServiceType":"WW",' +
+                            '"MeterSerialNumber":"000000000085424666",' +
+                            '"ManufacturerSerialNumber":"0085424666",' +
+                            '"IsCustomerEnrolledForEmail":true,' +
+                            '"AssignmentStart":20190323150759,' +
+                            '"AssignmentEnd":20190323152559,' +
+                            '"AppointmentStart":20190323150759,' +
+                            '"AppointmentEnd":20190323152559,' +
+                            '"EarlyStartDate":20190423152559,' +
+                            '"OrderType":"0032",' +
+                            '"OperationId":"0010",' +
+                            '"WorkCenter":"FSR",' +
+                            '"CustomerAccount":210020509469,' +
+                            '"NormalDuration":18,' +
+                            '"NormalDurationUnit":"MIN",' +
+                            '"CrewSize":3,' +
+                            '"PlannerGroup":"010", ' +
+                            '"PhoneAhead": "false", ' +
+                            '"CustomerAtHome":"true", ' +
+                            '"LiabilityIndicator":"YES", ' +
+                            '"NextReplacementYear":"1232", ' +
+                            '"WorkOrderLongText":"some long text that execeeds forty characters", ' +
+                            '"NotificationLongText":"notification long text", ' +
+                            '"BeforeAddress":"13 before st.", ' +
+                            '"AfterAddress":"13 after st.", ' +
+                            '"Latitude":"12.1212", ' +
+                            '"Longitude":"-18.0212", ' +
+                            '"AmountDue":"1243", ' +
+                            '"ContactNumber":"12345657", ' +
+                            '"DunningLock":"NA1", ' +
+                            '"PremiseType":"bar", ' +
+                            '"LandlordAllocation":"NA1", ' +
+                            '"LandlordBusinessPartnerNumber ":"12", ' +
+                            '"LandlordConnectionContractNumber":"13", ' +
+                            '"ConsecutiveIncompletesOnPremise":true, ' +
+                            '"ReplacementMeterFlag":true, ' +
+                            '"ReplacementMeterDesc":"2023",' +
+                            '"ServiceLineSize":"14", ' +
+                            '"MeterReadingUnit":"15", ' +
+                            '"LeakDetectedLastVisit":false, ' + 
+                            '"SecurityThreats":[{"PoliceEscort":"No", "SecurityThreat":"iGnoRe" }, {"PoliceEscort":"Yes", "SecurityThreat":"there is a security threat" }]}',
+                        success: function(d) {
+                            console.log('Result:' + d.Success);
+                        },
+                        error: function(xmlHttpRequest, textStatus, errorThrown) {
+                            console.log('Error:' + errorThrown);
+                        }
+                    });
+                }
+            },
+            cancel: function (workOrderNumber, auth) {
+                $.ajax({
+                    type: 'POST',
+                    url: ELEMENTS.url + "Cancel/",
+                    dataType: 'json',
+                    async: 'true',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(auth),
+                        'Content-Type': 'application/json'
+                    },
+                    contentType: 'application/json',
+                    data: '{' +
+                        '"WorkOrder":"' + workOrderNumber + '","OperationNumber":"1234", "ModifiedBy":"AKASH","Status":"CANC",' +
+                        '"TimeModified":"20190227052500","ReasonCode":"123","ReasonCodeComments":"some comments"' +
+                        '}',
+                    success: function (d) {
+                        console.log('Result:' + d.Success);
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        console.log('Error:' + errorThrown);
+                    }
+                });
+            },
+            //ShortCycleWorkOrder.testPost('http://localhost:55667/ShortCycleWorkOrderRequest/Create', 'a:p', '{"MaintenanceActivityType":"CMR","Installation":"7000645600", "BusinessPartnerNumber":"1100583356", "ContractAccount":"210003610708", "DeviceLocation":"6000467566", "EquipmentNumber":"50503963", "SerialNumber":"077428338A", "WorkDescription":"The Meter Ops App has identified a meter that is expired for Length of Service.  Please change the meter", "CompanyName":"A", "CompanyNumber":"B", "ContractorName":"C", "ContractorPhone":"D", "DayFrom":"E", "DayTo":"F", "HourAM":"G", "HourPM":"H", "LetterId":"I", "Telephone":"J"}');
+            //ShortCycleWorkOrder.testPost('http://localhost:55667/UnscheduledOrder/Update', 'a:p', '{"WorkOrder":123456}');
+            testPost: function(url, auth, message) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    dataType: 'json',
+                    async: 'true',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(auth),
+                        'Content-Type': 'application/json'
+                    },
+                    contentType: 'application/json',
+                    data: message,
+                    success: function (d) {
+                        console.log('Result:' + d.Success);
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        console.log('Error:' + errorThrown);
+                    }
+                });
+            }
+        };
+
+        $(document).ready(scwo.initialize);
+        return scwo;
+    })(jQuery);
+</script>

@@ -1,0 +1,18 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditSpoilRemoval
+
+@using (Form.BeginForm("Update", "SpoilRemoval", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.SpoilRemovalDisplay.RemovedFrom.OperatingCenter.State)
+        @Html.DisplayFor(x => x.SpoilRemovalDisplay.RemovedFrom.OperatingCenter)
+        @Html.EditorFor(x => x.DateRemoved)
+        @Html.EditorFor(x => x.RemovedFrom)
+        @Html.EditorFor(x => x.FinalDestination)
+        @Html.EditorFor(x => x.Quantity, new { DisplayName = "Quantity (cubic yards)" })
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "SpoilRemoval", new{area = "FieldOperations", Model.Id })
+                           </text>)
+    </div>
+}

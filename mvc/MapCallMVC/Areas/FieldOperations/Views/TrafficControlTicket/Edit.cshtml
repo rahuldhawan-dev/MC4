@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditTrafficControlTicket
+
+@using (Form.BeginForm("Update", "TrafficControlTicket", "FieldOperations", new {Model.Id})) {
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+        <fieldset>
+            <legend>Invoice</legend>
+            @Html.EditorFor(x => x.InvoiceNumber)
+            @Html.EditorFor(x => x.InvoiceAmount)
+            @Html.EditorFor(x => x.InvoiceDate)
+            @Html.EditorFor(x => x.InvoiceTotalHours)
+            @Html.EditorFor(x => x.DateApproved)
+        </fieldset>
+        
+        <fieldset>
+            <legend>Processing</legend>
+            @Html.EditorFor(x => x.TrackingNumber)
+        </fieldset>
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Show", "TrafficControlTicket", new {Model.Id})
+                           </text>)
+    </div>
+}

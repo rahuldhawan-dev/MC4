@@ -1,0 +1,194 @@
+﻿@model Contractors.Models.ViewModels.EditService
+
+@Html.ScriptFor("~/Scripts/Service/Form.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Update", "Service", new { Model.Id }))
+{
+    @Html.HiddenFor(x => x.Display.OperatingCenter.Id, new { id = "OperatingCenter", Name = "OperatingCenter" })
+    <fieldset>
+        <legend>Service Details</legend>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.Display.OperatingCenter)
+            @Html.DisplayFor(x => x.Display.ServiceNumber)
+            @Html.DisplayFor(x => x.Display.PremiseNumber)
+            @Html.DisplayFor(x => x.Display.Installation)
+            @if (!String.IsNullOrWhiteSpace(Model.Display.PlaceHolderNotes))
+            {
+                @Html.DisplayFor(x => x.Display.PlaceHolderNotes)
+            }
+            @Html.DisplayFor(x => x.Display.GeoEFunctionalLocation)
+            @Html.DisplayFor(x => x.Display.DeviceLocation)
+            @Html.DisplayFor(x => x.Display.DeviceLocationUnavailable)
+            @Html.DisplayFor(x => x.Display.IsActive)
+            @Html.DisplayFor(x => x.Display.ServiceType)
+            @if (Model.Display.OperatingCenter.SAPEnabled)
+            {
+                @Html.DisplayFor(x => x.Display.SAPErrorCode)
+            }
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>1. Site Information</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.DisplayFor(x => x.Display.ContactDate)
+                        @Html.DisplayFor(x => x.Display.Name)
+                        @Html.DisplayFor(x => x.Display.StreetNumber)
+                        @Html.DisplayFor(x => x.Display.Street)
+                        @Html.DisplayFor(x => x.Display.Town)
+                        @Html.DisplayFor(x => x.Display.TownSection)
+                        @Html.DisplayFor(x => x.Display.Block)
+                        @Html.DisplayFor(x => x.Display.Lot)
+                        @Html.DisplayFor(x => x.Display.Coordinate)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.RenderDisplayTemplate("Initiator", @<text>
+                            @if (Model.Display.Initiator != null)
+                            {
+                                @Model.Display.Initiator.FullName
+                            }
+                        </text>)
+                        @Html.DisplayFor(x => x.Display.PhoneNumber)
+                        @Html.DisplayFor(x => x.Display.ApartmentNumber)
+                        @Html.DisplayFor(x => x.Display.CrossStreet)
+                        @Html.DisplayFor(x => x.Display.State)
+                        @Html.DisplayFor(x => x.Display.Zip)
+                        @Html.DisplayFor(x => x.Display.Development)
+                        @Html.DisplayFor(x => x.Display.ObjectId)
+                        @Html.DisplayFor(x => x.Display.CleanedCoordinates)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>5. Service Information</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.DisplayFor(x => x.Display.ServiceCategory)
+                        @Html.HiddenFor(x => x.Display.ServiceCategory.Id, new { id = "ServiceCategory", Name = "ServiceCategory" })
+                        @Html.DisplayFor(x => x.Display.ServiceInstallationPurpose)
+                        @Html.DisplayFor(x => x.Display.TaskNumber1)
+                        @Html.DisplayFor(x => x.Display.SAPNotificationNumber)
+                        @Html.DisplayFor(x => x.Display.SAPWorkOrderNumber)
+                        @Html.DisplayFor(x => x.Display.DeveloperServicesDriven)
+                        @Html.DisplayFor(x => x.Display.Agreement)
+                        @Html.EditorFor(x => x.MainType)
+                        @Html.EditorFor(x => x.MainSize)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.DisplayFor(x => x.Display.BureauOfSafeDrinkingWaterPermitRequired)
+                        @Html.DisplayFor(x => x.Display.ParentTaskNumber)
+                        @Html.DisplayFor(x => x.Display.TaskNumber2)
+                        @Html.EditorFor(x => x.MeterSettingRequirement)
+                        @Html.EditorFor(x => x.MeterSettingSize)
+                        @Html.EditorFor(x => x.ServiceMaterial)
+                        @Html.EditorFor(x => x.ServiceSize)
+                        @if (Model.Display.WorkOrders.Any())
+                        {
+                            @Html.EditorFor(x => x.CompanyOwned)
+                        }
+                        @Html.EditorFor(x => x.ServiceSideType)
+                        @Html.EditorFor(x => x.PitInstalled)
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.CustomerSideMaterial)
+            @Html.EditorFor(x => x.CustomerSideSize)
+            @Html.EditorFor(x => x.LeadAndCopperCommunicationProvided)
+            @Html.RenderDisplayTemplate("Sample Site", @<div>
+                @if (Model.Display.Premise != null && Model.Display.Premise.SampleSite != null)
+                {
+                    @Html.ActionLink(Model.Display.Premise.SampleSite.ToString(), "Show", "SampleSite", new { id = Model.Display.Premise.SampleSite.Id, area = "WaterQuality" }, null)
+                }
+            </div>)
+            @Html.EditorFor(x => x.TapOrderNotes)
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>9. Work Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.DateIssuedToField)
+                        @Html.EditorFor(x => x.WorkIssuedTo)
+                        @Html.EditorFor(x => x.ServicePriority)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.LengthOfService)
+                        @Html.EditorFor(x => x.DepthMainFeet)
+                        @Html.EditorFor(x => x.DepthMainInches)
+                        @Html.EditorFor(x => x.DateInstalled)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>10. Retirement Information</legend>
+        <table class="double-wide" style="width:100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc225">
+                        @Html.EditorFor(x => x.RetiredAccountNumber)
+                        @Html.EditorFor(x => x.RetireMeterSet)
+                        @Html.EditorFor(x => x.PreviousServiceMaterial)
+                        @Html.EditorFor(x => x.StreetMaterial)
+                        @Html.EditorFor(x => x.PreviousServiceCustomerMaterial)
+                    </div>
+                </td>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.OriginalInstallationDate)
+                        @Html.EditorFor(x => x.RetiredDate)
+                        @Html.EditorFor(x => x.PreviousServiceSize)
+                        @Html.EditorFor(x => x.PreviousServiceCustomerSize)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>12. Customer Side SL Replacement</legend>
+        <table class="double-wide" style="width: 100%;">
+            <tr>
+                <td>
+                    <div class="field-column fc200">
+                        @Html.EditorFor(x => x.CustomerSideSLReplacement)
+                            @Html.EditorFor(x => x.FlushingOfCustomerPlumbing)
+                            @Html.EditorFor(x => x.CustomerSideSLReplacedBy)
+                            @Html.EditorFor(x => x.CustomerSideSLReplacementContractor)
+                            @Html.EditorFor(x => x.LengthOfCustomerSideSLReplaced)
+                        @Html.DisplayFor(x => x.Display.CustomerSideSLReplacementCost)
+                        @Html.EditorFor(x => x.CustomerSideReplacementDate)
+                        @Html.DisplayFor(x => x.Display.CustomerSideSLWarrantyExpiration)
+                        @Html.DisplayFor(x => x.Display.CustomerSideReplacementWBSNumber)
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <div class="field-column fc200">
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "Service", new { Model.Id })
+        </text>)
+    </div>
+}

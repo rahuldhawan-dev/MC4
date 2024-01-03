@@ -1,0 +1,29 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.ConfinedSpaceFormViewModel
+@{
+    var showIfSection2IsCompleted = Model.IsSection2Completed;
+}
+@Html.ScriptFor("~/Scripts/Areas/HealthAndSafety/ConfinedSpaceForm/Form.js", ScriptLoadType.LoadFromPartial)
+@Html.StylesheetFor("~/Content/css/HealthAndSafety/ConfinedSpaceForm.css", true)
+@Html.HiddenFor(x => x.IsFormComplete)
+@Html.HiddenFor(x => x.ShortCycleWorkOrderNumber)
+
+@if (AuthenticationService.CurrentUser.Employee == null)
+{
+    <div class="container" style="margin-bottom:12px;">
+        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+        {
+            Message = "Your MapCall user account does not have an employee record associated with it. You can still create or edit a Confined Space Form, but you will not be able to sign any sections or add atmospheric tests until your user account is corrected.",
+            NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+        })
+    </div>
+}
+
+@(Html.Tabs()
+      .WithTab("Section 1", "_EditSection1")
+      .WithTab("Section 2", "_EditSection2")
+      .WithTab("Section 3", "_EditSection3", isVisible: showIfSection2IsCompleted)
+      .WithTab("Section 4", "_EditSection4", isVisible: showIfSection2IsCompleted)
+      // Entrants is part of Section 5, so keep these grouped together.
+      .WithTab("Section 5", "_EditSection5", isVisible: showIfSection2IsCompleted)
+      .WithTab("Role Assignment", "_EditEntrants", isVisible: showIfSection2IsCompleted)
+)

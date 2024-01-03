@@ -1,0 +1,48 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MapCallMVC.Areas.Production.Models.ViewModels.SearchSchedulingProductionWorkOrder
+
+@using (Form.BeginForm("Index", "Scheduling", "Production"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.HasAssignmentsOnNonCancelledWorkOrder)
+        @Html.EditorFor(x => x.Employee)
+        @Html.EditorFor(x => x.PlanningPlant)
+        @Html.EditorFor(x => x.PublicWaterSupply)
+        @Html.EditorFor(x => x.PublicWaterSupplyPressureZone)
+        @Html.EditorFor(x => x.WWSID)
+        @Html.EditorFor(x => x.WWSIDBasin)
+        @Html.EditorFor(x => x.ProductionWorkDescription)
+        @Html.EditorFor(x => x.Facility)
+        @Html.EditorFor(x => x.FacilityFacilityArea)
+        @Html.EditorFor(x => x.FunctionalLocation)
+        @Html.EditorFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.Equipment)
+        @Html.EditorFor(x => x.SAPEquipmentId)
+        @Html.EditorFor(x => x.SAPWorkOrder)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.OrderType)
+        @Html.EditorFor(x => x.PlantMaintenanceActivityType)
+        @Html.EditorFor(x => x.ProductionSkillSet)
+        @Html.EditorFor(x => x.BasicStart)
+        @Html.EditorFor(x => x.BasicFinish)
+        @Html.EditorFor(x => x.IsOpen)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.WBSElement)
+        <fieldset>
+            <legend>Planned Work</legend>
+            <div class="field-column fc200">
+                @Html.EditorFor(x => x.PlanNumber)
+                @Html.EditorFor(x => x.TaskType)
+                @Html.EditorFor(x => x.TaskGroupName)
+                @Html.EditorFor(x => x.LocalTaskDescription)
+            </div>
+        </fieldset>
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

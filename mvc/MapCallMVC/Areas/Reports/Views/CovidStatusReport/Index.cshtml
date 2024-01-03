@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCovidStatusReport
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id = "results", style = "width:auto;" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "CovidIssue", new { x.Id, area = "HumanResources"}, null))
+      .SortableColumnFor(x => x.Id)
+      .SortableColumnFor(x => x.Employee, "emp.LastName")
+      .SortableColumnFor(x => x.Employee.OperatingCenter.State, "st.Abbreviation")
+      .SortableColumnFor(x => x.Employee.EmployeeId, "emp.EmployeeId")
+      .SortableColumnFor(x => x.Employee.OperatingCenter, "oc.OperatingCenterCode")
+      .SortableColumnFor(x => x.PersonnelArea)
+      .SortableColumnFor(x => x.SubmissionDate)
+      .SortableColumnFor(x => x.SubmissionStatus, "ss.Description")
+      .SortableColumnFor(x => x.QuarantineStatus, "qs.Description")
+      .SortableColumnFor(x => x.StartDate)
+      .SortableColumnFor(x => x.EstimatedReleaseDate)
+      .SortableColumnFor(x => x.ReleaseDate)
+      .SortableColumnFor(x => x.ReleaseReason)
+      .SortableColumnFor(x => x.RequestType)
+      .ColumnFor(x => x.TotalDays)
+      .WithPaginatedFooter()
+)

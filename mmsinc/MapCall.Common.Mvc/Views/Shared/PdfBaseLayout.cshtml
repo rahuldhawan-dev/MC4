@@ -1,0 +1,62 @@
+﻿@inherits MapCall.Common.Views.PdfViewBase<dynamic>
+@*
+    NOTE: EvoPDF renders using webkit. You can use javascript if you want to dynamically do things. If the js
+          will cause any sort of delay(basically, anything that would need a $(document).ready() style delay)
+          then you need to tell EvoPDF to delay rendering. PdfResult is not configured to support that at the
+          moment.
+          
+          Setting ViewBag.Title will set the title in the pdf itself, which is nice.
+*@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        @RenderSection("styles", required: false)
+        <style type="text/css">
+            * {
+                margin: 0px;
+                padding: 0px;
+                position: relative;
+            }
+
+            html {
+                background: white;
+                height: 100%;
+                overflow: hidden;
+                padding: 0.1in;
+            }
+
+            body {
+                display: block;
+            }
+
+
+			/*This table css stuff is for making the pages automatically break into 
+			  new pages without cutting elements in half. */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+				page-break-inside: auto;
+			}
+
+			tr {
+				page-break-inside: avoid;
+				page-break-after: auto;
+			}
+
+			thead {
+				display: table-header-group;
+			}
+
+			tfoot {
+				display: table-footer-group;
+			}
+        </style>
+    
+        @RenderSection("head", required: false)
+
+    </head>
+<body>
+    @RenderSection("body", required: true)
+</body>
+</html>

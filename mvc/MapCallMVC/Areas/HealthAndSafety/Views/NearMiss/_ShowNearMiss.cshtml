@@ -1,0 +1,79 @@
+﻿@using FluentNHibernate.Conventions
+@using MapCall.Common.Model.Entities
+@model NearMiss
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.OperatingCenter.State)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.Town)
+    @Html.DisplayFor(x => x.Facility)
+    @Html.DisplayFor(x => x.NotCompanyFacility)
+    @Html.DisplayFor(x => x.LocationDetails)
+    @Html.DisplayFor(x => x.Type)
+    @Html.DisplayFor(x => x.SystemType)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.WasteWaterSystem)
+    @Html.DisplayFor(x => x.ActionTaken)
+    @Html.DisplayFor(x => x.CompletedCorrectiveActions)
+    @Html.DisplayFor(x => x.Coordinate)
+    @Html.DisplayFor(x => x.IncidentNumber)
+    @Html.DisplayFor(x => x.ReportAnonymously)
+    @Html.DisplayFor(x => x.WorkOrderType)
+
+    @if(Model.WorkOrderType != null)
+    {
+        switch (Model.WorkOrderType.Id)
+        {
+            case WorkOrderType.Indices.TANDD_DEPARTMENT:
+                if (Model.WorkOrder != null)
+                {
+                    @Html.RenderDisplayTemplate("T&D Work Order", Html.DefaultActionLink(Model.WorkOrder.Id.ToString(), "Show", "WorkOrder", "FieldOperations", new {id = Model.WorkOrder.Id}, new {target = "_blank"}));
+                }
+                break;
+            case WorkOrderType.Indices.PRODUCTION:
+                if (Model.ProductionWorkOrder != null)
+                {
+                    @Html.RenderDisplayTemplate("Production Work Order", Html.DefaultActionLink(Model.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", "Production", new {id = Model.ProductionWorkOrder.Id}, new {target = "_blank"}));
+                }
+                break;
+            case WorkOrderType.Indices.SHORT_CYCLE:
+                if (Model.ShortCycleWorkOrderNumber != null)
+                {
+                    @Html.DisplayFor(x => x.ShortCycleWorkOrderNumber)
+                }
+                break;
+            case WorkOrderType.Indices.UNKNOWN:
+                if (Model.WorkOrderNumber != null )
+                { 
+                    @Html.DisplayFor(x => x.WorkOrderNumber)
+                }
+                break;
+        }
+    }
+
+    @Html.DisplayFor(x => x.ActionTakenType)
+    @Html.DisplayFor(x => x.RelatedToContractor)
+    @Html.DisplayFor(x => x.ContractorCompany)
+    @Html.DisplayFor(x => x.OccurredAt)
+    @Html.DisplayFor(x => x.ReportedBy)
+    @Html.DisplayFor(x => x.Category)
+    @Html.DisplayFor(x => x.SubCategory)
+    @Html.DisplayFor(x => x.ReportedToRegulator)
+    @Html.DisplayFor(x => x.Description)
+    @Html.DisplayFor(x => x.Severity)
+    @Html.DisplayFor(x => x.SubmittedOnBehalfOfAnotherEmployee)
+    @Html.DisplayFor(x => x.Employee)
+    @Html.DisplayFor(x => x.SeriousInjuryOrFatality)
+    @Html.DisplayFor(x => x.LifeSavingRuleType)
+    @Html.DisplayFor(x => x.StopWorkUsageType)
+    @if (Model.ReviewedBy != null)
+    {
+        @Html.DisplayFor(x => x.ReviewedBy)
+    }
+
+    @if (Model.ReviewedDate != null)
+    {
+        @Html.DisplayFor(x => x.ReviewedDate)
+    }
+    @Html.DisplayFor(x => x.DateCompleted)
+</div>

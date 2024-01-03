@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MonthlyServicesInstalledByCategoryReportViewModel>
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@section scripts {
+    @Scripts.Render("~/scripts/chart-js")
+}
+
+@(Html.Tabs(new { id = "resultTabs" })
+      .WithTab("Results", "_Index", Model)
+      .WithTab("Chart", "_Chart", Model)
+)

@@ -1,0 +1,25 @@
+﻿@model MapCall.Common.Model.Entities.JobSiteCheckList
+
+<h2>Job Site Check List Completed</h2>
+
+<a href="@Model.RecordUrl">View on Site</a>
+
+Check List Id: @Model.Id <br/>
+Entered By: @Model.CreatedBy <br />
+SAP Work Order #: @Model.SAPWorkOrderId <br/>
+MapCall Work Order #: @if(Model.MapCallWorkOrder != null) 
+{
+<text><a href="@Model.MapCallWorkOrder.RecordUrl">@Model.MapCallWorkOrder.Id</a></text>
+}<br/>
+Operating Center: @Model.OperatingCenter <br/>
+Description of Job: @((Model.MapCallWorkOrder!=null)?Model.MapCallWorkOrder.WorkDescription:null)<br/>
+Address: @Model.Address <br />
+Traffic: @(Model.HasTrafficControl ? "Yes" : "N/A") <br />
+Is there an excavation?: @(Model.HasExcavation.GetValueOrDefault() ? "Yes" : "No") <br/>
+Is Excavation Over 5 ft: @(Model.HasExcavationFiveFeetOrDeeper ? "Yes" : "N/A") <br/>
+Competent Person: @Model.CompetentEmployee <br/>
+Excavations: <br/>
+@foreach (var ex in Model.ExcavationsByDate)
+{
+<text>W: @ex.WidthInFeet ft., L: @ex.LengthInFeet ft., D: @ex.DepthInInches in.</text> <br/>
+}

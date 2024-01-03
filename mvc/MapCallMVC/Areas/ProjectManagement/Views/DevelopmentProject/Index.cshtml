@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.SearchDevelopmentProject
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.Id)
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter")
+    .SortableColumnFor(x => x.Town, "Town")
+    .SortableColumnFor(x => x.StreetName, "StreetName")
+    .SortableColumnFor(x => x.Category, "Category")
+    .SortableColumnFor(x => x.BusinessUnit, "BusinessUnit")
+    .SortableColumnFor(x => x.ProjectManager, "ProjectManager")
+    .SortableColumnFor(x => x.PublicWaterSupply, "PublicWaterSupply")
+    .SortableColumnFor(x => x.DeveloperServicesId, "DeveloperServicesId")
+    .SortableColumnFor(x => x.WBSNumber, "WBSNumber")
+    .SortableColumnFor(x => x.ProjectDescription, "ProjectDescription")
+    .SortableColumnFor(x => x.CreatedBy, "CreatedBy")
+    .SortableColumnFor(x => x.ForecastedInServiceDate, "ForecastedInServiceDate")
+    .SortableColumnFor(x => x.InServiceDate, "InServiceDate")
+    .WithPaginatedFooter())

@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.SearchConfinedSpaceForm
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .SortableColumnFor(x => x.State)
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.PlanningPlant)
+    .SortableColumnFor(x => x.Facility)
+    .SortableColumnFor(x => x.ProductionWorkOrder)
+    .SortableColumnFor(x => x.GeneralDateTime)
+    .WithPaginatedFooter()
+)

@@ -1,0 +1,83 @@
+﻿@using MMSINC.Utilities
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.Services.Reports.SearchServicesCompletedByCategory
+@{
+    ActionBarHelper.AddExportLink();
+    var count = 0;
+}
+
+<table style="width: 400px;">
+    <tr>
+        <td colspan="2" style="font-weight: bold; text-align: center;border-top: 1px solid #83b9de;">
+            Services Completed By Category
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Operating Center:
+            @Model.Results.First().OperatingCenter
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            From : @string.Format(CommonStringFormats.DATE, Model.DateInstalled.Start)
+            To: @string.Format(CommonStringFormats.DATE, Model.DateInstalled.End)
+            <br />
+            Developer Driven: @Model.DeveloperServicesDriven
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;border: 1px solid #83b9de; font-weight: bold;">
+            Water Service Counts
+        </td>
+    </tr>
+    @{
+        var subTotal= 0;
+        foreach (var item in Model.Results)
+        {
+            if (!item.ServiceCategory.IsSewerCategory)
+            {
+                <tr>
+                    <td style="font-weight: bold;">@item.ServiceCategory</td>
+                    <td>@item.Total</td>
+                </tr>
+                count += item.Total;
+                subTotal += item.Total;
+            }
+        }
+        <tr>
+            <td style="font-weight: bold;">Total Water Services</td>
+            <td>@subTotal</td>
+        </tr>
+    }
+
+    <tr>
+        <td colspan="2" style="text-align: center;border: 1px solid #83b9de; font-weight: bold;">
+            Sewer Service Counts
+        </td>
+    </tr>
+    @{
+        subTotal = 0;
+        foreach (var item in Model.Results)
+        {
+            if (item.ServiceCategory.IsSewerCategory)
+            {
+                <tr>
+                    <td>@item.ServiceCategory</td>
+                    <td>@item.Total</td>
+                </tr>
+                count += item.Total;
+                subTotal += item.Total;
+            }
+        }
+        <tr>
+            <td style="font-weight: bold;">Total Sewer Services</td>
+            <td>@subTotal</td>
+        </tr>
+    }
+    <tr><td colspan="2">&nbsp;</td></tr>
+
+    <tr>
+        <td style="font-weight: bold; border-top: 1px solid #83b9de;border-bottom:1px solid #83b9de">Total Services</td>
+        <td style="border-bottom: 1px solid #83b9de;">@count</td>
+    </tr>
+</table>

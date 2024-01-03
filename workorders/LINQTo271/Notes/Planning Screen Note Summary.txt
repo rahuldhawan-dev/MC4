@@ -1,0 +1,171 @@
+***********************************************************************************************************
+09/16/2008
+21. The Planning tab (still to be added) should include the following:
+  Markout Dates (read-only, from the Markouts tab)
+  Street Opening Permits?
+  Traffic Control (drop down)
+  
+***********************************************************************************************************
+09/16/2008
+   PLANNING TAB (needed):
+    Markout Dates
+    Street Opening Permits (requirement/?)
+    Traffic Control (drop down)
+     - "None", "Pending Confirmation", "Confirmed"
+     - Span availiable if Multi Dat
+    Materials Planned (optional)
+    Single/Multi Day
+    Equipment (per OpCode, optional, just like materials but they don't go away)
+    Need a "Sequence", to specify what order work should be done in.
+
+***********************************************************************************************************
+10/27/2008
+Finished:
+  Search For Planning:
+    Fields:
+      - Town
+      - Town Section
+      - Street
+      - Nearest Cross Street
+      - Asset Type
+      - Description of Work (multi-select)?
+      - Priority
+      - Date Received (date range)
+      - Requester
+      - Markout Requirement
+
+  Incorporate the Lat/Lon stuff in this somehow, whether it's completely functional or not.
+  
+  Need a new table of Materials & Stock (Part) Numbers.  That field should use the autosuggest control,
+  displaying both part number and small description.  This is pending, I need it from Doug.
+  
+  A part number is tied to a size, so that should not be a field on the form.
+  
+  Need a map tab, to show where the job is located.
+  
+Pending:
+  "Field Ops Dashboard":
+    Need a graph of jobs created, in planning, and scheduled.
+  
+  For initial input, need buttons to cut right out to planning or scheduling right after saving.
+  
+  Need work order "Phases" -- Initial, Planning, Scheduling, Execution, and Finalization.
+  
+  Equipment is maintained at the op center level.  This also includes Vehicles from the currently
+  existing vehicles table, so two drop downs are in order, with two separate tables which will
+  union together somehow.
+  
+  Markout Number can only be 9 digits (the table allows for 15).
+  
+  Need to link to the State's traffic control plans (pdf) from the traffic control tab.
+  
+  Need a Customer tab:
+    - Notify Customer (check box)
+      - # of Customers notified
+    - Alert In System (check box)
+  
+  Planning Tabs:
+    - 
+  
+  Search For Planning:
+    Need to be able to map the table that comes up when you do a search within planning.
+  
+  Need some sort of "Dashboard", to see what work is currently in planning and scheduling.  Kevin Kirwan
+  to provide a list of the Descriptions of Work with the estimated man hours.  This allows them to see
+  what's currently pending, and how long all of it is going to take.
+  
+  Scheduling Search:
+    - Need a date field to search for markouts which are to expire within x number of days.
+
+    - Need to sort the results table for scheduling by any visible field.
+
+  Closing:
+    - If there was an emergency order, it should skip planning & scheduling (optionally).
+      Any required data for closing should be forced as a requirement here.
+
+***********************************************************************************************************
+11/10/2008
+PENDING:
+Planning Search:
+  - Need to filter Description of Work by Asset Type once chosen.
+
+  - Description of Work needs to be multi-select (don't know why it's not already)
+
+Emergency Markouts do not expire per se, but last as long as the emergency and work
+is being done.
+
+Need some way of viewing what work is already assigned to crews along with the estimated
+man hours so that the administrator can see how many hours of work has been assigned for
+a day.
+
+Need a crews table.  Need a string field for crew descriptor, and it should allow for each
+OpCenter to create and maintain its own set of crews.
+
+Planning Detail:
+  - "Equipment" to become "Resources".  Contains both vehicles and equipment.  Need some
+    way to allow for an administrator to decide what shows up in these lists.
+
+
+***********************************************************************************************************
+11/24/2008
+Planning:
+  Markouts:
+    - Need to record radius here.  This will be passed along with the rest of the information, including
+      lat/lon, to OneCall via email, so they can process and get us a markout number.
+
+    - OneCall will be sending us emails with the markout numbers.
+
+  Traffic Control:
+    - Local use checkbox? to flag that a set of work should be batch planned.
+
+Planning (perhaps v2):
+  -  Need means to record what officers were on site, and the invoice number (attached document).
+
+  
+***********************************************************************************************************
+12/16/2008
+  PLANNING:
+    DETAIL:
+      MAP TAB:
+        - The icon should not be draggable.
+
+      TRAFFIC CONTROL TAB:
+        - Is Traffic Control Required? should be on the INPUT form.  This checkbox
+          can stay, but should be disabled on this form.
+
+        - Need # of officers required.
+
+      STREET OPENING PERMIT TAB:
+        - Record that the permit was applied for, the date that happened, received,
+          the date that happened, and an expiration date.
+
+      SOME TAB:
+        - Kevin Keane to provide sheets with the accounting numbers for given job
+          descriptions on assets within different towns, as well as a list of the
+          descriptions to differentiate between O&M/Capital so that the correct
+          Accounting Number can be applied to a work order.  Once the system has
+          determined the proper accounting number, the user should be able to
+          change the number if necessary.  Later on, in EmployeeWorkOrder (time
+          sheet) entry, changing the job description will need to redo the same
+          process.
+
+    SEARCH RESULTS TABLE:
+      - Need map button.  Once the map is open, it should include a button to show
+        all open Work Orders within the current extents.  This needs safety checks
+        to ensure that too much data doesn't get thrown at the map.
+
+    DOCUMENTS:
+      PLANNING:
+        - Street Opening Permit
+
+      SCHEDULING/FINALIZATION:
+        - Invoices from police required for traffic control
+
+***********************************************************************************************************
+01/19/2009
+  PLANNING:
+    Street Opening Permits - just like traffic control or markouts, need:
+      Permit Required? (bool) and Notes (text)
+    Will also need to display the town phone number, and contact info in the tab in planning (at some point).
+
+***********************************************************************************************************

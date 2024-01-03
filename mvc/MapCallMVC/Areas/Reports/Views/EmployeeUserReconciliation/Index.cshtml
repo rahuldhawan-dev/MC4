@@ -1,0 +1,19 @@
+﻿@model SearchEmployeeUserReconciliation
+
+@{
+    ActionBarHelper.AddExportLink();
+    ViewBag.Title = "Employee/User Reconciliation";
+}
+
+@(Html.TableFor(_ => Model)
+    .WithCaption("Records Found: " + Model.Count)
+      .TemplateColumnFor("Actions", x => @<text>
+        @Html.ActionLink("View Employee", "Show", "Employee", new {area = "", id = x.EmployeeId}, null)
+        @Html.ActionLink("View User", "Show", "User", new {area = "", id = x.UserId}, null)
+                                          </text>)
+    .SortableColumnFor(x => x.EmployeeLastName, "LastName")
+    .SortableColumnFor(x => x.EmployeeFirstName, "FirstName")
+    .SortableColumnFor(x => x.EmployeeNumber, "Employee Id", "EmployeeId")
+    .SortableColumnFor(x => x.EmployeeOperatingCenter, "eOpCntr.OperatingCenterCode")
+    .SortableColumnFor(x => x.UserOperatingCenter, "uOpCntr.OperatingCenterCode")
+    .WithPaginatedFooter())

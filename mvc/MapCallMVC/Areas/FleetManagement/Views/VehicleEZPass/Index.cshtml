@@ -1,0 +1,13 @@
+﻿@model IEnumerable<VehicleEZPass>
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddRTOMapLink();
+}
+
+@(Html.TableFor()
+    .WithCaption("Records found: " + Model.Count())
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.EZPassSerialNumber)
+    .ColumnFor(x => x.BillingInfo)
+)

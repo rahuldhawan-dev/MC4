@@ -1,0 +1,50 @@
+﻿@using MapCallMVC.Areas.Customer.Models.ViewModels
+@model MapCallMVC.Areas.Customer.Models.ViewModels.SearchPremise
+    
+@{
+    ActionBarHelper.AddExportLink();
+    if (Model.Count > SearchPremiseForMap.MAX_MAP_RESULT_COUNT)
+    {
+        ActionBarHelper.AddDisabledMapLink(SearchPremiseForMap.MAX_MAP_RESULT_COUNT);
+    }
+    else
+    {
+        ActionBarHelper.AddMapLink();
+    }
+}
+
+@(Html.TableFor(x => x)
+    .WithCaption("Records found: " + Model.Count)
+    .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
+    .SortableColumnFor(x => x.OperatingCenter)
+    .SortableColumnFor(x => x.PublicWaterSupply)
+    .SortableColumnFor(x => x.PremiseType)
+    .SortableColumnFor(x => x.ConnectionObject)
+    .SortableColumnFor(x => x.PremiseNumber)
+    .SortableColumnFor(x => x.DeviceLocation)
+    .SortableColumnFor(x => x.Installation)
+    .SortableColumnFor(x => x.ServiceUtilityType)
+    .SortableColumnFor(x => x.StatusCode)
+    .SortableColumnFor(x => x.CriticalCareType)
+    .SortableColumnFor(x => x.FullStreetAddress, "Street Address", "FullStreetAddress")
+    .SortableColumnFor(x => x.ServiceAddressApartment)
+    .SortableColumnFor(x => x.ServiceCity)
+    .SortableColumnFor(x => x.ServiceZip)
+    .SortableTemplateColumnFor("Device Category", "DeviceCategory", x => @<text>@if (x.DeviceCategory != null){@x.DeviceCategory.TrimStart('0')}</text>)
+    .SortableTemplateColumnFor("Equipment", "Equipment", x => @<text>@if (x.Equipment != null){@x.Equipment.TrimStart('0')}</text>)
+    .SortableColumnFor(x => x.NextMeterReadingDate)
+    .SortableTemplateColumnFor("Device Serial #", "DeviceSerialNumber", x => @<text>@if (x.DeviceSerialNumber != null){@x.DeviceSerialNumber.TrimStart('0')}</text>)
+    .SortableColumnFor(x => x.ServiceDistrict)
+    .SortableColumnFor(x => x.AreaCode)
+    .SortableColumnFor(x => x.RegionCode)
+    .SortableColumnFor(x => x.RouteNumber)
+    .SortableColumnFor(x => x.MeterSize)
+    .SortableColumnFor(x => x.MeterLocation)
+    .SortableColumnFor(x => x.MeterLocationFreeText)
+    .SortableColumnFor(x => x.IsMajorAccount)
+    .SortableColumnFor(x => x.MajorAccountManager)
+    .SortableColumnFor(x => x.AccountManagerContactNumber)
+    .SortableColumnFor(x => x.AccountManagerEmail)
+    .WithPaginatedFooter()
+
+)

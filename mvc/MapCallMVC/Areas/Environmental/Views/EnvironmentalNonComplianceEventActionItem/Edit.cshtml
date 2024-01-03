@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.EditEnvironmentalNonComplianceEventActionItem
+
+@using (Form.BeginForm("Update", "EnvironmentalNonComplianceEventActionItem", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.OperatingCenter)
+
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.NotListedType)
+        @Html.EditorFor(x => x.ActionItem)
+        @Html.EditorFor(x => x.ResponsibleOwner)
+        @Html.EditorFor(x => x.TargetedCompletionDate)
+        @Html.EditorFor(x => x.DateCompleted)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "EnvironmentalNonComplianceEvent", new { id = Model.EnvironmentalNonComplianceEventId, area = "Environmental" })
+        </text>)
+    </div>
+}

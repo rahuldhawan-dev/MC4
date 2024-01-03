@@ -1,0 +1,18 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@model MaintenancePlanForecastResults
+
+@(Html.TableFor(x => Model.ForecastWorkOrders, new { id = "forecastWorkOrderTable" })
+  .ColumnFor(x => x.PlannedDate)
+  .TemplateColumnFor("Scheduled Assignments", x => @<text>
+                                                       @if (x.Assignments.Any())
+                                                       {
+                                                           <text>
+                                                               @string.Join(", ", x.Assignments)
+                                                           </text>
+                                                       }
+                                                    </text>)
+  .ColumnFor(x => x.LocalTaskDescription)
+  .ColumnFor(x => x.SkillSet)
+  .ColumnFor(x => x.Resources)
+  .ColumnFor(x => x.EstimatedHours)
+)

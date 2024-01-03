@@ -1,0 +1,7 @@
+﻿@model WaterQualityComplaint
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowWaterQualityComplaint", Model)
+    .WithTab("Sample Results", "_IndexSampleResults", Model)
+    .WithNotesAndDocuments()
+	.WithLog())

@@ -1,0 +1,93 @@
+﻿<h2>Work Orders</h2>
+
+<p>
+    T&D Work Orders are available for equipment if they are a facility classified as T&D Department or as Production Work Orders if they are classified as production in the facility they belong to.
+</p>
+
+<br />
+<h2>Risk Characteristics</h2>
+<p>
+    <ul>
+        <li>
+            <a href="@(string.Format("{0}Modules/mvc/HelpTopic/Show/163", System.Configuration.ConfigurationManager.AppSettings["BaseUrl"]))">Guidance to Determine Condition Performance and LOF</a>
+        </li>
+        <li>
+            <a href="@(string.Format("{0}Modules/mvc/HelpTopic/Show/164", System.Configuration.ConfigurationManager.AppSettings["BaseUrl"]))">Guidance Based on Asset Maintenance Strategy Tier</a>
+        </li>
+        <li>
+            <a href="@(string.Format("{0}Modules/mvc/HelpTopic/Show/165", System.Configuration.ConfigurationManager.AppSettings["BaseUrl"]))">Categories with Impact Definition for COF Score</a>
+        </li>
+    </ul>
+</p>
+
+<br />
+<h2>Compliance Equipment Types</h2>
+
+<table>
+    <tr>
+        <th>Flag Type</th>
+        <th>Description</th>
+        <th>Examples (Not limited to)</th>
+    </tr>
+    <tr>
+        <td>Process Safety Management</td>
+        <td>This flag applies to process equipment for those hazardous chemicals under OSHA’s Process Safety Management (PSM) requirements.   This is to flag such equipment to ensure ongoing performance, integrity and maintenance as per manufacturer’s recommendation or regulatory requirement. </td>
+        <td>
+            <ul>
+                <li>Chlorinators</li>
+                <li>Regulators</li>
+                <li>Process Piping</li>
+                <li>Scrubbers</li>
+                <li>Lifting hoist – ton cylinders</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Company Requirement</td>
+        <td>This flag applies to equipment that is to be calibrated\maintained\inspected as per company requirements or identified best practice.    Such frequency is determined by AW practice or policy.</td>
+        <td>
+            <ul>
+                <li>Source Water panels\sensors</li>
+                <li>Chemical overflow sensors/alarms</li>
+                <li>Certain lifting equipment</li>
+                <li>PPE•Finished Water Tanks</li>
+                <li>Dams</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>OSHA Requirement</td>
+        <td>This flag applies to equipment as specified under OSHA regulations which requires inspection(s) at some set frequency.   Documentation and adherence to these inspection schedules is critical for employee safety.   If unsure, consult local H&S Specialist.</td>
+        <td>
+            <ul>
+                <li>Gas monitors</li>
+                <li>Fall Protection Equipment</li>
+                <li>Slings</li>
+                <li>Cranes\Hoist</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Environmental / Water Quality Regulatory Requirement</td>
+        <td>This flag applies to equipment which requires calibration as per regulatory requirement or permits and/or is critical towards WQ\Environmental compliance and protection of public health.   Such equipment MUST be maintained as per manufacturers recommendation and/or regulatory requirements.    Failure of this equipment could result in a Non-compliance event.</td>
+        <td>
+            <ul>
+                <li>Turbidity Analyzers</li>
+                <li>Chlorine Analyzers</li>
+                <li>pH Meters</li>
+                <li>Diesel exhaust testing</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Other Requirement</td>
+        <td>This is to identify equipment to be inspected\calibrated or maintained as per some requirement\ local agency\best practice not identified in any of the above categories.</td>
+        <td>
+            <ul>
+                <li>Equipment inspection as deemed by local code</li>
+                <li>Equipment\trailers under DOT regulations</li>
+                <li>Equipment inspections as dictated by specialized permit</li>
+            </ul>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,10 @@
+﻿@model WorkOrder
+
+@Html.ActionLink("Create Markout Damage", "New", "MarkoutDamage", new { area = "FieldOperations", id = Model.Id }, new { Class = "link-button" })
+<br />
+@(Html.TableFor(x => x.MarkoutDamages, new { Id = "markoutDamages" })
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "MarkoutDamage", new { id = x.Id, area = "FieldOperations" }, new { target = "_blank" }))
+      .ColumnFor(x => x.RequestNumber)
+      .ColumnFor(x => x.DamageOn, "Damaged On Date")
+      .ColumnFor(x => x.Excavator)
+      .TemplateColumnFor("Utilities Damaged", x => @<text>@string.Join(", ", x.UtilityDamages)</text>))

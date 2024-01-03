@@ -1,0 +1,34 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchMarkoutDamage
+
+@Html.ScriptFor("~/Scripts/MarkoutDamage/Search.js", ScriptLoadType.LoadFromPartial)
+
+@using (Form.BeginForm("Index", "MarkoutDamage"))
+{
+	<div class="field-column fc200 searchFields">
+		@Html.EditorFor(x => x.EntityId)
+		@Html.EditorFor(x => x.OperatingCenter)
+		@Html.EditorFor(x => x.WorkOrder)
+		@Html.EditorFor(x => x.State)
+		@Html.EditorFor(x => x.County)
+		@Html.EditorFor(x => x.Town)
+		@Html.EditorFor(x => x.Street)
+		@Html.EditorFor(x => x.SAPWorkOrderId)
+		@Html.EditorFor(x => x.DamageOn)
+		@Html.EditorFor(x => x.CreatedBy)
+		@Html.EditorFor(x => x.IsSignedOffBySupervisor)
+		@Html.EditorFor(x => x.Excavator)
+		@Html.EditorFor(x => x.IsMarkedOut)
+		@Html.EditorFor(x => x.IsMismarked)
+		@Html.EditorFor(x => x.ExcavatorCausedDamage)
+		@Html.EditorFor(x => x.ExcavatorDiscoveredDamage)
+		@Html.EditorFor(x => x.Was911Called)
+        @Html.EditorFor(x => x.WerePicturesTaken)
+
+        @Html.RenderEditorTemplate(Html.DisplayLabelFor(x => x.MissingAttachedPictures), @<text>@Control.CheckBoxFor(x => x.MissingAttachedPictures)</text>, "hidden MissingAttachedPictures")
+		
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+	</div>
+}

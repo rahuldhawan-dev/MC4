@@ -1,0 +1,15 @@
+﻿@using System.Web.Configuration
+@model MapCall.Common.Model.Entities.GeneralLiabilityClaim
+
+<h2>General Liability Claim Created</h2>
+Id: @Model.Id <br/>
+Entered By: @Model.CreatedBy <br/>
+Entered On: @Model.CreatedAt <br/>
+<br />
+District: @Model.OperatingCenter<br/>
+Liability Type: @Model.LiabilityType<br/>
+Company Contact: @Model.CompanyContact<br/>
+Claims Representative: @Model.ClaimsRepresentative<br/>
+Claim #: @Model.ClaimNumber<br/>
+Incident Date/Time: @Model.IncidentDateTime<br/>
+Incident Location: @Model.LocationOfIncident <br/>

@@ -1,0 +1,30 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.AddRoadwayImprovementNotificationStreet
+
+@Html.ScriptFor("~/Scripts/Areas/ProjectManagement/RoadwayImprovementNotification/Streets.js", ScriptLoadType.LoadFromPartial)
+@Control.Hidden("TownStateServiceUrl").WithValue(Url.Action("GetState", "Town", new { area = string.Empty }))
+
+@using (var form = Form.BeginRouteForm("RoadwayImprovementNotification", "RoadwayImprovementNotificationStreet", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "roadwayNotificationStreet");
+    <div class="field-column fc200">
+        @Control.HiddenFor(x => x.Id)
+        @Control.HiddenFor(x => x.TownId)
+        @Control.HiddenFor(x => x.TownText)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.Coordinate)
+        @Html.EditorFor(x => x.StartPoint)
+        @Html.EditorFor(x => x.Terminus)
+        @Html.EditorFor(x => x.MainSize)
+        @Html.EditorFor(x => x.MainType)
+        @Html.EditorFor(x => x.RoadwayImprovementNotificationStreetStatus)
+        @Html.EditorFor(x => x.MainBreakActivity)
+        @Html.EditorFor(x => x.NumberOfServices)
+        @Html.EditorFor(x => x.MoratoriumEndDate)
+        @* The default id "Notes" conflicts with the Notes tab and messes things up. *@
+        @Html.EditorFor(x => x.Notes, new{ Html = new{ id = "StreetNotes"}})
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Street")
+            @Control.Button("Cancel").WithId("cancelAddRoadwayImprovementStreet").WithCssClass("cancel")
+        </text>)
+    </div>
+}

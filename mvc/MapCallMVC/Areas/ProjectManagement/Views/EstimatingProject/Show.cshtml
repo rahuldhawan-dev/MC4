@@ -1,0 +1,14 @@
+﻿@model EstimatingProject
+
+@Html.ScriptFor("~/Scripts/EstimatingProject/Show.js", ScriptLoadType.LoadFromPartial)
+
+@(Html.Tabs()
+        .WithTab("Details", "_ShowEstimatingProject", Model)
+        .WithTab("Materials", "_IndexMaterials", Model)
+        .WithTab("Company Labor Costs", "_IndexCompanyLaborCosts", Model)
+        .WithTab("Contractor Installation Costs", "_IndexContractorLaborCosts", Model)
+        .WithTab("Permits", "_IndexPermits", Model)
+        .WithTab("Other Costs", "_IndexOtherCosts", Model)
+        .WithTab("Summary", "_Summary", Model)
+        .WithNotesAndDocuments()
+        .WithLog())

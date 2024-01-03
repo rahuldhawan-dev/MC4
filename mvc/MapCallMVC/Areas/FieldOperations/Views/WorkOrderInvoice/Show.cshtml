@@ -1,0 +1,19 @@
+﻿@using MMSINC.Results
+@model WorkOrderInvoice
+
+@{
+    ActionBarHelper.AddLink("Invoice", "ab-export", "Show", "WorkOrderInvoice", new { id = Model.Id, ext = ResponseFormatter.KnownExtensions.PDF }, null);
+}
+
+@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrderInvoice/Show.js", ScriptLoadType.LoadFromPartial)
+
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowWorkOrderInvoice", Model)
+    .WithTab("Schedule of Values", "_ShowScheduleOfValues", Model, itemCount: Model.WorkOrderInvoicesScheduleOfValues.Count)
+    .WithTab("Materials", "_ShowMaterialsUsed", Model, isVisible: Model.IncludeMaterials && Model.WorkOrder != null && Model.WorkOrder.MaterialsUsed.Any())
+    .WithTab("Traffic Control", "_ShowTrafficControlTickets", Model, itemCount: Model.WorkOrder != null ? Model.WorkOrder.TrafficControlTickets.Count : 0, isVisible: Model.WorkOrder != null && Model.WorkOrder.TrafficControlTickets.Any())
+    .WithTab("Permits", "_ShowPermits", Model, isVisible: Model.WorkOrder != null && Model.WorkOrder.StreetOpeningPermitRequired)
+    .WithNotesAndDocuments()
+    .WithLog()
+)

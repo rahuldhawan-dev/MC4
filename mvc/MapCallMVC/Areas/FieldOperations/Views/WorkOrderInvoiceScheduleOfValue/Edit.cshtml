@@ -1,0 +1,22 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditWorkOrderInvoiceScheduleOfValue
+    
+@using (Form.BeginForm("Update", "WorkOrderInvoiceScheduleOfValue", "FieldOperations", new {Model.Id}))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.WorkOrderInvoice)
+        @Html.HiddenFor(x => x.ScheduleOfValue)
+        @Html.EditorFor(x => x.Total)
+        @Html.EditorFor(x => x.LaborUnitCost)
+        @Html.EditorFor(x => x.MaterialCost)
+        @Html.EditorFor(x => x.MiscCost)
+        @Html.EditorFor(x => x.IsOvertime)
+        @Html.EditorFor(x => x.OtherDescription)
+        @Html.EditorFor(x => x.IncludeWithInvoice)
+        @Html.EditorFor(x => x.IncludeMarkup)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "WorkOrderInvoice", new { id = Model.WorkOrderInvoice }, null)
+        </text>)
+    </div>
+}

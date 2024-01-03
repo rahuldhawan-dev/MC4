@@ -1,0 +1,38 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderScheduling.SearchWorkOrderScheduling
+
+<a href="https://sproutvideo.com/videos/a09ad9bc1619e3c728">How to Schedule a work order in MapCall</a>
+
+@using (Form.BeginForm("Index", "WorkOrderScheduling"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.Id)
+        @Html.RenderDisplayTemplate(string.Empty, @<text>-OR-</text>)
+        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.StreetNumber)
+        @Html.EditorFor(x => x.ApartmentAddtl)
+        @Html.EditorFor(x => x.NearestCrossStreet)
+        @Html.EditorFor(x => x.AssetType)
+        @Html.EditorFor(x => x.WorkDescription)
+        @Html.EditorFor(x => x.SAPNotificationNumber)
+        @Html.EditorFor(x => x.SAPWorkOrderNumber)
+        @Html.EditorFor(x => x.Priority)
+        @Html.EditorFor(x => x.RequestedBy)
+        @Html.EditorFor(x => x.AcousticMonitoringType)
+        @Html.EditorFor(m => m.TimeToComplete)
+        @Html.EditorFor(x => x.TrafficControlRequired)
+        @Html.EditorFor(x => x.MarkoutRequirement)
+        @Html.EditorFor(x => x.HasPendingAssignments)
+        @Html.EditorFor(m => m.MarkoutExpirationDays)
+        @Html.EditorFor(x => x.Purpose)
+        @Html.EditorFor(x => x.AccountCharged)
+        @Html.EditorFor(x => x.Notes)
+        @Html.EditorFor(x => x.PlannedCompletionDate)
+        @Html.ButtonGroup(@<text>
+                @Control.SubmitButton("Search").WithId("Search")
+                @Control.ResetButton()
+        </text>)
+    </div>
+}

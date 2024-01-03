@@ -1,0 +1,9 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.MarkOutOfServiceHydrant
+@using (var f = Form.BeginForm("SetHydrantOutOfService", "Hydrant", "FieldOperations", new { id = Model.Id }))
+{
+    f.HtmlAttributes["id"] = "out-of-service-form";
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.OutOfServiceDate)
+        @Html.ButtonGroup(@Control.SubmitButton("Update status"))
+    </div>
+}

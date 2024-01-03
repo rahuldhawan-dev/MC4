@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateTrafficControlTicketCheck
+
+@using (Form.BeginForm("Create", "TrafficControlTicketCheck", "FieldOperations")) {
+    <div class="field-column fc200">
+        @Html.HiddenFor(x => x.TrafficControlTicket)
+        @Html.DisplayFor(x => x.TrafficControlTicketDisplay.BillingParty.Payee)
+        @Html.DisplayFor(x => x.TrafficControlTicketDisplay.InvoiceAmount)
+        @Html.Partial("_FormFields", Model)
+ 
+        @Html.ButtonGroup(@<text>
+                               @Control.SubmitButton("Save")
+                               @Html.LinkButton("Cancel", "Index", "TrafficControlTicketCheck")
+                           </text>)
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@using MMSINC.Results
+@model Employee
+@{
+    Layout = null;
+}
+
+@if (Model.AttendedTrainingRecords.Any())
+{
+    var ids = string.Join(", ", Model.AttendedTrainingRecords.Select(x => x.TrainingRecord.Id));
+
+    @Html.ScriptFor("~/Scripts/TrainingRecord/AjaxIndex.js", ScriptLoadType.LoadFromPartial)
+    <div class="container" id="trainingRecordsContainer" data-url="@Html.UrlForAction("Index", "TrainingRecord",
+                                                                       new RouteValueDictionary {{"Ids", ids}, {"IdsRequired", true}, {ResponseFormatter.ROUTE_EXTENSION_PARAMETER_NAME, ResponseFormatter.KnownExtensions.FRAGMENT}})"></div>
+}
+else
+{
+    <div>There are no training records for this employee.</div>
+}

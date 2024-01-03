@@ -1,0 +1,26 @@
+﻿@model SearchUnionContract
+
+@{
+    ActionBarHelper.AddExportLink();
+}
+
+@(Html.TableFor(x => Model, new {id = "unionContractsTable"})
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
+    .SortableColumnFor(x => x.OperatingCenter, "OperatingCenter.OperatingCenterCode")
+    .SortableColumnFor(x => x.Local, "Local.Name")
+    .SortableColumnFor(x => x.Local.Union, "Local.Union.Name")
+    .SortableColumnFor(x => x.StartDate, "StartDate")
+    .SortableColumnFor(x => x.EndDate, "EndDate")
+    .ColumnFor(x => x.NoteCount)
+    .ColumnFor(x => x.DocumentCount)
+    .ColumnFor(x => x.GrievanceCount)
+    .ColumnFor(x => x.ActiveGrievanceCount)
+    .ColumnFor(x => x.CompromiseSettlementGrievanceCount)
+    .ColumnFor(x => x.ForInformationOnlyGrievanceCount)
+    .ColumnFor(x => x.NonGrievableReturnedGrievanceCount)
+    .ColumnFor(x => x.SustainedGrievanceCount)
+    .ColumnFor(x => x.SustainedCompanyPositionGrievanceCount)
+    .ColumnFor(x => x.SustainedUnionPositionGrievanceCount)
+    .ColumnFor(x => x.WithdrawnByUnionGrievanceCount)
+    .ColumnFor(x => x.ActiveArbitrationGrievanceCount)
+    .WithPaginatedFooter())

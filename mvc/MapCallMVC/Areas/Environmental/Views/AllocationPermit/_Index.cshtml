@@ -1,0 +1,14 @@
+﻿﻿@model IEnumerable<AllocationPermit>
+
+@(Html.TableFor(x => Model)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", "AllocationPermit", new { id = x.Id }, null))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.OperatingCenter)
+    .ColumnFor(x => x.EnvironmentalPermit.PermitNumber)
+    .ColumnFor(x => x.PublicWaterSupply.Description)
+    .ColumnFor(x => x.PermitType)
+    .ColumnFor(x => x.PermitFee)
+    .ColumnFor(x => x.EffectiveDateOfPermit)
+    .ColumnFor(x => x.ExpirationDate)
+    .ColumnFor(x => x.RenewalApplicationDate)
+)

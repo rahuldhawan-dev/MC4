@@ -1,0 +1,38 @@
+﻿@model Incident 
+@{
+    var canEdit = Html.CurrentUserCanEdit();
+    var avails = Model.EmployeeAvailabilities.OrderBy(x => x.StartDate);
+    var table = Html.TableFor(x => avails)
+                    .ColumnFor(x => x.EmployeeAvailabilityType)
+                    .ColumnFor(x => x.Duration)
+                    .ColumnFor(x => x.StartDate)
+                    .ColumnFor(x => x.EndDate);
+
+    var availModel = ViewModelFactory.BuildWithOverrides<AddIncidentEmployeeAvailability>(new {Id = Model.Id});
+    var availTitle = "Add Employee Availability";
+    var needsClosing = avails.FirstOrDefault(x => !x.EndDate.HasValue);
+    if (needsClosing != null)
+    {
+        availTitle = "Complete Employee Availability";
+        availModel.EmployeeAvailabilityType = needsClosing.EmployeeAvailabilityType.Id;
+        availModel.StartDate = needsClosing.StartDate;
+        availModel.ExistingEmployeeAvailability = needsClosing.Id;
+    }
+}
+@if (canEdit)
+{
+    <div class="collapse-panel" data-title="@availTitle">
+        @Html.Partial("_AddEmployeeAvailability", availModel)
+    </div>
+
+    using (var form = Form.BeginRouteForm("Incident", "IncidentEmployeeAvailability", new {Model.Id}, ManyToManyRouteAction.Remove))
+    {
+        form.HtmlAttributes.Add("data-confirm", "Are you sure you want to remove this incident employee availability record?");
+        @table.TemplateColumnFor(x => Control.SubmitButton("Remove").WithName("EmployeeAvailabilityId").WithValue(x.Id))
+    }
+}
+
+else
+{
+    @table
+}

@@ -1,0 +1,124 @@
+﻿@using MMSINC.ClassExtensions.Int32Extensions
+@model Hydrant
+
+@{
+    var inspectionRequirement = new HydrantInspectionRequirementHelper(DateTimeProvider).GetStatus(Model);
+    var requiresInspectionDb = Model.HydrantDueInspection != null
+                               && Model.HydrantDueInspection.RequiresInspection;
+}
+
+<fieldset>
+    <legend>Hydrant Details</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.Id)
+        @Html.DisplayFor(x => x.HydrantNumber)
+        @Html.DisplayFor(x => x.HydrantSuffix)
+        @Html.DisplayFor(x => x.LegacyId)
+        @Html.DisplayFor(x => x.Critical)
+        @Html.DisplayFor(x => x.CriticalNotes, new { @class = "critical-notes-display" })
+        @Html.DisplayFor(x => x.OutOfService)
+        @Html.DisplayFor(x => x.Initiator)
+        @Html.DisplayFor(x => x.SAPEquipmentId)
+        @Html.DisplayFor(x => x.SAPErrorCode)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Inspection Requirement</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.HydrantDueInspection.RequiresInspection)
+        @Html.RenderDisplayTemplate(Html.DisplayLabelFor("Reasons"), @<text>
+                                                                         <ul>
+                                                                        @foreach (var requirement in inspectionRequirement.Item2.Where(r => r.Item1 == requiresInspectionDb))
+                                                                        {
+                                                                            <li>@requirement.Item2</li>
+                                                                        }
+                                                                         </ul>
+                                                                      </text>)
+        @Html.DisplayFor(x => x.Zone)
+        @Html.DisplayFor(x => x.InspectionFrequencyDisplay)
+        @Html.RenderDisplayTemplate("Inspection Frequency Note", new MvcHtmlString(string.Format("The hydrant inspection frequency for this operating center is every {0} {1}{2}. Only update the inspection frequency for this hydrant if it differs.", Model.OperatingCenter.HydrantInspectionFrequency, Model.OperatingCenter.HydrantInspectionFrequencyUnit.Description, (Model.OperatingCenter.HydrantInspectionFrequency.IsOdd() ? "" : "s"))))
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Paint Requirement</legend>
+
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.HydrantDuePainting.RequiresPainting)
+        @Html.DisplayFor(x => x.HydrantDuePainting.LastPaintedAt)
+        @Html.DisplayFor(x => x.PaintingZone)
+        @Html.DisplayFor(x => x.PaintingFrequencyDisplay)
+        @if (Model.OperatingCenter.HydrantPaintingFrequency.HasValue)
+        {
+            @Html.RenderDisplayTemplate(
+                "Painting Frequency Note",
+                new MvcHtmlString(
+                    string.Format("The hydrant painting frequency for this operating center is every {0} {1}{2}. Only update the painting frequency for this hydrant if it differs.", Model.OperatingCenter.HydrantPaintingFrequency, Model.OperatingCenter.HydrantPaintingFrequencyUnit.Description, (Model.OperatingCenter.HydrantPaintingFrequency.Value.IsOdd() ? "" : "s"))))
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Location Information</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.OperatingCenter)
+        @Html.DisplayFor(x => x.WaterSystem)
+        @Html.DisplayFor(x => x.Town)
+        @Html.DisplayFor(x => x.TownSection)
+        @Html.DisplayFor(x => x.FireDistrict)
+        @Html.DisplayFor(x => x.Facility)
+        @Html.DisplayFor(x => x.StreetNumber)
+        @Html.DisplayFor(x => x.Street)
+        @Html.DisplayFor(x => x.CrossStreet)
+        @Html.DisplayFor(x => x.Coordinate)
+        @Html.RenderDisplayTemplate("ArcGIS Collector", @<text>@ViewData["ArcCollectorLink"]</text>)   
+        @Html.DisplayFor(x => x.PremiseNumber)
+        @Html.DisplayFor(x => x.Route)
+        @Html.DisplayFor(x => x.Stop)
+        @Html.DisplayFor(x => x.MapPage)
+        @Html.DisplayFor(x => x.Location)
+        @Html.DisplayFor(x => x.ValveLocation)
+        @Html.DisplayFor(x => x.Gradient)
+        @Html.DisplayFor(x => x.Elevation)
+        @Html.DisplayFor(x => x.IsDeadEndMain)
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Specifications</legend>
+    <div class="field-column fc200">
+        @Html.DisplayFor(x => x.HydrantSize)
+        @Html.DisplayFor(x => x.HydrantManufacturer)
+        @Html.DisplayFor(x => x.HydrantModel)
+        @Html.DisplayFor(x => x.YearManufactured)
+        @Html.DisplayFor(x => x.OpenDirection)
+        @Html.DisplayFor(x => x.HydrantMainSize)
+        @Html.DisplayFor(x => x.MainType)
+        @Html.DisplayFor(x => x.LateralSize)
+        @Html.RenderDisplayTemplate("Lateral Valve", @<div>
+            @if (Model.LateralValve != null)
+            {
+                @Html.ActionLink(Model.LateralValve.ValveNumber, "Show", "Valve", new { id = Model.LateralValve.Id, area = "FieldOperations" }, null)
+            }
+        </div>)
+        @Html.DisplayFor(x => x.WorkOrderNumber)
+        @Html.DisplayFor(x => x.BranchLengthFeet)
+        @Html.DisplayFor(x => x.BranchLengthInches)
+        @Html.DisplayFor(x => x.HydrantThreadType)
+        @Html.DisplayFor(x => x.HydrantOutletConfiguration)
+        @Html.DisplayFor(x => x.DepthBuryFeet)
+        @Html.DisplayFor(x => x.DepthBuryInches)
+        @Html.DisplayFor(x => x.HydrantType)
+        @Html.DisplayFor(x => x.IsNonBPUKPI)
+        @Html.DisplayFor(x => x.HydrantBilling)
+        @Html.DisplayFor(x => x.BillingDate)
+        @Html.DisplayFor(x => x.DateInstalled)
+        @Html.DisplayFor(x => x.DateRetired)
+        @Html.DisplayFor(x => x.Status)
+        @Html.DisplayFor(x => x.HydrantTagStatus)
+        @Html.DisplayFor(x => x.GISUID)
+        @Html.DisplayFor(x => x.FunctionalLocation)
+        @Html.DisplayFor(x => x.CreatedAt)
+    </div>
+</fieldset>

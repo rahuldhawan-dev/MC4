@@ -1,0 +1,56 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CrewAssignmentCalendarSearch
+
+@{
+    ViewBag.Title = "Crew Assignments";
+}
+
+@section scripts {
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/CrewAssignment/Calendar.js")
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/CrewAssignment/CrewAssignment.js")
+}   
+
+@section styles {
+    @Html.StylesheetFor("~/Content/css/FieldOperations/CrewAssignment/ShowCalendar.css")
+}
+
+<div class="box">
+    <div>
+        <div>
+            <fieldset>
+                <legend>Search</legend>
+                @using (var f = Form.BeginForm("ShowCalendar", "CrewAssignment"))
+                {
+                    f.HtmlAttributes.Add("id", "SearchForm");
+                    f.AddCssClass("has-form-state");
+
+                    <div class="field-column fc50">
+                        @Html.EditorFor(m => m.Crew)
+                        @Html.EditorFor(m => m.Date, new { html = new { @class = "no-form-state" } })
+                    </div>
+                    <div class="editor-buttons">
+                        @* Can these have a formaction or something to set which controller action they go to? *@
+                        @Control.SubmitButton("Search").WithName("Search").WithId("Search")
+                    </div>
+                }
+            </fieldset>
+            
+            <fieldset class="legend">
+                <legend>Legend</legend>
+                <label class="legend-today">Today</label>
+                <label class="legend-selected-day">Selected Day</label>
+                <label class="legend-0-50">0-50%</label>
+                <label class="legend-50-100">50-100%</label>
+                <label class="legend-100">100%</label>
+            </fieldset>
+        </div>
+    </div>
+    <div>
+        <div>
+            @Html.Partial("_MonthlyWorkCalendar")
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.Partial("_AssignmentsForDay")
+</div>

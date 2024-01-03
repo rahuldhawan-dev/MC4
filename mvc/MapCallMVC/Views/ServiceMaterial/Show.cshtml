@@ -1,0 +1,5 @@
+﻿@model ServiceMaterial
+
+@(Html.Tabs()
+    .WithTab("Service Material", "_ShowServiceMaterial", Model)
+    .WithTab("Operating Centers", "_ShowOperatingCenters", Model))

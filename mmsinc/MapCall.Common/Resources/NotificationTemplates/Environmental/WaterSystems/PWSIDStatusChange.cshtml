@@ -1,0 +1,8 @@
+﻿@model MapCall.Common.Model.Entities.PublicWaterSupply
+<a href="@Model.RecordUrl">View on MapCall</a><br />
+State: @Model.State<br />
+System: @Model.System<br />
+PWSID: @Model.Identifier<br />
+Operating Center: @string.Join(", ", Model.OperatingCenterPublicWaterSupplies)<br />
+Status: @Model.Status<br />
+Anticipated Active Date: @Model.AnticipatedActiveDate

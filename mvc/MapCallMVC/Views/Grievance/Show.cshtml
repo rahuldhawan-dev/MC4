@@ -1,0 +1,6 @@
+﻿@model Grievance
+@(Html.Tabs()
+    .WithTab("Grievance", "_ShowGrievance", Model)
+    .WithNotesDocumentsAndEmployees()
+    .WithLog() 
+)

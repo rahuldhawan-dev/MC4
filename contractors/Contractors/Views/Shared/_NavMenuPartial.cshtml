@@ -1,0 +1,21 @@
+﻿@using Contractors.Helpers
+<div id="nav">
+    <ul>
+        @Html.AdminActionMenuItem("Planning", "Search", "WorkOrderPlanning")
+        @Html.AdminActionMenuItem("Scheduling", "Search", "WorkOrderScheduling")
+        <li>@Html.ActionLink("Crew Assignments", "ShowCalendar", "CrewAssignment")</li>
+        @Html.AdminActionMenuItem("Crew Management", "Index", "Crew")
+        <li>@Html.ActionLink("Finalization", "Search", "WorkOrderFinalization")</li>
+        <li>@Html.ActionLink("General Search", "Search", "WorkOrderGeneral")</li>
+        <li>@Html.ActionLink("Restorations", "Search", "Restoration")</li>
+        <li>@Html.ActionLink("Meter Change Outs", "Search", "MeterChangeOut")</li>
+        <li>@Html.ActionLink("Meter Crews", "Index", "ContractorMeterCrew")</li>
+        <li>@Html.ActionLink("Services", "Search", "Service")</li>
+        <li>@Html.ActionLink("MCO Schedule", "Index", "MeterChangeOutSchedule")</li>
+        @Html.AdminActionMenuItem("MCO Completion", "Search", "MeterChangeOutCompletions")
+        @Html.AdminActionMenuItem("MCO Completion Report", "Search", "CompletedWork")
+	    <li>@Html.ActionLink("As Built Images", "Search", "AsBuiltImage")</li>
+	    <li>@Html.ActionLink("Tap Images", "Search", "TapImage")</li>
+	    <li>@Html.ActionLink("Valve Images", "Search", "ValveImage")</li>
+    </ul>
+</div>

@@ -1,0 +1,12 @@
+﻿@model EnvironmentalPermit
+
+@(Html.Tabs()
+    .WithTab("Environmental Permit", "_ShowEnvironmentalPermit", Model)
+    .WithTab("Requirements", "_IndexRequirements", Model)
+    .WithTab("Facilities", "_ShowFacilities", Model)
+    .WithTab("Equipment", "_ShowEquipment", Model, isVisible: (Model.EnvironmentalPermitType == null || Model.EnvironmentalPermitType.Id != (int)EnvironmentalPermitType.Indices.ALLOCATION_PERMIT))
+    .WithTab("Allocation Groupings", "~/Areas/Environmental/Views/AllocationPermit/_Index.cshtml", Model.AllocationPermits)
+    .WithTab("Withdrawal Nodes", "~/Areas/Environmental/Views/AllocationPermitWithdrawalNode/_Index.cshtml", Model.AllocationPermitWithdrawalNodes)
+    .WithTab("Fees", "_ShowFees", Model, isVisible: Model.RequiresFees)
+    .WithNotesAndDocuments()
+    .WithLog())

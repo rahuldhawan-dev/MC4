@@ -1,0 +1,20 @@
+﻿@model PositionGroupCommonName
+
+<table>
+    <tr>
+        <th>Training Requirement</th>
+        <th>Training Module</th>
+        <th>Is Active</th>
+    </tr>
+    @foreach (var tr in Model.TrainingRequirements)
+    {
+        foreach (var tm in tr.TrainingModules)
+        {
+            <tr>
+                <td>@Html.ActionLink(tm.TrainingRequirement.Description, "Show", "TrainingRequirement", new { area = string.Empty, tm.TrainingRequirement.Id }, null)</td>
+                <td>@Html.ActionLink(tm.Title, "Show", "TrainingModule", new {area = string.Empty, tm.Id}, null)</td>
+                <td>@tm.IsActive</td>
+            </tr>
+        }
+    }
+</table>

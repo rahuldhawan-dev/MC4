@@ -1,0 +1,8 @@
+﻿@model IEnumerable<PositionGroupCommonName>
+
+
+@(Html.TableFor(x => x)
+    .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+    .ColumnFor(x => x.Id)
+    .ColumnFor(x => x.Description)
+    )

@@ -1,0 +1,56 @@
+﻿@using MMSINC.Results
+@model SearchEmployeeTrainingByDate
+
+@if (Request.IsAjaxRequest())
+{
+    @Control.ActionLink("Export", "Index", "EmployeeTraining", new { area = "Reports", Model.EntityId, ext = ResponseFormatter.KnownExtensions.EXCEL_2003}, new { @class = "link-button" })
+}    
+
+@(Html.TableFor(_ => Model, new {id = "trainingRequirementsTable"})
+    .WithCaption(String.Format("{0} Records", Model.Count))
+    .SortableColumnFor(x => x.OperatingCenter, "opCntr.OperatingCenterCode")
+    .SortableColumnFor(x => x.OSHARequirement, "OSHA Requirement", "trainingRequirement.IsOSHARequirement")
+    .SortableTemplateColumnFor("Training Requirement", "trainingRequirement.Description", x => @<text>
+        @if (x.TrainingRequirementId > 0)
+        {
+            @Html.ActionLink(x.TrainingRequirement, "Show", "TrainingRequirement", new { id = x.TrainingRequirementId, area = "" }, null)
+        }</text>)
+	.SortableTemplateColumnFor("Active Initial Module", "activeInitial.Title", x => @<text>
+        @if (x.ActiveInitialTrainingModuleId > 0 && x.ActiveInitialTrainingModule != null)
+        {
+            @Html.ActionLink(x.ActiveInitialTrainingModule, "Show", "TrainingModule", new {id = x.ActiveInitialTrainingModuleId, area = ""}, null)
+        }</text>)
+    .SortableTemplateColumnFor("Active Initial and Reccuring Module", "activeInitialAndRecurring.Title", x => @<text>
+        @if (x.ActiveInitialAndRecurringTrainingModuleId > 0 && x.ActiveInitialAndRecurringTrainingModule != null)
+		{
+            @Html.ActionLink(x.ActiveInitialAndRecurringTrainingModule, "Show", "TrainingModule", new {id = x.ActiveInitialAndRecurringTrainingModuleId, area = ""}, null)
+        }</text>)
+    .SortableTemplateColumnFor("Active Recurring Module", "activeRecurring.Title", x => @<text>
+        @if (x.ActiveRecurringTrainingModuleId > 0 && x.ActiveRecurringTrainingModule != null) {
+            @Html.ActionLink(x.ActiveRecurringTrainingModule, "Show", "TrainingModule", new { id = x.ActiveRecurringTrainingModuleId, area = "" }, null)
+        }</text>)
+    // frequency
+    .ColumnFor(x => x.TotalHours)
+    .SortableTemplateColumnFor("Common Name", "commonName.Description", x => @<text>
+        @if (x.PositionGroupCommonNameId > 0){
+            @Html.ActionLink(x.CommonName, "Show", "PositionGroupCommonName", new { id = x.PositionGroupCommonNameId, area = ""}, null)    
+        }</text>)
+
+    .SortableTemplateColumnFor("Position", "position.PositionDescription", x => @<text>
+        @if (x.PositionGroupId > 0){
+            @Html.ActionLink(x.Position, "Show", "PositionGroup", new { id = x.PositionGroupId, area = ""}, null)
+        }</text>)
+    
+    .SortableColumnFor(x => x.PositionGroup, "position.Group")
+    .SortableTemplateColumnFor("Last Name", "LastName", x => Html.ActionLink(x.LastName, "Show", "Employee", new { id = x.EmployeeId, area = ""}, null))
+    .SortableTemplateColumnFor("First Name", "FirstName", x => Html.ActionLink(x.FirstName, "Show", "Employee", new { id = x.EmployeeId, area = "" }, null))
+    .SortableColumnFor(x => x.DateAttended, "attendedTrainingRecord.HeldOn")
+    .ColumnFor(x => x.RecentTrainingDate)
+    .ColumnFor(x => x.NextScheduledDate, "Next Scheduled Date")
+    .ColumnFor(x => x.NextDueByDate, "Next Due By Date")
+    .WithPaginatedFooter())
+
+@if (Request.IsAjaxRequest())
+{
+    @Html.ScriptFor("~/Scripts/Areas/Reports/EmployeeTraining/AjaxIndex.js")
+}

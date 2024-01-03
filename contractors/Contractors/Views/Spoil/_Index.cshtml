@@ -1,0 +1,30 @@
+﻿@model WorkOrder
+@Html.ScriptFor("~/Scripts/Spoil/Index.js", ScriptLoadType.LoadFromPartial)
+
+@using (var f = Form.BeginAjaxForm("Index", "Spoil", new { id = Model.Id }))
+{
+	f.Ajax.InsertionMode = InsertionMode.Replace;
+	f.Method = Request.IsAjaxRequest() ? FormMethod.Post : FormMethod.Get;
+	if (Request.IsAjaxRequest())
+	{
+        <table id="spoilsTable">
+            <thead>
+                <tr>
+                    @*This is here as a reminder that we need something better than this.
+                    Something that doesn't reak.*@
+                    @{Spoil temp = null; }
+                    <th></th>
+                    <th>@Html.DisplayLabelFor(_ => temp.Quantity)</th>
+                    <th>@Html.DisplayLabelFor(_ => temp.SpoilStorageLocation)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var spoil in Model.Spoils)
+                {
+                    @Html.Partial("_Show", spoil)
+                }
+            </tbody>
+        </table>
+        @Ajax.ActionLink("Add New Spoil", "New", "Spoil", new { workOrderId = Model.Id }, new AjaxOptions { HttpMethod = "GET" }, new { data_ajax_table = "#spoilsTable", id = "add-new-spoil-link" })
+    }
+}

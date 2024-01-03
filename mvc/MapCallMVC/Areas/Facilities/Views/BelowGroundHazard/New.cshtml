@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.Facilities.Models.ViewModels.CreateBelowGroundHazard
+
+@section scripts{
+    @Html.ScriptFor("~/Scripts/Areas/Facilities/BelowGroundHazard/Form.js")
+}
+
+@using (Form.BeginForm("Create", "BelowGroundHazard", "Facilities"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Index", "BelowGroundHazard")
+        </text>)
+    </div>
+}

@@ -1,0 +1,52 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.BaseValveImageViewModel
+
+@Html.EditorFor(x => x.OperatingCenter)
+@Html.EditorFor(x => x.Town, new { Container = Model })
+@Html.EditorFor(x => x.TownSection)
+@Html.EditorFor(x => x.StreetNumber)
+@Html.EditorFor(x => x.ApartmentNumber)
+
+@Html.RenderEditorTemplate("Street", @<text>
+    @* EditorWithoutWrapperFor does not work for cascades. *@
+    @* This contains an absolutely terrible hack to force the proper DropDownAttribute to work. It's
+        either that or copy/pasting this form into two different views just because the types
+        differ. *@
+    @if (Model is CreateValveImage)
+    {
+        <td>@Html.EditorWithoutWrapperFor(x => ((CreateValveImage)x).StreetIdentifyingInteger)</td>
+    }
+    else
+    {
+        <td>@Html.EditorWithoutWrapperFor(x => ((EditValveImage)x).StreetIdentifyingInteger)</td>
+    }
+
+    <div>If you can't locate the street in the dropdown list, you can enter it in the textboxes below.</div>
+    <table class="for-structure">
+        <tbody>
+            <tr>
+                <td>Prefix</td>
+                <td>Name</td>
+                <td>Suffix</td>
+            </tr>
+            <tr>
+                <td>@Html.EditorWithoutWrapperFor(x => x.StreetPrefix)</td>
+                <td>@Html.EditorWithoutWrapperFor(x => x.Street)</td>
+                <td>@Html.EditorWithoutWrapperFor(x => x.StreetSuffix)</td>
+            </tr>
+        </tbody>
+    </table>
+</text>)
+
+@Html.EditorFor(x => x.ValveNumber)
+@Html.EditorFor(x => x.Valve, new { Container = Model })
+@Html.EditorFor(x => x.CrossStreetPrefix)
+@Html.EditorFor(x => x.CrossStreet)
+@Html.EditorFor(x => x.CrossStreetSuffix)
+@Html.EditorFor(x => x.Location)
+@Html.EditorFor(x => x.NormalPosition)
+@Html.EditorFor(x => x.NumberOfTurns)
+@Html.EditorFor(x => x.DateCompleted)
+@Html.EditorFor(x => x.ValveSize)
+@Html.EditorFor(x => x.OpenDirection)
+@Html.EditorFor(x => x.IsDefaultImageForValve)

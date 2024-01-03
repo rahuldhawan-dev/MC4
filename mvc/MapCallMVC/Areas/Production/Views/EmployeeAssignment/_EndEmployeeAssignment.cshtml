@@ -1,0 +1,25 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.EndEmployeeAssignment
+
+@* NOTE: This view is a template. The values are populated by client-side. *@
+
+<div class="jqmWindow" style="z-index: 3000; top: 25%; bottom: 40%; min-height: 250px;" id="EmployeeAssignmentEndModal">
+    <div class="jqmTitle">
+        <button class="jqmClose">Close X</button>
+        <span class="jqmTitleText">End Assignment</span>
+    </div>
+    <div class="field-column fc100">
+        @using (Form.BeginForm("End", "EmployeeAssignment", "Production"))
+        {
+			@* For reasons I don't know, the StartDate and EndDate aren't supposed to 
+				be in this view, unlike the one in the tab for production work orders. *@
+            @Control.HiddenFor(x => x.Id).WithValue(null) @* Set value to null, otherwise it defaults to the parent ProductionWorkOrder Id.*@
+            @Control.HiddenFor(x => x.DateStarted)
+            @Control.HiddenFor(x => x.ProductionWorkOrder)
+            @Html.EditorFor(x => x.HoursWorked)
+            @Html.EditorFor(x => x.Notes)
+            @Html.ButtonGroup(@<text>
+                                  @Control.SubmitButton("End Assignment")
+                               </text>)
+        }
+    </div>
+</div>

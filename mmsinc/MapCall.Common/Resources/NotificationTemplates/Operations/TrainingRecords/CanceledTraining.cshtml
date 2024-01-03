@@ -1,0 +1,11 @@
+﻿@model MapCall.Common.Model.Entities.TrainingRecord
+
+<h2>Canceled Training Course Notification</h2>
+
+Title: @((Model.TrainingModule != null) ? Model.TrainingModule.Title : string.Empty) <br/>
+Scheduled Date: @Model.ScheduledDate <br/>
+Canceled On: @DateTime.Now <br/>
+Class Location: @Model.ClassLocation <br/>
+
+<br/>
+@Model.RecordUrl

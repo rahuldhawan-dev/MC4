@@ -1,0 +1,24 @@
+﻿@model Hydrant
+@{
+    ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter.Id, Town = Model.Town.Id, controller = "AssetMap" });
+
+    if (Model.IsActive)
+    {
+        ActionBarHelper.AddReplaceButton();
+    }
+    if (Model.CanBeCopied)
+    {
+        ActionBarHelper.AddCopyButton();
+    }
+    ActionBarHelper.AddPdfLink();
+}
+@Html.ScriptFor("~/Scripts/Hydrant/Show.js", ScriptLoadType.LoadFromPartial)
+@(Html.Tabs()
+    .WithTab("Hydrant", "_ShowHydrant")
+    .WithTab("Inspections", "_Inspections")
+    .WithAjaxTab("Paint", "_Paintings")
+    .WithTab("Out of Service", "_OutOfService")
+    .WithTab("Work Orders", "_WorkOrders")
+    .WithNotesAndDocuments()
+    .WithLog()
+)

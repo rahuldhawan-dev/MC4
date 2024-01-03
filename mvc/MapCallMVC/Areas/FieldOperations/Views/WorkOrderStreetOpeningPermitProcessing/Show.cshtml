@@ -1,0 +1,8 @@
+﻿@model WorkOrder
+
+@(Html.Tabs()
+      .WithTab("Initial Information", "~/Areas/FieldOperations/Views/WorkOrder/_InitialDetails.cshtml", Model)
+      .WithTab("Street Opening Permit", "~/Areas/FieldOperations/Views/StreetOpeningPermit/_Index.cshtml", Model, isVisible: Model.StreetOpeningPermitRequired, itemCount: Model.StreetOpeningPermits.Count)
+      .WithTab("Restoration", "~/Areas/FieldOperations/Views/WorkOrder/_Restorations.cshtml", Model, itemCount: Model.Restorations.Count)
+      .WithTab("Additional", "~/Areas/FieldOperations/Views/WorkOrder/_Additional.cshtml", Model)
+      .WithDocuments())

@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Engineering.Models.ViewModels.AwiaCompliance.CreateAwiaCompliance
+
+@using (Form.BeginForm("Create", "AwiaCompliance", "Engineering"))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_Form")
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "New", "AwiaCompliance")
+                           </text>)
+    </div>
+}

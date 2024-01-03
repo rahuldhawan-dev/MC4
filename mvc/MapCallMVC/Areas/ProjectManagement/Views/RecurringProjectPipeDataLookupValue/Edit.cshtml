@@ -1,0 +1,17 @@
+﻿@model MapCallMVC.Areas.ProjectManagement.Models.ViewModels.EditRecurringProjectPipeDataLookupValue
+
+@using (Form.BeginForm("Update", "RecurringProjectPipeDataLookupValue", "ProjectManagement", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.HiddenFor(m => m.RecurringProject)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.ProjectTitle)
+        @Html.DisplayFor(x => x.DisplayRecurringProject.ProjectDescription)
+        @Html.DisplayFor(x => x.DisplayPipeDataLookupValue.PipeDataLookupType.Description, new { DisplayName = "Pipe Data Lookup Type"})
+        @Html.EditorFor(x => x.PipeDataLookupValue)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.LinkButton("Cancel", "Show", "RecurringProject", new { id = Model.RecurringProject }, null)
+        </text>)
+    </div>
+}
+

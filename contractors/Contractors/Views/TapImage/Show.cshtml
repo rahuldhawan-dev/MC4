@@ -1,0 +1,7 @@
+﻿@model MapCall.Common.Model.Entities.TapImage
+@{
+	ViewBag.Title = "Showing Tap Image: #" + Model.Id;
+}
+@(Html.Tabs()
+    .WithTab("TapImage", "_ShowTapImage", Model)
+)

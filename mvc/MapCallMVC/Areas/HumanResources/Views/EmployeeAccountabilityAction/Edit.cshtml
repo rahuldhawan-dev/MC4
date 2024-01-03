@@ -1,0 +1,13 @@
+﻿@model MapCallMVC.Areas.HumanResources.Models.ViewModels.EditEmployeeAccountabilityAction
+
+@using (Form.BeginForm("Update", "EmployeeAccountabilityAction", "HumanResources", new { Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.Partial("_FormFields", Model)
+
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "EmployeeAccountabilityAction", new { Model.Id })
+                           </text>)
+    </div>
+}

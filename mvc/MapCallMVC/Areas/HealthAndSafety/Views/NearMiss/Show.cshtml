@@ -1,0 +1,8 @@
+﻿@using NHibernate.Properties
+@model NearMiss
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowNearMiss", Model)
+    .WithActionItems()
+    .WithNotesAndDocuments()
+    .WithLog())

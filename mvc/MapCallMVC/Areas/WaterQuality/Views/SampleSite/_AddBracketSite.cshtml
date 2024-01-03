@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.WaterQuality.Models.ViewModels.SampleSites.AddSampleSiteBracketSite
+           
+@using (var form = Form.BeginRouteForm("SampleSite", "BracketSite", null, ManyToManyRouteAction.Add))
+{
+	<div class="field-column fc100">
+		@Control.HiddenFor(x => x.Id)
+		@Html.EditorFor(x => x.BracketSite)
+		@Html.EditorFor(x => x.LocationType)
+        
+		@Html.ButtonGroup(@<text>
+			                  @Control.SubmitButton("Save Bracket Site")
+			                  @Control.Button("Cancel").WithCssClass("cancel")
+		                   </text>)
+	</div>
+}

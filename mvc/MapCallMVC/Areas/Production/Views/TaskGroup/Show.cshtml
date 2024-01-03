@@ -1,0 +1,6 @@
+﻿@model TaskGroup
+
+@(Html.Tabs()
+      .WithTab("Task Group", "_ShowTask", Model)
+      .WithTab("Equipment", "_ShowEquipment", Model)
+    )

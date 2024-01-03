@@ -1,0 +1,34 @@
+﻿@model MapCallMVC.Areas.Environmental.Models.ViewModels.EnvironmentalNonComplianceEvents.SearchEnvironmentalNonComplianceEvent
+    
+@using (Form.BeginForm("Index", "EnvironmentalNonComplianceEvent"))
+{
+<div class="field-column fc200 search-fields">
+    @Html.EditorFor(x => x.State)
+    @Html.EditorFor(x => x.OperatingCenter)
+    @Html.EditorFor(x => x.PublicWaterSupply)
+    @Html.EditorFor(x => x.WasteWaterSystem)
+    @Html.EditorFor(x => x.Facility)
+    @Html.EditorFor(x => x.EventDate)
+    @Html.EditorFor(x => x.AwarenessDate)
+    @Html.EditorFor(x => x.DateFinalized)
+    @Html.EditorFor(x => x.CountsAgainstTarget)
+    @Html.EditorFor(x => x.IssueYear)
+    @Html.EditorFor(x => x.IssueStatus)
+    @Html.EditorFor(x => x.IssueType)
+    @Html.EditorFor(x => x.IssueSubType)
+    @Html.EditorFor(x => x.Responsibility)
+    @Html.EditorFor(x => x.IssuingEntity)
+    @Html.EditorFor(x => x.NameOfEntity)
+    @Html.EditorFor(x => x.NameOfThirdParty)
+    @Html.EditorFor(x => x.RootCauses)
+    @Html.EditorFor(x => x.FailureType)
+    @Html.EditorFor(x => x.NOVWorkGroupReviewDate)
+    @Html.EditorFor(x => x.ChiefEnvOfficerApprovalDate)
+    @Html.EditorFor(x => x.DateOfEnvironmentalLeadershipTeamReview)
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Search").WithId("Search")
+        @Control.ResetButton()
+    </text>)
+</div>
+}

@@ -1,0 +1,27 @@
+﻿@model Contractors.Models.ViewModels.SearchService
+
+@{
+    ViewBag.Title = "Services - Index";
+}
+
+@(Html.TableFor(_ => Model)
+        .WithCaption("Records Found: " + Model.Count)
+        .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
+        .SortableColumnFor(x => x.ServiceNumber)
+        .SortableColumnFor(x => x.PremiseNumber)
+        .SortableColumnFor(x => x.OperatingCenter)
+        .SortableColumnFor(x => x.Town)
+        .SortableColumnFor(x => x.TownSection)
+        .SortableColumnFor(x => x.Development)
+        .SortableColumnFor(x => x.StreetNumber)
+        .SortableColumnFor(x => x.ApartmentNumber)
+        .SortableColumnFor(x => x.Street)
+        .SortableColumnFor(x => x.CrossStreet)
+        .SortableColumnFor(x => x.Block)
+        .SortableColumnFor(x => x.Lot)
+        .SortableColumnFor(x => x.Name)
+        .SortableColumnFor(x => x.PhoneNumber)
+        .SortableColumnFor(x => x.ServiceCategory)
+        .SortableColumnFor(x => x.ServiceMaterial)
+        .SortableColumnFor(x => x.ServiceSize)
+        .WithPaginatedFooter())

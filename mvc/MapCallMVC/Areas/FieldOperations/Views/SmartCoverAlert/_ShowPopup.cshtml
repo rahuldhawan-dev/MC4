@@ -1,0 +1,34 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model SmartCoverAlert
+
+<div class="esri-info">
+    <div style="padding: 3px;">
+        @if (!Model.Acknowledged)
+        {
+            @Html.DefaultActionLink("Acknowledge", "Edit", "SmartCoverAlert", "FieldOperations", new { id = Model.Id }, new { Class = "link-button", target = "_new" })
+        }
+        @Html.ActionLink("Create New Work Order", "New", "WorkOrder", new CreateWorkOrder(_container, Model), new { area = "FieldOperations", Class = "link-button", target = "_new" })
+    </div>
+    <div class="field-column fc100">
+        @Html.RenderDisplayTemplate("Alert Id", @Html.DefaultActionLink(Model.AlertId.ToString(), "Show", "SmartCoverAlert", "FieldOperations", new { id = Model.Id }, new { target = "_blank" }))
+        @Html.DisplayFor(x => x.SewerOpening.OperatingCenter)
+        @Html.DisplayFor(x => x.SewerOpening.Town)
+        @Html.DisplayFor(x => x.SewerOpeningNumber)
+        @Html.DisplayFor(x => x.DateReceived)
+        @Html.DisplayFor(x => x.Acknowledged)
+        @Html.RenderDisplayTemplate("Notes", @<text>
+            @if (Model.SmartCoverAlertSmartCoverAlertTypes.Any() && Model.SmartCoverAlertAlarms.Any())
+            {
+                @String.Format("Alarms: {0}, Alerts: {1}", Model.SmartCoverAlertAlarms, Model.SmartCoverAlertSmartCoverAlertTypes.ToString())
+            }
+            else if (Model.SmartCoverAlertSmartCoverAlertTypes.Any())
+            {
+                @String.Format("Alerts: {0}", Model.SmartCoverAlertSmartCoverAlertTypes.ToString())
+            }
+            else if (Model.SmartCoverAlertAlarms.Any())
+            {
+                @String.Format("Alarms: {0}", Model.SmartCoverAlertAlarms)
+            }
+        </text>)
+    </div>
+</div>

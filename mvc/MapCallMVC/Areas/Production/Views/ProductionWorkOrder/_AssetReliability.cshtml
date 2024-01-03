@@ -1,0 +1,38 @@
+﻿@using MapCallMVC.Areas.Production.Models.ViewModels
+@using MMSINC.ClassExtensions.IEnumerableExtensions
+@model ProductionWorkOrder
+@{
+    List<Equipment> equipmentList = new List<Equipment>();
+    var userCanCreateAssetReliability = Html.CurrentUserCanDo("New", "AssetReliability", "Production");
+
+    if (Model.Equipments.Any(x => x.Equipment != null))
+    {
+        foreach (var eq in Model.Equipments.Where(x => x.Equipment != null).DistinctBy(x => x.Equipment.Id))
+        {
+            equipmentList.Add(eq.Equipment);
+        }
+    }
+
+    if (userCanCreateAssetReliability)
+    {
+        @Html.TableFor(x => equipmentList, new { id = "assetReliabilityTable" }).ColumnFor(x => x.Description).TemplateColumnFor("", x => Html.ActionLink("Create Asset Reliability", "New", "AssetReliability", new {productionWorkOrderId = Model.Id, equipmentId = x.Id, area = "Production"}, null))
+        ;
+    }
+}
+
+<div class="container">
+
+        @(Html.TableFor(x => x.AssetReliabilities, new {id = "assetReliabilitesTable"})
+              .TemplateColumnFor("", x => Html.ActionLink("View", "Show", "AssetReliability", new { Id = x.Id, area = "Production" }, null)).ColumnFor(x => x.Employee)
+              .ColumnFor(x => x.DateTimeEntered)
+              .ColumnFor(x => x.Equipment)
+              .ColumnFor(x => x.Equipment.EquipmentPurpose.EquipmentLifespan)
+              .ColumnFor(x => x.Equipment.EquipmentPurpose)
+              .ColumnFor(x => x.RepairCostNotAllowedToFail)
+              .ColumnFor(x => x.RepairCostAllowedToFail)
+              .ColumnFor(x => x.CostAvoidance)
+              .ColumnFor(x => x.AssetReliabilityTechnologyUsedType)
+              .ColumnFor(x => x.TechnologyUsedNote)
+              .ColumnFor(x => x.CostAvoidanceNote))
+
+</div>

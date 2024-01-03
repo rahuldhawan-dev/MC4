@@ -1,0 +1,38 @@
+﻿/* Styles for validation helpers. 
+   These classes are used by jquery.validate.unobtrusive.js */
+   
+.field-validation-error,
+.field-validation-valid {
+    line-height: @default-form-control-height;
+}
+
+.field-validation-error
+{
+    color: @validation-error-text-color;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+/* Tag specificity is needed because of forms.less. The input[type="text"]
+    is more specific than just .input-validation-error by itself.
+*/
+input.input-validation-error,
+select.input-validation-error
+{
+    border: @validation-input-error-border;
+    background-color: @validation-input-error-background-color;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: @validation-error-text-color;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}

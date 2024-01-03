@@ -1,0 +1,33 @@
+﻿@model Contractors.Models.ViewModels.SearchAsBuiltImage
+
+@{
+	ViewBag.Title = "As Built Images";
+}
+
+@using (Form.BeginForm("Index", "AsBuiltImage"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.TaskNumber)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.ProjectName)
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.County, new { Container = Model })
+        @Html.EditorFor(x => x.Town, new { Container = Model })
+        @Html.EditorFor(x => x.TownSection)
+        @Html.EditorFor(x => x.StreetPrefix)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.StreetSuffix)
+        @Html.EditorFor(x => x.CrossStreet)
+        @Html.EditorFor(x => x.MapPage)
+        @Html.EditorFor(x => x.DateInstalled)
+        @Html.EditorFor(x => x.CreatedAt)
+        @Html.EditorFor(x => x.PhysicalInService)
+        @Html.EditorFor(x => x.OfficeReviewRequired)
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.CoordinatesModifiedOn)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

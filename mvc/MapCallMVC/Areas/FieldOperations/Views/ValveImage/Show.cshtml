@@ -1,0 +1,9 @@
+﻿@model ValveImage
+@{
+    ActionBarHelper.AddAuthorizedLink("Copy", "ab-replace", "New", "ValveImage", new { originalImageId = Model.Id, area = "FieldOperations" }, null);
+}
+
+@(Html.Tabs()
+    .WithTab("ValveImage", "_ShowValveImage", Model)
+    .WithLog()
+)

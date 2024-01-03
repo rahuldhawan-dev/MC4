@@ -1,0 +1,14 @@
+﻿@model AddOperatingCenterAssetType
+           
+@using (var form = Form.BeginRouteForm("OperatingCenter", "AssetType", null, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc100">
+        @Control.HiddenFor(x => x.Id)
+        @Html.EditorFor(x => x.AssetType, new { html = new { autofocus = "autofocus" } })
+        
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save Asset Type")
+                              @Control.Button("Cancel").WithCssClass("cancel")
+                           </text>)
+    </div>
+}

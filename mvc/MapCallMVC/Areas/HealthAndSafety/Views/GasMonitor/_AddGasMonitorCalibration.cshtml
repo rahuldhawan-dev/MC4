@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.HealthAndSafety.Models.ViewModels.AddGasMonitorCalibration
+
+@using (var form = Form.BeginRouteForm("GasMonitor", "GasMonitorCalibration", new { Id = Model.Id }, ManyToManyRouteAction.Add))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ViewModel.CalibrationDate)
+        @Html.EditorFor(x => x.ViewModel.CalibrationPassed)
+        @Html.EditorFor(x => x.ViewModel.CalibrationFailedNotes)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save Calibration")
+            @Control.Button("Cancel").WithCssClass("cancel")
+        </text>)
+    </div>
+}

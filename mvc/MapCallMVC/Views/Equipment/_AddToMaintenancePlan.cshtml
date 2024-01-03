@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Production.Models.ViewModels.AddSingleEquipmentMaintenancePlan
+
+@using (var form = Form.BeginForm("AddEquipmentMaintenancePlan", "Equipment", null, ManyToManyRouteAction.Add))
+{
+    form.HtmlAttributes.Add("id", "addToMaintenancePlanForm");
+    <div class="field-column">
+        @Html.HiddenFor(x => x.Facility)
+        @Html.HiddenFor(x => x.EquipmentType)
+        @Html.EditorFor(x => x.MaintenancePlan, new { html = new { id = Model.ControlId } })
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Add to Plan")
+                           </text>)
+    </div>
+}

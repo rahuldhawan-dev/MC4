@@ -1,0 +1,19 @@
+﻿@model EditActionItem
+
+
+@using (Form.BeginForm("Update", "ActionItem", new { Model.Id, Url = Request.UrlReferrer.ToString() }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.Type)
+        @Html.EditorFor(x => x.NotListedType)
+        @Html.EditorFor(x => x.Note)
+        @Html.EditorFor(x => x.ResponsibleOwner)
+        @Html.EditorFor(x => x.TargetedCompletionDate)
+        @Html.EditorFor(x => x.DateCompleted)
+
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Save")
+            @Html.ActionLink("Cancel", "CancelEdit", "ActionItem", new { url = Request.UrlReferrer.ToString(), area = "" }, new { Class = "link-button" })
+        </text>)
+    </div>
+}

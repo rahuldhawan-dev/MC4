@@ -1,0 +1,28 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderStockToIssue
+@model WorkOrder
+
+@*
+
+    THE TODOSIES
+
+    - Move the table to a partial because both this view and the WorkOrder/_Materials will need to reference it.
+    - If Model.MaterialsApprovedBy != null then just render WorkOrder/_Materials instead.
+    - Otherwise, we render the _ApproveMaterials view
+
+*@
+
+@if (Model.MaterialsApprovedBy != null)
+{
+    @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_Materials.cshtml")
+}
+else
+{
+    @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_MaterialsTable.cshtml")
+    <fieldset>
+        <div class="field-column fc200">
+            @Html.DisplayFor(x => x.MaterialsDocID)
+            @Html.DisplayFor(x => x.ApprovedBy.FullName, new { DisplayName = "Work Order Approved By" })
+        </div>
+    </fieldset>
+    @Html.Partial("_ApproveMaterials", ViewModelFactory.Build<ApproveWorkOrderStockToIssue, WorkOrder>(Model))
+}

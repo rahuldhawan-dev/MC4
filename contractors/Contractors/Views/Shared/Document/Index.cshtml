@@ -1,0 +1,24 @@
+﻿@using Contractors.Models.ViewModels
+@model IThingWithDocuments
+
+<div id="pnlNewDocument" class="collapse-panel" data-title="New Document">
+    @Html.Action("New", "Document", new { LinkedId = @Model.Id, @Model.TableName, area = "" })
+</div>
+
+<div class="container">
+    @(Html.TableFor(x => x.LinkedDocuments, new { id = "documentsTable", style = "width:100%;" })
+          .TemplateColumnFor("File Name", d => Html.SecureActionLink<ContractorUser>(d.Document.FileName, "Download", "Document", new { d.Document.Id, area = "" }, new { }))
+          .ColumnFor(d => d.Document.CreatedAt, "Created On")
+          .ColumnFor(d => d.DocumentType.Name, "Document Type")
+          .ColumnFor(d => d.UpdatedAt)
+          .ColumnFor(d => d.UpdatedBy)
+          .TemplateColumnFor("Actions", d => 
+	          @<text>
+		          @{
+			          var editButton = Html.SecureActionLink<ContractorUser>("Edit", "Edit", "DocumentLink", new { d.Id, area = "" }, new { Class = "link-button" });
+			          var deleteButton = Html.Partial("~/Views/Shared/Document/_DeleteForm.cshtml", ViewModelFactory.Build<DeleteDocumentLink, IDocumentLink>(d));
+		          }
+		          @editButton
+		          @deleteButton
+	           </text>))
+</div>

@@ -1,0 +1,21 @@
+﻿@model SearchFacilitySystemDeliveryHistory
+
+<text style="color: red">No historical data prior to April of 2021 is stored in MapCall.</text>
+
+<br/>
+
+<div>
+    @if (Model.SystemDeliveryHistory == null || Model.SystemDeliveryHistory.Count == 0)
+    {
+        <text> No Historical Data Found. </text>
+    }
+
+    else
+    {
+        @(Html.TableFor(x => Model.SystemDeliveryHistory, new { id = "system-delivery-history-table" })
+              .ColumnFor(x => x.EntryType)
+              .ColumnFor(x => x.Date)
+              .ColumnFor(x => x.Value))
+    }
+
+</div>

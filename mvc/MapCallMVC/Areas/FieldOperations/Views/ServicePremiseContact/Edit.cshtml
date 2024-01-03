@@ -1,0 +1,19 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@model ServicePremiseContactViewModel
+
+@using (Form.BeginForm("Update", "ServicePremiseContact", new{ Id = Model.Id }))
+{
+    <div class="field-column fc200">
+        @Html.EditorFor(x => x.ContactDate)
+        @Html.EditorFor(x => x.ContactMethod)
+        @Html.EditorFor(x => x.ContactType)
+        @Html.EditorFor(x => x.NotifiedCustomerServiceCenter)
+        @Html.EditorFor(x => x.CertifiedLetterSent)
+        @Html.EditorFor(x => x.ContactInformation)
+        @Html.EditorFor(x => x.CommunicationResults)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Save")
+                              @Html.LinkButton("Cancel", "Show", "Service", new {id = Model.Display.Service.Id})
+                           </text>)
+    </div>
+}

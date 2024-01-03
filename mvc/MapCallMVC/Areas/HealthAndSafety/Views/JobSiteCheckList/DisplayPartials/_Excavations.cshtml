@@ -1,0 +1,84 @@
+﻿@model JobSiteCheckList
+
+<fieldset>
+	<legend>Excavation Details</legend>
+	<table id="excavation-details-table" style="width: 100%;">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Width(ft)</th>
+				<th>Length(ft)</th>
+				<th>Depth(in)</th>
+				<th>Location</th>
+				<th>Soil Type</th>
+				<th>Created By</th>
+			</tr>
+		</thead>
+		<tbody>
+			@*Firefox gets styled weird when there's a thead, a tfoot, but an empty tbody. *@
+
+			@foreach (var excavation in Model.ExcavationsByDate)
+			{
+				var cur = excavation;
+				<tr>
+					<td>@Html.DisplayValueFor(x => cur.ExcavationDate)</td>
+					<td>@Html.DisplayValueFor(x => cur.WidthInFeet)</td>
+					<td>@Html.DisplayValueFor(x => cur.LengthInFeet)</td>
+					<td>@Html.DisplayValueFor(x => cur.DepthInInches)</td>
+					<td>@Html.DisplayValueFor(x => cur.LocationType)</td>
+					<td>@Html.DisplayValueFor(x => cur.SoilType)</td>
+					<td>@Html.DisplayValueFor(x => cur.CreatedBy)</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</fieldset>
+
+<div class="field-column fc-left-label fc400">
+    @Html.DisplayFor(x => x.SpotterAssigned)
+    @Html.DisplayFor(x => x.IsManufacturerDataOnSiteForShoringOrShieldingEquipment)
+    @Html.DisplayFor(x => x.IsTheExcavationGuardedFromAccidentalEntry)
+
+    @Html.DisplayFor(x => x.AllMaterialsSetBackFromEdgeOfTrenches)
+    @Html.DisplayFor(x => x.WaterControlSystemsInUse)
+    @Html.DisplayFor(x => x.AreExposedUtilitiesProtected)
+</div>
+
+<fieldset style="margin-top:12px;">
+    <legend>Visual & Physical Analysis for Soil Classification</legend>
+    <div class="field-column fc-left-label fc400">
+        @Html.DisplayFor(x => x.SoilCompositionExcavationType)
+        @Html.DisplayFor(x => x.SoilConditionsWithinExcavationType)
+        @Html.DisplayFor(x => x.AreThereAnyVisualSignsOfPotentialSoilCollapse)
+        @Html.DisplayFor(x => x.IsTheExcavationSubjectToVibration)
+    </div>
+</fieldset>
+<fieldset style="margin-top:12px;">
+	<legend>E. If any excavations are over 4 ft deep</legend>
+	<div class="field-column fc-left-label fc400">
+		@Html.DisplayFor(x => x.HasExcavationOverFourFeetDeep)
+		@if (Model.HasExcavationOverFourFeetDeep)
+		{
+			@Html.DisplayFor(x => x.IsALadderInPlace)
+			@Html.DisplayFor(x => x.LadderExtendsAboveGrade)
+			@Html.DisplayFor(x => x.IsLadderOnSlope)
+			@Html.DisplayFor(x => x.HasAtmosphereBeenTested)
+			@Html.RenderDisplayTemplate("", Html.Partial("DisplayPartials/_Atmosphere"))
+		}
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>F. If any excavations are 5 ft. deep or greater</legend>
+	<div class="field-column fc-left-label fc400">
+		@Html.DisplayFor(x => x.HasExcavationFiveFeetOrDeeper)
+		@if (Model.HasExcavationFiveFeetOrDeeper)
+		{
+			@Html.RenderDisplayTemplate(JobSiteCheckList.Display.PROTECTION_TYPE, @<text>@string.Join(", ", Model.ProtectionTypes.Select(x => x.Description))</text>)
+			@Html.DisplayFor(x => x.IsSlopeAngleNotLessThanOneHalfHorizontalToOneVertical)
+			@Html.DisplayFor(x => x.IsShoringSystemUsed)
+			@Html.DisplayFor(x => x.ShoringSystemSidesExtendAboveBaseOfSlope)
+			@Html.DisplayFor(x => x.ShoringSystemInstalledTwoFeetFromBottomOfTrench)
+		}
+	</div>
+</fieldset>

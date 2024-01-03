@@ -1,0 +1,133 @@
+﻿@model SampleSite
+
+<div class="field-column fc200">
+    @Html.DisplayFor(x => x.State)
+    @Html.DisplayFor(x => x.OperatingCenter)
+    @Html.DisplayFor(x => x.PublicWaterSupply)
+    @Html.DisplayFor(x => x.Status)
+    @Html.DisplayFor(x => x.SampleSiteInactivationReason, new { @class = "reason-row" })
+    @Html.DisplayFor(x => x.IsAlternateSite)
+
+    @Html.DisplayFor(x => x.Availability)
+    @Html.DisplayFor(x => x.IsComplianceSampleSite)
+    @Html.DisplayFor(x => x.IsProcessSampleSite)
+    @Html.DisplayFor(x => x.IsResearchSampleSite)
+
+    <fieldset>
+        <legend>Lead and Copper</legend>
+        @Html.DisplayFor(x => x.LeadServiceLineReplacementSite)
+        @Html.DisplayFor(x => x.LeadCopperSite)
+
+        @if (Model.LeadCopperSite.HasValue && Model.LeadCopperSite.Value)
+        {
+            @Html.DisplayFor(x => x.LeadCopperTierClassification)
+            if (Model.LeadCopperTierClassification != null &&
+                Model.LeadCopperTierClassification.Id == SampleSiteLeadCopperTierClassification.Indices.TIER_3_SINGLE_FAMILY_RESIDENCES_WITH_COPPER_PIPES_AND_LEAD_SOLDER_INSTALLED_BEFORE_1983)
+            {
+                @Html.DisplayFor(x => x.LeadCopperTierThreeExplanation)
+            }
+
+            @Html.DisplayFor(x => x.LeadCopperTierSampleCategory)
+            @Html.DisplayFor(x => x.LeadCopperValidationMethod)
+            @Html.DisplayFor(x => x.CustomerParticipationConfirmed)
+            @Html.DisplayFor(x => x.CustomerName)
+            @Html.DisplayFor(x => x.CustomerContactMethod)
+            @Html.DisplayFor(x => x.CustomerHomePhone)
+            @Html.DisplayFor(x => x.CustomerAltPhone)
+            @Html.DisplayFor(x => x.CustomerEmail)
+
+            if (Model.IsCertified)
+            {
+
+                @Html.RenderDisplayTemplate("Certified By", Html.ValueFor(x => x.CertifiedBy.FullName))
+                @Html.DisplayFor(x => x.CertifiedDate)
+                @Html.DisplayFor(x => x.NextCertificationDate)
+            }
+         }
+    </fieldset>
+
+    <fieldset>
+        <legend>Location</legend>
+        @if (Model.Town != null)
+        {
+            @Html.DisplayFor(x => x.Town.County)
+        }
+        @Html.DisplayFor(x => x.OutOfServiceArea)
+        @Html.DisplayFor(x => x.Town)
+        @Html.DisplayFor(x => x.TownSection)
+        @Html.DisplayFor(x => x.TownText)
+        @Html.DisplayFor(x => x.StreetNumber)
+        @Html.DisplayFor(x => x.Street)
+        @Html.DisplayFor(x => x.CrossStreet)
+        @Html.DisplayFor(x => x.ZipCode)
+        @Html.DisplayFor(x => x.Coordinate)
+        @Html.DisplayFor(x => x.SampleSiteAddressLocationType)
+
+        @if (Model.SampleSiteAddressLocationType != null) {
+            switch (Model.SampleSiteAddressLocationType.Id)
+            {
+                case SampleSiteAddressLocationType.Indices.HYDRANT:
+                    @Html.DisplayFor(x => x.Hydrant)
+                    break;
+                case SampleSiteAddressLocationType.Indices.VALVE:
+                    @Html.DisplayFor(x => x.Valve)
+                    break;
+                case SampleSiteAddressLocationType.Indices.FACILITY:
+                    @Html.DisplayFor(x => x.Facility)
+                    break;
+            }
+        }
+
+        @if (Model.Premise != null)
+        {
+            @Html.RenderDisplayTemplate("Premise", @<text>
+                @Html.ActionLink(
+                    Model.Premise.PremiseNumber, 
+                    "Show", 
+                    "Premise", 
+                    null, 
+                    null, 
+                    "CurrentMaterial/SizeTab", 
+                    new {
+                        Id = Model.Premise.Id, 
+                        area = "Customer"
+                    }, 
+                    new {
+                        target = "_blank"
+                    })
+            </text>)
+        }
+    </fieldset>
+    <fieldset>
+        <legend>Site Details</legend>
+        @Html.DisplayFor(x => x.CollectionType)
+        @Html.DisplayFor(x => x.SubCollectionType)
+        @Html.DisplayFor(x => x.LocationType)
+        @Html.DisplayFor(x => x.ParentSite)
+        @Html.DisplayFor(x => x.CommonSiteName)
+        @Html.DisplayFor(x => x.LocationNameDescription)
+        @Html.DisplayFor(x => x.Gradient)
+        @Html.DisplayFor(x => x.AgencyId)
+        @Html.DisplayFor(x => x.BactiSite)
+        @Html.DisplayFor(x => x.PreviousMonitoringPeriod)
+        
+    </fieldset>
+    <fieldset>
+        <legend>Horizon LIMS</legend>
+        @Html.DisplayFor(x => x.IsLimsLocation)
+        @if (Model.IsLimsLocation.HasValue && Model.IsLimsLocation.Value)
+        {
+            @Html.DisplayFor(x => x.LimsFacilityId)
+            @Html.DisplayFor(x => x.LimsSiteId)
+            @Html.DisplayFor(x => x.LimsPrimaryStationCode)
+            @Html.DisplayFor(x => x.LimsSequenceNumber)
+            @Html.DisplayFor(x => x.SampleSiteProfile)
+        }
+    </fieldset>
+    <fieldset>
+        <legend>Sample Site Validation</legend>
+        @Html.DisplayFor(x => x.SampleSiteValidationStatus)
+        @Html.DisplayFor(x => x.ValidatedBy)
+        @Html.DisplayFor(x => x.ValidatedAt)
+    </fieldset>
+</div>

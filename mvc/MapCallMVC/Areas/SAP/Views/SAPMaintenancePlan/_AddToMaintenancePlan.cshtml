@@ -1,0 +1,13 @@
+﻿@model MapCall.SAP.Model.Entities.SAPMaintenancePlanLookup
+
+@using (var form = Form.BeginForm("AddEquipmentToMaintenancePlan", "SAPMaintenancePlan", new {Equipment = ViewData["Equipment"], MapCallEquipmentId = ViewData["MapCallEquipmentId"], FunctionalLocation = ViewData["FunctionalLocation"]}))
+{
+    form.HtmlAttributes.Add("data-confirm", "Are you sure you want to add this equipment to the maintenance plan?");
+    <text>
+        @{
+            var items = Model.SapMaintenanceItemList.Select(i => new SelectListItem {Value = i.MaintenanceItem, Text = i.MaintenanceItemDescription});
+        }
+        @Control.DropDown("MaintenanceItem").WithItems(items)
+        @Control.SubmitButton("Add to Plan").WithName("MaintenancePlan").WithValue(Model.MaintenancePlan)
+    </text>
+}

@@ -1,0 +1,79 @@
+name: Update staging branches from develop on push
+on:
+  push:
+    branches:
+      - "develop"
+jobs:
+  update-qa1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update qa1
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "qa1"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+  update-qa2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update qa2
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "qa2"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+  update-qa3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update qa3
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "qa3"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+  update-qa4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update qa4
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "qa4"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+  update-training:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update training
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "training"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+  # this should mainly happen for hotfixes
+  update-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Update release
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.Token }}
+          source_ref: ${{ github.ref }}
+          target_branch: "release"
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'

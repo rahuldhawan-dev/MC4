@@ -1,0 +1,8 @@
+﻿@model FamilyMedicalLeaveActCase
+
+@(Html.Tabs()
+    .WithTab("Details", "_ShowFamilyMedicalLeaveActCase", Model)
+    .WithTab("Absence Notifications", "_ShowAbsenceNotifications", Model.Employee.AbsenceNotifications.OrderByDescending(x => x.StartDate), itemCount:Model.Employee.AbsenceNotifications.Count)
+    .WithTab("FMLA Cases", "_ShowFamilyMedicalLeaveActCases", Model.Employee.FamilyMedicalLeaveActCases.Where(x => x.Id != Model.Id).OrderByDescending(x => x.StartDate), itemCount:Model.Employee.FamilyMedicalLeaveActCases.Count-1)
+    .WithNotesAndDocuments()    
+)

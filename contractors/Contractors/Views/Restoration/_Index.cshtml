@@ -1,0 +1,18 @@
+﻿@model WorkOrder
+@* NOTE: This is loaded from the WorkOrderFinalization/_Tabs view. There is no controller action that specifically loads this view. *@
+@{
+    var isGeneralReadOnly = ViewData.ContainsKey("IsGeneralReadOnly") && (bool)ViewData["IsGeneralReadOnly"] == true;
+}
+@if (!isGeneralReadOnly)
+{
+    @Control.ActionLink("Create Restoration", "New", "Restoration", new { id = Model.Id })
+}
+
+@(Html.TableFor(x => x.Restorations,new { id = "restorationsTable"})
+      .TemplateColumnFor("Action", rest => @<text>@Html.ActionLink("Edit", "Edit", "Restoration", new { rest.Id }, null)</text>).IsVisible(!isGeneralReadOnly)
+       .ColumnFor(x => x.RestorationType)
+       .ColumnFor(x => x.PavingSquareFootage)
+       .ColumnFor(x => x.LinearFeetOfCurb)
+       .ColumnFor(x => x.PartialRestorationDate, "Partial Restoration Date")
+       .ColumnFor(x => x.FinalRestorationDate, "Final Restoration Date")
+       .ColumnFor(x => x.ResponsePriority))

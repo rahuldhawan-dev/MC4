@@ -1,0 +1,89 @@
+﻿@using MMSINC.Utilities
+@model MapCallMVC.Areas.Reports.Models.SearchCrewAssignmentSummary
+
+@{
+    ActionBarHelper.AddExportLink();
+    var results = Model.Results.GroupBy(x => x.Crew).OrderBy(x => x.Key.Description);
+}
+
+@functions
+{
+    string GetWorkOrderRowStyle(WorkOrderStatus status)
+    {
+        var map = new Dictionary<WorkOrderStatus, string>() {
+            { WorkOrderStatus.Cancelled, "wo-cancelled" },
+            { WorkOrderStatus.Completed, "wo-completed" },
+            { WorkOrderStatus.ScheduledPreviously, "wo-scheduled-previously" },
+            { WorkOrderStatus.ScheduledCurrently, "wo-scheduled-currently" },
+            { WorkOrderStatus.RequiresSupervisorApproval, "wo-requires-supervisor-approval" },
+            { WorkOrderStatus.WithCompliance, "asset-not-inspectable" }
+        };
+        string output;
+        return map.TryGetValue(status, out output) ? output : null;
+    }
+}
+
+@Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
+
+<table id="results">
+    <thead>
+        <tr>
+            <th>Work Order Number</th>
+            <th>Priority</th>
+            <th>Street Number</th>
+            <th>Street</th>
+            <th>Cross Street</th>
+            <th>Town</th>
+            <th>Town Section</th>
+            <th>Description of Job</th>
+            <th>Est. TTC</th>
+            <th>Assigned For</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>TTC</th>
+            <th>SAP Work Order</th>
+            <th>SAP Notification</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var crew in results)
+        {
+            var totalTimeToComplete = TimeSpan.Zero;
+            <tr><th style="font-weight: bold; border-top: 1px solid #83b9de;border-bottom:1px solid #83b9de" colspan="15">@crew.Key</th></tr>
+            foreach (var assignment in crew)
+            {
+                var timeToComplete = assignment.TimeToComplete.HasValue
+                    ? string.Format("{0}h {1}m", assignment.TimeToComplete.Value.Hours, assignment.TimeToComplete.Value.Minutes)
+                    : "n/a";
+                var notes = string.IsNullOrWhiteSpace(assignment.WorkOrder.Notes) ? "No Notes Entered" : assignment.WorkOrder.Notes;
+                <tr class="@GetWorkOrderRowStyle(assignment.WorkOrder.Status)">
+                    <td>@Html.ActionLink(assignment.WorkOrder.ToString(), "Show", "WorkOrder", new { id = assignment.WorkOrder.Id, area = "FieldOperations" }, null)</td>
+                    <td>@assignment.Priority</td>
+                    <td>@assignment.WorkOrder.StreetNumber</td>
+                    <td>@assignment.WorkOrder.Street</td>
+                    <td>@assignment.WorkOrder.NearestCrossStreet</td>
+                    <td>@assignment.WorkOrder.Town</td>
+                    <td>@assignment.WorkOrder.TownSection</td>
+                    <td title="@notes">@assignment.WorkOrder.WorkDescription</td>
+                    <td>@assignment.WorkOrder.WorkDescription.TimeToComplete</td>
+                    <td>@assignment.AssignedFor.ToString("d")</td>
+                    <td>@string.Format(CommonStringFormats.TIME_WITHOUT_SECONDS_WITH_EST_TIMEZONE, assignment.StartTime)</td>
+                    <td>@string.Format(CommonStringFormats.TIME_WITHOUT_SECONDS_WITH_EST_TIMEZONE, assignment.EndTime)</td>
+                    <td>@timeToComplete</td>
+                    <td>@assignment.WorkOrder.SAPWorkOrderNumber</td>
+                    <td>@assignment.WorkOrder.SAPNotificationNumber</td>
+                </tr>
+                totalTimeToComplete = assignment.TimeToComplete.HasValue ?
+                    totalTimeToComplete + assignment.TimeToComplete.Value : totalTimeToComplete;
+            }
+            <tr>
+                <td colspan="8"></td>
+                <td>@crew.Sum(x => x.WorkOrder.WorkDescription.TimeToComplete)</td>
+                <td colspan="3"></td>
+                <td>@string.Format("{0}h {1}m", totalTimeToComplete.Hours, totalTimeToComplete.Minutes)</td>
+                <td colspan="2"></td>
+            </tr>
+
+        }
+    </tbody>
+</table>

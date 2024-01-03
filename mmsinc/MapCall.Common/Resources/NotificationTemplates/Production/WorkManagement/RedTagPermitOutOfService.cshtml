@@ -1,0 +1,58 @@
+﻿@using MapCall.Common.Model.ViewModels
+@model MapCall.Common.Model.ViewModels.RedTagPermitNotification
+
+<h2>Red Tag Permit - Out Of Service</h2>
+
+Red Tag Permit: <a href="@Model.RecordUrl">@Model.RedTagPermit.Id</a><br />
+
+Created On: @Model.RedTagPermit.CreatedAt <br />
+
+Production Work Order: <a href="@Model.ProductionWorkOrderRecordUrl">@Model.RedTagPermit.ProductionWorkOrder.Id</a> <br />
+
+Operating Center: @Model.RedTagPermit.OperatingCenter <br />
+
+Facility: @Model.RedTagPermit.Facility <br />
+
+Facility Address: @Model.RedTagPermit.Facility.Address  <br />
+
+IOC Contact Number: @RedTagPermitNotification.IOC_CONTACT_NUMBER <br />
+
+Facility Insurance Id: @if (Model.RedTagPermit.ProductionWorkOrder != null && Model.RedTagPermit.ProductionWorkOrder.Facility != null) { @Model.RedTagPermit.Facility.InsuranceId } <br />
+
+Equipment Description: @Model.RedTagPermit.Equipment.Description <br />
+
+Name Of Responsible Person: @Model.RedTagPermit.PersonResponsible <br />
+
+Type Of Protection: @Model.RedTagPermit.ProtectionType <br />
+
+@if (!string.IsNullOrEmpty(Model.RedTagPermit.AdditionalInformationForProtectionType))
+{
+    <text>Type of Protection Description: @Model.RedTagPermit.AdditionalInformationForProtectionType<br /></text>
+}
+
+Area Protected: @Model.RedTagPermit.AreaProtected <br />
+
+Reason For Impairment: @Model.RedTagPermit.ReasonForImpairment <br />
+
+Number Of Turns To Close: @Model.RedTagPermit.NumberOfTurnsToClose <br />
+
+Authorized By: @Model.RedTagPermit.AuthorizedBy <br />
+
+Fire Protection Equipment Operator: @Model.RedTagPermit.FireProtectionEquipmentOperator <br />
+
+Date Equipment Impaired: @Model.RedTagPermit.EquipmentImpairedOn <br />
+
+List Of Precautions taken: 
+<ul>
+    <li>Emergency Organization Notified: @Model.RedTagPermit.EmergencyOrganizationNotified</li>
+    <li>Public Fire Department Notified: @Model.RedTagPermit.PublicFireDepartmentNotified</li>
+    <li>Hazardous Operations Stopped: @Model.RedTagPermit.HazardousOperationsStopped</li>
+    <li>Hot Work Prohibited: @Model.RedTagPermit.HotWorkProhibited</li>
+    <li>Smoking Prohibited: @Model.RedTagPermit.SmokingProhibited</li>
+    <li>Continuous Work Authorized: @Model.RedTagPermit.ContinuousWorkAuthorized</li>
+    <li>Ongoing Patrol Of Area: @Model.RedTagPermit.OngoingPatrolOfArea</li>
+    <li>Hydrant Connected To Sprinkler: @Model.RedTagPermit.HydrantConnectedToSprinkler</li>
+    <li>Pipe Plugs On Hand: @Model.RedTagPermit.PipePlugsOnHand</li>
+    <li>Has Other Precaution: @Model.RedTagPermit.HasOtherPrecaution</li>
+    <li>Other Precaution Description: @Model.RedTagPermit.OtherPrecautionDescription</li>
+</ul>

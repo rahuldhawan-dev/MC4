@@ -1,0 +1,12 @@
+﻿@* This is only here to cut down on the number of places that need to refer
+   to a shared layout that's not actually in the project. *@
+@* ReSharper disable Html.PathError *@
+@{
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+@* ReSharper restore Html.PathError *@
+
+@section styles {@RenderSection("styles", required: false)}
+@section scripts {@RenderSection("scripts", required: false)}
+
+@RenderBody()

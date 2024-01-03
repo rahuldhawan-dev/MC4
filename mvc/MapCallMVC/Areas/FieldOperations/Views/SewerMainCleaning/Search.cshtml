@@ -1,0 +1,23 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SewerMainCleanings.SearchSewerMainCleaning
+
+@using (Form.BeginForm("Index", "SewerMainCleaning")) {
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.EntityId)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Street)
+        @Html.EditorFor(x => x.Date)
+        @Html.EditorFor(x => x.InspectionType)
+        @Html.EditorFor(x => x.InspectionGrade)
+        @Html.EditorFor(x => x.SAPErrorCode)
+        @Html.EditorFor(x => x.HasSAPErrorCode)
+        @Html.EditorFor(x => x.SAPNotificationNumber)
+        @Html.EditorFor(x => x.BlockageFound)
+        @Html.EditorFor(x => x.CauseOfBlockage)
+        
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

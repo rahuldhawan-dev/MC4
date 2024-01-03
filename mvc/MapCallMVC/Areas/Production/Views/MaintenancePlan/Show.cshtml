@@ -1,0 +1,15 @@
+﻿@model MapCall.Common.Model.Entities.MaintenancePlan
+
+@{
+    ActionBarHelper.AddCopyButton();
+    var tabs = Html.Tabs()
+                   .WithTab("Plan Information", "_ShowPlan", Model)
+                   .WithTab("Task Information", "_ShowTaskInfo", Model)
+                   .WithTab("Equipment Information", "_Equipment", Model, itemCount: (Model.CountEquipmentMaintenancePlansByMaintenancePlan != null) ? Model.CountEquipmentMaintenancePlansByMaintenancePlan.AssetCount : 0)
+                   .WithAjaxTab("Scheduling Forecast", "_Forecast", Model)
+                   .WithAjaxTab("Orders", "_Orders", Model, itemCount: Model.ProductionWorkOrders.Count)
+                   .WithNotesAndDocuments()
+                   .WithLog();
+}
+
+@tabs

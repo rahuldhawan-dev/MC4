@@ -1,0 +1,26 @@
+﻿@using MapCall.Common.Model.Migrations
+@model EmergencyResponsePlan
+
+@{
+    var userCanEdit = Html.CurrentUserCanEditWithOperatingCenter(Model);
+    var mostRecentReviews = Model.Reviews.OrderByDescending(x => x.ReviewDate);
+}
+@if (userCanEdit)
+{
+    @Control.ActionLink("Add Review", "New", "PlanReview", new { plan = Model.Id }).WithCssClass("link-button")
+}
+@(Html.TableFor(x => mostRecentReviews)
+      .TemplateColumnFor(x => Html.ActionLink("View", "Show", "PlanReview", new { x.Id }, null))
+      .ColumnFor(x => x.ReviewDate)
+      .ColumnFor(x => x.ReviewedBy)
+      .ColumnFor(x => x.ReviewChangeNotes)
+      .ColumnFor(x => x.NextReviewDate)
+      .ColumnFor(x => x.CreatedBy.FullName, "Created By")
+      .TemplateColumnFor(x => Html.ActionLink("Edit", "Edit", "PlanReview", new { x.Id }, null)).IsVisible(userCanEdit)
+      .TemplateColumnFor(x => @<text>
+            @using (var f = Form.BeginForm("Destroy", "PlanReview", new { id = x.Id })){
+                f.HtmlAttributes["data-confirm"] = "Are you sure you want to remove this review?";
+                @Control.SubmitButton("Remove")
+            }
+     </text>).IsVisible(userCanEdit)
+)
