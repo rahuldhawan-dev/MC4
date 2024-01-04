@@ -355,6 +355,7 @@
     <Compile Include="Areas\FieldOperations\Controllers\BondController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\ContractorMeterCrewController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\CrewAssignmentController.cs" />
+    <Compile Include="Areas\FieldOperations\Controllers\DSICMainBreaksController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\CrewController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\EchoshoreLeakAlertController.cs" />
@@ -761,6 +762,7 @@
     <Compile Include="Areas\Reports\Controllers\WaterLossManagementController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterQualityComplaintCountByStateForYearController.cs" />
     <Compile Include="Areas\Reports\Models\SearchCompletedWorkOrders.cs" />
+    <Compile Include="Areas\Reports\Models\SearchDSICMainBreaks.cs" />
     <Compile Include="Areas\Reports\Models\SearchRestorationAccrualReport.cs" />
     <Compile Include="Areas\Reports\Models\SearchSewerMainCleaning.cs" />
     <Compile Include="Areas\Reports\Models\SearchCovidStatusReport.cs" />
@@ -1808,6 +1810,8 @@
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\DSICMainBreaks\Search.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\DSICMainBreaks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

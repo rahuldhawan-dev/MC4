@@ -1,0 +1,28 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchDSICMainBreaks
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
+      .SortableColumnFor(x => x.WorkOrder.OperatingCenter)
+      .SortableTemplateColumnFor("Work Order Number", "Id", x => @<text>
+                                                                @Html.ActionLink(x.WorkOrder.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+                                                             </text>)
+      .SortableColumnFor(x => x.WorkOrder.WorkDescription, "Work Description", "WorkDescription")
+      .SortableColumnFor(x => x.WorkOrder.DateReceived)
+      .SortableColumnFor(x => x.WorkOrder.DateCompleted)
+      .SortableColumnFor(x => x.WorkOrder.StreetAddress)
+      .SortableColumnFor(x => x.WorkOrder.Town, "Town.ShortName")
+      .SortableColumnFor(x => x.ServiceSize, "Main Size", "ServiceSize")
+      .SortableColumnFor(x => x.Depth, "Depth", "Depth")
+      .SortableColumnFor(x => x.MainBreakMaterial.Description, "Material", "MaterialsUsed")
+      .SortableColumnFor(x => x.MainFailureType.Description, "Failure Type", "MainFailureType")
+      .SortableColumnFor(x => x.MainBreakSoilCondition.Description, "Soil Condition", "MainBreakSoilCondition")
+      .SortableColumnFor(x => x.WorkOrder.EstimatedCustomerImpact, "Customers Affected", "EstimatedCustomerImpact")
+      .SortableColumnFor(x => x.ShutdownTime, "Shutdown Time", "ShutdownTime")
+      .SortableColumnFor(x => x.WorkOrder.AlertIssued)
+      .SortableColumnFor(x => x.WorkOrder.Latitude)
+      .SortableColumnFor(x => x.WorkOrder.Longitude)
+      .SortableColumnFor(x => x.BoilAlertIssued)
+      .WithCaption("Records found:" + Model.Count)
+      .WithPaginatedFooter()
+    )

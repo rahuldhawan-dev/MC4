@@ -1,0 +1,16 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchDSICMainBreaks
+
+@using (Form.BeginForm("Index", "DSICMainBreaks", new { area = "FieldOperations" }))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.DateReceived)
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.Town)
+        @Html.EditorFor(x => x.Material)
+        @Html.ButtonGroup(@<text>
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
+        </text>)
+    </div>
+}

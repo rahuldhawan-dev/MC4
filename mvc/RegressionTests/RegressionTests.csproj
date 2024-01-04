@@ -180,6 +180,7 @@
     <None Include="Features\Areas\FieldOperations\MarkoutPlanning.feature" />
     <None Include="Features\Areas\FieldOperations\NpdesRegulatorInspections.feature" />
     <None Include="Features\Areas\FieldOperations\OperatingCenterSpoilRemovalCost.feature" />
+    <None Include="Features\Areas\FieldOperations\DSICMainBreaks.feature" />
     <None Include="Features\Areas\FieldOperations\SmartCoverAlert.feature" />
     <None Include="Features\Areas\FieldOperations\SpoilRemoval.feature" />
     <None Include="Features\Areas\FieldOperations\SpoilFinalProcessingLocation.feature" />
