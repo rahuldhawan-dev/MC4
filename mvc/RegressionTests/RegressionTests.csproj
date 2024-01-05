@@ -207,6 +207,7 @@
     <None Include="Features\Areas\Production\SystemDeliveryEntryPage.feature" />
     <None Include="Features\Areas\Production\MaintenancePlanTaskType.feature" />
     <None Include="Features\Areas\Production\TaskGroupCategory.feature" />
+    <None Include="Features\Areas\Reports\IncompleteLeaks.feature" />
     <None Include="Features\Areas\Reports\RestorationAcctualReports.feature" />
     <None Include="Features\Areas\Reports\CompletedWorkOrdersWithJobSiteCheckLists.feature" />
     <None Include="Features\Areas\Reports\CompletedWorkOrdersWithMarkout.feature" />

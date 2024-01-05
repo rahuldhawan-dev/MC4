@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchIncompleteLeaks
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
+      .SortableTemplateColumnFor("Order Number", "Id", x => @<text>
+                                                                @Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+                                                             </text>)
+      .SortableColumnFor(x => x.Town, "Town.ShortName")
+      .SortableColumnFor(x => x.StreetAddress, "Address", "StreetAddress")
+      //.SortableColumnFor(x => x.WorkDescriptionNotes, "Description of Job (Hover for Notes)", "WorkDescription")
+      .SortableColumnFor(x => x.WorkDescription, "DescriptionofJob(HoverforNotes)", "WorkDescription.Description").WithCellBuilder((x, tag) => { tag.Attributes.Add("title", x.Notes ?? "No Notes Entered"); })
+      .SortableColumnFor(x => x.DateReceived)
+      .SortableColumnFor(x => x.Priority, "Job Priority", "Priority")
+      .SortableColumnFor(x => x.Purpose)
+      .SortableColumnFor(x => x.CreatedBy)
+      .WithCaption("Records found:" + Model.Count)
+      .WithPaginatedFooter()
+    )

@@ -627,6 +627,7 @@
     <Compile Include="Areas\Engineering\Models\ViewModels\RiskRegisterAssets\RiskRegisterAssetViewModel.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\EditEstimatingProjectOtherCost.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\CreateEstimatingProjectOtherCost.cs" />
+    <Compile Include="Areas\Reports\Controllers\IncompleteLeaksController.cs" />
     <Compile Include="Areas\Reports\Controllers\RestorationAccrualReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\SewerMainCleaningFootageController.cs" />
     <Compile Include="Areas\Reports\Controllers\CompletedWorkOrdersWithMarkoutController.cs" />
@@ -759,6 +760,7 @@
     <Compile Include="Areas\Reports\Controllers\RegulatoryComplianceReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterLossManagementController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterQualityComplaintCountByStateForYearController.cs" />
+    <Compile Include="Areas\Reports\Models\SearchIncompleteLeaks.cs" />
     <Compile Include="Areas\Reports\Models\SearchRestorationAccrualReport.cs" />
     <Compile Include="Areas\Reports\Models\SearchSewerMainCleaning.cs" />
     <Compile Include="Areas\Reports\Models\SearchCovidStatusReport.cs" />
@@ -1802,6 +1804,8 @@
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
+    <Content Include="Areas\Reports\Views\IncompleteLeaks\Search.cshtml" />
+    <Content Include="Areas\Reports\Views\IncompleteLeaks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

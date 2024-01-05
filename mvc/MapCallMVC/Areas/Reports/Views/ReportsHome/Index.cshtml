@@ -43,7 +43,7 @@
                     @Html.ActionLink("Field Completed Backlog - Quality Assurance", "Search", "FieldCompletedBacklogQAReport")
                 </li>
                 <li>
-                    @Html.Link("/modules/workorders/Views/Reports/IncompleteLeaks.aspx", "Incomplete Leaks")
+                    @Html.ActionLink("Incomplete Leaks", "Search", "IncompleteLeaks", new { area = "Reports" }, null)
                 </li>
                 <li>
                     @Html.ActionLink("Incomplete Restorations", "Search", "Restoration", new { area = "FieldOperations" }, null)
