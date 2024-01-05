@@ -295,6 +295,19 @@ namespace MapCall.Common.Model.Entities
             (int)Indices.SEWER_LATERAL_INSTALLATION
         };
 
+        public static readonly int[] WORK_DESCRIPTIONS_FOR_INCOMPLETE_LEAKS = {
+            (int)Indices.HYDRANT_LEAKING, 
+            (int)Indices.SERVICE_INVESTIGATION,
+            (int)Indices.MAIN_INVESTIGATION,
+            (int)Indices.LEAK_IN_METER_BOX_INLET,
+            (int)Indices.LEAK_IN_METER_BOX_OUTLET,  
+            (int)Indices.SERVICE_LINE_INSTALLATION,
+            (int)Indices.SERVICE_LINE_LEAK_CUST_SIDE,
+            (int)Indices.VALVE_LEAKING,
+            (int)Indices.WATER_MAIN_BREAK_REPAIR,
+            (int)Indices.WATER_MAIN_BREAK_REPLACE
+        };
+
         #endregion
 
         #region Properties

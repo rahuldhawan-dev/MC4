@@ -167,4 +167,9 @@ namespace MapCall.Common.Model.ViewModels
 
         bool? RecentOrders { get; set; }
     }
+
+    public interface ISearchIncompleteLeaks : ISearchSet<WorkOrder>
+    {
+        int? OperatingCenter { get; set; }
+    }
 }

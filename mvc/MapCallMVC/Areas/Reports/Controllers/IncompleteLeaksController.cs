@@ -47,27 +47,18 @@ namespace MapCallMVC.Areas.Reports.Controllers
         [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
         public ActionResult Index(SearchIncompleteLeaks search)
         {
-            var workDescriptionIDs = new List<int> { 27, 40, 41, 42, 43, 57, 58, 68, 74, 80 };
-
             return this.RespondTo((formatter) => {
                 formatter.View(() => ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs {
                     MaxResults = MAX_INDEX_RESULTS,
                     SearchOverrideCallback = () => {
                         search.EnablePaging = true;
-                        var results = Repository.Search(search).Where(wo =>
-                            workDescriptionIDs.Contains(wo.WorkDescription.Id) &&
-                            wo.DateCompleted == null &&
-                            wo.CancelledAt == null).ToList();
+                        var results = Repository.SearchForIncompleteLeaks(search).ToList();
                         search.Count = results.Count;
                         search.Results = results;
                     }
                 }));
                 formatter.Excel(() => {
-                    var results = Repository.Search(search)
-                                            .Where(wo =>
-                                                 workDescriptionIDs.Contains(wo.WorkDescription.Id) &&
-                                                 wo.DateCompleted == null &&
-                                                 wo.CancelledAt == null)
+                    var results = Repository.SearchForIncompleteLeaks(search)
                                             .Select(x => new {
                                                  OrderNumber = x.Id,
                                                  x.Town,
