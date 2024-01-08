@@ -9,7 +9,6 @@ Background:
 	And a role "read" exists with action: "Read", module: "FieldServicesWorkManagement", user: "user", operating center: "nj7"	
 	And a work order "one" exists with operating center: "nj7", town: "aberdeen", date received: "5/2/2023 07:00:00", approved on: "5/2/2023 15:00:00", materials approved on: "5/2/2023 19:00:00", work description: "hydrant leaking"
 	
-@headful
 Scenario: user can search the incomplete leaks report
 	Given I am logged in as "user"
 	And I am at the Reports/IncompleteLeaks/Search page
