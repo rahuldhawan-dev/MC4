@@ -1,16 +1,88 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using MapCall.Common.Metadata;
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
 using MapCall.Common.Model.Repositories;
+using MapCallMVC.Areas.FieldOperations.Models.ViewModels;
 using MMSINC;
+using MMSINC.ClassExtensions;
 using MMSINC.Controllers;
+using MMSINC.Metadata;
+using MMSINC.Utilities;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace MapCallMVC.Areas.FieldOperations.Controllers
 {
-    public class CrewController : ControllerBaseWithPersistence<CrewRepository, Crew, User>
+    public class CrewController : ControllerBaseWithPersistence<ICrewRepository, Crew, User>
     {
-        public CrewController(ControllerBaseWithPersistenceArguments<CrewRepository, Crew, User> args) : base(args) { }
+        #region Constants
+
+        public const RoleModules ROLE = RoleModules.FieldServicesAssets;
+
+        #endregion
+
+        #region Search/Index/Show
+
+        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
+        public ActionResult Search(SearchCrew search)
+        {
+            return ActionHelper.DoSearch(search);
+        }
+
+        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
+        public ActionResult Index(SearchCrew search)
+        {
+            return this.RespondTo((formatter) => {
+                formatter.View(() => {
+                    return ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs {
+                        SearchOverrideCallback = () => Repository.Search(search)
+                    });
+                });
+                formatter.Excel(() => {
+                    search.EnablePaging = false;
+                    var results = Repository.Search(search);
+                    return this.Excel(results.Select(x => new {
+                        CrewName = x.Description,
+                        Availability_Hours = x.Availability,
+                        x.OperatingCenter,
+                        x.Active
+                    }));
+                });
+            });
+        }
+
+        [HttpGet, NoCache, RequiresRole(ROLE, RoleActions.Read)]
+        public ActionResult Show(int id)
+        {
+            return ActionHelper.DoShow(id);
+        }
+
+        #endregion
+
+        #region New/Create
+        
+        [HttpGet, RequiresRole(ROLE, RoleActions.UserAdministrator)]
+        public ActionResult New(CreateCrew model)
+        {
+            ModelState.Clear();
+            return ActionHelper.DoNew(model);
+        }
+
+        [HttpPost, RequiresRole(ROLE, RoleActions.UserAdministrator)]
+        public ActionResult Create(CreateCrew model)
+        {
+            return ActionHelper.DoCreate(model, new ActionHelperDoCreateArgs {
+                OnSuccess = () => RedirectToAction("Show", new { id = model.Id })
+            });
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public CrewController(ControllerBaseWithPersistenceArguments<ICrewRepository, Crew, User> args) : base(args) { }
+
+        #endregion
 
         [HttpGet]
         public ActionResult ByOperatingCenterOrAll(int? opc)

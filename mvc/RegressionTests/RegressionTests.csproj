@@ -176,6 +176,7 @@
     <None Include="Features\Areas\Facilities\FacilitySubAreaPage.feature" />
     <None Include="Features\Areas\Facilities\PlanReviewPage.feature" />
     <None Include="Features\Areas\FieldOperations\CrewAssignmentsPage.feature" />
+    <None Include="Features\Areas\FieldOperations\CrewPage.feature" />
     <None Include="Features\Areas\FieldOperations\EchoshoreLeakAlert.feature" />
     <None Include="Features\Areas\FieldOperations\MarkoutPlanning.feature" />
     <None Include="Features\Areas\FieldOperations\NpdesRegulatorInspections.feature" />

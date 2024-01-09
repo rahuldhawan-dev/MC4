@@ -1,0 +1,24 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateCrew
+
+@*@section scripts {
+        @Html.ScriptFor("~/Scripts/Hydrant/Form.js")
+    }*@
+
+@using (Form.BeginForm("Create", "Crew", "FieldOperations"))
+{
+    <fieldset>
+        <legend>Details</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.Name)
+            @Html.EditorFor(x => x.Status)
+            @Html.EditorFor(x => x.Availability)
+            @Html.EditorFor(x => x.AssignedWork)
+            @Html.EditorFor(x => x.OperatingCenter)
+        </div>
+    </fieldset>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "Crew")
+                       </text>)
+}

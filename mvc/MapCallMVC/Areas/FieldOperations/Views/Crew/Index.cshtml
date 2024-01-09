@@ -1,0 +1,17 @@
+﻿@using FluentNHibernate.Conventions
+@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCrew
+
+@{
+    ActionBarHelper.AddExportLink();
+    ActionBarHelper.AddNewLink();
+}
+
+@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
+          .TemplateColumnFor("Select", x => Html.ActionLink("Select", "Show", new { x.Id }))
+          .SortableColumnFor(x => x.Description, "Crew Name", "Description")
+          .SortableColumnFor(x => x.Availability, "Availability (hours)", "Availability")
+          .SortableColumnFor(x => x.OperatingCenter.Description, "Operating Center", "OperatingCenter")
+          .SortableColumnFor(x => x.Active)
+          .WithCaption("Records found:" + Model.Count)
+          .WithPaginatedFooter()
+        )

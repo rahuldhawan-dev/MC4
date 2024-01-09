@@ -1,0 +1,29 @@
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
+@using MMSINC.ClassExtensions
+@model Crew
+
+@{
+    WorkOrder wo = null;
+}
+
+<table id="assignedWorkOrderTable">
+    <thead>
+    <tr>
+        <th>@Html.DisplayLabelFor(_ => wo.Id)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.DateReceived)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.StreetNumber)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.Street)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.NearestCrossStreet)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.Town)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.TownSection)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.WorkDescription.Description)</th>
+        <th>@Html.DisplayLabelFor(_ => wo.MarkoutRequired)</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var crewAssignment in Model.CrewAssignments)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml", crewAssignment.WorkOrder)
+        }
+    </tbody>
+</table>

@@ -16,7 +16,13 @@ namespace MapCall.Common.Model.Entities
 
         public const string DESCRIPTION = "Name",
                             AVAILABILITY = "Availability (hours)",
-                            OPERATING_CENTER = "Operating Center";
+                            OPERATING_CENTER = "Operating Center",
+                            CREW_NAME = "Crew Name";
+
+        public struct StringLengths
+        {
+            public const int CREW_NAME = 15;
+        }
 
         #endregion
 
@@ -89,5 +95,13 @@ namespace MapCall.Common.Model.Entities
         public string OperatingCenterName { get; set; }
 
         public override string Display => $"{OperatingCenterCode} {OperatingCenterName} - {Description}";
+    }
+
+    public interface ISearchCrew : ISearchSet<Crew>
+    {
+        int OperatingCenter { get; set; }
+        int? State { get; set; }
+        string Description { get; set; }
+        bool? Active { get; set; }
     }
 }
