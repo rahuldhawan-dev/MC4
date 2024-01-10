@@ -17,7 +17,8 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
     {
         #region Constants
 
-        public const RoleModules ROLE = RoleModules.FieldServicesAssets;
+        public const RoleModules ROLE = RoleModules.FieldServicesWorkManagement;
+        public const string CREW_NOT_FOUND = "Crew not found.";
 
         #endregion
 
@@ -74,6 +75,31 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
             return ActionHelper.DoCreate(model, new ActionHelperDoCreateArgs {
                 OnSuccess = () => RedirectToAction("Show", new { id = model.Id })
             });
+        }
+
+        #endregion
+
+        #region Edit/Update
+
+        [HttpGet, RequiresRole(ROLE, RoleActions.UserAdministrator)]
+        public ActionResult Edit(int id)
+        {
+            return ActionHelper.DoEdit(id, new ActionHelperDoEditArgs<Crew, EditCrew> {
+                IsPartial = false,
+                NotFound = CREW_NOT_FOUND
+            });
+        }
+
+        [HttpPost, RequiresRole(ROLE, RoleActions.UserAdministrator)]
+        public ActionResult Update(EditCrew model)
+        {
+            var args = new ActionHelperDoUpdateArgs {
+                OnSuccess = () => RedirectToAction("Show", new { id = model.Id }),
+                OnError = () => RedirectToAction("Edit", new { id = model.Id }),
+                OnNotFound = () => HttpNotFound(CREW_NOT_FOUND)
+            };
+
+            return ActionHelper.DoUpdate(model, args);
         }
 
         #endregion

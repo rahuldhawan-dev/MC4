@@ -387,6 +387,8 @@
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CancelWorkOrder.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewAssignments\EditCrewAssignment.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CreateCrew.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewViewModel.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\EditCrew.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralAdditional.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralWorkOrderModel.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditMarkoutPlanning.cs" />
@@ -1811,6 +1813,7 @@
     <Content Include="Areas\FieldOperations\Views\Crew\_showCrewAssigned.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\_showCrew.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrder.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,11 +1,6 @@
 ﻿@model Crew
 
-@{
-    
-    ActionBarHelper.AddEditLink();
-}
-
 @(Html.Tabs()
       .WithTab("Crew", "_showCrew", Model)
-      .WithTab("Assigned Work", "_showCrewAssigned", Model)
+      .WithAjaxTab("Assigned Work", "_showCrewAssigned", Model)
     )

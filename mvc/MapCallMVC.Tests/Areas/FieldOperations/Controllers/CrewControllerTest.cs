@@ -28,6 +28,14 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
         public override void TestControllerAuthorization()
         {
             Authorization.Assert(a => {
+                var module = RoleModules.FieldServicesWorkManagement;
+                a.RequiresRole("~/Crew/Show/", module, RoleActions.Read);
+                a.RequiresRole("~/Crew/Search/", module, RoleActions.Read);
+                a.RequiresRole("~/Crew/Index/", module, RoleActions.Read);
+                a.RequiresRole("~/Crew/Edit/", module, RoleActions.UserAdministrator);
+                a.RequiresRole("~/Crew/Update/", module, RoleActions.UserAdministrator);
+                a.RequiresRole("~/Crew/New/", module, RoleActions.UserAdministrator);
+                a.RequiresRole("~/Crew/Create/", module, RoleActions.UserAdministrator);
                 a.RequiresLoggedInUserOnly("~/Crew/ByOperatingCenterOrAll/");
                 a.RequiresLoggedInUserOnly("~/Crew/ByOperatingCenterId/");
             });
@@ -114,13 +122,13 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
         #region Create/New
 
         [TestMethod]
-        public void TestCreateCreatesCrew()
+        public void TestCreatesCrew()
         {
             var operatingCenter = GetFactory<OperatingCenterFactory>().Create();
 
             var model = new CreateCrew(_container) {
                 Description = "Demo",
-                Availability = 2,
+                Availability = (decimal?)6.08,
                 OperatingCenter = operatingCenter.Id,
                 Active = true
             };
@@ -133,6 +141,37 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
             Assert.AreEqual(entity.Description, model.Description);
             Assert.AreEqual(entity.Active, model.Active);
             Assert.AreEqual(entity.OperatingCenter.Id, model.OperatingCenter);
+        }
+
+        #endregion
+
+        #region Edit/Update
+
+        [TestMethod]
+        public void TestUpdateCrew()
+        {
+            var operatingCenter = GetFactory<OperatingCenterFactory>().Create();
+            var crew = GetFactory<CrewFactory>().Create(new { OperatingCenter = operatingCenter });
+            var result = _target.Edit(crew.Id);
+            MvcAssert.IsViewNamed(result, "Edit");
+        }
+
+        [TestMethod]
+        public override void TestUpdateSavesChangesWhenModelStateIsValid()
+        {
+            var operatingCenter = GetFactory<OperatingCenterFactory>().Create();
+            var crew = GetFactory<CrewFactory>().Create(new { OperatingCenter = operatingCenter });
+            var description = "Demo";
+            var availability = 2.50;
+
+            var result = _target.Update(_viewModelFactory.BuildWithOverrides<EditCrew, Crew>(crew, x => {
+                x.Description = description;
+                x.Availability = (decimal?)availability;
+            }));
+
+            MvcAssert.RedirectsToRoute(result, "Crew", "Show", new { id = crew.Id });
+            Assert.AreEqual(crew.Description, Session.Get<Crew>(crew.Id).Description);
+            Assert.AreEqual(crew.Availability, Session.Get<Crew>(crew.Id).Availability);
         }
 
         #endregion

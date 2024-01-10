@@ -1,6 +1,6 @@
-﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateCrew
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.EditCrew
 
-@using (Form.BeginForm("Create", "Crew", "FieldOperations"))
+@using (Form.BeginForm("Update", "Crew", "FieldOperations", new { Model.Id }))
 {
     <fieldset>
         <legend>Details</legend>
@@ -13,7 +13,7 @@
     </fieldset>
 
     @Html.ButtonGroup(@<text>
-        @Control.SubmitButton("Save")
-        @Html.LinkButton("Cancel", "Search", "Crew")
+                          @Control.SubmitButton("Save")
+                          @Html.LinkButton("Cancel", "Search", "Crew")
                        </text>)
 }

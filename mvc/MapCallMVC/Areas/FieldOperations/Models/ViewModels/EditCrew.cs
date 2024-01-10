@@ -2,10 +2,10 @@
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
 {
-    public class CreateCrew : CrewViewModel
+    public class EditCrew : CrewViewModel
     {
         #region Constructors
-        public CreateCrew(IContainer container) : base(container) { }
+        public EditCrew(IContainer container) : base(container) { }
 
         #endregion
     }
