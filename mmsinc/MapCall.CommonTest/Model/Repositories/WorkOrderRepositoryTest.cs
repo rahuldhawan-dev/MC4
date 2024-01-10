@@ -2622,6 +2622,150 @@ namespace MapCall.CommonTest.Model.Repositories
             Assert.AreEqual(0, search.Results.Count());
         }
 
+        [TestMethod]
+        public void TestGetAveragesReturnsCorrectValues()
+        {
+            var nj7 = GetFactory<OperatingCenterFactory>().Create(new {
+                OperatingCenterCode = "NJ7",
+                OperatingCenterName = "Shrewsbury"
+            });
+            var workOrder1 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 1, 7, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 1, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 1, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 1, 19, 0, 0)
+            });
+            var workOrder2 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 2, 7, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 2, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 2, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 2, 19, 0, 0)
+            });
+            var workOrder3 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 3, 7, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 3, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 3, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 3, 19, 0, 0)
+            });
+            var crewAssignment1 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder1,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 1, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 1, 11, 0, 0)
+            });
+            var crewAssignment2 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder2,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 2, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 2, 11, 0, 0)
+            });
+            var crewAssignment3 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder3,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 3, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 3, 11, 0, 0)
+            });
+
+            var results = Repository.GetAverages(new TestSearchAverageCompletionTime {
+                StartDate = new DateTime(2023, 5, 1),
+                EndDate = new DateTime(2023, 5, 31),
+                OperatingCenter = nj7.Id
+            });
+
+            Assert.AreEqual(1, results.Count());
+            var result = results.First();
+            Assert.AreEqual("NJ7 - Shrewsbury", result.OperatingCenter);
+            Assert.AreEqual(9, result.ManHours);
+            Assert.AreEqual(6, result.Completion);
+            Assert.AreEqual(2, result.Approval);
+            Assert.AreEqual(4, result.StockApproval);
+        }
+        
+        [TestMethod]
+        public void TestGetAveragesDoesReturnCorrectValuesWhenCrewAssignmentIsMissing()
+        {
+            var nj7 = GetFactory<OperatingCenterFactory>().Create(new {
+                OperatingCenterCode = "NJ7",
+                OperatingCenterName = "Shrewsbury"
+            });
+            var nj4 = GetFactory<OperatingCenterFactory>().Create(new {
+                OperatingCenterCode = "NJ4",
+                OperatingCenterName = "Lakewood"
+            });
+            var workOrder1 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 1, 7, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 1, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 1, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 1, 19, 0, 0)
+            });
+            var workOrder2 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 2, 7, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 2, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 2, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 2, 19, 0, 0)
+            });
+            // This order was received earlier and has no crew assignments, it should be counted
+            // in the calculations
+            var workOrder3 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj7,
+                DateReceived = new DateTime(2023, 5, 3, 1, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 3, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 3, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 3, 19, 0, 0)
+            });
+            var workOrder4 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj4,
+                DateReceived = new DateTime(2023, 5, 3, 1, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 3, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 3, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 3, 19, 0, 0)
+            });
+            var workOrder5 = GetFactory<CompletedWorkOrderFactory>().Create(new {
+                OperatingCenter = nj4,
+                DateReceived = new DateTime(2023, 5, 1, 1, 0, 0),
+                DateCompleted = new DateTime(2023, 5, 1, 13, 0, 0),
+                ApprovedOn = new DateTime(2023, 5, 1, 15, 0, 0),
+                MaterialsApprovedOn = new DateTime(2023, 5, 1, 19, 0, 0)
+            });
+            var crewAssignment1 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder1,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 1, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 1, 11, 0, 0)
+            });
+            var crewAssignment2 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder2,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 2, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 2, 11, 0, 0)
+            });
+            var crewAssignment4 = GetFactory<CrewAssignmentFactory>().Create(new {
+                WorkOrder = workOrder4,
+                EmployeesOnJob = 3f,
+                DateStarted = new DateTime(2023, 5, 2, 8, 0, 0),
+                DateEnded = new DateTime(2023, 5, 2, 11, 0, 0)
+            });
+
+            var results = Repository.GetAverages(new TestSearchAverageCompletionTime {
+                StartDate = new DateTime(2023, 5, 1),
+                EndDate = new DateTime(2023, 5, 31),
+                OperatingCenter = nj7.Id
+            });
+
+            Assert.AreEqual(1, results.Count());
+            var result = results.First();
+            Assert.AreEqual("NJ7 - Shrewsbury", result.OperatingCenter);
+            Assert.AreEqual(9, result.ManHours);
+            Assert.AreEqual(8, result.Completion);
+            Assert.AreEqual(2, result.Approval);
+            Assert.AreEqual(4, result.StockApproval);
+        }
+
         #region Test Classes
 
         private class TestSearchWorkOrderPrePlanning : SearchSet<WorkOrder> {}
@@ -2683,6 +2827,13 @@ namespace MapCall.CommonTest.Model.Repositories
         {
             public RequiredDateRange Date { get; set; }
             public int[] OperatingCenter { get; set; }
+        }
+
+        private class TestSearchAverageCompletionTime : SearchSet<AverageCompletionTime>, ISearchAverageCompletionTime
+        {
+            public DateTime? StartDate { get; set; }
+            public DateTime? EndDate { get; set; }
+            public int? OperatingCenter { get; set; }
         }
 
         #endregion

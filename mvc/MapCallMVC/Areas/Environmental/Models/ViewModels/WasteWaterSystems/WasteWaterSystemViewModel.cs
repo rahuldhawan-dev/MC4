@@ -60,6 +60,14 @@ namespace MapCallMVC.Areas.Environmental.Models.ViewModels.WasteWaterSystems
         [Required]
         public bool? HasConsentOrder { get; set; }
 
+        [DropDown, EntityMustExist(typeof(LicensedOperatorCategory)), EntityMap]
+        [RequiredWhen(nameof(Ownership), ComparisonType.EqualToAny, new[] { WasteWaterSystemOwnership.Indices.AW_CONTRACT, WasteWaterSystemOwnership.Indices.AW_OWNED }, FieldOnlyVisibleWhenRequired = true, ErrorMessage = "Required when Ownership is AW Contractor or Owned.")]
+        public int? LicensedOperatorStatus { get; set; }
+
+        [StringLength(WasteWaterSystem.StringLengths.CURRENT_LICENSED_CONTRACTOR)]
+        [RequiredWhen(nameof(LicensedOperatorStatus), LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR, FieldOnlyVisibleWhenRequired = true, ErrorMessage = "Required when Licensed Operator Status is Contracted.")]
+        public string CurrentLicensedContractor { get; set; }
+
         [RequiredWhen(nameof(HasConsentOrder), ComparisonType.EqualTo, true)]
         public DateTime? ConsentOrderStartDate { get; set; }
 

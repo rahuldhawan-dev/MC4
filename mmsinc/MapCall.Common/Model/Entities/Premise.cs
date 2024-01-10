@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MMSINC.Metadata;
 using MMSINC.Utilities;
 using System.Linq;
+using FluentNHibernate.Utils;
 using MMSINC.Data;
 using MMSINC.Data.NHibernate;
 using MMSINC.Utilities.Excel;
@@ -185,6 +186,20 @@ namespace MapCall.Common.Model.Entities
             }
         }
 
+        [DoesNotExport]
+        public virtual DateTime? RecentPitcherFilterDeliveryDate
+        {
+            get
+            {
+                return Services 
+                      .SelectMany(s => s.WorkOrders) 
+                      .Where(w => w.HasPitcherFilterBeenProvidedToCustomer == true && 
+                                  w.DatePitcherFilterDeliveredToCustomer != null && 
+                                  w.DatePitcherFilterDeliveredToCustomer.Value.AddMonths(WorkOrder.NUMBER_OF_MONTHS_TO_DISPLAY_FILTER_DISTRIBUTED_MESSAGE) > DateTime.Now)
+                      .OrderBy(w => w.DatePitcherFilterDeliveredToCustomer) 
+                      .FirstOrDefault()?.DatePitcherFilterDeliveredToCustomer; 
+            }
+        }
         #endregion
 
         #region Formula Fields

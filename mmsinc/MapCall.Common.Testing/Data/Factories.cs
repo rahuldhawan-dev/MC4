@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Employee = MapCall.Common.Model.Entities.Employee;
 using Site = MapCall.Common.Model.Entities.Site;
-using NHibernate.SqlTypes;
 
 namespace MapCall.Common.Testing.Data
 {
@@ -3083,9 +3082,7 @@ namespace MapCall.Common.Testing.Data
 
     #region ComplianceRequirements
 
-    public class
-        ComplianceRequirementFactory : StaticListEntityLookupFactory<ComplianceRequirement, ComplianceRequirementFactory
-        >
+    public class ComplianceRequirementFactory : StaticListEntityLookupFactory<ComplianceRequirement, ComplianceRequirementFactory>
     {
         public ComplianceRequirementFactory(IContainer container) : base(container) { }
     }
@@ -8887,6 +8884,48 @@ namespace MapCall.Common.Testing.Data
 
     #endregion
 
+    #region LicensedOperatorCategory
+
+    public class LicensedOperatorCategoryFactory : StaticListEntityLookupFactory<LicensedOperatorCategory, LicensedOperatorCategoryFactory>
+    {
+        public LicensedOperatorCategoryFactory(IContainer container) : base(container) { }
+    }
+
+    public class InternalEmployeeLicensedOperatorCategoryFactory : LicensedOperatorCategoryFactory
+    {
+        static InternalEmployeeLicensedOperatorCategoryFactory()
+        {
+            Defaults(new { Description = "Internal Employee" });
+            OnSaving((a, s) => a.Id = (int)LicensedOperatorCategory.Indices.INTERNAL_EMPLOYEE);
+        } 
+
+        public InternalEmployeeLicensedOperatorCategoryFactory(IContainer container) : base(container) { }
+    }
+
+    public class NotRequiredLicensedOperatorCategoryFactory : LicensedOperatorCategoryFactory
+    {
+        static NotRequiredLicensedOperatorCategoryFactory()
+        {
+            Defaults(new { Description = "No Licensed Operator Required" });
+            OnSaving((a, s) => a.Id = (int)LicensedOperatorCategory.Indices.NO_LICENSED_OPERATOR_REQUIRED);
+        }
+
+        public NotRequiredLicensedOperatorCategoryFactory(IContainer container) : base(container) { }
+    }
+
+    public class ContractedLicensedOperatorCategoryFactory : LicensedOperatorCategoryFactory
+    {
+        static ContractedLicensedOperatorCategoryFactory()
+        {
+            Defaults(new { Description = "Contracted Licensed Operator" });
+            OnSaving((a, s) => a.Id = (int)LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR);
+        }
+
+        public ContractedLicensedOperatorCategoryFactory(IContainer container) : base(container) { }
+    }
+
+    #endregion
+
     #region LIMSStatus
 
     public class LIMSStatusFactory : StaticListEntityLookupFactory<LIMSStatus, LIMSStatusFactory>
@@ -10915,6 +10954,7 @@ namespace MapCall.Common.Testing.Data
                 PeakFlowMGD = 4,
                 IsCombinedSewerSystem = false,
                 Ownership = typeof(EntityLookupTestDataFactory<WasteWaterSystemOwnership>),
+                LicensedOperatorStatus = typeof(InternalEmployeeLicensedOperatorCategoryFactory),
                 Type = typeof(EntityLookupTestDataFactory<WasteWaterSystemType>),
                 SubType = typeof(EntityLookupTestDataFactory<WasteWaterSystemSubType>),
                 HasConsentOrder = false
@@ -11153,9 +11193,7 @@ namespace MapCall.Common.Testing.Data
 
     #region PointOfInterestStatus
 
-    public class
-        PointOfInterestStatusFactory : StaticListEntityLookupFactory<PointOfInterestStatus, PointOfInterestStatusFactory
-        >
+    public class PointOfInterestStatusFactory : StaticListEntityLookupFactory<PointOfInterestStatus, PointOfInterestStatusFactory>
     {
         public PointOfInterestStatusFactory(IContainer container) : base(container) { }
     }
@@ -12249,6 +12287,7 @@ namespace MapCall.Common.Testing.Data
                 System = systemFn,
                 LocalCertifiedStateId = "12345ABCDE",
                 Ownership = typeof(PublicWaterSupplyOwnershipFactory),
+                LicensedOperatorStatus = typeof(InternalEmployeeLicensedOperatorCategoryFactory),
                 Type = typeof(PublicWaterSupplyTypeFactory),
                 UpdatedAt = Lambdas.GetNow,
                 HasConsentOrder = false
@@ -16260,9 +16299,7 @@ namespace MapCall.Common.Testing.Data
         public ShortCycleWorkOrderSafetyBriefPPETypeFactory(IContainer container) : base(container) { }
     }
 
-    public class
-        ShortCycleWorkOrderSafetyBriefToolTypeFactory : UniqueEntityLookupFactory<ShortCycleWorkOrderSafetyBriefToolType
-        >
+    public class ShortCycleWorkOrderSafetyBriefToolTypeFactory : UniqueEntityLookupFactory<ShortCycleWorkOrderSafetyBriefToolType>
     {
         public ShortCycleWorkOrderSafetyBriefToolTypeFactory(IContainer container) : base(container) { }
     }
@@ -18387,6 +18424,32 @@ namespace MapCall.Common.Testing.Data
         }
 
         public ViolationCertificateFactory(IContainer container) : base(container) { }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region WasteWaterSystemOwnership
+
+    public class WasteWaterSystemOwnershipFactory : UniqueEntityLookupFactory<WasteWaterSystemOwnership>
+    {
+        #region Constants
+
+        public const string DEFAULT_DESCRIPTION = "AW Contract";
+
+        #endregion
+
+        #region Constructors
+
+        static WasteWaterSystemOwnershipFactory()
+        {
+            Defaults(new {
+                Description = DEFAULT_DESCRIPTION
+            });
+        }
+
+        public WasteWaterSystemOwnershipFactory(IContainer container) : base(container) { }
 
         #endregion
     }

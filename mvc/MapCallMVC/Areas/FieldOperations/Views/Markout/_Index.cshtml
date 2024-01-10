@@ -1,4 +1,5 @@
-﻿@model WorkOrder
+﻿@using MMSINC.Models.ViewModels
+@model WorkOrder
 @* NOTE: This view is loaded directly from the work order general tab. There is no specific Index action. *@
 @Html.ScriptFor("~/Scripts/Areas/FieldOperations/Markout/Index.js", ScriptLoadType.LoadFromPartial)
 @{
@@ -8,12 +9,28 @@
 
 @if (Model.MarkoutRequirement != null && Model.MarkoutRequirement.Id != (int)MarkoutRequirement.Indices.NONE)
 {
+    if (Model.MarkoutTypeNeeded != null)
+    {
+        @Html.DisplayInlineNotification(new NotificationItem {
+            Message = "Type Needed: " + Model.MarkoutTypeNeeded,
+            NotificationType = NotificationItemType.Warning
+        })
+        if (Model.MarkoutTypeNeeded.Id == MarkoutType.Indices.NONE)
+        {
+            @Html.DisplayInlineNotification(new NotificationItem {
+                Message = "Notes: " + Model.RequiredMarkoutNote,
+                NotificationType = NotificationItemType.Success
+            })
+        }
+    }
+    <div>
     @Ajax.ActionLink("Add New Markout", "New", "Markout",
         new { area = "FieldOperations", workOrderId = @Model.Id },
         new AjaxOptions { HttpMethod = "GET" },
         new { data_ajax_table = "#markoutsTable", Class = "link-button" })
+    </div>
 }
-<br/>
+
 <table id="markoutsTable">
     <thead>
         <tr>

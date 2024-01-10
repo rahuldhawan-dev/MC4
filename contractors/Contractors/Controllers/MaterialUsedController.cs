@@ -98,9 +98,11 @@ namespace Contractors.Controllers
         private void PopulateMaterialsAndStockLocations(MapCall.Common.Model.Entities.WorkOrder workOrder)
         {
             this
-                .AddDropDownData(VIEWDATA_MATERIALS, workOrder.OperatingCenter.StockedMaterials.Select(sm => sm.Material),
+               .AddDropDownData(VIEWDATA_MATERIALS,
+                    workOrder.OperatingCenter.StockedMaterials.Select(sm => sm.Material),
                     m => m.Id, m => m.FullDescription)
-                .AddDropDownData(VIEWDATA_STOCK_LOCATIONS, workOrder.OperatingCenter.StockLocations,
+               .AddDropDownData(VIEWDATA_STOCK_LOCATIONS,
+                    workOrder.OperatingCenter.StockLocations.Where(x => x.IsActive),
                     l => l.Id, l => l.Description);
         }
 

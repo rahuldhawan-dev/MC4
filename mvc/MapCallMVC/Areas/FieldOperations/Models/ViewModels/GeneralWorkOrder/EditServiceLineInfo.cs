@@ -2,85 +2,86 @@
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Repositories;
 using MMSINC.Data;
+using MMSINC.Data.NHibernate;
 using MMSINC.Metadata;
+using MMSINC.Utilities.ObjectMapping;
 using MMSINC.Validation;
 using StructureMap;
+using WorkDescriptionEntity = MapCall.Common.Model.Entities.WorkDescription;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
 {
-    public class EditGeneralAdditional : EditWorkOrderAdditional
+    public class EditServiceLineInfo : ViewModel<WorkOrder>, IServiceLineInfo
     {
         #region Constructor
 
-        public EditGeneralAdditional(IContainer container) : base(container) { }
+        public EditServiceLineInfo(IContainer container) : base(container) { }
+
+        #endregion
+
+        #region Fields
+
+        private WorkOrder _original;
 
         #endregion
 
         #region Properties
 
-        #region Service Line Info
+        [DoesNotAutoMap]
+        public WorkOrder WorkOrder
+        {
+            get
+            {
+                if (_original == null)
+                {
+                    _original = Original ?? _container.GetInstance<IRepository<WorkOrder>>().Find(Id);
+                }
+                return _original;
+            }
+        }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [AutoMap(MapDirections.None)]
+        public int? WorkDescription => WorkOrder?.WorkDescription?.Id;
+
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? PreviousServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? PreviousServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineInfoWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? CompanyServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineInfoWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? CompanyServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? CustomerServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? CustomerServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
+        [RequiredWhen(nameof(WorkDescription), ComparisonType.EqualToAny,
+            nameof(ServiceLineInfoWorkDescriptions), typeof(EditServiceLineInfo))]
         public DateTime? DoorNoticeLeftDate { get; set; }
 
         #endregion
 
-        #region Compliance Info
+        #region Private Methods
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional),
-            ErrorMessage = "The InitialServiceLineFlushTime field is required.")]
-        public int? InitialServiceLineFlushTime { get; set; }
-
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
-        public bool? HasPitcherFilterBeenProvidedToCustomer { get; set; }
-
-        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
-        public DateTime? DatePitcherFilterDeliveredToCustomer { get; set; }
-
-        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
-        [DropDown, EntityMap, EntityMustExist(typeof(PitcherFilterCustomerDeliveryMethod))]
-        public int? PitcherFilterCustomerDeliveryMethod { get; set; }
-
-        [RequiredWhen(nameof(PitcherFilterCustomerDeliveryMethod), ComparisonType.EqualTo,
-            MapCall.Common.Model.Entities.PitcherFilterCustomerDeliveryMethod.Indices.OTHER)]
-        public string PitcherFilterCustomerDeliveryOtherMethod { get; set; }
-
-        public DateTime? DateCustomerProvidedAWStateLeadInformation { get; set; }
-
-        #endregion
+        public static int[] ServiceLineInfoWorkDescriptions() => WorkDescriptionEntity.SERVICE_LINE_INFO_REQUIREMENT;
 
         #endregion
 
@@ -136,5 +137,22 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
         }
 
         #endregion
+    }
+
+    public interface IServiceLineInfo
+    {
+        int? PreviousServiceLineMaterial { get; set; }
+
+        int? PreviousServiceLineSize { get; set; }
+
+        int? CompanyServiceLineMaterial { get; set; }
+
+        int? CompanyServiceLineSize { get; set; }
+
+        int? CustomerServiceLineMaterial { get; set; }
+
+        int? CustomerServiceLineSize { get; set; }
+
+        DateTime? DoorNoticeLeftDate { get; set; }
     }
 }

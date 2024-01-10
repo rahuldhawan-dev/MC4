@@ -26,7 +26,6 @@ using System.Text;
 using System.Web.Mvc;
 using MMSINC.Authentication;
 using MMSINC.Data.NHibernate;
-using MMSINC.Testing.SpecFlow.StepDefinitions;
 using MMSINC.Utilities.StructureMap;
 using TechTalk.SpecFlow;
 using AdminUserFactory = MapCall.Common.Testing.Data.AdminUserFactory;
@@ -105,6 +104,7 @@ namespace RegressionTests.Steps
             {"job site excavation location type", typeof(JobSiteExcavationLocationType), CreateJobSiteExcavationLocationType},
             {"job title common name", typeof(JobTitleCommonName), CreateJobTitleCommonName},
             {"l i m s status", typeof(LIMSStatus), CreateLIMSStatus},
+            {"licensed operator category", typeof(LicensedOperatorCategory), CreateLicensedOperatorCategory},
             //{"lockout form", typeof(LockoutForm), CreateLockoutForm},
             {"lockout form question category", typeof(LockoutFormQuestionCategory), CreateLockoutFormQuestionCategory},
             {"facility inspection form question category", typeof(FacilityInspectionFormQuestionCategory), CreateFacilityInspectionFormQuestionCategories},
@@ -1576,6 +1576,18 @@ namespace RegressionTests.Steps
             createRequirement("none");
             createRequirement("routine");
             createRequirement("emergency");
+        }
+
+        [Given("markout types exist")]
+        public static void GivenMarkoutTypesExist()
+        {
+            Action<string> createType = (desc) =>
+                MMSINC.Testing.SpecFlow.StepDefinitions.Data.CreateObject("markout type",
+                    desc.ToLowerInvariant(),
+                    $"description: \"{desc}\"", TestObjectCache.Instance);
+
+            createType("c to c");
+            createType("none");
         }
 
         [Given("meter supplemental locations exist")]
@@ -5666,7 +5678,10 @@ namespace RegressionTests.Steps
                     WorkDescription = workDescription,
                     ZipCode = nvc["zip code"],
                     HasPitcherFilterBeenProvidedToCustomer = nvc.GetValueAs<bool>("has pitcher filter been provided to customer"),
-                    DatePitcherFilterDeliveredToCustomer = nvc.GetValueAs<DateTime>("date pitcher filter delivered to customer")
+                    DatePitcherFilterDeliveredToCustomer = nvc.GetValueAs<DateTime>("date pitcher filter delivered to customer"),
+                    MarkoutTypeNeeded = obj.GetValueOrDefault<MarkoutTypeFactory>("markout type", "markout type needed", nvc),
+                    RequiredMarkoutNote = nvc["required markout note"],
+                    Premise = obj.GetValueOrDefault<PremiseFactory>("premise", nvc)
                 });
             }
             else
@@ -5697,7 +5712,10 @@ namespace RegressionTests.Steps
                     AccountCharged = nvc["account charged"],
                     ApartmentAddtl = nvc["apartment addtl"],
                     CustomerServiceLineMaterial = obj.GetValueOrDefault<ServiceMaterialFactory>("service material", "customer service material", nvc),
-                    CompanyServiceLineMaterial = obj.GetValueOrDefault<ServiceMaterialFactory>("service material", "company service material", nvc)
+                    CompanyServiceLineMaterial = obj.GetValueOrDefault<ServiceMaterialFactory>("service material", "company service material", nvc),
+                    MarkoutTypeNeeded = obj.GetValueOrDefault<MarkoutTypeFactory>("markout type", "markout type needed", nvc),
+                    RequiredMarkoutNote = nvc["required markout note"],
+                    MaterialsApprovedOn = nvc.GetValueAs<DateTime>("materials approved on")
                 });
             }
 
@@ -6383,6 +6401,35 @@ namespace RegressionTests.Steps
             }
         }
 
+        [Given("licensed operator categories exist")]
+        public static void GivenLicensedOperatorCategoriesExist()
+        {
+            Action<string> createObject = (desc) =>
+                MMSINC.Testing.SpecFlow.StepDefinitions.Data.CreateObject("licensed operator category",
+                    desc.ToLowerInvariant(),
+                    $"description: \"{desc}\"", TestObjectCache.Instance);
+
+            createObject("Internal Employee");
+            createObject("No Licensed Operator Required");
+            createObject("Contracted Licensed Operator");
+        }
+
+        private static object CreateLicensedOperatorCategory(NameValueCollection nvc, TestObjectCache _, IContainer container)
+        {
+            switch (nvc["description"])
+            {
+                case "Internal Employee":
+                    return container.GetInstance<InternalEmployeeLicensedOperatorCategoryFactory>().Create();
+                case "No Licensed Operator Required":
+                    return container.GetInstance<NotRequiredLicensedOperatorCategoryFactory>().Create();
+                case "Contracted Licensed Operator":
+                    return container.GetInstance<ContractedLicensedOperatorCategoryFactory>().Create();
+                default:
+                    throw new InvalidOperationException(
+                        $"Unable to create licensed operator category with description '{nvc["description"]}'.");
+            }
+        }
+        
         #endregion
 
         [Given(@"I clear out the image upload root directory folder")]

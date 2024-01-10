@@ -15,9 +15,11 @@ using MMSINC.Data.NHibernate;
 using MMSINC.Utilities;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.Dialect.Function;
 using NHibernate.SqlCommand;
 using NHibernate.Transform;
 using StructureMap;
+using static MMSINC.Data.NHibernate.FluentNHibernateExtensions;
 
 namespace MapCall.Common.Model.Repositories
 {
@@ -358,6 +360,83 @@ namespace MapCall.Common.Model.Repositories
                              description.Id == (int)WorkDescription.Indices.WATER_MAIN_BREAK_REPLACE);
 
             return query;
+        }
+
+        public IEnumerable<AverageCompletionTime> GetAverages(ISearchAverageCompletionTime search)
+        {
+            WorkOrder wo = null, woSub = null;
+            OperatingCenter oc = null;
+            CrewAssignment ca = null;
+            AverageCompletionTime resultItem = null;
+
+            var query =
+                Session.QueryOver(() => wo)
+                       .JoinAlias(() => wo.OperatingCenter, () => oc)
+                       .Where(Restrictions.And(
+                            Restrictions.Ge(Projections.Property<WorkOrder>(_ => wo.DateCompleted), search.StartDate),
+                            Restrictions.Le(Projections.Property<WorkOrder>(_ => wo.DateCompleted), search.EndDate)));
+            if (search.OperatingCenter.HasValue)
+            {
+                query = query.Where(_ => wo.OperatingCenter.Id == search.OperatingCenter);
+            }
+
+            query = query.SelectList(list =>
+                              list
+                                 .SelectGroup(() => wo.OperatingCenter.Id)
+                                 .SelectGroup(() => oc.OperatingCenterCode)
+                                 .SelectGroup(() => oc.OperatingCenterName)
+                                 .SelectGroup(() => Projections.Concat(oc.OperatingCenterCode, " - ", oc.OperatingCenterName))
+                                 .WithAlias(() => resultItem.OperatingCenter)
+                                 .Select(Projections.Avg(Projections.SqlFunction(
+                                      new SQLFunctionTemplate(NHibernateUtil.Double,
+                                          $"(DateDiff({(IsSqlite() ? "'minute'" : "minute")}, DateReceived, DateCompleted) / 60.0)"),
+                                      NHibernateUtil.Int32))).WithAlias(() => resultItem.Completion)
+                                 .SelectSubQuery(QueryOver.Of(() => woSub)
+                                                          .JoinAlias(() => woSub.CrewAssignments, () => ca)
+                                                          .Where(_ => woSub.DateCompleted != null
+                                                                      && woSub.DateCompleted >= search.StartDate
+                                                                      && woSub.DateCompleted <= search.EndDate)
+                                                          .Where(_ => woSub.OperatingCenter.Id == wo.OperatingCenter.Id
+                                                                      && ca.WorkOrder.Id == woSub.Id)
+                                                          .Select(Projections.Avg(
+                                                               Projections.SqlFunction(
+                                                                   new SQLFunctionTemplate(
+                                                                       NHibernateUtil.Double,
+                                                                       $"(DATEDIFF({(IsSqlite() ? "'minute'" : "minute")}, ca1_.DateStarted, DateEnded) * EmployeesOnJob / 60.0)"),
+                                                                   NHibernateUtil.Int32))))
+                                 .WithAlias(() => resultItem.ManHours)
+                                 .SelectSubQuery(QueryOver.Of<WorkOrder>().Where(woInner =>
+                                                               woInner.ApprovedOn != null &&
+                                                               woInner.ApprovedOn >= search.StartDate &&
+                                                               woInner.ApprovedOn <= search.EndDate)
+                                                          .Where(woInner =>
+                                                               woInner.OperatingCenter.Id ==
+                                                               wo.OperatingCenter.Id)
+                                                          .Select(Projections.Avg(
+                                                               Projections.SqlFunction(
+                                                                   new SQLFunctionTemplate(NHibernateUtil.Double,
+                                                                       $"(DateDiff({(IsSqlite() ? "'minute'" : "minute")}, DateCompleted, ApprovedOn) / 60.0)"),
+                                                                   NHibernateUtil.Int32))))
+                                 .WithAlias(() => resultItem.Approval)
+                                 .SelectSubQuery(QueryOver.Of<WorkOrder>()
+                                                          .Where(woInner =>
+                                                               woInner.MaterialsApprovedOn != null &&
+                                                               woInner.MaterialsApprovedOn >= search.StartDate &&
+                                                               woInner.MaterialsApprovedOn <= search.EndDate)
+                                                          .Where(woInner =>
+                                                               woInner.OperatingCenter.Id ==
+                                                               wo.OperatingCenter.Id)
+                                                          .Select(Projections.Avg(
+                                                               Projections.SqlFunction(
+                                                                   new SQLFunctionTemplate(NHibernateUtil.Double,
+                                                                       $"(DateDiff({(IsSqlite() ? "'minute'" : "minute")}, ApprovedOn, MaterialsApprovedOn) / 60.0)"),
+                                                                   NHibernateUtil.Int32))))
+                                 .WithAlias(() => resultItem.StockApproval))
+                         .OrderBy(() => oc.OperatingCenterCode).Asc;
+
+            query.TransformUsing(Transformers.AliasToBean<AverageCompletionTime>());
+
+            return Search(search, query);
         }
 
         #endregion
@@ -1571,6 +1650,7 @@ namespace MapCall.Common.Model.Repositories
 
         WorkOrder FindSchedulingOrder(int id);
 
+        IEnumerable<AverageCompletionTime> GetAverages(ISearchAverageCompletionTime search);
         IEnumerable<WorkOrder> GetByTownId(int townId);
 
         IEnumerable<WorkOrder> GetByTownIdForServices(int townId);

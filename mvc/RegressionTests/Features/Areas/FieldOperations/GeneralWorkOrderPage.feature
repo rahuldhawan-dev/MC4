@@ -7,9 +7,10 @@ Background:
     # state name.
     Given a state "nj" exists with name: "New Jersey", abbreviation: "NJ_DO_NOT_CHANGE!"
     And a county "monmouth" exists with name: "MONMOUTH", state: "nj"
-	Given an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury", sap enabled: "true", sap work orders enabled: "true", arc mobile map id: "15fdc279b4234fcb85f455ee70897a9e"
-    And an operating center "nj6" exists with opcode: "NJ6", name: "Short Hills"
-    And a town "nj7burg" exists with name: "TOWN"
+    And a state "nj2" exists
+	And an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury", sap enabled: "true", sap work orders enabled: "true", arc mobile map id: "15fdc279b4234fcb85f455ee70897a9e", state: "nj2"
+    And an operating center "nj6" exists with opcode: "NJ6", name: "Short Hills", state: "nj2"
+    And a town "nj7burg" exists with name: "TOWN", state: "nj2"
     And operating center: "nj7" exists in town: "nj7burg"
     And a town section "one" exists with town: "nj7burg", name: "Tucson"
     And a town section "inactive" exists with town: "nj7burg", active: false
@@ -70,6 +71,7 @@ Background:
 Scenario: User can search for work orders
 	Given I am logged in as "user"
 	And I am at the FieldOperations/GeneralWorkOrder/Search page
+    When I select state "nj2" from the State dropdown
     Then I should not see operating center "nj6"'s Description in the OperatingCenter dropdown
     And I should see operating center "nj7"'s Description in the OperatingCenter dropdown
 	When I press Search
@@ -103,7 +105,8 @@ Scenario: User can search multiple asset types and multiple work descriptions
     And a work order "seven" exists with operating center: "nj7", asset type: "valve", work description: "valve replacement"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Search page
-    When I select operating center "nj7" from the OperatingCenter dropdown
+    When I select state "nj2" from the State dropdown
+    And I select operating center "nj7" from the OperatingCenter dropdown
     And I select asset type "hydrant" from the AssetType dropdown
     And I select asset type "valve" from the AssetType dropdown
     And I select work description "hydrant flushing" from the WorkDescription dropdown
@@ -114,6 +117,7 @@ Scenario: User can search multiple asset types and multiple work descriptions
     And I should see a link to the FieldOperations/GeneralWorkOrder/Show page for work order "six"
     And I should see a link to the FieldOperations/GeneralWorkOrder/Show page for work order "seven"
     When I go to the FieldOperations/GeneralWorkOrder/Search page
+    And I select state "nj2" from the State dropdown
     And I select operating center "nj7" from the OperatingCenter dropdown
     And I select asset type "hydrant" from the AssetType dropdown
     And I select work description "hydrant flushing" from the WorkDescription dropdown
@@ -123,6 +127,7 @@ Scenario: User can search multiple asset types and multiple work descriptions
     And I should not see a link to the FieldOperations/GeneralWorkOrder/Show page for work order "five"
     And I should not see a link to the FieldOperations/GeneralWorkOrder/Show page for work order "seven"
     When I go to the FieldOperations/GeneralWorkOrder/Search page
+    And I select state "nj2" from the State dropdown
     And I select operating center "nj7" from the OperatingCenter dropdown
     And I select asset type "valve" from the AssetType dropdown
     And I select work description "valve replacement" from the WorkDescription dropdown
@@ -633,6 +638,8 @@ Scenario: User can view links for service work order
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "five"
     Then I should see "Create Service"
+    When I click the "Service" tab
+    Then I should see "Note - The service record has not been linked to this work order. Any updates to the service line info will not update the service record. Please link the service via the Create Service Button below."
     When I follow "Create Service"
     Then I should be at the FieldOperations/Service/LinkOrNew page
 
@@ -798,7 +805,7 @@ Scenario: Users can update additional tab for a work order of valve asset type
     And I enter "7" into the LostWater field
     And I enter "12" into the DistanceFromCrossStreet field
     And I select work description "valve repair" from the FinalWorkDescription dropdown
-    And I press Update
+    And I press "Update Details"
     Then I should be at the FieldOperations/GeneralWorkOrder/Edit page for work order: "ten"
     And I should see "7" in the LostWater field
     And I should see "12" in the DistanceFromCrossStreet field
@@ -810,14 +817,14 @@ Scenario: Users can update additional tab for a work order of main asset type
     And I am at the FieldOperations/GeneralWorkOrder/Edit page for work order: "ten"    
     When I click the "Additional" tab
     And I select work description "water main break repair" from the FinalWorkDescription dropdown
-    And I press Update
+    And I press "Update Details"
     Then I should see a validation message for LostWater with "The Total Gallons Lost field is required."
     And I should see a validation message for TrafficImpact with "The Significant Traffic Impact field is required."
     And I should see a validation message for DistanceFromCrossStreet with "The Distance From Cross Street (feet) field is required."
     When I enter "7" into the LostWater field
     And I enter "12" into the DistanceFromCrossStreet field
     And I select "Yes" from the TrafficImpact dropdown
-    And I press Update
+    And I press "Update Details"
     Then I should be at the FieldOperations/GeneralWorkOrder/Edit page for work order: "ten"
     And I should see work description "water main break repair" in the FinalWorkDescription dropdown
     And I should see "7" in the LostWater field
@@ -826,12 +833,6 @@ Scenario: Users can update additional tab for a work order of main asset type
 
 Scenario: User can update additional tab for a work order of service asset type
     Given a work order "five" exists with operating center: "nj7", asset type: "service", work description: "install meter"
-    And a service material "one" exists with description: "Copper", is edit enabled: true
-    And a service material "two" exists with description: "Plastic", is edit enabled: true
-    And a service material "three" exists with description: "Iron", is edit enabled: true
-    And a service size "one" exists with service size description: "1/2", service: true
-    And a service size "two" exists with service size description: "1", service: true
-    And a service size "three" exists with service size description: "2", service: true
     And a pitcher filter customer delivery method "one" exists with description: "Handed to customer"
     And a pitcher filter customer delivery method "two" exists with description: "Left on porch\doorstep"
     And a pitcher filter customer delivery method "three" exists with description: "Other"
@@ -839,15 +840,68 @@ Scenario: User can update additional tab for a work order of service asset type
     And I am at the FieldOperations/GeneralWorkOrder/Edit page for work order: "five"
     When I click the "Additional" tab
     And I select work description "service line renewal" from the FinalWorkDescription dropdown
-    And I press Update
+    And I press "Update Details"
+    Then I should be at the FieldOperations/GeneralWorkOrder/Edit page for work order: "five"
+    And I should see work description "service line renewal" in the FinalWorkDescription dropdown
+    When I click the "Additional" tab
+    And I press "Update Compliance Data"
+    Then I should see a validation message for InitialServiceLineFlushTime with "This field is required."
+    And I should see a validation message for HasPitcherFilterBeenProvidedToCustomer with "This field is required."
+    When I enter "35" into the InitialServiceLineFlushTime field
+    And I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+    And I enter "6/20/2023" into the DatePitcherFilterDeliveredToCustomer field
+    And I select pitcher filter customer delivery method "three" from the PitcherFilterCustomerDeliveryMethod dropdown
+    And I enter "Testing Other" into the PitcherFilterCustomerDeliveryOtherMethod field
+    And I enter "6/21/2023" into the DateCustomerProvidedAWStateLeadInformation field
+    And I press "Update Compliance Data"
+    Then I should see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+    When I select "Yes" from the IsThisAMultiTenantFacility dropdown
+    And I press "Update Compliance Data"
+    Then I should see a validation message for NumberOfPitcherFiltersDelivered with "The NumberOfPitcherFiltersDelivered field is required."
+    And I should see a validation message for DescribeWhichUnits with "The DescribeWhichUnits field is required."
+    When I enter "10" into the NumberOfPitcherFiltersDelivered field
+    And I enter "See notes for units" into the DescribeWhichUnits field 
+    And I press "Update Compliance Data"
+    Then I should be at the FieldOperations/GeneralWorkOrder/Edit page for work order: "five"
+    And I should see work description "service line renewal" in the FinalWorkDescription dropdown
+    And I should see "Yes" in the HasPitcherFilterBeenProvidedToCustomer dropdown
+    And I should see pitcher filter customer delivery method "three" in the PitcherFilterCustomerDeliveryMethod dropdown
+    And I should see "Yes" in the IsThisAMultiTenantFacility dropdown
+    And I should see "10" in the NumberOfPitcherFiltersDelivered field
+    And I should see "See notes for units" in the DescribeWhichUnits field
+
+Scenario: user sees or doesn't see a validation message for IsThisAMultiTenantFacility depending the value of the haspitcherfilterbeenprovidedtocustomer field
+    Given a work order "ten" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", work description: "install meter", work order priority: "emergency"
+    And I am logged in as "user"
+    And I am at the FieldOperations/GeneralWorkOrder/Edit page for work order: "ten"
+    When I click the "Additional" tab
+    And I select "No" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+    And I press "Update Compliance Data"
+    When I click the "Additional" tab
+    Then I should not see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+    When I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+    And I press "Update Compliance Data"
+    Then I should see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+
+Scenario: User can update service line info for a work order of service asset type
+    Given a work order "five" exists with operating center: "nj7", asset type: "service", work description: "service line renewal"
+    And a service material "one" exists with description: "Copper", is edit enabled: true
+    And a service material "two" exists with description: "Plastic", is edit enabled: true
+    And a service material "three" exists with description: "Iron", is edit enabled: true
+    And a service size "one" exists with service size description: "1/2", service: true
+    And a service size "two" exists with service size description: "1", service: true
+    And a service size "three" exists with service size description: "2", service: true
+    And I am logged in as "user"
+    And I am at the FieldOperations/GeneralWorkOrder/Edit page for work order: "five"
+    When I click the "Service" tab
+    Then I should see "Note - The service record has not been linked to this work order. Any updates to the service line info will not update the service record. Please link the service via the Create Service Button below."
+    When I press "Update Service Line Info"
     Then I should see a validation message for PreviousServiceLineMaterial with "The Previous Service Company Material field is required."
     And I should see a validation message for PreviousServiceLineSize with "The Previous Service Company Size field is required."
     And I should see a validation message for CompanyServiceLineMaterial with "The Service Company Material field is required."
     And I should see a validation message for CompanyServiceLineSize with "The Service Company Size field is required."
     And I should see a validation message for CustomerServiceLineSize with "The CustomerServiceLineSize field is required."
     And I should see a validation message for DoorNoticeLeftDate with "The DoorNoticeLeftDate field is required."
-    And I should see a validation message for InitialServiceLineFlushTime with "The InitialServiceLineFlushTime field is required."
-    And I should see a validation message for HasPitcherFilterBeenProvidedToCustomer with "The Pitcher filter provided to customer? field is required."
     When I select service material "one" from the PreviousServiceLineMaterial dropdown
     And I select service material "two" from the CompanyServiceLineMaterial dropdown
     And I select service material "three" from the CustomerServiceLineMaterial dropdown
@@ -855,31 +909,21 @@ Scenario: User can update additional tab for a work order of service asset type
     And I select service size "two" from the CompanyServiceLineSize dropdown
     And I select service size "three" from the CustomerServiceLineSize dropdown
     And I enter "6/20/2023" into the DoorNoticeLeftDate field
-    And I enter "35" into the InitialServiceLineFlushTime field
-    And I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
-    And I enter "6/20/2023" into the DatePitcherFilterDeliveredToCustomer field
-    And I select pitcher filter customer delivery method "three" from the PitcherFilterCustomerDeliveryMethod dropdown
-    And I enter "Testing Other" into the PitcherFilterCustomerDeliveryOtherMethod field
-    And I enter "6/21/2023" into the DateCustomerProvidedAWStateLeadInformation field
-    And I press Update
+    And I press "Update Service Line Info"
     Then I should be at the FieldOperations/GeneralWorkOrder/Edit page for work order: "five"
-    And I should not see a validation message for PreviousServiceLineMaterial with "The Previous Service Company Material field is required."
+    When I click the "Service" tab
+    Then I should not see a validation message for PreviousServiceLineMaterial with "The Previous Service Company Material field is required."
     And I should not see a validation message for PreviousServiceLineSize with "The Previous Service Company Size field is required."
     And I should not see a validation message for CompanyServiceLineMaterial with "The Service Company Material field is required."
     And I should not see a validation message for CompanyServiceLineSize with "The Service Company Size field is required."
     And I should not see a validation message for CustomerServiceLineSize with "The CustomerServiceLineSize field is required."
     And I should not see a validation message for DoorNoticeLeftDate with "The DoorNoticeLeftDate field is required."
-    And I should not see a validation message for InitialServiceLineFlushTime with "The InitialServiceLineFlushTime field is required."
-    And I should not see a validation message for HasPitcherFilterBeenProvidedToCustomer with "The Pitcher filter provided to customer? field is required."
-    And I should see work description "service line renewal" in the FinalWorkDescription dropdown
     And I should see service material "one" in the PreviousServiceLineMaterial dropdown
     And I should see service material "two" in the CompanyServiceLineMaterial dropdown
     And I should see service material "three" in the CustomerServiceLineMaterial dropdown
     And I should see service size "one" in the PreviousServiceLineSize dropdown
     And I should see service size "two" in the CompanyServiceLineSize dropdown
     And I should see service size "three" in the CustomerServiceLineSize dropdown
-    And I should see "Yes" in the HasPitcherFilterBeenProvidedToCustomer dropdown
-    And I should see pitcher filter customer delivery method "three" in the PitcherFilterCustomerDeliveryMethod dropdown
   
 Scenario: User cannot select a revisit description for a non-revisit order
     Given a work order "ten" exists with operating center: "nj7", town: "nj7burg", street: "one", hydrant: "one", asset type: "hydrant", work description: "hydrant leaking", coordinate: "one"

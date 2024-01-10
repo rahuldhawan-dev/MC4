@@ -1,0 +1,12 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchReportUse
+@{
+    ActionBarHelper.AddExportLink();
+}
+@(Html.TableFor(x => Model, new { id = "reportUseTable" })
+      .WithCaption("Records Found:" + Model.Count)
+      .SortableColumnFor(x => x.User.DefaultOperatingCenter, "Operating Center", "User.DefaultOperatingCenter")
+      .SortableColumnFor(x => x.User.FullName, "User", "User.FullName")
+      .SortableColumnFor(x => x.ReportName)
+      .SortableColumnFor(x => x.DateViewed)
+      .WithPaginatedFooter()
+    )

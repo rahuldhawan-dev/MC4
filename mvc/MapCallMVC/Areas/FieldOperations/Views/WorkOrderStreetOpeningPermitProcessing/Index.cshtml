@@ -2,7 +2,7 @@
 
 @Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
 
-@(Html.TableFor(x => x, new { id="sopProcessingWorkOrdersTable"})
+@(Html.TableFor(x => x, new { id="sopProcessingWorkOrdersTable", @class = "results-table" })
       .WithCaption("Records found:" + Model.Count)
       .SortableTemplateColumnFor("", "Id", x => 
 	      @<text>

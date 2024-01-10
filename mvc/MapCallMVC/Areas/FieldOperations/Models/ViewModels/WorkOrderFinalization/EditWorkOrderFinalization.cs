@@ -8,16 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder;
 using MMSINC.Validation;
-using MMSINC.ClassExtensions.IEnumerableExtensions;
 using MMSINC.Utilities.ObjectMapping;
 using MMSINC.Authentication;
 using MapCall.Common.Model.Entities.Users;
-using MMSINC.Utilities;
 using MapCall.Common.Model.Repositories;
+using MMSINC.Data.NHibernate;
+using MMSINC.Utilities;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization
 {
-    public class EditWorkOrderFinalization : EditWorkOrderAdditional
+    public class EditWorkOrderFinalization : ViewModel<WorkOrder>, IServiceLineInfo, IWorkOrderAdditional, IWorkOrderComplianceData
     {
         #region Constants
 
@@ -37,69 +37,93 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalizati
 
         #endregion
 
+        #region Fields
+
+        private WorkOrder _original;
+
+        #endregion
+
         #region Properties
+
+        [DoesNotAutoMap]
+        public WorkOrder WorkOrder
+        {
+            get
+            {
+                if (_original == null)
+                {
+                    _original = Original ?? _container.GetInstance<IRepository<WorkOrder>>().Find(Id);
+                }
+                return _original;
+            }
+        }
+
+        #region Additional Details
+
+        [DropDown, EntityMap("WorkDescription"), EntityMustExist(typeof(WorkDescription))]
+        public int? FinalWorkDescription { get; set; }
+        public int? LostWater { get; set; }
+        public double? DistanceFromCrossStreet { get; set; }
+
+        [DropDown, EntityMap("EstimatedCustomerImpact"), EntityMustExist(typeof(CustomerImpactRange))]
+        public int? CustomerImpact { get; set; }
+
+        [DropDown, EntityMap("AnticipatedRepairTime"), EntityMustExist(typeof(RepairTimeRange))]
+        public int? RepairTime { get; set; }
+
+        [AutoMap("SignificantTrafficImpact")]
+        public bool? TrafficImpact { get; set; }
+
+        public bool? AlertIssued { get; set; }
+
+        [DoesNotAutoMap]
+        public string AppendNotes { get; set; }
+
+        #endregion
 
         #region Service Line Info
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? PreviousServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? PreviousServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? CompanyServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? CompanyServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
         public int? CustomerServiceLineMaterial { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap, EntityMustExist(typeof(ServiceSize))]
         public int? CustomerServiceLineSize { get; set; }
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         public DateTime? DoorNoticeLeftDate { get; set; }
 
         #endregion
 
-        #region Compliance Info
+        #region Compliance Data
 
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional),
-            ErrorMessage = "The InitialServiceLineFlushTime field is required.")]
         public int? InitialServiceLineFlushTime { get; set; }
-
-        [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
-            nameof(ServiceLineRenewalWorkDescriptions), typeof(EditWorkOrderAdditional))]
         public bool? HasPitcherFilterBeenProvidedToCustomer { get; set; }
-
-        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
         public DateTime? DatePitcherFilterDeliveredToCustomer { get; set; }
 
-        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
         [DropDown, EntityMap, EntityMustExist(typeof(PitcherFilterCustomerDeliveryMethod))]
         public int? PitcherFilterCustomerDeliveryMethod { get; set; }
-
-        [RequiredWhen(nameof(PitcherFilterCustomerDeliveryMethod), ComparisonType.EqualTo,
-            MapCall.Common.Model.Entities.PitcherFilterCustomerDeliveryMethod.Indices.OTHER)]
         public string PitcherFilterCustomerDeliveryOtherMethod { get; set; }
-
         public DateTime? DateCustomerProvidedAWStateLeadInformation { get; set; }
+        
+        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
+        public bool? IsThisAMultiTenantFacility { get; set; }
+        
+        [RequiredWhen(nameof(IsThisAMultiTenantFacility), ComparisonType.EqualTo, true)]
+        public int? NumberOfPitcherFiltersDelivered { get; set; }
+        
+        [RequiredWhen(nameof(IsThisAMultiTenantFacility), ComparisonType.EqualTo, true)]
+        public string DescribeWhichUnits { get; set; }
 
         #endregion
 
@@ -117,11 +141,14 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalizati
         [AutoMap(MapDirections.None)]
         public bool? DigitalAsBuiltRequired => WorkOrder?.DigitalAsBuiltRequired;
 
+        [AutoMap(MapDirections.None)]
+        public int? AssetTypeId => WorkOrder?.AssetType?.Id;
+
         [DropDown, EntityMap, EntityMustExist(typeof(MeterLocation))]
         [RequiredWhen(nameof(AssetTypeId), AssetType.Indices.SERVICE)]
         [ClientCallback("WorkOrderFinalization.validateMeterLocation", ErrorMessage = ERROR_METER_LOCATION_REQUIRED)]
         public int? MeterLocation { get; set; }
-
+       
         #endregion
 
         #endregion
@@ -179,6 +206,18 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalizati
         public override WorkOrder MapToEntity(WorkOrder entity)
         {
             base.MapToEntity(entity);
+
+            if (!string.IsNullOrWhiteSpace(AppendNotes))
+            {
+                if (!string.IsNullOrWhiteSpace(entity.Notes))
+                {
+                    entity.Notes += Environment.NewLine;
+                }
+
+                entity.Notes += $"{_container.GetInstance<IAuthenticationService<User>>().CurrentUser.FullName} " +
+                                _container.GetInstance<IDateTimeProvider>().GetCurrentDate().ToString(CommonStringFormats.DATETIME_WITH_SECONDS_WITH_EST_TIMEZONE_FOR_WEBFORMS) +
+                                $" {AppendNotes}";
+            }
 
             if (InitialServiceLineFlushTime.HasValue)
             {

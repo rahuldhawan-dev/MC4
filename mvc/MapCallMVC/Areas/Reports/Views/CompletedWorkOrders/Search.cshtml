@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchCompletedWorkOrders
+
+@using (Form.BeginForm("Index", "CompletedWorkOrders", new { area = "Reports" }))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.DateCompleted)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.Town)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

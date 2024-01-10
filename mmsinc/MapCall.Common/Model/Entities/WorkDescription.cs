@@ -206,6 +206,7 @@ namespace MapCall.Common.Model.Entities
             CROSSING_RETIREMENT = 225,
             CROSSING_INSTALLATION = 226,
             IRRIGATION_RENEWAL = 259,
+            SERVICE_LINE_REPAIR_CAPITAL = 269,
             FIRE_SERVICE_LINE_RENEWAL = 285,
             SERVICE_LINE_RENEWAL_LEAD = 295,
             SERVICE_LINE_RETIRE_LEAD = 298,
@@ -293,6 +294,32 @@ namespace MapCall.Common.Model.Entities
             (int)Indices.FIRE_SERVICE_INSTALLATION,
             (int)Indices.IRRIGATION_INSTALLATION,
             (int)Indices.SEWER_LATERAL_INSTALLATION
+        };
+
+        public static readonly int[] EXCLUDED_INACTIVE_WORK_DESCRIPTIONS = {
+            (int)Indices.Z_LWC_EW4_3_CONSECUTIVE_MTHS_OF_0_USAGE_ZERO,
+            (int)Indices.Z_LWC_EW4_CHECK_METER_NON_EMERGENCY_CKMTR,
+            (int)Indices.Z_LWC_EW4_DEMOLITION_CLOSED_ACCOUNT_DEMOC,
+            (int)Indices.Z_LWC_EW4_METER_CHANGE_OUT_MTRCH,
+            (int)Indices.Z_LWC_EW4_READ_MR_EDIT_LOCAL_OPS_ONLY_MREDT,
+            (int)Indices.Z_LWC_EW4_READ_TO_STOP_ESTIMATE_EST,
+            (int)Indices.Z_LWC_EW4_REPAIR_INSTALL_READING_DEVICE_REM,
+            (int)Indices.Z_LWC_EW4_REREAD_AND_OR_INSPECT_FOR_LEAK_HILOW,
+            (int)Indices.Z_LWC_EW4_SET_METER_TURN_ON_AND_READ_ONSET,
+            (int)Indices.Z_LWC_EW4_TURN_ON_WATER_ON,
+            (int)Indices.SERVICE_LINE_REPAIR_CAPITAL
+        };
+
+        public static readonly int[] SERVICE_LINE_INFO_REQUIREMENT = {
+            (int)Indices.SERVICE_LINE_RENEWAL,
+            (int)Indices.SERVICE_RELOCATION,
+            (int)Indices.WATER_SERVICE_RENEWAL_CUST_SIDE,
+            (int)Indices.IRRIGATION_RENEWAL,
+            (int)Indices.FIRE_SERVICE_LINE_RENEWAL,
+            (int)Indices.SERVICE_LINE_RENEWAL_LEAD,
+            (int)Indices.SERVICE_LINE_RENEWAL_CUST_LEAD,
+            (int)Indices.SEWER_LATERAL_REPLACE,
+            (int)Indices.SEWER_CLEAN_OUT_INSTALLATION
         };
 
         #endregion

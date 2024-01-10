@@ -170,7 +170,6 @@
                             <a href="<%= ResolveUrl("~/Modules/mvc/FieldOperations/WorkOrderPlanning/Search") %>">Planning</a>
                         </li>
                         <li><a href="<%= ResolveUrl("~/Modules/mvc/FieldOperations/WorkOrderScheduling/Search") %>">Scheduling</a></li>
-                        <li><a href="<%= ResolveUrl("~/Modules/WorkOrders/Views/WorkOrders/General/WorkOrderGeneralResourceView.aspx") %>">General</a></li>
                         <li><a href="<%= ResolveUrl("~/Modules/mvc/FieldOperations/GeneralWorkOrder/Search") %>">General - with mapping</a></li>
                     </ul>
                 </div>

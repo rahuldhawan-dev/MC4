@@ -2,7 +2,7 @@
            
 @{ ActionBarHelper.AddExportLink();}
 
-@(Html.TableFor(x => Model, new {id = "environmentalPermitTable"})
+@(Html.TableFor(x => Model, new {id = "environmentalPermitTable", @class = "results-table" })
     .WithCaption("Records found: " + Model.Count)
     .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
     .SortableColumnFor(x => x.Id, "Id")

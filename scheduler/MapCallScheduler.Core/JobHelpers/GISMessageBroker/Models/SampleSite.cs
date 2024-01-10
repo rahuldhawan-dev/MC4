@@ -111,7 +111,8 @@ namespace MapCallScheduler.JobHelpers.GISMessageBroker.Models
                         : new PublicWaterSupplyStatus {
                             Id = site.PublicWaterSupply.Status.Id,
                             Description = site.PublicWaterSupply.Status.Description
-                        }
+                        },
+                    System = site.PublicWaterSupply.System
                 };
             sampleSite.OperatingCenter = site.OperatingCenter == null
                 ? null
@@ -188,7 +189,8 @@ namespace MapCallScheduler.JobHelpers.GISMessageBroker.Models
                             : new PublicWaterSupplyStatus {
                                 Id = site.SampleSiteProfile.PublicWaterSupply.Status.Id,
                                 Description = site.SampleSiteProfile.PublicWaterSupply.Status.Description
-                            }
+                            },
+                        System = site.SampleSiteProfile.PublicWaterSupply.System
                     }
                 };
             sampleSite.BactiSite = site.BactiSite;

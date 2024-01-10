@@ -1,0 +1,43 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder.EditWorkOrderComplianceData
+@using MMSINC.Utilities
+@using (var form = Form.BeginForm("UpdateComplianceData", "GeneralWorkOrder", "FieldOperations", new { Model.Id }))
+{
+    form.HtmlAttributes["id"] = "ComplianceDataForm";
+    <fieldset id="complianceInfo">
+        <legend>Compliance Data</legend>
+        <div class="container" style="margin-bottom: 10px;">
+            @if (Model.WorkOrder != null && Model.WorkOrder.RecentPitcherFilterDeliveryDate != null)
+            {
+                @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+                {
+                    Message = String.Format(WorkOrder.PITCHER_FILTER_DISTRIBUTED_MESSAGE, String.Format(CommonStringFormats.DATE, Model.WorkOrder.RecentPitcherFilterDeliveryDate)),
+                    NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+                })
+            }
+        </div>
+        <div class="field-column fc200">
+            @Html.RenderEditorTemplate(Html.DisplayLabelFor(x => x.InitialServiceLineFlushTime),
+                        @<text>
+                            @Html.EditorWithoutWrapperFor(x => x.InitialServiceLineFlushTime)
+                            <div id="flush-time-below-minimum-message" style="color: #FF0000"> Below minimum </div>
+                        </text>)
+            @Html.EditorFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+            <div id="multiTenantFacility">
+                @Html.EditorFor(x => x.IsThisAMultiTenantFacility)
+                <div id="multiTenantFacilityRequiredFields">
+                    @Html.EditorFor(x => x.NumberOfPitcherFiltersDelivered)
+                    @Html.EditorFor(x => x.DescribeWhichUnits)
+                </div>
+            </div>
+            <div id="deliveryDetails">
+                @Html.EditorFor(x => x.DatePitcherFilterDeliveredToCustomer)
+                @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryMethod)
+            </div>
+            <div id="otherDeliveryDescription">
+                @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryOtherMethod)
+            </div>
+            @Html.EditorFor(x => x.DateCustomerProvidedAWStateLeadInformation)
+            @Html.ButtonGroup(@<text>@Control.SubmitButton("Update Compliance Data").WithId("btnUpdateCompliance")</text>)
+        </div>
+    </fieldset>
+}

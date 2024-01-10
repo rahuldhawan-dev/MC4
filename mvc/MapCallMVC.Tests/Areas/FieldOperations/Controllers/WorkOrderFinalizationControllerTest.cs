@@ -6,11 +6,9 @@ using MapCall.Common.Model.Entities;
 using MapCall.Common.Testing.Data;
 using MapCall.Common.Utility.Notifications;
 using MapCallMVC.Areas.FieldOperations.Controllers;
-using MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder;
 using MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderFinalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MMSINC.Controllers;
-using MMSINC.Data;
 using MMSINC.Testing;
 using Moq;
 using StructureMap;
@@ -77,7 +75,6 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
                 a.RequiresRole("~/WorkOrderFinalization/Edit", module, RoleActions.Edit);
                 a.RequiresRole("~/WorkOrderFinalization/Update", module, RoleActions.Edit);
                 a.RequiresRole("~/WorkOrderFinalization/Show", module, RoleActions.Read);
-                a.RequiresRole("~/WorkOrderFinalization/UpdateAdditional/", module, RoleActions.Edit);
             });
         }
 
@@ -246,41 +243,6 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
             Assert.IsTrue(entity.DigitalAsBuiltCompleted);
         }
 
-        [TestMethod]
-        public void TestUpdateAdditionalSavesChangesWhenModelStateIsValid()
-        {
-            var eq = GetEntityFactory<WorkOrder>().Create();
-            AddWorkManagementRoleToCurrentUserForOperatingCenter(eq.OperatingCenter);
-            var workDescription = GetEntityFactory<WorkDescription>().Create();
-            var estimatedCustomerImpact = GetFactory<ZeroToFiftyCustomerImpactRangeFactory>().Create();
-            var anticipatedRepairTime = GetFactory<FourToSixRepairTimeRangeFactory>().Create();
-
-            var model = new EditWorkOrderAdditional(_container) {
-                FinalWorkDescription = workDescription.Id,
-                LostWater = 10,
-                DistanceFromCrossStreet = 20.0,
-                AppendNotes = "Testing Notes",
-                AlertIssued = true,
-                TrafficImpact = true,
-                RepairTime = anticipatedRepairTime.Id,
-                CustomerImpact = estimatedCustomerImpact.Id,
-                Id = eq.Id
-            };
-
-            var result = _target.UpdateAdditional(model) as RedirectToRouteResult;
-
-            var entity = Session.Get<WorkOrder>(eq.Id);
-
-            Assert.AreEqual("Index", result.RouteValues["action"]);
-            Assert.AreEqual(workDescription.Id, entity.WorkDescription?.Id);
-            Assert.AreEqual(estimatedCustomerImpact.Id, entity.EstimatedCustomerImpact?.Id);
-            Assert.AreEqual(anticipatedRepairTime.Id, entity.AnticipatedRepairTime?.Id);
-            Assert.IsTrue(entity.AlertIssued);
-            Assert.IsTrue(entity.SignificantTrafficImpact);
-            Assert.AreEqual(10, entity.LostWater);
-            Assert.AreEqual(20.0, entity.DistanceFromCrossStreet);
-        }
-        
         [TestMethod]
         public void TestSetLookUpDataForCompanyServiceLineMaterialSetsCorrectlyOnEdit()
         {

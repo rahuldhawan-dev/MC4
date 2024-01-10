@@ -331,7 +331,6 @@ namespace MapCall.Common.Configuration
                         .Link("Invoices", "Search", "WorkOrderInvoice", "FieldOperations")
                         .Link("SAP Notifications", "Search", "SapNotification", "FieldOperations", RoleModules.FieldServicesAssets)
                         .BeginSection("Legacy", RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
-                            .Link("General Search", "/Modules/WorkOrders/Views/WorkOrders/General/WorkOrderGeneralResourceView.aspx")
                             .Link("Markout Planning", "/Modules/WorkOrders/Views/WorkOrders/MarkoutPlanning/WorkOrderMarkoutPlanningResourceView.aspx", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Planning", "/Modules/WorkOrders/Views/WorkOrders/Planning/WorkOrderPlanningResourceView.aspx")
                             .Link("Finalization", "/Modules/WorkOrders/Views/WorkOrders/Finalization/WorkOrderFinalizationResourceView.aspx")

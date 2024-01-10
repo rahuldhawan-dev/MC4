@@ -106,6 +106,8 @@ namespace MapCallMVC.Areas.Environmental.Controllers
                                                      x.PermitNumber,
                                                      x.Status,
                                                      x.Ownership,
+                                                     x.LicensedOperatorStatus,
+                                                     x.CurrentLicensedContractor,
                                                      x.Type,
                                                      x.SubType,
                                                      x.DateOfOwnership,

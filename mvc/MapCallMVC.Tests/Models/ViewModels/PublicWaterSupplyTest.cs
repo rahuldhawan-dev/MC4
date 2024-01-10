@@ -38,6 +38,8 @@ namespace MapCallMVC.Tests.Models.ViewModels
         [TestMethod]
         public void TestPropertiesThatCanMapBothWays()
         {
+            _vmTester.CanMapBothWays(x => x.LicensedOperatorStatus, GetFactory<InternalEmployeeLicensedOperatorCategoryFactory>().Create());
+
             _vmTester.CanMapBothWays(x => x.OperatingArea);
             _vmTester.CanMapBothWays(x => x.System);
             _vmTester.CanMapBothWays(x => x.Identifier);
@@ -65,11 +67,13 @@ namespace MapCallMVC.Tests.Models.ViewModels
             _vmTester.CanMapBothWays(x => x.DateSafetyAssessmentActionItemsCompleted);
             _vmTester.CanMapBothWays(x => x.NewSystemInitialWQEnvAssessmentCompleted);
             _vmTester.CanMapBothWays(x => x.DateWQEnvAssessmentActionItemsCompleted);
+            _vmTester.CanMapBothWays(x => x.CurrentLicensedContractor);
         }
 
         [TestMethod]
         public void TestRequiredFields()
         {
+            var pubWater = GetEntityFactory<PublicWaterSupply>().Create();
             ValidationAssert.PropertyIsRequired(_viewModel, x => x.Status);
             ValidationAssert.PropertyIsRequired(_viewModel, x => x.LocalCertifiedStateId);
             ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.AnticipatedActiveDate, Convert.ToDateTime("2/10/2020"), x => x.Status, PublicWaterSupplyStatus.Indices.PENDING);
@@ -77,6 +81,9 @@ namespace MapCallMVC.Tests.Models.ViewModels
             ValidationAssert.PropertyIsRequired(_viewModel, x => x.Type);
             ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.ConsentOrderStartDate, new DateTime(2022, 7, 20), x => x.HasConsentOrder, true);
             ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.ConsentOrderEndDate, new DateTime(2022, 7, 20), x => x.ConsentOrderStartDate, new DateTime(2022, 7, 20));
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.LicensedOperatorStatus, pubWater.LicensedOperatorStatus.Id, x => x.Ownership, PublicWaterSupplyOwnership.Indices.AW_CONTRACT, PublicWaterSupplyOwnership.Indices.CSG, "Required when Ownership is AW Contractor or Owned.");
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.LicensedOperatorStatus, pubWater.LicensedOperatorStatus.Id, x => x.Ownership, PublicWaterSupplyOwnership.Indices.AW_OWNED, PublicWaterSupplyOwnership.Indices.OTHER, "Required when Ownership is AW Contractor or Owned.");
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.CurrentLicensedContractor, "Test Contractor Data", x => x.LicensedOperatorStatus, LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR, LicensedOperatorCategory.Indices.INTERNAL_EMPLOYEE, "Required when Licensed Operator Status is Contracted.");
         }
 
         [TestMethod]
@@ -114,6 +121,22 @@ namespace MapCallMVC.Tests.Models.ViewModels
 
             Assert.AreSame(ownership, _entity.Ownership);
             Assert.AreSame(type, _entity.Type);
+        }
+
+        [TestMethod]
+        public void TestLicensedOperatorStatusCanMapBothWays()
+        {
+            var status = GetFactory<InternalEmployeeLicensedOperatorCategoryFactory>().Create();
+            _entity.LicensedOperatorStatus = status;
+            _vmTester.MapToViewModel();
+
+            Assert.AreEqual(status.Id, _viewModel.LicensedOperatorStatus);
+
+            _entity.Ownership = null;
+            _entity.LicensedOperatorStatus = null;
+            _vmTester.MapToEntity();
+
+            Assert.AreSame(status, _entity.LicensedOperatorStatus);
         }
 
         [TestMethod]
@@ -185,6 +208,7 @@ namespace MapCallMVC.Tests.Models.ViewModels
             _vmTester.CanMapBothWays(x => x.DateSafetyAssessmentActionItemsCompleted);
             _vmTester.CanMapBothWays(x => x.NewSystemInitialWQEnvAssessmentCompleted);
             _vmTester.CanMapBothWays(x => x.DateWQEnvAssessmentActionItemsCompleted);
+            _vmTester.CanMapBothWays(x => x.CurrentLicensedContractor);
         }
 
         [TestMethod]
@@ -199,8 +223,11 @@ namespace MapCallMVC.Tests.Models.ViewModels
             ValidationAssert.PropertyIsRequired(_viewModel, x => x.Type);
             ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.ConsentOrderStartDate, new DateTime(2022, 7, 20), x => x.HasConsentOrder, true);
             ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.ConsentOrderEndDate, new DateTime(2022, 7, 20), x => x.ConsentOrderStartDate, new DateTime(2022, 7, 20));
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.LicensedOperatorStatus, pubWater.LicensedOperatorStatus.Id, x => x.Ownership, PublicWaterSupplyOwnership.Indices.AW_CONTRACT, PublicWaterSupplyOwnership.Indices.CSG, "Required when Ownership is AW Contractor or Owned.");
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.LicensedOperatorStatus, pubWater.LicensedOperatorStatus.Id, x => x.Ownership, PublicWaterSupplyOwnership.Indices.AW_OWNED, PublicWaterSupplyOwnership.Indices.OTHER, "Required when Ownership is AW Contractor or Owned.");
+            ValidationAssert.PropertyIsRequiredWhen(_viewModel, x => x.CurrentLicensedContractor, "Test Contractor Data", x => x.LicensedOperatorStatus, LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR, LicensedOperatorCategory.Indices.INTERNAL_EMPLOYEE, "Required when Licensed Operator Status is Contracted.");
         }
-
+        
         [TestMethod]
         public void TestStatusCanMapBothWays()
         {
@@ -238,6 +265,22 @@ namespace MapCallMVC.Tests.Models.ViewModels
         }
 
         [TestMethod]
+        public void TestLicensedOperatorStatusCanMapBothWays()
+        {
+            var status = GetFactory<InternalEmployeeLicensedOperatorCategoryFactory>().Create();
+            _entity.LicensedOperatorStatus = status;
+            _vmTester.MapToViewModel();
+
+            Assert.AreEqual(status.Id, _viewModel.LicensedOperatorStatus);
+
+            _entity.Ownership = null;
+            _entity.LicensedOperatorStatus = null;
+            _vmTester.MapToEntity();
+
+            Assert.AreSame(status, _entity.LicensedOperatorStatus);
+        }
+
+        [TestMethod]
         public void TestMapSetsOperatingCenter()
         {
             var expectedOperatingCenter = GetEntityFactory<OperatingCenter>().Create();
@@ -250,6 +293,18 @@ namespace MapCallMVC.Tests.Models.ViewModels
             _vmTester.MapToViewModel();
 
             Assert.AreEqual(expectedOperatingCenter.Id, _viewModel.OperatingCenter.Single());
+        }
+
+        [TestMethod]
+        public void TestIdentifierChangeSetsSampleSiteNeedsToSyncToTrue()
+        {
+            var sampleSites = GetEntityFactory<SampleSite>().CreateList(3);
+            
+            _entity.SampleSites = sampleSites;
+            _entity.Identifier = "mypwsid";
+            _vmTester.MapToEntity();
+            
+            Assert.IsFalse(sampleSites.Any(s => s.NeedsToSync == false));
         }
 
         #endregion

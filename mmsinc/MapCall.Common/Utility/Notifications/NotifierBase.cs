@@ -62,13 +62,17 @@ namespace MapCall.Common.Utility.Notifications
         {
             subject = subject ?? String.Format(RazorNotifier.MAIL_SUBJECT_FORMAT, purpose);
 
+            string actualSubject;
+            string actualAddress;
             using (var mailMsg = CreateMailMessage(address, subject, message, attachments))
             {
                 smtp.Send(mailMsg);
+                actualSubject = mailMsg.Subject;
+                actualAddress = mailMsg.To.ToString();
             }
 
             //#if !DEBUG
-            LogNotification(subject, address, message);
+            LogNotification(actualSubject, actualAddress, message);
             //#endif
         }
 

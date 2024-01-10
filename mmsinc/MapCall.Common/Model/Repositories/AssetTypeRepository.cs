@@ -16,11 +16,20 @@ namespace MapCall.Common.Model.Repositories
                     select t);
         }
 
+        public IEnumerable<AssetType> GetByStateId(int stateId)
+        {
+            return from t in Linq
+                   where t.OperatingCenterAssetTypes.Any(x => x.OperatingCenter.State.Id == stateId)
+                   select t;
+        }
+
         public AssetTypeRepository(ISession session, IContainer container) : base(session, container) { }
     }
 
     public interface IAssetTypeRepository : IRepository<AssetType>
     {
         IEnumerable<AssetType> GetByOperatingCenterId(int operatingCenterId);
+
+        IEnumerable<AssetType> GetByStateId(int stateId);
     }
 }

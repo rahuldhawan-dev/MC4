@@ -5,7 +5,7 @@
     ActionBarHelper.AddMapLink(new { OperatingCenter = Model.OperatingCenter, controller = "AssetMap" });
 }
 
-@(Html.TableFor(_ => Model, new { Id = "valveInspectionsTable" })
+@(Html.TableFor(_ => Model, new { Id = "valveInspectionsTable", @class = "results-table" })
     .WithCaption("Records Found: " + Model.Count)
     .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
     .TemplateColumnFor("Valve", x => Html.AuthorizedActionLink(x.ValveNumber, "Show", "Valve", new { id = x.ValveId }))

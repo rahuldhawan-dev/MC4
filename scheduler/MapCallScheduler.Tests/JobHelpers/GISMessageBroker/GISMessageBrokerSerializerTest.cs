@@ -69,7 +69,8 @@ namespace MapCallScheduler.Tests.JobHelpers.GISMessageBroker
                 Status = new PublicWaterSupplyStatus {
                     Id = 10,
                     Description = "publicWaterSupplyStatus"
-                }
+                },
+                System = "system"
             },
             // Operating Center/District/State [auto populate based on selection of 1 and/or 2]
             OperatingCenter = new OperatingCenter {
@@ -131,7 +132,8 @@ namespace MapCallScheduler.Tests.JobHelpers.GISMessageBroker
                     Status = new PublicWaterSupplyStatus {
                         Id = 10,
                         Description = "publicWaterSupplyStatus"
-                    }
+                    },
+                    System = "system"
                 }
             },
             // Special CAT Alert(added by MC - 2768)
@@ -209,7 +211,8 @@ namespace MapCallScheduler.Tests.JobHelpers.GISMessageBroker
       ""Status"": {
         ""Id"": 10,
         ""Description"": ""publicWaterSupplyStatus""
-      }
+      },
+      ""System"": ""system""
     },
     ""OperatingCenter"": {
       ""Id"": 11,
@@ -266,7 +269,8 @@ namespace MapCallScheduler.Tests.JobHelpers.GISMessageBroker
         ""Status"": {
           ""Id"": 10,
           ""Description"": ""publicWaterSupplyStatus""
-        }
+        },
+        ""System"": ""system""
       }
     },
     ""CustomerParticipationConfirmed"": true,

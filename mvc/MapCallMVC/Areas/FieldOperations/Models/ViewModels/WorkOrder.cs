@@ -16,11 +16,15 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
         [View("Work Order Number")]
         public int? Id { get; set; }
 
+        [DropDown, EntityMap, EntityMustExist(typeof(State))]
+        [SearchAlias("Town", "T", "State.Id")]
+        public int? State { get; set; }
+
         // "Hey, why isn't this required, but it's overridden in every other view model that inherits from this?"
         // Because the Premise/Show page has a work orders tab that searches only by premise number.
         // So because of that, the GeneralWorkOrder.Index doesn't require OperatingCenter. 
         // We can't do an override property to *remove* the validator either.
-        [DropDown]
+        [DropDown("", "OperatingCenter", "ByStateIdForFieldServicesWorkManagement", DependsOn = "State", PromptText = "Select a state above", DependentsRequired = DependentRequirement.None), EntityMap, EntityMustExist(typeof(OperatingCenter))]
         public virtual int? OperatingCenter { get; set; }
 
         [MultiSelect("", "Town", "ByOperatingCenterId", DependsOn = "OperatingCenter", PromptText = "Select an operating center above")]
@@ -35,7 +39,8 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
             "GetByTownIdAndPartialStreetName",
             DependsOn = nameof(Town),
             PlaceHolder = "Please select a Town and enter more than 2 characters",
-            DisplayProperty = nameof(MapCall.Common.Model.Entities.Street.FullStName))]
+            DisplayProperty = nameof(MapCall.Common.Model.Entities.Street.FullStName)),
+        EntityMustExist(typeof(Street))]
         public int? Street { get; set; }
 
         public SearchString StreetNumber { get; set; }
@@ -51,7 +56,7 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
             DisplayProperty = nameof(MapCall.Common.Model.Entities.Street.FullStName))]
         public int? NearestCrossStreet { get; set; }
 
-        [MultiSelect("", "AssetType", "ByOperatingCenterId", DependsOn = "OperatingCenter", PromptText = "Select an operating center above"), EntityMap, EntityMustExist(typeof(AssetType))]
+        [MultiSelect("", "AssetType", "ByStateOrOperatingCenterId", DependsOn = "State,OperatingCenter", PromptText = "Select an operating center or state above", DependentsRequired = DependentRequirement.One), EntityMap, EntityMustExist(typeof(AssetType))]
         public int[] AssetType { get; set; }
 
         [DropDown, EntityMap, EntityMustExist(typeof(WorkOrderPriority))]
@@ -63,6 +68,13 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
         [MultiSelect, EntityMap, EntityMustExist(typeof(ServiceMaterial)),
          View(WorkOrder.DisplayNames.PREVIOUS_SERVICE_LINE_MATERIAL)]
         public int[] PreviousServiceLineMaterial { get; set; }
+
+        [MultiSelect, EntityMap, EntityMustExist(typeof(ServiceMaterial)),
+         View(WorkOrder.DisplayNames.COMPANY_SERVICE_LINE_MATERIAL)]
+        public int[] CompanyServiceLineMaterial { get; set; }
+
+        [MultiSelect, EntityMap, EntityMustExist(typeof(ServiceMaterial))]
+        public int[] CustomerServiceLineMaterial { get; set; }
 
         public long? SAPNotificationNumber { get; set; }
         public long? SAPWorkOrderNumber { get; set; }
@@ -108,6 +120,10 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
         public SearchString Notes { get; set; }
         [Search(CanMap = false)] // Needs to be done in the override
         public bool? IsAssignedContractor { get; set; }
+
+        [DropDown("Contractors", "Contractor", "ByOperatingCenterId", DependsOn = "OperatingCenter", PromptText = "Select an operating center above"), EntityMap, EntityMustExist(typeof(Contractor))]
+        public int? AssignedContractor { get; set; }
+
         public bool? StreetOpeningPermitRequested { get; set; }
         public bool? StreetOpeningPermitIssued { get; set; }
         public IntRange LostWater { get; set; }
@@ -120,13 +136,21 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
 
         public bool? HasPreJobSafetyBriefs { get; set; }
 
-        public string PremiseNumber { get; set; }
+        public SearchString PremiseNumber { get; set; }
 
         public bool? DigitalAsBuiltCompleted { get; set; }
 
         public DateRange DatePitcherFilterDeliveredToCustomer { get; set; }
 
         public bool? HasPitcherFilterBeenProvidedToCustomer { get; set; }
+
+        [SearchAlias("WorkOrderDocuments", "DocumentType"), 
+         MultiSelect, EntityMap, EntityMustExist(typeof(DocumentType))]
+        public int[] DocumentTypes { get; set; }
+
+        [DropDown("FieldOperations", "Crew", "ByOperatingCenterOrAll", DependsOn = nameof(OperatingCenter), PromptText = "Select an operating center above"),
+         EntityMap, EntityMustExist(typeof(Crew)), SearchAlias("CurrentAssignment", "Crew.Id", Required = true)]
+        public int? LastCrewAssigned { get; set; }
 
         /// <summary>
         /// This is sealed to enforce modifying values only when Id.HasValue == false.
@@ -172,8 +196,6 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
                 mapper.MappedProperties["BusinessUnit"].Value = SearchMapperSpecialValues.IsNullOrEmpty;
             }
         }
-
-        public int? AssignedContractor { get; set; }
 
         [View(WorkOrder.DisplayNames.PLANNED_COMPLETION_DATE)]
         public DateRange PlannedCompletionDate { get; set; }

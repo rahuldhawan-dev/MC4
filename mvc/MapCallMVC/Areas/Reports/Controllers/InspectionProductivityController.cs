@@ -6,6 +6,7 @@ using MapCall.Common.Model.Entities.Users;
 using MapCall.Common.Model.Repositories;
 using MapCall.Common.Model.ViewModels;
 using MapCallMVC.Areas.Reports.Models;
+using MapCallMVC.Configuration;
 using MMSINC.ClassExtensions;
 using MMSINC.Controllers;
 using MMSINC.Utilities;
@@ -38,7 +39,7 @@ namespace MapCallMVC.Areas.Reports.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, AuditReport("InspectionProductivity")]
         public ActionResult Index(SearchInspectionProductivity model)
         {
             return ActionHelper.DoIndex(model, new ActionHelperDoIndexArgs {

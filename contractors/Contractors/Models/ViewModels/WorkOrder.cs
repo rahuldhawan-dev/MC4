@@ -578,7 +578,16 @@ namespace Contractors.Models.ViewModels
         }
 
         public DateTime? DateCustomerProvidedAWStateLeadInformation { get; set; }
-
+        
+        [RequiredWhen(nameof(HasPitcherFilterBeenProvidedToCustomer), ComparisonType.EqualTo, true)]
+        public bool? IsThisAMultiTenantFacility { get; set; }
+        
+        [RequiredWhen(nameof(IsThisAMultiTenantFacility), ComparisonType.EqualTo, true)]
+        public int? NumberOfPitcherFiltersDelivered { get; set; }
+        
+        [RequiredWhen(nameof(IsThisAMultiTenantFacility), ComparisonType.EqualTo, true)]
+        public string DescribeWhichUnits { get; set; }
+        
         #endregion
 
         #region Constructors

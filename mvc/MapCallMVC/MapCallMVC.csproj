@@ -21,12 +21,13 @@
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressUseClassicPipelineMode>true</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
@@ -386,9 +387,9 @@
     <Compile Include="Areas\FieldOperations\Controllers\WorkOrderStreetOpeningPermitProcessingController.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CancelWorkOrder.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewAssignments\EditCrewAssignment.cs" />
-    <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralAdditional.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralWorkOrderModel.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditMarkoutPlanning.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditServiceLineInfo.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditTrafficControl.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditWorkOrderAdditional.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\RemoveContractor.cs" />
@@ -476,6 +477,7 @@
     <Compile Include="Areas\FieldOperations\Models\ViewModels\StreetOpeningPermits\CreateStreetOpeningPermit.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\StreetOpeningPermits\EditStreetOpeningPermit.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\StreetOpeningPermits\StreetOpeningPermitViewModel.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditWorkOrderComplianceData.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\WorkOrderSupervisorApproval\CreateRevisitWorkOrderViewModel.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\WorkOrderPlanning\SearchWorkOrderPlanning.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\WorkOrderPlanning\UpdateWorkOrderPlanning.cs" />
@@ -627,6 +629,9 @@
     <Compile Include="Areas\Engineering\Models\ViewModels\RiskRegisterAssets\RiskRegisterAssetViewModel.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\EditEstimatingProjectOtherCost.cs" />
     <Compile Include="Areas\ProjectManagement\Models\ViewModels\CreateEstimatingProjectOtherCost.cs" />
+    <Compile Include="Areas\Reports\Controllers\ReportUseController.cs" />
+    <Compile Include="Areas\Reports\Controllers\CompletedWorkOrdersController.cs" />
+    <Compile Include="Areas\Reports\Controllers\AverageCompletionTimeController.cs" />
     <Compile Include="Areas\Reports\Controllers\RestorationAccrualReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\SewerMainCleaningFootageController.cs" />
     <Compile Include="Areas\Reports\Controllers\CompletedWorkOrdersWithMarkoutController.cs" />
@@ -759,6 +764,9 @@
     <Compile Include="Areas\Reports\Controllers\RegulatoryComplianceReportController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterLossManagementController.cs" />
     <Compile Include="Areas\Reports\Controllers\WaterQualityComplaintCountByStateForYearController.cs" />
+    <Compile Include="Areas\Reports\Models\SearchReportUse.cs" />
+    <Compile Include="Areas\Reports\Models\SearchCompletedWorkOrders.cs" />
+    <Compile Include="Areas\Reports\Models\SearchAverageCompletionTime.cs" />
     <Compile Include="Areas\Reports\Models\SearchRestorationAccrualReport.cs" />
     <Compile Include="Areas\Reports\Models\SearchSewerMainCleaning.cs" />
     <Compile Include="Areas\Reports\Models\SearchCovidStatusReport.cs" />
@@ -856,6 +864,8 @@
     <Compile Include="ClassExtensions\ActionBarHelperExtensionMethods.cs" />
     <Compile Include="ClassExtensions\RazorTableExtensions.cs" />
     <Compile Include="Configuration\AuditImageFilter.cs" />
+    <Compile Include="Configuration\AuditReportAttribute.cs" />
+    <Compile Include="Configuration\AuditReportFilter.cs" />
     <Compile Include="Configuration\ExtendedCustomerGatewayFactory.cs" />
     <Compile Include="Controllers\ActionItemController.cs" />
     <Compile Include="Controllers\AssetUploadController.cs" />
@@ -1311,12 +1321,18 @@
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_EditEquipmentAsLeftAndAsFoundCondition.cshtml" />
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_NoResults.cshtml" />
     <Content Include="Areas\Production\Views\ProductionWorkOrder\_Index.cshtml" />
+    <Content Include="Areas\Reports\Views\CompletedWorkOrders\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\CompletedWorkOrders\Search.cshtml" />
+    <Content Include="Areas\Reports\Views\AverageCompletionTime\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\AverageCompletionTime\Search.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\Index.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\Search.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\_ActionBarHelp.cshtml" />
     <Content Include="Areas\Reports\Views\CurrentMaterialSearch\_ShowPopup.cshtml" />
     <Content Include="Areas\Reports\Views\HydrantsDuePainting\Index.cshtml" />
     <Content Include="Areas\Reports\Views\HydrantsDuePainting\Search.cshtml" />
+    <Content Include="Areas\Reports\Views\ReportUse\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\ReportUse\Search.cshtml" />
     <Content Include="Areas\ShortCycle\Views\ShortCycleCustomerMaterial\Index.cshtml" />
     <Content Include="Content\css\FieldOperations\CrewAssignment\Manage.css" />
     <Content Include="Content\css\FieldOperations\CrewAssignment\ShowCalendar.css" />
@@ -1472,7 +1488,6 @@
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\ServiceTab.js" />
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\SewerOpeningTab.js" />
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\ValveTab.js" />
-    <Content Include="Scripts\Areas\FieldOperations\WorkOrder\General\Additional.js" />
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\General\Edit.js" />
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\MapActionBarButtonAlert.js" />
     <Content Include="Scripts\Areas\FieldOperations\WorkOrder\Planning\Index.js" />
@@ -1790,7 +1805,6 @@
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\_FormFields.cshtml" />
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
     <Content Include="Areas\FieldOperations\Views\CrewAssignment\_Edit.cshtml" />
-    <Content Include="Areas\FieldOperations\Views\GeneralWorkOrder\_EditGeneralAdditional.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Requisition\_ShowAjaxTableRow.cshtml" />
     <Content Include="Areas\FieldOperations\Views\WorkOrder\_Service.cshtml" />
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Show.cshtml" />
@@ -1802,6 +1816,9 @@
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\WorkOrder\_EditComplianceData.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\WorkOrder\_EditWorkOrderAdditionalDetails.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\WorkOrder\_EditServiceLineInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

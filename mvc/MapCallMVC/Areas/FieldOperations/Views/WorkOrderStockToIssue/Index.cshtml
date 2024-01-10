@@ -1,6 +1,6 @@
 ﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderStockToIssue.SearchWorkOrderStockToIssue
 
-@(Html.TableFor(x => x, new { id="workOrdersTable"})
+@(Html.TableFor(x => x, new { id="workOrdersTable", @class = "results-table" })
     .WithCaption("Records found:" + Model.Count)
     .SortableTemplateColumnFor("Order Number", "Id", x => Html.ActionLink(x.Id.ToString(), "Show", "WorkOrderStockToIssue", new { x.Id, area = "FieldOperations" }, null))
     .SortableColumnFor(x => x.StreetNumber)

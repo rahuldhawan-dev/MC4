@@ -13,7 +13,7 @@
 
 @Html.ScriptFor("~/Scripts/Areas/Production/EmployeeAssignment/Index.js", ScriptLoadType.LoadFromPartial)
 
-@(Html.TableFor(_ => Model.Results, new{ id = "employeeAssignmentsTable" })
+@(Html.TableFor(_ => Model.Results, new{ id = "employeeAssignmentsTable", @class = "results-table" })
 .TemplateColumnFor("Production Work Order", x => @Html.ActionLink(x.ProductionWorkOrder.Id.ToString(), "Show", "ProductionWorkOrder", new { x.ProductionWorkOrder.Id }, null))
 .ColumnFor(x => x.ProductionWorkOrder.Equipment.Facility)
 .ColumnFor(x => x.ProductionWorkOrder.Equipment.Description, "Equipment")

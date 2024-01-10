@@ -1,16 +1,48 @@
-﻿@model Service
+﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
+@using MMSINC.Models.ViewModels
+@model WorkOrder
 
-@Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/ServiceTab.js", ScriptLoadType.LoadFromPartial)
-@{
-    var serviceShowUrl = Url.Action("Show", "Service", new { area = "FieldOperations", Model.Id });
-    var serviceEditUrl = Url.Action("Edit", "Service", new { area = "FieldOperations", Model.Id });
-}
-
-@Control.Hidden().WithId("serviceEditUrl").WithValue(serviceEditUrl)
-
-@if (Html.CurrentUserCanDo("Edit", "Service"))
+@if (Model.Service != null)
 {
-    @Control.Button("Edit Service").WithId("serviceEditButton")
+    @Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/ServiceTab.js", ScriptLoadType.LoadFromPartial)
+
+    var serviceShowUrl = Url.Action("Show", "Service", new { area = "FieldOperations", Model.Service.Id });
+    var serviceEditUrl = Url.Action("Edit", "Service", new { area = "FieldOperations", Model.Service.Id });
+
+    @Control.Hidden().WithId("serviceEditUrl").WithValue(serviceEditUrl)
+
+    if (Html.CurrentUserCanDo("Edit", "Service"))
+    {
+        @Control.Button("Edit Service").WithId("serviceEditButton")
+    }
+
+    <iframe id="serviceFrame" loading="lazy" style="width:100%; height:450px;" src="@serviceShowUrl" title="Service"></iframe>
+}
+else
+{
+	@Html.DisplayInlineNotification(new NotificationItem() {
+		Message = "Note - The service record has not been linked to this work order. Any updates to the service line info will not update the service record. Please link the service via the Create Service Button below.",
+		NotificationType = NotificationItemType.Warning
+	})
 }
 
-<iframe id="serviceFrame" loading="lazy" style="width:100%; height:450px;" src="@serviceShowUrl" title="Service"></iframe>
+@if (this.ViewContext.RouteData.Values["action"].ToString().ToLower() != "show")
+{
+    var serviceLineInfoViewModel = ViewModelFactory.Build<EditServiceLineInfo, WorkOrder>(Model);
+    @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_EditServiceLineInfo.cshtml", serviceLineInfoViewModel)
+}
+else
+{
+	<fieldset>
+		<legend>Service Line Info</legend>
+		<div class="field-column fc200">
+			@Html.DisplayFor(x => x.PreviousServiceLineMaterial)
+			@Html.DisplayFor(x => x.PreviousServiceLineSize)
+			@Html.DisplayFor(x => x.CompanyServiceLineMaterial)
+			@Html.DisplayFor(x => x.CompanyServiceLineSize)
+			@Html.DisplayFor(x => x.CustomerServiceLineMaterial)
+			@Html.DisplayFor(x => x.CustomerServiceLineSize)
+			@Html.DisplayFor(x => x.DoorNoticeLeftDate)
+		</div>
+	</fieldset>
+}

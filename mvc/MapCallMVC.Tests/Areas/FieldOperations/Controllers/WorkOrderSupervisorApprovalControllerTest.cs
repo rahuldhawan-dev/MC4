@@ -177,6 +177,7 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
 
                 _target.Approve(model);
 
+                Assert.AreEqual("http://localhost/FieldOperations/GeneralWorkOrder/Show/" + workOrder.Id, workOrder.RecordUrl);
                 Assert.IsTrue(
                     notifierArgs.Any(x => x.Purpose == expectedNotificationPurpose),
                     "A notification should have been sent");

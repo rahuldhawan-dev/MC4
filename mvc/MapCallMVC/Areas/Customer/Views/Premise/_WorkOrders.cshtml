@@ -1,5 +1,13 @@
 ﻿@model Premise
 
-@using (Form.BeginAjaxForm("Index", "GeneralWorkOrder", "FieldOperations", new { ext = "frag", PremiseNumber = Model.PremiseNumber, SortBy = "Id" }))
+@{
+	var rvd = new RouteValueDictionary();
+	rvd["ext"] = "frag";
+	rvd["PremiseNumber.Value"] = Model.PremiseNumber;
+	rvd["PremiseNumber.MatchType"] = (int)SearchStringMatchType.Wildcard;
+	rvd["SortBy"] = "Id";
+}
+
+@using (Form.BeginAjaxForm("Index", "GeneralWorkOrder", "FieldOperations", rvd))
 {
 }

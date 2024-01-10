@@ -8,7 +8,7 @@
 
 @Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
 
-@(Html.TableFor(_ => Model, new {id = "WorkOrderSearchResultsTable"})
+@(Html.TableFor(_ => Model, new {id = "WorkOrderSearchResultsTable", @class = "results-table" })
         .WithCaption("Records found: " + Model.Count)
         .WithWorkOrderRowStyles()
         .SortableTemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))

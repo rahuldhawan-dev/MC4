@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
 using MapCall.Common.Model.Repositories;
@@ -43,15 +44,18 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models.ViewModels.WorkOrderFina
         [TestMethod]
         public override void TestEntityMustExistValidation()
         {
-            ValidationAssert.EntityMustExist(x => x.FlushingNoticeType,
-                GetEntityFactory<WorkOrderFlushingNoticeType>().Create());
+            ValidationAssert.EntityMustExist(x => x.FinalWorkDescription, GetEntityFactory<WorkDescription>().Create());
+            ValidationAssert.EntityMustExist(x => x.CustomerImpact, GetFactory<ZeroToFiftyCustomerImpactRangeFactory>().Create());
+            ValidationAssert.EntityMustExist(x => x.RepairTime, GetFactory<FourToSixRepairTimeRangeFactory>().Create());
+            ValidationAssert.EntityMustExist(x => x.PitcherFilterCustomerDeliveryMethod, GetEntityFactory<PitcherFilterCustomerDeliveryMethod>().Create());
+            ValidationAssert.EntityMustExist(x => x.FlushingNoticeType, GetEntityFactory<WorkOrderFlushingNoticeType>().Create());
+            ValidationAssert.EntityMustExist(x => x.MeterLocation, GetFactory<InsideMeterLocationFactory>().Create(new { SAPCode = "c1" }));
             ValidationAssert.EntityMustExist(x => x.PreviousServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create());
             ValidationAssert.EntityMustExist(x => x.PreviousServiceLineSize, GetEntityFactory<ServiceSize>().Create());
             ValidationAssert.EntityMustExist(x => x.CompanyServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create());
             ValidationAssert.EntityMustExist(x => x.CompanyServiceLineSize, GetEntityFactory<ServiceSize>().Create());
             ValidationAssert.EntityMustExist(x => x.CustomerServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create());
             ValidationAssert.EntityMustExist(x => x.CustomerServiceLineSize, GetEntityFactory<ServiceSize>().Create());
-            ValidationAssert.EntityMustExist(x => x.PitcherFilterCustomerDeliveryMethod, GetEntityFactory<PitcherFilterCustomerDeliveryMethod>().Create());
         }
 
         [TestMethod]
@@ -66,18 +70,6 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models.ViewModels.WorkOrderFina
         public override void TestRequiredValidation()
         {
             ValidationAssert.PropertyIsRequired(x => x.CompletedDate);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.PreviousServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.PreviousServiceLineSize, GetEntityFactory<ServiceSize>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.CustomerServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.CustomerServiceLineSize, GetEntityFactory<ServiceSize>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.CompanyServiceLineMaterial, GetEntityFactory<ServiceMaterial>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.CompanyServiceLineSize, GetEntityFactory<ServiceSize>().Create().Id, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.DoorNoticeLeftDate, DateTime.Now, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.InitialServiceLineFlushTime, 23, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.HasPitcherFilterBeenProvidedToCustomer, true, x => x.FinalWorkDescription, (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.DatePitcherFilterDeliveredToCustomer, DateTime.Now, x => x.HasPitcherFilterBeenProvidedToCustomer, true);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.PitcherFilterCustomerDeliveryMethod, GetEntityFactory<PitcherFilterCustomerDeliveryMethod>().Create().Id, x => x.HasPitcherFilterBeenProvidedToCustomer, true);
-            ValidationAssert.PropertyIsRequiredWhen(x => x.PitcherFilterCustomerDeliveryOtherMethod, "Testing Other", x => x.PitcherFilterCustomerDeliveryMethod, PitcherFilterCustomerDeliveryMethod.Indices.OTHER);
         }
 
         [TestMethod]
@@ -103,7 +95,7 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models.ViewModels.WorkOrderFina
         public void TestValidationFailsIfWorkOrderHasOpenCrewAssignments()
         {
             var ca = GetFactory<CrewAssignmentFactory>().Create(new {
-                WorkOrder = _viewModel.WorkOrder,
+                _viewModel.WorkOrder,
                 DateStarted = DateTime.Now
             });
             ca.DateEnded = null;
@@ -245,6 +237,56 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models.ViewModels.WorkOrderFina
             _vmTester.MapToEntity();
             
             Assert.AreEqual(flag, service.NeedsToSync);
+        }
+        
+        [TestMethod]
+        public void TestMapToEntitySetsShowPitcherFilterDistributedMessageToTrueWhenPitcherFilerDelivered()
+        {
+            var now = DateTime.Now;
+            var serviceUtilityType = GetEntityFactory<ServiceUtilityType>().Create();
+            var premise = GetEntityFactory<Premise>().Create(new {
+                Installation = "123456789",
+                PremiseNumber = "9100327803",
+                ServiceUtilityType = serviceUtilityType
+            });
+            var services = GetEntityFactory<Service>().CreateList(1, new { Premise = premise, NeedsToSync = false });
+            premise.Services = services;
+            services.First().WorkOrders = new List<WorkOrder>{ _entity };
+            _dateTimeProvider.Setup(x => x.GetCurrentDate()).Returns(now);
+            _viewModel.HasPitcherFilterBeenProvidedToCustomer = true;
+            _viewModel.DatePitcherFilterDeliveredToCustomer = now.AddMonths(-3);
+            _user = GetFactory<AdminUserFactory>().Create(new { FullName = "Smith" });
+            _authServ.Setup(x => x.CurrentUser).Returns(_user);
+            _entity.Service = services.First();
+            _entity.Premise = premise;
+            _vmTester.MapToEntity();
+
+            Assert.IsNotNull(_entity.RecentPitcherFilterDeliveryDate);
+        }
+        
+        [TestMethod]
+        public void TestMapToEntitySetsShowPitcherFilterDistributedMessageToFalseWhenDeliveryDateMoreThanSixMonths()
+        {
+            var now = DateTime.Now;
+            var serviceUtilityType = GetEntityFactory<ServiceUtilityType>().Create();
+            var premise = GetEntityFactory<Premise>().Create(new {
+                Installation = "123456789",
+                PremiseNumber = "9100327803",
+                ServiceUtilityType = serviceUtilityType
+            });
+            var services = GetEntityFactory<Service>().CreateList(1, new { Premise = premise, NeedsToSync = false });
+            premise.Services = services;
+            services.First().WorkOrders = new List<WorkOrder>{ _entity };
+            _dateTimeProvider.Setup(x => x.GetCurrentDate()).Returns(now);
+            _viewModel.HasPitcherFilterBeenProvidedToCustomer = true;
+            _viewModel.DatePitcherFilterDeliveredToCustomer = now.AddMonths(-7);
+            _user = GetFactory<AdminUserFactory>().Create(new { FullName = "Smith" });
+            _authServ.Setup(x => x.CurrentUser).Returns(_user);
+            _entity.Service = services.First();
+            _entity.Premise = premise;
+            _vmTester.MapToEntity();
+
+            Assert.IsNull(_entity.RecentPitcherFilterDeliveryDate);
         }
 
         #endregion

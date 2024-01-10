@@ -520,7 +520,7 @@ namespace MapCall.Common.Model.Entities
         private IEnumerable<(bool IsRequired, string Reason)> VerifyBilling(Hydrant hydrant)
         {
             if (!new int?[] {null, HydrantBilling.Indices.PUBLIC, HydrantBilling.Indices.PRIVATE}.Contains(
-                hydrant.HydrantBilling?.Id))
+                    hydrant.HydrantBilling?.Id))
             {
                 var hasFrequency = HydrantHasFrequency(hydrant);
                 yield return

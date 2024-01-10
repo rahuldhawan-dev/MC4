@@ -15,6 +15,6 @@
     .SortableTemplateColumnFor("Description of Job (Hover for Notes)", "WorkDescription.Description", x => @<text>
                                 <div title="@x.Notes">@x.WorkDescription.Description</div>
                              </text>)
-    .SortableColumnFor(x => x.CurrentCrew, "crewAliasSorting.Description")
+    .SortableColumnFor(x => x.CurrentAssignment.Crew, "Last Assigned To", "CurrentAssignment.CrewName")
     .SortableColumnFor(x => x.DateCompleted)
     .WithPaginatedFooter())

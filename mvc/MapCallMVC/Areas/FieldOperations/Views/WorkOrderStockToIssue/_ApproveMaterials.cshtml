@@ -3,9 +3,19 @@
 @using (Form.BeginForm("Approve", "WorkOrderStockToIssue", new { id = Model.Id, area = "FieldOperations" }))
 {
     <fieldset>
-        <div class="field-column fc200">
-            @Html.EditorFor(x => x.MaterialPostingDate)
-            @Html.ButtonGroup(Control.SubmitButton("Approve").WithId("approve-stock-to-issue-button"))
-        </div>
+	    <div class="field-column fc200">
+		    @if (Model.WorkOrder.IsSAPUpdatableWorkOrder)
+		    {
+			    @Html.DisplayFor(x => x.WorkOrder.MaterialsDocID)
+			    @Control.HiddenFor(x => x.MaterialsDocID).WithValue(Model.WorkOrder.MaterialsDocID)
+		    }
+		    else
+		    {
+			    @Html.EditorFor(x => x.MaterialsDocID)
+		    }
+		    @Html.DisplayFor(x => x.WorkOrder.ApprovedBy.FullName, new { DisplayName = "Work Order Approved By" })
+		    @Html.EditorFor(x => x.MaterialPostingDate)
+		    @Html.ButtonGroup(Control.SubmitButton("Approve").WithId("approve-stock-to-issue-button"))
+	    </div>
     </fieldset>
 }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using AuthorizeNet;
 using AuthorizeNet.Utility.NotProvided;
+using JetBrains.Annotations;
 using MapCall.Common.Metadata;
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
@@ -299,6 +300,21 @@ namespace MapCallMVC.Controllers
         public ActionResult GetAllByOperatingCenterId(int opCenterId)
         {
             return new CascadingActionResult(Repository.Where(u => u.DefaultOperatingCenter.Id == opCenterId), "FullName", "Id");
+        }
+
+        [HttpGet]
+        public ActionResult GetAllByStateOrOperatingCenterId(int? stateId, int? opCenterId)
+        {
+            var results = Repository.GetAll();
+            if (stateId != null)
+            {
+                results = results.Where(x => x.DefaultOperatingCenter.State.Id == stateId);
+            }
+            if (opCenterId != null)
+            {
+                results = results.Where(x => x.DefaultOperatingCenter.Id == opCenterId);
+            }
+            return new CascadingActionResult(results, "FullName", "Id");
         }
 
         [HttpGet]

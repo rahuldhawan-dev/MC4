@@ -25,7 +25,7 @@
         <td class="color-block">Asset Not Inspectable</td>
     </tr>
 </table>
-@(Html.TableFor(x => x, new { id = "hydrants" })
+@(Html.TableFor(x => x, new { id = "hydrants", @class = "results-table" })
     .WithCaption("Records found: " + Model.Count)
     .WithRowBuilder((m, help) => {
         if (!m.IsInspectable)

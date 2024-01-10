@@ -18,11 +18,6 @@
 else
 {
     @Html.Partial("~/Areas/FieldOperations/Views/WorkOrder/_MaterialsTable.cshtml")
-    <fieldset>
-        <div class="field-column fc200">
-            @Html.DisplayFor(x => x.MaterialsDocID)
-            @Html.DisplayFor(x => x.ApprovedBy.FullName, new { DisplayName = "Work Order Approved By" })
-        </div>
-    </fieldset>
-    @Html.Partial("_ApproveMaterials", ViewModelFactory.Build<ApproveWorkOrderStockToIssue, WorkOrder>(Model))
+
+	@Html.Partial("_ApproveMaterials", ViewModelFactory.Build<ApproveWorkOrderStockToIssue, WorkOrder>(Model))
 }

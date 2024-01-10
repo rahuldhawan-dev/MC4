@@ -16,6 +16,12 @@ namespace MapCallMVC.Controllers
 {
     public class AssetMapController : ControllerBase<IIconSetRepository, IconSet>
     {
+        #region Constants
+
+        public const string THREAT_ALERTS = "Threat Alerts";
+
+        #endregion
+
         #region Constructor
 
         public AssetMapController(ControllerBaseArguments<IIconSetRepository, IconSet> args) : base(args) { }
@@ -39,28 +45,25 @@ namespace MapCallMVC.Controllers
                     ResponseFormatterExtensions.MAP_ROUTE_EXTENSION);
                 routeData["area"] = model.AreaName;
 
-                model.MapConfiguration = new JsonMapConfiguration
-                {
+                model.MapConfiguration = new JsonMapConfiguration {
                     dataUrl = urlHelper.Action(model.ActionName, model.ControllerName, routeData),
-                    icons = Repository.Find(IconSets.Assets).Icons.Select(x => new JsonMapIcon
-                    {
+                    icons = Repository.Find(IconSets.Assets).Icons.Select(x => new JsonMapIcon {
                         id = x.Id,
                         url = urlHelper.Content(x.Url),
                         width = x.Width,
                         height = x.Height,
                         offset = x.Offset.Description
-                    })
+                    }),
+                    defaultLayers = GetDefaultLayers(model.DefaultLayers)
                 };
 
-                model.MapConfiguration.additionalData.Add("extentsUrl", urlHelper.Action("GetExtents", "AssetMap", new
-                {
-                    OperatingCenter = (model.OperatingCenter!=null) ? string.Join(",", model.OperatingCenter) : null
+                model.MapConfiguration.additionalData.Add("extentsUrl", urlHelper.Action("GetExtents", "AssetMap", new {
+                    OperatingCenter = (model.OperatingCenter != null) ? string.Join(",", model.OperatingCenter) : null
                 }));
             }
             else
             {
-                model.MapConfiguration = new JsonMapConfiguration
-                {
+                model.MapConfiguration = new JsonMapConfiguration {
                     validationErrors = GetModelStateErrors()
                 };
             }
@@ -90,6 +93,18 @@ namespace MapCallMVC.Controllers
             return mr;
         }
 
+        private string[] GetDefaultLayers(string[] modelDefaultLayers)
+        {
+            if (modelDefaultLayers == null)
+            {
+                return new[] { THREAT_ALERTS };
+            }
+
+            return !modelDefaultLayers.Contains(THREAT_ALERTS)
+                ? new List<string>(modelDefaultLayers) { THREAT_ALERTS }.ToArray()
+                : modelDefaultLayers;
+        }
+
         private IEnumerable<string> GetModelStateErrors()
         {
             foreach (var ms in ModelState.Values.Where(x => x.Errors.Any()))
@@ -99,6 +114,5 @@ namespace MapCallMVC.Controllers
         }
 
         #endregion
-
     }
 }

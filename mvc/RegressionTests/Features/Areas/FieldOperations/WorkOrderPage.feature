@@ -1002,10 +1002,9 @@ Scenario: user can view and edit sewer opening details
     Then I should see a display for FunctionalLocation with functional location "one"
 
 Scenario: user can view and not edit service details
-    Given a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
-	And a service category "one" exists with description: "Neato"
+    Given a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab
@@ -1015,10 +1014,9 @@ Scenario: user can view and not edit service details
 
 Scenario: UserAdmin can view and edit service details
     Given a role "asset-useradmin" exists with action: "UserAdministrator", module: "FieldServicesAssets", user: "user", operating center: "nj7"
-    And a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
     And a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab

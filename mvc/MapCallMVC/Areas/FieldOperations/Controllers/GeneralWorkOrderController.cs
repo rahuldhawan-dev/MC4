@@ -53,8 +53,9 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
             switch (action)
             {
                 case ControllerAction.Search:
-                    this.AddOperatingCenterDropDownDataForRoleAndAction(ROLE, RoleActions.Read);
                     this.AddDropDownData<WorkOrderRequester>("RequestedBy");
+                    this.AddDropDownData<IDocumentTypeRepository, DocumentType>("DocumentTypes", 
+                        r => r.GetByTableName(nameof(WorkOrder) + "s").OrderBy(x => x.Name), t => t.Id, t => t.Name);
                     break;
                 case ControllerAction.Show:
                     this.AddDropDownData<WorkOrderCancellationReason>("WorkOrderCancellationReason");
@@ -386,7 +387,7 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         }
 
         [HttpPost, RequiresRole(ROLE, RoleActions.Edit)]
-        public ActionResult UpdateAdditional(EditGeneralAdditional model)
+        public ActionResult UpdateAdditional(EditWorkOrderAdditional model)
         {
             var workDescription = model.WorkOrder.WorkDescription;
             return ActionHelper.DoUpdate(model, new ActionHelperDoUpdateArgs {
@@ -400,6 +401,30 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
                     SendSampleSiteNotification(entity);
                     return RedirectToReferrerOr("Index", "Home");
                 },
+                OnError = () => {
+                    DisplayModelStateErrors();
+                    return RedirectToReferrerOr("Index", "Home");
+                }
+            });
+        }
+
+        [HttpPost, RequiresRole(ROLE, RoleActions.Edit)]
+        public ActionResult UpdateComplianceData(EditWorkOrderComplianceData model)
+        {
+            return ActionHelper.DoUpdate(model, new ActionHelperDoUpdateArgs {
+                OnSuccess = () => RedirectToReferrerOr("Index", "Home"),
+                OnError = () => {
+                    DisplayModelStateErrors();
+                    return RedirectToReferrerOr("Index", "Home");
+                }
+            });
+        }
+
+        [HttpPost, RequiresRole(ROLE, RoleActions.Edit)]
+        public ActionResult UpdateServiceLineInfo(EditServiceLineInfo model)
+        {
+            return ActionHelper.DoUpdate(model, new ActionHelperDoUpdateArgs {
+                OnSuccess = () => RedirectToReferrerOr("Index", "Home"),
                 OnError = () => {
                     DisplayModelStateErrors();
                     return RedirectToReferrerOr("Index", "Home");

@@ -5,7 +5,7 @@
 @Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/SAPNotificationSearchStorage.js", ScriptLoadType.LoadFromPartial)
 @Html.ScriptFor("~/Scripts/Areas/FieldOperations/SAPNotification/index.js", ScriptLoadType.LoadFromPartial)
 
-@(Html.TableFor()
+@(Html.TableFor(new { @class = "results-table" })
     .WithCaption("Records found: " + Model.Count())
     .TemplateColumnFor("Action", x => @<text>
                                             @{

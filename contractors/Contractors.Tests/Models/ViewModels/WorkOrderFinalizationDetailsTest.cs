@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Contractors.Models.ViewModels;
@@ -199,6 +200,62 @@ namespace Contractors.Tests.Models.ViewModels
             Assert.AreEqual(previousServiceSize.Id, serviceEntity.PreviousServiceSize?.Id);
             Assert.AreEqual(customerServiceSize.Id, serviceEntity.CustomerSideSize?.Id);
             Assert.AreEqual(companyServiceSize.Id, serviceEntity.ServiceSize?.Id);
+        }
+        
+        [TestMethod]
+        public void TestMapToEntitySetsShowPitcherFilterDistributedMessageToTrueWhenPitcherFilerDelivered()
+        {
+            var now = DateTime.Now;
+            var serviceUtilityType = GetEntityFactory<ServiceUtilityType>().Create();
+            var premise = GetEntityFactory<Premise>().Create(new {
+                Installation = "123456789",
+                PremiseNumber = "9100327803",
+                ServiceUtilityType = serviceUtilityType
+            });
+            var services = GetEntityFactory<Service>().CreateList(1, new { Premise = premise, NeedsToSync = false });
+            _order = GetFactory<FinalizationWorkOrderFactory>().Create(new {
+                AssignedContractor = _currentUser.Contractor,
+                Service = services.First(),
+                Premise = premise
+            });
+            _dateTimeProvider.Setup(x => x.GetCurrentDate()).Returns(now);
+            _target.HasPitcherFilterBeenProvidedToCustomer = true;
+            _target.DatePitcherFilterDeliveredToCustomer = now.AddMonths(-3);
+            
+            services.First().WorkOrders = new List<WorkOrder>{ _order };
+            premise.Services = services;
+
+            _target.MapToEntity(_order);
+
+            Assert.IsNotNull(_order.RecentPitcherFilterDeliveryDate);
+        }
+        
+        [TestMethod]
+        public void TestMapToEntitySetsShowPitcherFilterDistributedMessageToFalseWhenDeliveryDateMoreThanSixMonths()
+        {
+            var now = DateTime.Now;
+            var serviceUtilityType = GetEntityFactory<ServiceUtilityType>().Create();
+            var premise = GetEntityFactory<Premise>().Create(new {
+                Installation = "123456789",
+                PremiseNumber = "9100327803",
+                ServiceUtilityType = serviceUtilityType
+            });
+            var services = GetEntityFactory<Service>().CreateList(1, new { Premise = premise, NeedsToSync = false });
+            _order = GetFactory<FinalizationWorkOrderFactory>().Create(new {
+                AssignedContractor = _currentUser.Contractor,
+                Service = services.First(),
+                Premise = premise
+            });
+            _dateTimeProvider.Setup(x => x.GetCurrentDate()).Returns(now);
+            _target.HasPitcherFilterBeenProvidedToCustomer = true;
+            _target.DatePitcherFilterDeliveredToCustomer = now.AddMonths(-7);
+            
+            services.First().WorkOrders = new List<WorkOrder>{ _order };
+            premise.Services = services;
+
+            _target.MapToEntity(_order);
+            
+            Assert.IsNull(_order.RecentPitcherFilterDeliveryDate);
         }
     }
 }

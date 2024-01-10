@@ -20,6 +20,7 @@ Background:
     And work descriptions exist
     And markout requirements exist
     And an asset type "sewer opening" exists with description: "sewer opening"
+    And an asset type "service" exists with description: "service"
     And operating center: "sap-enabled" has asset type "sewer opening"
     And a user "user-admin" exists with username: "user-admin", full name: "Roy"
    	And a wildcard role exists with action: "UserAdministrator", module: "FieldServicesWorkManagement", user: "user-admin"
@@ -28,9 +29,12 @@ Background:
     And a role exists with action: "Read", module: "FieldServicesAssets", user: "user-admin", operating center: "sap-enabled"
     And a role exists with action: "Add", module: "FieldServicesAssets", user: "user-admin", operating center: "sap-enabled"
     And a stock location "one" exists with SAPStockLocation: "2600", Description: "H&M"
-    And a work order "one" exists with approved by: "user-admin", approved on: "today", operating center: "sap-disabled", town: "nj7burg", street: "one", apartment addtl: "Testing Additional Apartment", nearest cross street: "two", asset type: "valve", valve: "one", zip code: "85023", work order requester: "customer", secondary phone number: "123-456-7890", work description: "water main break repair", customer name: "Smith", significant traffic impact: "true", alert id: "4567", s o p required: "true", markout requirement: "routine", created by: "user-admin", completed by: "user-admin", sap notification number: "123456789", sap work order number: "987654321", material planning completed on: "03/18/2023", s a p error code: "Success", materials doc id: "122333444", business unit: "Liberty", date completed: "03/22/2023", lost water: 5
+    And a work order "one" exists with approved by: "user-admin", approved on: "today", operating center: "sap-enabled", town: "nj7burg", street: "one", apartment addtl: "Testing Additional Apartment", nearest cross street: "two", asset type: "valve", valve: "one", zip code: "85023", work order requester: "customer", secondary phone number: "123-456-7890", work description: "water main break repair", customer name: "Smith", significant traffic impact: "true", alert id: "4567", s o p required: "true", markout requirement: "routine", created by: "user-admin", completed by: "user-admin", sap notification number: "123456789", sap work order number: "987654321", material planning completed on: "03/18/2023", s a p error code: "Success", materials doc id: "122333444", business unit: "Liberty", date completed: "03/22/2023", lost water: 5
     And a material "one" exists with PartNumber: "123456789", Description: "Plastic"
     And a material used "one" exists with material: "one", work order: "one", stock location: "one", quantity: 2
+    And a work order "three" exists with approved by: "user-admin", approved on: "today", operating center: "sap-disabled", town: "nj7burg", street: "one", apartment addtl: "Testing Additional Apartment", nearest cross street: "two", asset type: "valve", valve: "one", zip code: "85023", work order requester: "customer", secondary phone number: "123-456-7890", work description: "water main break repair", customer name: "Smith", significant traffic impact: "true", alert id: "4567", s o p required: "true", markout requirement: "routine", created by: "user-admin", completed by: "user-admin", sap notification number: "123456789", sap work order number: "987654321", material planning completed on: "03/18/2023", s a p error code: "Success", materials doc id: "122333444", business unit: "Liberty", date completed: "03/22/2023", lost water: 5
+    And a material "four" exists with PartNumber: "123456789", Description: "Plastic"
+    And a material used "four" exists with material: "four", work order: "three", stock location: "one", quantity: 2
 
 #Initial Details
 Scenario: User admin can view a work order's initial details
@@ -97,22 +101,23 @@ Scenario: User admin can view materials for a work order
     | 123456789   | H&M            | 2600               | Plastic     | 2        |
     | 987654321   | STYD           | 1300               | Copper      | 5        |
     | N/A         | STYD           | 1300               |  Test       | 7        |
-    And I should see a display for MaterialsDocID with "122333444"
+    And I should see a display for WorkOrder_MaterialsDocID with "122333444"
     And I should see a display for MaterialPostingDate with ""
 
 Scenario: User admin can approve materials for a work order
     Given I am logged in as "user-admin"
-    And I am at the FieldOperations/WorkOrderStockToIssue/Show page for work order: "one"
+    And I am at the FieldOperations/WorkOrderStockToIssue/Show page for work order: "three"
     When I click the "Materials" tab
     Then I should see the following values in the materials table
     | Part Number | Stock Location | SAP Stock Location | Description | Quantity |
     | 123456789   | H&M            | 2600               | Plastic     | 2        |
-    And I should see a display for MaterialsDocID with "122333444"
+    And I should see "122333444" in the MaterialsDocID field
     When I enter "7/3/2023" into the MaterialPostingDate field
     And I press approve-stock-to-issue-button
     And I click the "Materials" tab
     Then I should see a display for MaterialPostingDate with "7/3/2023"
     And I should see a display for MaterialsApprovedBy with "Roy"
+    And I should see a display for MaterialsDocID with "122333444"
 
 Scenario: User admin should not see approve button if the work order already has materials approved
     Given a work order "two" exists with materials approved by: "user-admin", materials approved on: "today", approved by: "user-admin", approved on: "today", operating center: "sap-disabled", town: "nj7burg", street: "one", apartment addtl: "Testing Additional Apartment", nearest cross street: "two", asset type: "valve", valve: "one", zip code: "85023", work order requester: "customer", secondary phone number: "123-456-7890", work description: "water main break repair", customer name: "Smith", significant traffic impact: "true", alert id: "4567", s o p required: "true", markout requirement: "routine", created by: "user-admin", completed by: "user-admin", sap notification number: "123456789", sap work order number: "987654321", material planning completed on: "03/18/2023", s a p error code: "Success", materials doc id: "122333444", business unit: "Liberty", date completed: "03/22/2023"
@@ -225,10 +230,9 @@ Scenario: user can view and edit sewer opening details
     Then I should see a display for FunctionalLocation with functional location "one"
 
 Scenario: UserAdmin can view and not edit service details
-    Given a sewer opening "opening" exists with operating center: "sap-enabled", town: "nj7burg", street: "one", opening number: "MAD-42"
-	And a service category "one" exists with description: "Neato"
+    Given a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "sap-enabled", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "sap-enabled", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user-admin"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab
@@ -238,10 +242,9 @@ Scenario: UserAdmin can view and not edit service details
 
 Scenario: UserAdmin can view and edit service details
     Given a role "asset-useradmin" exists with action: "UserAdministrator", module: "FieldServicesAssets", user: "user-admin", operating center: "sap-disabled"
-    And a sewer opening "opening" exists with operating center: "sap-disabled", town: "nj7burg", street: "one", opening number: "MAD-42"
     And a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "sap-disabled", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "sap-disabled", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user-admin"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab

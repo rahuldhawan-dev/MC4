@@ -4,7 +4,7 @@
     ActionBarHelper.AddExportLink();
 }
 
-@(Html.TableFor(_ => Model)
+@(Html.TableFor(_ => Model, new { @class = "results-table" })
     .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
     .SortableColumnFor(x => x.OperatingCenter)
     .ColumnFor(x => x.Department)

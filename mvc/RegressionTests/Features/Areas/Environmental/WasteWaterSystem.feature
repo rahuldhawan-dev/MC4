@@ -11,12 +11,15 @@ Background:
 	And a role "hydrant-useradmin" exists with action: "UserAdministrator", module: "EnvironmentalWasteWaterSystems", user: "user", operating center: "nj7"
 	And a role "role-read-user-no-edit" exists with action: "Read", module: "EnvironmentalWasteWaterSystems", user: "user-no-edit"
 	And a role "role-edit-user-edit" exists with action: "Edit", module: "EnvironmentalWasteWaterSystems", user: "user-edit"
+	And a waste water system ownership "aw contract" exists with description: "AW Contract"
+	And a waste water system ownership "aw owned" exists with description: "AW Owned/Operated"
+	And a waste water system ownership "other" exists with description: "Other Entity"
 	And a waste water system "one" exists with WasteWaterSystemName: "Water System 1"
 	And an environmental permit status "one" exists with description: "Active"
 	And an environmental permit type "one" exists with description: "Water Quality"
 	And an environmental permit "one" exists with environmental permit type: "one", description: "Give a hoot- dont polute!", waste water system: "one", environmental permit status: "one", permit effective date: 10/2/2020, permit renewal date: 10/2/2020, permit expiration date: 10/2/2020 
 	And waste water system statuses exist
-	And a waste water system ownership "aw contract" exists with description: "AW Contract"
+	And licensed operator categories exist
 	And a waste water system type "collection only" exists with description: "Collection Only"
 	And a waste water system sub type "fully separated sewer" exists with description: "Fully Separated Sewer"
 	And a state "one" exists with name: "New Jersey", abbreviation: "NJ"
@@ -50,7 +53,14 @@ Scenario: User should see validation messages
 	When I enter "01/02/2022" into the ConsentOrderEndDate field
 	And I press Save
 	Then I should not see a validation message for ConsentOrderEndDate with "The ConsentOrderEndDate field is required."
+	When I select "Internal Employee" from the LicensedOperatorStatus dropdown
+	And I press Save
+	Then I should not see a validation message for CurrentLicensedContractor with "Required when Licensed Operator Status is Contracted."
+	When I select "Contracted Licensed Operator" from the LicensedOperatorStatus dropdown
+	And I press Save
+	Then I should see a validation message for CurrentLicensedContractor with "Required when Licensed Operator Status is Contracted."
 
+	
 Scenario: User can add a new WasteWater system
 	Given I am logged in as "user"
 	And I am at the Environmental/WasteWaterSystem/New page 
@@ -60,6 +70,8 @@ Scenario: User can add a new WasteWater system
 	And I enter "some permit" into the PermitNumber field
 	And I select waste water system status "active" from the Status dropdown
 	And I select waste water system ownership "aw contract" from the Ownership dropdown
+	And I select "Contracted Licensed Operator" from the LicensedOperatorStatus dropdown
+	And I enter "Conan the Barbarian" into the CurrentLicensedContractor field
 	And I select waste water system type "collection only" from the Type dropdown
 	And I select waste water system sub type "fully separated sewer" from the SubType dropdown
 	And I enter "3/11/2005" into the DateOfOwnership field
@@ -80,6 +92,8 @@ Scenario: User can add a new WasteWater system
 	And I should see a display for PermitNumber with "some permit"
 	And I should see a display for Status with waste water system status "active"
 	And I should see a display for Ownership with waste water system ownership "aw contract"
+	And I should see a display for LicensedOperatorStatus with "Contracted Licensed Operator"
+	And I should see a display for CurrentLicensedContractor with "Conan the Barbarian"
 	And I should see a display for Type with waste water system type "collection only"
 	And I should see a display for SubType with waste water system sub type "fully separated sewer"
 	And I should see a display for DateOfOwnership with "3/11/2005"

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AuthorizeNet.APICore;
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
 using MapCall.Common.Model.Repositories;
@@ -1054,18 +1055,13 @@ namespace MapCallMVC.Tests.Areas.Production.Controller
         }
 
         [TestMethod]
-        public void TestSupervisorApproveProductionWorkOrderDoesNotCallAnySAPMethodsWhenTypeOperationalActivity10()
+        public void TestSupervisorApproveProductionWorkOrderDoesNotCallAnySAPMethodsWhenTypePMWorkOrder()
         {
             _sapCompleteRepo.VerifyNoOtherCalls();
 
             var operatingCenter = GetFactory<UniqueOperatingCenterFactory>().Create(new { SAPEnabled = true });
-            var productionWorkDescription = GetEntityFactory<ProductionWorkDescription>().Create(new { OrderType = _orderTypes.Single(x => x.Id == OrderType.Indices.OPERATIONAL_ACTIVITY_10) });
-            var productionWorkOrder = GetEntityFactory<ProductionWorkOrder>().Create(
-                new {
-                    OperatingCenter = operatingCenter,
-                    ProductionWorkDescription = productionWorkDescription,
-                    DateCompleted = DateTime.Now,
-                });
+            var productionWorkDescription = GetEntityFactory<ProductionWorkDescription>().Create(new { OrderType = _orderTypes.Single(x => x.Id == OrderType.Indices.PLANT_MAINTENANCE_WORK_ORDER_11) });
+            var productionWorkOrder = GetEntityFactory<ProductionWorkOrder>().Create(new { OperatingCenter = operatingCenter, ProductionWorkDescription = productionWorkDescription, DateCompleted = DateTime.Now, });
             Assert.IsFalse(productionWorkOrder.CanBeSupervisorApproved, "Sanity check");
 
             var viewModel =
@@ -1386,12 +1382,14 @@ namespace MapCallMVC.Tests.Areas.Production.Controller
         public void TestCompleteDoesNotSendSupervisorApprovalNotificationIfWorkOrderCanNotBeSupervisorApproved()
         {
             var notificationPurpose = ProductionWorkOrderController.SUPERVISOR_APPROVAL_REQUIRED;
+            var productionWorkDescription = GetEntityFactory<ProductionWorkDescription>().Create(new { OrderType = _orderTypes.Single(x => x.Id == OrderType.Indices.PLANT_MAINTENANCE_WORK_ORDER_11) });
             var pwo = GetEntityFactory<ProductionWorkOrder>().Create(new {
-                OperatingCenter = _operatingCenter
+                OperatingCenter = _operatingCenter,
+                ProductionWorkDescription = productionWorkDescription
             });
 
             Assert.IsFalse(pwo.CanBeSupervisorApproved, "Sanity.");
-            var supervisor = GetEntityFactory<Employee>().Create();
+            var supervisor = GetEntityFactory<Employee>().Create(new { EmailAddress = "supervisor1@work.com" });
             var employee = GetEntityFactory<Employee>().Create(new { EmailAddress = "employee1@work.com", ReportsTo = supervisor });
             var employeeAssignment1 = GetEntityFactory<EmployeeAssignment>().Create(new { AssignedTo = employee, ProductionWorkOrder = pwo });
             pwo.EmployeeAssignments.Add(employeeAssignment1);

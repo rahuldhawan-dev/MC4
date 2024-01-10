@@ -12,6 +12,8 @@ namespace MapCallScheduler.JobHelpers.GISMessageBroker.Models
         public string Identifier { get; set; }
 
         public PublicWaterSupplyStatus Status { get; set; }
+        
+        public string System { get; set; }
 
         #endregion
     }

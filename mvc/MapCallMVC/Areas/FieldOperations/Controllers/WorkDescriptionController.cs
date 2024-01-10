@@ -87,7 +87,9 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         {
             return new CascadingActionResult(Repository.GetActiveByAssetTypeId(assetTypeId), "Description", "Id");
         }
-
+        
+        // Get all Work Descriptions by asset ids which are already used for work orders 
+        // irrespective of active/inactive status Ex: Lead Work Descriptions
         [HttpGet]
         public ActionResult UsedByAssetTypeIds(int[] assetTypeIds)
         {

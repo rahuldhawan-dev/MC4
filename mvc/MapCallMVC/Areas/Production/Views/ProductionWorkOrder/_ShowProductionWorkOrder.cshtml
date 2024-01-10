@@ -119,12 +119,6 @@
                 @Html.DisplayFor(x => x.SAPErrorCode)
             }
             @Html.DisplayFor(x => x.DateReceived)
-            @if (!isRoutineWorkOrder)
-            {
-                @Html.DisplayFor(x => x.StartDate)
-                @Html.DisplayFor(x => x.DueDate)
-                @Html.DisplayFor(x => x.DaysOverdue)
-            }
             @Html.DisplayFor(x => x.DateCompleted)
             @Html.DisplayFor(x => x.CompletedBy)
             @if (!isRoutineWorkOrder)

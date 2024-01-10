@@ -45,9 +45,11 @@
     {
         @Html.EditorFor(x => x.EstimatedCompletionHours)
     }
-    @Html.DisplayFor(x => x.StartDate)
-    @Html.DisplayFor(x => x.DueDate)
-
+    @if (Model.DisplayWorkOrder.OrderType.Id == (int)OrderType.Indices.ROUTINE_13)
+    {
+        @Html.DisplayFor(x => x.StartDate)
+        @Html.DisplayFor(x => x.DueDate)
+    }
     @Html.EditorFor(x => x.PlantMaintenanceActivityTypeOverride)
     @Html.RenderDisplayTemplate("WBS Charged", @<text>
         <div id="wbsElementLookupLink">

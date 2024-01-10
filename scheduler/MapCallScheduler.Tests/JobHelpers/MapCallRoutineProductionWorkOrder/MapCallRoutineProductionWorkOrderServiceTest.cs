@@ -64,6 +64,8 @@ namespace MapCallScheduler.Tests.JobHelpers.MapCallRoutineProductionWorkOrder
             var startDate = today.AddMonths(-6);
 
             var dailyFrequency = GetFactory<ProductionWorkOrderFrequencyFactory>().Create();
+            var maintenancePlans = GetFactory<MaintenancePlanFactory>().CreateList(2200,
+                new { IsActive = true, Start = startDate, ProductionWorkOrderFrequency = dailyFrequency });
             var planFactory = GetFactory<MaintenancePlanFactory>();
            
             var plan = planFactory.Build(new {
@@ -96,6 +98,7 @@ namespace MapCallScheduler.Tests.JobHelpers.MapCallRoutineProductionWorkOrder
                 new ScheduledMaintenancePlan(plan),
                 new ScheduledMaintenancePlan(planWithAutoCancel),
             };
+            scheduledPlans.AddRange(maintenancePlans.Select(maintenancePlan => new ScheduledMaintenancePlan(maintenancePlan)));
 
             _maintenancePlanRepo.Setup(x => 
                 x.GetOnlyScheduledMaintenancePlans()).Returns(scheduledPlans);
@@ -121,12 +124,12 @@ namespace MapCallScheduler.Tests.JobHelpers.MapCallRoutineProductionWorkOrder
 
             // Assert
             _maintenancePlanRepo.Verify(x => x.GetOnlyScheduledMaintenancePlans(), Times.Once);
-            _productionWorkOrderRepo.Verify(x => x.BuildRoutineProductionWorkOrdersFromScheduledPlans(It.IsAny<IEnumerable<ScheduledMaintenancePlan>>()), Times.Once);
-            _productionWorkOrderRepo.Verify(x => x.CancelOrders(It.IsAny<IEnumerable<int>>()), Times.Once);
-            _productionWorkOrderRepo.Verify(x => x.SaveAllAndGetAssignmentsForNotifications(It.IsAny<IEnumerable<ProductionWorkOrder>>()), Times.Once);
-            _notificationService.Verify(x => x.Notify(It.IsAny<NotifierArgs>()), Times.Once);
+            _productionWorkOrderRepo.Verify(x => x.BuildRoutineProductionWorkOrdersFromScheduledPlans(It.IsAny<IEnumerable<ScheduledMaintenancePlan>>()), Times.Exactly(2));
+            _productionWorkOrderRepo.Verify(x => x.CancelOrders(It.IsAny<IEnumerable<int>>()), Times.Exactly(2));
+            _productionWorkOrderRepo.Verify(x => x.SaveAllAndGetAssignmentsForNotifications(It.IsAny<IEnumerable<ProductionWorkOrder>>()), Times.Exactly(2));
+            _notificationService.Verify(x => x.Notify(It.IsAny<NotifierArgs>()), Times.Exactly(2));
 
-            Assert.AreEqual(2, savedWorkOrders.Count());
+            Assert.AreEqual(2202, savedWorkOrders.Count());
             Assert.AreEqual(1, cancelledWorkOrderIds.Count());
         }
 
@@ -156,11 +159,11 @@ namespace MapCallScheduler.Tests.JobHelpers.MapCallRoutineProductionWorkOrder
 
             // Assert
             _maintenancePlanRepo.Verify(x => x.GetOnlyScheduledMaintenancePlans(), Times.Once);
-            _productionWorkOrderRepo.Verify(x => x.SaveAllAndGetAssignmentsForNotifications(It.IsAny<IEnumerable<ProductionWorkOrder>>()), Times.Once);
-            _productionWorkOrderRepo.Verify(x => x.CancelOrders(It.IsAny<IEnumerable<int>>()), Times.Once);
+            _productionWorkOrderRepo.Verify(x => x.SaveAllAndGetAssignmentsForNotifications(It.IsAny<IEnumerable<ProductionWorkOrder>>()), Times.Never);
+            _productionWorkOrderRepo.Verify(x => x.CancelOrders(It.IsAny<IEnumerable<int>>()), Times.Never);
             _notificationService.Verify(x => x.Notify(It.IsAny<NotifierArgs>()), Times.Never);
-            Assert.AreEqual(savedWorkOrders.Count(), 0);
-            Assert.AreEqual(cancelledWorkOrderIds.Count(), 0);
+            Assert.IsNull(savedWorkOrders);
+            Assert.IsNull(cancelledWorkOrderIds);
         }
 
         #endregion

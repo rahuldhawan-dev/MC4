@@ -24,7 +24,9 @@
     .SortableColumnFor(x => x.TownSection, "TownSection.Name")
     .SortableColumnFor(x => x.AssetType, "AssetType.Description")
     .SortableTemplateColumnFor(x => x.AssetId, "AssetId.AssetId", x => @<text>@Html.AssetLink(x.Asset)</text>)
-    .SortableColumnFor(x => x.WorkDescription, "WorkDescription.Description")
+    .SortableColumnFor(x => x.WorkDescription, "Description of Job (Hover for Notes)", "WorkDescription.Description").WithCellBuilder((x, tag) => {
+	    tag.Attributes.Add("title", x.Notes);
+    })
     .SortableColumnFor(x => x.Priority, "Priority.Description")
     .SortableColumnFor(x => x.CreatedBy, "CreatedBy.FullName")
     .SortableColumnFor(x => x.Purpose, "Purpose.Description")

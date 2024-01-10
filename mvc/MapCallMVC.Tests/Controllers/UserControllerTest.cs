@@ -93,6 +93,7 @@ namespace MapCallMVC.Tests.Controllers
                 a.RequiresLoggedInUserOnly("~/User/GetActiveUsersWithOpCenterIdAndRoleForLockoutDevice/");
                 a.RequiresLoggedInUserOnly("~/User/GetActiveUsersWithOpCenterIdAndRoleAndIsAssignedToLockOutDevices/");
                 a.RequiresLoggedInUserOnly("~/User/GetAllByOperatingCenterId/");
+                a.RequiresLoggedInUserOnly("~/User/GetAllByStateOrOperatingCenterId/");
                 a.RequiresLoggedInUserOnly("~/User/GetByOperatingCenterId/");
                 a.RequiresLoggedInUserOnly("~/User/GetByOperatingCenterIdAndPartialNameMatchForTDWorkOrders/");
                 a.RequiresLoggedInUserOnly("~/User/GetToken/");
@@ -169,6 +170,44 @@ namespace MapCallMVC.Tests.Controllers
             Assert.AreEqual(2, actual.Count() - 1); // -1 for the empty list item that gets included.
             Assert.AreEqual(validUser.Id.ToString(), actual[1].Value);
             Assert.AreEqual(validUser2.Id.ToString(), actual[2].Value);
+        }
+
+        [TestMethod]
+        public void TestGetAllByStateOrOperatingCenterIdReturnsUsersForAllScenarios()
+        {
+            var nj = GetFactory<StateFactory>().Create(new { Abbreviation = "NJ" });
+            var ny = GetFactory<StateFactory>().Create(new { Abbreviation = "NY" });
+            var nj7 = GetFactory<UniqueOperatingCenterFactory>()
+               .Create(new { OperatingCenterCode = "NJ7", OperatingCenterName = "Shrewsbury", State = nj });
+            var nj4 = GetFactory<OperatingCenterFactory>()
+               .Create(new { OperatingCenterCode = "NJ4", OperatingCenterName = "Lakewood", State = nj });
+            var ny1 = GetFactory<OperatingCenterFactory>()
+               .Create(new { OperatingCenterCode = "NY1", OperatingCenterName = "NYC", State = ny });
+            var validUser = GetEntityFactory<User>().Create(new { DefaultOperatingCenter = nj7, UserName = "Kirwan" });
+            var validUser2 = GetEntityFactory<User>().Create(new { DefaultOperatingCenter = nj4, UserName = "Keane" });
+            var invalidUser = GetEntityFactory<User>()
+               .Create(new { DefaultOperatingCenter = ny1, UserName = "Walters" });
+
+            var result = (CascadingActionResult)_target.GetAllByStateOrOperatingCenterId(nj.Id, nj7.Id);
+            var actual = result.GetSelectListItems().ToArray();
+
+            Assert.AreEqual(1, actual.Count() - 1); // -1 for the empty list item that gets included.
+            Assert.AreEqual(validUser.Id.ToString(), actual[1].Value);
+
+            result = (CascadingActionResult)_target.GetAllByStateOrOperatingCenterId(nj.Id, null);
+            actual = result.GetSelectListItems().ToArray();
+
+            Assert.AreEqual(2, actual.Count() - 1); // -1 for the empty list item that gets included.
+            Assert.AreEqual(validUser.Id.ToString(), actual[1].Value);
+            Assert.AreEqual(validUser2.Id.ToString(), actual[2].Value);
+
+            result = (CascadingActionResult)_target.GetAllByStateOrOperatingCenterId(null, null);
+            actual = result.GetSelectListItems().ToArray();
+
+            Assert.AreEqual(3, actual.Count() - 1); // -1 for the empty list item that gets included.
+            Assert.AreEqual(validUser.Id.ToString(), actual[1].Value);
+            Assert.AreEqual(validUser2.Id.ToString(), actual[2].Value);
+            Assert.AreEqual(invalidUser.Id.ToString(), actual[3].Value);
         }
 
         [TestMethod]

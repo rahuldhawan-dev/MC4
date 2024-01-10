@@ -182,7 +182,7 @@ Scenario: User can finalize a work order of valve asset type
     And I am at the FieldOperations/WorkOrderFinalization/Edit page for work order: "two"
     When I select work order flushing notice type "one"'s Description from the FlushingNoticeType dropdown
     And I select "Yes" from the DigitalAsBuiltCompleted dropdown
-    And I enter "4/14/2015" into the CompletedDate field
+    And I enter "4/14/2015" into the CompletedDate field    
     And I press Finalize
     Then I should be at the FieldOperations/WorkOrderFinalization/Show page for work order "two"
     And I should only see "Standard Flushing Notice left" in the FlushingNoticeTypeInit element
@@ -212,7 +212,7 @@ Scenario: User can finalize a work order with service line renewal work descript
     When I enter "6/24/2023" into the CompletedDate field
     And I select "one" from the MeterLocation dropdown
     And I select work description "service line renewal" from the FinalWorkDescription dropdown  
-    And I enter 23 into the InitialServiceLineFlushTime field
+    And I enter "23" into the InitialServiceLineFlushTime field
     And I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
     And I enter "6/20/2023" into the DatePitcherFilterDeliveredToCustomer field
     And I select pitcher filter customer delivery method "three" from the PitcherFilterCustomerDeliveryMethod dropdown
@@ -232,6 +232,14 @@ Scenario: User can finalize a work order with service line renewal work descript
     And I select "Yes" from the DigitalAsBuiltCompleted dropdown
     And I enter "6/24/2023" into the CompletedDate field
     And I press Finalize
+    Then I should see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+    When I select "Yes" from the IsThisAMultiTenantFacility dropdown
+    And I press Finalize
+    Then I should see a validation message for NumberOfPitcherFiltersDelivered with "The NumberOfPitcherFiltersDelivered field is required."
+    And I should see a validation message for DescribeWhichUnits with "The DescribeWhichUnits field is required."
+    When I enter "10" into the NumberOfPitcherFiltersDelivered field
+    And I enter "See notes for units" into the DescribeWhichUnits field 
+    And I press Finalize   
     Then I should be at the FieldOperations/WorkOrderFinalization/Show page for work order "ten"
     And I should only see "one" in the MeterLocationInit element
     And I should only see "SERVICE LINE RENEWAL" in the WorkDescription element
@@ -241,13 +249,6 @@ Scenario: User can finalize a work order with service line renewal work descript
     Then I should see a display for LostWater with "7"
     And I should see a display for DistanceFromCrossStreet with "15"
     And I should see "additional notes"    
-    And I should see a display for PreviousServiceLineMaterial with "Copper"
-    And I should see a display for CompanyServiceLineMaterial with "Plastic"
-    And I should see a display for CustomerServiceLineMaterial with "Iron"
-    And I should see a display for PreviousServiceLineSize with "1/2"
-    And I should see a display for CompanyServiceLineSize with "1"
-    And I should see a display for CustomerServiceLineSize with "2"
-    And I should see a display for DoorNoticeLeftDate with "6/22/2023"
     And I should see a display for InitialServiceLineFlushTime with "23"
     And I should see a display for InitialFlushTimeEnteredBy with "Roy"
     And I should see a display for InitialFlushTimeEnteredAt with a date time close to now
@@ -256,6 +257,14 @@ Scenario: User can finalize a work order with service line renewal work descript
     And I should see a display for PitcherFilterCustomerDeliveryOtherMethod with "Testing Other"
     And I should see a display for DatePitcherFilterDeliveredToCustomer with "6/20/2023"
     And I should see a display for DateCustomerProvidedAWStateLeadInformation with "6/21/2023"
+    When I click the "Service" tab
+    Then I should see a display for PreviousServiceLineMaterial with "Copper"
+    And I should see a display for CompanyServiceLineMaterial with "Plastic"
+    And I should see a display for CustomerServiceLineMaterial with "Iron"
+    And I should see a display for PreviousServiceLineSize with "1/2"
+    And I should see a display for CompanyServiceLineSize with "1"
+    And I should see a display for CustomerServiceLineSize with "2"
+    And I should see a display for DoorNoticeLeftDate with "6/22/2023"
 
 Scenario: User can finalize a work order with main break repair work description
     Given a work order flushing notice type "one" exists with description: "Standard Flushing Notice left"
@@ -416,8 +425,9 @@ Scenario: Users can add materials for a work order
     Given a material "one" exists with PartNumber: "123456789", Description: "Plastic"
     And a material "two" exists with PartNumber: "987654321", Description: "Copper"
     And a operating center stocked material "one" exists with OperatingCenter: "nj7", Material: "two"
-    And a stock location "one" exists with SAPStockLocation: "2600", Description: "H&M"
-    And a stock location "two" exists with SAPStockLocation: "1300", Description: "STYD"
+    And a stock location "one" exists with SAPStockLocation: "2600", Description: "H&M", is active: "true"
+    And a stock location "two" exists with SAPStockLocation: "1300", Description: "STYD", is active: "true"
+    And a stock location "inactive" exists with SAPStockLocation: "238", Description: "KING", is active: "false"
     And a material used "one" exists with Material: "one", WorkOrder: "two", StockLocation: "one", Quantity: 2    
     And a material used "two" exists with WorkOrder: "two", StockLocation: "two", Quantity: 7, NonStockDescription: "Test"
     And I am logged in as "user"
@@ -432,7 +442,8 @@ Scenario: Users can add materials for a work order
     And I enter 5 into the Quantity field
     And I select material "two" from the Material dropdown
     And I select stock location "two" from the StockLocation dropdown
-    And I press "Save Material"
+    Then I should not see stock location "inactive" in the StockLocation dropdown
+    When I press "Save Material"
     Then I should see the following values in the materialsUsedTable table
     | Part Number | Stock Location | SAP Stock Location | Description | Quantity |
     | 123456789   | H&M            | 2600               | Plastic     | 2        |    
@@ -676,7 +687,7 @@ Scenario: Users can view and update fields on additional tab for a work order
     When I enter "7" into the LostWater field
     And I enter "15" into the DistanceFromCrossStreet field
     And I enter "additional notes" into the AppendNotes field
-    And I press Update
+    And I press "Update Details"
     Then I should be at the FieldOperations/WorkOrderFinalization/Edit page for work order: "two"
     When I click the "Additional" tab
     Then I should see "7" in the LostWater field
@@ -960,7 +971,7 @@ Scenario: user can view and edit hydrant details
     And I select functional location "one" from the FunctionalLocation dropdown
     And I press Save
     Then I should see a display for FunctionalLocation with functional location "one"
-    
+
 Scenario: user can view and not edit valve details
     Given I am logged in as "user"
     And I am at the FieldOperations/WorkOrderFinalization/Edit page for work order: "one"
@@ -1034,6 +1045,9 @@ Scenario: User should be able to update additional data when service line renewa
     And a crew assignment "two" exists with work order: "five", crew: "two", assigned for: "2023-03-29 00:00:00", assigned on: "2023-03-16 14:06:00", date started: "2022-04-08 23:38:00", date ended: "2022-04-09 00:49:00", employees on job: "3"
     And a service material "one" exists with description: "Copper"
     And a service size "one" exists with service size description: "1/2"
+    And a pitcher filter customer delivery method "one" exists with description: "Handed to customer"
+    And a pitcher filter customer delivery method "two" exists with description: "Left on porch\doorstep"
+    And a pitcher filter customer delivery method "three" exists with description: "Other"
     And I am logged in as "user"
     And I am at the FieldOperations/WorkOrderFinalization/Edit page for work order: "five"
     When I click the "Additional" tab
@@ -1048,13 +1062,36 @@ Scenario: User should be able to update additional data when service line renewa
     And I enter "15" into the DistanceFromCrossStreet field
     And I enter "additional notes" into the AppendNotes field
     And I select work description "service line renewal" from the FinalWorkDescription dropdown
-    And I press Update
+    And I press "Update Details"
     Then I should be at the FieldOperations/WorkOrderFinalization/Edit page for work order: "five"
     When I click the "Additional" tab
     Then I should see "7" in the LostWater field
     And I should see "15" in the DistanceFromCrossStreet field
     And I should see "" in the AppendNotes field
     And I should see "additional notes"
+    When I press "Update Compliance Data"
+    Then I should see a validation message for InitialServiceLineFlushTime with "This field is required."
+    And I should see a validation message for HasPitcherFilterBeenProvidedToCustomer with "This field is required."
+    When I enter "23" into the InitialServiceLineFlushTime field
+    And I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+    And I enter "6/20/2023" into the DatePitcherFilterDeliveredToCustomer field
+    And I select pitcher filter customer delivery method "three" from the PitcherFilterCustomerDeliveryMethod dropdown
+    And I enter "Testing Other" into the PitcherFilterCustomerDeliveryOtherMethod field
+    And I enter "6/21/2023" into the DateCustomerProvidedAWStateLeadInformation field
+    And I select "Yes" from the IsThisAMultiTenantFacility dropdown
+    And I enter "10" into the NumberOfPitcherFiltersDelivered field
+    And I enter "See notes for units" into the DescribeWhichUnits field
+    And I press "Update Compliance Data"
+    Then I should be at the FieldOperations/WorkOrderFinalization/Edit page for work order: "five"
+    When I click the "Additional" tab
+    Then I should see "23" in the InitialServiceLineFlushTime field
+    And I should see "6/20/2023" in the DatePitcherFilterDeliveredToCustomer field
+    And I should see "Testing Other" in the PitcherFilterCustomerDeliveryOtherMethod field
+    And I should see "6/21/2023" in the DateCustomerProvidedAWStateLeadInformation field
+    And I should see pitcher filter customer delivery method "three"'s Description in the PitcherFilterCustomerDeliveryMethod dropdown
+    And I should see "Yes" in the IsThisAMultiTenantFacility dropdown
+    And I should see "10" in the NumberOfPitcherFiltersDelivered field
+    And I should see "See notes for units" in the DescribeWhichUnits field
 
 Scenario: User cannot select a revisit description for a non-revisit order
     Given a work order "five" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", work description: "install meter", work order priority: "emergency", sap work order number: "987654321"
@@ -1079,23 +1116,22 @@ Scenario: User can view special instruction on work order finalization page
     And I should only see work order "two"'s SpecialInstructions in the WorkOrderSpecialInstructions element
 
 Scenario: user can view and not edit service details
-    Given a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
-	And a service category "one" exists with description: "Neato"
+    Given a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab
     Then I should not see the serviceEditButton element 
+    And I should not see "Note - The service record has not been linked to this work order. Any updates to the service line info will not update the service record. Please link the service via the Create Service Button below."
     When I switch to the serviceFrame frame
     Then I should see a display for ServiceType with service "unique"'s ServiceType
 
 Scenario: UserAdmin can view and edit service details
     Given a role "asset-useradmin" exists with action: "UserAdministrator", module: "FieldServicesAssets", user: "user", operating center: "nj7"
-    And a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
     And a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab
@@ -1104,3 +1140,33 @@ Scenario: UserAdmin can view and edit service details
     And I select town "nj7burg" from the Town dropdown
     And I follow "Cancel"
     Then I should see a display for ServiceNumber with "123456"
+
+Scenario: User sees an inline notification when pitcher filter has been delivered    
+    Given a premise "one" exists with premise number: "1234567890", service address house number: "7", service address apartment: "garbage", service address street: "EaSy St", service address fraction: "1/2", equipment: "123", meter serial number: "123", operating center: "nj7"
+    And a service "one" exists with service number: "123", operating center: "nj7", premise number: "1234567890", premise: "one"    
+    And a work order "six" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", work description: "service line renewal", work order priority: "emergency", sap work order number: "987654321", has pitcher filter been provided to customer: "true", date pitcher filter delivered to customer: "today", service: "one", premise number: "1234567890", premise: "one"
+    And I am logged in as "user"
+    And I am at the FieldOperations/WorkOrderFinalization/Edit page for work order: "six"
+    When I click the "Additional" tab
+    Then I should see "Pitcher filter last delivered on"
+    When I visit the FieldOperations/WorkOrderFinalization/Show page for work order: "six"
+    And I click the "Additional" tab
+    Then I should see "Pitcher filter last delivered on"
+    When I visit the FieldOperations/GeneralWorkOrder/Show page for work order: "six"
+    And I click the "Additional" tab
+    Then I should see "Pitcher filter last delivered on"
+
+Scenario: User does not see an inline notification when pitcher filter has not been delivered
+    Given a premise "one" exists with premise number: "1234567890", service address house number: "7", service address apartment: "garbage", service address street: "EaSy St", service address fraction: "1/2", equipment: "123", meter serial number: "123", operating center: "nj7"
+    And a service "one" exists with service number: "123", operating center: "nj7", premise number: "1234567890", premise: "one"    
+    And a work order "six" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", work description: "service line renewal", work order priority: "emergency", sap work order number: "987654321", has pitcher filter been provided to customer: "false", service: "one", premise number: "1234567890", premise: "one"
+    And I am logged in as "user"
+    And I am at the FieldOperations/WorkOrderFinalization/Edit page for work order: "six"
+    When I click the "Additional" tab
+    Then I should not see "Pitcher filter last delivered on"
+    When I visit the FieldOperations/WorkOrderFinalization/Show page for work order: "six"
+    And I click the "Additional" tab
+    Then I should not see "Pitcher filter last delivered on"
+    When I visit the FieldOperations/GeneralWorkOrder/Show page for work order: "six"
+    And I click the "Additional" tab
+    Then I should not see "Pitcher filter last delivered on"

@@ -4,7 +4,7 @@
     ActionBarHelper.AddExportLink();
 }
 
-@(Html.TableFor(_ => Model, new { id = "maintenancePlanTable" })
+@(Html.TableFor(_ => Model, new { id = "maintenancePlanTable", @class = "results-table" })
     .WithCaption("Records found: " + Model.Count)
     .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {x.Id}))
     .ColumnFor(x => x.PlanNumber)

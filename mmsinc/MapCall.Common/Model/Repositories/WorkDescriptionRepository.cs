@@ -93,7 +93,6 @@ namespace MapCall.Common.Model.Repositories
             (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL_LEAD,
             (int)WorkDescription.Indices.SERVICE_LINE_RETIRE_LEAD, 
             (int)WorkDescription.Indices.SERVICE_LINE_RENEWAL_CUST_LEAD,
-            (int)WorkDescription.Indices.SERVICE_LINE_RETIRE_NO_PREMISE, 
             (int)WorkDescription.Indices.SERVICE_LINE_RETIRE_LEAD_NO_PREMISE
         };
 
@@ -117,7 +116,9 @@ namespace MapCall.Common.Model.Repositories
                                     .Select(Projections.Distinct(
                                          Projections.Property<WorkOrder>(wo => wo.WorkDescription.Id)));
             query.WithSubquery.WhereExists(subQuery);
-            return query.List();
+            // Business doesn't want below list of inactive work descriptions to be displayed in any page
+            // So excluding them from inactive list
+            return query.List().Where(x => !WorkDescription.EXCLUDED_INACTIVE_WORK_DESCRIPTIONS.Contains(x.Id));
         }
     }
 

@@ -15,6 +15,7 @@ namespace MapCallScheduler.JobHelpers.MapCallRoutineProductionWorkOrder
         #region Constants
 
         private const string NOTIFICATION_PURPOSE = "Production Work Order Assigned";
+        private const int BATCH_SIZE = 2000;
 
         #endregion
 
@@ -47,24 +48,41 @@ namespace MapCallScheduler.JobHelpers.MapCallRoutineProductionWorkOrder
 
         public void Process()
         {
+            var scheduledPlansBatchList = new List<List<ScheduledMaintenancePlan>>();
+            var total = 0;
+            
             _log.Info("Running MapCall Routine Production Work Order service.");
             
             _log.Info("Retrieving scheduled Maintenance Plans...");
             var scheduledPlans = _maintenancePlanRepo.GetOnlyScheduledMaintenancePlans().ToList();
+            var totalScheduledPlansToProcess = scheduledPlans.Count;
+            _log.Info($"Retrieved {totalScheduledPlansToProcess} scheduled Maintenance Plans");
 
-            var workOrdersToCancel = _productionWorkOrderRepo.GetAutoCancelRoutineProductionWorkOrders(scheduledPlans);
-            var generatedWorkOrders = _productionWorkOrderRepo.BuildRoutineProductionWorkOrdersFromScheduledPlans(scheduledPlans);
+            // If the number of Scheduled Plans exceeds the BATCH_SIZE, we want to chunk them into batches of
+            // 2000. This fixes a sql error received on 1.1.2024 where too many parameters were passed to a sql 
+            // "Where In(...) clause - can't pass more than 2100 at a time, so we went with 2000 as a nice even number.
+            while (total < totalScheduledPlansToProcess)
+            {
+                scheduledPlansBatchList.Add(scheduledPlans.Skip(total).Take(BATCH_SIZE).ToList());
+                total += BATCH_SIZE;
+            }
 
-            _log.Info("AutoCancel is updating existing Production Work Order records...");
-            _productionWorkOrderRepo.CancelOrders(workOrdersToCancel);
+            foreach (var batch in scheduledPlansBatchList)
+            {
+                var workOrdersToCancel = _productionWorkOrderRepo.GetAutoCancelRoutineProductionWorkOrders(batch);
+                var generatedWorkOrders = _productionWorkOrderRepo.BuildRoutineProductionWorkOrdersFromScheduledPlans(batch);
 
-            _log.Info("Creating new Production Work Order records...");
-            var assignments = _productionWorkOrderRepo.SaveAllAndGetAssignmentsForNotifications(generatedWorkOrders);
+                _log.Info($"AutoCancel is updating existing Production Work Order records...{batch.Count}");
+                _productionWorkOrderRepo.CancelOrders(workOrdersToCancel);
+
+                _log.Info("Creating new Production Work Order records...");
+                var assignments = _productionWorkOrderRepo.SaveAllAndGetAssignmentsForNotifications(generatedWorkOrders);
             
-            _maintenancePlanRepo.TrimScheduledAssignmentsUpToToday();
+                _maintenancePlanRepo.TrimScheduledAssignmentsUpToToday();
 
-            _log.Info("Sending notifications to assigned Employees...");
-            SendNotifications(assignments);
+                _log.Info("Sending notifications to assigned Employees...");
+                SendNotifications(assignments);
+            }
             
             _log.Info("Completed MapCall Routine Production Work Order service.");
         }

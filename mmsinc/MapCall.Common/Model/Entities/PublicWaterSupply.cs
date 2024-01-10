@@ -32,7 +32,8 @@ namespace MapCall.Common.Model.Entities
                              SYSTEM = 255,
                              PWSID = 50,
                              STATUS = 255,
-                             LOCAL_CERTIFIED_STATE_ID = 10;
+                             LOCAL_CERTIFIED_STATE_ID = 10,
+                             CURRENT_LICENSED_CONTRACTOR = 50;
 
             #endregion
         }
@@ -135,6 +136,10 @@ namespace MapCall.Common.Model.Entities
         public virtual PublicWaterSupplyFirmCapacity CurrentPublicWaterSupplyFirmCapacity { get; set; }
 
         public virtual MapIcon Icon => Coordinate?.Icon;
+
+        public virtual LicensedOperatorCategory LicensedOperatorStatus { get; set; }
+
+        public virtual string CurrentLicensedContractor { get; set; }
 
         public virtual string Description
         {

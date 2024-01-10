@@ -64,19 +64,6 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
 
         #endregion
 
-        #region Public Methods
-
-        public override void SetLookupData(ControllerAction action)
-        {
-            base.SetLookupData(action);
-            if (action == ControllerAction.Search)
-            {
-                this.AddOperatingCenterDropDownData();
-            }
-        }
-
-        #endregion
-
         #region Constructors
 
         public MarkoutPlanningController(ControllerBaseWithPersistenceArguments<IGeneralWorkOrderRepository, WorkOrder, User> args) : base(args) { }

@@ -10,6 +10,8 @@
     @Html.DisplayFor(x => x.LocalCertifiedStateId)
     @Html.DisplayFor(x => x.Status)
     @Html.DisplayFor(x => x.Ownership)
+    @Html.DisplayFor(x => x.LicensedOperatorStatus)
+    @Html.DisplayFor(x => x.CurrentLicensedContractor)
     @Html.DisplayFor(x => x.Type)
     @Html.DisplayFor(x => x.AWOwned)
     @Html.DisplayFor(x => x.UsageLastYear)
@@ -45,9 +47,9 @@
     @Html.DisplayFor(x => x.ValidTo)
     @Html.DisplayFor(x => x.ValidFrom)
     @Html.RenderDisplayTemplate("Anticipated Merge Public Water Supply",
-                                    @<text>@if (Model.AnticipatedMergePublicWaterSupply != null)
-                                                    {
-                                            @Html.ActionLink(Model.AnticipatedMergePublicWaterSupply.Identifier, "Show", "PublicWaterSupply", new { Model.AnticipatedMergePublicWaterSupply.Id }, null)
-                                                    }
-                                    </text>)
+                                        @<text>@if (Model.AnticipatedMergePublicWaterSupply != null)
+                                            {
+                                                @Html.ActionLink(Model.AnticipatedMergePublicWaterSupply.Identifier, "Show", "PublicWaterSupply", new { Model.AnticipatedMergePublicWaterSupply.Id }, null)
+                                            }
+                                        </text>)
 </div>

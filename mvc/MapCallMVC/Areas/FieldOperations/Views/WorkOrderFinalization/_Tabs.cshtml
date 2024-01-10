@@ -16,7 +16,7 @@
       .WithTab("Valve", "~/Areas/FieldOperations/Views/WorkOrder/_Valve.cshtml", Model.Valve, isVisible: Model.AssetType.Id == AssetType.Indices.VALVE)
       .WithTab("Hydrant", "~/Areas/FieldOperations/Views/WorkOrder/_Hydrant.cshtml", Model.Hydrant, isVisible: Model.AssetType.Id == AssetType.Indices.HYDRANT)
       .WithTab("Sewer Opening", "~/Areas/FieldOperations/Views/WorkOrder/_SewerOpening.cshtml", Model.SewerOpening, isVisible: Model.AssetType.Id == AssetType.Indices.SEWER_OPENING)
-      .WithTab("Service", "~/Areas/FieldOperations/Views/WorkOrder/_Service.cshtml", Model.Service, isVisible: Model.Service != null)
+      .WithTab("Service", "~/Areas/FieldOperations/Views/WorkOrder/_Service.cshtml", Model, isVisible: (Model.AssetType.Id == AssetType.Indices.SERVICE || Model.AssetType.Id == AssetType.Indices.SEWER_LATERAL))
       .WithTab("Materials", "~/Areas/FieldOperations/Views/WorkOrder/_Materials.cshtml", Model, itemCount: Model.MaterialsUsed.Count)
       .WithTab("Spoils", "~/Areas/FieldOperations/Views/WorkOrder/_Spoils.cshtml", Model, itemCount: Model.Spoils.Count)
       .WithTab("Markouts", "~/Areas/FieldOperations/Views/Markout/_Index.cshtml", Model, itemCount: Model.Markouts.Count)

@@ -1033,7 +1033,7 @@ Scenario: user search for a supervisor approval returns operating center results
 	
 Scenario: User can download pdf for completed production work order
 	Given a user "testuser" exists with username: "stuff", full name: "the useriest user"
-	And a production work order "twotwotwo" exists with equipment: "two", operating center: "nj7", completed by: "testuser", date completed: "7/13/2021" 
+	And a production work order "twotwotwo" exists with productionWorkDescription: "three", operating center: "nj4", planning plant: "two", facility: "two", equipment: "two", order type: "pm work order", priority: "one", estimated completion hours: "1", local task description: "description five", date completed: "07/13/2021"
 	And a production work order measurement point value exists with production work order: "twotwotwo", equipment: "two", value: "2", measurement point equipment type: "one"
 	And I am logged in as "user"
 	When I visit the Show page for production work order: "twotwotwo"
@@ -1315,7 +1315,7 @@ Scenario: Completing a Renew/Rehab Production Work Order Will Update Asset Life 
 	And I should see a display for ExtendedRemainingUsefulLife with "16.5"
 
 Scenario: Estimated Completion Hours is readonly when production work order is complete
-	Given a production work order "pwo-01" exists with operating center: "nj7", facility: "one", date completed: "01/01/2021"
+	And a production work order "pwo-01" exists with productionWorkDescription: "three", operating center: "nj4", planning plant: "two", facility: "two", equipment: "two", order type: "pm work order", priority: "one", estimated completion hours: "1", local task description: "description five", date completed: "01/01/2021"
 	And I am logged in as "user"
 	When I visit the Edit page for production work order: "pwo-01"
 	Then the EstimatedCompletionHours field should be readonly

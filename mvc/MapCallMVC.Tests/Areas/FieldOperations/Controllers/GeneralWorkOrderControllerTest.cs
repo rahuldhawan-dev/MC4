@@ -90,6 +90,8 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
                 a.RequiresRole("~/FieldOperations/GeneralWorkOrder/UpdateAdditional/", module, RoleActions.Edit);
                 a.RequiresSiteAdminUser("~/FieldOperations/GeneralWorkOrder/UpdateFromIndex/");
                 a.RequiresRole("~/FieldOperations/GeneralWorkOrder/UpdateTrafficControl/", module, RoleActions.Edit);
+                a.RequiresRole("~/FieldOperations/GeneralWorkOrder/UpdateComplianceData/", module, RoleActions.Edit);
+                a.RequiresRole("~/FieldOperations/GeneralWorkOrder/UpdateServiceLineInfo/", module, RoleActions.Edit);
             });
         }
 
@@ -267,6 +269,41 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
 
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.AreEqual(8, entity.NumberOfOfficersRequired);
+        }
+
+        [TestMethod]
+        public void TestUpdateAdditionalSavesChangesWhenModelStateIsValid()
+        {
+            var eq = GetEntityFactory<WorkOrder>().Create();
+            AddWorkManagementRoleToCurrentUserForOperatingCenter(eq.OperatingCenter);
+            var workDescription = GetEntityFactory<WorkDescription>().Create();
+            var estimatedCustomerImpact = GetFactory<ZeroToFiftyCustomerImpactRangeFactory>().Create();
+            var anticipatedRepairTime = GetFactory<FourToSixRepairTimeRangeFactory>().Create();
+
+            var model = new EditWorkOrderAdditional(_container) {
+                FinalWorkDescription = workDescription.Id,
+                LostWater = 10,
+                DistanceFromCrossStreet = 20.0,
+                AppendNotes = "Testing Notes",
+                AlertIssued = true,
+                TrafficImpact = true,
+                RepairTime = anticipatedRepairTime.Id,
+                CustomerImpact = estimatedCustomerImpact.Id,
+                Id = eq.Id
+            };
+
+            var result = _target.UpdateAdditional(model) as RedirectToRouteResult;
+
+            var entity = Session.Get<WorkOrder>(eq.Id);
+
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.AreEqual(workDescription.Id, entity.WorkDescription?.Id);
+            Assert.AreEqual(estimatedCustomerImpact.Id, entity.EstimatedCustomerImpact?.Id);
+            Assert.AreEqual(anticipatedRepairTime.Id, entity.AnticipatedRepairTime?.Id);
+            Assert.IsTrue(entity.AlertIssued);
+            Assert.IsTrue(entity.SignificantTrafficImpact);
+            Assert.AreEqual(10, entity.LostWater);
+            Assert.AreEqual(20.0, entity.DistanceFromCrossStreet);
         }
 
         #endregion

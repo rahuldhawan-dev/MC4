@@ -131,7 +131,7 @@ namespace Contractors.Tests.Controllers
                 OperatingCenter = operatingCenter
             });
             var material = GetFactory<MaterialFactory>().Create();
-            var stockLocation = GetFactory<StockLocationFactory>().Create();
+            var stockLocation = GetFactory<StockLocationFactory>().Create(new { IsActive = true });
             operatingCenter.StockedMaterials.Add(new OperatingCenterStockedMaterial { OperatingCenter = operatingCenter, Material = material});
             operatingCenter.StockLocations.Add(stockLocation);
             Session.Merge(operatingCenter);
@@ -167,7 +167,7 @@ namespace Contractors.Tests.Controllers
                 OperatingCenter = operatingCenter
             });
             var material = GetFactory<MaterialFactory>().Create();
-            var stockLocation = GetFactory<StockLocationFactory>().Create();
+            var stockLocation = GetFactory<StockLocationFactory>().Create(new { IsActive = true });
             operatingCenter.StockedMaterials.Add(new OperatingCenterStockedMaterial { OperatingCenter = operatingCenter, Material = material});
             operatingCenter.StockLocations.Add(stockLocation);
             Session.Merge(operatingCenter);

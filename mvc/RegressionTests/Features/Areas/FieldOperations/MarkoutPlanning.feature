@@ -1,8 +1,9 @@
 ﻿Feature: MarkoutPlanningPage
 
 Background: 
-    Given an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury", sap enabled: "true", sap work orders enabled: "false", arc mobile map id: "15fdc279b4234fcb85f455ee70897a9e"
-    And a town "nj7burg" exists with name: "TOWN"
+    Given a state "nj" exists
+    And an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury", sap enabled: "true", sap work orders enabled: "false", arc mobile map id: "15fdc279b4234fcb85f455ee70897a9e", state: "nj"
+    And a town "nj7burg" exists with name: "TOWN", state: "nj"
     And operating center: "nj7" exists in town: "nj7burg"
     And a town section "one" exists with town: "nj7burg", name: "Tucson"
     And a town section "inactive" exists with town: "nj7burg", active: false
@@ -58,6 +59,7 @@ Background:
 Scenario: User can search for a work order and is able to see the edit button on the index page
     Given I am logged in as "user"
     When I visit the FieldOperations/MarkoutPlanning/Search page
+    And I select state "nj" from the State dropdown
     And I select operating center "nj7" from the OperatingCenter dropdown
     And I select asset type "valve" from the AssetType multiselect
     And I press Search

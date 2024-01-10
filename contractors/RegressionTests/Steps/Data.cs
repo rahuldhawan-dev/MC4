@@ -586,6 +586,7 @@ namespace RegressionTests.Steps
         {
             return container.GetInstance<StockLocationFactory>().Create(new {
                 Description = nvc["description"],
+                IsActive = nvc.GetValueAs<bool>("is active").GetValueOrDefault(true),
                 OperatingCenter = objectCache.Lookup<OperatingCenter>("operating center", nvc["operating center"])
             });
         }
@@ -772,7 +773,8 @@ namespace RegressionTests.Steps
                 TownSection = objectCache.GetOrNull("town section", nvc),
                 WorkDescription =
                     objectCache.GetOrNull(
-                        nvc.FindKeys("work description").SingleOrDefault(), nvc)
+                        nvc.FindKeys("work description").SingleOrDefault(), nvc),
+                Premise = objectCache.GetOrNull("premise", nvc)
             }.CloneWithoutNulls());
         }
 
@@ -903,7 +905,11 @@ namespace RegressionTests.Steps
                 PremiseNumber = nvc["premise number"],
                 ServiceNumber = nvc["service number"],
                 WorkDescription = typeof(ServiceLineRenewalCompanySideFactory),
-                MarkoutRequirement = CreateMarkoutRequirement(nvc, container)
+                MarkoutRequirement = CreateMarkoutRequirement(nvc, container),
+                Premise = objectCache.GetOrNull("premise", nvc),
+                Service = objectCache.GetOrNull("service", nvc),
+                HasPitcherFilterBeenProvidedToCustomer = nvc.GetValueAs<bool>("has pitcher filter been provided to customer"),
+                DatePitcherFilterDeliveredToCustomer = nvc.GetValueAs<DateTime>("date pitcher filter delivered to customer")
             });
         }
 
@@ -917,7 +923,8 @@ namespace RegressionTests.Steps
                 PremiseNumber = nvc["premise number"],
                 ServiceNumber = nvc["service number"],
                 WorkDescription = typeof(ServiceLineRetireWorkDescriptionFactory),
-                MarkoutRequirement = CreateMarkoutRequirement(nvc, container)
+                MarkoutRequirement = CreateMarkoutRequirement(nvc, container),
+                Premise = objectCache.GetOrNull("premise", nvc)
             });
         }
 

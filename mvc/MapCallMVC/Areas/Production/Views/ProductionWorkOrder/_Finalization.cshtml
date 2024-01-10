@@ -38,14 +38,12 @@
 			{
 				@Html.DisplayFor(x => x.ApprovedOn)
 				@Html.DisplayFor(x => x.ApprovedBy)
-				
 				// CauseCode is only ever set during approval when the OrderType is Corrective. 
-				if (Model.CauseCode != null)
+				if (Model.OrderType.Id == OrderType.Indices.CORRECTIVE_ACTION_20 && Model.CauseCode != null)
 				{
 					@Html.DisplayFor(x => x.CauseCode)
 				}
-
-                @Html.DisplayFor(x => x.WBSElement)
+			    @Html.DisplayFor(x => x.WBSElement)
                 //It was requested that this field be added to the screen even though it doesn't have anything backing it at the moment.
                 //There is ticket MC-5290 to populate it in the future.
                 @Html.DisplayFor(x => x.AccountType)
@@ -68,6 +66,7 @@
             @Html.DisplayFor(x => x.DateCancelled)
             @Html.Partial("_Cancel", ViewModelFactory.Build<CancelProductionWorkOrder, ProductionWorkOrder>(Model))
         }
+
     </div>
 </fieldset>
 @if(!Model.HasComplianceOrderType)

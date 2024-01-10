@@ -6,7 +6,7 @@
 @Html.Partial("~/Views/Shared/WorkOrders/_WorkOrdersTableLegend.cshtml")
 @Html.ScriptFor("~/Scripts/Areas/FieldOperations/WorkOrder/Planning/Index.js", ScriptLoadType.LoadFromPartial)
 
-@(Html.TableFor(_ => Model, new { id = "workOrdersTable" })
+@(Html.TableFor(_ => Model, new { id = "workOrdersTable", @class = "results-table" })
       .WithWorkOrderRowStyles()
       .WithCaption("Records found:" + Model.Count)
       .TemplateColumnFor("Update", x => Control.CheckBox("WorkOrderIds").WithValue(x.Id).With("IsEnabled", x.IsEnabled.ToString()).With("Id", null).With("priority", x.Priority))

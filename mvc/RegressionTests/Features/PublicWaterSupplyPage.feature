@@ -10,7 +10,10 @@ Background: data exists
 	And a role "role-read-user-no-edit" exists with action: "Read", module: "EnvironmentalWaterSystems", user: "user-no-edit"
 	And a role "role-edit-user-edit" exists with action: "Edit", module: "EnvironmentalWaterSystems", user: "user-edit"
 	And public water supply statuses exist
+	And licensed operator categories exist
 	And a public water supply ownership "aw contract" exists with description: "AW Contract"
+	And a public water supply ownership "aw owned" exists with description: "AW Owned/Operated"
+	And a public water supply ownership "other" exists with description: "Other Purveyor"
 	And a public water supply type "community water system" exists with description: "Community Water System"
     And a public water supply "one" exists with identifier: "NJ1345001", system: "Coastal North Monmouth/Lakewood", status: "active", ownership: "aw contract", type: "community water system"
 	And operating center: "nj7" exists in public water supply: "one" 
@@ -23,7 +26,7 @@ Background: data exists
 	And an environmental permit "one" exists with environmental permit type: "one", description: "Give a hoot- dont polute!", public water supply: "two", environmental permit status: "one", permit effective date: 10/2/2020, permit renewal date: 10/2/2020, permit expiration date: 10/2/2020 
 	And operating center: "nj7" exists in public water supply: "two" 
 	And operating center: "nj7" exists in public water supply: "three" 
-	And operating center: "nj7" exists in public water supply: "four" 
+	And operating center: "nj7" exists in public water supply: "four"
 	
 Scenario: admin user can search for a public water supply
 	Given I am logged in as "admin"
@@ -55,7 +58,7 @@ Scenario: admin user can view the environmental permits tab
 	Then I should see the following values in the EnvironmentalPermit table
 	| Permit Type   | Permit Number | Effective Date | Renewal Date | Expiration Date | Permit Status |
 	| Water Quality | P#1123        | 10/2/2020      | 10/2/2020    | 10/2/2020       | Active        |
-
+	
 Scenario: admin user can add a public water supply
 	Given I am logged in as "admin"
     When I visit the PublicWaterSupply/New page
@@ -75,11 +78,15 @@ Scenario: admin user can add a public water supply
 	When I select public water supply ownership "aw contract" from the Ownership dropdown
 	And I select public water supply type "community water system" from the Type dropdown
 	And I press Save
+	Then I should see a validation message for LicensedOperatorStatus with "Required when Ownership is AW Contractor or Owned."
+	When I select "Internal Employee" from the LicensedOperatorStatus dropdown
+	And I press Save
     Then the currently shown public water supply will now be referred to as "michonne"
     And I should see a display for Identifier with "foo62"
 	And I should see a display for Status with public water supply status "active"
 	And I should see a display for LocalCertifiedStateId with "ABCDE12345"
-
+	And I should see a display for LicensedOperatorStatus with "Internal Employee"
+	
 Scenario: admin user can edit a public water supply
 	Given I am logged in as "admin"
     When I visit the Edit page for public water supply: "one"
@@ -87,16 +94,22 @@ Scenario: admin user can edit a public water supply
 	And I select public water supply status "inactive" from the Status dropdown
 	And I select public water supply ownership "aw contract" from the Ownership dropdown
 	And I select public water supply type "community water system" from the Type dropdown
+	And I select "Contracted Licensed Operator" from the LicensedOperatorStatus dropdown
 	And I select "Yes" from the HasConsentOrder dropdown
 	And I enter "01/01/2022" into the ConsentOrderStartDate field
     And I press Save
 	Then I should see a validation message for ConsentOrderEndDate with "The ConsentOrderEndDate field is required."
+	And I should see a validation message for CurrentLicensedContractor with "Required when Licensed Operator Status is Contracted."
 	When I enter "01/02/2022" into the ConsentOrderEndDate field
+	And I enter "Bob the Builder" into the CurrentLicensedContractor field
 	And I press Save
 	Then I should not see a validation message for ConsentOrderEndDate with "The ConsentOrderEndDate field is required."
+	And I should not see a validation message for CurrentLicensedContractor with "Required when Licensed Operator Status is Contracted."
     And I should be at the Show page for public water supply: "one"
     And I should see a display for Identifier with "bar"
 	And I should see a display for Status with public water supply status "inactive"
+	And I should see a display for LicensedOperatorStatus with "Contracted Licensed Operator"
+	And I should see a display for CurrentLicensedContractor with "Bob the Builder"
 
 Scenario: admin user can add an operating center to a public water supply
 	Given I am logged in as "admin"
@@ -147,6 +160,7 @@ Scenario: admin user can add a public water supply with anticipated active date
 	And I enter "ABCDE12345" into the LocalCertifiedStateId field
 	And I select public water supply ownership "aw contract" from the Ownership dropdown
 	And I select public water supply type "community water system" from the Type dropdown
+	When I select "Internal Employee" from the LicensedOperatorStatus dropdown
 	Then I should not see the AnticipatedActiveDate field
 	When I select public water supply status "pending" from the Status dropdown
 	Then I should see the AnticipatedActiveDate field
@@ -172,6 +186,7 @@ Scenario: admin user can edit a public water supply with anticipated active date
 	And I select public water supply status "active" from the Status dropdown
 	And I select public water supply ownership "aw contract" from the Ownership dropdown
 	And I select public water supply type "community water system" from the Type dropdown
+	When I select "Internal Employee" from the LicensedOperatorStatus dropdown
 	And I enter "ABCDE12345" into the LocalCertifiedStateId field
 	And I select "No" from the HasConsentOrder dropdown
 	Then I should not see the AnticipatedActiveDate field
@@ -193,7 +208,7 @@ Scenario: admin user can edit a public water supply with anticipated active date
 	Then I should see the AnticipatedActiveDate field
 	When I select public water supply status "inactive" from the Status dropdown
 	Then I should see the AnticipatedActiveDate field
-
+	
 Scenario: admin user can edit a public water supply and Add PWSID for merger
 	Given I am logged in as "admin"
     When I visit the Edit page for public water supply: "one"
@@ -210,6 +225,7 @@ Scenario: admin user can edit a public water supply and Add PWSID for merger
 	And I should not see the AnticipatedMergePublicWaterSupply field
 	When I select public water supply status "pending merger" from the Status dropdown
 	And I select public water supply ownership "aw contract" from the Ownership dropdown
+	When I select "Internal Employee" from the LicensedOperatorStatus dropdown
 	And I select public water supply type "community water system" from the Type dropdown
 	Then I should see the ValidTo field
 	And I should see the ValidFrom field
@@ -271,4 +287,4 @@ Scenario: not-admin user can not add a planning plant to a public water supply
 	When I visit the Show page for public water supply: "one"
 	And I click the "Planning Plants" tab
 	Then I should not see "Add New Planning Plant"
-	And I should not see the button "Remove Planning Plant" 
+	And I should not see the button "Remove Planning Plant"

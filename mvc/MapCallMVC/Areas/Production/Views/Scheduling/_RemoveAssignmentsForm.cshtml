@@ -3,7 +3,7 @@
 
 @using (Form.BeginForm("RemoveEmployeeAssignments", "ProductionWorkOrder", "Production"))
 {
-    @(Html.TableFor(_ => Model, new { id = "schedulingTable" })
+    @(Html.TableFor(_ => Model, new { id = "schedulingTable", @class = "results-table" })
           .WithCaption("Records found: " + Model.Count)
           .SortableTemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))
           .SortableColumnFor(x => x.DateReceived, "Date Received", "DateReceived")

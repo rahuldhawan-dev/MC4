@@ -23,6 +23,7 @@ namespace MapCallMVC.Tests.Areas.Environmental.Models.ViewModels
             _vmTester.CanMapBothWays(x => x.Ownership, GetEntityFactory<WasteWaterSystemOwnership>().Create());
             _vmTester.CanMapBothWays(x => x.Type, GetEntityFactory<WasteWaterSystemType>().Create());
             _vmTester.CanMapBothWays(x => x.SubType, GetEntityFactory<WasteWaterSystemSubType>().Create());
+            _vmTester.CanMapBothWays(x => x.LicensedOperatorStatus, GetEntityFactory<LicensedOperatorCategory>().Create());
 
             _vmTester.CanMapBothWays(x => x.WasteWaterSystemName);
             _vmTester.CanMapBothWays(x => x.PermitNumber);
@@ -42,6 +43,7 @@ namespace MapCallMVC.Tests.Areas.Environmental.Models.ViewModels
             _vmTester.CanMapBothWays(x => x.DateSafetyAssessmentActionItemsCompleted);
             _vmTester.CanMapBothWays(x => x.NewSystemInitialWQEnvAssessmentCompleted);
             _vmTester.CanMapBothWays(x => x.DateWQEnvAssessmentActionItemsCompleted);
+            _vmTester.CanMapBothWays(x => x.CurrentLicensedContractor);
         }
 
         #endregion
@@ -54,6 +56,7 @@ namespace MapCallMVC.Tests.Areas.Environmental.Models.ViewModels
             ValidationAssert.PropertyHasMaxStringLength(x => x.WasteWaterSystemName, WasteWaterSystem.StringLengths.WASTE_WATER_SYSTEM_NAME);
             ValidationAssert.PropertyHasMaxStringLength(x => x.PermitNumber, WasteWaterSystem.StringLengths.PERMIT_NUMBER);
             ValidationAssert.PropertyHasMaxStringLength(x => x.TreatmentDescription, WasteWaterSystem.StringLengths.TREATMENT_DESCRIPTION);
+            ValidationAssert.PropertyHasMaxStringLength(x => x.CurrentLicensedContractor, WasteWaterSystem.StringLengths.CURRENT_LICENSED_CONTRACTOR);
         }
 
         [TestMethod]
@@ -82,6 +85,30 @@ namespace MapCallMVC.Tests.Areas.Environmental.Models.ViewModels
                 x => x.ConsentOrderStartDate, 
                 DateTime.Now, 
                 null);
+
+            ValidationAssert.PropertyIsRequiredWhen(
+                x => x.LicensedOperatorStatus,
+                LicensedOperatorCategory.Indices.INTERNAL_EMPLOYEE,
+                x => x.Ownership,
+                WasteWaterSystemOwnership.Indices.AW_CONTRACT,
+                WasteWaterSystemOwnership.Indices.MSG,
+                "Required when Ownership is AW Contractor or Owned.");
+
+            ValidationAssert.PropertyIsRequiredWhen(
+                x => x.LicensedOperatorStatus,
+                LicensedOperatorCategory.Indices.INTERNAL_EMPLOYEE,
+                x => x.Ownership,
+                WasteWaterSystemOwnership.Indices.AW_OWNED,
+                WasteWaterSystemOwnership.Indices.OTHER,
+                "Required when Ownership is AW Contractor or Owned.");
+
+            ValidationAssert.PropertyIsRequiredWhen(
+                x => x.CurrentLicensedContractor,
+                "Test Contractor Data",
+                x => x.LicensedOperatorStatus,
+                LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR,
+                LicensedOperatorCategory.Indices.NO_LICENSED_OPERATOR_REQUIRED,
+                "Required when Licensed Operator Status is Contracted.");
         }
 
         [TestMethod]

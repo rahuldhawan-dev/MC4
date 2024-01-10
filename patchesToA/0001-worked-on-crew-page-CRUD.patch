@@ -1,0 +1,680 @@
+From 7b7d84e2c6f027115a678242a10150f06fdff115 Mon Sep 17 00:00:00 2001
+From: rohit-LnG <141898655+rohit-LnG@users.noreply.github.com>
+Date: Tue, 9 Jan 2024 20:18:21 +0530
+Subject: [PATCH] worked on crew page CRUD
+
+---
+ mmsinc/MapCall.Common/Model/Entities/Crew.cs  |  16 ++-
+ .../Controllers/CrewControllerTest.cs         | 101 ++++++++++++++++--
+ .../Controllers/CrewController.cs             |  82 +++++++++++++-
+ .../Models/ViewModels/CreateCrew.cs           |  32 ++++++
+ .../ViewModels/MeterChangeOutContract.cs      |   2 +-
+ .../Models/ViewModels/SearchCrew.cs           |  27 +++++
+ .../FieldOperations/Views/Crew/Index.cshtml   |  17 +++
+ .../FieldOperations/Views/Crew/New.cshtml     |  24 +++++
+ .../FieldOperations/Views/Crew/Search.cshtml  |  15 +++
+ .../FieldOperations/Views/Crew/Show.cshtml    |  11 ++
+ .../Views/Crew/_showCrew.cshtml               |  13 +++
+ .../Views/Crew/_showCrewAssigned.cshtml       |  29 +++++
+ .../Views/Crew/_showWorkOrder.cshtml          |  15 +++
+ mvc/MapCallMVC/MapCallMVC.csproj              |  11 +-
+ .../Areas/FieldOperations/CrewPage.feature    |  45 ++++++++
+ mvc/RegressionTests/RegressionTests.csproj    |   1 +
+ .../RegressionTests/RegressionTests.csproj    |   6 +-
+ 17 files changed, 427 insertions(+), 20 deletions(-)
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/CreateCrew.cs
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/SearchCrew.cs
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Index.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/New.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Search.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Show.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrew.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrewAssigned.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml
+ create mode 100644 mvc/RegressionTests/Features/Areas/FieldOperations/CrewPage.feature
+
+diff --git a/mmsinc/MapCall.Common/Model/Entities/Crew.cs b/mmsinc/MapCall.Common/Model/Entities/Crew.cs
+index 4fb8e851..9c05efaf 100644
+--- a/mmsinc/MapCall.Common/Model/Entities/Crew.cs
++++ b/mmsinc/MapCall.Common/Model/Entities/Crew.cs
+@@ -16,7 +16,13 @@ namespace MapCall.Common.Model.Entities
+ 
+         public const string DESCRIPTION = "Name",
+                             AVAILABILITY = "Availability (hours)",
+-                            OPERATING_CENTER = "Operating Center";
++                            OPERATING_CENTER = "Operating Center",
++                            CREW_NAME = "Crew Name";
++
++        public struct StringLengths
++        {
++            public const int CREW_NAME = 15;
++        }
+ 
+         #endregion
+ 
+@@ -90,4 +96,12 @@ namespace MapCall.Common.Model.Entities
+ 
+         public override string Display => $"{OperatingCenterCode} {OperatingCenterName} - {Description}";
+     }
++
++    public interface ISearchCrew : ISearchSet<Crew>
++    {
++        int OperatingCenter { get; set; }
++        int? State { get; set; }
++        string Description { get; set; }
++        bool? Active { get; set; }
++    }
+ }
+diff --git a/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/CrewControllerTest.cs b/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/CrewControllerTest.cs
+index 79edfe4e..f6917b33 100644
+--- a/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/CrewControllerTest.cs
++++ b/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/CrewControllerTest.cs
+@@ -1,12 +1,16 @@
+-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+-using System.Collections.Generic;
+-using System.Linq;
+-using MapCall.Common.Model.Entities;
+-using MapCallMVC.Areas.FieldOperations.Controllers;
+-using MapCall.Common.Testing.Data;
+-using MMSINC;
++﻿using MapCall.Common.Model.Entities;
+ using MapCall.Common.Model.Entities.Users;
+ using MapCall.Common.Model.Repositories;
++using MapCall.Common.Testing.Data;
++using MapCallMVC.Areas.FieldOperations.Controllers;
++using MapCallMVC.Areas.FieldOperations.Models.ViewModels;
++using Microsoft.VisualStudio.TestTools.UnitTesting;
++using MMSINC;
++using MMSINC.Results;
++using MMSINC.Testing;
++using System.Collections.Generic;
++using System.Linq;
++using System.Web.Mvc;
+ 
+ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
+ {
+@@ -50,6 +54,89 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
+             Assert.AreEqual(crew1.Id, data.Single().Id);
+         }
+ 
++        #region Index/Search
++
++        [TestMethod]
++        public void TestIndexXLSExportsExcel()
++        {
++            _currentUser.IsAdmin = true;
++            var operatingCenter = GetEntityFactory<OperatingCenter>().Create();
++            var workOrderOne = GetEntityFactory<WorkOrder>().Create();
++            var workOrderTwo = GetEntityFactory<WorkOrder>().Create();
++            var crewAssignmentOne = GetEntityFactory<CrewAssignment>().Create(new { WorkOrder = workOrderOne });
++            var crewAssignmentTwo = GetEntityFactory<CrewAssignment>().Create(new { WorkOrder = workOrderTwo });
++            var crewAssignments = new List<CrewAssignment>{ crewAssignmentOne, crewAssignmentTwo };
++
++            var entity0 = GetEntityFactory<Crew>().Create(new {
++                CrewAssignments = crewAssignments, 
++                Active = true,
++                OperatingCenter = operatingCenter
++            });
++
++            var search = new SearchCrew { OperatingCenter = entity0.OperatingCenter.Id };
++            _target.ControllerContext = new ControllerContext();
++            _target.RouteData.Values[ResponseFormatter.ROUTE_EXTENSION_PARAMETER_NAME] =
++                ResponseFormatter.KnownExtensions.EXCEL_2003;
++
++            var result = _target.Index(search) as ExcelResult;
++            Assert.AreEqual(1, result?.Exporter.Sheets.Count);
++        }
++
++        [TestMethod]
++        public override void TestIndexReturnsResults()
++        {
++            _currentUser.IsAdmin = true;
++            var operatingCenter = GetEntityFactory<OperatingCenter>().Create();
++            var workOrderOne = GetEntityFactory<WorkOrder>().Create();
++            var workOrderTwo = GetEntityFactory<WorkOrder>().Create();
++            var crewAssignmentOne = GetEntityFactory<CrewAssignment>().Create(new { WorkOrder = workOrderOne });
++            var crewAssignmentTwo = GetEntityFactory<CrewAssignment>().Create(new { WorkOrder = workOrderTwo });
++            var crewAssignments = new List<CrewAssignment> { crewAssignmentOne, crewAssignmentTwo };
++
++            var entity0 = GetEntityFactory<Crew>().Create(new {
++                CrewAssignments = crewAssignments,
++                Active = true,
++                OperatingCenter = operatingCenter
++            });
++
++            var search = new SearchCrew { OperatingCenter = entity0.OperatingCenter.Id, Active = true, Description = entity0.Description };
++
++            var result = _target.Index(search) as ViewResult;
++            var resultModel = ((SearchCrew)result.Model).Results.ToList();
++
++            MvcAssert.IsViewNamed(result, "Index");
++            Assert.AreEqual(1, resultModel.Count);
++            Assert.AreSame(entity0, resultModel[0]);
++        }
++
++        #endregion
++
++        #region Create/New
++
++        [TestMethod]
++        public void TestCreateCreatesCrew()
++        {
++            var operatingCenter = GetFactory<OperatingCenterFactory>().Create();
++
++            var model = new CreateCrew(_container) {
++                Description = "Demo",
++                Availability = 2,
++                OperatingCenter = operatingCenter.Id,
++                Active = true
++            };
++
++            var result = _target.Create(model);
++            MvcAssert.RedirectsToRoute(result, "Crew", "Show", new { id = model.Id });
++
++            var entity = Repository.Find(model.Id);
++
++            Assert.AreEqual(entity.Description, model.Description);
++            Assert.AreEqual(entity.Active, model.Active);
++            Assert.AreEqual(entity.OperatingCenter.Id, model.OperatingCenter);
++        }
++
++        #endregion
++
+         #endregion
+     }
+ }
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Controllers/CrewController.cs b/mvc/MapCallMVC/Areas/FieldOperations/Controllers/CrewController.cs
+index 74a42db8..fb7ea1a5 100644
+--- a/mvc/MapCallMVC/Areas/FieldOperations/Controllers/CrewController.cs
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Controllers/CrewController.cs
+@@ -1,16 +1,88 @@
+-﻿using System.Linq;
+-using System.Web.Mvc;
++﻿using MapCall.Common.Metadata;
+ using MapCall.Common.Model.Entities;
+ using MapCall.Common.Model.Entities.Users;
+ using MapCall.Common.Model.Repositories;
++using MapCallMVC.Areas.FieldOperations.Models.ViewModels;
+ using MMSINC;
++using MMSINC.ClassExtensions;
+ using MMSINC.Controllers;
++using MMSINC.Metadata;
++using MMSINC.Utilities;
++using System.Linq;
++using System.Web.Mvc;
+ 
+ namespace MapCallMVC.Areas.FieldOperations.Controllers
+ {
+-    public class CrewController : ControllerBaseWithPersistence<CrewRepository, Crew, User>
++    public class CrewController : ControllerBaseWithPersistence<ICrewRepository, Crew, User>
+     {
+-        public CrewController(ControllerBaseWithPersistenceArguments<CrewRepository, Crew, User> args) : base(args) { }
++        #region Constants
++
++        public const RoleModules ROLE = RoleModules.FieldServicesAssets;
++
++        #endregion
++
++        #region Search/Index/Show
++
++        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
++        public ActionResult Search(SearchCrew search)
++        {
++            return ActionHelper.DoSearch(search);
++        }
++
++        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
++        public ActionResult Index(SearchCrew search)
++        {
++            return this.RespondTo((formatter) => {
++                formatter.View(() => {
++                    return ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs {
++                        SearchOverrideCallback = () => Repository.Search(search)
++                    });
++                });
++                formatter.Excel(() => {
++                    search.EnablePaging = false;
++                    var results = Repository.Search(search);
++                    return this.Excel(results.Select(x => new {
++                        CrewName = x.Description,
++                        Availability_Hours = x.Availability,
++                        x.OperatingCenter,
++                        x.Active
++                    }));
++                });
++            });
++        }
++
++        [HttpGet, NoCache, RequiresRole(ROLE, RoleActions.Read)]
++        public ActionResult Show(int id)
++        {
++            return ActionHelper.DoShow(id);
++        }
++
++        #endregion
++
++        #region New/Create
++        
++        [HttpGet, RequiresRole(ROLE, RoleActions.UserAdministrator)]
++        public ActionResult New(CreateCrew model)
++        {
++            ModelState.Clear();
++            return ActionHelper.DoNew(model);
++        }
++
++        [HttpPost, RequiresRole(ROLE, RoleActions.UserAdministrator)]
++        public ActionResult Create(CreateCrew model)
++        {
++            return ActionHelper.DoCreate(model, new ActionHelperDoCreateArgs {
++                OnSuccess = () => RedirectToAction("Show", new { id = model.Id })
++            });
++        }
++
++        #endregion
++
++        #region Constructors
++
++        public CrewController(ControllerBaseWithPersistenceArguments<ICrewRepository, Crew, User> args) : base(args) { }
++
++        #endregion
+ 
+         [HttpGet]
+         public ActionResult ByOperatingCenterOrAll(int? opc)
+@@ -39,4 +111,4 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
+ 
+         #endregion
+     }
+-}
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/CreateCrew.cs b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/CreateCrew.cs
+new file mode 100644
+index 00000000..830e5c5e
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/CreateCrew.cs
+@@ -0,0 +1,32 @@
++﻿using MapCall.Common.Model.Entities;
++using MMSINC.Data;
++using MMSINC.Metadata;
++using MMSINC.Validation;
++using System.ComponentModel;
++using System.ComponentModel.DataAnnotations;
++using IContainer = StructureMap.IContainer;
++
++namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
++{
++    public class CreateCrew : ViewModel<Crew>
++    {
++        [DropDown, EntityMap, EntityMustExist(typeof(OperatingCenter))]
++        [Required]
++        public int OperatingCenter { get; set; }
++
++        [StringLength(Crew.StringLengths.CREW_NAME)]
++        [Required, DisplayName(Crew.CREW_NAME)]
++        public string Description { get; set; }
++
++        [Required, DisplayName(Crew.AVAILABILITY)]
++        public decimal? Availability { get; set; }
++
++        [CheckBox]
++        public bool? Active { get; set; }
++
++        #region Constructors
++        public CreateCrew(IContainer container) : base(container) { }
++
++        #endregion
++    }
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/MeterChangeOutContract.cs b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/MeterChangeOutContract.cs
+index 9c3d9be0..65eba0ac 100644
+--- a/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/MeterChangeOutContract.cs
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/MeterChangeOutContract.cs
+@@ -82,7 +82,7 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
+         public override void SetDefaults()
+         {
+             base.SetDefaults();
+-            // IsActive is a required field, making life easier for users by setting a default value here.
++            // Status is a required field, making life easier for users by setting a default value here.
+             IsActive = true;
+         }
+ 
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/SearchCrew.cs b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/SearchCrew.cs
+new file mode 100644
+index 00000000..241312f6
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Models/ViewModels/SearchCrew.cs
+@@ -0,0 +1,27 @@
++﻿using MapCall.Common.Model.Entities;
++using MMSINC.Data;
++using MMSINC.Metadata;
++using MMSINC.Validation;
++
++namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
++{
++    public class SearchCrew : SearchSet<Crew>, ISearchCrew
++    {
++        [DropDown]
++        [EntityMap]
++        [EntityMustExist(typeof(State))]
++        [SearchAlias("OperatingCenter", "State.Id")]
++        public int? State { get; set; }
++
++        [DropDown("", nameof(OperatingCenter), "ByStateId", DependsOn = "State")]
++        [EntityMap]
++        [EntityMustExist(typeof(OperatingCenter))]
++        public int OperatingCenter { get; set; }
++
++        [View("Name")]
++        public string Description { get; set; }
++
++        [CheckBox]
++        public bool? Active { get; set; }
++    }
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Index.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Index.cshtml
+new file mode 100644
+index 00000000..4f418900
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Index.cshtml
+@@ -0,0 +1,17 @@
++﻿@using FluentNHibernate.Conventions
++@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCrew
++
++@{
++    ActionBarHelper.AddExportLink();
++    ActionBarHelper.AddNewLink();
++}
++
++@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
++          .TemplateColumnFor("Select", x => Html.ActionLink("Select", "Show", new { x.Id }))
++          .SortableColumnFor(x => x.Description, "Crew Name", "Description")
++          .SortableColumnFor(x => x.Availability, "Availability (hours)", "Availability")
++          .SortableColumnFor(x => x.OperatingCenter.Description, "Operating Center", "OperatingCenter")
++          .SortableColumnFor(x => x.Active)
++          .WithCaption("Records found:" + Model.Count)
++          .WithPaginatedFooter()
++        )
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/New.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/New.cshtml
+new file mode 100644
+index 00000000..84da5536
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/New.cshtml
+@@ -0,0 +1,24 @@
++﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateCrew
++
++@*@section scripts {
++        @Html.ScriptFor("~/Scripts/Hydrant/Form.js")
++    }*@
++
++@using (Form.BeginForm("Create", "Crew", "FieldOperations"))
++{
++    <fieldset>
++        <legend>Details</legend>
++        <div class="field-column fc200">
++            @Html.EditorFor(x => x.Name)
++            @Html.EditorFor(x => x.Status)
++            @Html.EditorFor(x => x.Availability)
++            @Html.EditorFor(x => x.AssignedWork)
++            @Html.EditorFor(x => x.OperatingCenter)
++        </div>
++    </fieldset>
++
++    @Html.ButtonGroup(@<text>
++        @Control.SubmitButton("Save")
++        @Html.LinkButton("Cancel", "Search", "Crew")
++                       </text>)
++}
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Search.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Search.cshtml
+new file mode 100644
+index 00000000..0bf083a9
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Search.cshtml
+@@ -0,0 +1,15 @@
++﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCrew
++
++@using (Form.BeginForm("Index", "Crew", new { area = "FieldOperations" }))
++{
++    <div class="field-column fc200 searchFields">
++        @Html.EditorFor(x => x.State)
++        @Html.EditorFor(x => x.OperatingCenter)
++        @Html.EditorFor(x => x.Description)
++        @Html.EditorFor(x => x.Active)
++        @Html.ButtonGroup(@<text>
++                              @Control.SubmitButton("Search").WithId("Search")
++                              @Control.ResetButton()
++                           </text>)
++    </div>
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Show.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Show.cshtml
+new file mode 100644
+index 00000000..b01fb25e
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/Show.cshtml
+@@ -0,0 +1,11 @@
++﻿@model Crew
++
++@{
++    
++    ActionBarHelper.AddEditLink();
++}
++
++@(Html.Tabs()
++      .WithTab("Crew", "_showCrew", Model)
++      .WithTab("Assigned Work", "_showCrewAssigned", Model)
++    )
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrew.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrew.cshtml
+new file mode 100644
+index 00000000..a0f3d5be
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrew.cshtml
+@@ -0,0 +1,13 @@
++﻿
++@model Crew
++
++<fieldset>
++    <legend>Crew Details</legend>
++    <div class="field-column fc200">
++        @Html.DisplayFor(x => x.Id)
++        @Html.DisplayFor(x => x.Description)
++        @Html.DisplayFor(x => x.Availability)
++        @Html.DisplayFor(x => x.Active)
++        @Html.DisplayFor(x => x.OperatingCenter.Description)
++    </div>
++</fieldset>
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrewAssigned.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrewAssigned.cshtml
+new file mode 100644
+index 00000000..5e6afd06
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showCrewAssigned.cshtml
+@@ -0,0 +1,29 @@
++﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
++@using MMSINC.ClassExtensions
++@model Crew
++
++@{
++    WorkOrder wo = null;
++}
++
++<table id="assignedWorkOrderTable">
++    <thead>
++    <tr>
++        <th>@Html.DisplayLabelFor(_ => wo.Id)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.DateReceived)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.StreetNumber)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.Street)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.NearestCrossStreet)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.Town)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.TownSection)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.WorkDescription.Description)</th>
++        <th>@Html.DisplayLabelFor(_ => wo.MarkoutRequired)</th>
++    </tr>
++    </thead>
++    <tbody>
++        @foreach (var crewAssignment in Model.CrewAssignments)
++        {
++            @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml", crewAssignment.WorkOrder)
++        }
++    </tbody>
++</table>
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml
+new file mode 100644
+index 00000000..68b6195f
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml
+@@ -0,0 +1,15 @@
++﻿@using MMSINC.Authentication
++@using MMSINC.Metadata
++@model MapCall.Common.Model.Entities.WorkOrder
++
++<tr>
++    <td>@Html.DisplayTextFor(x => x.Id)</td>
++    <td>@Html.DisplayTextFor(x => x.DateReceived)</td>
++    <td>@Html.DisplayTextFor(x => x.StreetNumber)</td>
++    <td>@Html.DisplayTextFor(x => x.Street)</td>
++    <td>@Html.DisplayTextFor(x => x.NearestCrossStreet)</td>
++    <td>@Html.DisplayTextFor(x => x.Town)</td>
++    <td>@Html.DisplayTextFor(x => x.TownSection)</td>
++    <td>@Html.DisplayTextFor(x => x.WorkDescription.Description)</td>
++    <td>@Html.DisplayTextFor(x => x.WorkDescription.MarkoutRequired)</td>
++</tr>
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/MapCallMVC.csproj b/mvc/MapCallMVC/MapCallMVC.csproj
+index 242d773a..07874db5 100644
+--- a/mvc/MapCallMVC/MapCallMVC.csproj
++++ b/mvc/MapCallMVC/MapCallMVC.csproj
+@@ -355,8 +355,8 @@
+     <Compile Include="Areas\FieldOperations\Controllers\BondController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\ContractorMeterCrewController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\CrewAssignmentController.cs" />
+-    <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\CrewController.cs" />
++    <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\EchoshoreLeakAlertController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\OperatingCenterSpoilRemovalCostController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\SpoilRemovalController.cs" />
+@@ -386,6 +386,7 @@
+     <Compile Include="Areas\FieldOperations\Controllers\WorkOrderStreetOpeningPermitProcessingController.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\CancelWorkOrder.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewAssignments\EditCrewAssignment.cs" />
++    <Compile Include="Areas\FieldOperations\Models\ViewModels\CreateCrew.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralAdditional.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralWorkOrderModel.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditMarkoutPlanning.cs" />
+@@ -399,6 +400,7 @@
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditNpdesRegulatorInspection.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditSpoilFinalProcessingLocation.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\OperatingCenterSpoilRemovalCost.cs" />
++    <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchCrew.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchSpoilRemoval.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchSpoilFinalProcessingLocation.cs" />
+     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditSpoilRemoval.cs" />
+@@ -1802,6 +1804,13 @@
+     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
+     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
+     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\Search.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\Index.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\New.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\Show.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\_showCrewAssigned.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\_showCrew.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrder.cshtml" />
+     <None Include="Web.Debug.config">
+       <DependentUpon>Web.config</DependentUpon>
+     </None>
+diff --git a/mvc/RegressionTests/Features/Areas/FieldOperations/CrewPage.feature b/mvc/RegressionTests/Features/Areas/FieldOperations/CrewPage.feature
+new file mode 100644
+index 00000000..abd08436
+--- /dev/null
++++ b/mvc/RegressionTests/Features/Areas/FieldOperations/CrewPage.feature
+@@ -0,0 +1,45 @@
++﻿Feature: CrewPage
++
++Background: admin user exists
++	Given an admin user "admin" exists with username: "admin"
++    And a user "user" exists with username: "user"
++	And a state "NJ" exists with abbreviation: "NJ"
++	And a town "Swedesboro" exists with state: "NJ"	
++	And an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury", state: "NJ", mapId: "01d4ebf78acc489695b930d5bc2850f3"	
++	And a role "workorder-read" exists with action: "Read", module: "FieldServicesWorkManagement", user: "user", operating center: "nj7"
++	And a role "workorder-add" exists with action: "Add", module: "FieldServicesWorkManagement", user: "user", operating center: "nj7"
++	And a role "workorder-edit" exists with action: "Edit", module: "FieldServicesWorkManagement", user: "user", operating center: "nj7"
++	And a role "workorder-useradmin" exists with action: "UserAdministrator", module: "FieldServicesWorkManagement", user: "user", operating center: "nj7"
++	And a role "asset-read" exists with action: "Read", module: "FieldServicesAssets", user: "user", operating center: "nj7"
++	And a work description "hydrant installation" exists with description: "hydrant installation"
++	And a work order "one" exists with operating center: "nj7", work description: "hydrant installation"
++	And a crew "one" exists with description: "one", availability: "8", operating center: "nj7", active: true	
++	And a crew "two" exists with description: "one", availability: "8", operating center: "nj7", active: false	
++    And a crew assignment "ca" exists with work order: "one", crew: "one", assigned for: "1/1/2000 03:00:00 AM", assigned on: "1/1/2000"
++    And a crew assignment "ca1" exists with work order: "one", crew: "two", assigned for: "1/1/2000 03:00:00 AM", assigned on: "1/1/2000"
++	
++
++Scenario: user can search the crew with active status
++	Given I am logged in as "user"
++	And I am at the FieldOperations/Crew/Search page
++	When I select state "NJ" from the State dropdown	
++	And I select operating center "nj7" from the OperatingCenter dropdown		 
++	And I enter "one" into the Description field	
++	And I check the Active field
++	And I press Search	
++	Then I should see the following values in the results table
++	| Crew Name | Availability (hours) | Operating Center | Active |
++	| one       | 8.00                 | NJ7 - Shrewsbury | yes    |
++
++@headful
++Scenario: user can search the crew with both status
++	Given I am logged in as "user"
++	And I am at the FieldOperations/Crew/Search page
++	When I select state "NJ" from the State dropdown	
++	And I select operating center "nj7" from the OperatingCenter dropdown		 
++	And I enter "one" into the Description field
++	And I press Search	
++	Then I should see the following values in the results table
++	| Crew Name | Availability (hours) | Operating Center | Active |
++	| one       | 8.00                 | NJ7 - Shrewsbury | yes    |
++	| one       | 8.00                 | NJ7 - Shrewsbury | No     |
+\ No newline at end of file
+diff --git a/mvc/RegressionTests/RegressionTests.csproj b/mvc/RegressionTests/RegressionTests.csproj
+index db4a4f7e..0babdccf 100644
+--- a/mvc/RegressionTests/RegressionTests.csproj
++++ b/mvc/RegressionTests/RegressionTests.csproj
+@@ -176,6 +176,7 @@
+     <None Include="Features\Areas\Facilities\FacilitySubAreaPage.feature" />
+     <None Include="Features\Areas\Facilities\PlanReviewPage.feature" />
+     <None Include="Features\Areas\FieldOperations\CrewAssignmentsPage.feature" />
++    <None Include="Features\Areas\FieldOperations\CrewPage.feature" />
+     <None Include="Features\Areas\FieldOperations\EchoshoreLeakAlert.feature" />
+     <None Include="Features\Areas\FieldOperations\MarkoutPlanning.feature" />
+     <None Include="Features\Areas\FieldOperations\NpdesRegulatorInspections.feature" />
+diff --git a/workorders/RegressionTests/RegressionTests.csproj b/workorders/RegressionTests/RegressionTests.csproj
+index de2e6729..d9236b86 100644
+--- a/workorders/RegressionTests/RegressionTests.csproj
++++ b/workorders/RegressionTests/RegressionTests.csproj
+@@ -138,10 +138,6 @@
+     <None Include="app.config.debug">
+       <SubType>Designer</SubType>
+     </None>
+-    <Content Include="App.config">
+-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+-      <SubType>Designer</SubType>
+-    </Content>
+     <None Include="app.config.deploy fatman" />
+     <None Include="packages.config" />
+   </ItemGroup>
+@@ -166,4 +162,4 @@
+   <Target Name="AfterBuild">
+   </Target>
+   -->
+-</Project>
++</Project>
+\ No newline at end of file
+-- 
+2.42.0.windows.2
+

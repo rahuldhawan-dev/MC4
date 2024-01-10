@@ -50,7 +50,10 @@ namespace MapCall.Common.Model.Entities
 
         // MC-1131 says only capital/corrective orders deal with supervisor approval. Other orders do not.
         private static IEnumerable<int> SUPERVISOR_APPROVABLE_ORDERTYPES = new[]
-            {OrderType.Indices.CORRECTIVE_ACTION_20, OrderType.Indices.RP_CAPITAL_40};
+            {OrderType.Indices.CORRECTIVE_ACTION_20, OrderType.Indices.RP_CAPITAL_40, Entities.OrderType.Indices.OPERATIONAL_ACTIVITY_10};
+
+        //MC-6325 Operational order will only require supervisor approval from 01/01/2024
+        public static DateTime CUTOFF_DATE_FOR_SUPERVISOR_APPROVAL_FOR_OPERATIONAL_WORK_ORDERS = new DateTime(2024, 1, 1);
 
         #endregion
 
@@ -326,8 +329,12 @@ namespace MapCall.Common.Model.Entities
         /// </summary>
         public virtual bool SendToSAP => OperatingCenter.CanSyncWithSAP;
 
-        public virtual bool CanBeSupervisorApproved => (HasSupervisorApprovableOrderType && !ApprovedOn.HasValue &&
-                                                        !DateCancelled.HasValue && DateCompleted.HasValue);
+        //For Operation WOs , Supervisory approval will start from jan 1st 2024
+        public virtual bool CanBeSupervisorApproved => HasSupervisorApprovableOrderType 
+                                                       && !ApprovedOn.HasValue 
+                                                       && !DateCancelled.HasValue 
+                                                       && DateCompleted.HasValue 
+                                                       && (ProductionWorkDescription.OrderType.Id == OrderType.Indices.OPERATIONAL_ACTIVITY_10 ? (DateCompleted > CUTOFF_DATE_FOR_SUPERVISOR_APPROVAL_FOR_OPERATIONAL_WORK_ORDERS) : true);
 
         public virtual bool CanBeMaterialApproved
         {

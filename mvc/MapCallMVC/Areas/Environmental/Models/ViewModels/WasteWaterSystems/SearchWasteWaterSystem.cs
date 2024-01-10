@@ -42,6 +42,11 @@ namespace MapCallMVC.Areas.Environmental.Models.ViewModels.WasteWaterSystems
 
         [DropDown]
         [EntityMap]
+        [EntityMustExist(typeof(LicensedOperatorCategory))]
+        public int? LicensedOperatorStatus { get; set; }
+
+        [DropDown]
+        [EntityMap]
         [EntityMustExist(typeof(WasteWaterSystemType))]
         public int? Type { get; set; }
 

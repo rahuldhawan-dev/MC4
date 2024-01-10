@@ -1,0 +1,20 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder.EditServiceLineInfo
+
+@using (var form = Form.BeginForm("UpdateServiceLineInfo", "GeneralWorkOrder", "FieldOperations", new { Model.Id }))
+{
+	form.HtmlAttributes["id"] = "ServiceLineInfoForm";
+	@Control.HiddenFor(m => m.WorkDescription).WithValue(Model.WorkDescription)
+	<fieldset id="serviceLineInfo">
+		<legend>Service Line Info</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.PreviousServiceLineMaterial)
+            @Html.EditorFor(x => x.PreviousServiceLineSize)
+            @Html.EditorFor(x => x.CompanyServiceLineMaterial)
+            @Html.EditorFor(x => x.CompanyServiceLineSize)
+            @Html.EditorFor(x => x.CustomerServiceLineMaterial)
+            @Html.EditorFor(x => x.CustomerServiceLineSize)
+            @Html.EditorFor(x => x.DoorNoticeLeftDate)
+            @Html.ButtonGroup(@<text>@Control.SubmitButton("Update Service Line Info").WithId("btnUpdateServiceLineInfo")</text>)
+        </div>
+	</fieldset>
+}

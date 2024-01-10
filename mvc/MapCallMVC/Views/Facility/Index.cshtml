@@ -10,7 +10,7 @@
         <td class="color-block asset-not-inspectable">Inactive Facility</td>
     </tr>
 </table>
-@(Html.TableFor(x => Model, new { id = "facility-table" })
+@(Html.TableFor(x => Model, new { id = "facility-table", @class = "results-table" })
     .WithCaption("Records found: " + Model.Count)
     .WithRowBuilder((x, help) =>
     {

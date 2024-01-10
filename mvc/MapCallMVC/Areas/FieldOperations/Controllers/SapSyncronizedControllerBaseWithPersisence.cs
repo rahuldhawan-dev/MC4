@@ -61,10 +61,7 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         /// <param name="stage">What stage are we at? SAPEntity.WorkOrdersStage</param>
         protected void UpdateSAP(int id, RoleModules module)
         {
-            var entity = Repository.Find(id);
-            if (entity == null)
-                throw new InvalidOperationException("The entity was reported as saved but could not be retrieved. SAP was not updated and the entity could not be marked as such.");
-            
+            var entity = Repository.Find(id) ?? throw new InvalidOperationException("The entity was reported as saved but could not be retrieved. SAP was not updated and the entity could not be marked as such.");
             try
             {
                 UpdateEntityForSap(entity);
@@ -94,7 +91,7 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
                     Data = new
                     {
                         RecordUrl = GetUrlForModel(entity, "Show", typeof(TEntity).Name, RouteData?.Values["Area"]?.ToString()),
-                        SAPErrorCode = entity.SAPErrorCode
+                        entity.SAPErrorCode
                     }
                 });
             }
@@ -121,14 +118,13 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
 
         private string GetSapPurpose(RoleModules module)
         {
-            string output;
             var map = new Dictionary<RoleModules, string>() {
                 {RoleModules.ProductionFacilities, FACILITIES_SAP_ERROR_CODE},
                 {RoleModules.FieldServicesWorkManagement, SAP_ERROR_CODE},
                 {RoleModules.FieldServicesAssets, ASSETS_SAP_ERROR_CODE}
             };
-            
-            return map.TryGetValue(module, out output) ? output : SAP_ERROR_CODE;
+
+            return map.TryGetValue(module, out string output) ? output : SAP_ERROR_CODE;
         }
 
         #endregion

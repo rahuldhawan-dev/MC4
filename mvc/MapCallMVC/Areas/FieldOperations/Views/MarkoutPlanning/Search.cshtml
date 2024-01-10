@@ -5,7 +5,8 @@
     <div class="field-column fc200 searchFields">
         @Html.EditorFor(x => x.Id)
         @Html.RenderDisplayTemplate(string.Empty, @<text>-OR-</text>)
-        @Html.EditorFor(x => x.OperatingCenter, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.State, new { html = new { autofocus = "autofocus" } })
+        @Html.EditorFor(x => x.OperatingCenter)
         @Html.EditorFor(x => x.Town)
         @Html.EditorFor(x => x.TownSection)
         @Html.EditorFor(x => x.Street)
@@ -25,8 +26,8 @@
         @Html.EditorFor(x => x.StreetOpeningPermitIssued)
         @Html.EditorFor(x => x.Purpose)
         @Html.ButtonGroup(@<text>
-                @Control.SubmitButton("Search").WithId("Search")
-                @Control.ResetButton()
+            @Control.SubmitButton("Search").WithId("Search")
+            @Control.ResetButton()
         </text>)
     </div>
 }

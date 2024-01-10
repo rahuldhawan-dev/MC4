@@ -19,7 +19,7 @@ namespace MapCall.CommonTest.Model.Entities
         public void TestStatusWorksAsExpected()
         {
             var orderTypeDoesNotRequireSupervisorApproval =
-                new OrderType {Id = OrderType.Indices.OPERATIONAL_ACTIVITY_10};
+                new OrderType {Id = OrderType.Indices.PLANT_MAINTENANCE_WORK_ORDER_11};
             var orderTypeThatRequiresSupervisorApproval = new OrderType {Id = OrderType.Indices.CORRECTIVE_ACTION_20};
             var model = new ProductionWorkOrder {
                 ProductionWorkDescription = new ProductionWorkDescription {
@@ -103,13 +103,18 @@ namespace MapCall.CommonTest.Model.Entities
         }
 
         [TestMethod]
-        public void TestCanBeSupervisorApprovedOnlyReturnsTrueForCorrectiveAndCapitalOrders()
+        public void TestCanBeSupervisorApprovedOnlyReturnsTrueForCorrectiveOperationalAndCapitalOrders()
         {
             var pwo = InitializePWOForSupervisorApproval();
             pwo.DateCompleted = DateTime.Now;
+            //Overrider the Cutoff Date for Operational PWO cutoff date
+            ProductionWorkOrder.CUTOFF_DATE_FOR_SUPERVISOR_APPROVAL_FOR_OPERATIONAL_WORK_ORDERS = new DateTime(2023, 11, 1);
 
             pwo.ProductionWorkDescription.OrderType.Id = OrderType.Indices.OPERATIONAL_ACTIVITY_10;
-            Assert.IsFalse(pwo.CanBeSupervisorApproved);
+            Assert.IsTrue(pwo.CanBeSupervisorApproved);
+
+            //Set back the Cutoff Date for Operational PWO cutoff date since it is a static field to avoid unintended effects
+            ProductionWorkOrder.CUTOFF_DATE_FOR_SUPERVISOR_APPROVAL_FOR_OPERATIONAL_WORK_ORDERS = new DateTime(2024, 1, 1);
 
             pwo.ProductionWorkDescription.OrderType.Id = OrderType.Indices.CORRECTIVE_ACTION_20;
             Assert.IsTrue(pwo.CanBeSupervisorApproved);

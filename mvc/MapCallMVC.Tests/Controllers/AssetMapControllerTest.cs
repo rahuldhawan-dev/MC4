@@ -151,6 +151,31 @@ namespace MapCallMVC.Tests.Controllers
             // Noop: This is all handled by index
         }
 
+        [TestMethod]
+        public void TestIndexUsesThreatAlertsForDefaultLayers()
+        {
+            _indexModel.DefaultLayers = null;
+
+            _target.Index(_indexModel);
+
+            Assert.AreEqual(MapController.THREAT_ALERTS, _indexModel.MapConfiguration.defaultLayers[0]);
+            Assert.AreEqual(1, _indexModel.MapConfiguration.defaultLayers.Length);
+        }
+
+        [TestMethod]
+        public void TestIndexUsesDefinedLayersAndIncludesThreatAlertsForDefaultLayers()
+        {
+            var defaultLayers = new[] { "Water Network", "Sewer Network" };
+            _indexModel.DefaultLayers = defaultLayers;
+
+            _target.Index(_indexModel);
+
+            Assert.AreEqual(defaultLayers[0], _indexModel.MapConfiguration.defaultLayers[0]);
+            Assert.AreEqual(defaultLayers[1], _indexModel.MapConfiguration.defaultLayers[1]);
+            Assert.AreEqual(MapController.THREAT_ALERTS, _indexModel.MapConfiguration.defaultLayers[2]);
+            Assert.AreEqual(3, _indexModel.MapConfiguration.defaultLayers.Length);
+        }
+
         #endregion
     }
 }

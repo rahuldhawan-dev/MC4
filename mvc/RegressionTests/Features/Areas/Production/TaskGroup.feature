@@ -7,8 +7,9 @@ Background: IfIWasCreativeIWouldNameThisTaskMaster
 	Given an admin user "admin" exists with username: "admin"
 	And a role "proddataadminread" exists with action: "Read", module: "ProductionDataAdministration"
 	And a role "proddataadminadd" exists with action: "Add", module: "ProductionDataAdministration"
-	And a role "proddataadminedit" exists with action: "Edit", module: "ProductionDataAdministration"
-	And a user "user" exists with username: "user", roles: proddataadminread;proddataadminadd;proddataadminedit
+	And a role "proddataadminedit" exists with action: "Edit", module: "ProductionDataAdministration"        
+	And a role "productionequipment" exists with action: "Edit", module: "ProductionEquipment"
+	And a user "user" exists with username: "user", roles: proddataadminread;proddataadminadd;proddataadminedit;productionequipment;
 	And equipment types exist
     And a task group category "one" exists with description: "This is the description", type: "Chemical", abbreviation: "CHEM", is active: "true"
     And a task group category "two" exists with description: "This is the description two", type: "Electrical", abbreviation: "ELEC", is active: "true"

@@ -19,7 +19,9 @@ Background:
     And work order priorities exist
     And work descriptions exist
     And markout requirements exist
+    And markout types exist
     And an asset type "sewer opening" exists with description: "sewer opening"
+    And an asset type "service" exists with description: "service"
     And operating center: "nj7" has asset type "sewer opening"
     And an admin user "admin" exists with username: "admin"
     And a user "user" exists with username: "user"
@@ -52,6 +54,22 @@ Scenario: user can search for orders and add markouts
     Then I should see the following values in the markoutsTable table
       | Markout Type | Date Of Request | Note       |
       | C TO C       | today           |            |
+
+Scenario: user can see markout notes for order when required markout type not listed
+	Given a planning work order "markout with notes" exists with operating center: "nj7", sap notification number: "222222", sap work order number: "111111", date received: "12/01/2019", town: "nj7burg", work description: "hydrant flushing", work order priority: "emergency", work order purpose: "customer", markout requirement: "routine", town section: "one", s o p required: false, markout type needed: "none", required markout note: "this is the required markout note"
+	And I am logged in as "user"
+	And I am at the Show page for planning work order: "markout with notes"
+	When I click the "Markouts" tab
+	Then I should see the notification message "Type Needed: NOT LISTED"
+	And I should see the notification message "Notes: this is the required markout note"
+
+Scenario: user can see markout type and does not see notes for order when required markout type c to c
+	Given a planning work order "markout with notes" exists with operating center: "nj7", sap notification number: "222222", sap work order number: "111111", date received: "12/01/2019", town: "nj7burg", work description: "hydrant flushing", work order priority: "emergency", work order purpose: "customer", markout requirement: "routine", town section: "one", s o p required: false, markout type needed: "c to c", required markout note: "this is the required markout note"
+	And I am logged in as "user"
+	And I am at the Show page for planning work order: "markout with notes"
+	When I click the "Markouts" tab
+	Then I should see the notification message "Type Needed: C TO C"
+	And I should not see the notification message "Notes: this is the required markout note"
 
 Scenario: user can search for orders and add street opening permits
     Given I am logged in as "user"
@@ -248,10 +266,9 @@ Scenario: User can view special instruction on work order planning show page
 	Then I should only see planning work order "requires sop"'s SpecialInstructions in the WorkOrderSpecialInstructions element
 
 Scenario: user can view and not edit service details
-    Given a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
-	And a service category "one" exists with description: "Neato"
+    Given a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab
@@ -261,10 +278,9 @@ Scenario: user can view and not edit service details
 
 Scenario: UserAdmin can view and edit service details
     Given a role "asset-useradmin" exists with action: "UserAdministrator", module: "FieldServicesAssets", user: "user", operating center: "nj7"
-    And a sewer opening "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", opening number: "MAD-42"
     And a service category "one" exists with description: "Neato"
     And a service "unique" exists with service number: "123456", date installed: "4/24/1984", service category: "one"
-    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "sewer opening", sewer opening: "opening", service: "unique"
+    And a work order "opening" exists with operating center: "nj7", town: "nj7burg", street: "one", asset type: "service", service: "unique"
     And I am logged in as "user"
     And I am at the FieldOperations/GeneralWorkOrder/Show page for work order: "opening"
     When I click the "Service" tab

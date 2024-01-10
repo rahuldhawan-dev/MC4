@@ -27,7 +27,6 @@ namespace MapCallMVC.Models.ViewModels
         public CreatePublicWaterSupplyLicensedOperator(IContainer container) : base(container) { }
 
         #endregion
-
     }
 
 }

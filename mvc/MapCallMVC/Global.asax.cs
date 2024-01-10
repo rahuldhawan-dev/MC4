@@ -99,6 +99,7 @@ namespace MapCallMVC
             filters.Add(tokenFilter);
             filters.Add(container.GetInstance<UserStorageFilter>());
             filters.Add(container.GetInstance<AuditImageFilter>());
+            filters.Add(container.GetInstance<AuditReportFilter>());
             filters.Add(container.GetInstance<AuditSelectFilter>());
             filters.Add(new HandleErrorAttribute());
             filters.Add(new NotFoundErrorHandlerAttribute {

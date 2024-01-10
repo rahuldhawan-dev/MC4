@@ -227,6 +227,8 @@ namespace MMSINC.Data.NHibernate
             {
                 case "hour":
                     return date1.Hour - date0.Hour;
+                case "minute":
+                    return (date1 - date0).TotalMinutes;
                 default:
                     throw new InvalidOperationException(String.Format("Date part '{0}' not supported.", part));
             }

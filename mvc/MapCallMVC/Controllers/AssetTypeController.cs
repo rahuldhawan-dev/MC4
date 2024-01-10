@@ -26,6 +26,19 @@ namespace MapCallMVC.Controllers
             };
         }
 
+        [HttpGet]
+        public ActionResult ByStateOrOperatingCenterId(int? stateId, int? operatingCenterId)
+        {
+            if (operatingCenterId.HasValue)
+            {
+                return ByOperatingCenterId(operatingCenterId.Value);
+            }
+
+            return new CascadingActionResult(Repository.GetByStateId(stateId.Value), "Description", "Id") {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         #endregion
     }
 }

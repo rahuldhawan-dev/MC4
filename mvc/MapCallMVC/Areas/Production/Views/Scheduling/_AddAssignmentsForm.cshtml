@@ -3,7 +3,7 @@
 
 @using (Form.BeginForm("Create", "EmployeeAssignment", "Production"))
 {
-    @(Html.TableFor(_ => Model, new { id = "schedulingTable" })
+    @(Html.TableFor(_ => Model, new { id = "schedulingTable", @class = "results-table" })
           .WithCaption("Records found: " + Model.Count)
           .TemplateColumnFor(x => Control.CheckBox("ProductionWorkOrderIds").WithValue(x.Id))
           .SortableTemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", "ProductionWorkOrder", new { x.Id, area = "Production" }, null))

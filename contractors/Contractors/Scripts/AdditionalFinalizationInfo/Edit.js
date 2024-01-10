@@ -9,7 +9,9 @@
       pitcherFilterCustomerDeliveryMethod: '#PitcherFilterCustomerDeliveryMethod',
       pitcherFilterDeliveryOther: '#pitcher-filter-delivery-other',
       flushTimeBelowMinimumMessage: '#flush-time-below-minimum-message',
-      InitialServiceLineFlushTime: '#InitialServiceLineFlushTime'
+      InitialServiceLineFlushTime: '#InitialServiceLineFlushTime',
+      multiTenantFacilityField: $('#IsThisAMultiTenantFacility'),
+      multiTenantFacilityDisplayGroup: $('#multiTenantFacility')
     },
   ajaxSuccess: function () {
     window.location.reload(false);
@@ -21,8 +23,10 @@
     onPitcherFilterProvidedToCustomer: function () {
         if ($(AdditionalFinalizationInfoEdit.ELEMENTS.pitcherFilterDelivered).val() === 'True') {
             $(AdditionalFinalizationInfoEdit.ELEMENTS.pitcherFilterDeliveredToCustomerOptions).show();
+            $(AdditionalFinalizationInfoEdit.ELEMENTS.multiTenantFacilityDisplayGroup).show();
         } else {
             $(AdditionalFinalizationInfoEdit.ELEMENTS.pitcherFilterDeliveredToCustomerOptions).hide();
+            $(AdditionalFinalizationInfoEdit.ELEMENTS.multiTenantFacilityDisplayGroup).hide();
         }
     },
     onPitcherFilterCustomerDeliveryMethod: function () {
@@ -40,6 +44,13 @@
             $(AdditionalFinalizationInfoEdit.ELEMENTS.flushTimeBelowMinimumMessage).hide();
         }
     },
+    onIsThisAMultiTenantFacilityChanged: function () {
+        if (AdditionalFinalizationInfoEdit.ELEMENTS.multiTenantFacilityField.val() === 'True') {
+            $('#multiTenantFacilityRequiredFields').show();
+        } else {
+            $('#multiTenantFacilityRequiredFields').hide();
+        }
+    },
     init: function () {
         $(AdditionalFinalizationInfoEdit.ELEMENTS.pitcherFilterDelivered).change(AdditionalFinalizationInfoEdit.onPitcherFilterProvidedToCustomer);
         AdditionalFinalizationInfoEdit.onPitcherFilterProvidedToCustomer();
@@ -47,6 +58,8 @@
         AdditionalFinalizationInfoEdit.onPitcherFilterCustomerDeliveryMethod();
         $(AdditionalFinalizationInfoEdit.ELEMENTS.InitialServiceLineFlushTime).blur(AdditionalFinalizationInfoEdit.onInitialServiceLineFlushTimeBlur);
         AdditionalFinalizationInfoEdit.onInitialServiceLineFlushTimeBlur();
+        $(AdditionalFinalizationInfoEdit.ELEMENTS.multiTenantFacilityField).change(AdditionalFinalizationInfoEdit.onIsThisAMultiTenantFacilityChanged);
+        AdditionalFinalizationInfoEdit.onIsThisAMultiTenantFacilityChanged();
     }
 };
 $(document).ready(AdditionalFinalizationInfoEdit.init);

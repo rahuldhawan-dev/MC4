@@ -87,7 +87,6 @@ namespace Contractors.Models.ViewModels
         public int? PartialRestorationTrafficControlCost { get; set; }
 
         [StringLength(Restoration.StringLengths.PARTIAL_AND_FINAL_TRAFFIC_CONTROL_INVOICE_NUMBER)]
-       // [RequiredWhen("PartialRestorationDate", ComparisonType.NotEqualTo, null)]
         public string PartialRestorationTrafficControlInvoiceNumber { get; set; }
 
         [DropDown, EntityMap, EntityMustExist(typeof(RestorationPriorityUpchargeType))]

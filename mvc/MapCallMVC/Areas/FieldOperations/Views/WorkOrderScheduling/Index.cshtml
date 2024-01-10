@@ -13,7 +13,7 @@
 {
     @Html.ValidationMessageFor(m => m.WorkOrderIDs)
 
-    @(Html.TableFor(x => x.Search, new { id = "workOrdersTable" })
+    @(Html.TableFor(x => x.Search, new { id = "workOrdersTable", @class = "results-table" })
                                   .WithWorkOrderRowStyles()
                                   .WithCaption("Records found:" + Model.Search.Count)
                                   .TemplateColumnFor("Assign", x => @<text><input type="checkbox" name="WorkOrderIDs" value="@x.Id" data-val-at-least="You must pick at least one order to assign." data-val-at-least-min="1" data-val="true" /></text>)

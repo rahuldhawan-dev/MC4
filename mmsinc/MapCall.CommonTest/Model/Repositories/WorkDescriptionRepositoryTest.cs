@@ -98,19 +98,32 @@ namespace MapCall.CommonTest.Model.Repositories
         public void TestGetUsedByAssetTypeIdsReturnsUsedWorkDescriptionsByAssetType()
         {
             var valveAssetType = GetFactory<ValveAssetTypeFactory>().Create();
+            var serviceAssetType = GetFactory<ServiceAssetTypeFactory>().Create();
             var hydrantAssetType = GetFactory<HydrantAssetTypeFactory>().Create();
             var goodDescription = GetFactory<ValveRepairWorkDescriptionFactory>().Create(new {
                 AssetType = valveAssetType, Description = "This is a great description!"
             });
-            GetFactory<WorkOrderFactory>()
-               .Create(new {WorkDescription = goodDescription});
+            var serviceWorkDescription1 = GetFactory<ZLwcEw43ConsecutiveMthsOf0UsageZeroWorkDescriptionFactory>().Create(new {
+                AssetType = serviceAssetType,
+            });
+            var serviceWorkDescription2 = GetFactory<ServiceLineRepairWorkDescriptionFactory>().Create(new {
+                AssetType = serviceAssetType,
+            });
+            GetFactory<WorkOrderFactory>().Create(new {WorkDescription = goodDescription});
+            GetFactory<WorkOrderFactory>().Create(new { WorkDescription = serviceWorkDescription1 });
+            GetFactory<WorkOrderFactory>().Create(new { WorkDescription = serviceWorkDescription2 });
             var badDescription = GetFactory<HydrantRepairWorkDescriptionFactory>().Create(new {
                 AssetType = valveAssetType, Description = "This description is not used by any WorkOrder!"
             });
             Session.Flush();
 
-            var result = Repository.GetUsedByAssetTypeIds(new[] { valveAssetType.Id });
-            Assert.AreSame(goodDescription, result.Single());
+            var result = Repository.GetUsedByAssetTypeIds(new[] { valveAssetType.Id, serviceAssetType.Id });
+            
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.Contains(goodDescription));
+            Assert.IsTrue(result.Contains(serviceWorkDescription2));
+            Assert.IsFalse(result.Contains(badDescription));
+            Assert.IsFalse(result.Contains(serviceWorkDescription1));
         }
         #endregion
     }

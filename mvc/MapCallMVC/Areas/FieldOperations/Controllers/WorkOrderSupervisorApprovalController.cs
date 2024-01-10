@@ -85,7 +85,7 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         {
             if (WorkDescriptionRepository.ASSET_COMPLETION.Contains(order.WorkDescription.Id))
             {
-                order.RecordUrl = Url.Action("Show", "GeneralWorkOrder", new { id = order.Id });
+                order.RecordUrl = GetUrlForModel(order, "Show", "GeneralWorkOrder", "FieldOperations");
                 this.SendNotification(order.OperatingCenter.Id, ROLE, SupervisorApprovalNotifications.ASSET_ORDER_COMPLETED, order);
             }
         }

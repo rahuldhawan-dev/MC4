@@ -29,7 +29,8 @@ namespace MapCall.Common.Model.Entities
 
             public const int WASTE_WATER_SYSTEM_NAME = 50,
                              PERMIT_NUMBER = 50,
-                             TREATMENT_DESCRIPTION = 255;
+                             TREATMENT_DESCRIPTION = 255,
+                             CURRENT_LICENSED_CONTRACTOR = 100;
 
             #endregion
         }
@@ -114,6 +115,10 @@ namespace MapCall.Common.Model.Entities
 
         [DisplayFormat(DataFormatString = "{0:F3}")]
         public virtual decimal Total100Miles => TotalLengthMiles / 100;
+
+        public virtual LicensedOperatorCategory LicensedOperatorStatus { get; set; }
+
+        public virtual string CurrentLicensedContractor { get; set; }
 
         public virtual string Description => (_display ?? (_display = new WasteWaterSystemDisplayItem {
             OperatingCenter = OperatingCenter,

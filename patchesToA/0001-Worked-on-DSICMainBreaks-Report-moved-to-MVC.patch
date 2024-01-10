@@ -1,0 +1,362 @@
+From 391592e1ade7b984a04ea13da5e9869b8ac59215 Mon Sep 17 00:00:00 2001
+From: rohit-LnG <141898655+rohit-LnG@users.noreply.github.com>
+Date: Thu, 4 Jan 2024 19:53:19 +0530
+Subject: [PATCH] Worked on DSICMainBreaks Report - moved to MVC
+
+---
+ .../DSICMainBreaksControllerTest.cs           | 48 +++++++++++
+ .../Controllers/DSICMainBreaksController.cs   | 86 +++++++++++++++++++
+ .../Views/DSICMainBreaks/Index.cshtml         | 28 ++++++
+ .../Views/DSICMainBreaks/Search.cshtml        | 16 ++++
+ .../Reports/Models/SearchDSICMainBreaks.cs    | 45 ++++++++++
+ .../Reports/Views/ReportsHome/Index.cshtml    |  2 +-
+ mvc/MapCallMVC/MapCallMVC.csproj              |  4 +
+ .../FieldOperations/DSICMainBreaks.feature    | 17 ++++
+ mvc/RegressionTests/RegressionTests.csproj    |  1 +
+ 9 files changed, 246 insertions(+), 1 deletion(-)
+ create mode 100644 mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/DSICMainBreaksControllerTest.cs
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Controllers/DSICMainBreaksController.cs
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Index.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Search.cshtml
+ create mode 100644 mvc/MapCallMVC/Areas/Reports/Models/SearchDSICMainBreaks.cs
+ create mode 100644 mvc/RegressionTests/Features/Areas/FieldOperations/DSICMainBreaks.feature
+
+diff --git a/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/DSICMainBreaksControllerTest.cs b/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/DSICMainBreaksControllerTest.cs
+new file mode 100644
+index 00000000..26e036b6
+--- /dev/null
++++ b/mvc/MapCallMVC.Tests/Areas/FieldOperations/Controllers/DSICMainBreaksControllerTest.cs
+@@ -0,0 +1,48 @@
++﻿using MapCall.Common.Model.Entities;
++using MapCall.Common.Model.Repositories;
++using MapCall.Common.Testing.Data;
++using MapCallMVC.Areas.FieldOperations.Controllers;
++using MapCallMVC.Areas.Reports.Models;
++using Microsoft.VisualStudio.TestTools.UnitTesting;
++using MMSINC.Testing;
++using System.Linq;
++using System.Web.Mvc;
++
++namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
++{
++    [TestClass]
++    public class DSICMainBreaksControllerTest : MapCallMvcControllerTestBase<DSICMainBreaksController, MainBreak, MainBreakRepository>
++    {
++        [TestMethod]
++        public override void TestControllerAuthorization()
++        {
++            const RoleModules role = RoleModules.FieldServicesWorkManagement;
++
++            Authorization.Assert(a => {
++                a.RequiresRole("~/FieldOperations/DSICMainBreaks/Search", role);
++                a.RequiresRole("~/FieldOperations/DSICMainBreaks/Index", role);
++            });
++        }
++
++        [TestMethod]
++        public override void TestIndexReturnsResults()
++        {
++            var operatingCenter = GetFactory<OperatingCenterFactory>().Create();
++            var workOrder = GetFactory<WorkOrderFactory>().Create(new { OperatingCenter = operatingCenter });
++            var mainBreak = GetFactory<MainBreakFactory>().Create(new { WorkOrder = workOrder });
++
++            GetFactory<RoleFactory>().Create(RoleModules.FieldServicesWorkManagement, operatingCenter, _currentUser, RoleActions.UserAdministrator);
++
++            var search = new SearchDSICMainBreaks {
++                OperatingCenter = operatingCenter.Id
++            };
++
++            var result = _target.Index(search) as ViewResult;
++            var resultModel = ((SearchDSICMainBreaks)result.Model).Results.ToList();
++
++            MvcAssert.IsViewNamed(result, "Index");
++            Assert.AreEqual(1, resultModel.Count);
++            Assert.AreSame(mainBreak, resultModel[0]);
++        }
++    }
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Controllers/DSICMainBreaksController.cs b/mvc/MapCallMVC/Areas/FieldOperations/Controllers/DSICMainBreaksController.cs
+new file mode 100644
+index 00000000..c22b517b
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Controllers/DSICMainBreaksController.cs
+@@ -0,0 +1,86 @@
++﻿using MapCall.Common.Metadata;
++using MapCall.Common.Model.Entities;
++using MapCall.Common.Model.Entities.Users;
++using MapCall.Common.Model.Repositories;
++using MapCallMVC.Areas.Reports.Models;
++using MapCallMVC.ClassExtensions;
++using MMSINC.ClassExtensions;
++using MMSINC.Controllers;
++using MMSINC.Results;
++using MMSINC.Utilities;
++using System.Linq;
++using System.Web.Mvc;
++
++namespace MapCallMVC.Areas.FieldOperations.Controllers
++{
++    public class DSICMainBreaksController : ControllerBaseWithPersistence<IMainBreakRepository, MainBreak, User>
++    {
++        #region Constants
++
++        public const RoleModules ROLE = RoleModules.FieldServicesWorkManagement;
++        public const int MAX_INDEX_RESULTS = 1000;
++
++        #endregion
++
++        #region Private Methods
++
++        public override void SetLookupData(ControllerAction action)
++        {
++            base.SetLookupData(action);
++            if (action == ControllerAction.Search)
++            {
++                this.AddOperatingCenterDropDownDataForRoleAndAction(ROLE);
++            }
++        }
++
++        #endregion
++
++        #region Search/Index
++
++        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
++        public ActionResult Search()
++        {
++            return ActionHelper.DoSearch<SearchDSICMainBreaks>();
++        }
++
++        [HttpGet, RequiresRole(ROLE, RoleActions.Read)]
++        public ActionResult Index(SearchDSICMainBreaks search)
++        {
++            return this.RespondTo((formatter) => {
++                formatter.View(() => ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs { MaxResults = MAX_INDEX_RESULTS }));
++                formatter.Excel(() => {
++                    var results = Repository.Search(search).Select(x => new {
++                        x.WorkOrder.OperatingCenter,
++                        WorkOrderNumber = x.WorkOrder.Id,
++                        x.WorkOrder.WorkDescription,
++                        x.WorkOrder.DateReceived,
++                        x.WorkOrder.DateCompleted,
++                        x.WorkOrder.StreetAddress,
++                        x.WorkOrder.Town,
++                        Size = x.ServiceSize,
++                        x.Depth,
++                        Material = x.MainBreakMaterial.Description,
++                        FailureType = x.MainFailureType.Description,
++                        SoilCondition = x.MainBreakSoilCondition.Description,
++                        CustomersAffected = x.WorkOrder.EstimatedCustomerImpact,
++                        x.ShutdownTime,
++                        x.WorkOrder.AlertIssued,
++                        x.WorkOrder.Latitude,
++                        x.WorkOrder.Longitude,
++                        x.BoilAlertIssued,
++                    });
++
++                    return new ExcelResult().AddSheet(results, new MMSINC.Utilities.Excel.ExcelExportSheetArgs { });
++                });
++            });
++        }
++
++        #endregion
++
++        #region Constructors
++
++        public DSICMainBreaksController(ControllerBaseWithPersistenceArguments<IMainBreakRepository, MainBreak, User> args) : base(args) { }
++
++        #endregion
++    }
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Index.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Index.cshtml
+new file mode 100644
+index 00000000..486fb1a3
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Index.cshtml
+@@ -0,0 +1,28 @@
++﻿@model MapCallMVC.Areas.Reports.Models.SearchDSICMainBreaks
++@{
++    ActionBarHelper.AddExportLink();
++}
++@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
++      .SortableColumnFor(x => x.WorkOrder.OperatingCenter)
++      .SortableTemplateColumnFor("Work Order Number", "Id", x => @<text>
++                                                                @Html.ActionLink(x.WorkOrder.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
++                                                             </text>)
++      .SortableColumnFor(x => x.WorkOrder.WorkDescription, "Work Description", "WorkDescription")
++      .SortableColumnFor(x => x.WorkOrder.DateReceived)
++      .SortableColumnFor(x => x.WorkOrder.DateCompleted)
++      .SortableColumnFor(x => x.WorkOrder.StreetAddress)
++      .SortableColumnFor(x => x.WorkOrder.Town, "Town.ShortName")
++      .SortableColumnFor(x => x.ServiceSize, "Main Size", "ServiceSize")
++      .SortableColumnFor(x => x.Depth, "Depth", "Depth")
++      .SortableColumnFor(x => x.MainBreakMaterial.Description, "Material", "MaterialsUsed")
++      .SortableColumnFor(x => x.MainFailureType.Description, "Failure Type", "MainFailureType")
++      .SortableColumnFor(x => x.MainBreakSoilCondition.Description, "Soil Condition", "MainBreakSoilCondition")
++      .SortableColumnFor(x => x.WorkOrder.EstimatedCustomerImpact, "Customers Affected", "EstimatedCustomerImpact")
++      .SortableColumnFor(x => x.ShutdownTime, "Shutdown Time", "ShutdownTime")
++      .SortableColumnFor(x => x.WorkOrder.AlertIssued)
++      .SortableColumnFor(x => x.WorkOrder.Latitude)
++      .SortableColumnFor(x => x.WorkOrder.Longitude)
++      .SortableColumnFor(x => x.BoilAlertIssued)
++      .WithCaption("Records found:" + Model.Count)
++      .WithPaginatedFooter()
++    )
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Search.cshtml b/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Search.cshtml
+new file mode 100644
+index 00000000..def7afec
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/FieldOperations/Views/DSICMainBreaks/Search.cshtml
+@@ -0,0 +1,16 @@
++﻿@model MapCallMVC.Areas.Reports.Models.SearchDSICMainBreaks
++
++@using (Form.BeginForm("Index", "DSICMainBreaks", new { area = "FieldOperations" }))
++{
++    <div class="field-column fc200 searchFields">
++        @Html.EditorFor(x => x.OperatingCenter)
++        @Html.EditorFor(x => x.DateReceived)
++        @Html.EditorFor(x => x.DateCompleted)
++        @Html.EditorFor(x => x.Town)
++        @Html.EditorFor(x => x.Material)
++        @Html.ButtonGroup(@<text>
++            @Control.SubmitButton("Search").WithId("Search")
++            @Control.ResetButton()
++        </text>)
++    </div>
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/Reports/Models/SearchDSICMainBreaks.cs b/mvc/MapCallMVC/Areas/Reports/Models/SearchDSICMainBreaks.cs
+new file mode 100644
+index 00000000..d9e3fa55
+--- /dev/null
++++ b/mvc/MapCallMVC/Areas/Reports/Models/SearchDSICMainBreaks.cs
+@@ -0,0 +1,45 @@
++﻿using MapCall.Common.Model.Entities;
++using MMSINC.Data;
++using MMSINC.Metadata;
++
++namespace MapCallMVC.Areas.Reports.Models
++{
++    public class SearchDSICMainBreaks : SearchSet<MainBreak>
++    {
++        #region Properties
++
++        [SearchAlias("WorkOrder", "wo", "Id", Required = true)]
++        public int? WorkOrder { get; set; }
++
++        [DropDown]
++        [SearchAlias("wo.OperatingCenter", "Id", Required = true)]
++        public virtual int? OperatingCenter { get; set; }
++      
++        public DateRange DateCompleted { get; set; }
++        
++        public DateRange DateReceived { get; set; }
++
++        [DropDown("", "Town", "ByOperatingCenterId", DependsOn = "OperatingCenter",
++            PromptText = "Select an operating center above")]
++        [SearchAlias("wo.Town", "Id", Required = true)]
++        public int? Town { get; set; }
++
++        [DropDown(PromptText = "Select Material")]
++        [SearchAlias("MainBreakMaterial", "Id", Required = true)]
++        public int? Material { get; set; }
++
++        [SearchAlias("wo.Street", "Id", Required = true)]
++        public int? StreetAddress { get; set; }
++
++        [SearchAlias("wo.WorkDescription", "Id", Required = true)]
++        public int? WorkDescription { get; set; }
++
++        [SearchAlias("MainFailureType", "Id", Required = true)]
++        public int? FailureType { get; set; } 
++        
++        [SearchAlias("MainBreakSoilCondition", "Id", Required = true)]
++        public int? SoilCondition { get; set; }
++
++        #endregion
++    }
++}
+\ No newline at end of file
+diff --git a/mvc/MapCallMVC/Areas/Reports/Views/ReportsHome/Index.cshtml b/mvc/MapCallMVC/Areas/Reports/Views/ReportsHome/Index.cshtml
+index 35d117b7..9aa1765f 100644
+--- a/mvc/MapCallMVC/Areas/Reports/Views/ReportsHome/Index.cshtml
++++ b/mvc/MapCallMVC/Areas/Reports/Views/ReportsHome/Index.cshtml
+@@ -37,7 +37,7 @@
+                     @Html.ActionLink("Crew Assignment Summary", "Search", "CrewAssignmentSummary", new { area = "Reports" }, null)
+                 </li>
+                 <li>
+-                    @Html.Link("/modules/workorders/Views/Reports/DSICMainBreaks.aspx", "DSIC Main Breaks")
++                    @Html.ActionLink("DSIC Main Breaks", "Search", "DSICMainBreaks", new { area = "FieldOperations" }, null)
+                 </li>
+                 <li>
+                     @Html.ActionLink("Field Completed Backlog - Quality Assurance", "Search", "FieldCompletedBacklogQAReport")
+diff --git a/mvc/MapCallMVC/MapCallMVC.csproj b/mvc/MapCallMVC/MapCallMVC.csproj
+index d194538a..6af682e0 100644
+--- a/mvc/MapCallMVC/MapCallMVC.csproj
++++ b/mvc/MapCallMVC/MapCallMVC.csproj
+@@ -355,6 +355,7 @@
+     <Compile Include="Areas\FieldOperations\Controllers\BondController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\ContractorMeterCrewController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\CrewAssignmentController.cs" />
++    <Compile Include="Areas\FieldOperations\Controllers\DSICMainBreaksController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\CrewController.cs" />
+     <Compile Include="Areas\FieldOperations\Controllers\EchoshoreLeakAlertController.cs" />
+@@ -761,6 +762,7 @@
+     <Compile Include="Areas\Reports\Controllers\WaterLossManagementController.cs" />
+     <Compile Include="Areas\Reports\Controllers\WaterQualityComplaintCountByStateForYearController.cs" />
+     <Compile Include="Areas\Reports\Models\SearchCompletedWorkOrders.cs" />
++    <Compile Include="Areas\Reports\Models\SearchDSICMainBreaks.cs" />
+     <Compile Include="Areas\Reports\Models\SearchRestorationAccrualReport.cs" />
+     <Compile Include="Areas\Reports\Models\SearchSewerMainCleaning.cs" />
+     <Compile Include="Areas\Reports\Models\SearchCovidStatusReport.cs" />
+@@ -1808,6 +1810,8 @@
+     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
+     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
+     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\DSICMainBreaks\Search.cshtml" />
++    <Content Include="Areas\FieldOperations\Views\DSICMainBreaks\Index.cshtml" />
+     <None Include="Web.Debug.config">
+       <DependentUpon>Web.config</DependentUpon>
+     </None>
+diff --git a/mvc/RegressionTests/Features/Areas/FieldOperations/DSICMainBreaks.feature b/mvc/RegressionTests/Features/Areas/FieldOperations/DSICMainBreaks.feature
+new file mode 100644
+index 00000000..0eeb49d2
+--- /dev/null
++++ b/mvc/RegressionTests/Features/Areas/FieldOperations/DSICMainBreaks.feature
+@@ -0,0 +1,17 @@
++﻿Feature: DSICMainBreaks
++
++Background: users exist
++	Given a user "user" exists with username: "user"
++	And a role "role" exists with action: "Read", module: "FieldServicesWorkManagement", user: "user"
++
++Scenario: user should be able to search and get results
++	Given an operating center "nj7" exists with opcode: "NJ7", name: "Shrewsbury"
++	And a work description "replace" exists with description: "water main break replace"
++	And a work order "one" exists with work description: "replace", approved on: "today", operating center: "nj7"
++	And a main break "one" exists with work order: "one", footage replaced: "4"
++	And I am logged in as "user"
++	When I visit the /FieldOperations/DSICMainBreaks/Search page
++	And I press "Search"	
++	Then I should see the following values in the results table
++	| Operating Center | Work Order Number | Work Description         | Shutdown Time | Depth | Boil Alert Issued |
++	| NJ7 - Shrewsbury | 1                 | WATER MAIN BREAK REPLACE | 5             | 4     | Yes               |
+\ No newline at end of file
+diff --git a/mvc/RegressionTests/RegressionTests.csproj b/mvc/RegressionTests/RegressionTests.csproj
+index db4a4f7e..168bc49d 100644
+--- a/mvc/RegressionTests/RegressionTests.csproj
++++ b/mvc/RegressionTests/RegressionTests.csproj
+@@ -180,6 +180,7 @@
+     <None Include="Features\Areas\FieldOperations\MarkoutPlanning.feature" />
+     <None Include="Features\Areas\FieldOperations\NpdesRegulatorInspections.feature" />
+     <None Include="Features\Areas\FieldOperations\OperatingCenterSpoilRemovalCost.feature" />
++    <None Include="Features\Areas\FieldOperations\DSICMainBreaks.feature" />
+     <None Include="Features\Areas\FieldOperations\SmartCoverAlert.feature" />
+     <None Include="Features\Areas\FieldOperations\SpoilRemoval.feature" />
+     <None Include="Features\Areas\FieldOperations\SpoilFinalProcessingLocation.feature" />
+-- 
+2.42.0.windows.2
+

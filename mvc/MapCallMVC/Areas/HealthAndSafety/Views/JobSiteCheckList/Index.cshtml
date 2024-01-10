@@ -2,7 +2,7 @@
 @{
     ActionBarHelper.AddMapLink();
 }
-@(Html.TableFor(x => Model, new{ id = "search-results" })
+@(Html.TableFor(x => Model, new{ id = "search-results", @class = "results-table"  })
     .WithCaption("Records found: " + Model.Count)
     .TemplateColumnFor(x => Html.ActionLink("View", "Show", new { x.Id }))
     .SortableColumnFor(x => x.Id)

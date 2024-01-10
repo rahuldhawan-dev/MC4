@@ -95,6 +95,8 @@ namespace MapCallMVC.Controllers
                         OperatingCenters = string.Join(", ", x.OperatingCenterPublicWaterSupplies.Select(y => y.OperatingCenter.ToString())),
                         x.Status,
                         x.Ownership,
+                        x.LicensedOperatorStatus,
+                        x.CurrentLicensedContractor,
                         x.DateOfOwnership,
                         x.ConsentOrderEndDate,
                         x.NewSystemInitialSafetyAssessmentCompleted,

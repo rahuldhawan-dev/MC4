@@ -1,18 +1,18 @@
 var WorkOrderFinalization = (function ($) {
-    const MAIN_BREAK = [74, 80];
-    const OTHER_PITCHER_FILTER_DELIVERY_METHOD = 3;
+    const MAIN_BREAK = [74, 80];    
     const meterLocationUnknownId = 3;
     var m = {
         initialize: function () {
             ELEMENTS = {
                 btnFinalize: $('#btnFinalize'),
+
+                /* Additional Details Fields */
                 finalWorkDescription: $('#FinalWorkDescription'),
                 workDescriptionInit: $('#WorkDescriptionInit'),
                 lostWater: $('#LostWater'),
                 lostWaterInit: $('#LostWaterInit'),
                 distanceFromCrossStreet: $('#DistanceFromCrossStreet'),
-                distanceFromCrossStreetInit: $('#DistanceFromCrossStreetInit'),
-                
+                distanceFromCrossStreetInit: $('#DistanceFromCrossStreetInit'),                
                 estimatedCustomerImpact: $('#CustomerImpact'),
                 estimatedCustomerImpactInit: $('#EstimatedCustomerImpactInit'),
                 anticipatedRepairTime: $('#RepairTime'),
@@ -23,16 +23,49 @@ var WorkOrderFinalization = (function ($) {
                 significantTrafficImpactInit: $('#SignificantTrafficImpactInit'),
                 appendNotes: $('#AppendNotes'),
                 appendNotesInit: $('#AppendNotesInit'),
-                // Compliance Data Fields
+
+                /* Service Line Info Fields */
+                previousServiceLineMaterial: $('#PreviousServiceLineMaterial'),
+                previousServiceLineSize: $('#PreviousServiceLineSize'),
+                companyServiceLineMaterial: $('#CompanyServiceLineMaterial'),
+                companyServiceLineSize: $('#CompanyServiceLineSize'),
+                customerServiceLineMaterial: $('#CustomerServiceLineMaterial'),
+                customerServiceLineSize: $('#CustomerServiceLineSize'),
+                doorNoticeLeftDate: $('#DoorNoticeLeftDate'),
+
+                previousServiceLineMaterialInit: $('#PreviousServiceLineMaterialInit'),
+                previousServiceLineSizeInit: $('#PreviousServiceLineSizeInit'),
+                companyServiceLineMaterialInit: $('#CompanyServiceLineMaterialInit'),
+                companyServiceLineSizeInit: $('#CompanyServiceLineSizeInit'),
+                customerServiceLineMaterialInit: $('#CustomerServiceLineMaterialInit'),
+                customerServiceLineSizeInit: $('#CustomerServiceLineSizeInit'),
+                doorNoticeLeftDateInit: $('#DoorNoticeLeftDateInit'),
+
+                /* Compliance Data Fields */
                 initialServiceLineFlushTime: $('#InitialServiceLineFlushTime'),
                 hasPitcherFilterBeenProvidedToCustomer: $('#HasPitcherFilterBeenProvidedToCustomer'),
+                datePitcherFilterDeliveredToCustomer: $('#DatePitcherFilterDeliveredToCustomer'),
                 pitcherFilterCustomerDeliveryMethod: $('#PitcherFilterCustomerDeliveryMethod'),
                 pitcherFilterCustomerDeliveryOtherMethod: $('#PitcherFilterCustomerDeliveryOtherMethod'),
+                dateCustomerProvidedAWStateLeadInformation: $('#DateCustomerProvidedAWStateLeadInformation'),                
+                initialServiceLineFlushTimeInit: $('#InitialServiceLineFlushTimeInit'),
+                hasPitcherFilterBeenProvidedToCustomerInit: $('#HasPitcherFilterBeenProvidedToCustomerInit'),
+                datePitcherFilterDeliveredToCustomerInit: $('#DatePitcherFilterDeliveredToCustomerInit'),
+                pitcherFilterCustomerDeliveryMethodInit: $('#PitcherFilterCustomerDeliveryMethodInit'),
+                pitcherFilterCustomerDeliveryOtherMethodInit: $('#PitcherFilterCustomerDeliveryOtherMethodInit'),
+                dateCustomerProvidedAWStateLeadInformationInit: $('#DateCustomerProvidedAWStateLeadInformationInit'),
+                isThisAMultiTenantFacility: $('#IsThisAMultiTenantFacility'),
+                isThisAMultiTenantFacilityInit: $('#IsThisAMultiTenantFacilityInit'),
+                numberOfPitcherFiltersDelivered: $('#NumberOfPitcherFiltersDelivered'),
+                numberOfPitcherFiltersDeliveredInit: $('#NumberOfPitcherFiltersDeliveredInit'),
+                describeWhichUnits: $('#DescribeWhichUnits'),
+                describeWhichUnitsInit: $('#DescribeWhichUnitsInit'),
+
                 meterLocation: $('#MeterLocation'),
                 valveFrame: $('#valveFrame'),
                 hydrantFrame: $('#hydrantFrame'),
                 sewerOpeningFrame: $('#sewerOpeningFrame'),
-                serviceFrame: $('#serviceFrame')
+                serviceFrame: $('#serviceFrame'),
             },
             m.initBtnFinalize();
 
@@ -47,10 +80,24 @@ var WorkOrderFinalization = (function ($) {
             m.initSignificantTrafficImpact();
             // Validation Messages
             m.initValidationMessages();
-            // Compliance Data Validations
+            // Complaince Data
             m.initInitialServiceLineFlushTime();
             m.initHasPitcherFilterBeenProvidedToCustomer();
+            m.initDatePitcherFilterDeliveredToCustomer();
             m.initPitcherFilterCustomerDeliveryMethod();
+            m.initPitcherFilterCustomerDeliveryOtherMethod();
+            m.initDateCustomerProvidedAWStateLeadInformation();
+            m.initIsThisAMultiTenantFacility();
+            m.initNumberOfPitcherFiltersDelivered();
+            m.initDescribeWhichUnits();
+            // Service Line Info
+            m.initPreviousServiceLineMaterial();
+            m.initPreviousServiceLineSize();
+            m.initCustomerServiceLineMaterial();
+            m.initCustomerServiceLineSize();
+            m.initCompanyServiceLineMaterial();
+            m.initCompanyServiceLineSize();
+            m.initDoorNoticeLeftDate();
         },
         initValidationMessages: function () {
             const selectedWorkDescriptionId = parseInt(ELEMENTS.workDescriptionInit.val(), 10);
@@ -69,10 +116,20 @@ var WorkOrderFinalization = (function ($) {
             ELEMENTS.btnFinalize.on('click', m.onBtnFinalizeClick);
         },
         onBtnFinalizeClick: function () {
-            var additionalForm = $('#AdditionalForm');
-            if (!additionalForm.valid()) {
+            var additionalDetailsForm = $('#AdditionalDetailsForm');
+            if (!additionalDetailsForm.valid()) {
                 $('a[href="#AdditionalTab"]').click();
-                $('#btnUpdate').click();
+                $('#btnUpdateDetails').click();
+            }
+            var complianceDataForm = $('#ComplianceDataForm');
+            if (!complianceDataForm.valid()) {
+                $('a[href="#AdditionalTab"]').click();
+                $('#btnUpdateCompliance').click();
+            }
+            var serviceLineInfoForm = $('#ServiceLineInfoForm');
+            if (!serviceLineInfoForm.valid()) {
+                $('a[href="#ServiceTab"]').click();
+                $('#btnUpdateServiceLineInfo').click();
             }
             // jQuery will typically return some object when you do $("element"). So checking that its not null via if($("something") != null), 
             // will not work to verify that we found an element! In order to check this we need to use if($("something").length).   (remember that 0 = false in js)
@@ -162,17 +219,19 @@ var WorkOrderFinalization = (function ($) {
             ELEMENTS.appendNotesInit.val(ELEMENTS.appendNotes.val());
         },
 
+        validateMeterLocation: function (value, element) {
+            const selectedMeterLocationId = parseInt(ELEMENTS.meterLocation.val(), 10);
+            const showMeterLocationError = meterLocationUnknownId === selectedMeterLocationId;
+            return !showMeterLocationError;
+        },
+
+        // Complaince Data fields
         initInitialServiceLineFlushTime: function () {
             ELEMENTS.initialServiceLineFlushTime.on('change', m.onInitialServiceLineFlushTimeChanged);
             m.onInitialServiceLineFlushTimeChanged();
         },
         onInitialServiceLineFlushTimeChanged: function () {
-            const enteredInitialServiceLineFlushTime = parseInt(ELEMENTS.initialServiceLineFlushTime.val(), 10);
-            if (enteredInitialServiceLineFlushTime < 30) {
-                $('#flush-time-below-minimum-message').show();
-            } else {
-                $('#flush-time-below-minimum-message').hide();
-            }
+            ELEMENTS.initialServiceLineFlushTimeInit.val(ELEMENTS.initialServiceLineFlushTime.val());
         },
 
         initHasPitcherFilterBeenProvidedToCustomer: function () {
@@ -180,11 +239,15 @@ var WorkOrderFinalization = (function ($) {
             m.onHasPitcherFilterBeenProvidedToCustomerChanged();
         },
         onHasPitcherFilterBeenProvidedToCustomerChanged: function () {
-            if (ELEMENTS.hasPitcherFilterBeenProvidedToCustomer.val() === 'True') {
-                $('#deliveryDetails').show();
-            } else {
-                $('#deliveryDetails').hide();
-            }
+            ELEMENTS.hasPitcherFilterBeenProvidedToCustomerInit.val(ELEMENTS.hasPitcherFilterBeenProvidedToCustomer.val());
+        },
+
+        initDateCustomerProvidedAWStateLeadInformation: function () {
+            ELEMENTS.dateCustomerProvidedAWStateLeadInformation.on('change', m.onDateCustomerProvidedAWStateLeadInformationChanged);
+            m.onDateCustomerProvidedAWStateLeadInformationChanged();
+        },
+        onDateCustomerProvidedAWStateLeadInformationChanged: function () {
+            ELEMENTS.dateCustomerProvidedAWStateLeadInformationInit.val(ELEMENTS.dateCustomerProvidedAWStateLeadInformation.val());
         },
 
         initPitcherFilterCustomerDeliveryMethod: function () {
@@ -192,19 +255,106 @@ var WorkOrderFinalization = (function ($) {
             m.onPitcherFilterCustomerDeliveryMethodChanged();
         },
         onPitcherFilterCustomerDeliveryMethodChanged: function () {
-            const selectedDeliveryMethodId = parseInt(ELEMENTS.pitcherFilterCustomerDeliveryMethod.val(), 10);
-            if (selectedDeliveryMethodId === OTHER_PITCHER_FILTER_DELIVERY_METHOD) {
-                $('#otherDeliveryDescription').show();
-            } else {
-                $('#otherDeliveryDescription').hide();
-            }
+            ELEMENTS.pitcherFilterCustomerDeliveryMethodInit.val(ELEMENTS.pitcherFilterCustomerDeliveryMethod.val());
         },
 
-        validateMeterLocation: function (value, element) {
-            const selectedMeterLocationId = parseInt(ELEMENTS.meterLocation.val(), 10);
-            const showMeterLocationError = meterLocationUnknownId === selectedMeterLocationId;
-            return !showMeterLocationError;
-        }
+        initPitcherFilterCustomerDeliveryOtherMethod: function () {
+            ELEMENTS.pitcherFilterCustomerDeliveryOtherMethod.on('change', m.onPitcherFilterCustomerDeliveryOtherMethodChanged);
+            m.onPitcherFilterCustomerDeliveryOtherMethodChanged();
+        },
+        onPitcherFilterCustomerDeliveryOtherMethodChanged: function () {
+            ELEMENTS.pitcherFilterCustomerDeliveryOtherMethodInit.val(ELEMENTS.pitcherFilterCustomerDeliveryOtherMethod.val());
+        },
+
+        initDatePitcherFilterDeliveredToCustomer: function () {
+            ELEMENTS.datePitcherFilterDeliveredToCustomer.on('change', m.onDatePitcherFilterDeliveredToCustomerChanged);
+            m.onDatePitcherFilterDeliveredToCustomerChanged();
+        },
+        onDatePitcherFilterDeliveredToCustomerChanged: function () {
+            ELEMENTS.datePitcherFilterDeliveredToCustomerInit.val(ELEMENTS.datePitcherFilterDeliveredToCustomer.val());
+        },
+
+        initIsThisAMultiTenantFacility: function () {
+            ELEMENTS.isThisAMultiTenantFacility.on('change', m.onIsThisAMultiTenantFacilityChanged);
+            m.onIsThisAMultiTenantFacilityChanged();
+        },
+        onIsThisAMultiTenantFacilityChanged: function () {
+            ELEMENTS.isThisAMultiTenantFacilityInit.val(ELEMENTS.isThisAMultiTenantFacility.val());
+        },
+
+        initNumberOfPitcherFiltersDelivered: function () {
+            ELEMENTS.numberOfPitcherFiltersDelivered.on('change', m.onNumberOfPitcherFiltersDeliveredChanged);
+            m.onNumberOfPitcherFiltersDeliveredChanged();
+        },
+        onNumberOfPitcherFiltersDeliveredChanged: function () {
+            ELEMENTS.numberOfPitcherFiltersDeliveredInit.val(ELEMENTS.numberOfPitcherFiltersDelivered.val());
+        },
+
+        initDescribeWhichUnits: function () {
+            ELEMENTS.describeWhichUnits.on('change', m.onDescribeWhichUnitsChanged);
+            m.onDescribeWhichUnitsChanged();
+        },
+        onDescribeWhichUnitsChanged: function () {
+            ELEMENTS.describeWhichUnitsInit.val(ELEMENTS.describeWhichUnits.val());
+        },
+
+        /* Service Line Info */
+
+        initPreviousServiceLineMaterial: function () {
+            ELEMENTS.previousServiceLineMaterial.on('change', m.onPreviousServiceLineMaterialChanged);
+            m.onPreviousServiceLineMaterialChanged();
+        },
+        onPreviousServiceLineMaterialChanged: function () {
+            ELEMENTS.previousServiceLineMaterialInit.val(ELEMENTS.previousServiceLineMaterial.val());
+        },
+
+        initPreviousServiceLineSize: function () {
+            ELEMENTS.previousServiceLineSize.on('change', m.onPreviousServiceLineSizeChanged);
+            m.onPreviousServiceLineSizeChanged();
+        },
+        onPreviousServiceLineSizeChanged: function () {
+            ELEMENTS.previousServiceLineSizeInit.val(ELEMENTS.previousServiceLineSize.val());
+        },
+
+        initCompanyServiceLineMaterial: function () {
+            ELEMENTS.companyServiceLineMaterial.on('change', m.onCompanyServiceLineMaterialChanged);
+            m.onCompanyServiceLineMaterialChanged();
+        },
+        onCompanyServiceLineMaterialChanged: function () {
+            ELEMENTS.companyServiceLineMaterialInit.val(ELEMENTS.companyServiceLineMaterial.val());
+        },
+
+        initCompanyServiceLineSize: function () {
+            ELEMENTS.companyServiceLineSize.on('change', m.onCompanyServiceLineSizeChanged);
+            m.onCompanyServiceLineSizeChanged();
+        },
+        onCompanyServiceLineSizeChanged: function () {
+            ELEMENTS.companyServiceLineSizeInit.val(ELEMENTS.companyServiceLineSize.val());
+        },
+
+        initCustomerServiceLineMaterial: function () {
+            ELEMENTS.customerServiceLineMaterial.on('change', m.onCustomerServiceLineMaterialChanged);
+            m.onCustomerServiceLineMaterialChanged();
+        },
+        onCustomerServiceLineMaterialChanged: function () {
+            ELEMENTS.customerServiceLineMaterialInit.val(ELEMENTS.customerServiceLineMaterial.val());
+        },
+
+        initCustomerServiceLineSize: function () {
+            ELEMENTS.customerServiceLineSize.on('change', m.onCustomerServiceLineSizeChanged);
+            m.onCustomerServiceLineSizeChanged();
+        },
+        onCustomerServiceLineSizeChanged: function () {
+            ELEMENTS.customerServiceLineSizeInit.val(ELEMENTS.customerServiceLineSize.val());
+        },
+
+        initDoorNoticeLeftDate: function () {
+            ELEMENTS.doorNoticeLeftDate.on('change', m.onDoorNoticeLeftDateChanged);
+            m.onDoorNoticeLeftDateChanged();
+        },
+        onDoorNoticeLeftDateChanged: function () {
+            ELEMENTS.doorNoticeLeftDateInit.val(ELEMENTS.doorNoticeLeftDate.val());
+        },
     };
     $(document).ready(m.initialize);
     return m;

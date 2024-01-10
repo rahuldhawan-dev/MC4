@@ -1,4 +1,5 @@
 ﻿@using Contractors.Models.ViewModels
+@using MMSINC.Utilities
 @model Contractors.Models.ViewModels.WorkOrderFinalizationDetails
 @Html.ScriptFor("~/Scripts/WorkOrderFinalization/Edit.js", ScriptLoadType.LoadFromPartial)
 @{
@@ -54,6 +55,16 @@
         {
             <fieldset>
                 <legend>Compliance Data</legend>
+                <div class="container" style="margin-bottom: 10px;">
+                    @if (Model.WorkOrder != null && Model.WorkOrder.RecentPitcherFilterDeliveryDate != null)
+                    {
+                        @Html.DisplayInlineNotification(new MMSINC.Models.ViewModels.NotificationItem
+                        {
+                            Message = String.Format(WorkOrder.PITCHER_FILTER_DISTRIBUTED_MESSAGE,String.Format(CommonStringFormats.DATE, Model.WorkOrder.RecentPitcherFilterDeliveryDate)),
+                            NotificationType = MMSINC.Models.ViewModels.NotificationItemType.Warning
+                        })
+                    }
+                </div>
                 <div class="field-column fc300">
                     @Html.RenderEditorTemplate(Html.DisplayLabelFor(x => x.InitialServiceLineFlushTime),
                                 @<text>
@@ -61,6 +72,13 @@
                                     <div id="flush-time-below-minimum-message" @{if (Model.InitialServiceLineFlushTime >= WorkOrderFinalizationDetails.MINIMUM_FLUSH_TIME_MINUTES) { <text>class="hidden"</text> } }>@WorkOrderFinalizationDetails.FLUSH_TIME_BELOW_MINIMUM</div>
                                 </text>)
                     @Html.EditorFor(x => x.HasPitcherFilterBeenProvidedToCustomer)
+                    <div id="multiTenantFacility" class="field-pair">
+                    @Html.EditorFor(x => x.IsThisAMultiTenantFacility)
+                        <div id="multiTenantFacilityRequiredFields" class="field-pair">
+                            @Html.EditorFor(x => x.NumberOfPitcherFiltersDelivered)
+                            @Html.EditorFor(x => x.DescribeWhichUnits)
+                        </div>
+                    </div>
                     <div id="pitcher-filter-delivered" class="field-pair">
                         @Html.EditorFor(x => x.DatePitcherFilterDeliveredToCustomer)
                         @Html.EditorFor(x => x.PitcherFilterCustomerDeliveryMethod)

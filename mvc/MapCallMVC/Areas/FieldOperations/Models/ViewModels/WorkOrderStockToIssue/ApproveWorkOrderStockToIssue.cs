@@ -7,16 +7,39 @@ using MMSINC.Authentication;
 using MMSINC.Data;
 using MMSINC.Data.NHibernate;
 using MMSINC.Utilities;
+using MMSINC.Utilities.ObjectMapping;
 using StructureMap;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.WorkOrderStockToIssue
 {
     public class ApproveWorkOrderStockToIssue : ViewModel<WorkOrder>
     {
+        #region Fields
+
+        private WorkOrder _original;
+
+        #endregion
+
         #region Properties
+
+        [DoesNotAutoMap]
+        public WorkOrder WorkOrder
+        {
+            get
+            {
+                if (_original == null)
+                {
+                    _original = Original ?? _container.GetInstance<IRepository<WorkOrder>>().Find(Id);
+                }
+                return _original;
+            }
+        }
 
         [Required]
         public DateTime? MaterialPostingDate { get; set; }
+
+        [MaxLength(WorkOrder.StringLengths.MATERIALS_DOC_ID)]
+        public string MaterialsDocID { get; set; }
 
         #endregion
 

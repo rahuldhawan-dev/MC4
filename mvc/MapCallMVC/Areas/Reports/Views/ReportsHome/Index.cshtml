@@ -28,10 +28,10 @@
             <h2>Field Operations</h2>
             <ul>
                 <li>
-                    @Html.Link("/modules/workorders/views/reports/AverageCompletionTimes.aspx", "Average Completion Times")
+                    @Html.ActionLink("Average Completion Times", "Search", "AverageCompletionTime", new { area ="Reports"}, null)
                 </li>
                 <li>
-                    @Html.Link("/modules/workorders/Views/Reports/CompletedWorkOrders.aspx", "Complete Work Orders")
+                    @Html.ActionLink("Completed Work Orders", "Search", "CompletedWorkOrders", new { area ="Reports"}, null)
                 </li>
                 <li>
                     @Html.ActionLink("Crew Assignment Summary", "Search", "CrewAssignmentSummary", new { area = "Reports" }, null)
@@ -84,7 +84,7 @@
                     @Html.ActionLink("Power Plant Main Breaks", "Search", "MainBreakPowerPlant", new { area = "Reports" }, null)
                 </li>
                 <li>
-                    @Html.Link("/modules/workorders/Views/Reports/ReportUseReport.aspx", "Report Usage Report")
+                    @Html.ActionLink("Report Usage Report", "Search", "ReportUse", new { area = "Reports" }, null)
                 </li>
                 <li>
                     @Html.ActionLink("Restoration Accrual Reports", "Search", "RestorationAccrualReport", new { area = "Reports" }, null)

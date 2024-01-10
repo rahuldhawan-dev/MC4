@@ -52,6 +52,8 @@ namespace MapCallMVC.Tests.Areas.Production.ViewModels
         {
             ValidationAssert.PropertyIsNotRequired(_viewModel, x => x.TaskDetails);
             ValidationAssert.PropertyIsNotRequired(_viewModel, x => x.TaskDetailsSummary);
+            ValidationAssert.PropertyIsNotRequired(_viewModel, x => x.EquipmentTypes);
+            ValidationAssert.PropertyIsNotRequired(_viewModel, x => x.EquipmentPurposes);
         }
 
         [TestMethod]

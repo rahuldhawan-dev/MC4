@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using MapCall.Common.Model.Entities;
 using MapCall.Common.Model.Entities.Users;
 using MMSINC.Authentication;
@@ -13,7 +12,7 @@ using StructureMap;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
 {
-    public class EditWorkOrderAdditional : ViewModel<WorkOrder>
+    public class EditWorkOrderAdditional : ViewModel<WorkOrder>, IWorkOrderAdditional
     {
         #region Constructor
 
@@ -60,9 +59,6 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
         [RequiredWhen(nameof(WorkOrderPriority), ComparisonType.EqualTo, (int)MapCall.Common.Model.Entities.WorkOrderPriority.Indices.EMERGENCY)]
         public double? DistanceFromCrossStreet { get; set; }
 
-        [Multiline, DoesNotAutoMap]
-        public string AppendNotes { get; set; }
-
         [RequiredWhen(nameof(FinalWorkDescription), ComparisonType.EqualToAny,
             nameof(MainBreakWorkDescriptions), typeof(EditWorkOrderAdditional))]
         [DropDown, EntityMap("EstimatedCustomerImpact"), EntityMustExist(typeof(CustomerImpactRange)), 
@@ -88,18 +84,14 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
         [AutoMap(MapDirections.None)]
         public int? WorkOrderPriority => WorkOrder?.Priority?.Id;
 
+        [Multiline, DoesNotAutoMap]
+        public string AppendNotes { get; set; }
+
         #endregion
 
         #region Private Methods
 
         public static int[] MainBreakWorkDescriptions() => WorkDescription.GetMainBreakWorkDescriptions();
-
-        public static int[] ServiceLineRenewalWorkDescriptions() => WorkDescription.SERVICE_LINE_RENEWALS;
-
-        public static int[] ServiceLineRetireWorkDescriptions() => WorkDescription.SERVICE_LINE_RETIRE;
-
-        public static int[] ServiceLineInfoWorkDescriptions() =>
-            ServiceLineRenewalWorkDescriptions().Concat(ServiceLineRetireWorkDescriptions()).ToArray();
 
         #endregion
 
@@ -125,5 +117,24 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder
         }
 
         #endregion
+    }
+
+    public interface IWorkOrderAdditional
+    {
+        int? FinalWorkDescription { get; set; }
+
+        int? LostWater { get; set; }
+
+        double? DistanceFromCrossStreet { get; set; }
+
+        int? CustomerImpact { get; set; }
+
+        int? RepairTime { get; set; }
+
+        bool? TrafficImpact { get; set; }
+
+        bool? AlertIssued { get; set; }
+
+        string AppendNotes { get; set; }
     }
 }

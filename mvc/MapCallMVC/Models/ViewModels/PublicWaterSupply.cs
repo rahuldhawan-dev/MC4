@@ -47,6 +47,14 @@ namespace MapCallMVC.Models.ViewModels
         [DropDown, EntityMustExist(typeof(State)), EntityMap]
         public int? State { get; set; }
 
+        [DropDown, EntityMustExist(typeof(LicensedOperatorCategory)), EntityMap]
+        [RequiredWhen(nameof(Ownership), ComparisonType.EqualToAny, new[] { PublicWaterSupplyOwnership.Indices.AW_CONTRACT, PublicWaterSupplyOwnership.Indices.AW_OWNED }, FieldOnlyVisibleWhenRequired = true, ErrorMessage = "Required when Ownership is AW Contractor or Owned.")]
+        public int? LicensedOperatorStatus { get; set; }
+
+        [StringLength(PublicWaterSupply.StringLengths.CURRENT_LICENSED_CONTRACTOR)]
+        [RequiredWhen(nameof(LicensedOperatorStatus), LicensedOperatorCategory.Indices.CONTRACTED_LICENSED_OPERATOR, FieldOnlyVisibleWhenRequired = true, ErrorMessage = "Required when Licensed Operator Status is Contracted.")]
+        public string CurrentLicensedContractor { get; set; }
+
         public int? JanuaryRequiredBacterialWaterSamples { get; set; }
         public int? FebruaryRequiredBacterialWaterSamples { get; set; }
         public int? MarchRequiredBacterialWaterSamples { get; set; }
@@ -65,7 +73,7 @@ namespace MapCallMVC.Models.ViewModels
 
         public bool FreeChlorineReported { get; set; }
         public bool TotalChlorineReported { get; set; }
-        [RequiredWhen(nameof(Status),PublicWaterSupplyStatus.Indices.PENDING)]
+        [RequiredWhen(nameof(Status), PublicWaterSupplyStatus.Indices.PENDING)]
         public DateTime? AnticipatedActiveDate { get; set; }
         [Required]
         public bool? HasConsentOrder { get; set; }
@@ -86,13 +94,13 @@ namespace MapCallMVC.Models.ViewModels
         public PublicWaterSupplyViewModel(IContainer container) : base(container) {}
 
         #endregion
-	}
+    }
 
     public class CreatePublicWaterSupply : PublicWaterSupplyViewModel
     {
         #region Constructors
 
-		public CreatePublicWaterSupply(IContainer container) : base(container) {}
+        public CreatePublicWaterSupply(IContainer container) : base(container) {}
 
         #endregion
 
@@ -142,6 +150,20 @@ namespace MapCallMVC.Models.ViewModels
             PlanningPlant = entity.PlanningPlantPublicWaterSupplies.Select(x => x.PlanningPlant.Id).ToArray();
         }
 
+        public override PublicWaterSupply MapToEntity(PublicWaterSupply entity)
+        {
+            if (entity.Identifier == Identifier)
+            {
+                return base.MapToEntity(entity);
+            }
+
+            foreach (var entitySampleSite in entity.SampleSites)
+            {
+                entitySampleSite.NeedsToSync = true;
+            }
+            return base.MapToEntity(entity);
+        }
+
         #endregion
     }
 
@@ -169,7 +191,10 @@ namespace MapCallMVC.Models.ViewModels
         public int? Type { get; set; }
        
         public bool? HasConsentOrder { get; set; }
-        
+
+        [DropDown, EntityMap, EntityMustExist(typeof(LicensedOperatorCategory))]
+        public int? LicensedOperatorStatus { get; set; }
+
         [View(FormatStyle.Date)]
         public DateRange DateOfOwnership { get; set; }
         

@@ -50,6 +50,9 @@
         },
         "Status": {
           "$ref": "#/definitions/PublicWaterSupplyStatus"
+        },
+        "System": {
+          "type": "string"
         }
       },
       "required": ["Id", "Identifier"]

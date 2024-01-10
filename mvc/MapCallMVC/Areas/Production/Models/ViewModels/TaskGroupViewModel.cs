@@ -4,6 +4,9 @@ using MMSINC.Metadata;
 using MMSINC.Validation;
 using StructureMap;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using MMSINC.Utilities.ObjectMapping;
+using MMSINC.Data.NHibernate;
 
 namespace MapCallMVC.Areas.Production.Models.ViewModels
 {
@@ -28,11 +31,31 @@ namespace MapCallMVC.Areas.Production.Models.ViewModels
         [Multiline, StringLength(TaskGroup.StringLengths.TASK_DETAILS_SUMMARY)]
         public string TaskDetailsSummary { get; set; }
 
-        [MultiSelect, EntityMap, EntityMustExist(typeof(EquipmentLifespan))]
-        public int[] EquipmentLifespans { get; set; }
+        [MultiSelect, EntityMustExist(typeof(EquipmentGroup)), EntityMap(MapDirections.None)]
+        public int[] EquipmentGroup { get; set; }
 
-        [MultiSelect, EntityMap, EntityMustExist(typeof(EquipmentPurpose))]
+        [MultiSelect("", "EquipmentType", "ByEquipmentGroupId", DependsOn = "EquipmentGroup", PromptText = "Please select an Equipment Group above")]
+        [EntityMap, EntityMustExist(typeof(EquipmentType))]
+        public int[] EquipmentTypes { get; set; }
+
+        [MultiSelect("", "EquipmentPurpose", "ByEquipmentTypeId", DependsOn = "EquipmentTypes", PromptText = "Please select an Equipment Type above")]
+        [EntityMap, EntityMustExist(typeof(EquipmentPurpose))]
         public int[] EquipmentPurposes { get; set; }
+        
+        #endregion
+
+        #region Exposed Methods
+
+        public override void Map(TaskGroup entity)
+        {
+            base.Map(entity);
+            //Get the Equipment Group from Equipment Types as Equipment groups are not persisted
+            if (entity.EquipmentTypes.Count > 0)
+            {
+                int[] equipmentTypesIds = entity.EquipmentTypes.Select(x => x.Id).ToArray();
+                EquipmentGroup = _container.GetInstance<IRepository<EquipmentType>>().Where(x => equipmentTypesIds.Contains(x.Id)).Select(t => t.EquipmentGroup.Id).Distinct().ToArray();
+            }
+        }
 
         #endregion
 

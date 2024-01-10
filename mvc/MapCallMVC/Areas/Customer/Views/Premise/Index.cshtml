@@ -13,7 +13,7 @@
     }
 }
 
-@(Html.TableFor(x => x)
+@(Html.TableFor(x => x, new { @class = "results-table" })
     .WithCaption("Records found: " + Model.Count)
     .TemplateColumnFor("Id", x => Html.ActionLink(x.Id.ToString(), "Show", new { x.Id }))
     .SortableColumnFor(x => x.OperatingCenter)

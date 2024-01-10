@@ -1,0 +1,15 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchReportUse
+
+@using (Form.BeginForm("Index", "ReportUse", "Reports"))
+{
+    <div class="field-column fc200 searchFields">
+        @Html.EditorFor(x => x.State)
+        @Html.EditorFor(x => x.OperatingCenter)
+        @Html.EditorFor(x => x.User)
+        @Html.EditorFor(x => x.DateViewed)
+        @Html.ButtonGroup(@<text>
+                              @Control.SubmitButton("Search").WithId("Search")
+                              @Control.ResetButton()
+                           </text>)
+    </div>
+}

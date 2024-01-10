@@ -152,7 +152,13 @@ Scenario: user tries to finalize a service line renewal
 	When I press Submit
     Then I should see a validation message for MeterLocation with "The MeterLocation field is required."
     When I select "one" from the MeterLocation dropdown
-	When I press Submit
+    When I select "Yes" from the IsThisAMultiTenantFacility dropdown
+	And I press Submit
+	Then I should see a validation message for NumberOfPitcherFiltersDelivered with "The NumberOfPitcherFiltersDelivered field is required."
+	And I should see a validation message for DescribeWhichUnits with "The DescribeWhichUnits field is required."
+	When I enter "10" into the NumberOfPitcherFiltersDelivered field
+	And I enter "See notes for units" into the DescribeWhichUnits field 
+	And I press Submit 
 	Then I should be at the CrewAssignment/ShowCalendar screen
 	When I visit the WorkOrderFinalization/Edit/1 page
 	Then work order flushing notice type "one" should be selected in the FlushingNoticeType dropdown
@@ -160,6 +166,9 @@ Scenario: user tries to finalize a service line renewal
 	Then I should see a display for FlushingNoticeType with "foobarbaz"
 	And I should see a display for CompanyServiceLineMaterial with "Copper"
 	And I should see a display for CompanyServiceLineSize with "1/2"
+	And I should see a display for IsThisAMultiTenantFacility with "Yes"
+	And I should see a display for NumberOfPitcherFiltersDelivered with "10"
+	And I should see a display for DescribeWhichUnits with "See notes for units"
 
 Scenario: user tries to finalize a service line retire 
 	Given a finalization work order for a service line retire "one" exists with contractor: "one", operating center: "one"
@@ -302,6 +311,7 @@ Scenario: user enters material for an order
     And a material "extra" exists with part number: "8675311", description: "some third thing", operating center: "extra"
     And a stock location "one" exists with description: "Some Place", operating center: "one"
     And a stock location "two" exists with description: "Some Other Place", operating center: "one"
+    And a stock location "inactive" exists with description: "Old Place", operating center: "one", is active: "false"
     And a stock location "extra" exists with description: "Some Third Place", operating center: "extra"
     And I am logged in as "user@site.com", password: "testpassword#1"
     And I am at the WorkOrderFinalization/Search page
@@ -317,6 +327,7 @@ Scenario: user enters material for an order
     And I should not see material "extra"'s FullDescription in the Material dropdown
     And I should see stock location "one"'s Description in the StockLocation dropdown
     And I should see stock location "two"'s Description in the StockLocation dropdown
+    And I should not see stock location "inactive"'s Description in the StockLocation dropdown
     And I should not see stock location "extra"'s Description in the StockLocation dropdown
     And I should see "" in the Quantity field
     When I press "Save Materials"
@@ -1030,7 +1041,7 @@ Scenario: User does not see the compliance data section when work description is
 Scenario: User can add compliance data values to a finalization work order
 	Given a service category "one" exists with description: "Neato"
 	And a service "one" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
-	And a finalization work order for a service line renewal company side "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true", service: "one"
+	And a finalization work order for a service line renewal company side "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true"
 	And a service material "one" exists with description: "Copper"
 	And a pitcher filter delivery method "one" exists with description: "handed to customer"
 	And a pitcher filter delivery method "two" exists with description: "left on porch/doorstep"
@@ -1056,9 +1067,8 @@ Scenario: User can add compliance data values to a finalization work order
 	When I enter "29" into the InitialServiceLineFlushTime field
 	Then I should see "Below minimum reflush of 30 minutes"
 	When I enter "30" into the InitialServiceLineFlushTime field
-	And I press Submit
-	Then I should see the validation message "The Pitcher filter provided to customer? field is required."
-	When I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+	And I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+	And I enter "" into the DatePitcherFilterDeliveredToCustomer field
 	And I select pitcher filter delivery method "two"'s Description from the PitcherFilterCustomerDeliveryMethod dropdown
 	And I press Submit
 	Then I should see the validation message "The Date Delivered field is required."
@@ -1069,13 +1079,68 @@ Scenario: User can add compliance data values to a finalization work order
 	Then I should see the validation message "The Explain Other field is required."
 	When I enter "my other method reason" into the PitcherFilterCustomerDeliveryOtherMethod field
 	And I press Submit
+	Then I should see the validation message "The IsThisAMultiTenantFacility field is required."
+	When I select "Yes" from the IsThisAMultiTenantFacility dropdown
+	And I press Submit
+	Then I should see the validation message "The NumberOfPitcherFiltersDelivered field is required."
+	And I should see the validation message "The DescribeWhichUnits field is required."
+	When I enter "10" into the NumberOfPitcherFiltersDelivered field
+	And I enter "See notes for units" into the DescribeWhichUnits field
+	And I press Submit
     Then I should see a validation message for MeterLocation with "The MeterLocation field is required."
     When I select "one" from the MeterLocation dropdown
 	When I press Submit
-	Then I should be at the CrewAssignment/ShowCalendar screen
+	Then I should be at the CrewAssignment/ShowCalendar screen	
 
 Scenario: User can view special instruction on finalized work order edit page
 	Given a finalization work order "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true"
 	And I am logged in as "user@site.com", password: "testpassword#1"
 	And I am at the WorkOrderFinalization/Edit page for finalization work order: "one"
 	Then I should only see finalization work order "one"'s SpecialInstructions in the WorkOrderSpecialInstructions element
+
+Scenario: user sees or doesn't see a validation message for IsThisAMultiTenantFacility depending the value of the haspitcherfilterbeenprovidedtocustomer field
+    Given a service category "one" exists with description: "Neato"
+	And a service "one" exists with service number: "123456", premise number: "9876543", date installed: "4/24/1984", service category: "one"
+	And a finalization work order for a service line renewal company side "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true", service: "one"
+	And a finalization work order for a service line retire "workordertwo" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true", service: "one"
+	And a service material "one" exists with description: "Copper"
+	And a pitcher filter delivery method "one" exists with description: "handed to customer"
+	And a pitcher filter delivery method "two" exists with description: "left on porch/doorstep"
+	And a pitcher filter delivery method "three" exists with description: "other"
+	And a service size "one" exists with service size description: "1/2"
+	And a crew assignment "ca" exists with finalization work order for a service line renewal company side: "one", crew: "one", assigned for: "today", assigned on: "today"
+	And a work order flushing notice type "one" exists with description: "foobarbaz"
+	And a valve work description "one" exists with time to complete: "1.1234", asset type: "valve", description: "turn valve"
+	And I am logged in as "user@site.com", password: "testpassword#1"
+	And I am at the WorkOrderFinalization/Edit page for finalization work order for a service line renewal company side: "one"
+	When I select "Yes" from the HasPitcherFilterBeenProvidedToCustomer dropdown
+	And I click the "Initial Information" tab
+	And I press Submit
+	Then I should see the validation message "The InitialServiceLineFlushTime field is required."
+    Then I should see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+	When I visit the WorkOrderFinalization/Edit page for finalization work order for a service line retire: "workordertwo"    
+    And I click the "Additional" tab 
+    And I press "Submit"
+    Then I should not see a validation message for IsThisAMultiTenantFacility with "The IsThisAMultiTenantFacility field is required."
+
+Scenario: User sees an inline notification when pitcher filter has been delivered    
+	Given a premise "one" exists with premise number: "1234567890", service address house number: "7", service address apartment: "garbage", service address street: "EaSy St", service address fraction: "1/2", equipment: "123", meter serial number: "123", operating center: "one"
+	And a service "one" exists with service number: "123", operating center: "one", premise number: "1234567890", premise: "one"    
+	And a finalization work order for a service line renewal company side "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true", service: "one", has pitcher filter been provided to customer: "true", date pitcher filter delivered to customer: "today", premise number: "1234567890", premise: "one"
+	And I am logged in as "user@site.com", password: "testpassword#1"
+	And I am at the WorkOrderFinalization/Edit page for finalization work order for a service line renewal company side: "one"
+	When I click the "Additional" tab
+	Then I should see "Pitcher filter last delivered on"
+	When I visit the WorkOrderGeneral/Show page for finalization work order for a service line renewal company side: "one"
+	Then I should see "Pitcher filter last delivered on"
+
+Scenario: User does not see an inline notification when pitcher filter has not been delivered
+	Given a premise "one" exists with premise number: "1234567890", service address house number: "7", service address apartment: "garbage", service address street: "EaSy St", service address fraction: "1/2", equipment: "123", meter serial number: "123", operating center: "one"
+	And a service "one" exists with service number: "123", operating center: "one", premise number: "1234567890", premise: "one"    
+	And a finalization work order for a service line renewal company side "one" exists with contractor: "one", operating center: "one", markout requirement: "none", permit required: "true", service: "one", has pitcher filter been provided to customer: "false", premise number: "1234567890", premise: "one"
+	And I am logged in as "user@site.com", password: "testpassword#1"
+	And I am at the WorkOrderFinalization/Edit page for finalization work order for a service line renewal company side: "one"
+	When I click the "Additional" tab
+	Then I should not see "Pitcher filter last delivered on"
+	When I visit the WorkOrderGeneral/Show page for finalization work order for a service line renewal company side: "one"
+	Then I should not see "Pitcher filter last delivered on"		

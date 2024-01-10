@@ -3,7 +3,7 @@
   ActionBarHelper.AddExportLink();
   ActionBarHelper.AddMapLink(new {Model.OperatingCenter, controller = "AssetMap"});
 }
-@(Html.TableFor(x => Model)
+@(Html.TableFor(x => Model, new { @class = "results-table"})
       .WithCaption("Records found: " + Model.Count)
       .TemplateColumnFor(x => Html.ActionLink("View", "Show", new {id = x.Id}))
       .TemplateColumnFor("Hydrant", x => Html.AuthorizedActionLink(x.HydrantNumber, "Show", "Hydrant", new {id = x.HydrantId}))

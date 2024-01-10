@@ -71,7 +71,8 @@ namespace MapCall.Common.Model.Entities
                              METER_SERIAL_NUMBER = 30,
                              APARTMENT_ADDTL =
                                  30, // Made 30 to align with Apartment Number in Service Model, If this is changed Apartment number in service needs to be changed to match due to mapping
-                             PITCHER_FILTER_CUSTOMER_DELIVERY_OTHER = 50;
+                             PITCHER_FILTER_CUSTOMER_DELIVERY_OTHER = 50,
+                             DESCRIBE_WHICH_UNITS = 256;
 
             #endregion
         }
@@ -138,6 +139,8 @@ namespace MapCall.Common.Model.Entities
         public const string APPEND_NOTES_FORMAT = "{0} - {1} {2}: {3}";
         public static readonly int[] ALL_MAIN_BREAKS = { 74, 80, 82, 83, 103 };
         public const int MAX_RESULTS = 3000;
+        public const string PITCHER_FILTER_DISTRIBUTED_MESSAGE = "Pitcher filter last delivered on {0}.";
+        public const int NUMBER_OF_MONTHS_TO_DISPLAY_FILTER_DISTRIBUTED_MESSAGE = 6;
 
         #endregion
 
@@ -321,6 +324,13 @@ namespace MapCall.Common.Model.Entities
 
         [View(DisplayNames.PITCHER_FILTER_PROVIDED_TO_CUSTOMER), Required]
         public virtual bool? HasPitcherFilterBeenProvidedToCustomer { get; set; }
+        
+        public virtual bool? IsThisAMultiTenantFacility { get; set; }
+        
+        public virtual int? NumberOfPitcherFiltersDelivered { get; set; }
+        
+        [StringLength(StringLengths.DESCRIBE_WHICH_UNITS)]
+        public virtual string DescribeWhichUnits { get; set; }
 
         [View(DisplayNames.DATE_PITCHER_FILTER_DELIVERED_TO_CUSTOMER, FormatStyle.Date)]
         public virtual DateTime? DatePitcherFilterDeliveredToCustomer { get; set; }
@@ -863,6 +873,16 @@ namespace MapCall.Common.Model.Entities
 
         #endregion
 
+        #region Processing Times
+
+        public virtual TimeSpan? OrderProcessTime => DateCompleted?.Subtract(DateReceived.Value);
+
+        public virtual TimeSpan? SupervisorProcessTime => ApprovedOn?.Subtract(DateCompleted.Value);
+
+        public virtual TimeSpan? StockProcessTime => MaterialsApprovedOn?.Subtract(ApprovedOn.Value);
+
+        #endregion
+
         #endregion
 
         #region Location/Address
@@ -1013,6 +1033,10 @@ namespace MapCall.Common.Model.Entities
         public virtual Premise Premise { get; set; }
 
         public virtual MeterLocation MeterLocation { get; set; }
+        
+        [DoesNotExport]
+        public virtual DateTime? RecentPitcherFilterDeliveryDate =>
+            Premise?.RecentPitcherFilterDeliveryDate;
 
         #endregion
 

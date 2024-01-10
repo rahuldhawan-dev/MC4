@@ -1,0 +1,14 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchAverageCompletionTime
+@{
+    ActionBarHelper.AddExportLink();
+    var headerRow = string.Format("From {0} - {1}", string.Format("{0:d}", Model.StartDate), string.Format("{0:d}", Model.EndDate));
+}
+@(Html.TableFor(x => Model, new { id = "results", @class="results-table" })
+      .ColumnFor(x => x.OperatingCenter)
+      .ColumnFor(x => x.Completion)
+      .ColumnFor(x => x.ManHours)
+      .ColumnFor(x => x.Approval)
+      .ColumnFor(x => x.StockApproval)
+      .WithCaption("Records Found:" + Model.Count + " - " + headerRow)
+    )
+

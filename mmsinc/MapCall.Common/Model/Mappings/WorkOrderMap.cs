@@ -84,6 +84,9 @@ namespace MapCall.Common.Model.Mappings
             Map(x => x.PitcherFilterCustomerDeliveryOtherMethod).Nullable();
             Map(x => x.DateCustomerProvidedAWStateLeadInformation).Nullable();
             Map(x => x.PlannedCompletionDate).Nullable();
+            Map(x => x.IsThisAMultiTenantFacility).Nullable();
+            Map(x => x.NumberOfPitcherFiltersDelivered).Nullable();
+            Map(x => x.DescribeWhichUnits).Nullable();
 
             References(x => x.WorkOrderCancellationReason).Nullable();
             References(x => x.SAPWorkOrderStep, "SapWorkOrderStepId").Nullable();

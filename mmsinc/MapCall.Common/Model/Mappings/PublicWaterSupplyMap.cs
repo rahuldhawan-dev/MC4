@@ -52,6 +52,7 @@ namespace MapCall.Common.Model.Mappings
             Map(x => x.DateSafetyAssessmentActionItemsCompleted).Nullable();
             Map(x => x.NewSystemInitialWQEnvAssessmentCompleted).Nullable();
             Map(x => x.DateWQEnvAssessmentActionItemsCompleted).Nullable();
+            Map(x => x.CurrentLicensedContractor).Nullable();
 
             HasMany(x => x.CustomerDataRecords).KeyColumn("PWSID").Inverse();
 
@@ -62,6 +63,7 @@ namespace MapCall.Common.Model.Mappings
             References(x => x.Coordinate);
             References(x => x.Ownership);
             References(x => x.Type);
+            References(x => x.LicensedOperatorStatus);
 
             HasMany(x => x.EnvironmentalPermits)
                .KeyColumn("PublicWaterSupplyId")

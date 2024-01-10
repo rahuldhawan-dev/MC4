@@ -29,6 +29,7 @@ namespace MapCall.Common.Model.Mappings
             Map(x => x.DateSafetyAssessmentActionItemsCompleted).Nullable();
             Map(x => x.NewSystemInitialWQEnvAssessmentCompleted).Nullable();
             Map(x => x.DateWQEnvAssessmentActionItemsCompleted).Nullable();
+            Map(x => x.CurrentLicensedContractor).Nullable();
 
             References(x => x.OperatingCenter).Not.Nullable();
             References(x => x.BusinessUnit).Nullable();
@@ -36,6 +37,7 @@ namespace MapCall.Common.Model.Mappings
             References(x => x.Ownership).Nullable();
             References(x => x.Type).Nullable();
             References(x => x.SubType).Nullable();
+            References(x => x.LicensedOperatorStatus).Nullable();
 
             HasManyToMany(x => x.Towns)
                .Table(nameof(WasteWaterSystem) + "s" + nameof(Town) + "s")

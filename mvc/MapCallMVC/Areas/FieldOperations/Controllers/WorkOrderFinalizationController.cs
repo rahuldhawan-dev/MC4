@@ -13,7 +13,6 @@ using MapCall.SAP.Model.Entities;
 using MapCall.SAP.Model.Repositories;
 using MMSINC.Data.NHibernate;
 using MapCall.Common.Utility.Notifications;
-using MapCallMVC.Areas.FieldOperations.Models.ViewModels.GeneralWorkOrder;
 using MMSINC.ClassExtensions;
 
 namespace MapCallMVC.Areas.FieldOperations.Controllers
@@ -368,28 +367,6 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
                     SendSampleSiteNotification(entity);
                     SendNotifications(entity);
                     return RedirectToAction("Show", new { id = model.Id });
-                }
-            });
-        }
-
-        [HttpPost, RequiresRole(ROLE, RoleActions.Edit)]
-        public ActionResult UpdateAdditional(EditWorkOrderAdditional model)
-        {
-            var workDescription = model.WorkOrder.WorkDescription;
-            return ActionHelper.DoUpdate(model, new ActionHelperDoUpdateArgs {
-                OnSuccess = () => {
-                    var entity = Repository.Find(model.Id);
-                    if (entity.IsSAPUpdatableWorkOrder)
-                    {
-                        UpdateSAP(model.Id, ROLE);
-                    }
-                    SendWorkDescriptionChangedNotifications(entity, workDescription?.Id);
-                    SendSampleSiteNotification(entity);
-                    return RedirectToReferrerOr("Index", "Home");
-                },
-                OnError = () => {
-                    DisplayModelStateErrors();
-                    return RedirectToReferrerOr("Index", "Home");
                 }
             });
         }
