@@ -176,7 +176,7 @@ namespace Contractors.Data.Models.Repositories
             {
                 fileName = fileName.Trim();
                 // DistrictID is nullable, so use 0.
-                var districtId = town.DistrictId ?? 0;
+                var districtId = town.DistrictId ?? string.Empty;
                 
                 RelativeDirectoryPath = Path.Combine(town.County.State.Abbreviation, relativeFileDir, districtId.ToString()) + "\\";
                 AbsoluteDirectoryPath = Path.Combine(GetBaseImageDirectory(), RelativeDirectoryPath);

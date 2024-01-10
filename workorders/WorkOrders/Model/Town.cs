@@ -35,7 +35,7 @@ namespace WorkOrders.Model
                        _townName, 
                        _zip;
 
-        private double? _districtID;
+        private string _districtID;
 
         private char? _link;
 
@@ -145,8 +145,8 @@ namespace WorkOrders.Model
             }
         }
 
-        [Column(Storage = "_districtID", DbType = "Float")]
-        public double? DistrictID
+        [Column(Storage = "_districtID", DbType = "VarChar(12)")]
+        public string DistrictID
         {
             get { return _districtID; }
             set

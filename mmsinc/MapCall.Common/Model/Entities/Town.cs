@@ -57,7 +57,7 @@ namespace MapCall.Common.Model.Entities
         public virtual string CountyName { get; set; }
 
         // TODO: Seriously, why is this a float? -Ross 9/18/2014
-        public virtual float? DistrictId { get; set; }
+        public virtual string DistrictId { get; set; }
 
         [StringLength(StringLengths.EMERGENCY_CONTACT)]
         public virtual string EmergencyContact { get; set; }

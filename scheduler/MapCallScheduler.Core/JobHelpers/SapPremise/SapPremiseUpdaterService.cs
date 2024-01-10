@@ -345,15 +345,9 @@ namespace MapCallScheduler.JobHelpers.SapPremise
 
         private Town GetCity(string regionCode, string state)
         {
-            float fCode;
-            if (!float.TryParse(regionCode, out fCode))
-            {
-                return null;
-            }
-
             return
                 _townRepository.Where(
-                    t => t.DistrictId.Value == fCode && t.State.Abbreviation == state).Select(t => new Town {Id = t.Id}).SingleOrDefault();
+                    t => t.DistrictId == regionCode && t.State.Abbreviation == state).Select(t => new Town {Id = t.Id}).SingleOrDefault();
         }
 
         private Town GetCityMem(string regionCode, string state)

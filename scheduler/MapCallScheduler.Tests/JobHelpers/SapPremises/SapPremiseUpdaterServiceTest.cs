@@ -62,7 +62,7 @@ namespace MapCallScheduler.Tests.JobHelpers.SapPremises
             }
 
             foreach (var townThing in args
-                                     .Select(a => new {DistrictId = float.Parse(a.RegionCode), State = a.ServiceState})
+                                     .Select(a => new {DistrictId = a.RegionCode, State = a.ServiceState})
                                      .Where(t => !townRepo
                                                  .Where(t2 =>
                                                       t2.State.Abbreviation == t.State && t2.DistrictId == t.DistrictId)

@@ -138,10 +138,6 @@
     <None Include="app.config.debug">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="App.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="app.config.deploy fatman" />
     <None Include="packages.config" />
   </ItemGroup>
