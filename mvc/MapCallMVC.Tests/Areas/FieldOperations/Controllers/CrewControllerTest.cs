@@ -17,6 +17,38 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Controllers
     [TestClass]
     public class CrewControllerTest : MapCallMvcControllerTestBase<CrewController, Crew, CrewRepository>
     {
+        #region Init/Cleanup
+
+        protected override void SetAutomatedTestOptions(AutomatedTestOptions options)
+        {
+            base.SetAutomatedTestOptions(options);
+            options.CreateRedirectsToRouteOnSuccessArgs = (vm) => new { action = "Show", controller = "Crew", id = vm.Id };
+            options.UpdateRedirectsToRouteOnSuccessArgs = (vm) => new { action = "Show", controller = "Crew", id = vm.Id };
+            options.UpdateRedirectsToRouteOnErrorArgs = (vm) => new { action = "Edit", controller = "Crew", id = vm.Id };
+            var state = GetEntityFactory<State>().Create();
+            var operatingCenter = GetEntityFactory<OperatingCenter>().Create(new {
+                State = state
+            });
+            options.CreateValidEntity = () => {
+                var workOrder = GetEntityFactory<WorkOrder>().Create();
+
+                var crewAssignment = GetEntityFactory<CrewAssignment>().Create(new {
+                    WorkOrder = workOrder
+                });
+                var crewAssignments = new List<CrewAssignment> { crewAssignment };
+
+                return GetEntityFactory<Crew>().Create(new {
+                    OperatingCenter = operatingCenter,
+                    CrewAssignments = crewAssignments
+                });
+            };
+            options.InitializeCreateViewModel = (vm) => {
+                var model = (CrewViewModel)vm;
+                model.OperatingCenter = operatingCenter.Id;
+            };
+        }
+
+        #endregion
         protected override User CreateUser()
         {
             return GetFactory<AdminUserFactory>().Create();
