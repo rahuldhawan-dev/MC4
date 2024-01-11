@@ -1,0 +1,19 @@
+﻿@model MapCallMVC.Areas.FieldOperations.Models.ViewModels.CreateCrew
+
+@using (Form.BeginForm("Create", "Crew", "FieldOperations"))
+{
+    <fieldset>
+        <legend>Details</legend>
+        <div class="field-column fc200">
+            @Html.EditorFor(x => x.Description)
+            @Html.EditorFor(x => x.Availability)
+            @Html.EditorFor(x => x.OperatingCenter)
+            @Html.EditorFor(x => x.Active)
+        </div>
+    </fieldset>
+
+    @Html.ButtonGroup(@<text>
+        @Control.SubmitButton("Save")
+        @Html.LinkButton("Cancel", "Search", "Crew")
+                       </text>)
+}

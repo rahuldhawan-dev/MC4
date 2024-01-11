@@ -1,0 +1,8 @@
+﻿@using MMSINC.Results
+@model Crew
+
+@using (Form.BeginAjaxForm("ShowAssignedWorkOrders", "Crew", new
+{
+    Model.Id,
+    ext = ResponseFormatter.KnownExtensions.FRAGMENT
+})) { }

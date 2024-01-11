@@ -355,8 +355,8 @@
     <Compile Include="Areas\FieldOperations\Controllers\BondController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\ContractorMeterCrewController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\CrewAssignmentController.cs" />
-    <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\CrewController.cs" />
+    <Compile Include="Areas\FieldOperations\Controllers\NpdesRegulatorsDueInspectionController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\EchoshoreLeakAlertController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\OperatingCenterSpoilRemovalCostController.cs" />
     <Compile Include="Areas\FieldOperations\Controllers\SpoilRemovalController.cs" />
@@ -386,6 +386,9 @@
     <Compile Include="Areas\FieldOperations\Controllers\WorkOrderStreetOpeningPermitProcessingController.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CancelWorkOrder.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewAssignments\EditCrewAssignment.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\CreateCrew.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\CrewViewModel.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\EditCrew.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralAdditional.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\GeneralWorkOrder\EditGeneralWorkOrderModel.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditMarkoutPlanning.cs" />
@@ -399,6 +402,7 @@
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditNpdesRegulatorInspection.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditSpoilFinalProcessingLocation.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\OperatingCenterSpoilRemovalCost.cs" />
+    <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchCrew.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchSpoilRemoval.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\SearchSpoilFinalProcessingLocation.cs" />
     <Compile Include="Areas\FieldOperations\Models\ViewModels\EditSpoilRemoval.cs" />
@@ -1802,6 +1806,15 @@
     <Content Include="Areas\Environmental\Views\ChemicalStorageLocation\Edit.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Index.cshtml" />
     <Content Include="Areas\Reports\Views\RestorationAccrualReport\Search.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\Search.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\Index.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\New.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\Show.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showCrewAssigned.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showCrew.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrderDetail.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\Edit.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

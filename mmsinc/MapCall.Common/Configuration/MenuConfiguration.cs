@@ -348,7 +348,7 @@ namespace MapCall.Common.Configuration
                             .Link("Restoration Accounting Codes", "/Modules/WorkOrders/Views/RestorationAccountingCodes/RestorationAccountingCodeResourceView.aspx", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Restoration Product Codes", "/Modules/WorkOrders/Views/RestorationProductCodes/RestorationProductCodeResourceView.aspx", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Work Descriptions", "Search", "WorkDescription", area: "FieldOperations", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
-                            .Link("Crew Management", "/Modules/WorkOrders/Views/Crews/CrewResourceView.aspx", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
+                            .Link("Crew Management", "Search", "Crew", "FieldOperations", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Restoration Type Costs", "Search", "RestorationTypeCost", "FieldOperations", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Stock Source Locations", "Search", "StockLocation", "FieldOperations", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)
                             .Link("Spoil Type Disposal Costs", "Search", "OperatingCenterSpoilRemovalCost", "FieldOperations", role: RoleModules.FieldServicesWorkManagement, mustBeAdminInRole: true)

@@ -1,0 +1,15 @@
+﻿@using MMSINC.Authentication
+@using MMSINC.Metadata
+@model MapCall.Common.Model.Entities.WorkOrder
+
+<tr>
+    <td>@Html.DisplayTextFor(x => x.Id)</td>
+    <td>@Html.DisplayTextFor(x => x.DateReceived)</td>
+    <td>@Html.DisplayTextFor(x => x.StreetNumber)</td>
+    <td>@Html.DisplayTextFor(x => x.Street)</td>
+    <td>@Html.DisplayTextFor(x => x.NearestCrossStreet)</td>
+    <td>@Html.DisplayTextFor(x => x.Town)</td>
+    <td>@Html.DisplayTextFor(x => x.TownSection)</td>
+    <td>@Html.DisplayTextFor(x => x.WorkDescription.Description)</td>
+    <td>@Html.DisplayTextFor(x => x.WorkDescription.MarkoutRequired)</td>
+</tr>

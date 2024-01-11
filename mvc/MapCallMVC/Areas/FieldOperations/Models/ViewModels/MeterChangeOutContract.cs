@@ -82,7 +82,7 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
         public override void SetDefaults()
         {
             base.SetDefaults();
-            // IsActive is a required field, making life easier for users by setting a default value here.
+            // Status is a required field, making life easier for users by setting a default value here.
             IsActive = true;
         }
 
