@@ -1,6 +1,4 @@
-﻿@using MapCallMVC.Areas.FieldOperations.Models.ViewModels
-@using MMSINC.ClassExtensions
-@using MMSINC.Results
+﻿@using MMSINC.ClassExtensions
 @model MapCallMVC.Areas.FieldOperations.Models.ViewModels.SearchCrewForWorkOrders
 
 @{
@@ -22,9 +20,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var crewAssignment in Model.CrewObj.CrewAssignments)
-    {
-        @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrder.cshtml", crewAssignment.WorkOrder)
-    }
+        @foreach (var crewAssignment in Model.Crew.CrewAssignments)
+        {
+            @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrderDetail.cshtml", crewAssignment.WorkOrder)
+        }
     </tbody>
 </table>

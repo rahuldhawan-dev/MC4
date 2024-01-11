@@ -99,7 +99,7 @@ namespace MapCall.Common.Model.Entities
 
     public interface ISearchCrew : ISearchSet<Crew>
     {
-        int OperatingCenter { get; set; }
+        int? OperatingCenter { get; set; }
         int? State { get; set; }
         string Description { get; set; }
         bool? Active { get; set; }

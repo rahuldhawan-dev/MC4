@@ -6,7 +6,6 @@ using MapCallMVC.Areas.FieldOperations.Models.ViewModels;
 using MMSINC;
 using MMSINC.ClassExtensions;
 using MMSINC.Controllers;
-using MMSINC.Data.NHibernate;
 using MMSINC.Metadata;
 using MMSINC.Utilities;
 using System.Linq;
@@ -132,17 +131,17 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         public ActionResult ShowAssignedWorkOrders(SearchCrewForWorkOrders search)
         {
             if (search.Id != null)
-                search.CrewObj = _container.GetInstance<IRepository<Crew>>().Find(search.Id.Value);
+                search.Crew = Repository.Load(search.Id.Value);
 
-            if (search.CrewObj == null)
+            if (search.Crew == null)
                 return HttpNotFound(CREW_NOT_FOUND);
 
             return this.RespondTo(f => {
                 f.Fragment(() => ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs {
-                    ViewName = "_show",
+                    ViewName = "_showWorkOrders",
                     IsPartial = true,
                     RedirectSingleItemToShowView = false,
-                    OnNoResults = () => DoView("_show", search, true)
+                    OnNoResults = () => DoView("_showWorkOrders", search, true)
                 }));
             });
         }

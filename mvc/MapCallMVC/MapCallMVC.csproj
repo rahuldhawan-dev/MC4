@@ -1812,9 +1812,9 @@
     <Content Include="Areas\FieldOperations\Views\Crew\Show.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\_showCrewAssigned.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\_showCrew.cshtml" />
-    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrder.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrderDetail.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\Edit.cshtml" />
-    <Content Include="Areas\FieldOperations\Views\Crew\_show.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

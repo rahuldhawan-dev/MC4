@@ -3,7 +3,6 @@ using MMSINC.Data;
 using MMSINC.Metadata;
 using MMSINC.Utilities.ObjectMapping;
 using MMSINC.Validation;
-using System.ComponentModel.DataAnnotations;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
 {
@@ -18,7 +17,7 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
         [DropDown("", nameof(OperatingCenter), "ByStateId", DependsOn = "State")]
         [EntityMap]
         [EntityMustExist(typeof(OperatingCenter))]
-        public int OperatingCenter { get; set; }
+        public int? OperatingCenter { get; set; }
 
         [View("Name")]
         public string Description { get; set; }
@@ -30,11 +29,9 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
     public class SearchCrewForWorkOrders : SearchSet<Crew>
     {
         #region Properties
-        [EntityMustExist(typeof(Crew)), DoesNotAutoMap, Search(CanMap = false)]
-        public int? EditCrew { get; set; }
 
         [DoesNotAutoMap, Search(CanMap = false)]
-        public Crew CrewObj { get; set; }
+        public Crew Crew { get; set; }
 
         public int? Id { get; set; }
 

@@ -13,11 +13,14 @@ Background: admin user exists
 	And a role "asset-read" exists with action: "Read", module: "FieldServicesAssets", user: "user", operating center: "nj7"
 	And a work description "hydrant installation" exists with description: "hydrant installation"
 	And a work order "one" exists with operating center: "nj7", work description: "hydrant installation"
+	And a work order "two" exists with operating center: "nj7", work description: "hydrant installation"
+	And a work order "three" exists with operating center: "nj7", work description: "hydrant installation"
 	And a crew "one" exists with description: "one", availability: "8", operating center: "nj7", active: true	
 	And a crew "two" exists with description: "one", availability: "8", operating center: "nj7", active: false	
     And a crew assignment "ca" exists with work order: "one", crew: "one", assigned for: "1/1/2000 03:00:00 AM", assigned on: "1/1/2000"
+    And a crew assignment "ca2" exists with work order: "two", crew: "one", assigned for: "1/1/2000 03:00:00 AM", assigned on: "1/1/2000"
     And a crew assignment "ca1" exists with work order: "one", crew: "two", assigned for: "1/1/2000 03:00:00 AM", assigned on: "1/1/2000"
-
+	
 Scenario: user can search the crew
 	Given I am logged in as "user"
 	And I am at the FieldOperations/Crew/Search page
