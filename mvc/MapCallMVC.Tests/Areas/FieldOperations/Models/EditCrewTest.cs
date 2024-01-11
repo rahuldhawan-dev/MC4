@@ -10,12 +10,12 @@ using StructureMap;
 namespace MapCallMVC.Tests.Areas.FieldOperations.Models
 {
     [TestClass]
-    public class CreateCrewTest : ViewModelTestBase<Crew, CreateCrew>
+    public class EditCrewTest : ViewModelTestBase<Crew, EditCrew>
     {
         #region Fields
 
-        private ViewModelTester<CreateCrew, Crew> _vmTester;
-        private CreateCrew _viewModel;
+        private ViewModelTester<EditCrew, Crew> _vmTester;
+        private EditCrew _viewModel;
         private Crew _entity;
         private OperatingCenter _operatingCenter;
 
@@ -36,10 +36,10 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models
         {
             _entity = GetEntityFactory<Crew>().Create();
             _operatingCenter = GetEntityFactory<OperatingCenter>().Create();
-            _viewModel = _viewModelFactory.BuildWithOverrides<CreateCrew, Crew>(_entity, new {
+            _viewModel = _viewModelFactory.BuildWithOverrides<EditCrew, Crew>(_entity, new {
                 OperatingCenter = _operatingCenter.Id
             });
-            _vmTester = new ViewModelTester<CreateCrew, Crew>(_viewModel, _entity);
+            _vmTester = new ViewModelTester<EditCrew, Crew>(_viewModel, _entity);
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace MapCallMVC.Tests.Areas.FieldOperations.Models
             _vmTester.MapToEntity();
 
             Assert.AreEqual(crew.Availability, _entity.Availability);
-
+           
             _entity.Description = crew.Description;
 
             _vmTester.MapToViewModel();

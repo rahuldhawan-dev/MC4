@@ -22,8 +22,8 @@ Scenario: user can search the crew
 	Given I am logged in as "user"
 	And I am at the FieldOperations/Crew/Search page
 	When I select state "NJ" from the State dropdown	
-	And I select operating center "nj7" from the OperatingCenter dropdown		 
-	And I enter "one" into the Description field
+	And I select operating center "nj7" from the OperatingCenter dropdown	
+	And I enter "one" into the Description field	
 	And I press Search	
 	Then I should see the following values in the results table
 	| Crew Name | Availability (hours) | Operating Center | Active |

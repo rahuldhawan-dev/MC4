@@ -1814,6 +1814,7 @@
     <Content Include="Areas\FieldOperations\Views\Crew\_showCrew.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\_showWorkOrder.cshtml" />
     <Content Include="Areas\FieldOperations\Views\Crew\Edit.cshtml" />
+    <Content Include="Areas\FieldOperations\Views\Crew\_show.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

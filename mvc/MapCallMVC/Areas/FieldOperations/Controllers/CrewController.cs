@@ -6,6 +6,7 @@ using MapCallMVC.Areas.FieldOperations.Models.ViewModels;
 using MMSINC;
 using MMSINC.ClassExtensions;
 using MMSINC.Controllers;
+using MMSINC.Data.NHibernate;
 using MMSINC.Metadata;
 using MMSINC.Utilities;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         #endregion
 
         #region New/Create
-        
+
         [HttpGet, RequiresRole(ROLE, RoleActions.UserAdministrator)]
         public ActionResult New(CreateCrew model)
         {
@@ -125,6 +126,25 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
             return new CascadingActionResult(data, "Description", "Id") {
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        [HttpGet, RequiresRole(ROLE)]
+        public ActionResult ShowAssignedWorkOrders(SearchCrewForWorkOrders search)
+        {
+            if (search.Id != null)
+                search.CrewObj = _container.GetInstance<IRepository<Crew>>().Find(search.Id.Value);
+
+            if (search.CrewObj == null)
+                return HttpNotFound(CREW_NOT_FOUND);
+
+            return this.RespondTo(f => {
+                f.Fragment(() => ActionHelper.DoIndex(search, new ActionHelperDoIndexArgs {
+                    ViewName = "_show",
+                    IsPartial = true,
+                    RedirectSingleItemToShowView = false,
+                    OnNoResults = () => DoView("_show", search, true)
+                }));
+            });
         }
 
         #region ByOperatingCenterId

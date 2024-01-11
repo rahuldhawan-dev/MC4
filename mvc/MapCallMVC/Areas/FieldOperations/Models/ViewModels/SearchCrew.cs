@@ -1,7 +1,9 @@
 ﻿using MapCall.Common.Model.Entities;
 using MMSINC.Data;
 using MMSINC.Metadata;
+using MMSINC.Utilities.ObjectMapping;
 using MMSINC.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
 {
@@ -23,5 +25,19 @@ namespace MapCallMVC.Areas.FieldOperations.Models.ViewModels
 
         [CheckBox]
         public bool? Active { get; set; }
+    }
+
+    public class SearchCrewForWorkOrders : SearchSet<Crew>
+    {
+        #region Properties
+        [EntityMustExist(typeof(Crew)), DoesNotAutoMap, Search(CanMap = false)]
+        public int? EditCrew { get; set; }
+
+        [DoesNotAutoMap, Search(CanMap = false)]
+        public Crew CrewObj { get; set; }
+
+        public int? Id { get; set; }
+
+        #endregion
     }
 }
