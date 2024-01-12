@@ -1,6 +1,6 @@
 ﻿@model Crew
 
 @(Html.Tabs()
-      .WithTab("Crew", "_showCrew", Model)
-      .WithAjaxTab("Assigned Work", "_showCrewAssigned", Model)
+      .WithTab("Crew", "_showCrew", Model, isVisible: true, isSelected: true)
+      .WithAjaxTab("Assigned Work", "_showCrewAssigned", Model, isVisible: true, isSelected: false)
     )

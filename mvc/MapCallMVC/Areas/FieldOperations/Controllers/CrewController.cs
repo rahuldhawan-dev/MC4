@@ -131,9 +131,11 @@ namespace MapCallMVC.Areas.FieldOperations.Controllers
         public ActionResult ShowAssignedWorkOrders(SearchCrewForWorkOrders search)
         {
             if (search.Id != null)
-                search.Crew = Repository.Load(search.Id.Value);
+            {             
+                search.CrewWorkOrders = Repository.GetCrewWorkOrders(search);
+            }
 
-            if (search.Crew == null)
+            if (search.CrewWorkOrders == null)
                 return HttpNotFound(CREW_NOT_FOUND);
 
             return this.RespondTo(f => {

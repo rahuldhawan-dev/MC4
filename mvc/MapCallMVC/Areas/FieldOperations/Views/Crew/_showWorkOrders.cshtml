@@ -20,9 +20,9 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var crewAssignment in Model.Crew.CrewAssignments.OrderByDescending(ca => ca.WorkOrder.Id))
+        @foreach (var workOrder in Model.CrewWorkOrders.OrderByDescending(ca => ca.Id))
         {
-            @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrderDetail.cshtml", crewAssignment.WorkOrder)
+            @Html.Partial("~/Areas/FieldOperations/Views/Crew/_showWorkOrderDetail.cshtml", workOrder)
         }
     </tbody>
 </table>

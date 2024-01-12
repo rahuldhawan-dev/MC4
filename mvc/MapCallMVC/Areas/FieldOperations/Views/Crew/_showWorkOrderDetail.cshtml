@@ -1,6 +1,4 @@
-﻿@using MMSINC.Authentication
-@using MMSINC.Metadata
-@model MapCall.Common.Model.Entities.WorkOrder
+﻿@model MapCall.Common.Model.ViewModels.CrewWorkOrderDetails
 
 <tr>
     <td>@Html.DisplayTextFor(x => x.Id)</td>
@@ -10,6 +8,6 @@
     <td>@Html.DisplayTextFor(x => x.NearestCrossStreet)</td>
     <td>@Html.DisplayTextFor(x => x.Town)</td>
     <td>@Html.DisplayTextFor(x => x.TownSection)</td>
-    <td>@Html.DisplayTextFor(x => x.WorkDescription.Description)</td>
-    <td>@Html.DisplayTextFor(x => x.WorkDescription.MarkoutRequired)</td>
+    <td>@Html.DisplayTextFor(x => x.WorkDescription)</td>
+    <td>@Html.DisplayTextFor(x => x.MarkoutRequired)</td>
 </tr>

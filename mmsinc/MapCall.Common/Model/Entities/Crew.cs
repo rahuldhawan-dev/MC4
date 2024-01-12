@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using MMSINC.ClassExtensions.IEnumerableExtensions;
+﻿using MMSINC.ClassExtensions.IEnumerableExtensions;
 using MMSINC.ClassExtensions.IQueryableExtensions;
 using MMSINC.Data;
 using MMSINC.Metadata;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace MapCall.Common.Model.Entities
 {
@@ -103,5 +103,12 @@ namespace MapCall.Common.Model.Entities
         int? State { get; set; }
         string Description { get; set; }
         bool? Active { get; set; }
+    }
+
+    public interface ISearchCrewForWorkOrders : ISearchSet<Crew>
+    {
+        Crew Crew { get; set; }
+
+        int? Id { get; set; }
     }
 }
