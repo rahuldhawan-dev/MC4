@@ -1413,6 +1413,19 @@ namespace MapCall.Common.Model.Repositories
             return SopProcessingOrders.Add(base.GetIdEqCriterion(id)).UniqueResult<WorkOrder>();
         }
 
+        public IEnumerable<WorkOrder> GetIncompleteWorkOrdersByWorkDescriptionId(ISearchIncompleteWorkOrder search)
+        {
+            var query = Linq.Where(wo => wo.CancelledAt == null 
+                                         && wo.DateCompleted == null);
+
+            var resul = query.ToList();
+
+            return search.WorkDescription.HasValue
+                ? query.Where(x => search.WorkDescription != null 
+                                   && search.WorkDescription == x.WorkDescription.Id).ToList()
+                : query.ToList();
+        }
+
         #endregion
     }
 
@@ -1632,6 +1645,8 @@ namespace MapCall.Common.Model.Repositories
         WorkOrder FindFinalizationOrder(int id);
 
         WorkOrder FindSopProcessingOrder(int id);
+
+        IEnumerable<WorkOrder> GetIncompleteWorkOrdersByWorkDescriptionId(ISearchIncompleteWorkOrder search);
 
         #endregion
     }

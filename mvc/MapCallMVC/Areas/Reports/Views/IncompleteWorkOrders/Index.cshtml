@@ -1,0 +1,52 @@
+﻿@model MapCallMVC.Areas.Reports.Models.SearchIncompleteWorkOrders
+@*@{
+    ActionBarHelper.AddExportLink();
+}*@
+@*@(Html.TableFor(x => x, new { id = "results", @class = "results-table" })
+      .SortableTemplateColumnFor("Work Order Number", "Id", x => @<text>
+                                                                @Html.ActionLink(x.Id.ToString(), "Show", "GeneralWorkOrder", new { x.Id, area = "FieldOperations" }, null)
+                                                             </text>)
+      .SortableColumnFor(x => x.OperatingCenter.Description, "Operating Center", "OperatingCenter")
+      .SortableColumnFor(x => x.StreetNumber, "Street Number", "StreetNumber")
+      .SortableColumnFor(x => x.Street.Description, "Street", "Street")
+      .SortableColumnFor(x => x.ApartmentAddtl, "Apartment Addtl", "ApartmentAddtl")
+      .ColumnFor(x => x.Town)
+      .SortableColumnFor(x => x.WorkDescription, "Work Description", "WorkDescription")
+      .SortableColumnFor(x => x.AssetType.Description, "Asset Type", "AssetType")
+      .SortableColumnFor(x => x.AssetId)
+      .SortableColumnFor(x => x.Latitude)
+      .SortableColumnFor(x => x.Longitude)
+      .SortableColumnFor(x => x.DateReceived, "Date Received", "DateReceived")
+      .SortableColumnFor(x => x.CurrentCrew.Description, "Crew", "CurrentCrew")
+      .SortableColumnFor(x => x.AssignedContractor.Name, "Contractor", "AssignedContractor")
+      .SortableColumnFor(x => x.Purpose)
+      .SortableColumnFor(x => x.Priority)
+      .WithCaption("Records found:" + Model.Count)
+      .WithPaginatedFooter()
+    )*@
+
+@{
+    ActionBarHelper.AddExportLink();
+    var groupedBy = Model.Results.GroupBy(x => x.OperatingCenter);
+}
+
+@foreach (var grp in groupedBy)
+{
+    var cur = grp;
+    var table = Html.TableFor(x => cur, new {id = "table" + cur.Key.Description})
+                    .ColumnFor(x=> x.Id)
+                    .ColumnFor(x => x.WorkDescription.Description)
+                    .ColumnFor(x => x.DateReceived)
+                    .ColumnFor(x => x.Latitude)
+                    .ColumnFor(x => x.Longitude);
+    <div class="container">
+        @table
+        <table class="footer-table" style="width: 100%;">
+            <tr>
+                <td style="text-align: right; border-bottom: 1px solid #83b9de; border-top: 1px solid #83b9de;">
+                    Total: @grp.Count()
+                </td>
+            </tr>
+        </table>    
+    </div>
+}
